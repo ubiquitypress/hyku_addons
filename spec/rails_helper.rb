@@ -1,5 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+require File.expand_path('internal_test_hyku/spec/rails_helper.rb', __dir__)
+
 ENV['RAILS_ENV'] ||= 'test'
 #require File.expand_path('../config/environment', __dir__)
 require File.expand_path('internal_test_hyku/config/environment', __dir__)
