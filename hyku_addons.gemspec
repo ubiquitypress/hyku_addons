@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.version     = HykuAddons::VERSION
   spec.authors     = ["Chris Colvard"]
   spec.email       = ["chris.colvard@gmail.com"]
-  spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of HykuAddons."
-  spec.description = "TODO: Description of HykuAddons."
+  spec.homepage    = ""
+  spec.summary     = "Ubiquity Press Addons to Hyku"
+  spec.description = "Addons to Hyku that are specific to Ubiquity Press."
   spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
