@@ -557,7 +557,6 @@ GEM
       slop
     legato (0.7.0)
       multi_json
-    libv8 (7.3.492.27.1)
     libxml-ruby (3.1.0)
     link_header (0.0.8)
     linkeddata (3.1.1)
@@ -614,8 +613,6 @@ GEM
     mini_magick (4.10.1)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    mini_racer (0.2.15)
-      libv8 (> 7.3)
     minitest (5.14.1)
     mods (2.4.1)
       edtf
@@ -1016,7 +1013,6 @@ DEPENDENCIES
   jquery-rails
   listen (>= 3.0.5, < 3.2)
   lograge
-  mini_racer
   mods (~> 2.4)
   parser (~> 2.5.3)
   pg
