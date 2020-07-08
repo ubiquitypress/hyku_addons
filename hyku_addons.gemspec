@@ -1,4 +1,5 @@
-$:.push File.expand_path("lib", __dir__)
+# frozen_string_literal: true
+$LOAD_PATH.push File.expand_path("lib", __dir__)
 
 # Maintain your gem's version:
 require "hyku_addons/version"
@@ -27,6 +28,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", "~> 5.2.4", ">= 5.2.4.3"
 
+  spec.add_development_dependency "bixby"
   spec.add_development_dependency "pg"
   spec.add_development_dependency "rspec-rails"
   spec.add_development_dependency 'rspec_junit_formatter'

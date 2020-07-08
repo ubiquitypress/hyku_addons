@@ -149,6 +149,9 @@ GEM
       i18n
     bcrypt (3.1.13)
     bindex (0.8.1)
+    bixby (1.0.0)
+      rubocop (~> 0.50, <= 0.52.1)
+      rubocop-rspec (~> 1.22, <= 1.22.2)
     blacklight (6.23.0)
       bootstrap-sass (~> 3.2)
       deprecation
@@ -983,6 +986,7 @@ DEPENDENCIES
   active_elastic_job!
   activerecord-nulldb-adapter
   apartment
+  bixby
   blacklight (~> 6.7)
   blacklight_oai_provider (~> 6.0)
   bootstrap-datepicker-rails

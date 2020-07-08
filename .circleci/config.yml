@@ -40,7 +40,6 @@ jobs:
       - samvera/cached_checkout
 
       - run: git submodule init && git submodule update
-      # TODO: add caching to submodule checkout?
 
       # FIXME: caching is not working
       - samvera/bundle:

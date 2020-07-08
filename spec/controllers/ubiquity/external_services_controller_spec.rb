@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe Ubiquity::ExternalServicesController, type: :controller do
   routes { HykuAddons::Engine.routes }
 

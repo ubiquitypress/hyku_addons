@@ -7,4 +7,3 @@ RSpec.describe HykuAddons do
     end
   end
 end
-
