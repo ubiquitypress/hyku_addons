@@ -53,15 +53,55 @@ jobs:
 
       - run: bundle exec rake app:db:create app:db:schema:load app:zookeeper:upload
 
+      # Setup CodeClimate
+      - run:
+          command: |
+            if [[ $(command -v cc-test-reporter) == "" ]]; then
+              curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+              chmod +x ./cc-test-reporter
+            fi
+      - run:
+          command: ./cc-test-reporter before-build
+
       - samvera/parallel_rspec
+
+      # Save coverage results for CodeClimate
+      - run:
+          command: ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
+      - persist_to_workspace:
+          root: coverage
+          paths:
+            - codeclimate.*.json
 
       - store_artifacts:
           path: coverage
 
-      # TODO: Use CodeClimate
+  # Upload coverage to CodeClimate
+  upload_coverage:
+    parameters:
+      parallelism:
+        type: integer
+        default: 4
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - attach_workspace:
+          at: ~/project
+
+      - run:
+          name: Install Code Climate Test Reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - deploy:
+          # CC_TEST_REPORTER_ID set within the circleci web interface
+          command: ./cc-test-reporter sum-coverage --output - --parts << parameters.parallelism >> codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
 
 workflows:
   ci:
     jobs:
       - bundle_lint_test:
           name: ruby2-7-1
+      - upload_coverage:
+          requires:
+            - ruby2-7-1
