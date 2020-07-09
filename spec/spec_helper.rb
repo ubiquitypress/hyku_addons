@@ -92,6 +92,16 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
+
+  # Look for an overriding spec file and skip if it exists
+  config.around do |example|
+    if example.file_path.starts_with?('./spec/internal_test_hyku') && File.exist?(example.file_path.sub('./spec/internal_test_hyku', '.'))
+      skip "Override exists of this test file in engine."
+    else
+      example.run
+    end
+  end
 end
 
 require File.expand_path('internal_test_hyku/spec/rails_helper.rb', __dir__)
+require File.expand_path('internal_test_hyku/spec/spec_helper.rb', __dir__)
