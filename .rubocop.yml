@@ -8,3 +8,15 @@ AllCops:
     - 'db/migrate/*.hyrax.rb'
     - 'spec/internal_test_hyku/**/*'
     - 'vendor/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/abilities/**/*'
+    - 'spec/conversions/**/*'
+    - 'spec/features/**/*'
+    - 'spec/inputs/**/*'
+    - 'spec/views/**/*'
