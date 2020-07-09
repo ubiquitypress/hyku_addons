@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe 'Site labels configuration', :override do
   context 'as an administrator' do
     let(:user) { FactoryBot.create(:admin) }
@@ -60,4 +61,3 @@ RSpec.describe 'Site labels configuration', :override do
     end
   end
 end
-
