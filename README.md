@@ -1,4 +1,14 @@
 # HykuAddons
+Code: [![CircleCI](https://circleci.com/gh/samvera/hyrax.svg?style=svg)](https://circleci.com/gh/ubiquitypress/hyku_addons)
+[![Code Climate](https://codeclimate.com/github/ubiquitypress/hyku_addons/badges/gpa.svg)](https://codeclimate.com/github/ubiquitypress/hyku_addons)
+
+
+Docs: [![Contribution Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
+[![Apache 2.0 License](http://img.shields.io/badge/APACHE2-license-blue.svg)](./LICENSE)
+
+Jump in: [![Slack Status](http://slack.samvera.org/badge.svg)](http://slack.samvera.org/)
+
+
 HykuAddons is a collection of customizations made to Hyku for Ubiquity Press's implementation.  It is highly opinionated and idiosyncratic so feel free to look at it for inspiration but you probably don't want to use it.  Features that are generally useful will be split out of here into separate plugins.
 
 ## Installation
@@ -48,8 +58,19 @@ Rake tasks for use in the application (not internal to this engine) should be de
 ### Enabling Features
 Customizations and overrides included in this engine should be put behind a `Flipflop` feature that is disabled by default.  Doing this allows these customizations to be enabled (or disabled) per Hyku instance and even per tenant.
 
-## Testing
-To run the tests outside of docker do the following with each line in its own shell from the root of the engine:
+### Overriding Hyku/Hyrax
+
+There are many approaches to overriding and which to use will depend on the context.  For views that need to be overridden copy the file into this engine at the same path as the original.  For classes it may be possible to create a new module containing the overrides and then prepend it into the original class in an initializer.  
+
+When behavior that is tested in Hyku changes, copy the relevant test files from the internal test hyku into the engine at the same path as the original.  This will cause rspec to skip the original tests in favor of the engine's copy of them.
+
+## Development
+
+### Testing
+
+Tests are run automatically on CircleCI with rubocop and codeclimate.  These tests must pass before pull requests can be merged.
+
+To run the tests locally outside of docker do the following with each line in its own shell from the root of the engine:
 ```
 cd spec/internal_test_hyku && solr_wrapper -v --config config/solr_wrapper_test.yml
 fcrepo_wrapper -v --config spec/internal_test_hyku/config/fcrepo_wrapper_test.yml
@@ -60,9 +81,3 @@ bundle exec rspec
 You shouldn't need to run anything from inside `spec/internal_test_hyku` unless explicitly told to do so.
 
 Note that at this time the application must be run in test mode due to a bug in loading the development environment.
-
-## Contributing
-Contribution directions go here.
-
-## License
-The gem is available as open source under the terms of the [Apache License 2.0](https://opensource.org/licenses/Apache-2.0).
