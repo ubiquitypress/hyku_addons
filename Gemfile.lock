@@ -35,6 +35,7 @@ PATH
   remote: .
   specs:
     hyku_addons (0.1.0)
+      hyrax (~> 2.8)
       rails (~> 5.2.4, >= 5.2.4.3)
 
 GEM
