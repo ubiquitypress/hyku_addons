@@ -11,6 +11,7 @@ AllCops:
 
 Metrics/BlockLength:
   Exclude:
+    - 'lib/hyku_addons/engine.rb'
     - 'spec/**/*.rb'
 
 RSpec/DescribeClass:
@@ -20,3 +21,7 @@ RSpec/DescribeClass:
     - 'spec/features/**/*'
     - 'spec/inputs/**/*'
     - 'spec/views/**/*'
+
+Style/SymbolProc:
+  Exclude:
+    - 'app/models/concerns/hyku_addons/account_behavior.rb'

@@ -51,7 +51,7 @@ jobs:
       - samvera/install_solr_core:
           solr_config_path: 'spec/internal_test_hyku/solr/config'
 
-      - run: bundle exec rake app:db:create app:db:schema:load app:zookeeper:upload
+      - run: bundle exec rake app:db:create app:db:migrate app:zookeeper:upload
 
       # Setup CodeClimate
       - run:
