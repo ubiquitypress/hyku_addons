@@ -22,6 +22,9 @@ RSpec/DescribeClass:
     - 'spec/inputs/**/*'
     - 'spec/views/**/*'
 
+RSpec/ExampleLength:
+  Max: 10
+
 Style/SymbolProc:
   Exclude:
     - 'app/models/concerns/hyku_addons/account_behavior.rb'
