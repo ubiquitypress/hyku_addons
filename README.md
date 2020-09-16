@@ -66,6 +66,23 @@ When behavior that is tested in Hyku changes, copy the relevant test files from 
 
 ## Development
 
+### Docker
+
+Running a docker development environment is possible by running:
+```
+docker-compose build
+docker-compose up web workers
+```
+
+Attaching to the hyku container to run commands can be done by running:
+```
+docker-compose exec web /bin/bash
+```
+Then granting superadmin powers to a new user:
+```
+bundle exec rake app:hyku:superadmin:grant[username]
+```
+
 ### Testing
 
 Tests are run automatically on CircleCI with rubocop and codeclimate.  These tests must pass before pull requests can be merged.
