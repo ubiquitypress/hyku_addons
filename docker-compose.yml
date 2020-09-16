@@ -15,11 +15,11 @@ networks:
   internal:
 
 services:
-  zoo1:
+  zoo1: &zoo1
     image: zookeeper:3.4
     environment:
-      - ZOO_MY_ID=1
-      - ZOO_SERVERS=server.1=zoo1:2888:3888
+      ZOO_MY_ID: 1
+      ZOO_SERVERS=server.1: zoo1:2888:3888
     expose:
       - 2181
       - 2888
@@ -32,7 +32,7 @@ services:
        aliases:
          - zookeeper_cluster
 
-  solr:
+  solr: &solr
     image: solr:7.5
     command: solr -c -f -z zoo1:2181
     depends_on:
@@ -45,7 +45,7 @@ services:
     networks:
       internal:
 
-  fcrepo:
+  fcrepo: &fcrepo
     image: cbeer/fcrepo4:4.7
     env_file:
       - ./spec/internal_test_hyku/.env
@@ -54,19 +54,21 @@ services:
     volumes:
       - fcrepo:/data
     environment:
-      - JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
+      JAVA_OPTS: '${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"'
     networks:
       internal:
 
-  db:
+  db: &db
     image: postgres:10-alpine
     env_file:
       - ./spec/internal_test_hyku/.env
-    environment:
-      - PGDATA=/data
-      - POSTGRES_DB=hyku
-      - POSTGRES_PASSWORD=DatabaseFTW
-      - POSTGRES_USER=postgres
+    volumes:
+      - ./.docker-postgres/:/docker-entrypoint-initdb.d
+    environment: &db_environment
+      PGDATA: /data
+      POSTGRES_PASSWORD: DatabaseFTW
+      POSTGRES_USER: postgres
+      POSTGRES_MULTIPLE_DATABASES: hyku,hyku_test
     volumes:
       - db:/data
     networks:
@@ -125,7 +127,7 @@ services:
     <<: *app
     environment:
       <<: *web_environment
-      VIRTUAL_PORT: 3000
+      VIRTUAL_PORT: 3000bash -c "/docker_init.sh && tail -f /dev/null"
       VIRTUAL_HOST: hyku.docker
     depends_on:
       - db
@@ -161,11 +163,11 @@ services:
 
   db_migrate:
     <<: *app
-    command: bundle exec rails app:db:migrate
+    command: bundle exec rails app:db:migrate app:db:test:prepare
     depends_on:
       - db
 
-  redis:
+  redis: &redis
     image: redis:4
     command: redis-server
     volumes:
@@ -177,3 +179,61 @@ services:
     image: selenium/standalone-chrome:3.141
     networks:
       internal:
+
+# Testing containers
+# FIXME: Not working yet
+  test:
+    <<: *app
+    command: bash -c "bundle exec rspec"
+    environment:
+      <<: *web_environment
+      SETTINGS__MULTITENANCY__ADMIN_HOST: lvh.me
+      DISABLE_REDIS_CLUSTER: "true" 
+      RAILS_ENV: test
+      DATABASE_HOST: db-test
+      SETTINGS__SOLR__URL: http://solr-test:8983/solr/
+      SOLR_URL: http://solr-test:8983/solr/
+      FEDORA_URL: http://fcrepo-test:8080/fcrepo/rest
+    depends_on:
+      - db-test
+      - solr-test
+      - fcrepo-test
+      # - redis-test
+      - db_migrate-test
+      - initialize_app-test
+
+  db_migrate-test:
+    <<: *app
+    command: bundle exec rails app:db:migrate
+    depends_on:
+      - db-test
+
+  initialize_app-test:
+    <<: *app
+    command: bundle exec rails app:zookeeper:upload
+    depends_on:
+      - zoo1-test
+
+  redis-test:
+    <<: *redis
+    volumes: []
+
+  solr-test:
+    <<: *solr
+    volumes: []
+
+  fcrepo-test:
+    <<: *fcrepo
+    volumes: []
+
+  zoo1-test:
+    <<: *zoo1
+    volumes: []
+
+  db-test:
+    <<: *db
+    environment:
+      <<: *db_environment
+      POSTGRES_DB: hyku_test
+    volumes: []
+

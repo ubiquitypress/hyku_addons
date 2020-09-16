@@ -70,8 +70,7 @@ When behavior that is tested in Hyku changes, copy the relevant test files from 
 
 Running a docker development environment is possible by running:
 ```
-docker-compose build
-docker-compose up web workers
+docker-compose up web workers    # This will build the Docker image
 ```
 
 Attaching to the hyku container to run commands can be done by running:
@@ -81,6 +80,15 @@ docker-compose exec web /bin/bash
 Then granting superadmin powers to a new user:
 ```
 bundle exec rake app:hyku:superadmin:grant[username]
+```
+
+The test suite in docker can be run once the `web` container is running:
+```
+docker-compose exec web bundle exec rspec
+```
+or specific spec files:
+```
+docker-compose exec web bundle exec rspec spec/path/to/my/file_spec.rb
 ```
 
 ### Testing
