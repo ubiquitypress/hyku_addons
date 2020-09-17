@@ -66,6 +66,12 @@ When behavior that is tested in Hyku changes, copy the relevant test files from 
 
 ## Development
 
+Check out the code then initialize the internal test hyku application:
+```
+git submodule init
+git submodule update
+```
+
 ### Docker
 
 Running a docker development environment is possible by running:
@@ -89,6 +95,12 @@ docker-compose exec web bundle exec rspec
 or specific spec files:
 ```
 docker-compose exec web bundle exec rspec spec/path/to/my/file_spec.rb
+```
+
+If problems arise, you may need to rebuild your docker environment:
+```
+docker-compose down -v   # May need to be run twice.  This will delete all of your volumes containing development data.
+docker-compose build     # This will rebuild the docker image used for the internal hyku application
 ```
 
 ### Testing
