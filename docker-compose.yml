@@ -62,14 +62,13 @@ services:
     image: postgres:10-alpine
     env_file:
       - ./spec/internal_test_hyku/.env
-    volumes:
-      - ./.docker-postgres/:/docker-entrypoint-initdb.d
     environment: &db_environment
       PGDATA: /data
       POSTGRES_PASSWORD: DatabaseFTW
       POSTGRES_USER: postgres
       POSTGRES_MULTIPLE_DATABASES: hyku,hyku_test
     volumes:
+      - ./.docker-postgres:/docker-entrypoint-initdb.d
       - db:/data
     networks:
       internal:
@@ -127,7 +126,7 @@ services:
     <<: *app
     environment:
       <<: *web_environment
-      VIRTUAL_PORT: 3000bash -c "/docker_init.sh && tail -f /dev/null"
+      VIRTUAL_PORT: 3000
       VIRTUAL_HOST: hyku.docker
     depends_on:
       - db
