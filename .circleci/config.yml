@@ -35,6 +35,8 @@ jobs:
       FCREPO_TEST_PORT: 8080/fcrepo
       SPEC_OPTS: --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec.xml --format progress
       CFLAGS: -Wno-error=format-overflow
+      # Enable bulkrax to avoid test failures due to odd view path order
+      SETTINGS__BULKRAX__ENABLED: true
 
     steps:
       - samvera/cached_checkout
@@ -51,7 +53,12 @@ jobs:
       - samvera/install_solr_core:
           solr_config_path: 'spec/internal_test_hyku/solr/config'
 
-      - run: bundle exec rake app:db:create app:db:schema:load app:zookeeper:upload
+      # Setup hyrax-doi
+      - run: bundle exec rails g hyrax:doi:install --datacite
+      - run: bundle exec rails g hyrax:doi:add_to_work_type GenericWork --datacite
+        #- run: bundle exec rake app:hyku_addons:install:migrations
+
+      - run: bundle exec rake app:db:create app:db:migrate app:zookeeper:upload
 
       # Setup CodeClimate
       - run:
