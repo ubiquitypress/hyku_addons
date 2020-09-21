@@ -10,6 +10,9 @@ require File.expand_path('internal_test_hyku/config/environment', __dir__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'factory_bot_rails'
+FactoryBot.definition_file_paths = [File.expand_path("spec/factories", HykuAddons::Engine.root)]
+FactoryBot.find_definitions
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

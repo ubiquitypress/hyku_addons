@@ -10,7 +10,7 @@ module HykuAddons
     end
 
     def datacite_endpoint
-      super || build_datacite_endpoint || NilDataCiteEndpoint.new
+      super || NilDataCiteEndpoint.new
     end
   end
 end
