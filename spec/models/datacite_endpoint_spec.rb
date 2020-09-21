@@ -18,4 +18,20 @@ RSpec.describe DataCiteEndpoint do
       expect(endpoint.ping).to eq true
     end
   end
+
+  describe '#remove!' do
+    it 'destroys the endpoint' do
+      expect { endpoint.remove! }.to change { endpoint.destroyed? }.from(false).to(true)
+    end
+
+    context 'cascades from account' do
+      let(:account) { Account.create(name: "test") }
+      let!(:endpoint) { account.create_datacite_endpoint }
+
+      it 'destroys the endpoint' do
+        expect(account.datacite_endpoint).to be_persisted
+        expect { account.destroy }.to change { endpoint.destroyed? }.from(false).to(true)
+      end
+    end
+  end
 end

@@ -10,7 +10,7 @@ class DataCiteEndpoint < ::Endpoint
     Hyrax::DOI::DataCiteRegistrar.password = password
   end
 
-  # Remove the solr collection then destroy this record
+  # No special handling just destroy this record
   def remove!
     destroy
   end
