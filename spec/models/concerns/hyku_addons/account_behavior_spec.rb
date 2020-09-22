@@ -63,9 +63,9 @@ RSpec.describe HykuAddons::AccountBehavior do
     end
 
     context 'with missing endpoint' do
-      it 'returns a blank DataCiteEndpoint' do
+      it 'returns a NilDataCiteEndpoint' do
         account.datacite_endpoint = nil
-        expect(account.datacite_endpoint).to be_kind_of DataCiteEndpoint
+        expect(account.datacite_endpoint).to be_kind_of NilDataCiteEndpoint
         expect(account.datacite_endpoint.persisted?).to eq false
         account.switch do
           expect(Hyrax::DOI::DataCiteRegistrar.mode).to eq nil

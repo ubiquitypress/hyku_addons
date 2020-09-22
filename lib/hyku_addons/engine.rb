@@ -60,6 +60,12 @@ module HykuAddons
                                             datacite_endpoint_attributes: %i[mode prefix username password])
           end
       end
+
+      ::CreateAccount.class_eval do
+        def create_account_inline
+          CreateAccountInlineJob.perform_now(account) && account.create_datacite_endpoint
+        end
+      end
     end
   end
 end
