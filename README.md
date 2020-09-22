@@ -81,6 +81,8 @@ docker-compose exec web /bin/bash
 Then granting superadmin powers to a new user:
 ```
 bundle exec rake app:hyku:superadmin:grant[username]
+```
+The rails server will be running at http://lvh.me:3000 and tenants will be subdomains like http://tenant1.lvh.me:3000.
 
 ### Testing
 
