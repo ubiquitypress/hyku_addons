@@ -1,0 +1,49 @@
+<% content_for :page_header do %>
+  <h1><span class="fa fa-gears"></span> <%= t(".header") %></h1>
+<% end %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default account-form">
+      <%= simple_form_for @account, url: [:proprietor, @account], html: { class: 'form' } do |f| %>
+        <div class="panel-body">
+          <% if @account.errors.any? %>
+            <div id="error_explanation" class="alert alert-danger">
+              <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
+              <ul>
+                <% @account.errors.messages.each do |key, messages| %>
+                  <li><%= key %> &quot;<%= @account.errors.details[key].first[:value] %>&quot; <%= messages.join(' and ') %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <%= f.input :tenant, readonly: @account.persisted? %>
+          <%= f.input :cname %>
+
+          <h3><%= t(".solr_endpoint") %></h3>
+          <%= f.simple_fields_for :solr_endpoint do |s| %>
+            <%= s.input :url %>
+          <% end %>
+
+          <h3><%= t(".fcrepo_endpoint") %></h3>
+          <%= f.fields_for :fcrepo_endpoint do |s| %>
+            <%= s.input :url %>
+            <%= s.input :base_path %>
+          <% end %>
+
+          <h3><%= t(".datacite_endpoint") %></h3>
+          <%= f.fields_for :datacite_endpoint do |s| %>
+            <%= s.input :mode %>
+            <%= s.input :prefix %>
+            <%= s.input :username %>
+            <%= s.input :password, input_html: { value: @account.datacite_endpoint.password } %>
+          <% end %>
+
+          <%= f.submit class: 'btn btn-primary' %>
+          <%= link_to t('simple_form.cancel'), proprietor_accounts_path, class: 'btn btn-link action-cancel' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
