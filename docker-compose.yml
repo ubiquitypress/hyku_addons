@@ -140,7 +140,7 @@ services:
     #expose:
       #- 3000
     ports:
-      - '3000:80' # uncomment this if you dont use dory or another proxy
+      - 3000:80 # uncomment this if you dont use dory or another proxy
 
   workers:
     <<: *app
