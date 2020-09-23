@@ -11,14 +11,11 @@ module HykuAddons
       end
     end
 
-    config.after_initialize do
-      # Prepend our views so they have precedence
-      ActionController::Base.prepend_view_path(paths['app/views'].existent)
-      # Append our locales so they have precedence
-      I18n.load_path += Dir[HykuAddons::Engine.root.join('config', 'locales', '*.{rb,yml}')]
+    initializer 'hyku_additions.class_overrides_for_hyrax-doi' do
+      require 'hyrax/search_state'
 
       # Cannot do prepend here because it causes it to get loaded before AcitveRecord breaking things
-      ::Account.class_eval do
+      Account.class_eval do
         include HykuAddons::AccountBehavior
 
         # @return [Account] a placeholder account using the default connections configured by the application
@@ -48,7 +45,7 @@ module HykuAddons
       end
 
       # Using a concern doesn't actually override the original method so inlining it here
-      ::Proprietor::AccountsController.class_eval do
+      Proprietor::AccountsController.class_eval do
         private
 
           # Never trust parameters from the scary internet, only allow the allowed list through.
@@ -61,11 +58,18 @@ module HykuAddons
           end
       end
 
-      ::CreateAccount.class_eval do
+      CreateAccount.class_eval do
         def create_account_inline
           CreateAccountInlineJob.perform_now(account) && account.create_datacite_endpoint
         end
       end
+    end
+
+    config.after_initialize do
+      # Prepend our views so they have precedence
+      ActionController::Base.prepend_view_path(paths['app/views'].existent)
+      # Append our locales so they have precedence
+      I18n.load_path += Dir[HykuAddons::Engine.root.join('config', 'locales', '*.{rb,yml}')]
     end
   end
 end
