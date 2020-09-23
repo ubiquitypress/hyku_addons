@@ -66,6 +66,16 @@ When behavior that is tested in Hyku changes, copy the relevant test files from 
 
 ## Development
 
+Check out the code then initialize the internal test hyku application:
+```
+git submodule init
+git submodule update
+bundle install
+bundle exec rails g hyku_addons:install
+bundle exec rake app:hyku_addons:install:migrations
+bundle exec rails g hyrax:doi:add_to_work_type GenericWork --datacite
+```
+
 ### Docker
 
 Running a docker development environment is possible by running:

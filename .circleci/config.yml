@@ -53,10 +53,9 @@ jobs:
       - samvera/install_solr_core:
           solr_config_path: 'spec/internal_test_hyku/solr/config'
 
-      # Setup hyrax-doi
-      - run: bundle exec rails g hyrax:doi:install --datacite
+      # Setup hyku_addons and hyrax-doi
+      - run: bundle exec rails g hyku_addons:install
       - run: bundle exec rails g hyrax:doi:add_to_work_type GenericWork --datacite
-        #- run: bundle exec rake app:hyku_addons:install:migrations
 
       - run: bundle exec rake app:db:create app:db:migrate app:zookeeper:upload
 
