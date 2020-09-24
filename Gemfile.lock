@@ -119,6 +119,10 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     almond-rails (0.3.0)
       rails (>= 4.2)
+    ammeter (1.1.4)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-rails (>= 2.2)
     apartment (2.2.1)
       activerecord (>= 3.1.2, < 6.0)
       parallel (>= 0.7.1)
@@ -1075,6 +1079,7 @@ DEPENDENCIES
   active-fedora (>= 11.1.4)
   active_elastic_job!
   activerecord-nulldb-adapter
+  ammeter
   apartment
   aws-sdk-sqs
   bixby
