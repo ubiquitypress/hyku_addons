@@ -13,8 +13,19 @@ module HykuAddons
     #   end
     # end
 
+    config.before_initialize do
+      # Eager load required for overrides in the initializer below
+      # There is probably a better solution for this but I don't think it is worth the time
+      # tinkering with it since this works and doesn't cause too much of a slowdown
+      if Rails.env == 'development' # Only do this for development environment for now
+        Rails.application.configure do
+          config.eager_load = true
+        end
+      end
+    end
+
     initializer 'hyku_additions.class_overrides_for_hyrax-doi' do
-      require 'hyrax/search_state'
+      require_dependency 'hyrax/search_state'
 
       # Cannot do prepend here because it causes it to get loaded before AcitveRecord breaking things
       Account.class_eval do
