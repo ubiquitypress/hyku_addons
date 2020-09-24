@@ -72,7 +72,6 @@ git submodule init
 git submodule update
 bundle install
 bundle exec rails g hyku_addons:install
-bundle exec rake app:hyku_addons:install:migrations
 bundle exec rails g hyrax:doi:add_to_work_type GenericWork --datacite
 ```
 
