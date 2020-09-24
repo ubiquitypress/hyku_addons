@@ -23,6 +23,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       expect(Hyrax::DOI::DataCiteRegistrar.prefix).to eq '10.1234'
       expect(Hyrax::DOI::DataCiteRegistrar.username).to eq 'user123'
       expect(Hyrax::DOI::DataCiteRegistrar.password).to eq 'pass123'
+      expect(Rails.application.routes.default_url_options[:host]).to eq account.cname
     end
   end
 
@@ -31,6 +32,7 @@ RSpec.describe HykuAddons::AccountBehavior do
     let!(:previous_datacite_prefix) { Hyrax::DOI::DataCiteRegistrar.prefix }
     let!(:previous_datacite_username) { Hyrax::DOI::DataCiteRegistrar.username }
     let!(:previous_datacite_password) { Hyrax::DOI::DataCiteRegistrar.password }
+    let!(:previous_account_cname) { account.cname }
 
     before do
       account.build_solr_endpoint(url: 'http://example.com/solr/')
@@ -49,6 +51,7 @@ RSpec.describe HykuAddons::AccountBehavior do
         expect(Hyrax::DOI::DataCiteRegistrar.prefix).to eq '10.1234'
         expect(Hyrax::DOI::DataCiteRegistrar.username).to eq 'user123'
         expect(Hyrax::DOI::DataCiteRegistrar.password).to eq 'pass123'
+        expect(Rails.application.routes.default_url_options[:host]).to eq account.cname
       end
     end
 
@@ -60,6 +63,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       expect(Hyrax::DOI::DataCiteRegistrar.prefix).to eq previous_datacite_prefix
       expect(Hyrax::DOI::DataCiteRegistrar.username).to eq previous_datacite_username
       expect(Hyrax::DOI::DataCiteRegistrar.password).to eq previous_datacite_password
+      expect(Rails.application.routes.default_url_options[:host]).to eq previous_account_cname
     end
 
     context 'with missing endpoint' do
@@ -72,6 +76,7 @@ RSpec.describe HykuAddons::AccountBehavior do
           expect(Hyrax::DOI::DataCiteRegistrar.prefix).to eq nil
           expect(Hyrax::DOI::DataCiteRegistrar.password).to eq nil
           expect(Hyrax::DOI::DataCiteRegistrar.username).to eq nil
+          expect(Rails.application.routes.default_url_options[:host]).to eq nil
         end
       end
     end
