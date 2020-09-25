@@ -30,7 +30,12 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'hyrax', '~> 2.8'
   spec.add_dependency 'hyrax-doi'
+  # Pins to help bundler resolve
+  spec.add_dependency 'maremma', '< 4.8'
+  spec.add_dependency 'postrank-uri', '>= 1.0.24'
+  spec.add_dependency 'public_suffix', '~> 2.0.2'
 
+  spec.add_development_dependency 'ammeter'
   spec.add_development_dependency "bixby"
   spec.add_development_dependency "pg"
   spec.add_development_dependency "rspec-rails"

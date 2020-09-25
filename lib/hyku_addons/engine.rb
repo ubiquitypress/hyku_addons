@@ -1,24 +1,34 @@
 # frozen_string_literal: true
+require 'hyrax/doi/engine'
+
 module HykuAddons
   class Engine < ::Rails::Engine
     isolate_namespace HykuAddons
 
-    # Automount this engine
-    # Only do this because this is just for us and we don't need to allow control over the mount to the application
-    initializer 'hyku_additions.routes' do |app|
-      app.routes.append do
-        mount HykuAddons::Engine, at: '/'
+    # # Automount this engine
+    # # Only do this because this is just for us and we don't need to allow control over the mount to the application
+    # initializer 'hyku_additions.routes' do |app|
+    #   app.routes.append do
+    #     mount HykuAddons::Engine, at: '/'
+    #   end
+    # end
+
+    config.before_initialize do
+      # Eager load required for overrides in the initializer below
+      # There is probably a better solution for this but I don't think it is worth the time
+      # tinkering with it since this works and doesn't cause too much of a slowdown
+      if Rails.env == 'development' # Only do this for development environment for now
+        Rails.application.configure do
+          config.eager_load = true
+        end
       end
     end
 
-    config.after_initialize do
-      # Prepend our views so they have precedence
-      ActionController::Base.prepend_view_path(paths['app/views'].existent)
-      # Append our locales so they have precedence
-      I18n.load_path += Dir[HykuAddons::Engine.root.join('config', 'locales', '*.{rb,yml}')]
+    initializer 'hyku_additions.class_overrides_for_hyrax-doi' do
+      require_dependency 'hyrax/search_state'
 
       # Cannot do prepend here because it causes it to get loaded before AcitveRecord breaking things
-      ::Account.class_eval do
+      Account.class_eval do
         include HykuAddons::AccountBehavior
 
         # @return [Account] a placeholder account using the default connections configured by the application
@@ -48,7 +58,7 @@ module HykuAddons
       end
 
       # Using a concern doesn't actually override the original method so inlining it here
-      ::Proprietor::AccountsController.class_eval do
+      Proprietor::AccountsController.class_eval do
         private
 
           # Never trust parameters from the scary internet, only allow the allowed list through.
@@ -61,9 +71,34 @@ module HykuAddons
           end
       end
 
-      ::CreateAccount.class_eval do
+      CreateAccount.class_eval do
         def create_account_inline
           CreateAccountInlineJob.perform_now(account) && account.create_datacite_endpoint
+        end
+      end
+    end
+
+    config.after_initialize do
+      # Prepend our views so they have precedence
+      ActionController::Base.prepend_view_path(paths['app/views'].existent)
+      # Append our locales so they have precedence
+      I18n.load_path += Dir[HykuAddons::Engine.root.join('config', 'locales', '*.{rb,yml}')]
+    end
+
+    ## In engine development mode (ENGINE_ROOT defined) handle specific generators as app-only by setting destintation_root appropriately
+    initializer 'hyku_addons.app_generators' do
+      if defined?(ENGINE_ROOT)
+        APP_GENERATORS = ['HykuAddons::InstallGenerator', 'Hyrax::DOI::InstallGenerator', 'Hyrax::DOI::AddToWorkTypeGenerator'].freeze
+
+        Rails::Generators::Base.class_eval do
+          def initialize(args, options, config)
+            # Force the destination root to be the rails application and not this engine when doing development
+            # See https://github.com/rails/rails/blob/fb852668dff2786a4cfb30ad923830da9eed2476/railties/lib/rails/commands/generate/generate_command.rb#L26
+            # and https://github.com/rails/rails/blob/9d44519afc5290eab8479db851f09653cf0a916f/railties/lib/rails/command.rb#L75-L82
+
+            config[:destination_root] = Pathname.new(File.expand_path("../..", APP_PATH)) if self.class.name.in?(APP_GENERATORS)
+            super
+          end
         end
       end
     end

@@ -39,6 +39,9 @@ PATH
     hyku_addons (0.1.0)
       hyrax (~> 2.8)
       hyrax-doi
+      maremma (< 4.8)
+      postrank-uri (>= 1.0.24)
+      public_suffix (~> 2.0.2)
       rails (~> 5.2.4, >= 5.2.4.3)
 
 GEM
@@ -116,6 +119,10 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     almond-rails (0.3.0)
       rails (>= 4.2)
+    ammeter (1.1.4)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-rails (>= 2.2)
     apartment (2.2.1)
       activerecord (>= 3.1.2, < 6.0)
       parallel (>= 0.7.1)
@@ -1072,6 +1079,7 @@ DEPENDENCIES
   active-fedora (>= 11.1.4)
   active_elastic_job!
   activerecord-nulldb-adapter
+  ammeter
   apartment
   aws-sdk-sqs
   bixby
@@ -1098,7 +1106,6 @@ DEPENDENCIES
   honeybadger (~> 3.0)
   hyku_addons!
   hyrax (~> 2.9)
-  hyrax-doi
   i18n-debug
   i18n-tasks
   is_it_working
@@ -1106,11 +1113,9 @@ DEPENDENCIES
   jquery-rails
   listen (>= 3.0.5, < 3.2)
   lograge
-  maremma (< 4.8)
   mods (~> 2.4)
   parser (~> 2.5.3)
   pg
-  postrank-uri (>= 1.0.24)
   puma (~> 3.12)
   rack-test (= 0.7.0)
   rails (~> 5.2.4, >= 5.2.4.3)
