@@ -1,0 +1,39 @@
+<% provide :page_header do %>
+    <h1><span class="fa fa-user"></span> Account Settings </h1>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><h3><b>Editable Fields</b></h3></th>
+      <th><h3><b>Actions</b></h3></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Edit all fields or multiple fields:</b></td>
+      <td><%=link_to "Edit all fields ", hyku_addons.edit_admin_account_setting_path(@account), class: "btn btn-xs btn-default" %></td>
+    </tr>
+    <tr>
+      <td id= "link-email"><b>Contact email:</b> <%= @account && @account.settings && @account.settings["contact_email"] %> </td> <br>
+      <td><%= link_to "Edit email", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'contact_email'), class: "btn btn-xs btn-default", remote: true %></td>
+    </tr>
+
+    <tr>
+      <td id= "link-weekly-email"><b>Weekly email list:</b> <%= @account && @account.settings && @account.settings["weekly_email_list"].try(:to_sentence) %></td> <br>
+      <td><%=link_to "Edit weekly email list", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'weekly_email_list'), class: "btn btn-xs btn-default", remote: true %></td>
+    </tr>
+
+    <tr>
+      <td id= "link-monthly-email"><b>Monthly email list:</b> <%= @account && @account.settings && @account.settings["monthly_email_list"].try(:to_sentence) %></td> <br>
+      <td><%=link_to "Edit monthly email list", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'monthly_email_list'), class: "btn btn-xs btn-default", remote: true %></td>
+    </tr>
+
+    <tr>
+      <td id= "link-yearly-email"><b>Yearly email list:</b> <%= @account && @account.settings && @account.settings["yearly_email_list"].try(:to_sentence) %></td> <br>
+      <td><%=link_to "Edit yearly email list", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'yearly_email_list'), class: "btn btn-xs btn-default", remote: true  %></td>
+    </tr>
+
+  </tbody>
+</table>
+
