@@ -12,8 +12,15 @@ FactoryBot.modify do
     redis_endpoint
     fcrepo_endpoint
     datacite_endpoint
-    settings  { {contact_email: 'abc@abc.com', weekly_email_list: ["aaa@aaa.com; bbb@bl.uk"], monthly_email_list: ["aaa@aaa.com; bbb@bl.uk"], yearly_email_list: ["aaa@aaa.com; bbb@bl.uk"],
-           index_record_to_shared_search: true, google_scholarly_work_types: ['Article', 'Book', 'ThesisOrDissertation', 'BookChapter'] } }
-    data { {is_parent: false } }
+    settings do
+      {
+        contact_email: 'abc@abc.com', weekly_email_list: ["aaa@aaa.com; bbb@bl.uk"], monthly_email_list: ["aaa@aaa.com; bbb@bl.uk"],
+        yearly_email_list: ["aaa@aaa.com; bbb@bl.uk"],
+        index_record_to_shared_search: true, google_scholarly_work_types: ['Article', 'Book', 'ThesisOrDissertation', 'BookChapter']
+      }
+    end
+    data do
+      { is_parent: false }
+    end
   end
 end

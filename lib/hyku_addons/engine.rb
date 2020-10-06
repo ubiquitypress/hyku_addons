@@ -103,7 +103,7 @@ module HykuAddons
       end
     end
 
-    ## Add migrations to parent app paths    
+    # Add migrations to parent app paths
     initializer :append_migrations do |app|
       Hyku::Application.default_url_options[:host] = 'lvh.me:3000'
       unless app.root.to_s.match?(root.to_s)
@@ -111,20 +111,18 @@ module HykuAddons
           app.config.paths['db/migrate'] << expanded_path
         end
       end
-    end 
+    end
 
-    #In test & dev environments, dynamically mount the hyku_addons in the parent app to avoid routing errorsd
-    config.after_initialize do  
-      if Rails.env == 'development' ||  Rails.env == 'test' # Only do this for development environment for now
+    # In test & dev environments, dynamically mount the hyku_addons in the parent app to avoid routing errors
+    config.after_initialize do
+      if Rails.env == 'development' || Rails.env == 'test'
+        # Resolves Missing host to link to! Please provide the :host parameter, set default_url_options[:host], or set :only_path to true
+        HykuAddons::Engine.routes.default_url_options = { host: 'lvh.me:3000' }
 
-       #Resolves Missing host to link to! Please provide the :host parameter, set default_url_options[:host], or set :only_path to true
-       HykuAddons::Engine.routes.default_url_options = {host: 'lvh.me:3000'}
-
-       Rails::application.routes.prepend do
-         mount HykuAddons::Engine => '/'
-       end
-      end 
-    end 
+        Rails.application.routes.prepend do
+          mount HykuAddons::Engine => '/'
+        end
+      end
+    end
   end
 end
-

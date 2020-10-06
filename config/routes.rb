@@ -5,5 +5,5 @@ HykuAddons::Engine.routes.draw do
       patch :update_single
       get :update_single
     end
-  end  
+  end
 end

@@ -3,7 +3,6 @@
 module HykuAddons
   module AccountBehavior
     extend ActiveSupport::Concern
-
     included do
       belongs_to :datacite_endpoint, dependent: :delete
       has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :destroy, inverse_of: :parent
@@ -12,8 +11,6 @@ module HykuAddons
       store_accessor :data, :is_parent
       store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
                      :index_record_to_shared_search, :google_scholarly_work_types
-                     
-              
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
     end
 

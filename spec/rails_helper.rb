@@ -70,9 +70,8 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-  
-  #They enable url_helpers not to throw error in Rspec ssystem spec and request spec
+
+  # They enable url_helpers not to throw error in Rspec system spec and request spec.
   config.include Rails.application.routes.url_helpers
   config.include HykuAddons::Engine.routes.url_helpers
- 
 end
