@@ -74,4 +74,15 @@ RSpec.configure do |config|
   # They enable url_helpers not to throw error in Rspec system spec and request spec.
   # config.include Rails.application.routes.url_helpers
   config.include HykuAddons::Engine.routes.url_helpers
+
+  # Internal Tests to skip
+  # Make sure this around is declared first so it runs before other around callbacks
+  skip_internal_test_list = ['./spec/internal_test_hyrax/spec/**/*_spec.rb']
+  config.around do |example|
+    if skip_internal_test_list.include? example.file_path
+      skip "Internal test skipped."
+    else
+      example.run
+    end
+  end
 end
