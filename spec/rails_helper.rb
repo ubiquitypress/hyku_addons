@@ -74,7 +74,4 @@ RSpec.configure do |config|
   # They enable url_helpers not to throw error in Rspec system spec and request spec.
   # config.include Rails.application.routes.url_helpers
   config.include HykuAddons::Engine.routes.url_helpers
-
-  # Skip all  Internal Tests
-  config.exclude_pattern = './spec/internal_test_hyku/spec/**/*_spec.rb'
 end
