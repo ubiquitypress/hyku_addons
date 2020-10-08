@@ -76,5 +76,5 @@ RSpec.configure do |config|
   config.include HykuAddons::Engine.routes.url_helpers
 
   # Skip all  Internal Tests
-  config.exclude_pattern = './spec/internal_test_hyrax/spec/**/*_spec.rb'
+  config.exclude_pattern = './spec/internal_test_hyku/spec/**/*_spec.rb'
 end
