@@ -68,8 +68,21 @@ jobs:
             fi
       - run:
           command: ./cc-test-reporter before-build
+          
+      # - samvera/parallel_rspec
+      - run:
+          name: Run rspec in parallel
+          command: |
+            mkdir /tmp/test-results
+            bundle exec rspec $(circleci tests glob "spec/**/*_spec.rb" | grep -v "internal_test_hyku" | circleci tests split --split-by=timings)
 
-      - samvera/parallel_rspec
+      # collect reports
+      - store_test_results:
+         path: /tmp/test-results
+
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
 
       # Save coverage results for CodeClimate
       - run:

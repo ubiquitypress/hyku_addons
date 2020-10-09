@@ -4,7 +4,6 @@ require 'spec_helper'
 
 RSpec.describe HykuAddons::AccountBehavior do
   subject(:account) { Account.new }
-
   describe '#switch!' do
     before do
       account.build_solr_endpoint(url: 'http://example.com/solr/')
@@ -17,7 +16,6 @@ RSpec.describe HykuAddons::AccountBehavior do
     after do
       account.reset!
     end
-
     it 'switches the DataCite connection' do
       expect(Hyrax::DOI::DataCiteRegistrar.mode).to eq 'test'
       expect(Hyrax::DOI::DataCiteRegistrar.prefix).to eq '10.1234'
@@ -78,6 +76,48 @@ RSpec.describe HykuAddons::AccountBehavior do
           expect(Hyrax::DOI::DataCiteRegistrar.username).to eq nil
           expect(Rails.application.routes.default_url_options[:host]).to eq nil
         end
+      end
+    end
+  end
+
+  describe 'Settings Customisations' do
+    let(:account) { build(:account) }
+    context 'settings jsonb keys' do
+      it 'has contact_email key that is not empty' do
+        expect(account.settings['contact_email']).to eq 'abc@abc.com'
+        expect(account.settings['contact_email']).to be_an_instance_of(String)
+      end
+
+      it "has key weekly_email_list" do
+        expect(account.settings['weekly_email_list']).to  eq ["aaa@aaa.com; bbb@bl.uk"]
+        expect(account.settings['weekly_email_list']).to be_an_instance_of(Array)
+      end
+
+      it "has non empty month_email_list" do
+        expect(account.settings['monthly_email_list']).to  eq ["aaa@aaa.com; bbb@bl.uk"]
+        expect(account.settings['monthly_email_list']).to be_an_instance_of(Array)
+      end
+
+      it "has non empty yearly_email_list" do
+        expect(account.settings['yearly_email_list']).to  eq ["aaa@aaa.com; bbb@bl.uk"]
+        expect(account.settings['yearly_email_list']).to be_an_instance_of(Array)
+      end
+
+      it "has google_scholarly_work_types" do
+        expect(account.google_scholarly_work_types).to  eq ['Article', 'Book', 'ThesisOrDissertation', 'BookChapter']
+        expect(account.google_scholarly_work_types).to be_an_instance_of(Array)
+        expect(account.google_scholarly_work_types).to include('Book')
+      end
+
+      it " has index_record_to_shared_search" do
+        expect(account.index_record_to_shared_search).to eq true
+        expect(account.index_record_to_shared_search).to be_a(TrueClass)
+      end
+    end
+
+    context 'data jsonb keys' do
+      it "has value in is_parent" do
+        expect(account.is_parent).to be_falsey
       end
     end
   end
