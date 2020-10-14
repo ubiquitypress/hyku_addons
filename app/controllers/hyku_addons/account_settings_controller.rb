@@ -10,7 +10,6 @@ module HykuAddons
 
     def edit
       @field_name = params[:field_name]
-      puts "lattey #{params[:partial_name]}"
       respond_to do |format|
         format.js { render template: "/hyku_addons/account_settings/settings/#{params[:partial_name]}.js.erb" }
         format.html
