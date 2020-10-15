@@ -14,26 +14,28 @@
       <td><b>Edit all fields or multiple fields:</b></td>
       <td><%=link_to "Edit all fields ", hyku_addons.edit_admin_account_setting_path(@account), class: "btn btn-xs btn-default" %></td>
     </tr>
-    <tr>
-      <td id= "link-email"><b>Contact email:</b> <%= @account && @account.settings && @account.settings["contact_email"] %> </td> <br>
-      <td><%= link_to "Edit email", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'contact_email'), class: "btn btn-xs btn-default", remote: true %></td>
-    </tr>
+   
+    <% ['contact_email', 'gtm_id', 'demo_gtm_id', 'live', 'institutional_relationship', 'creator_fields', 'contributor_fields'].each do |fname| %>
+      <tr>
+        <td id= "link-<%= fname %>"><b><%= fname %>:</b> <%= @account && @account.settings && @account.settings[fname] %> </td> <br>
+        <td><%= link_to "Edit #{fname}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_text_fields', field_name: fname), class: "btn btn-xs btn-default", remote: true %></td>
+      </tr>
+    <% end %>
 
-    <tr>
-      <td id= "link-weekly-email"><b>Weekly email list:</b> <%= @account && @account.settings && @account.settings["weekly_email_list"].try(:to_sentence) %></td> <br>
-      <td><%=link_to "Edit weekly email list", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'weekly_email_list'), class: "btn btn-xs btn-default", remote: true %></td>
-    </tr>
+    <% ['weekly_email_list', 'monthly_email_list', 'yearly_email_list' 'email_format', 'work_type_list', 'contributor_roles', 'creator_roles'].each do |fname| %>
+      <tr>
+        <td id= "link-<%= fname %>"><b> <%= fname %>: </b> <%= @account && @account.settings && @account.settings[fname].try(:to_sentence) %></td> <br>
+        <td><%=link_to "Edit #{fname}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_array_list', field_name: fname), class: "btn btn-xs btn-default", remote: true  %></td>
+      </tr>
+    <% end %>
 
-    <tr>
-      <td id= "link-monthly-email"><b>Monthly email list:</b> <%= @account && @account.settings && @account.settings["monthly_email_list"].try(:to_sentence) %></td> <br>
-      <td><%=link_to "Edit monthly email list", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'monthly_email_list'), class: "btn btn-xs btn-default", remote: true %></td>
-    </tr>
-
-    <tr>
-      <td id= "link-yearly-email"><b>Yearly email list:</b> <%= @account && @account.settings && @account.settings["yearly_email_list"].try(:to_sentence) %></td> <br>
-      <td><%=link_to "Edit yearly email list", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'yearly_email_list'), class: "btn btn-xs btn-default", remote: true  %></td>
-    </tr>
-
+    <% ["sign_up_link", 'redirect_on', 'allow_signup', "hide_form_relationship_tab", "index_record_to_shared_search",
+          "shared_login", "turn_off_fedora_collection_work_association",'enabled_doi', 'institutional_relationship_picklist'].each do |fname| %>
+            <tr>
+            <td id= "link-<%= fname %>"><b><%= fname %>:</b> <%= @account && @account.settings && @account.settings[fname] %> </td> <br>
+            <td><%= link_to "Edit #{fname}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_single_boolean', field_name: fname), class: "btn btn-xs btn-default", remote: true %></td>
+            </tr>
+    <% end %>
   </tbody>
 </table>
 

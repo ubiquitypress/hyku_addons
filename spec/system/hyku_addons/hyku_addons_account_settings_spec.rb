@@ -20,7 +20,25 @@ RSpec.describe 'AccountSettings', type: :system do
       visit hyku_addons.admin_account_settings_url
       expect(page).to have_selector('h1')
       expect(page).to have_selector 'h1', visible: true, text: /Account Settings/
-      expect(page).to have_link('Edit email')
+      expect(page).to have_link('Edit contact_email')
+    end
+
+    it "can display single text field for edit" do
+      visit hyku_addons.edit_admin_account_setting_url(id: account, partial_name: 'render_text_fields', field_name: 'contact_email')
+      expect(page).to have_http_status(:ok)
+      expect(page).to have_css("label", text: "Contact email")
+    end
+
+    it "can display single array field for edit" do
+      visit hyku_addons.edit_admin_account_setting_url(id: account, partial_name: 'render_array_list', field_name: 'weekly_email_list')
+      expect(page).to have_http_status(:ok)
+      expect(page).to have_css("label", text: "Weekly email list")
+    end
+
+    it "can display single boolean field for edit" do
+      visit hyku_addons.edit_admin_account_setting_url(id: account, partial_name: 'render_single_boolean', field_name: 'enabled_doi')
+      expect(page).to have_http_status(:ok)
+      expect(page).to have_css("label", text: "Enabled DOI")
     end
   end
 

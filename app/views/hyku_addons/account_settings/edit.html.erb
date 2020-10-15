@@ -1,4 +1,4 @@
-<% content_for :page_header do %>
+  <% content_for :page_header do %>
     <h1> <%= link_to "Back",  hyku_addons.admin_account_settings_path, class: "btn btn-xs btn-default" %></h1><br>
      <h1><span class="fa fa-gears"></span> Editing Account Settings</h1>
    <% end %>
@@ -22,18 +22,21 @@
              <div class="form-group">
                <%= f.fields_for :settings do |ff| %>
    
-                 <%= ff.label :email %><br>
-                 <%= ff.text_field :contact_email, :value => @account.settings['contact_email'], class: 'form-control', id: 'contact_email' %><br>
+                 <% ['contact_email', 'gtm_id', 'demo_gtm_id', 'live', 'institutional_relationship', 'creator_fields', 'contributor_fields'].each do |fname| %>
+                  <%= ff.label fname %><br>
+                  <%= ff.text_field fname, :value => @account.settings[fname], class: 'form-control', id: fname %><br>
+                <% end %>
    
-                 <%= ff.label :weekly_email_list %><br>
-                 <%= ff.text_field :weekly_email_list, :value => current_account.settings["weekly_email_list"], name: "#{f.object_name}[settings][weekly_email_list][]", class: 'form-control' %><br>
-   
-                 <%= ff.label :monthly_email_list %><br>
-                 <%= ff.text_field :monthly_email_list, :value => current_account.settings["monthly_email_list"], name: "#{f.object_name}[settings][monthly_email_list][]", class: 'form-control' %><br>
-   
-                 <%= ff.label :yearly_email_list %><br>
-                 <%= ff.text_field :yearly_email_list, :value => current_account.settings["yearly_email_list"], name: "#{f.object_name}[settings][yearly_email_list][]", class: 'form-control' %><br>
-   
+                 <% ['weekly_email_list', 'monthly_email_list', 'yearly_email_list' 'email_format', 'work_type_list', 'contributor_roles', 'creator_roles'].each do |fname| %>
+                  <%= ff.label fname %><br>
+                  <%= ff.text_field fname, :value => current_account.settings[fname], name: "#{f.object_name}[settings][#{fname}][]", class: 'form-control' %><br>
+                 <% end %>
+
+                 <% ["sign_up_link", 'redirect_on', 'allow_signup', "hide_form_relationship_tab", "index_record_to_shared_search",
+                     "shared_login", "turn_off_fedora_collection_work_association",'enabled_doi', 'institutional_relationship_picklist'].each do |fname| %>
+                      <%= ff.label fname %><br>
+                      <%= ff.check_box fname, {checked: @account.settings[fname],  class: 'form-control', id: fname}, "true", "false" %>            
+                <% end %>
                <% end %>
              </div>
    
@@ -47,3 +50,7 @@
      </div>
    </div>
    
+   <% content_for :page_header do %>
+    <h1> <%= link_to "Back",  hyku_addons.admin_account_settings_path, class: "btn btn-xs btn-default" %></h1><br>
+     <h1><span class="fa fa-gears"></span> Editing Account Settings</h1>
+   <% end %>
