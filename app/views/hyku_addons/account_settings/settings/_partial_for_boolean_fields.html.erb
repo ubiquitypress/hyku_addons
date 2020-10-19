@@ -2,8 +2,7 @@
   <div class="col-md-12">
 
     <div class="panel panel-default account-form">
-
-        <%= form_for(account, url: hyku_addons.update_single_admin_account_setting_path(account), :html => { class: 'form control' }) do |f| %>
+      <%= form_for(@account, url: hyku_addons.update_single_admin_account_setting_path(account), :html => { class: 'form control' }) do |f| %>
         <div class="panel-body">
           <% if @account.errors.any? %>
             <div id="error_explanation">
@@ -16,18 +15,9 @@
             </div>
           <% end %>
 
-         <div class="form-group">
-            <%=f.fields_for :settings do |ff| %>
-              <%= ff.label field_name %><br>
-              <%= ff.check_box field_name, {checked: account.settings[field_name]}, "true", "false" %>
-            <% end %>
-         </div>
-         <div class="panel-footer">
-          <%= f.submit class: 'btn btn-primary pull-right' %> <br>
-          <h1> <%= link_to "Back",  hyku_addons.admin_account_settings_path, class: "btn btn-xs btn-default  pull-right" %></h1>
+          <%= render 'hyku_addons/account_settings/settings/boolean_field_content', field_name: field_name, f: f, display_save_button: true %>
 
-         </div>
-       <% end %>
+      <% end %>        
     </div>
 
   </div>

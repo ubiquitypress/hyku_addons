@@ -19,10 +19,69 @@ module HykuAddons
                      :creator_roles, :html_required, :licence_list, :sign_up_link, :allow_signup, :redirect_on
 
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
+      after_initialize :set_jsonb_help_texts_default_keys, :set_jsonb_work_unwanted_fields_default_keys
+      after_initialize :set_jsonb_required_json_property_default_keys, :set_jsonb_html_required_default_keys
+      after_initialize :set_jsonb_metadata_labels_default_keys, :set_jsonb_licence_list_default_keys
+      before_save :remove_settings_hash_key_with_nil_value
     end
 
     def datacite_endpoint
       super || NilDataCiteEndpoint.new
     end
+
+    private
+
+      def set_jsonb_help_texts_default_keys
+        return if settings['help_texts'].present?
+        self.help_texts = {
+          subject: nil, org_unit: nil, refereed: nil, additional_information: nil,
+          publisher: nil, volume: nil, pagination: nil, isbn: nil, issn: nil,
+          duration: nil, version: nil, keyword: nil
+        }
+      end
+
+      def set_jsonb_work_unwanted_fields_default_keys
+        return if settings['work_unwanted_fields'].present?
+        self.work_unwanted_fields = {
+          book_chapter: nil, article: nil, news_clipping: nil
+        }
+      end
+
+      # populate with names of json keys that should be required eg "media": ["creator_institutional_relationship"]
+      # means "creator_institutional_relationship" is required for media work_type
+      def set_jsonb_required_json_property_default_keys
+        return if settings['required_json_property'].present?
+        self.required_json_property = { media: [], presentation: [], text_work: [], uncategorized: [],
+                                        news_clipping: [], article_work: [], book_work: [],
+                                        image_work: [], thesis_or_dissertation_work: [] }
+      end
+
+      def set_jsonb_metadata_labels_default_keys
+        return if settings['metadata_labels'].present?
+        self.metadata_labels = {
+          institutional_relationship: nil, family_name: nil, given_name: nil,
+          org_unit: nil, version_number: nil
+        }
+      end
+
+      def set_jsonb_html_required_default_keys
+        return if settings['html_required'].present?
+        self.html_required = {
+          contributor: nil
+        }
+      end
+
+      def set_jsonb_licence_list_default_keys
+        return if settings['licence_list'].present?
+        self.licence_list = {
+          name: nil, value: nil
+        }
+      end
+
+      def remove_settings_hash_key_with_nil_value
+        ['help_texts', 'work_unwanted_fields', 'required_json_property', 'metadata_labels', 'html_required'].each do |key|
+          settings[key].delete_if { |_hash_key, value| value.blank? } if settings[key].class == Hash
+        end
+      end
   end
 end
