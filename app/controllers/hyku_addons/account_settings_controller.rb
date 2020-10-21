@@ -9,6 +9,7 @@ module HykuAddons
     def index; end
 
     def edit
+      # instance variables to pass values to the js.erb files
       @field_name = params[:field_name]
       respond_to do |format|
         format.js { render template: "/hyku_addons/account_settings/settings/#{params[:partial_name]}.js.erb" }

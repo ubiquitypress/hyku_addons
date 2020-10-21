@@ -45,7 +45,7 @@ RSpec.describe 'AccountSettings', type: :system do
   describe 'Single settings key' do
     context "Display in-place edit form for single key" do
       it 'Display in-place edit' do
-        visit hyku_addons.edit_admin_account_setting_url(id: account.id, partial_name: 'contact_email')
+        visit hyku_addons.edit_admin_account_setting_url(id: account.id, partial_name: 'render_text_fields', field_name: 'contact_email')
         expect(page).to have_content('email')
         expect(find_field('account[settings][contact_email]').value).to eq account.settings['contact_email']
         expect(page).to have_link('Back')
@@ -55,12 +55,23 @@ RSpec.describe 'AccountSettings', type: :system do
 
     context "Update single settings key" do
       it 'save contact_email' do
-        visit hyku_addons.edit_admin_account_setting_url(id: account.id, partial_name: 'contact_email')
+        visit hyku_addons.edit_admin_account_setting_url(id: account.id, partial_name: 'render_text_fields', field_name: 'contact_email')
         expect(find_field('account[settings][contact_email]').value).to eq account.settings['contact_email']
         find_field('account[settings][contact_email]').set 'do@do.com'
         click_button 'Save changes'
         account.reload
         expect(account.settings['contact_email']).to eq('do@do.com')
+      end
+
+      it "can update a settings with hash value" do
+        visit hyku_addons.edit_admin_account_setting_url(id: account.id, partial_name: 'render_hash_settingss', field_name: 'work_unwanted_fields')
+        expect(page).to have_css('label', text: 'Work unwanted fields')
+        expect(page).to have_css('label', text: 'Book chapter')
+        find_field("account[settings][work_unwanted_fields][book_chapter]").set "library_of_congress_classification,related_identifier,alternate_identifier,dewey,series_name,
+                                                                                fndr_project_ref,funder,project_name,isbn"
+        click_button 'Save changes'
+        account.reload
+        expect(account.settings['work_unwanted_fields']['book_chapter']).to include('isbn')
       end
     end
   end

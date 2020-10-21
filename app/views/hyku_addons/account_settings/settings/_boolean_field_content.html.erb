@@ -1,0 +1,13 @@
+<div class="form-group">
+<%=f.fields_for :settings do |ff| %>
+  <%= ff.label field_name %><br>
+  <%= ff.check_box field_name, {checked: @account.settings[field_name]}, true, false %>
+<% end %>
+</div>
+
+<% if  display_save_button == true %>
+<div class="panel-footer">
+ <%= f.submit class: 'btn btn-primary pull-right' %> <br>
+ <h1> <%= link_to "Back",  hyku_addons.admin_account_settings_path, class: "btn btn-xs btn-default  pull-right" %></h1>
+</div>
+<% end %>

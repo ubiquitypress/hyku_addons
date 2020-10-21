@@ -1,13 +1,8 @@
-<!-- This partial is shared by the three field (weekly_email, monthly_email, yearly_email) called form each individual filed partial
--weekly_email_list.htm.erb
--monthly_email_list.htm.erb
--yearly_email_list.htm.erb
--->
 <div class="row">
   <div class="col-md-12">
 
     <div class="panel panel-default account-form">
-    <%= form_for(account, url: hyku_addons.update_single_admin_account_setting_path(account), :html => { class: 'form control' }) do |f| %>
+    <%= form_for(@account, url: hyku_addons.update_single_admin_account_setting_path(account), :html => { class: 'form control' }) do |f| %>
         <div class="panel-body">
           <% if @account.errors.any? %>
             <div id="error_explanation">
@@ -19,10 +14,10 @@
               </ul>
             </div>
           <% end %>
-
-          <%= render 'hyku_addons/account_settings/settings/array_list_content', field_name: field_name, html_name_element: field_name, f: f, display_save_button: true %>
-    <% end %>   
-   
+          
+          <%= render 'hyku_addons/account_settings/settings/hash_settings_content', field_name: field_name, f: f, display_save_button: true %>
+      <% end %>
     </div>
+
   </div>
 </div>
