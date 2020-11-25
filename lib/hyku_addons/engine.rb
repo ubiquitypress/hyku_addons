@@ -5,14 +5,6 @@ module HykuAddons
   class Engine < ::Rails::Engine
     isolate_namespace HykuAddons
 
-    # # Automount this engine
-    # # Only do this because this is just for us and we don't need to allow control over the mount to the application
-    # initializer 'hyku_additions.routes' do |app|
-    #   app.routes.append do
-    #     mount HykuAddons::Engine, at: '/'
-    #   end
-    # end
-
     config.before_initialize do
       # Eager load required for overrides in the initializer below
       # There is probably a better solution for this but I don't think it is worth the time
@@ -118,10 +110,14 @@ module HykuAddons
       if Rails.env == 'development' || Rails.env == 'test'
         # Resolves Missing host to link to! Please provide the :host parameter, set default_url_options[:host], or set :only_path to true
         HykuAddons::Engine.routes.default_url_options = { host: 'lvh.me:3000' }
+      end
+    end
 
-        Rails.application.routes.prepend do
-          mount HykuAddons::Engine => '/'
-        end
+    # Automount this engine
+    # Only do this because this is just for us and we don't need to allow control over the mount to the application
+    config.after_initialize do
+      Rails.application.routes.prepend do
+        mount HykuAddons::Engine => '/'
       end
     end
   end
