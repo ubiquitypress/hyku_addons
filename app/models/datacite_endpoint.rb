@@ -17,7 +17,7 @@ class DataCiteEndpoint < ::Endpoint
   end
 
   def self.reset!
-    Hyrax::DOI::DataCiteRegistrar.mode = nil
+    Hyrax::DOI::DataCiteRegistrar.mode = :test
     Hyrax::DOI::DataCiteRegistrar.prefix = nil
     Hyrax::DOI::DataCiteRegistrar.username = nil
     Hyrax::DOI::DataCiteRegistrar.password = nil
