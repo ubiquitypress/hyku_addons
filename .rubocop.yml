@@ -9,8 +9,14 @@ AllCops:
     - 'spec/internal_test_hyku/**/*'
     - 'vendor/**/*'
 
+Metrics/ModuleLength:
+  Exclude:
+    - 'app/models/concerns/hyku_addons/generic_work_overrides.rb'
+
 Metrics/BlockLength:
   Exclude:
+    - 'app/models/concerns/hyku_addons/generic_work_overrides.rb'
+    - 'app/models/concerns/hyku_addons/solr_document_behavior.rb'
     - 'hyku_addons.gemspec'
     - 'lib/hyku_addons/engine.rb'
     - 'spec/**/*.rb'
