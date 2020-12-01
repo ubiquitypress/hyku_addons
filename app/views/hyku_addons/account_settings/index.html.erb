@@ -19,15 +19,15 @@
 
     <% ['contact_email', 'gtm_id', 'demo_gtm_id', 'live', 'institutional_relationship', 'creator_fields', 'contributor_fields'].each do |fname| %>
       <tr>
-        <td id= "link-<%= fname %>"><b><%= fname %>:</b> <%= @account && @account.settings && @account.settings[fname] %> </td> <br>
+        <td id= "link-<%= fname %>"><b><%= fname.humanize %>:</b> <%= @account && @account.settings && @account.settings[fname] %> </td> <br>
         <td><%= link_to "Edit #{fname}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_text_fields', field_name: fname), class: "btn btn-xs btn-default",  remote: true %></td>
         </tr>
     <% end %>
 
     <tr><td <b> Array fields that hold a list </b></td> </tr>
-    <% ['weekly_email_list', 'monthly_email_list', 'yearly_email_list' 'email_format', 'work_type_list', 'contributor_roles', 'creator_roles'].each do |fname| %>
+    <% ['weekly_email_list', 'monthly_email_list', 'yearly_email_list', 'email_format', 'work_type_list', 'contributor_roles', 'creator_roles'].each do |fname| %>
       <tr>
-        <td id= "link-<%= fname %>"><b> <%= fname %>: </b> <%= @account && @account.settings && @account.settings[fname].try(:to_sentence) %></td> <br>
+        <td id= "link-<%= fname %>"><b> <%= fname.humanize %>: </b> <%= @account && @account.settings && @account.settings[fname].try(:to_sentence) %></td> <br>
         <td><%=link_to "Edit #{fname}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_array_list', field_name: fname), class: "btn btn-xs btn-default", remote: true  %></td>
       </tr>
     <% end %>
@@ -35,7 +35,7 @@
     <tr><td <b> Hash fields that hold a list </b></td> </tr>
     <% ['help_texts', 'work_unwanted_fields', 'required_json_property', 'metadata_labels', 'html_required'].each do|fname| %>
       <tr>
-        <td id= "link-<%= fname %>"><b> <%= fname %>: </b> <%= @account && @account.settings && @account.settings[fname].try(:to_sentence) %></td> <br>
+        <td id= "link-<%= fname %>"><b> <%= fname.humanize %>: </b> <%= @account && @account.settings && @account.settings[fname].try(:to_sentence) %></td> <br>
         <td><%=link_to "Edit #{fname}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_hash_settings', field_name: fname), class: "btn btn-xs btn-default",  remote: true  %></td>
       </tr>
     <% end %>
@@ -44,11 +44,10 @@
     <% ["sign_up_link", 'redirect_on', 'allow_signup', "hide_form_relationship_tab", "index_record_to_shared_search",
           "shared_login", "turn_off_fedora_collection_work_association",'enabled_doi', 'institutional_relationship_picklist'].each do |fname| %>
             <tr>
-              <td id= "link-<%= fname %>"><b><%= fname %>:</b> <%= @account && @account.settings && @account.settings[fname] %> </td> <br> 
+              <td id= "link-<%= fname %>"><b><%= fname.humanize %>:</b> <%= @account && @account.settings && @account.settings[fname] %> </td> <br>
               <td><%= link_to "Edit #{fname}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_single_boolean', field_name: fname), class: "btn btn-xs btn-default",  remote: true %></td>
             </tr>
     <% end %>
-  
+
   </tbody>
 </table>
-

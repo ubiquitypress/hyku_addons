@@ -1,0 +1,32 @@
+en:
+  settings:
+    helptexts:
+      gtm_id: The ID of your Google Tag Manager account
+      demo_gtm_id: ID of your Demo GTM account
+      contact_email: Email recipient of messages sent via the contact form
+      institutional_relationship: Define the institutional relationship dropdown list
+      weekly_email_list: Email Addresses to email the weekly report
+      monthly_email_list: Email Addresses to email the monthly report
+      yearly_email_list: Email Addresses to email the yearly report
+      email_format: Set an email format for emails that may sign up in the format (@gmail.com)
+      contributor_roles: List of roles contributors to the work can include
+      creator_roles: List of roles creators to the work can include
+      help_texts: Change the help texts that appear on the deposit forms
+      work_unwanted_fields: List of fields to be removed from deposit forms
+      required_json_property: Adds creator_institutional_relationship dropdown to work types. Not sure we want this here
+      metadata_labels: Change the labels of metadata fields on deposit forms
+      html_required: Adds the required flag to a field (This currently is only implemented for contributor but I think it would be a cool setting to have)
+      sign_up_link: Display a link to the Sign up page on the dashboard
+      redirect_on: Redirect to the front end after a work is created
+      allow_signup: Allow users to sign up to your repository
+      hide_form_relationship_tab: Shows the relationship tab on the form
+      index_record_to_shared_search:
+      enabled_doi: Enable DOI minting
+      institutional_relationship_picklist: Enable or Disable Institutional Relationship Picklist
+      # Eveything below this line I am pretty confident we want to remove from the list
+      shared_login: Would we ever want this off?
+      live: Sets the URL for the live site, I DON'T THINK WE WANT THIS HERE
+      creator_fields: I DON'T THINK WE WANT THIS HERE
+      contributor_fields: I DON'T THINK WE WANT THIS HERE
+      work_type_list: I DON'T THINK WE WANT THIS HERE
+      turn_off_fedora_collection_work_association: I think we always want this set to true?
