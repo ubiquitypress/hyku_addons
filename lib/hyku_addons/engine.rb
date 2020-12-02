@@ -128,6 +128,7 @@ module HykuAddons
       Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
       SolrDocument.include HykuAddons::SolrDocumentBehavior
       Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
+      CatalogController.include HykuAddons::CatalogControllerBehavior
     end
   end
 end
