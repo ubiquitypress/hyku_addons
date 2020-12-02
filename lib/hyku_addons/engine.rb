@@ -16,7 +16,7 @@ module HykuAddons
       end
     end
 
-    initializer 'hyku_additions.class_overrides_for_hyrax-doi' do
+    initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
       require_dependency 'hyrax/search_state'
 
       # Cannot do prepend here because it causes it to get loaded before AcitveRecord breaking things
@@ -96,7 +96,7 @@ module HykuAddons
     end
 
     # Add migrations to parent app paths
-    initializer :append_migrations do |app|
+    initializer 'hyku_addons.append_migrations' do |app|
       Hyku::Application.default_url_options[:host] = 'lvh.me:3000'
       unless app.root.to_s.match?(root.to_s)
         config.paths['db/migrate'].expanded.each do |expanded_path|
@@ -119,6 +119,15 @@ module HykuAddons
       Rails.application.routes.prepend do
         mount HykuAddons::Engine => '/'
       end
+    end
+
+    # Pre-existing Work type overrides
+    initializer 'hyku_addons.work_type_overrides' do
+      GenericWork.include HykuAddons::GenericWorkOverrides
+      GenericWork.include ::Hyrax::BasicMetadata
+      Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
+      SolrDocument.include HykuAddons::SolrDocumentBehavior
+      Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
     end
   end
 end

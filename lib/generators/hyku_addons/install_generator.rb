@@ -15,5 +15,13 @@ module HykuAddons
 
       # generate 'hyrax:doi:add_to_work_type GenericWork --datacite'
     end
+
+    def inject_overrides_into_curation_concerns
+      insert_into_file(Rails.root.join('app', 'models', 'generic_work.rb'), before: /^  include ::Hyrax::BasicMetadata/) do
+        "\n  # HykuAddons initializer will include more modules and then close the work with this include\n  #"
+      end
+      # Replace hyku override to avoid #doi and #isbn methods
+      gsub_file(Rails.root.join('app', 'presenters', 'hyrax', 'generic_work_presenter.rb'), '< Hyku::WorkShowPresenter', '< Hyrax::WorkShowPresenter')
+    end
   end
 end
