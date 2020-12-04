@@ -56,6 +56,18 @@ module HykuAddons
       attribute :alternative_journal_title, SolrDocument::Solr::Array, solr_name('alternative_journal_title')
       attribute :collection_names, SolrDocument::Solr::Array, solr_name('collection_names')
       attribute :collection_id, SolrDocument::Solr::Array, solr_name('collection_id')
+
+      # Override OAI-PMH field mappings
+      field_semantics.merge!(
+        contributor: ['contributor_list_tesim', 'editor_list_tesim', 'funder_tesim'],
+        creator: 'creator_search_tesim',
+        date: 'date_published_tesim',
+        description: 'abstract_oai_tesim',
+        identifier: ['official_link_oai_tesim', 'doi_tesim', 'all_orcid_isni_tesim', 'work_tenant_url_tesim', 'collection_tenant_url_tesim'],
+        relation: 'journal_title_tesim',
+        rights: 'license_tesim',
+        subject: 'keyword_tesim'
+      )
     end
   end
 end

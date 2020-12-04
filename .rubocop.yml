@@ -11,15 +11,21 @@ AllCops:
 
 Metrics/ModuleLength:
   Exclude:
+    - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
     - 'app/models/concerns/hyku_addons/generic_work_overrides.rb'
 
 Metrics/BlockLength:
   Exclude:
+    - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
     - 'app/models/concerns/hyku_addons/generic_work_overrides.rb'
     - 'app/models/concerns/hyku_addons/solr_document_behavior.rb'
     - 'hyku_addons.gemspec'
     - 'lib/hyku_addons/engine.rb'
     - 'spec/**/*.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
 
 RSpec/DescribeClass:
   Exclude:
