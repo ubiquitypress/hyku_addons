@@ -14,10 +14,5 @@ module HykuAddons
                       library_of_congress_classification add_info rendering_ids]
       self.required_fields = %i[title creator resource_type institution]
     end
-
-    # # Force title to display singularly
-    # def title
-    #   super.first || ""
-    # end
   end
 end
