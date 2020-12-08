@@ -24,7 +24,7 @@ module HykuAddons
       after_initialize :set_jsonb_help_texts_default_keys, :set_jsonb_work_unwanted_fields_default_keys
       after_initialize :set_jsonb_required_json_property_default_keys, :set_jsonb_html_required_default_keys
       after_initialize :set_jsonb_metadata_labels_default_keys, :set_jsonb_licence_list_default_keys
-      before_validation :map_array_fields, on: [:create, :update_single, :update, :edit]
+      before_validation :map_array_fields
       before_save :remove_settings_hash_key_with_nil_value
       validates :gtm_id, :demo_gtm_id, format: { with: /GTM-[A-Z0-9]{4,7}/, message: "Invalid GTM ID" }, allow_blank: true
       validates :contact_email, format: { with: email_validation_format }, allow_blank: true
