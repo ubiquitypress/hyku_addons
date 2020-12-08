@@ -3,7 +3,9 @@
 module HykuAddons
   module AccountBehavior
     extend ActiveSupport::Concern
+    include ActiveModel::Validations
     included do
+      email_validation_format = URI::MailTo::EMAIL_REGEXP
       belongs_to :datacite_endpoint, dependent: :delete
       has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :destroy, inverse_of: :parent
       belongs_to :parent, class_name: "Account", inverse_of: :parent, foreign_key: "parent_id", optional: true
@@ -22,7 +24,11 @@ module HykuAddons
       after_initialize :set_jsonb_help_texts_default_keys, :set_jsonb_work_unwanted_fields_default_keys
       after_initialize :set_jsonb_required_json_property_default_keys, :set_jsonb_html_required_default_keys
       after_initialize :set_jsonb_metadata_labels_default_keys, :set_jsonb_licence_list_default_keys
+      before_validation :map_array_fields, on: [:create, :update_single, :update, :edit]
       before_save :remove_settings_hash_key_with_nil_value
+      validates :gtm_id, :demo_gtm_id, format: { with: /GTM-[A-Z0-9]{4,7}/, message: "Invalid GTM ID" }, allow_blank: true
+      validates :contact_email, format: { with: email_validation_format }, allow_blank: true
+      validate :validate_email_format, :validate_contact_emails
     end
 
     def datacite_endpoint
@@ -30,6 +36,18 @@ module HykuAddons
     end
 
     private
+      def validate_email_format
+        return unless settings['email_format'].present?
+        settings['email_format'] = settings['email_format'].grep(/@\S*\.\S*/)
+      end
+
+      def validate_contact_emails
+        email_validation_format = URI::MailTo::EMAIL_REGEXP
+        ['weekly_email_list', 'monthly_email_list', 'yearly_email_list'].each do |key|
+          next unless settings[key].present?
+          settings[key] = settings[key].grep(email_validation_format)
+        end
+      end
 
       def set_jsonb_help_texts_default_keys
         return if settings['help_texts'].present?
@@ -81,6 +99,13 @@ module HykuAddons
       def remove_settings_hash_key_with_nil_value
         ['help_texts', 'work_unwanted_fields', 'required_json_property', 'metadata_labels', 'html_required'].each do |key|
           settings[key].delete_if { |_hash_key, value| value.blank? } if settings[key].class == Hash
+        end
+      end
+
+      def map_array_fields
+        ['email_format', 'weekly_email_list', 'monthly_email_list', 'yearly_email_list', 'contributor_roles', 'creator_roles'].each do |key|
+          next if settings[key].blank?
+          settings[key].map! { |str| str.split(' ') }.flatten!
         end
       end
   end
