@@ -36,6 +36,7 @@ module HykuAddons
     end
 
     private
+    
       def validate_email_format
         return unless settings['email_format'].present?
         settings['email_format'] = settings['email_format'].grep(/@\S*\.\S*/)
