@@ -92,11 +92,11 @@ RSpec.describe 'AccountSettings', type: :system do
         visit hyku_addons.admin_account_settings_url
         click_on 'Edit all fields'
         find_field('account[settings][contact_email]').set 'do@do.com'
-        find_field('account[settings][weekly_email_list][]').set 'wema@we.yahoo.com;ba@bl.uk'
+        find_field('account[settings][weekly_email_list][]').set 'wema@we.yahoo.com ba@bl.uk'
         click_button 'Save changes'
         account.reload
         expect(account.settings['contact_email']).to eq('do@do.com')
-        expect(account.settings['weekly_email_list']).to eq ['wema@we.yahoo.com;ba@bl.uk']
+        expect(account.settings['weekly_email_list']).to eq ['wema@we.yahoo.com ba@bl.uk']
       end
     end
   end
