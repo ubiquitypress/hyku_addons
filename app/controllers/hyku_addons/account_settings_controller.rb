@@ -19,11 +19,13 @@ module HykuAddons
 
     def update
       @account.update(account_params)
+      map_array_fields(submitted_hash)
       redirect_to admin_account_settings_path
     end
 
     def update_single
       submitted_hash = account_params.to_h['settings']
+      map_array_fields(submitted_hash)
       hash_key = submitted_hash&.keys&.first || {}
       if hash_key.present?
         # update only the hash key without overriding other content in the original hash
@@ -40,7 +42,7 @@ module HykuAddons
       def account_params
         params.require(:account).permit(
           settings: [:contact_email, :index_record_to_shared_search, :live, :enabled_doi, :gtm_id,
-                     :demo_gtm_id, :turn_off_fedora_collection_work_association,
+                     :turn_off_fedora_collection_work_association,
                      :add_collection_list_form_display, :hide_form_relationship_tab, :shared_login,
                      :email_hint_text, :creator_fields, :contributor_fields, :sign_up_link, :allow_signup,
                      :redirect_on, :institutional_relationship_picklist, :institutional_relationship,
@@ -53,6 +55,13 @@ module HykuAddons
 
       def set_account
         @account = current_account
+      end
+
+      def map_array_fields(hash)
+        ['email_format', 'weekly_email_list', 'monthly_email_list', 'yearly_email_list', 'contributor_roles', 'creator_roles'].each do |key|
+          next if hash[key].blank?
+          hash[key].map! { |str| str.split(' ') }.flatten!
+        end
       end
   end
 end

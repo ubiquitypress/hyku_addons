@@ -145,10 +145,6 @@ RSpec.describe HykuAddons::AccountBehavior do
         expect(account.settings['gtm_id']).to eq "GTM-123456"
       end
 
-      it "has demo_gtm_id" do
-        expect(account.settings['demo_gtm_id']).to eq "GTM-123456"
-      end
-
       it "contains work_type_list" do
         expect(account.settings['work_type_list']).to include("ArticleWork,BookWork")
       end

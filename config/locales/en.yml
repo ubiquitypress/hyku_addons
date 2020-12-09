@@ -2,7 +2,6 @@ en:
   settings:
     helptexts:
       gtm_id: The ID of your Google Tag Manager account
-      demo_gtm_id: ID of your Demo GTM account
       contact_email: Email recipient of messages sent via the contact form
       institutional_relationship: Define the institutional relationship dropdown list
       weekly_email_list: List of email addresses to email the weekly report. Leave a single space between each email
