@@ -29,7 +29,7 @@ module HykuAddons
     end
 
     def inject_javascript
-      insert_into_file(Rails.root.join('app','assets', 'javascripts', 'application.js'), after: /require hyrax$/) do
+      insert_into_file(Rails.root.join('app', 'assets', 'javascripts', 'application.js'), after: /require hyrax$/) do
         "\n//= require hyku_addons"
       end
     end

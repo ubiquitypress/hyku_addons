@@ -60,7 +60,15 @@ RSpec.describe 'Create a GenericWork', js: true do
       click_link "Descriptions" # switch tab
       click_link "Additional fields" # expand form for additional fields
       fill_in('Title', with: 'My Test Work')
-      fill_in('Creator', with: 'Doe, Jane')
+      # Fill in complex creator
+      # select('Personal', from: 'Creator name type')
+      # fill_in('Creator family name', with: 'Hawkins')
+      # fill_in('Creator given name', with: 'Stephen')
+      # fill_in('Creator ORCID', with: '0000-0002-9079-593X')
+      # select('Staff member', from: 'Creator institutional relationship')
+      # fill_in('Creator ISNI', with: '0000 0001 2103 4996')
+      # End creator
+
       fill_in('Keyword', with: 'testing')
       select('Article', from: 'Resource type')
       fill_in('Institution', with: 'Advancing Hyku')
@@ -77,6 +85,11 @@ RSpec.describe 'Create a GenericWork', js: true do
 
       click_on('Save')
       expect(page).to have_content('My Test Work')
+      # Creator
+      # expect(page).to have_content('Hawkins, Stephen')
+      # expect(page).to have_link('https://orcid.org/0000-0002-9079-593X')
+      # expect(page).to have_link('https://isni.org/isni/0000000121034996')
+      # End creator
       expect(page).to have_content('Advancing Hyku')
       expect(page).to have_content "Your files are being processed by Hyku in the background."
     end
