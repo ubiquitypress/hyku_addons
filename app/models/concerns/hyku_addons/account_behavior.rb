@@ -3,6 +3,7 @@
 module HykuAddons
   module AccountBehavior
     extend ActiveSupport::Concern
+    include ActiveModel::Validations
     included do
       belongs_to :datacite_endpoint, dependent: :delete
       has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :destroy, inverse_of: :parent
@@ -11,7 +12,7 @@ module HykuAddons
       store_accessor :data, :is_parent
       store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
                      :index_record_to_shared_search, :google_scholarly_work_types,
-                     :live, :enabled_doi, :gtm_id, :demo_gtm_id, :turn_off_fedora_collection_work_association,
+                     :live, :enabled_doi, :gtm_id, :turn_off_fedora_collection_work_association,
                      :add_collection_list_form_display, :hide_form_relationship_tab, :shared_login,
                      :work_type_list, :email_hint_text, :email_format, :help_texts, :work_unwanted_fields,
                      :required_json_property, :creator_fields, :contributor_fields, :metadata_labels,
@@ -23,6 +24,9 @@ module HykuAddons
       after_initialize :set_jsonb_required_json_property_default_keys, :set_jsonb_html_required_default_keys
       after_initialize :set_jsonb_metadata_labels_default_keys, :set_jsonb_licence_list_default_keys
       before_save :remove_settings_hash_key_with_nil_value
+      validates :gtm_id, format: { with: /GTM-[A-Z0-9]{4,7}/, message: "Invalid GTM ID" }, allow_blank: true
+      validates :contact_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
+      validate :validate_email_format, :validate_contact_emails
     end
 
     def datacite_endpoint
@@ -30,6 +34,22 @@ module HykuAddons
     end
 
     private
+
+      def validate_email_format
+        return unless settings['email_format'].present?
+        settings['email_format'].each do |email|
+          errors.add(:email_format) unless email.match?(/@\S*\.\S*/)
+        end
+      end
+
+      def validate_contact_emails
+        ['weekly_email_list', 'monthly_email_list', 'yearly_email_list'].each do |key|
+          next unless settings[key].present?
+          settings[key].each do |email|
+            errors.add(:"#{key}") unless email.match?(URI::MailTo::EMAIL_REGEXP)
+          end
+        end
+      end
 
       def set_jsonb_help_texts_default_keys
         return if settings['help_texts'].present?
