@@ -33,5 +33,19 @@ module HykuAddons
         "\n//= require hyku_addons"
       end
     end
+
+    def inject_into_helper
+      # rubocop:disable Style/RedundantSelf
+      # For some reason I had to use self.destination_root here to get all contexts to work (calling from hyrax app, calling from this engine to test app, rspec tests)
+      self.destination_root = Rails.root if self.destination_root.blank? || self.destination_root == HykuAddons::Engine.root.to_s
+      helper_file = File.join(self.destination_root, 'app', 'helpers', "hyrax_helper.rb")
+      # rubocop:enable Style/RedundantSelf
+
+      insert_into_file helper_file, after: 'include Hyrax::HyraxHelperBehavior' do
+        "\n" \
+        "  # Helpers provided by hyku_addons plugin.\n" \
+        "  include HykuAddons::HelperBehavior"
+      end
+    end
   end
 end

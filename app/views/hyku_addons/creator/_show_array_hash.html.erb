@@ -1,0 +1,62 @@
+<tr>
+  <th>Creator</th>
+  <td>
+    <ul class="tabular">
+      <% array_of_hash.each do |hash| %>
+        <li class="attribute creator">
+          <span itemprop="creator" style="float:left">
+            <% order_ary = ['creator_family_name', 'creator_given_name', 'creator_organization_name']%>
+            <%= display_data_with_comma_separated(hash, order_ary)%>
+           </span>
+           <span itemprop="creator">
+             <% if display_paren?(hash.keys, ["creator_orcid", 'creator_isni', 'creator_ror', 'creator_grid', 'creator_wikidata']) %>
+               <span style="float:left" >&nbsp;(</span>
+                 <% if hash['creator_orcid'].present? %>
+                   <% orcid_id = hash['creator_orcid'] %>
+                     <a href='<%= render_isni_or_orcid_url("#{orcid_id}", "orcid") %>'  target="_blank">
+                     <img src="https://s3-eu-west-1.amazonaws.com/service-hyku-oar-importer/orcid_16x16.png" alt="ORCID"  height="16" width="16" class="img-responsive"  style="float:left"  >
+                   </a>
+                 <% end %>
+
+                 <% if add_image_space?(hash.keys) %>
+                   <span style="float:left" >&nbsp;</span>
+                 <% end %>
+
+                 <% if hash['creator_isni'].present? %>
+                   <% isni_id = hash['creator_isni'] %>
+                   <a href='<%= render_isni_or_orcid_url("#{isni_id}", "isni") %>'  target="_blank">
+                   <img src="
+                      https://s3-eu-west-1.amazonaws.com/service-hyku-oar-importer/logo_xml_isni-16.gif" alt="ISNI"  height="16" width="16" class="img-responsive" style="float:left"  >
+                   </a>
+                 <% end %>
+
+                 <% hash.slice(*["creator_ror",  "creator_grid", "creator_wikidata"]).each do |key, value| %>
+
+                   <% if add_image_space?(hash.keys) %>
+                     <span style="float:left" >&nbsp;</span>
+                   <% end %>
+
+                   <%  hash_key = key.dup %>
+                   <% hash_key.slice!("creator_") %>
+
+                   <% if hash[key].present? && contains_full_url_path?(value) %>
+
+                     <a href='<%= "#{value}" %>'  target="_blank">
+                       <img src=" " alt=<%= "#{hash_key.upcase}" %>  class="img-responsive" style="float:left" >
+                     </a>
+                   <% elsif hash[key].present?  %>
+                     <a href='<%= "#{match_key_to_url(hash_key)}" + "#{value}" %>'  target="_blank">
+                       <img src=" " alt='<%= "#{hash_key.upcase}" %>'  class="img-responsive" style="float:left" >
+                     </a>
+                   <% end  %>
+                 <% end %>
+
+               <span>)</span>
+            <% end %>
+          </span>
+          <br/>
+        </li>
+      <% end %>
+    </ul>
+  </td>
+</tr>
