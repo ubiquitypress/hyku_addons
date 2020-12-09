@@ -24,14 +24,10 @@ module HykuAddons
     end
 
     def update_single
-      hash_key = account_params&.keys&.first || {}
-      if hash_key.present?
-        # update only the hash key without overriding other content in the original hash
-        @account.settings[hash_key] = submitted_hash[hash_key]
-        # removes nil keys in the hash
-        @account.settings.compact
-        @account.save
-      end
+      @account.settings.merge!(account_params['settings'])
+      # removes nil keys in the hash
+      @account.settings.compact
+      @account.save if @account.settings_changed?
       redirect_to admin_account_settings_path
     end
 
