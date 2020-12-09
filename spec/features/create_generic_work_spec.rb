@@ -50,7 +50,8 @@ RSpec.describe 'Create a GenericWork', js: true do
       click_button "Create work"
 
       # expect(page).to have_content "Add New Work"
-      click_link "Files" # switch tab
+      # click_link "Files" # switch tab
+      page.find('a[href="#files"]').click
       expect(page).to have_content "Add files"
       expect(page).to have_content "Add folder"
       within('span#addfiles') do
@@ -61,12 +62,12 @@ RSpec.describe 'Create a GenericWork', js: true do
       click_link "Additional fields" # expand form for additional fields
       fill_in('Title', with: 'My Test Work')
       # Fill in complex creator
-      # select('Personal', from: 'Creator name type')
-      # fill_in('Creator family name', with: 'Hawkins')
-      # fill_in('Creator given name', with: 'Stephen')
-      # fill_in('Creator ORCID', with: '0000-0002-9079-593X')
-      # select('Staff member', from: 'Creator institutional relationship')
-      # fill_in('Creator ISNI', with: '0000 0001 2103 4996')
+      select('Personal', from: 'generic_work_creator_group__creator_name_type')
+      fill_in('generic_work_creator_group__creator_family_name', with: 'Hawking')
+      fill_in('generic_work_creator_group__creator_given_name', with: 'Stephen')
+      fill_in('generic_work_creator_group__creator_orcid', with: '0000-0002-9079-593X')
+      select('Staff member', from: 'generic_work_creator_group__creator_institutional_relationship_')
+      fill_in('generic_work_creator_group__creator_isni', with: '0000 0001 2103 4996')
       # End creator
 
       fill_in('Keyword', with: 'testing')
@@ -83,7 +84,8 @@ RSpec.describe 'Create a GenericWork', js: true do
       # rubocop:enable Metrics/LineLength
       check('agreement')
 
-      click_on('Save')
+      # click_on('Save')
+      page.find('input[name=save_with_files]').click
       expect(page).to have_content('My Test Work')
       # Creator
       # expect(page).to have_content('Hawkins, Stephen')
