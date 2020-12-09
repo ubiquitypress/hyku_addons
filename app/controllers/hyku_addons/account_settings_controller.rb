@@ -5,6 +5,7 @@ require_dependency "hyku_addons/application_controller"
 module HykuAddons
   class AccountSettingsController < AdminController
     before_action :set_account
+    before_action :map_array_fields, only: [:update, :update_single]
 
     def index; end
 
@@ -23,9 +24,7 @@ module HykuAddons
     end
 
     def update_single
-      submitted_hash = account_params.to_h['settings']
-      map_array_fields(submitted_hash)
-      hash_key = submitted_hash&.keys&.first || {}
+      hash_key = account_params&.keys&.first || {}
       if hash_key.present?
         # update only the hash key without overriding other content in the original hash
         @account.settings[hash_key] = submitted_hash[hash_key]
@@ -56,10 +55,10 @@ module HykuAddons
         @account = current_account
       end
 
-      def map_array_fields(hash)
+      def map_array_fields
         ['email_format', 'weekly_email_list', 'monthly_email_list', 'yearly_email_list', 'contributor_roles', 'creator_roles'].each do |key|
-          next if hash[key].blank?
-          hash[key].map! { |str| str.split(' ') }.flatten!
+          next if params['account']['settings'][key].blank?
+          params['account']['settings'][key].map! { |str| str.split(' ') }.flatten!
         end
       end
   end
