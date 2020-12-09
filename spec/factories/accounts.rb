@@ -14,8 +14,8 @@ FactoryBot.modify do
     datacite_endpoint
     settings do
       {
-        contact_email: 'abc@abc.com', weekly_email_list: ["aaa@aaa.com, bbb@bl.uk"], monthly_email_list: ["aaa@aaa.com, bbb@bl.uk"],
-        yearly_email_list: ["aaa@aaa.com, bbb@bl.uk"],
+        contact_email: 'abc@abc.com', weekly_email_list: ["aaa@aaa.com", "bbb@bl.uk"], monthly_email_list: ["aaa@aaa.com", "bbb@bl.uk"],
+        yearly_email_list: ["aaa@aaa.com", "bbb@bl.uk"],
         index_record_to_shared_search: true, google_scholarly_work_types: ['Article', 'Book', 'ThesisOrDissertation', 'BookChapter'],
         gtm_id: "GTM-123456", enable_doi: false, live: "commons.pacificu.edu",
         turn_off_fedora_collection_work_association: true, hide_form_relationship_tab: true, shared_login: true,

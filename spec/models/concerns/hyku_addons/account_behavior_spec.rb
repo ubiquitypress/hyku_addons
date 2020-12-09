@@ -98,17 +98,17 @@ RSpec.describe HykuAddons::AccountBehavior do
       end
 
       it "has key weekly_email_list" do
-        expect(account.settings['weekly_email_list']).to  eq ["aaa@aaa.com, bbb@bl.uk"]
+        expect(account.settings['weekly_email_list']).to  eq ["aaa@aaa.com", "bbb@bl.uk"]
         expect(account.settings['weekly_email_list']).to be_an_instance_of(Array)
       end
 
       it "has non empty month_email_list" do
-        expect(account.settings['monthly_email_list']).to  eq ["aaa@aaa.com, bbb@bl.uk"]
+        expect(account.settings['monthly_email_list']).to  eq ["aaa@aaa.com", "bbb@bl.uk"]
         expect(account.settings['monthly_email_list']).to be_an_instance_of(Array)
       end
 
       it "has non empty yearly_email_list" do
-        expect(account.settings['yearly_email_list']).to  eq ["aaa@aaa.com, bbb@bl.uk"]
+        expect(account.settings['yearly_email_list']).to  eq ["aaa@aaa.com", "bbb@bl.uk"]
         expect(account.settings['yearly_email_list']).to be_an_instance_of(Array)
       end
 

@@ -19,7 +19,6 @@ module HykuAddons
 
     def update
       @account.update(account_params)
-      map_array_fields(submitted_hash)
       redirect_to admin_account_settings_path
     end
 
