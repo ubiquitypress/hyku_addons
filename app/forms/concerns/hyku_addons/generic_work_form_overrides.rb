@@ -12,7 +12,7 @@ module HykuAddons
                       related_url related_exhibition related_exhibition_venue related_exhibition_date language license rights_statement
                       rights_holder doi qualification_name qualification_level alternate_identifier related_identifier refereed keyword dewey
                       library_of_congress_classification add_info rendering_ids]
-      self.required_fields = %i[title creator resource_type institution]
+      self.required_fields = %i[title resource_type creator institution]
     end
   end
 end
