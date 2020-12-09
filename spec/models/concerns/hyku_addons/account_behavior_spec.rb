@@ -87,7 +87,6 @@ RSpec.describe HykuAddons::AccountBehavior do
         account = Account.new
         account.send(:remove_settings_hash_key_with_nil_value)
         ['help_texts', 'work_unwanted_fields', 'required_json_property', 'metadata_labels', 'html_required'].each do |key|
-          puts account.settings[key].blank?
           expect(account.settings[key].blank?).to be_truthy
         end
       end
