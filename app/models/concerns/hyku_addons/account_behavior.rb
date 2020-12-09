@@ -38,7 +38,7 @@ module HykuAddons
       def validate_email_format
         return unless settings['email_format'].present?
         settings['email_format'].each do |email|
-          errors.add ( :email_format ) unless email.match(/@\S*\.\S*/)
+          errors.add(:email_format) unless email.match?(/@\S*\.\S*/)
         end
       end
 
@@ -46,7 +46,7 @@ module HykuAddons
         ['weekly_email_list', 'monthly_email_list', 'yearly_email_list'].each do |key|
           next unless settings[key].present?
           settings[key].each do |email|
-            errors.add (:"#{key}") unless email.match(URI::MailTo::EMAIL_REGEXP)
+            errors.add(:"#{key}") unless email.match?(URI::MailTo::EMAIL_REGEXP)
           end
         end
       end
