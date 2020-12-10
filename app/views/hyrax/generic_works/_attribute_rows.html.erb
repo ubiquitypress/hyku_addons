@@ -3,9 +3,8 @@
 <%= presenter.attribute_to_html(:alt_title, label: "Alternative Title", html_dl: true) %>
 <%= presenter.attribute_to_html(:resource_type, render_as: :faceted, html_dl: true) %>
 
-<%= presenter.attribute_to_html(:creator, html_dl: true) %>
+<%= render "hyku_addons/creator/show", presenter: presenter %>
 <%= presenter.attribute_to_html(:contributor, html_dl: true) %>
-<%#= render "shared/ubiquity/creator/show", presenter: presenter %>
 <%#= render "shared/ubiquity/contributor/show", presenter: presenter %>
 
 <%= presenter.attribute_to_html(:abstract, html_dl: true) %>

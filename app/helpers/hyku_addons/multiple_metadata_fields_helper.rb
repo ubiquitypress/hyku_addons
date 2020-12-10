@@ -68,7 +68,7 @@ module HykuAddons
         host.path = "/#{id}"
         host.to_s
       elsif type == "isni"
-        host = URI('http://www.isni.org')
+        host = URI('https://isni.org')
         host.path = "/isni/#{id}"
         host.to_s
       end

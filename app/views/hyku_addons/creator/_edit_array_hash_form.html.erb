@@ -7,14 +7,14 @@
       <label class="control-label multi_value optional" for="#{template}_creator_name_type">
         Creator name type</label>
 
-      <%= select_tag "#{template}[creator_group][][creator_name_type]", content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( HykuAddons::NameTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("creator_name_type")),
+      <%= select_tag "#{template}[creator][][creator_name_type]", content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( HykuAddons::NameTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("creator_name_type")),
                       class: 'ubiquity_creator_name_type', data: {field_name:'ubiquity_creator_name_type'} %>
 
     <% else %>
       <label class="control-label multi_value optional" for="#{template}_creator_name_type">
         Creator name type <span class="label label-info required-tag">required</span></label>
 
-      <%= select_tag "#{template}[creator_group][][creator_name_type]", content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( HykuAddons::NameTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("creator_name_type")),
+      <%= select_tag "#{template}[creator][][creator_name_type]", content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( HykuAddons::NameTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("creator_name_type")),
                     required: true, class: 'ubiquity_creator_name_type', data: {field_name:'ubiquity_creator_name_type'} %>
     <% end %>
 
@@ -26,10 +26,10 @@
     <label class="ubiquity_creator_organization_name_label control-label multi_value optional" for="#{template}_creator_organization_name">
       Creator organisation name</label>
 
-    <%= text_field_tag "#{template}[creator_group][][creator_organization_name]", hash.dig("creator_organization_name"),
+    <%= text_field_tag "#{template}[creator][][creator_organization_name]", hash.dig("creator_organization_name"),
                         class: "#{template}_creator_organization_name form-control multi-text-field multi_value ubiquity_creator_organization_name",
                         placeholder: 'Please enter the organisation\'s name.',
-                        name: "#{template}[creator_group][][creator_organization_name]",
+                        name: "#{template}[creator][][creator_organization_name]",
                         data: {field_name:'ubiquity_creator_organization_name'}
     %>
     <span style="color:red;" class="error">Please complete this field.</span>
@@ -38,10 +38,10 @@
     <label class="control-label multi_value optional" for="#{template}_creator_ror">
       Creator organisation ROR</label>
 
-    <%= text_field_tag "#{template}[creator_group][][creator_ror]",  hash.dig("creator_ror"),
-                       class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_ror",
+    <%= text_field_tag "#{template}[creator][][creator_ror]",  hash.dig("creator_ror"),
+                       class: "#{template}_creator form-control multi-text-field multi_value ubiquity_creator_ror",
                        placeholder: "Please enter the ROR ID, e.g. 05gknh003",
-                       name: "#{template}[creator_group][][creator_ror]",
+                       name: "#{template}[creator][][creator_ror]",
                        data: {field_name:'ubiquity_creator_ror'}
 
     %>
@@ -50,10 +50,10 @@
     <label class="control-label multi_value optional" for="#{template}_creator_grid">
       Creator organisation GRID </label>
 
-    <%= text_field_tag "#{template}[creator_group][][creator_grid]",  hash.dig("creator_grid"),
-                       class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_grid",
+    <%= text_field_tag "#{template}[creator][][creator_grid]",  hash.dig("creator_grid"),
+                       class: "#{template}_creator form-control multi-text-field multi_value ubiquity_creator_grid",
                        placeholder: "Please enter the GRID ID, e.g. grid.280362.d",
-                       name: "#{template}[creator_group][][creator_grid]",
+                       name: "#{template}[creator][][creator_grid]",
                        data: {field_name:'ubiquity_creator_grid'}
 
     %>
@@ -63,10 +63,10 @@
    <label class="control-label multi_value optional" for="#{template}_creator_wikidata">
      Creator organisation Wikidata </label>
 
-   <%= text_field_tag "#{template}[creator_group][][creator_wikidata]",  hash.dig("creator_wikidata"),
-                      class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_wikidata",
+   <%= text_field_tag "#{template}[creator][][creator_wikidata]",  hash.dig("creator_wikidata"),
+                      class: "#{template}_creator form-control multi-text-field multi_value ubiquity_creator_wikidata",
                       placeholder: "Please enter the Wikidata ID, e.g. Q23308",
-                      name: "#{template}[creator_group][][creator_wikidata]",
+                      name: "#{template}[creator][][creator_wikidata]",
                       data: {field_name:'ubiquity_creator_wikidata'}
 
    %>
@@ -78,10 +78,10 @@
       <label class="control-label multi_value optional" for="#{template}_creator_family">
         Creator family name</label>
 
-      <%= text_field_tag "#{template}[creator_group][][creator_family_name]", hash.dig("creator_family_name"),
-                        class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_family_name",
+      <%= text_field_tag "#{template}[creator][][creator_family_name]", hash.dig("creator_family_name"),
+                        class: "#{template}_creator form-control multi-text-field multi_value ubiquity_creator_family_name",
                         placeholder: 'Please enter the creator\'s last name/family name.',
-                        name: "#{template}[creator_group][][creator_family_name]",
+                        name: "#{template}[creator][][creator_family_name]",
                         data: {field_name:'ubiquity_creator_family_name'}
 
       %>
@@ -91,10 +91,10 @@
       <label class="control-label multi_value optional" for="#{template}_creator_given_name">
         Creator given name  </label>
 
-      <%= text_field_tag "#{template}[creator_group][][creator_given_name]", hash.dig("creator_given_name"),
-                        class: "#{template}_creator_group form-control  multi-text-field  multi_value ubiquity_creator_given_name",
+      <%= text_field_tag "#{template}[creator][][creator_given_name]", hash.dig("creator_given_name"),
+                        class: "#{template}_creator form-control  multi-text-field  multi_value ubiquity_creator_given_name",
                         placeholder: 'Please enter the creator\'s first name/given name.',
-                        name: "#{template}[creator_group][][creator_given_name]",
+                        name: "#{template}[creator][][creator_given_name]",
                         data: {field_name:'ubiquity_creator_given_name'}
 
       %>
@@ -103,16 +103,16 @@
       <label class="control-label multi_value optional" for="#{template}_creator_orcid">
         Creator ORCID</label>
 
-      <%= text_field_tag "#{template}[creator_group][][creator_orcid]", hash.dig("creator_orcid"),
-                        class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_orcid",
+      <%= text_field_tag "#{template}[creator][][creator_orcid]", hash.dig("creator_orcid"),
+                        class: "#{template}_creator form-control multi-text-field multi_value ubiquity_creator_orcid",
                         placeholder: 'Please enter the creator\'s ORCID, e.g. 0000-1234-5678-9101.',
-                        name: "#{template}[creator_group][][creator_orcid]",
+                        name: "#{template}[creator][][creator_orcid]",
                         data: {field_name:'ubiquity_creator_orcid'}
       %>
       <br>
       <p><label class="control-label multi_value optional" for="#{template}_creator_institutional_relationship">
         Creator institutional relationship  </label> </p>
-      <%= select_tag "#{template}[creator_group][][creator_institutional_relationship]", content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( ['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("creator_institutional_relationship")),
+      <%= select_tag "#{template}[creator][][creator_institutional_relationship]", content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( ['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("creator_institutional_relationship")),
           multiple: true, class: "form-control"
           %>
 
@@ -121,15 +121,15 @@
     <label class="control-label multi_value optional" for="#{template}_creator_isni">
       Creator ISNI</label>
 
-    <%= text_field_tag "#{template}[creator_group][][creator_isni]", hash.dig("creator_isni"),
-                        class: "#{template}_creator_group form-control multi-text-field multi_value ubiquity_creator_isni",
+    <%= text_field_tag "#{template}[creator][][creator_isni]", hash.dig("creator_isni"),
+                        class: "#{template}_creator form-control multi-text-field multi_value ubiquity_creator_isni",
                         placeholder: 'Please enter the creator\'s ISNI, e.g. 0000 1234 5678 9101.',
-                        name: "#{template}[creator_group][][creator_isni]",
+                        name: "#{template}[creator][][creator_isni]",
                         data: {field_name:'ubiquity_creator_isni'}
     %>
     <br/>
 
-    <%= hidden_field_tag "#{template}[creator_group][][creator_position]", index, class: 'ubiquity-creator-score'  %>
+    <%= hidden_field_tag "#{template}[creator][][creator_position]", index, class: 'ubiquity-creator-score'  %>
 
     <a href="#" style="color:red;"  class=" remove_creator form-group " data-removeUbiquityCreator=".ubiquity-meta-creator">
       <span class="glyphicon glyphicon-remove"></span>

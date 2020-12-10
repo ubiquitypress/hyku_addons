@@ -5,7 +5,7 @@
 require 'rails_helper'
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.describe 'Create a GenericWork', js: true do
+RSpec.describe 'Create a GenericWork', js: true, clean: true do
   include Warden::Test::Helpers
   context 'a logged in user' do
     let(:user_attributes) do
@@ -14,9 +14,9 @@ RSpec.describe 'Create a GenericWork', js: true do
     let(:user) do
       User.new(user_attributes) { |u| u.save(validate: false) }
     end
-    let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
-    let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
-    let(:workflow) do
+    let!(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
+    let!(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
+    let!(:workflow) do
       Sipity::Workflow.create!(
         active: true,
         name: 'test-workflow',
@@ -62,12 +62,12 @@ RSpec.describe 'Create a GenericWork', js: true do
       click_link "Additional fields" # expand form for additional fields
       fill_in('Title', with: 'My Test Work')
       # Fill in complex creator
-      select('Personal', from: 'generic_work_creator_group__creator_name_type')
-      fill_in('generic_work_creator_group__creator_family_name', with: 'Hawking')
-      fill_in('generic_work_creator_group__creator_given_name', with: 'Stephen')
-      fill_in('generic_work_creator_group__creator_orcid', with: '0000-0002-9079-593X')
-      select('Staff member', from: 'generic_work_creator_group__creator_institutional_relationship_')
-      fill_in('generic_work_creator_group__creator_isni', with: '0000 0001 2103 4996')
+      select('Personal', from: 'generic_work_creator__creator_name_type')
+      fill_in('generic_work_creator__creator_family_name', with: 'Hawking')
+      fill_in('generic_work_creator__creator_given_name', with: 'Stephen')
+      fill_in('generic_work_creator__creator_orcid', with: '0000-0002-9079-593X')
+      select('Staff member', from: 'generic_work_creator__creator_institutional_relationship_')
+      fill_in('generic_work_creator__creator_isni', with: '0000 0001 2103 4996')
       # End creator
 
       fill_in('Keyword', with: 'testing')
@@ -88,9 +88,9 @@ RSpec.describe 'Create a GenericWork', js: true do
       page.find('input[name=save_with_files]').click
       expect(page).to have_content('My Test Work')
       # Creator
-      # expect(page).to have_content('Hawkins, Stephen')
-      # expect(page).to have_link('https://orcid.org/0000-0002-9079-593X')
-      # expect(page).to have_link('https://isni.org/isni/0000000121034996')
+      expect(page).to have_content('Hawking, Stephen')
+      expect(page).to have_link('', href: 'https://orcid.org/000000029079593X')
+      expect(page).to have_link('', href: 'https://isni.org/isni/0000000121034996')
       # End creator
       expect(page).to have_content('Advancing Hyku')
       expect(page).to have_content "Your files are being processed by Hyku in the background."

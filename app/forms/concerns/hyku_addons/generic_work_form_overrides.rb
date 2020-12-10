@@ -14,5 +14,16 @@ module HykuAddons
                       library_of_congress_classification add_info rendering_ids]
       self.required_fields = %i[title resource_type creator institution]
     end
+
+    class_methods do
+      def build_permitted_params
+        super.tap do |permitted_params|
+          permitted_params << { creator: [:creator_organization_name, :creator_given_name,
+            :creator_family_name, :creator_name_type, :creator_orcid, :creator_isni,  :creator_ror, :creator_grid,
+            :creator_wikidata, :creator_position, :creator_institutional_relationship => []
+          ]}
+        end
+      end
+    end
   end
 end
