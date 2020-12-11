@@ -22,6 +22,10 @@ module HykuAddons
             :creator_family_name, :creator_name_type, :creator_orcid, :creator_isni,  :creator_ror, :creator_grid,
             :creator_wikidata, :creator_position, :creator_institutional_relationship => []
           ]}
+          permitted_params << {contributor: [:contributor_organization_name, :contributor_given_name,
+            :contributor_family_name, :contributor_name_type, :contributor_orcid, :contributor_isni, :contributor_ror, :contributor_grid,
+            :contributor_wikidata, :contributor_position, :contributor_type, :contributor_institutional_relationship => []
+          ]}
         end
       end
     end

@@ -205,7 +205,7 @@ module HykuAddons
       end
 
       class_attribute :json_fields
-      self.json_fields = %i[creator]
+      self.json_fields = %i[creator contributor]
     end
   end
 end

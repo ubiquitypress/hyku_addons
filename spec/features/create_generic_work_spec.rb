@@ -61,17 +61,26 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       click_link "Descriptions" # switch tab
       click_link "Additional fields" # expand form for additional fields
       fill_in('Title', with: 'My Test Work')
-      # Fill in complex creator
+
+      # Creator
       select('Personal', from: 'generic_work_creator__creator_name_type')
       fill_in('generic_work_creator__creator_family_name', with: 'Hawking')
       fill_in('generic_work_creator__creator_given_name', with: 'Stephen')
       fill_in('generic_work_creator__creator_orcid', with: '0000-0002-9079-593X')
       select('Staff member', from: 'generic_work_creator__creator_institutional_relationship_')
       fill_in('generic_work_creator__creator_isni', with: '0000 0001 2103 4996')
-      # End creator
+
+      # Resource type
+      select('Article', from: 'Resource type')
+
+      # Contributor
+      select('Personal', from: 'generic_work_contributor__contributor_name_type')
+      fill_in('generic_work_contributor__contributor_family_name', with: 'Jones')
+      fill_in('generic_work_contributor__contributor_given_name', with: 'James Earl')
+      fill_in('generic_work_contributor__contributor_isni', with: '0000 0001 2030 4456')
+      select('Narrator', from: 'generic_work_contributor__contributor_type')
 
       fill_in('Keyword', with: 'testing')
-      select('Article', from: 'Resource type')
       fill_in('Institution', with: 'Advancing Hyku')
       select('In Copyright', from: 'Rights statement')
 
@@ -86,12 +95,23 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       # click_on('Save')
       page.find('input[name=save_with_files]').click
+
+      # Check metadata fields render properly after save
+      # Title
       expect(page).to have_content('My Test Work')
+
       # Creator
       expect(page).to have_content('Hawking, Stephen')
       expect(page).to have_link('', href: 'https://orcid.org/000000029079593X')
       expect(page).to have_link('', href: 'https://isni.org/isni/0000000121034996')
-      # End creator
+
+      # Resource type
+      expect(page).to have_link('Article', href: /catalog\?f.*Bresource_type_sim.*Article/)
+
+      # Contributor
+      expect(page).to have_content('Jones, James Earl')
+      expect(page).to have_link('', href: 'https://isni.org/isni/0000000120304456')
+
       expect(page).to have_content('Advancing Hyku')
       expect(page).to have_content "Your files are being processed by Hyku in the background."
     end

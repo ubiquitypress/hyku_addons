@@ -132,7 +132,7 @@ module HykuAddons
       @value = presenter_record.first
 
       return nil unless valid_json?(@value)
-      array_of_hash ||= JSON.parse(presenter_record.first)
+      array_of_hash ||= JSON.parse(@value)
       return [model.attributes] if array_of_hash.first.class == String || array_of_hash.first.nil?
 
       # return sort_hash(array_of_hash, multipart_sort_field_name) if multipart_sort_field_name
@@ -144,7 +144,8 @@ module HykuAddons
     # leave it as a public method because it used in other files
     # return false if json == String
     def valid_json?(data)
-      JSON.parse(data) if data.class == String
+      return false unless data.is_a? String
+      JSON.parse(data)
       true
     rescue JSON::ParserError
       false

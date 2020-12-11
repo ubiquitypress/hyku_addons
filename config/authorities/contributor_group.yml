@@ -1,0 +1,135 @@
+terms:
+ - id: Actor
+   term: Actor
+   active: true
+ - id: Animator
+   term: Animator
+   active: true
+ - id: Artist
+   term: Artist
+   active: true
+ - id: Author
+   term: Author
+   active: true
+ - id: Collaborative Doctoral Partner
+   term: Collaborative Doctoral Partner
+   active: true
+ - id: Collaborative Institution
+   term: Collaborative Institution
+   active: true
+ - id: Composer
+   term: Composer
+   active: true
+ - id: Contact Person
+   term: Contact Person
+   active: true
+ - id: Contributor
+   term: Contributor
+   active: true
+ - id: Curator
+   term: Curator
+   active: true
+ - id: Data Collector
+   term: Data Collector
+   active: true
+ - id: Data Curator
+   term: Data Curator
+   active: true
+ - id: Data Manager
+   term: Data Manager
+   active: true
+ - id: Designer
+   term: Designer
+   acitve: true
+ - id: Distributor
+   term: Distributor
+   active: true
+ - id: Editor
+   term: Editor
+   active: true
+ - id: Examiner
+   term: Examiner
+   active: true
+ - id: Hosting Institution
+   term: Hosting Institution
+   active: true
+ - id: Illustrator
+   term: Illustrator
+   active: true
+ - id: Interviewee
+   term: Interviewee
+   active: true
+ - id: Interviewer
+   term: Interviewer
+   active: true
+ - id: Narrator
+   term: Narrator
+   active: true
+ - id: Photographer
+   term: Photographer
+   active: true
+ - id: Presenter
+   term: Presenter
+   active: true
+ - id: Producer
+   term: Producer
+   active: true
+ - id: Project Leader
+   term: Project Leader
+   active: true
+ - id: Project Manager
+   term: Project Manager
+   active: true
+ - id: Project Member
+   term: Project Member
+   active: true
+ - id: Publisher
+   term: Publisher
+   active: true
+ - id: Registration Agency
+   term: Registration Agency
+   active: true
+ - id: Registration Authority
+   term: Registration Authority
+   active: true
+ - id: Related Person
+   term: Related Person
+   active: true
+ - id: Researcher
+   term: Researcher
+   active: true
+ - id: Research Group
+   term: Research Group
+   active: true
+ - id: Rights Holder
+   term: Rights Holder
+   active: true
+ - id: Scientific Advisor
+   term: Scientific Advisor
+   active: true
+ - id: Transcriber
+   term: Transcriber
+   active: true
+ - id: Translator
+   term: Translator
+   active: true
+ - id: Videographer
+   term: Videographer
+   active: true
+#  kept as `active: false` (i.e. not to display/chose from)
+#  else if any record was previously saved with this it would break the app
+ - id: Sponsor Supervisor
+   term: Sponsor Supervisor
+   active: false
+ - id: Sponsor
+   term: Sponsor
+   active: true
+ - id: Supervisor
+   term: Supervisor
+   active: true
+ - id: Work Package Leader
+   term: Work Package Leader
+   active: true
+ - id : Other
+   term: Other
+   active:  true
