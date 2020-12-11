@@ -204,8 +204,9 @@ module HykuAddons
         index.as :stored_searchable, :facetable
       end
 
-      class_attribute :json_fields
+      class_attribute :json_fields, :date_fields
       self.json_fields = %i[creator contributor]
+      self.date_fields = %i[date_published]
     end
   end
 end

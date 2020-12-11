@@ -73,12 +73,23 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Resource type
       select('Article', from: 'Resource type')
 
+      # Alternative title
+      fill_in('Alt title', with: 'All fields test')
+
       # Contributor
       select('Personal', from: 'generic_work_contributor__contributor_name_type')
       fill_in('generic_work_contributor__contributor_family_name', with: 'Jones')
       fill_in('generic_work_contributor__contributor_given_name', with: 'James Earl')
       fill_in('generic_work_contributor__contributor_isni', with: '0000 0001 2030 4456')
       select('Narrator', from: 'generic_work_contributor__contributor_type')
+
+      # Abstract
+      fill_in('Abstract', with: 'Testing all fields persist and render')
+
+      # Date published
+      select('2021', from: 'generic_work_date_published__date_published_year')
+      select('01', from: 'generic_work_date_published__date_published_month')
+      select('01', from: 'generic_work_date_published__date_published_day')
 
       fill_in('Keyword', with: 'testing')
       fill_in('Institution', with: 'Advancing Hyku')
@@ -108,9 +119,18 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Resource type
       expect(page).to have_link('Article', href: /catalog\?f.*Bresource_type_sim.*Article/)
 
+      # Alternative title
+      expect(page).to have_content('All fields test')
+
       # Contributor
       expect(page).to have_content('Jones, James Earl')
       expect(page).to have_link('', href: 'https://isni.org/isni/0000000120304456')
+
+      # Abstract
+      expect(page).to have_content('Testing all fields persist and render')
+
+      # Date published
+      expect(page).to have_content('2021-1-1')
 
       expect(page).to have_content('Advancing Hyku')
       expect(page).to have_content "Your files are being processed by Hyku in the background."

@@ -5,13 +5,13 @@ module HykuAddons
 
     included do
       # version is used in the show page but populated by version_number from the edit and new form
-      self.terms = %i[title alt_title resource_type creator contributor rendering_ids abstract date_published media duration
+      self.terms = %i[title resource_type creator alt_title contributor rendering_ids abstract date_published media duration
                       institution org_unit project_name funder fndr_project_ref event_title event_location event_date
                       series_name book_title editor journal_title alternative_journal_title volume edition version_number issue pagination article_num
                       publisher place_of_publication isbn issn eissn current_he_institution date_accepted date_submitted official_link
                       related_url related_exhibition related_exhibition_venue related_exhibition_date language license rights_statement
                       rights_holder doi qualification_name qualification_level alternate_identifier related_identifier refereed keyword dewey
-                      library_of_congress_classification add_info rendering_ids]
+                      library_of_congress_classification add_info]
       self.required_fields = %i[title resource_type creator institution]
     end
 
@@ -26,6 +26,7 @@ module HykuAddons
             :contributor_family_name, :contributor_name_type, :contributor_orcid, :contributor_isni, :contributor_ror, :contributor_grid,
             :contributor_wikidata, :contributor_position, :contributor_type, :contributor_institutional_relationship => []
           ]}
+          permitted_params << { date_published: %i[date_published_year date_published_month date_published_day] }
         end
       end
     end

@@ -21,11 +21,11 @@
   <br/>
   <span class="ubiquity_organization_fields">
 
-  <label class="ubiquity_creator_organization_name_label control-label multi_value optional" for="generic_work_creator_organization_name">
+  <label class="ubiquity_creator_organization_name_label control-label multi_value optional" for="#{template}_creator_organization_name">
     Creator organisation name</label>
 
   <%= text_field_tag  "#{template}[creator][][creator_organization_name]", nil,
-                      class: "generic_work_creator_organization_name form-control multi-text-field multi_value ubiquity_creator_organization_name",
+                      class: "#{template}_creator_organization_name form-control multi-text-field multi_value ubiquity_creator_organization_name",
                       placeholder: 'Please enter the organisation\'s name.',
                       name: "#{template}[creator][][creator_organization_name]",
                       data: {field_name:'ubiquity_creator_organization_name'}
