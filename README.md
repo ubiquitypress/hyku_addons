@@ -97,13 +97,19 @@ The rails server will be running at http://lvh.me:3000 and tenants will be subdo
 
 Tests are run automatically on CircleCI with rubocop and codeclimate.  These tests must pass before pull requests can be merged.
 
+To run the tests locally inside docker run:
+```
+docker-compose exec web /bin/bash
+bundle exec rspec `find spec -name *_spec.rb | grep -v internal_test_hyku`
+```
+
 To run the tests locally outside of docker do the following with each line in its own shell from the root of the engine:
 ```
 cd spec/internal_test_hyku && solr_wrapper -v --config config/solr_wrapper_test.yml
 fcrepo_wrapper -v --config spec/internal_test_hyku/config/fcrepo_wrapper_test.yml
 DISABLE_REDIS_CLUSTER=true bundle exec sidekiq -r spec/internal_test_hyku/
 SETTINGS__MULTITENANCY__ADMIN_HOST=lvh.me DISABLE_REDIS_CLUSTER=true RAILS_ENV=test bundle exec rails server -b 0.0.0.0
-bundle exec rspec
+bundle exec rspec `find spec -name *_spec.rb | grep -v internal_test_hyku`
 ```
 You shouldn't need to run anything from inside `spec/internal_test_hyku` unless explicitly told to do so.
 
