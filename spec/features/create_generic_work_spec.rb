@@ -183,7 +183,8 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # eISSN
 
       # Current HE institution
-      # TODO
+      # TODO test autocomplete
+      select('Abertay University', from: 'generic_work_current_he_institution__current_he_institution_name')
 
       # Date accepted
       select('2020', from: 'generic_work_date_accepted__date_accepted_year')
@@ -334,7 +335,9 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # eISSN
 
       # Current HE institution
-      # TODO
+      expect(page).to have_content('Abertay University')
+      # expect(page).to have_content('0000 0001 0339 8665')
+      # expect(page).to have_content('https://ror.org/04mwwnx67')
 
       # Date accepted
       expect(page).to have_content('2020-12-30')

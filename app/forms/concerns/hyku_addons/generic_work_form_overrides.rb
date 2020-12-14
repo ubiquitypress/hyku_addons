@@ -33,7 +33,7 @@ module HykuAddons
             :editor_family_name, :editor_name_type, :editor_orcid, :editor_isni,
             :editor_position, :editor_organization_name, :editor_institutional_relationship => []
           ]}
-          # Current HE institution
+          permitted_params << { current_he_institution: [:current_he_institution_name, :current_he_institution_isni, :current_he_institution_ror] }
           permitted_params << { date_accepted: %i[date_accepted_year date_accepted_month date_accepted_day] }
           permitted_params << { date_submitted: %i[date_submitted_year date_submitted_month date_submitted_day] }
           # Related exhibition date
