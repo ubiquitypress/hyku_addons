@@ -160,7 +160,13 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Book title
 
       # Editor
-      # TODO
+      select('Personal', from: 'generic_work_editor__editor_name_type')
+      fill_in('generic_work_editor__editor_isni', with: '0000 0001 2103 5000')
+      fill_in('generic_work_editor__editor_organization_name', with: 'British Library')
+      fill_in('generic_work_editor__editor_orcid', with: '0000-0002-9079-600X')
+      fill_in('generic_work_editor__editor_family_name', with: 'Curry')
+      fill_in('generic_work_editor__editor_given_name', with: 'Timothy')
+      select('Staff member', from: 'generic_work_editor__editor_institutional_relationship_')
 
       # Journal title
       # Alternative journal title
@@ -308,7 +314,10 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Book title
 
       # Editor
-      # TODO
+      expect(page).to have_link('', href: 'https://isni.org/isni/0000000121035000')
+      expect(page).to have_content('British Library')
+      expect(page).to have_link('', href: 'https://orcid.org/000000029079600X')
+      expect(page).to have_content('Curry, Timothy')
 
       # Journal title
       # Alternative journal title

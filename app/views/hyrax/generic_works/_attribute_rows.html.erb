@@ -20,9 +20,9 @@
 <%= presenter.attribute_to_html(:event_date, html_dl: true) %>
 <%= presenter.attribute_to_html(:series_name, html_dl: true) %>
 <%= presenter.attribute_to_html(:book_title, html_dl: true) %>
-<%# if check_has_editor_fields?(presenter.model_name.to_s, html_dl: true) %>
-  <%#= render "hyku_addons/editor/show", presenter: presenter %>
-<%# end %>
+<% if check_has_editor_fields?(presenter.model_name.to_s) %>
+  <%= render "hyku_addons/editor/show", presenter: presenter %>
+<% end %>
 
 <%= presenter.attribute_to_html(:journal_title, html_dl: true) %>
 <%= presenter.attribute_to_html(:alternative_journal_title, html_dl: true) %>

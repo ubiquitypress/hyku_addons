@@ -151,6 +151,10 @@ module HykuAddons
       false
     end
 
+    def check_has_editor_fields?(presenter)
+      ["Book", "BookContribution", "ConferenceItem", "Report", "GenericWork"].include? presenter
+    end
+
     private
 
       def sort_hash(array_of_hash, key)

@@ -1,0 +1,40 @@
+<tr>
+  <th>Editor</th>
+  <td>
+    <ul class="tabular">
+      <% array_of_hash.each do |hash| %>
+        <li class="attribute editor">
+          <span itemprop="editor" style="float:left">
+            <% order_ary = ['editor_family_name', 'editor_given_name', 'editor_organization_name']%>
+            <%= display_data_with_comma_separated(hash, order_ary)%>
+           </span>
+           <span itemprop="editor">
+             <% if display_paren?(hash.keys, ["editor_orcid", 'editor_isni']) %>
+               <span style="float:left" >&nbsp;(</span>
+                 <% if hash['editor_orcid'].present? %>
+                   <% orcid_id = hash['editor_orcid'] %>
+                     <a href='<%= render_isni_or_orcid_url("#{orcid_id}", "orcid") %>'  target="_blank">
+                     <img src="https://s3-eu-west-1.amazonaws.com/service-hyku-oar-importer/orcid_16x16.png" alt="ORCID"  height="16" width="16" class="img-responsive"  style="float:left"  >
+                   </a>
+                 <% end %>
+
+                 <% if add_image_space?(hash.keys) %>
+                   <span style="float:left" >&nbsp;</span>
+                 <% end %>
+
+                 <% if hash['editor_isni'].present? %>
+                   <% isni_id = hash['editor_isni'] %>
+                   <a href='<%= render_isni_or_orcid_url("#{isni_id}", "isni") %>'  target="_blank">
+                   <img src="
+                      https://s3-eu-west-1.amazonaws.com/service-hyku-oar-importer/logo_xml_isni-16.gif" alt="ISNI"  height="16" width="16" class="img-responsive" style="float:left"  >
+                   </a>
+                 <% end %>
+               <span>)</span>
+            <% end %>
+          </span>
+          <br/>
+        </li>
+      <% end %>
+    </ul>
+  </td>
+</tr>
