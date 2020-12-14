@@ -28,7 +28,7 @@ module HykuAddons
           ]}
           permitted_params << { date_published: %i[date_published_year date_published_month date_published_day] }
           permitted_params << { funder: [:funder_name, :funder_doi, :funder_position, :funder_isni, :funder_ror, :funder_award => []] }
-
+          permitted_params << { event_date: %i[event_date_year event_date_month event_date_day] }
 
           permitted_params << { related_identifier: %i[related_identifier related_identifier_type relation_type] }
         end

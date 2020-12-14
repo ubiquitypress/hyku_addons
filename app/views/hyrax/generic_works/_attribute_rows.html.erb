@@ -13,12 +13,11 @@
 <%= presenter.attribute_to_html(:institution, html_dl: true) %>
 <%= presenter.attribute_to_html(:org_unit, label: "Organisational unit", html_dl: true) %>
 <%= presenter.attribute_to_html(:project_name, html_dl: true) %>
-<%#= presenter.attribute_to_html(:funder, html_dl: true) %>
 <%= render "hyku_addons/funder/show", presenter: presenter %>
 <%= presenter.attribute_to_html(:fndr_project_ref, label: "Funder project reference", html_dl: true) %>
 <%= presenter.attribute_to_html(:event_title, html_dl: true) %>
 <%= presenter.attribute_to_html(:event_location, html_dl: true) %>
-<%= presenter.attribute_to_html(:event_date, render_as: :date, html_dl: true) %>
+<%= presenter.attribute_to_html(:event_date, html_dl: true) %>
 <%= presenter.attribute_to_html(:series_name, html_dl: true) %>
 <%= presenter.attribute_to_html(:book_title, html_dl: true) %>
 <%# if check_has_editor_fields?(presenter.model_name.to_s, html_dl: true) %>

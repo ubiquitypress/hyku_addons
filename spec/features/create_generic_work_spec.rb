@@ -151,7 +151,9 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Event location
 
       # Event date
-      # TODO
+      select('2020', from: 'generic_work_event_date__event_date_year')
+      select('12', from: 'generic_work_event_date__event_date_month')
+      select('25', from: 'generic_work_event_date__event_date_day')
 
       # Series name
 
@@ -211,7 +213,9 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # TODO
 
       # Related identifier
-      # TODO
+      fill_in('generic_work_related_identifier__related_identifier', with: '978-3-16-148410-0')
+      select('ISBN', from: 'generic_work_related_identifier__related_identifier_type')
+      select('Cites', from: 'generic_work_related_identifier__relation_type')
 
       # Peer-reviewed
       # TODO
@@ -223,12 +227,6 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Library of Congress Classification
       # Additional information
       # Rendering ids
-      
-      
-      # Related identifier
-      fill_in('generic_work_related_identifier__related_identifier', with: '978-3-16-148410-0')
-      select('ISBN', from: 'generic_work_related_identifier__related_identifier_type')
-      select('Cites', from: 'generic_work_related_identifier__relation_type')
 
       # Visibility
       select('In Copyright', from: 'Rights statement')
@@ -299,7 +297,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Event location
 
       # Event date
-      # TODO
+      expect(page).to have_content('2020-12-25')
 
       # Series name
 
