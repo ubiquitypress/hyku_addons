@@ -312,6 +312,24 @@ module HykuAddons
         config.add_sort_field "score desc, #{uploaded_field} desc", label: "relevance"
         config.add_sort_field "date_published_si desc, #{uploaded_field} desc", label: "date published \u25BC"
         config.add_sort_field "date_published_si asc, #{uploaded_field} desc", label: "date published \u25B2"
+
+        #OAI Config fields
+        config.oai = {
+            provider: {
+                # repository_name: ,
+                repository_name: ->(controller) { controller.send(:current_account)&.name.presence || Settings.oai.name },
+                # repository_url:  ->(controller) { controller.oai_catalog_url },
+                record_prefix: Settings.oai.prefix,
+                admin_email: ->(controller) { controller.send(:current_account).settings["oai_admin_email"].presence || Settings.oai.email },
+                sample_id: Settings.oai.sample_id
+            },
+            document: {
+                limit: 25, # number of records returned with each request, default: 15
+                set_fields: [ # ability to define ListSets, optional, default: nil
+                    { label: 'collection', solr_field: 'isPartOf_ssim' }
+                ]
+            }
+        }
       end
     end
   end
