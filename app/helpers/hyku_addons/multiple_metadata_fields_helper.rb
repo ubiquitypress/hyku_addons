@@ -10,7 +10,7 @@ module HykuAddons
     # takes in the creator value passed in from a solr document
     # It receives an array containing a single json string eg ['[{creator_family_name: mike}, {creator_given_name: hu}]']
     # We parse that json into an array of hashes as in [{creator_family_name: mike}, {creator_given_name: hu}]
-    # called from app/views/shared/ubiquity/collections/_show_document_list_row
+    # called from app/views/hyku_addons/collections/_show_document_list_row
     def display_json_values(json_record)
       # parse the json into an array
       Ubiquity::ParseJson.new(json_record).data

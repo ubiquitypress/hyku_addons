@@ -1,0 +1,25 @@
+<tr>
+  <th>Related identifier</th>
+  <td>
+    <% array_of_hash.each do |hash| %>
+      <ul class="tabular">
+        <li class="attribute related_identifier">
+          <% if hash['related_identifier'] %>
+            <%= "identifier: #{hash['related_identifier']}" %>&nbsp;
+          <% end %>
+        </li>
+        <li class="attribute related_identifier_type">
+          <% if hash['related_identifier_type'] %>
+            <%= "type: #{hash['related_identifier_type']}" %>
+          <% end %>
+        </li>
+        <li class="attribute relation_type">
+          <% if hash['relation_type'] %>
+            <% array_list = HykuAddons::RelationTypeService.new.select_active_options.uniq %>
+            <%= "relation: " + array_list.select{|e| e[1] == hash['relation_type']}.first[0] %>
+          <% end %>
+        </li>
+      </ul>
+    <% end %>
+  </td>
+</tr>

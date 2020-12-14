@@ -205,8 +205,8 @@ module HykuAddons
       end
 
       class_attribute :json_fields, :date_fields
-      self.json_fields = %i[creator contributor]
-      self.date_fields = %i[date_published]
+      self.json_fields = %i[creator contributor funder editor current_he_institution alternate_identifier related_identifier]
+      self.date_fields = %i[date_published event_date date_accepted date_submitted related_exhibition_date]
     end
   end
 end

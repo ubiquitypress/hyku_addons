@@ -28,7 +28,7 @@
        <label class="control-label multi_value optional" for="#{template}_contributor_ror">
          Contributor organisation ROR</label>
 
-       <%= text_field_tag "#{template}[creator_group][][contributor_ror]",  hash.dig("contributor_ror"),
+       <%= text_field_tag "#{template}[contributor][][contributor_ror]",  hash.dig("contributor_ror"),
                           class: "#{template}_contributor form-control multi-text-field multi_value ubiquity_contributor_ror",
                           placeholder: "Please enter the ROR ID, e.g. 05gknh003",
                           name: "#{template}[contributor][][contributor_ror]",

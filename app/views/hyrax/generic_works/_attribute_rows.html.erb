@@ -13,8 +13,8 @@
 <%= presenter.attribute_to_html(:institution, html_dl: true) %>
 <%= presenter.attribute_to_html(:org_unit, label: "Organisational unit", html_dl: true) %>
 <%= presenter.attribute_to_html(:project_name, html_dl: true) %>
-<%= presenter.attribute_to_html(:funder, html_dl: true) %>
-<%#= render "shared/ubiquity/funder/show", presenter: presenter %>
+<%#= presenter.attribute_to_html(:funder, html_dl: true) %>
+<%= render "hyku_addons/funder/show", presenter: presenter %>
 <%= presenter.attribute_to_html(:fndr_project_ref, label: "Funder project reference", html_dl: true) %>
 <%= presenter.attribute_to_html(:event_title, html_dl: true) %>
 <%= presenter.attribute_to_html(:event_location, html_dl: true) %>
@@ -22,7 +22,7 @@
 <%= presenter.attribute_to_html(:series_name, html_dl: true) %>
 <%= presenter.attribute_to_html(:book_title, html_dl: true) %>
 <%# if check_has_editor_fields?(presenter.model_name.to_s, html_dl: true) %>
-  <%#= render "shared/ubiquity/editor/show", presenter: presenter %>
+  <%#= render "hyku_addons/editor/show", presenter: presenter %>
 <%# end %>
 
 <%= presenter.attribute_to_html(:journal_title, html_dl: true) %>
@@ -39,7 +39,7 @@
 <%= presenter.attribute_to_html(:issn, label: "ISSN", html_dl: true) %>
 <%= presenter.attribute_to_html(:eissn, label: "eISSN", html_dl: true) %>
 <%= presenter.attribute_to_html(:current_he_institution, label: "Current HE Institution", html_dl: true) %>
-<%#= render "shared/ubiquity/current_he_institution/show", presenter: presenter %>
+<%#= render "hyku_addons/current_he_institution/show", presenter: presenter %>
 <%= presenter.attribute_to_html(:date_accepted, html_dl: true) %>
 <%= presenter.attribute_to_html(:official_link, render_as: :external_link, label: "Official URL", html_dl: true) %>
 <%= presenter.attribute_to_html(:related_url, render_as: :external_link, label: "Related URL", html_dl: true) %>
@@ -57,8 +57,8 @@
 <%= presenter.attribute_to_html(:qualification_level, html_dl: true) %>
 <%= presenter.attribute_to_html(:alternate_identifier, html_dl: true) %>
 <%= presenter.attribute_to_html(:related_identifier, html_dl: true) %>
-<%#= render "shared/ubiquity/alternate_identifier/show", presenter: @presenter %>
-<%#= render "shared/ubiquity/related_identifier/show", presenter: @presenter %>
+<%#= render "hyku_addons/alternate_identifier/show", presenter: @presenter %>
+<%#= render "hyku_addons/related_identifier/show", presenter: @presenter %>
 <%= presenter.attribute_to_html(:keyword, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:dewey, html_dl: true) %>
 <%= presenter.attribute_to_html(:library_of_congress_classification, render_as: :faceted, label: "Library of Congress Classification", html_dl: true) %>

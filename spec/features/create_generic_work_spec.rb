@@ -24,6 +24,33 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
         permission_template
       )
     end
+    let(:funder_response) do
+      {
+        "status": "ok",
+        "message-type": "funder-list",
+        "message-version": "1.0.0",
+        "message": {
+          "items-per-page": 20,
+          "query": {
+            "start-index": 0,
+            "search-terms": "Japan Foundation London"
+          },
+          "total-results": 1,
+          "items": [
+            {
+              "id": "100008699",
+              "location": "United Kingdom",
+              "name": "Japan Foundation, London",
+              "alt-names": ["Japan Foundation London"],
+              "uri": "http:\/\/dx.doi.org\/10.13039\/100008699",
+              "replaces": [],
+              "replaced-by": [],
+              "tokens": ["japan","foundation","london","japan","foundation","london"]
+            }
+          ]
+        }
+      }
+    end
 
     before do
       # Create a single action that can be taken
@@ -36,6 +63,10 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
         agent_id: user.user_key,
         access: 'deposit'
       )
+
+      # Stub Crossref funder request
+      stub_request(:get, "http://api.crossref.org/funders?query=Japan%20Foundation%20London").to_return(status: 200, body: funder_response.to_json)
+
       login_as user
     end
 
@@ -91,8 +122,115 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       select('01', from: 'generic_work_date_published__date_published_month')
       select('01', from: 'generic_work_date_published__date_published_day')
 
-      fill_in('Keyword', with: 'testing')
+      # Media
+      fill_in('Media', with: "video")
+
+      # Duration
+      fill_in('Duration', with: '6 minutes')
+
+      # Institution
+      # TODO authoritity service
       fill_in('Institution', with: 'Advancing Hyku')
+
+      # Organizational unit
+      fill_in('Organisational Unit', with: 'Repositories team')
+
+      # Project name
+      fill_in('Project name', with: 'Project Hydra')
+
+      # Funder
+      # TODO: Test autocomplete
+      fill_in('generic_work_funder__funder_name', with: 'Japan Foundation, London')
+      fill_in('generic_work_funder__funder_doi', with: 'http://dx.doi.org/10.13039/100008699')
+      fill_in('generic_work_funder__funder_isni', with: '0000 0004 0516 7766')
+      fill_in('generic_work_funder__funder_ror', with: 'https://ror.org/024jbvq59')
+      fill_in('generic_work_funder__funder_award_', with: 'ABC-12345')
+
+      # Event title
+
+      # Event location
+
+      # Event date
+      # TODO
+
+      # Series name
+
+      # Book title
+
+      # Editor
+      # TODO
+
+      # Journal title
+      # Alternative journal title
+      # Volume
+      # Edition
+      # Version number
+      # Issue
+      # Pagination
+      # Article number
+      # Publisher
+      # Place of publication
+      # ISBN
+      # ISSN
+      # eISSN
+
+      # Current HE institution
+      # TODO
+
+      # Date accepted
+      # TODO
+
+      # Date submitted
+      # TODO
+
+      # Official URL
+      # Related URL
+      # Related exhibition
+      # Related exhibition venue
+
+      # Related exhibition date
+      # TODO
+
+      # Language
+      # License
+      # TODO?
+
+      # Rights statement
+      # TODO?
+
+      # Rights holder
+      # DOI
+
+      # Qualification name
+      # TODO
+      
+      # Qualification level
+      # TODO
+
+      # Alternative identifier
+      # TODO
+
+      # Related identifier
+      # TODO
+
+      # Peer-reviewed
+      # TODO
+
+      # Keywords
+      fill_in('Keyword', with: 'keyword_testing')
+
+      # Dewey
+      # Library of Congress Classification
+      # Additional information
+      # Rendering ids
+      
+      
+      # Related identifier
+      fill_in('generic_work_related_identifier__related_identifier', with: '978-3-16-148410-0')
+      select('ISBN', from: 'generic_work_related_identifier__related_identifier_type')
+      select('Cites', from: 'generic_work_related_identifier__relation_type')
+
+      # Visibility
       select('In Copyright', from: 'Rights statement')
 
       # With selenium and the chrome driver, focus remains on the
@@ -104,9 +242,10 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # rubocop:enable Metrics/LineLength
       check('agreement')
 
-      # click_on('Save')
+      # Save
       page.find('input[name=save_with_files]').click
 
+      ################
       # Check metadata fields render properly after save
       # Title
       expect(page).to have_content('My Test Work')
@@ -132,7 +271,112 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Date published
       expect(page).to have_content('2021-1-1')
 
+      # Media
+      expect(page).to have_content('video')
+
+      # Duration
+      expect(page).to have_content('6 minutes')
+
+      # Institution
       expect(page).to have_content('Advancing Hyku')
+
+      # Organizational unit
+      expect(page).to have_content('Repositories team')
+
+      # Project name
+      expect(page).to have_content('Project Hydra')
+
+      # Funder
+      # TODO: Test autocomplete
+      expect(page).to have_content('Japan Foundation, London')
+      expect(page).to have_content('http://dx.doi.org/10.13039/100008699')
+      expect(page).to have_content('0000 0004 0516 7766')
+      expect(page).to have_content('https://ror.org/024jbvq59')
+      expect(page).to have_content('ABC-12345')
+
+      # Event title
+
+      # Event location
+
+      # Event date
+      # TODO
+
+      # Series name
+
+      # Book title
+
+      # Editor
+      # TODO
+
+      # Journal title
+      # Alternative journal title
+      # Volume
+      # Edition
+      # Version number
+      # Issue
+      # Pagination
+      # Article number
+      # Publisher
+      # Place of publication
+      # ISBN
+      # ISSN
+      # eISSN
+
+      # Current HE institution
+      # TODO
+
+      # Date accepted
+      # TODO
+
+      # Date submitted
+      # TODO
+
+      # Official URL
+      # Related URL
+      # Related exhibition
+      # Related exhibition venue
+
+      # Related exhibition date
+      # TODO
+
+      # Language
+      # License
+      # TODO?
+
+      # Rights statement
+      # TODO?
+
+      # Rights holder
+      # DOI
+
+      # Qualification name
+      # TODO
+      
+      # Qualification level
+      # TODO
+
+      # Alternative identifier
+      # TODO
+
+      # Related identifier
+      # TODO
+
+      # Peer-reviewed
+      # TODO
+
+      # Keywords
+      expect(page).to have_content('keyword_testing')
+
+      # Dewey
+      # Library of Congress Classification
+      # Additional information
+      # Rendering ids
+      
+      # Related identifier
+      expect(page).to have_content('978-3-16-148410-0')
+      expect(page).to have_content('ISBN')
+      expect(page).to have_content('Cites')
+
       expect(page).to have_content "Your files are being processed by Hyku in the background."
     end
     # rubocop:enable RSpec/ExampleLength

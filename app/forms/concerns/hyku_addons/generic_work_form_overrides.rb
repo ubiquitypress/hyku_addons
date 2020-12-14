@@ -27,6 +27,10 @@ module HykuAddons
             :contributor_wikidata, :contributor_position, :contributor_type, :contributor_institutional_relationship => []
           ]}
           permitted_params << { date_published: %i[date_published_year date_published_month date_published_day] }
+          permitted_params << { funder: [:funder_name, :funder_doi, :funder_position, :funder_isni, :funder_ror, :funder_award => []] }
+
+
+          permitted_params << { related_identifier: %i[related_identifier related_identifier_type relation_type] }
         end
       end
     end
