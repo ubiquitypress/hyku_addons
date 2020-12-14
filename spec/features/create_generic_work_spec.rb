@@ -180,10 +180,14 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # TODO
 
       # Date accepted
-      # TODO
+      select('2020', from: 'generic_work_date_accepted__date_accepted_year')
+      select('12', from: 'generic_work_date_accepted__date_accepted_month')
+      select('31', from: 'generic_work_date_accepted__date_accepted_day')
 
       # Date submitted
-      # TODO
+      select('2020', from: 'generic_work_date_submitted__date_submitted_year')
+      select('12', from: 'generic_work_date_submitted__date_submitted_month')
+      select('30', from: 'generic_work_date_submitted__date_submitted_day')
 
       # Official URL
       # Related URL
@@ -324,10 +328,10 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # TODO
 
       # Date accepted
-      # TODO
+      expect(page).to have_content('2020-12-30')
 
       # Date submitted
-      # TODO
+      expect(page).to have_content('2020-12-31')
 
       # Official URL
       # Related URL
