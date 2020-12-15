@@ -222,8 +222,9 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Qualification level
       select('Doctoral', from: 'generic_work_qualification_level')
 
-      # Alternative identifier
-      # TODO
+      # Alternate identifier
+      fill_in('generic_work_alternate_identifier__alternate_identifier', with: 'CD12345')
+      fill_in('generic_work_alternate_identifier__alternate_identifier_type', with: 'Local CD IDs')
 
       # Related identifier
       fill_in('generic_work_related_identifier__related_identifier', with: '978-3-16-148410-0')
@@ -371,8 +372,9 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Qualification level
       expect(page).to have_content('Doctoral')
 
-      # Alternative identifier
-      # TODO
+      # Alternate identifier
+      expect(page).to have_content('CD12345')
+      expect(page).to have_content('Local CD IDs')
 
       # Peer-reviewed
       # This isn't rendered on the show page currently

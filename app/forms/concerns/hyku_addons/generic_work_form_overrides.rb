@@ -37,6 +37,7 @@ module HykuAddons
           permitted_params << { date_accepted: [:date_accepted_year, :date_accepted_month, :date_accepted_day] }
           permitted_params << { date_submitted: [:date_submitted_year, :date_submitted_month, :date_submitted_day] }
           permitted_params << { related_exhibition_date: [:related_exhibition_date_year, :related_exhibition_date_month, :related_exhibition_date_day] }
+          permitted_params << { alternate_identifier: [:alternate_identifier, :alternate_identifier_type] }
           permitted_params << { related_identifier: [:related_identifier, :related_identifier_type, :relation_type] }
         end
       end

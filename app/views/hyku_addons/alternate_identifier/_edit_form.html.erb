@@ -1,0 +1,5 @@
+
+<% if (array_of_hash.class == Array && array_of_hash.first.class == Hash)  %>
+  <%= render "hyku_addons/alternate_identifier/edit_array_hash_form", array_of_hash: array_of_hash %>
+<% else %><!-- handle no record case -->
+<% end %>

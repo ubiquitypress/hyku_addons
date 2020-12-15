@@ -51,9 +51,7 @@
 <%= presenter.attribute_to_html(:doi, label: "DOI", render_as: :external_link, html_dl: true) %>
 <%= presenter.attribute_to_html(:qualification_name, html_dl: true) %>
 <%= presenter.attribute_to_html(:qualification_level, html_dl: true) %>
-<%= presenter.attribute_to_html(:alternate_identifier, html_dl: true) %>
-<%= presenter.attribute_to_html(:related_identifier, html_dl: true) %>
-<%#= render "hyku_addons/alternate_identifier/show", presenter: @presenter %>
+<%= render "hyku_addons/alternate_identifier/show", presenter: @presenter %>
 <%= render "hyku_addons/related_identifier/show", presenter: @presenter %>
 <%= presenter.attribute_to_html(:keyword, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:dewey, html_dl: true) %>
