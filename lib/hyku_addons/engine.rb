@@ -122,13 +122,15 @@ module HykuAddons
     end
 
     # Pre-existing Work type overrides
-    initializer 'hyku_addons.work_type_overrides' do
+    config.after_initialize do
       GenericWork.include HykuAddons::GenericWorkOverrides
       GenericWork.include ::Hyrax::BasicMetadata
       Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
       SolrDocument.include HykuAddons::SolrDocumentBehavior
       Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
       CatalogController.include HykuAddons::CatalogControllerBehavior
+      Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
+      Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
     end
   end
 end

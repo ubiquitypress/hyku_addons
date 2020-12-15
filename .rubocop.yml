@@ -12,6 +12,7 @@ AllCops:
 Metrics/ModuleLength:
   Exclude:
     - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
+    - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
     - 'app/models/concerns/hyku_addons/generic_work_overrides.rb'
 
 Metrics/BlockLength:
@@ -26,6 +27,15 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Exclude:
     - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
+    - 'app/forms/concerns/hyku_addons/generic_work_form_overrides.rb'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
 
 RSpec/DescribeClass:
   Exclude:

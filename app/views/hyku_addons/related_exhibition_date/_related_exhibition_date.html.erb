@@ -1,0 +1,29 @@
+<%# see app/views/records/edit_fields/_date_published.html.erb %>
+
+<% template = @curation_concern.class.to_s.underscore %>
+
+<% related_exhibition_date.each do |date| %>
+  <div class="ubiquity-meta-related-exhibition-date">
+    <label class="control-label multi_value optional" for="<% template %>_related_exhibition_date">Related exhibition date</label>
+    <p class="help-block"><%= t('simple_form.hints.defaults.related_exhibition_date') %></p>
+
+    <%= select_year(f.object.model.send("related_exhibition_date").to_s.split('-')[0].to_i, {start_year: (Date.today.year + 6), end_year: (Date.today.year - 159), prompt: "Select year"}, { id: "#{template}_related_exhibition_date__related_exhibition_date_year", name: "#{template}[related_exhibition_date][]related_exhibition_date_year]", class: 'form-control ubiquity-date-input'} ) %>
+
+    <%= select_month(f.object.model.send("related_exhibition_date").to_s.split('-')[1].to_i, { use_two_digit_numbers: true,
+                                                         prompt: 'select month if available'},   { id: "#{template}_related_exhibition_date__related_exhibition_date_month", name:  "#{template}[related_exhibition_date][][related_exhibition_date_month]", :class => 'form-control ubiquity-date-input'}) %>
+    <%= select_day(f.object.model.send("related_exhibition_date").to_s.split('-')[2].to_i, { use_two_digit_numbers: true,
+                                                     prompt: 'select day if available'},   { id: "#{template}_related_exhibition_date__related_exhibition_date_day", name:  "#{template}[related_exhibition_date][][related_exhibition_date_day]", :class => 'form-control ubiquity-date-input'}) %>
+
+
+    <br/><br/>
+    <a href="#" style="color:red;" class="remove_related_exhibition_date form-group" data-removeUbiquityRelatedExhibitionDate=".ubiquity-meta-related-exhibition-date">
+      <span class="glyphicon glyphicon-remove"></span>
+      <span class="controls-remove-text">Remove</span>
+    </a>
+      |
+    <a href="#" class="add_related_exhibition_date" data-addUbiquityRelatedExhibitionDate=".ubiquity-meta-related-exhibition-date">Add
+      another </a>
+    <br/><br/><br/>
+  </div>
+<% end %>
+

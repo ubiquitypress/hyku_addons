@@ -23,5 +23,23 @@ module HykuAddons
       # Replace hyku override to avoid #doi and #isbn methods
       gsub_file(Rails.root.join('app', 'presenters', 'hyrax', 'generic_work_presenter.rb'), '< Hyku::WorkShowPresenter', '< Hyrax::WorkShowPresenter')
     end
+
+    def copy_controlled_vocabularies
+      directory HykuAddons::Engine.root.join("config", "authorities"), Rails.root.join("config", "authorities")
+    end
+
+    def inject_javascript
+      insert_into_file(Rails.root.join('app', 'assets', 'javascripts', 'application.js'), after: /require hyrax$/) do
+        "\n//= require hyku_addons"
+      end
+    end
+
+    def inject_into_helper
+      insert_into_file(Rails.root.join('app', 'helpers', 'hyrax_helper.rb'), after: 'include Hyrax::HyraxHelperBehavior') do
+        "\n" \
+        "  # Helpers provided by hyku_addons plugin.\n" \
+        "  include HykuAddons::HelperBehavior"
+      end
+    end
   end
 end

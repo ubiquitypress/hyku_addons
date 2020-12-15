@@ -1,0 +1,178 @@
+# frozen_string_literal: true
+module HykuAddons
+  module MultipleMetadataFieldsHelper
+    # called in app/views/hyrax/collection/_sort_and_per_page.html
+    # sort_fields is 2 dimensional array
+    def ubiquity_sort_field(sort_array)
+      sort_array - [["relevance", "score desc, system_create_dtsi desc"], ["date modified ▼", "system_modified_dtsi desc"], ["date modified ▲", "system_modified_dtsi asc"]]
+    end
+
+    # takes in the creator value passed in from a solr document
+    # It receives an array containing a single json string eg ['[{creator_family_name: mike}, {creator_given_name: hu}]']
+    # We parse that json into an array of hashes as in [{creator_family_name: mike}, {creator_given_name: hu}]
+    # called from app/views/hyku_addons/collections/_show_document_list_row
+    def display_json_values(json_record)
+      # parse the json into an array
+      Ubiquity::ParseJson.new(json_record).data
+    end
+
+    def display_json_values_comma_separated(json_record)
+      Ubiquity::ParseJson.new(json_record).fetch_value_based_on_key('creator', '; ')
+    end
+
+    def contains_full_url_path?(url)
+      get_uri = URI.parse(url)
+      true if get_uri&.host && get_uri&.path
+    end
+
+    def match_key_to_url(key)
+      hash_map = { "ror" => "https://ror.org/", "grid" => 'https://grid.ac/institutes/',
+                   "wikidata" => 'https://www.wikidata.org/entity/' }.with_indifferent_access
+      hash_map[key]
+    end
+
+    def render_isni_or_orcid_url(id, type)
+      id = id.strip.chomp('/').split('/').last
+      new_id = id.delete('\n').delete('\t').gsub(/[^a-z0-9X]/, '')
+      uri = URI.parse(new_id)
+      if uri.scheme.present? && uri.host.present?
+        domain = uri
+        domain.to_s
+      elsif uri.scheme.present? == false && uri.path.present?
+        split_path(uri, type)
+      elsif uri.scheme.present? == false && uri.host.present? == false
+        create_isni_and_orcid_url(new_id, type)
+      end
+    end
+
+    # The uri looks like  `#<URI::Generic orcid.org/0000-0002-1825-0097>` hence the need to split_path;
+    # `split_domain_from_path` returns `["orcid.org", "0000-0002-1825-0097"]`
+    # get_type is subsctracting a sub array from the main array eg (["orcid", "org"] - ["org"]) and returns ["orcid"]
+    def split_path(uri, type)
+      split_domain_from_path = uri.path.split('/')
+      if split_domain_from_path.length == 1
+        id = split_domain_from_path.join('')
+        create_isni_and_orcid_url(id, type)
+      else
+        get_host = split_domain_from_path.shift
+        split_host = get_host.split('.')
+        get_type = (split_host - ['org']).join('')
+        get_id = split_domain_from_path.join('')
+        create_isni_and_orcid_url(get_id, get_type)
+      end
+    end
+
+    def create_isni_and_orcid_url(id, type)
+      if type == 'orcid'
+        host = URI('https://orcid.org/')
+        host.path = "/#{id}"
+        host.to_s
+      elsif type == "isni"
+        host = URI('https://isni.org')
+        host.path = "/isni/#{id}"
+        host.to_s
+      end
+    end
+
+    # Here we are checking in the works and search result page if the hash_keys for json fields
+    # include values for either isni or orcid before displaying parenthesis
+    def display_paren?(hash_keys, valid_keys)
+      (hash_keys & valid_keys).any?
+    end
+
+    # Here we are checking in the works and search result page if the hash_keys for json fields
+    # include a subset that is an array that includes either isni or orcid alongside contributor type before displaying a comma
+    def display_comma?(hash_keys, valid_keys)
+      all_keys_set = hash_keys.to_set
+      if valid_keys == ["contributor_type", "contributor_orcid", "contributor_isni"]
+        keys_with_orcid_id = valid_keys.take(2)
+        keys_with_isni_id = [valid_keys.first, valid_keys.last]
+        array_with_orcid_id_set = keys_with_orcid_id.to_set
+        array_with_isni_id_set = keys_with_isni_id.to_set
+        array_with_orcid_id_set.subset?(all_keys_set) || array_with_isni_id_set.subset?(all_keys_set)
+      else
+        needed_keys_set = valid_keys.to_set
+        needed_keys_set.subset? all_keys_set
+      end
+    end
+
+    def display_data_with_comma_separated(creator_hash, display_order)
+      display_order.map { |ele| creator_hash[ele].presence }.compact.join(', ')
+    end
+
+    def remove_last_semicolon(array_size, index)
+      ';' if index != array_size
+    end
+
+    def add_image_space?(hash_keys)
+      get_name = get_field_name(hash_keys)
+      desired_fields = ["#{get_name}_orcid", "#{get_name}_isni"]
+      desired_fields.to_set.subset? hash_keys.to_set
+    end
+
+    def get_field_name(hash_keys)
+      hash_keys&.first&.split('_')&.first
+    end
+
+    def extract_creator_names_for_homepage(record)
+      return nil unless record&.creator.present?
+      data = JSON.parse(record.creator.first)
+      creator_names = []
+      data.each do |hash|
+        add_comma_if_both_names_present(hash, creator_names)
+      end
+      creator_names
+    end
+
+    def get_model(presenter_record, _model_class, _field, multipart_sort_field_name = nil)
+      # model ||= model_class.constantize.new
+
+      # If the value of the first is record is nil return the model
+      # @value =   get_json_data || model
+      @value = presenter_record.first
+
+      return nil unless valid_json?(@value)
+      array_of_hash ||= JSON.parse(@value)
+      return [model.attributes] if array_of_hash.first.class == String || array_of_hash.first.nil?
+
+      # return sort_hash(array_of_hash, multipart_sort_field_name) if multipart_sort_field_name
+      return sort_hash(array_of_hash, multipart_sort_field_name) if multipart_sort_field_name
+
+      array_of_hash
+    end
+
+    # leave it as a public method because it used in other files
+    # return false if json == String
+    def valid_json?(data)
+      return false unless data.is_a? String
+      JSON.parse(data)
+      true
+    rescue JSON::ParserError
+      false
+    end
+
+    def check_has_editor_fields?(presenter)
+      ["Book", "BookContribution", "ConferenceItem", "Report", "GenericWork"].include? presenter
+    end
+
+    private
+
+      def sort_hash(array_of_hash, key)
+        # return array_of_hash if array_of_hash.class != Array
+        # allows the sort to function even if the value of a hash is nil
+        array_of_hash.sort_by { |hash| hash[key].to_i } if key.present? && array_of_hash.first.class == Hash
+      end
+
+      def add_comma_if_both_names_present(hash, creator_names)
+        creator_names << (hash['creator_organization_name']).to_s if hash['creator_organization_name'].present?
+        if hash['creator_given_name'].present? && hash['creator_family_name'].present?
+          add_comma = ','
+          creator_names <<  "#{hash['creator_family_name']}#{add_comma} #{hash['creator_given_name']}"
+        elsif hash['creator_family_name'].present?
+          creator_names <<  (hash['creator_family_name']).to_s
+        elsif hash['creator_given_name'].present?
+          creator_names <<  hash['creator_given_name']
+        end
+      end
+  end
+end

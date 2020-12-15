@@ -1,0 +1,14 @@
+<% if  f.object.model.new_record?  %>
+  <%= render "hyku_addons/related_identifier/new_form", f: f %>
+<% else %>
+  <% array_of_hash = get_model(f.object.model.related_identifier, f.object.model.class,  'related_identifier') %>
+
+  <!--
+  Ensures the edit form still renders the related_identifier fields when it is nil instead of an array of hash
+  -->
+  <% array_of_hash =  array_of_hash || [{}] %>
+  <%= render "hyku_addons/related_identifier/edit_form", f: f, array_of_hash: array_of_hash  %>
+<% end %>
+<%= render "hyku_addons/related_identifier/related_identifier_js" %>
+
+

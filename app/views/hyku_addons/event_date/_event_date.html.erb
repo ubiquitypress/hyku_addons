@@ -1,0 +1,27 @@
+<%# see app/views/records/edit_fields/_event_date.html.erb %>
+<% template = f.object.model.class.to_s.underscore %>
+
+
+<% event_date.each do |date| %>
+  <div class="ubiquity-meta-event-date">
+  <label class="control-label" for="event_date">Event date</label>
+  <br>
+  <%= select_year(f.object.model.send("event_date").to_s.split('-')[0].to_i, {start_year: (Date.today.year + 6), end_year: (Date.today.year - 159), prompt: "Select year"}, { id: "#{template}_event_date__event_date_year", name: "#{template}[event_date][][event_date_year]", class: 'form-control ubiquity-date-input'} ) %>
+
+  <%= select_month(f.object.model.send("event_date").to_s.split('-')[1].to_i, { use_two_digit_numbers: true,
+                                                               prompt: 'select month if available'},   {id: "#{template}_event_date__event_date_month", name:  "#{template}[event_date][][event_date_month]", :class => 'form-control ubiquity-date-input'}) %>
+  <%= select_day(f.object.model.send("event_date").to_s.split('-')[2].to_i, { use_two_digit_numbers: true,
+                                                           prompt: 'select day if available'},   {id: "#{template}_event_date__event_date_day", name:  "#{template}[event_date][][event_date_day]", :class => 'form-control ubiquity-date-input'}) %>
+
+
+  <br/><br/>
+  <a href="#" style="color:red;" class="remove_event_date form-group" data-removeUbiquityEventDate=".ubiquity-meta-event-date">
+    <span class="glyphicon glyphicon-remove"></span>
+    <span class="controls-remove-text">Remove</span>
+  </a>
+    |
+  <a href="#" class="add_event_date" data-addUbiquityEventDate=".ubiquity-meta-event-date">Add
+    another </a>
+  <br/><br/><br/>
+</div>
+<% end %>
