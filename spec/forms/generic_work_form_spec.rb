@@ -9,13 +9,13 @@ RSpec.describe Hyrax::GenericWorkForm do
   describe "#required_fields" do
     subject { form.required_fields }
 
-    it { is_expected.to eq [:title, :creator, :resource_type, :institution] }
+    it { is_expected.to eq [:title, :resource_type, :creator, :institution] }
   end
 
   describe "#primary_terms" do
     subject { form.primary_terms }
 
-    it { is_expected.to eq [:title, :creator, :resource_type, :institution, :license] }
+    it { is_expected.to eq [:title, :resource_type, :creator, :institution, :license] }
   end
 
   describe "#secondary_terms" do
@@ -38,8 +38,7 @@ RSpec.describe Hyrax::GenericWorkForm do
       {
         title: ['foo'],
         rendering_ids: ['file-set-id'],
-        abstract: 'abstract',
-        event_date: ['2009', '2010']
+        abstract: 'abstract'
       }
     end
 
@@ -47,7 +46,6 @@ RSpec.describe Hyrax::GenericWorkForm do
       expect(model_attributes['title']).to eq ['foo']
       expect(model_attributes['rendering_ids']).to eq ['file-set-id']
       expect(model_attributes['abstract']).to eq 'abstract'
-      expect(model_attributes['event_date']).to eq ['2009', '2010']
     end
 
     context '.model_attributes' do
