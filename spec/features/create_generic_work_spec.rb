@@ -230,8 +230,8 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       select('ISBN', from: 'generic_work_related_identifier__related_identifier_type')
       select('Cites', from: 'generic_work_related_identifier__relation_type')
 
-      # Peer-reviewed
-      # TODO
+      # Peer-reviewed (Refereed)
+      select('Peer-reviewed', from: 'generic_work_refereed')
 
       # Keywords
       fill_in('Keyword', with: 'keyword_testing')
@@ -375,7 +375,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # TODO
 
       # Peer-reviewed
-      # TODO
+      # This isn't rendered on the show page currently
 
       # Keywords
       expect(page).to have_content('keyword_testing')
