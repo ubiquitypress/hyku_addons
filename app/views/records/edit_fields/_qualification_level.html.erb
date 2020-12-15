@@ -1,0 +1,8 @@
+<% qualification_level_service = HykuAddons::QualificationLevelService.new %>
+<% selected =  f.object[:qualification_level].empty? ? nil :  f.object[:qualification_level] %>
+<% set_default = selected || 'Doctoral' %>
+
+<% model = f.object.model.class.to_s.underscore %>
+
+<%= render 'hyku_addons/qualification/qualification', f: f, model: model, qualification_service: qualification_level_service,
+  set_default: set_default, field_name: 'qualification_level', css_class_name: 'qualification-level'%>

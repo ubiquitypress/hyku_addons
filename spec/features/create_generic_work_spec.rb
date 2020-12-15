@@ -217,10 +217,10 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # DOI
 
       # Qualification name
-      # TODO
+      select('PhD', from: 'generic_work_qualification_name')
       
       # Qualification level
-      # TODO
+      select('Doctoral', from: 'generic_work_qualification_level')
 
       # Alternative identifier
       # TODO
@@ -366,15 +366,12 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # DOI
 
       # Qualification name
-      # TODO
+      expect(page).to have_content('PhD')
       
       # Qualification level
-      # TODO
+      expect(page).to have_content('Doctoral')
 
       # Alternative identifier
-      # TODO
-
-      # Related identifier
       # TODO
 
       # Peer-reviewed
