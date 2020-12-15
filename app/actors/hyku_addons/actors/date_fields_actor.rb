@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module HykuAddons
   module Actors
     class DateFieldsActor < Hyrax::Actors::BaseActor
@@ -11,19 +12,19 @@ module HykuAddons
 
       private
 
-      def serialize_date_fields(env)
-        env.curation_concern.class.date_fields.each do |field|
-          next unless env.attributes[field].present?
-          env.attributes[field] = Array(env.attributes[field]).collect { |date_hash| transform_date(date_hash, field) }
-          env.attributes[field] = env.attributes[field].first unless env.curation_concern.class.multiple?(field)
+        def serialize_date_fields(env)
+          env.curation_concern.class.date_fields.each do |field|
+            next unless env.attributes[field].present?
+            env.attributes[field] = Array(env.attributes[field]).collect { |date_hash| transform_date(date_hash, field) }
+            env.attributes[field] = env.attributes[field].first unless env.curation_concern.class.multiple?(field)
+          end
         end
-      end
 
-      def transform_date(date_hash, field)
-        date = date_hash["#{field}_year"]
-        date << "-#{date_hash["#{field}_month"].to_i}" if date_hash["#{field}_month"].present?
-        date << "-#{date_hash["#{field}_day"].to_i}" if date_hash["#{field}_month"].present? && date_hash["#{field}_day"].present?
-      end
+        def transform_date(date_hash, field)
+          date = date_hash["#{field}_year"]
+          date << "-#{date_hash["#{field}_month"].to_i}" if date_hash["#{field}_month"].present?
+          date << "-#{date_hash["#{field}_day"].to_i}" if date_hash["#{field}_month"].present? && date_hash["#{field}_day"].present?
+        end
     end
   end
 end

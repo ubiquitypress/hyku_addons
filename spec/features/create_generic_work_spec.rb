@@ -45,7 +45,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
               "uri": "http:\/\/dx.doi.org\/10.13039\/100008699",
               "replaces": [],
               "replaced-by": [],
-              "tokens": ["japan","foundation","london","japan","foundation","london"]
+              "tokens": ["japan", "foundation", "london", "japan", "foundation", "london"]
             }
           ]
         }
@@ -218,7 +218,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       # Qualification name
       select('PhD', from: 'generic_work_qualification_name')
-      
+
       # Qualification level
       select('Doctoral', from: 'generic_work_qualification_level')
 
@@ -368,7 +368,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       # Qualification name
       expect(page).to have_content('PhD')
-      
+
       # Qualification level
       expect(page).to have_content('Doctoral')
 
@@ -386,7 +386,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Library of Congress Classification
       # Additional information
       # Rendering ids
-      
+
       # Related identifier
       expect(page).to have_content('978-3-16-148410-0')
       expect(page).to have_content('ISBN')
