@@ -202,7 +202,9 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Related exhibition venue
 
       # Related exhibition date
-      # TODO
+      select('2021', from: 'generic_work_related_exhibition_date__related_exhibition_date_year')
+      select('01', from: 'generic_work_related_exhibition_date__related_exhibition_date_month')
+      select('04', from: 'generic_work_related_exhibition_date__related_exhibition_date_day')
 
       # Language
       # License
@@ -351,7 +353,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Related exhibition venue
 
       # Related exhibition date
-      # TODO
+      expect(page).to have_content('2021-1-4')
 
       # Language
       # License

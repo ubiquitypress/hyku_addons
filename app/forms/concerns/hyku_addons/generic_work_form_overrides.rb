@@ -26,18 +26,18 @@ module HykuAddons
             :contributor_family_name, :contributor_name_type, :contributor_orcid, :contributor_isni, :contributor_ror, :contributor_grid,
             :contributor_wikidata, :contributor_position, :contributor_type, :contributor_institutional_relationship => []
           ]}
-          permitted_params << { date_published: %i[date_published_year date_published_month date_published_day] }
+          permitted_params << { date_published: [:date_published_year, :date_published_month, :date_published_day] }
           permitted_params << { funder: [:funder_name, :funder_doi, :funder_position, :funder_isni, :funder_ror, :funder_award => []] }
-          permitted_params << { event_date: %i[event_date_year event_date_month event_date_day] }
+          permitted_params << { event_date: [:event_date_year, :event_date_month, :event_date_day] }
           permitted_params << { editor: [:editor_given_name,
             :editor_family_name, :editor_name_type, :editor_orcid, :editor_isni,
             :editor_position, :editor_organization_name, :editor_institutional_relationship => []
           ]}
           permitted_params << { current_he_institution: [:current_he_institution_name, :current_he_institution_isni, :current_he_institution_ror] }
-          permitted_params << { date_accepted: %i[date_accepted_year date_accepted_month date_accepted_day] }
-          permitted_params << { date_submitted: %i[date_submitted_year date_submitted_month date_submitted_day] }
-          # Related exhibition date
-          permitted_params << { related_identifier: %i[related_identifier related_identifier_type relation_type] }
+          permitted_params << { date_accepted: [:date_accepted_year, :date_accepted_month, :date_accepted_day] }
+          permitted_params << { date_submitted: [:date_submitted_year, :date_submitted_month, :date_submitted_day] }
+          permitted_params << { related_exhibition_date: [:related_exhibition_date_year, :related_exhibition_date_month, :related_exhibition_date_day] }
+          permitted_params << { related_identifier: [:related_identifier, :related_identifier_type, :relation_type] }
         end
       end
     end

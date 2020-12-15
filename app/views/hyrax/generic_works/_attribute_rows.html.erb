@@ -1,5 +1,3 @@
-<%# display contributor using the show partial  -->
-<%# presenter.attribute_to_html(:contributor, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:alt_title, label: "Alternative Title", html_dl: true) %>
 <%= presenter.attribute_to_html(:resource_type, render_as: :faceted, html_dl: true) %>
 
@@ -43,7 +41,7 @@
 <%= presenter.attribute_to_html(:related_url, render_as: :external_link, label: "Related URL", html_dl: true) %>
 <%= presenter.attribute_to_html(:related_exhibition, html_dl: true) %>
 <%= presenter.attribute_to_html(:related_exhibition_venue, html_dl: true) %>
-<%= presenter.attribute_to_html(:related_exhibition_date, render_as: :date, html_dl: true) %>
+<%= presenter.attribute_to_html(:related_exhibition_date, html_dl: true) %>
 <%= presenter.attribute_to_html(:license, render_as: :license, html_dl: true, label: "Licence", html_dl: true) %>
 <%= presenter.attribute_to_html(:rights_statement, render_as: :rights_statement, html_dl: true) %>
 <%= presenter.attribute_to_html(:rights_holder, html_dl: true) %>
@@ -56,7 +54,7 @@
 <%= presenter.attribute_to_html(:alternate_identifier, html_dl: true) %>
 <%= presenter.attribute_to_html(:related_identifier, html_dl: true) %>
 <%#= render "hyku_addons/alternate_identifier/show", presenter: @presenter %>
-<%#= render "hyku_addons/related_identifier/show", presenter: @presenter %>
+<%= render "hyku_addons/related_identifier/show", presenter: @presenter %>
 <%= presenter.attribute_to_html(:keyword, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:dewey, html_dl: true) %>
 <%= presenter.attribute_to_html(:library_of_congress_classification, render_as: :faceted, label: "Library of Congress Classification", html_dl: true) %>
