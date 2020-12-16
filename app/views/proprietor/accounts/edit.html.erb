@@ -32,16 +32,28 @@
             <%= s.input :base_path %>
           <% end %>
 
-          <h3><%= t(".datacite_endpoint") %></h3>
-          <%= f.fields_for :datacite_endpoint do |s| %>
-            <%= s.input :mode %>
-            <%= s.input :prefix %>
-            <%= s.input :username %>
-            <%= s.input :password, input_html: { value: @account.datacite_endpoint.password } %>
-          <% end %>
-
           <%= f.submit class: 'btn btn-primary' %>
           <%= link_to t('simple_form.cancel'), proprietor_accounts_path, class: 'btn btn-link action-cancel' %>
+          <br>
+          <br>
+
+          <h3> Ubiquity Settings </h3>
+          <br>
+          <%= form_for(@account, url: hyku_addons.admin_account_setting_path(@account), :html => { class: 'form control' }) do |f| %>
+
+
+             <tr>
+                <%= render 'hyku_addons/account_settings/settings/text_field_content',  account: @account, field_name: 'file_size_limit', f: f, display_save_button: true %>
+             </tr>
+
+               <% ['shared_login', 'enable_oai_metadata'].each do |fname| %>
+             <tr>
+
+               <%= render 'hyku_addons/account_settings/settings/boolean_field_content', field_name: fname, f: f, display_save_button: true %>
+
+             </tr>
+             <% end %>
+          <% end %>
         </div>
       <% end %>
     </div>
