@@ -44,8 +44,8 @@ module HykuAddons
 
     def override_blacklight_oai_provider_version
       gsub_file(Rails.root.join('Gemfile'), "gem 'blacklight_oai_provider', '~> 6.0'", "gem 'blacklight_oai_provider', github: 'ubiquitypress/blacklight_oai_provider', branch: 'release-6.x'")
-      Bundler.with_clean_env do
-        run 'bundle install'
+      Bundler.with_original_env do
+        run 'bundle update blacklight_oai_provider oai'
       end
     end
   end
