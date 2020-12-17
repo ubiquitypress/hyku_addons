@@ -2,7 +2,7 @@
 <% if  f.object.model.new_record? %>
   <%= render "hyku_addons/editor/new_form", f: f %>
 <% else %>
-  <% array_hash = get_model(f.object.model.editor, f.object.model.class, 'editor', 'editor_position') %>
+  <% array_hash = get_model(f.object.model.editor, f.object.model.class, 'editor', nil) %>
 
   <!--
   Clicking edit button returns an error it is something other than an array of hash

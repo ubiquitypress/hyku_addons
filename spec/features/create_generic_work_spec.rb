@@ -71,7 +71,84 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
     end
 
     # rubocop:disable RSpec/ExampleLength
-    it do
+    it 'persists a new work with only required fields' do
+      visit '/dashboard'
+      click_link "Works"
+      click_link "Add new work"
+
+      # If you generate more than one work uncomment these lines
+      choose "payload_concern", option: "GenericWork"
+      click_button "Create work"
+
+      # expect(page).to have_content "Add New Work"
+      # click_link "Files" # switch tab
+      page.find('a[href="#files"]').click
+      expect(page).to have_content "Add files"
+      expect(page).to have_content "Add folder"
+      within('span#addfiles') do
+        attach_file("files[]", File.join(fixture_path, 'hyrax', 'image.jp2'), visible: false)
+      end
+      click_link "Descriptions" # switch tab
+
+      # Title
+      fill_in('Title', with: 'My Test Work')
+
+      # Creator
+      select('Personal', from: 'generic_work_creator__creator_name_type')
+      fill_in('generic_work_creator__creator_family_name', with: 'Hawking')
+      fill_in('generic_work_creator__creator_given_name', with: 'Stephen')
+      fill_in('generic_work_creator__creator_orcid', with: '0000-0002-9079-593X')
+      select('Staff member', from: 'generic_work_creator__creator_institutional_relationship_')
+      fill_in('generic_work_creator__creator_isni', with: '0000 0001 2103 4996')
+
+      # Resource type
+      select('Article', from: 'Resource type')
+
+      # Institution
+      # TODO authoritity service
+      fill_in('Institution', with: 'Advancing Hyku')
+
+      # With selenium and the chrome driver, focus remains on the
+      # select box. Click outside the box so the next line can't find
+      # its element
+      find('body').click
+      choose('generic_work_visibility_open')
+      expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
+      # rubocop:enable Metrics/LineLength
+      check('agreement')
+
+      # Save
+      page.find('input[name=save_with_files]').click
+
+      ################
+      # Check metadata fields render properly after save
+      # Title
+      expect(page).to have_content('My Test Work')
+
+      # Creator
+      expect(page).to have_content('Hawking, Stephen')
+      expect(page).to have_link('', href: 'https://orcid.org/000000029079593X')
+      expect(page).to have_link('', href: 'https://isni.org/isni/0000000121034996')
+
+      # Resource type
+      expect(page).to have_link('Article', href: /catalog\?f.*Bresource_type_sim.*Article/)
+
+      # Institution
+      expect(page).to have_content('Advancing Hyku')
+
+      expect(page).not_to have_content('Contributor') # FIXME
+      expect(page).not_to have_content('Editor') # FIXME
+      expect(page).not_to have_content('Funder')
+      expect(page).not_to have_content('Current HE Institution')
+      expect(page).not_to have_content('Alternate identifier')
+      expect(page).not_to have_content('Related identifier')
+
+      expect(page).to have_content "Your files are being processed by Hyku in the background."
+    end
+    # rubocop:enable RSpec/ExampleLength
+
+    # rubocop:disable RSpec/ExampleLength
+    it 'persists a new work with multi-part fields' do
       visit '/dashboard'
       click_link "Works"
       click_link "Add new work"
