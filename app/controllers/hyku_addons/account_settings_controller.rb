@@ -10,6 +10,7 @@ module HykuAddons
     def index; end
 
     def edit
+      puts "RUNNING EDIT"
       # instance variables to pass values to the js.erb files
       @field_name = params[:field_name]
       respond_to do |format|
@@ -19,16 +20,18 @@ module HykuAddons
     end
 
     def update
+      puts "RUNNING UPDATE"
       @account.update(account_params)
       redirect_to admin_account_settings_path
     end
 
     def update_single
+      puts "RUNNING UPDATE SINGELE"
       @account.settings.merge!(account_params['settings'])
       # removes nil keys in the hash
       @account.settings.compact
       @account.save if @account.settings_changed?
-      redirect_to admin_account_settings_path
+      # redirect_to admin_account_settings_path
     end
 
     private
@@ -36,7 +39,7 @@ module HykuAddons
       def account_params
         params.require(:account).permit(
           settings: [:contact_email, :index_record_to_shared_search, :live, :enabled_doi, :gtm_id,
-                     :turn_off_fedora_collection_work_association, :file_size_limit,
+                     :turn_off_fedora_collection_work_association, :file_size_limit, :enable_oai_metadata,
                      :add_collection_list_form_display, :hide_form_relationship_tab, :shared_login,
                      :email_hint_text, :creator_fields, :contributor_fields, :sign_up_link, :allow_signup,
                      :redirect_on, :institutional_relationship_picklist, :institutional_relationship,
