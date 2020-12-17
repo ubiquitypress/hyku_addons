@@ -4,6 +4,7 @@ module HykuAddons
   module GenericWorkOverrides
     extend ActiveSupport::Concern
 
+    # TODO: Review indexing and switch to mostly _ssim instead of _tesim
     included do
       # From SharedMetadata
       property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
@@ -139,6 +140,7 @@ module HykuAddons
         index.as :stored_searchable
       end
 
+      # FIXME: Dates should be indexed as dates or at least _ssim not _tesim
       property :date_published, predicate: ::RDF::Vocab::DC.available, multiple: false do |index|
         index.as :stored_searchable
       end
@@ -174,10 +176,6 @@ module HykuAddons
 
       property :related_identifier, predicate: ::RDF::Vocab::BF2.identifiedBy do |index|
         index.as :stored_searchable
-      end
-
-      property :creator_search, predicate: ::RDF::Vocab::SCHEMA.creator do |index|
-        index.as :stored_searchable, :facetable
       end
 
       property :library_of_congress_classification, predicate: ::RDF::Vocab::BF2.term(:ClassificationLcc) do |index|

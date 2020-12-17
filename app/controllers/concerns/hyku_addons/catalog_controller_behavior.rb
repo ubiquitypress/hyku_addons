@@ -8,7 +8,7 @@ module HykuAddons
         # Re-configure facet fields
         config.facet_fields = {}
         config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 5
-        config.add_facet_field solr_name("creator_search", :facetable), label: "Creator", limit: 5
+        config.add_facet_field "creator_display_ssim", label: "Creator", limit: 5
         config.add_facet_field solr_name("keyword", :facetable), limit: 5
         config.add_facet_field solr_name('member_of_collections', :symbol), limit: 5, label: 'Collections'
         config.add_facet_field solr_name("institution", :facetable), limit: 5, label: 'Institution'
@@ -19,9 +19,9 @@ module HykuAddons
         # Re-configure index fields
         config.index_fields = {}
         config.add_index_field solr_name("title", :stored_searchable), label: "Title", itemprop: 'name', if: false
-        config.add_index_field solr_name("creator", :stored_searchable), itemprop: 'creator', link_to_search: solr_name("creator", :facetable)
-        config.add_index_field solr_name("contributor"), itemprop: 'contributor', link_to_search: solr_name("contributor", :facetable)
-        config.add_index_field solr_name("institution", :stored_searchable), label: "Institution"
+        config.add_index_field "creator_display_ssim", label: 'Creator', itemprop: 'creator', link_to_search: 'creator_display_ssim'
+        config.add_index_field "contributor_display_ssim", label: 'Contributor', itemprop: 'contributor', link_to_search: 'contributor_display_ssim'
+        config.add_index_field solr_name("institution", :stored_searchable), label: "Institution", if: false # FIXME: Only when in shared search
         config.add_index_field solr_name("date_published", :stored_searchable), label: "Date Published"
         config.add_index_field solr_name("date_created", :stored_searchable), itemprop: 'dateCreated'
         config.add_index_field solr_name("resource_type", :stored_searchable), label: "Resource Type"
@@ -40,7 +40,7 @@ module HykuAddons
         config.add_show_field solr_name("journal_title", :stored_searchable)
         config.add_show_field solr_name("alternative_journal_title", :stored_searchable)
         config.add_show_field solr_name("subject", :stored_searchable)
-        config.add_show_field solr_name("creator", :stored_searchable)
+        config.add_show_field "creator_display_ssim"
         config.add_show_field solr_name("version", :stored_searchable)
         config.add_show_field solr_name("related_exhibition", :stored_searchable)
         config.add_show_field solr_name("related_exhibition_venue", :stored_searchable)
@@ -53,7 +53,7 @@ module HykuAddons
         config.add_show_field solr_name("book_title", :stored_searchable)
         config.add_show_field solr_name("series_name", :stored_searchable)
         config.add_show_field solr_name("edition", :stored_searchable)
-        config.add_show_field solr_name("contributor", :stored_searchable)
+        config.add_show_field "contributor_display_ssim"
         config.add_show_field solr_name("publisher", :stored_searchable)
         config.add_show_field solr_name("place_of_publication", :stored_searchable)
         config.add_show_field solr_name("date_published", :stored_searchable)
@@ -98,7 +98,7 @@ module HykuAddons
           all_names = config.show_fields.values.map(&:field).join(" ")
           title_name = solr_name("title", :stored_searchable)
           field.solr_parameters = {
-            qf: "#{all_names} file_format_tesim all_text_timv alt_title_tesim^4.15 editor_tesim",
+            qf: "#{all_names} file_format_tesim all_text_timv alt_title_tesim^4.15 editor_display_ssim",
             pf: title_name.to_s
           }
         end
@@ -116,7 +116,7 @@ module HykuAddons
           # syntax, as eg {! qf=$title_qf }. This is neccesary to use
           # Solr parameter de-referencing like $title_qf.
           # See: http://wiki.apache.org/solr/LocalParams
-          solr_name = solr_name("contributor", :stored_searchable)
+          solr_name = "contributor_display_ssim"
           field.solr_local_parameters = {
             qf: solr_name,
             pf: solr_name
@@ -125,7 +125,7 @@ module HykuAddons
 
         config.add_search_field('creator') do |field|
           field.solr_parameters = { "spellcheck.dictionary": "creator" }
-          solr_name = solr_name("creator", :stored_searchable)
+          solr_name = "creator_display_ssim"
           field.solr_local_parameters = {
             qf: solr_name,
             pf: solr_name
@@ -134,7 +134,7 @@ module HykuAddons
 
         config.add_search_field('editor') do |field|
           field.solr_parameters = { "spellcheck.dictionary": "editor" }
-          solr_name = solr_name("editor", :stored_searchable)
+          solr_name = "editor_display_ssim"
           field.solr_local_parameters = {
             qf: solr_name,
             pf: solr_name
@@ -292,15 +292,6 @@ module HykuAddons
 
         config.add_search_field('extent') do |field|
           solr_name = solr_name("extent", :stored_searchable)
-          field.solr_local_parameters = {
-            qf: solr_name,
-            pf: solr_name
-          }
-        end
-
-        config.add_search_field('creator_search') do |field|
-          field.solr_parameters = { "spellcheck.dictionary": "creator_search" }
-          solr_name = solr_name("creator_search", :stored_searchable)
           field.solr_local_parameters = {
             qf: solr_name,
             pf: solr_name
