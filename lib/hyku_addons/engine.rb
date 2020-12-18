@@ -75,6 +75,14 @@ module HykuAddons
       ActionController::Base.prepend_view_path(paths['app/views'].existent)
       # Append our locales so they have precedence
       I18n.load_path += Dir[HykuAddons::Engine.root.join('config', 'locales', '*.{rb,yml}')]
+
+      # # Append per-tenant settings to dashboard
+      # Hyrax::DashboardController.class_eval do
+      #   class_attribute :sidebar_partials
+      #   self.sidebar_partials = {}
+      # end
+      # Hyrax::DashboardController.sidebar_partials[:configuration] ||= []
+      # Hyrax::DashboardController.sidebar_partials[:configuration] << "hyrax/dashboard/sidebar/per_tenant_settings"
     end
 
     ## In engine development mode (ENGINE_ROOT defined) handle specific generators as app-only by setting destintation_root appropriately
