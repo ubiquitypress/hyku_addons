@@ -36,7 +36,7 @@ module HykuAddons
       def account_params
         params.require(:account).permit(
           settings: [:contact_email, :index_record_to_shared_search, :live, :enabled_doi, :gtm_id,
-                     :turn_off_fedora_collection_work_association,
+                     :turn_off_fedora_collection_work_association, :file_size_limit, :enable_oai_metadata,
                      :add_collection_list_form_display, :hide_form_relationship_tab, :shared_login,
                      :email_hint_text, :creator_fields, :contributor_fields, :sign_up_link, :allow_signup,
                      :redirect_on, :institutional_relationship_picklist, :institutional_relationship,

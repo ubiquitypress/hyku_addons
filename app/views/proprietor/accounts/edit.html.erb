@@ -34,10 +34,17 @@
 
           <h3><%= t(".datacite_endpoint") %></h3>
           <%= f.fields_for :datacite_endpoint do |s| %>
-            <%= s.input :mode %>
-            <%= s.input :prefix %>
-            <%= s.input :username %>
-            <%= s.input :password, input_html: { value: @account.datacite_endpoint.password } %>
+            <%= s.input :mode, required: false  %>
+            <%= s.input :prefix, required: false  %>
+            <%= s.input :username, required: false  %>
+            <%= s.input :password, input_html: { value: @account.datacite_endpoint.password }, required: false  %>
+          <% end %>
+
+          <h3><%= t(".account_settings") %></h3>
+          <%= f.fields_for :settings do |s| %>
+            <%= s.label 'file_size_limit', required: false %><br>
+            <%= s.label t("settings.helptexts.file_size_limit"), required: false %><br>
+            <%= s.text_field 'file_size_limit', value: @account.settings['file_size_limit'], class: 'form-control' %><br>
           <% end %>
 
           <%= f.submit class: 'btn btn-primary' %>
