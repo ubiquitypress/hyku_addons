@@ -10,7 +10,6 @@ module HykuAddons
     def index; end
 
     def edit
-      puts "RUNNING EDIT"
       # instance variables to pass values to the js.erb files
       @field_name = params[:field_name]
       respond_to do |format|
@@ -20,18 +19,16 @@ module HykuAddons
     end
 
     def update
-      puts "RUNNING UPDATE"
       @account.update(account_params)
       redirect_to admin_account_settings_path
     end
 
     def update_single
-      puts "RUNNING UPDATE SINGELE"
       @account.settings.merge!(account_params['settings'])
       # removes nil keys in the hash
       @account.settings.compact
       @account.save if @account.settings_changed?
-      # redirect_to admin_account_settings_path
+      redirect_to admin_account_settings_path
     end
 
     private
