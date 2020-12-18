@@ -42,7 +42,9 @@
 <%= presenter.attribute_to_html(:related_exhibition, html_dl: true) %>
 <%= presenter.attribute_to_html(:related_exhibition_venue, html_dl: true) %>
 <%= presenter.attribute_to_html(:related_exhibition_date, html_dl: true) %>
-<%= presenter.attribute_to_html(:license, render_as: :license, html_dl: true, label: "Licence", html_dl: true) %>
+<!-- License is rendered in another partial
+<%#= presenter.attribute_to_html(:license, render_as: :license, html_dl: true, label: "Licence", html_dl: true) %>
+-->
 <%= presenter.attribute_to_html(:rights_statement, render_as: :rights_statement, html_dl: true) %>
 <%= presenter.attribute_to_html(:rights_holder, html_dl: true) %>
 <!-- if you change the label DOI below you must change the if condition in
