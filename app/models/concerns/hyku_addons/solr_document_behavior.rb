@@ -49,7 +49,9 @@ module HykuAddons
       attribute :related_exhibition_venue, SolrDocument::Solr::Array, solr_name('related_exhibition_venue')
       attribute :related_exhibition_date, SolrDocument::Solr::Array, solr_name('related_exhibition_date')
       attribute :editor, SolrDocument::Solr::Array, solr_name('editor')
-      attribute :creator_search, SolrDocument::Solr::Array, solr_name('creator_search')
+      attribute :creator_display, SolrDocument::Solr::Array, 'creator_display_ssim'
+      attribute :contributor_display, SolrDocument::Solr::Array, 'contributor_display_ssim'
+      attribute :editor_display, SolrDocument::Solr::Array, 'editor_display_ssim'
       attribute :dewey, SolrDocument::Solr::Array, solr_name('dewey')
       attribute :library_of_congress_classification, SolrDocument::Solr::Array, solr_name('library_of_congress_classification')
       attribute :alt_title, SolrDocument::Solr::Array, solr_name('alt_title')
@@ -59,8 +61,8 @@ module HykuAddons
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(
-        contributor: ['contributor_list_tesim', 'editor_list_tesim', 'funder_tesim'],
-        creator: 'creator_search_tesim',
+        contributor: ['contributor_display_ssim', 'editor_display_ssim', 'funder_tesim'],
+        creator: 'creator_display_ssim',
         date: 'date_published_tesim',
         description: 'abstract_oai_tesim',
         identifier: ['official_link_oai_tesim', 'doi_tesim', 'all_orcid_isni_tesim', 'work_tenant_url_tesim', 'collection_tenant_url_tesim'],

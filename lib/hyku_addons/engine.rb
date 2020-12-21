@@ -135,6 +135,7 @@ module HykuAddons
     config.after_initialize do
       GenericWork.include HykuAddons::GenericWorkOverrides
       GenericWork.include ::Hyrax::BasicMetadata
+      WorkIndexer.include HykuAddons::WorkIndexerBehavior
       Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
       SolrDocument.include HykuAddons::SolrDocumentBehavior
       Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
