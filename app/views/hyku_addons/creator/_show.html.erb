@@ -1,8 +1,28 @@
 <!-- rendered from views/hyrax/base///_attribute_rows.html.erb -->
-<% array_of_hash = get_model(presenter.creator, presenter.model, 'creator', nil) %>
-
-<% if (array_of_hash.class == Array && array_of_hash.first.class == Hash)  %>
-  <%= render "hyku_addons/creator/show_array_hash",  array_of_hash: array_of_hash %>
-<% else %>
-
-<% end %> <%# closes if array_of_hash.class %>
+<tr>
+  <th>Creator</th>
+  <td>
+    <ul class="tabular">
+      <% presenter.creator_list.each do |creator| %>
+        <li class="attribute creator">
+          <span itemprop="creator" style="float:left">
+            <%= creator.display_name %>
+          </span>
+          <span itemprop="creator">
+            <% if [:orcid_link, :isni_link, :ror_link, :grid_link, :wikidata_link].any? { |l| creator.send(l).present? } %>
+              <span style="float:left">&nbsp;(</span>
+              <% [:orcid_link, :isni_link, :ror_link, :grid_link, :wikidata_link].each do |id_link| %>
+                <% next if creator.send(id_link).blank? %>
+                <%== creator.send(id_link) %>
+                <%# FIXME: don't display space if last link %>
+                <span style='float:left'>&nbsp;</span>
+              <% end %>
+              <span>)</span>
+            <% end %>
+           </span>
+          <br/>
+        </li>
+      <% end %>
+    </ul>
+  </td>
+</tr>

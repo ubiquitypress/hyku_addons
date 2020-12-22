@@ -4,7 +4,32 @@ module HykuAddons
   module SolrDocumentBehavior
     extend ActiveSupport::Concern
 
+    class_methods do
+      # Override to register the attributes for #attributes method below
+      def attribute(name, type, field)
+        registered_attributes << name
+        define_method name do
+          type.coerce(self[field])
+        end
+      end
+    end
+
+    def attributes
+      registered_attributes.collect { |attr| [attr, send(attr)] }.to_h
+    end
+
     included do
+      class_attribute :registered_attributes
+      # Pre-seed registered attributes because they have already been created before this module is included
+      self.registered_attributes = [:identifier, :based_near, :based_near_label, :related_url, :resource_type,
+                                    :edit_groups, :edit_people, :read_groups, :collection_ids, :admin_set, :member_ids,
+                                    :member_of_collection_ids, :description, :abstract, :title, :contributor, :subject,
+                                    :publisher, :language, :keyword, :license, :source, :date_created, :rights_statement,
+                                    :mime_type, :workflow_state, :human_readable_type, :representative_id, :rendering_ids,
+                                    :thumbnail_id, :thumbnail_path, :label, :file_format, :suppressed?, :original_file_id,
+                                    :date_modified, :date_uploaded, :create_date, :modified_date, :embargo_release_date,
+                                    :lease_expiration_date]
+
       attribute :extent, SolrDocument::Solr::Array, solr_name('extent')
       attribute :rendering_ids, SolrDocument::Solr::Array, solr_name('hasFormat', :symbol)
       attribute :isni, SolrDocument::Solr::Array, solr_name('isni')
