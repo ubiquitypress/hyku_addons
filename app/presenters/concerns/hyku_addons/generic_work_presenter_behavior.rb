@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module HykuAddons
   module GenericWorkPresenterBehavior
     extend ActiveSupport::Concern
