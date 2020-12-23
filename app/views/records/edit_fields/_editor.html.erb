@@ -1,18 +1,91 @@
+<% template = f.object.model.class.to_s.underscore %>
 
-<% if  f.object.model.new_record? %>
-  <%= render "hyku_addons/editor/new_form", f: f %>
-<% else %>
-  <% array_hash = get_model(f.object.model.editor, f.object.model.class, 'editor', nil) %>
+<% f.object.editor_list.each do |hash| %>
 
-  <!--
-  Clicking edit button returns an error it is something other than an array of hash
-  it will throw either ActionView::Template::Error (undefined method `each_with_index' for nil:NilClass)
-    or
-  ActionView::Template::Error (undefined method `dig' for "null":String):
-  The line below fixes that
-  -->
-  <% array_of_hash = array_hash || [{}] %>
-  <%# render "hyku_addons/editor/edit_array_hash_form", curation_concern: curation_concern, f: f, array_of_hash: array_of_hash %>
-  <%= render "hyku_addons/editor/edit_array_hash_form", f: f, array_of_hash: array_of_hash %>
+  <div class="ubiquity-meta-editor" >
+
+    <label class="control-label multi_value optional" for="#{template}_editor_name_type">
+      Editor name type</label>
+    <%= select_tag "#{template}[editor][][editor_name_type]", content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( HykuAddons::NameTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("editor_name_type")),
+                   class:  'ubiquity_editor_name_type', data: {field_name:'ubiquity_editor_name_type'} %>
+    <br/>
+
+    <p class="help-block">The editors that produced this item, in priority order. To add multiple editors, repeat this property.</p>
+
+    <label class="control-label multi_value optional" for="#{template}_editor_isni">
+      Editor ISNI</label>
+    <%= text_field_tag "#{template}[editor][][editor_isni]", hash.dig("editor_isni"),
+                       class: "#{template}_editor form-control multi-text-field multi_value ubiquity_editor_isni",
+                       placeholder: 'Please enter the editor\'s ISNI, e.g. 0000 1234 5678 9101.',
+                       name: "#{template}[editor][][editor_isni]",
+                       data: {field_name:'ubiquity_editor_isni'}
+    %>
+    <br/>
+  <span class="ubiquity_organization_fields">
+
+    <label class="ubiquity_editor_organization_name_label control-label multi_value optional" for="#{template}_editor_organization_name">
+      Editor organisation name</label>
+    <%= text_field_tag  "#{template}[editor][][editor_organization_name]", hash.dig("editor_organization_name"),
+                        class: "#{template}_editor_organization_name form-control multi-text-field multi_value ubiquity_editor_organization_name",
+                        placeholder: 'Please enter the organisation\'s name.',
+                        name: "#{template}[editor][][editor_organization_name]",
+                        data: {field_name:'ubiquity_editor_organization_name'}
+    %>
+    <span style="color:blue;" class="error">Please complete this field.</span>
+  </span>
+  <br>
+  <span class="ubiquity_personal_fields">
+
+      <label class="control-label multi_value optional" for="#{template}_editor_orcid">
+        Editor ORCID</label>
+      <%= text_field_tag "#{template}[editor][][editor_orcid]", hash.dig("editor_orcid"),
+                         class: "#{template}_editor form-control multi-text-field multi_value ubiquity_editor_orcid",
+                         placeholder: 'Please enter the editor\'s ORCID, e.g. 0000-1234-5678-9101.',
+                         name: "#{template}[editor][][editor_orcid]",
+                         data: {field_name:'ubiquity_editor_orcid'}
+      %>
+      <br/>
+
+      <label class="control-label multi_value optional" for="#{template}_editor_family">
+        Editor family name</label>
+      <%= text_field_tag "#{template}[editor][][editor_family_name]", hash.dig("editor_family_name"),
+                         class: "#{template}_editor form-control multi-text-field multi_value ubiquity_editor_family_name",
+                         placeholder: 'Please enter the editor\'s last name/family name.',
+                         name: "#{template}[editor][][editor_family_name]",
+                         data: {field_name:'ubiquity_editor_family_name'}
+
+      %>
+      <br/>
+
+      <label class="control-label multi_value optional" for="#{template}_editor_given_name">
+        Editor given name  </label>
+      <%= text_field_tag "#{template}[editor][][editor_given_name]", hash.dig("editor_given_name"),
+                         class: "#{template}_editor form-control multi-text-field multi_value ubiquity_editor_given_name",
+                         placeholder: 'Please enter the editor\'s first name/given name.',
+                         name: "#{template}[editor][][editor_given_name]",
+                         data: {field_name:'ubiquity_editor_given_name'}
+
+      %>
+
+      <br/>
+      <p><label class="control-label multi_value optional" for="#{template}_editor_institutional_relationship">
+        Editor institutional relationship  </label> </p>
+      <%= select_tag "#{template}[editor][][editor_institutional_relationship]", content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( ['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("editor_institutional_relationship")),
+          multiple: true,  class: "form-control"
+           %>
+
+    </span> <!-- closes ubiquity_personal_fields -->
+
+    <br/>
+    <a href="#" style="color:red;"  class=" remove_editor form-group " data-removeUbiquityEditor=".ubiquity-meta-editor">
+      <span class="glyphicon glyphicon-remove"></span>
+      <span class="controls-remove-text">Remove</span>
+    </a>
+    |
+    <a href="#" class=" add_editor" data-addUbiquityEditor=".ubiquity-meta-editor">Add another </a>
+
+    <br/><br/><br/>
+
+  </div>
 
 <% end %>

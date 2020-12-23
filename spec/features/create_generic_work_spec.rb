@@ -98,7 +98,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       fill_in('generic_work_creator__creator_family_name', with: 'Hawking')
       fill_in('generic_work_creator__creator_given_name', with: 'Stephen')
       fill_in('generic_work_creator__creator_orcid', with: '0000-0002-9079-593X')
-      select('Staff member', from: 'generic_work_creator__creator_institutional_relationship_')
+      select('Staff member', from: 'generic_work_creator__creator_institutional_relationship')
       fill_in('generic_work_creator__creator_isni', with: '0000 0001 2103 4996')
 
       # Resource type
@@ -175,7 +175,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       fill_in('generic_work_creator__creator_family_name', with: 'Hawking')
       fill_in('generic_work_creator__creator_given_name', with: 'Stephen')
       fill_in('generic_work_creator__creator_orcid', with: '0000-0002-9079-593X')
-      select('Staff member', from: 'generic_work_creator__creator_institutional_relationship_')
+      select('Staff member', from: 'generic_work_creator__creator_institutional_relationship')
       fill_in('generic_work_creator__creator_isni', with: '0000 0001 2103 4996')
 
       # Resource type
@@ -243,7 +243,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       fill_in('generic_work_editor__editor_orcid', with: '0000-0002-9079-600X')
       fill_in('generic_work_editor__editor_family_name', with: 'Curry')
       fill_in('generic_work_editor__editor_given_name', with: 'Timothy')
-      select('Staff member', from: 'generic_work_editor__editor_institutional_relationship_')
+      select('Staff member', from: 'generic_work_editor__editor_institutional_relationship')
 
       # Journal title
       # Alternative journal title
