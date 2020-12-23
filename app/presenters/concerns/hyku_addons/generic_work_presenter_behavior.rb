@@ -39,12 +39,12 @@ module HykuAddons
     # TODO: Need to normalize ids in the work model in  order for these methods to work in all cases (and stay simple)
     class PersonOrOrganization < Struct.new(:display_name, :orcid, :isni, :ror, :grid, :wikidata)
       def orcid_url
-        "https://orcid.org/#{orcid}" if orcid.present?
+        "https://orcid.org/#{orcid.gsub(/[^a-z0-9X]/, '')}" if orcid.present?
       end
 
       def orcid_logo
         orcid_logo_url = 'https://s3-eu-west-1.amazonaws.com/service-hyku-oar-importer/orcid_16x16.png'
-        "<img src='#{orcid_logo_url}' alt='ORCID' height='16' width='16' class='img-responsive' style='float:left' />"
+        "<img src='#{orcid_logo_url}' alt='ORCID' height='16' width='16' class='img-responsive' />"
       end
 
       def orcid_link
@@ -52,12 +52,12 @@ module HykuAddons
       end
 
       def isni_url
-        "https://isni.org/isni/#{isni}" if isni.present?
+        "https://isni.org/isni/#{isni.gsub(/[^a-z0-9X]/, '')}" if isni.present?
       end
 
       def isni_logo
         isni_logo_url = 'https://s3-eu-west-1.amazonaws.com/service-hyku-oar-importer/logo_xml_isni-16.gif'
-        "<img src='#{isni_logo_url}' alt='ISNI' height='16' width='16' class='img-responsive' style='float:left' />"
+        "<img src='#{isni_logo_url}' alt='ISNI' height='16' width='16' class='img-responsive' />"
       end
 
       def isni_link

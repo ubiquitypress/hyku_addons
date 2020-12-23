@@ -54,3 +54,7 @@ Style/SymbolProc:
 
 Style/StructInheritance:
   Enabled: false
+
+Rails/OutputSafety:
+  Exclude:
+    - 'app/renderers/**/*'
