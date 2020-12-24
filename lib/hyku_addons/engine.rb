@@ -144,6 +144,7 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
       Bolognese::Metadata.prepend Bolognese::Readers::UbiquityGenericWorkReader
+      Hyrax::GenericWorksController.prepend HykuAddons::WorksControllerAdditionalMimeTypesBehavior
     end
   end
 end
