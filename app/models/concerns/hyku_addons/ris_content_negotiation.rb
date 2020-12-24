@@ -5,7 +5,6 @@ module HykuAddons
     end
 
     def export_as_ris
-      byebug
       json = Hyrax::GenericWorkPresenter::DELEGATED_METHODS.collect do |m|
         [m, p.send(m)]
       end.to_h.merge('has_model' => p.model.model_name).to_json
@@ -30,6 +29,4 @@ module HykuAddons
 
     def connection
       ActiveFedora.fedora.clean_connection
-    end
-  end
 end
