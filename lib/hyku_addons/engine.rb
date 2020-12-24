@@ -138,7 +138,6 @@ module HykuAddons
       WorkIndexer.include HykuAddons::WorkIndexerBehavior
       Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
       SolrDocument.include HykuAddons::SolrDocumentBehavior
-      SolrDocument.include HykuAddons::SolrDocumentRis
       Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
       CatalogController.include HykuAddons::CatalogControllerBehavior
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
