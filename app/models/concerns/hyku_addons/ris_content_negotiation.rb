@@ -29,4 +29,6 @@ module HykuAddons
 
     def connection
       ActiveFedora.fedora.clean_connection
+    end
+  end
 end
