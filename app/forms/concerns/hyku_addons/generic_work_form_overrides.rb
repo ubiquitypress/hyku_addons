@@ -39,5 +39,26 @@ module HykuAddons
         end
       end
     end
+
+    # Helper methods for JSON fields
+    def creator_list
+      person_or_organization_list(:creator)
+    end
+
+    def contributor_list
+      person_or_organization_list(:contributor)
+    end
+
+    def editor_list
+      person_or_organization_list(:editor)
+    end
+
+    private
+
+      def person_or_organization_list(field)
+        # Return empty hash to ensure that it gets rendered at least once
+        return [{}] unless send(field)&.first.present?
+        JSON.parse(send(field).first)
+      end
   end
 end

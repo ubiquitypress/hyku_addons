@@ -51,3 +51,10 @@ RSpec/ExampleLength:
 Style/SymbolProc:
   Exclude:
     - 'app/models/concerns/hyku_addons/account_behavior.rb'
+
+Style/StructInheritance:
+  Enabled: false
+
+Rails/OutputSafety:
+  Exclude:
+    - 'app/renderers/**/*'

@@ -142,6 +142,7 @@ module HykuAddons
       CatalogController.include HykuAddons::CatalogControllerBehavior
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
+      Bolognese::Metadata.prepend Bolognese::Readers::UbiquityGenericWorkReader
     end
   end
 end
