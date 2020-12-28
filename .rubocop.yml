@@ -9,6 +9,10 @@ AllCops:
     - 'spec/internal_test_hyku/**/*'
     - 'vendor/**/*'
 
+Metrics/ClassLength:
+  Exclude:
+    - 'lib/hyku_addons/engine.rb'
+
 Metrics/ModuleLength:
   Exclude:
     - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
@@ -54,6 +58,10 @@ Style/SymbolProc:
 
 Style/StructInheritance:
   Enabled: false
+
+Style/MethodMissing:
+  Exclude:
+    - 'lib/hyku_addons/engine.rb'
 
 Rails/OutputSafety:
   Exclude:
