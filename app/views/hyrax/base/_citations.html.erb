@@ -3,6 +3,5 @@
       <%= link_to t(".citations"), hyrax.citations_work_path(presenter), id: 'citations', class: 'btn btn-default' %>
     <% end %>
 
-		Citations: <%= link_to "Download as RIS (Zotero, Endnote, Mendeley)", [main_app, presenter.solr_document] %>
-		Citations: <%= link_to "Download as RIS (Zotero, Endnote, Mendeley)", hyrax_generic_work_path(presenter.solr_document) %>
+    Citations: <%= link_to "Download as RIS (Zotero, Endnote, Mendeley)", main_app.polymorphic_path(presenter.solr_document, format: :ris) %>
 </div>
