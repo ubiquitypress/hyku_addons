@@ -149,6 +149,14 @@ module HykuAddons
       end
     end
 
+    # Pre-existing Work type overrides
+    config.after_initialize do
+      Hyrax.config do |config|
+        # Injected via `rails g hyrax:work HykuAddons::Article`
+        config.register_curation_concern :article
+      end
+    end
+
     # Pre-existing Work type overrides and dynamic includes
     def self.dynamically_include_mixins
       GenericWork.include HykuAddons::GenericWorkOverrides

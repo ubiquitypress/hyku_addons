@@ -69,8 +69,6 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       login_as user
     end
-
-    # rubocop:disable RSpec/ExampleLength
     it 'persists a new work with only required fields' do
       visit '/dashboard'
       click_link "Works"
@@ -114,7 +112,6 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       find('body').click
       choose('generic_work_visibility_open')
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
-      # rubocop:enable Metrics/LineLength
       check('agreement')
 
       # Save
@@ -145,9 +142,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       expect(page).to have_content "Your files are being processed by Hyku in the background."
     end
-    # rubocop:enable RSpec/ExampleLength
 
-    # rubocop:disable RSpec/ExampleLength
     it 'persists a new work with multi-part fields' do
       visit '/dashboard'
       click_link "Works"
@@ -328,7 +323,6 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       find('body').click
       choose('generic_work_visibility_open')
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
-      # rubocop:enable Metrics/LineLength
       check('agreement')
 
       # Save
@@ -471,6 +465,5 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       expect(page).to have_content "Your files are being processed by Hyku in the background."
     end
-    # rubocop:enable RSpec/ExampleLength
   end
 end
