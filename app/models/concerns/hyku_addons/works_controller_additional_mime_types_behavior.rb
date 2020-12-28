@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module HykuAddons
   module WorksControllerAdditionalMimeTypesBehavior
     def additional_response_formats(format)
