@@ -30,4 +30,19 @@ RSpec.describe Hyrax::GenericWorkPresenter do
       expect(presenter).to respond_to(:isbns)
     end
   end
+
+  describe "#export_as_ris" do
+    it "is a defined method" do
+      expect(presenter).to respond_to(:export_as_ris)
+    end
+
+    it "returns a non empty string" do
+      expect(presenter.export_as_ris).to be_present
+      expect(presenter.export_as_ris).to be_a(String)
+    end
+
+    it "returns a string in the RIS format" do
+      expect(presenter.export_as_ris).to include("T1  - #{presenter.title.first}")
+    end
+  end
 end
