@@ -1,4 +1,4 @@
-RSpec.describe "Additionao Mime Types" do
+RSpec.describe "Additional Mime Types" do
   describe "RIS" do
     it "is registered" do
       expect(Mime::Type.lookup("application/x-research-info-systems")).to be_a(Mime::Type)
