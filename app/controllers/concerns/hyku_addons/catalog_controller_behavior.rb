@@ -4,6 +4,8 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     included do
+      append_before_action :routing_error_unless_feature_enabled, only: :oai
+
       configure_blacklight do |config|
         # Re-configure facet fields
         config.facet_fields = {}
@@ -306,12 +308,11 @@ module HykuAddons
         # OAI Config fields
         config.oai = {
           provider: {
-            # repository_name: ,
             repository_name: ->(controller) { controller.send(:current_account)&.name.presence || Settings.oai.name },
             # repository_url:  ->(controller) { controller.oai_catalog_url },
-            record_prefix: Settings.oai.prefix,
-            admin_email: ->(controller) { controller.send(:current_account).settings["oai_admin_email"].presence || Settings.oai.email },
-            sample_id: Settings.oai.sample_id
+            record_prefix: ->(controller) { controller.send(:current_account).settings["oai_prefix"].presence || Settings.oai.prefix },
+            admin_email:   ->(controller) { controller.send(:current_account).settings["oai_admin_email"].presence || Settings.oai.email },
+            sample_id:     ->(controller) { controller.send(:current_account).settings["oai_sample_identifier"].presence || Settings.oai.sample_id }
           },
           document: {
             limit: 25, # number of records returned with each request, default: 15
@@ -320,6 +321,16 @@ module HykuAddons
             ]
           }
         }
+      end
+
+      private
+
+      def routing_error_unless_feature_enabled
+        raise ActionController::RoutingError.new('OAI Not enabled') unless Flipflop.enabled?(:oai_endpoint)
+      end
+
+      def oai_account_or_default_settings(controller, attr)
+        controller.send(:current_account).settings[attr].presence || Settings.oai[prefix]
       end
     end
   end
