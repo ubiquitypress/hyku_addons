@@ -20,17 +20,13 @@ RSpec.describe Hyrax::GenericWorksController, type: :request, multitenant: true 
 
   describe "#show" do
     context "as an RIS file" do
-      let(:disposition) { response.header.fetch("Content-Disposition") }
-      let(:content_type) { repsonse.header.fetch("Content-Type") }
-
       it "downloads the file" do
 
         get "/concern/generic_works/#{work.id}.ris"
 
         expect(response).to be_successful
-#        expect(disposition).to include("attachment")
-#        expect(content_type).to eq("application/x-research-info-systems")
-#        expect(response.body).to include("T1  - #{work.title}")
+        expect(response.header.fetch("Content-Type")).to include("application/x-research-info-systems")
+        expect(response.body).to include("T1  - #{work.title.first}")
       end
     end
   end
