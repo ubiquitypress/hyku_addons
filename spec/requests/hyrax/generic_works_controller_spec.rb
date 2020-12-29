@@ -8,15 +8,15 @@ RSpec.describe Hyrax::GenericWorksController, type: :request, multitenant: true 
   let(:work) { create(:work, user: user) }
   let!(:account) { create(:account) }
 
-	before do
-		login_as(user, scope: :user)
+  before do
+    login_as(user, scope: :user)
 
     Site.update(account: account)
-		allow(Apartment::Tenant).to receive(:switch).with(account.tenant) do |&block|
-			block.call
-		end
-		host! account.cname
-	end
+    allow(Apartment::Tenant).to receive(:switch).with(account.tenant) do |&block|
+      block.call
+    end
+    host! account.cname
+  end
 
   describe "#show" do
     context "as an RIS file" do
