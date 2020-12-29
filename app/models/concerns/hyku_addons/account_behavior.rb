@@ -17,7 +17,8 @@ module HykuAddons
                      :work_type_list, :email_hint_text, :email_format, :help_texts, :work_unwanted_fields,
                      :required_json_property, :creator_fields, :contributor_fields, :metadata_labels,
                      :institutional_relationship_picklist, :institutional_relationship, :contributor_roles,
-                     :creator_roles, :html_required, :licence_list, :sign_up_link, :allow_signup, :redirect_on, :oai_admin_email
+                     :creator_roles, :html_required, :licence_list, :sign_up_link, :allow_signup, :redirect_on,
+                     :oai_admin_email, :oai_prefix, :oai_sample_identifier
 
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
       after_initialize :set_jsonb_help_texts_default_keys, :set_jsonb_work_unwanted_fields_default_keys
@@ -25,7 +26,9 @@ module HykuAddons
       after_initialize :set_jsonb_metadata_labels_default_keys, :set_jsonb_licence_list_default_keys
       before_save :remove_settings_hash_key_with_nil_value
       validates :gtm_id, format: { with: /GTM-[A-Z0-9]{4,7}/, message: "Invalid GTM ID" }, allow_blank: true
-      validates :contact_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
+      validates :contact_email, :oai_admin_email,
+                format: { with: URI::MailTo::EMAIL_REGEXP },
+                allow_blank: true
       validate :validate_email_format, :validate_contact_emails
     end
 

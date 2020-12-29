@@ -105,6 +105,11 @@ module HykuAddons
       end
     end
 
+    # Allow flipflop to load config/features.rb from the Hyrax gem:
+    initializer 'configure' do
+      Flipflop::FeatureLoader.current.append(self)
+    end
+
     # In test & dev environments, dynamically mount the hyku_addons in the parent app to avoid routing errors
     config.after_initialize do
       if Rails.env == 'development' || Rails.env == 'test'
