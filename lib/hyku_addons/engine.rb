@@ -155,6 +155,7 @@ module HykuAddons
         # Injected via `rails g hyrax:work HykuAddons::Article`
         config.register_curation_concern :article
         config.register_curation_concern :book_contribution
+        config.register_curation_concern :time_based_media_article
       end
     end
 
