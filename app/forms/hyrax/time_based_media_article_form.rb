@@ -5,9 +5,10 @@ module Hyrax
     include ::HykuAddons::GenericWorkFormOverrides
 
     self.model_class = ::TimeBasedMediaArticle
-		self.terms -= %i[creator media duration event_title event_location event_date series_name book_title editor edition
-										 version_number isbn current_he_institution related_exhibition related_exhibition_venue
-										 related_exhibition_date qualification_name qualification_level journal_title]
+    self.terms -= %i[media duration event_title event_location event_date series_name book_title editor edition
+                     version_number isbn current_he_institution related_exhibition related_exhibition_venue
+                     related_exhibition_date qualification_name qualification_level journal_title]
+
 
 		def build_permitted_params
 			super.tap do |permitted_params|
@@ -20,11 +21,6 @@ module Hyrax
 																						:contributor_wikidata, :contributor_type,
 																						contributor_institutional_relationship: []] }
 				permitted_params << { date_published: [:date_published_year, :date_published_month, :date_published_day] }
-				permitted_params << { funder: [:funder_name, :funder_doi, :funder_isni, :funder_ror, funder_award: []] }
-				permitted_params << { date_accepted: [:date_accepted_year, :date_accepted_month, :date_accepted_day] }
-				permitted_params << { date_submitted: [:date_submitted_year, :date_submitted_month, :date_submitted_day] }
-				permitted_params << { alternate_identifier: [:alternate_identifier, :alternate_identifier_type] }
-				permitted_params << { related_identifier: [:related_identifier, :related_identifier_type, :relation_type] }
 			end
     end
 
