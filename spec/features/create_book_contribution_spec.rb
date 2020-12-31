@@ -1,5 +1,3 @@
-# Generated via
-#  `rails generate hyrax:work BookContribution`
 require 'rails_helper'
 require File.expand_path('../helpers/create_work_user_context', __dir__)
 
