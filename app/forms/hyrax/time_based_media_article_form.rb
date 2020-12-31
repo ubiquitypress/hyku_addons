@@ -9,7 +9,7 @@ module Hyrax
                     alternative_journal_title contributor creator date_accepted date_published date_submitted dewey doi
                     fndr_project_ref funder institution issue keyword language library_of_congress_classification
                     license official_link org_unit place_of_publication project_name publisher related_identifier
-                    related_url rendering_ids rights_holder rights_statement]
+                    related_url rights_holder rights_statement]
     self.required_fields = %i[title resource_type creator institution]
 
 		def build_permitted_params
@@ -30,23 +30,6 @@ module Hyrax
 				permitted_params << { alternate_identifier: [:alternate_identifier, :alternate_identifier_type] }
 				permitted_params << { related_identifier: [:related_identifier, :related_identifier_type, :relation_type] }
 			end
-    end
-
-    # Helper methods for JSON fields
-    def creator_list
-      person_or_organization_list(:creator)
-    end
-
-    def contributor_list
-      person_or_organization_list(:contributor)
-    end
-
-    private
-
-    def person_or_organization_list(field)
-      # Return empty hash to ensure that it gets rendered at least once
-      return [{}] unless send(field)&.first.present?
-      JSON.parse(send(field).first)
     end
   end
 end
