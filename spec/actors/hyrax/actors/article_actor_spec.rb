@@ -4,7 +4,8 @@
 require 'rails_helper'
 
 RSpec.describe Hyrax::Actors::ArticleActor do
-  it "has tests" do
-    skip "Add your tests here"
+
+  it "behaves like a BaseActor" do
+    expect(Hyrax::Actors::ArticleActor).to be < Hyrax::Actors::BaseActor
   end
 end

@@ -8,26 +8,16 @@ include Warden::Test::Helpers
 # NOTE: If you generated more than one work, you have to set "js: true"
 RSpec.feature 'Create a BookContribution', js: false do
   include_context 'create work user context' do
+    let(:work_type) { "book_contribution" }
+
     scenario do
-      add_new_work(:book_contribution)
+      visit_new_work_page
       add_files_to_work
-      click_link "Descriptions" # switch tab
-      fill_in('Title', with: 'My Test Work')
-      fill_in('Creator', with: 'Doe, Jane')
-      fill_in('Keyword', with: 'testing')
-      select('In Copyright', from: 'Rights statement')
-
-      # With selenium and the chrome driver, focus remains on the
-      # select box. Click outside the box so the next line can't find
-      # its element
-      find('body').click
-      choose('book_contribution_visibility_open')
-      expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
-      check('agreement')
-
-      click_on('Save')
-      expect(page).to have_content('My Test Work')
-      expect(page).to have_content "Your files are being processed by Hyrax in the background."
+      add_metadata_to_work do
+        # fill_in('Creator', with: 'Doe, Jane')
+      end
+      set_visibility_to_work
+      check_agreement_and_submit
     end
   end
 end

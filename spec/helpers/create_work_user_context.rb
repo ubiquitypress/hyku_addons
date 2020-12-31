@@ -9,6 +9,7 @@ RSpec.shared_context 'create work user context' do
   let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
   let(:workflow) { Sipity::Workflow.create!(active: true, name: 'test-workflow', permission_template: permission_template) }
 
+  let(:work_type) { :generic_work }
   before do
     # Create a single action that can be taken
     Sipity::WorkflowAction.create!(name: 'submit', workflow: workflow)
@@ -23,17 +24,21 @@ RSpec.shared_context 'create work user context' do
     login_as user
   end
 
-  def add_new_work(work_type)
-    human_work_type_name = I18n.t("hyrax.select_type.#{work_type}.name")
-    visit '/dashboard?locale=en'
+  scenario "Create popup", js: true do
+    visit '/dashboard'
     click_link "Works"
     click_link "Add new work"
 
-    choose "payload_concern", option: human_work_type_name
-    click_button "Create work"
+    choose "payload_concern", option: work_type.to_s.camelize
+    # find("input[value='#{work_type.to_s.camelize}']", visible: true).find(:xpath, '..').click
 
+    click_button "Create work"
     expect(page).to have_content "Add New #{human_work_type_name}"
-    yield if block_given?
+  end
+
+  def visit_new_work_page
+    visit "concern/#{work_type.pluralize}/new"
+    expect(page).to have_content "Add New #{human_work_type_name}"
   end
 
   def add_files_to_work
@@ -41,9 +46,36 @@ RSpec.shared_context 'create work user context' do
     expect(page).to have_content "Add files"
     expect(page).to have_content "Add folder"
     within('span#addfiles') do
-      attach_file("files[]", "#{Hyrax::Engine.root}/spec/fixtures/image.jp2", visible: false)
-      attach_file("files[]", "#{Hyrax::Engine.root}/spec/fixtures/jp2_fits.xml", visible: false)
+      attach_file("files[]", "#{Rails.root}/spec/fixtures/hyrax/image.jp2", visible: false)
+      attach_file("files[]", "#{Rails.root}/spec/fixtures/hyrax/jp2_fits.xml", visible: false)
     end
+  end
 
+  def add_metadata_to_work
+    click_link "Descriptions" # switch tab
+    fill_in('Title', with: 'My Test Work')
+    fill_in('Keyword', with: 'testing')
+    select('In Copyright', from: 'Rights statement')
+    yield if block_given?
+  end
+
+  def set_visibility_to_work(visibility = :open)
+    find('body').click
+    choose("book_contribution_visibility_#{visibility}")
+    case visibility
+    when :open
+      expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
+    end
+  end
+
+  def check_agreement_and_submit
+    check('agreement')
+    click_on('Save')
+    expect(page).to have_content('My Test Work')
+    expect(page).to have_content "Your files are being processed by Hyrax in the background."
+  end
+
+  def human_work_type_name
+    I18n.t("hyrax.select_type.#{work_type}.name")
   end
 end

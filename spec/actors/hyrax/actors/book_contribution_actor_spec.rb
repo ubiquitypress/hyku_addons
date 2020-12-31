@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Hyrax::Actors::BookContributionActor do
-  it "has tests" do
-    skip "Add your tests here"
+  it "behaves like a BaseActor" do
+    expect(Hyrax::Actors::BookContributionActor).to be < Hyrax::Actors::BaseActor
   end
 end

@@ -10,9 +10,9 @@ module Hyrax
     include ::HykuAddons::GenericWorkFormOverrides
 
     self.model_class = ::BookContribution
-    self.terms -= %i[media duration event_title event_location event_date series_name book_title editor edition version_number isbn
+    self.terms -= %i[media duration event_title event_location event_date series_name edition version_number
                      current_he_institution related_exhibition related_exhibition_venue related_exhibition_date
-                     qualification_name qualification_level journal_title ]
+                     qualification_name qualification_level journal_title issue article_number]
 
     def build_permitted_params
       super.tap do |permitted_params|
@@ -23,6 +23,7 @@ module Hyrax
                                             :contributor_family_name, :contributor_name_type, :contributor_orcid, :contributor_isni, :contributor_ror, :contributor_grid,
                                             :contributor_wikidata, :contributor_type, contributor_institutional_relationship: []] }
         permitted_params << { date_published: [:date_published_year, :date_published_month, :date_published_day] }
+        permitted_params << { editor: [:editor_isni, :editor_orcid, :editor_family_name, :editor_given_name, :editor_organisational_name, :editor_institutional_relationship] }
         permitted_params << { funder: [:funder_name, :funder_doi, :funder_isni, :funder_ror, funder_award: []] }
         permitted_params << { date_accepted: [:date_accepted_year, :date_accepted_month, :date_accepted_day] }
         permitted_params << { date_submitted: [:date_submitted_year, :date_submitted_month, :date_submitted_day] }
