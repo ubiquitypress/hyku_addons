@@ -13,7 +13,6 @@ module Hyrax
     self.required_fields = %i[title resource_type creator institution]
 
 		def build_permitted_params
-      raise super.inspect
 			super.tap do |permitted_params|
 				permitted_params << { creator: [:creator_organization_name, :creator_given_name,
 																:creator_family_name, :creator_name_type, :creator_orcid, :creator_isni, :creator_ror,
