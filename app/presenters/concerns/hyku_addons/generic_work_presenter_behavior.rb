@@ -65,11 +65,11 @@ module HykuAddons
       end
 
       def ror_logo
-        image_tag(' ', alt: 'ROR', class: 'img-responsive', style: 'float:left')
+        '<img src=" " alt="ROR" class="img-responseive" sytyle="float:left;">'
       end
 
       def ror_link
-        link_to ror_logo, ror_url, target: '_blank' if ror.present?
+        "<a href='#{ror_url}' target='_blank'>#{ror_logo}</a>" if ror.present?
       end
 
       def grid_url
@@ -77,11 +77,11 @@ module HykuAddons
       end
 
       def grid_logo
-        image_tag(' ', alt: 'GRID', class: 'img-responsive', style: 'float:left')
+        '<img src=" " alt="GRID" class="img-responseive" sytyle="float:left;">'
       end
 
       def grid_link
-        link_to grid_logo, grid_url, target: '_blank' if grid.present?
+        "<a href='#{grid_url}' target='_blank'>#{grid_logo}</a>" if grid.present?
       end
 
       def wikidata_url
@@ -89,11 +89,11 @@ module HykuAddons
       end
 
       def wikidata_logo
-        image_tag(' ', alt: 'WIKIDATA', class: 'img-responsive', style: 'float:left')
+        '<img src=" " alt="WIKIDATA" class="img-responseive" sytyle="float:left;">'
       end
 
       def wikidata_link
-        link_to wikidata_logo, wikidata_url, target: '_blank' if wikidata.present?
+        "<a href='#{wikidata_url}' target='_blank'>#{wikidata_logo}</a>" if wikidata.present?
       end
     end
 
