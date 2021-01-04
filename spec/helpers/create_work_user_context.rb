@@ -7,9 +7,11 @@ RSpec.shared_context 'create work user context' do
   end
   let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
   let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
-  let(:workflow) { Sipity::Workflow.create!(active: true, name: 'test-workflow', permission_template: permission_template) }
-
+  let(:workflow) do
+    Sipity::Workflow.create!(active: true, name: 'test-workflow', permission_template: permission_template)
+  end
   let(:work_type) { :generic_work }
+
   before do
     # Create a single action that can be taken
     Sipity::WorkflowAction.create!(name: 'submit', workflow: workflow)
@@ -61,7 +63,7 @@ RSpec.shared_context 'create work user context' do
 
   def set_visibility_to_work(visibility = :open)
     find('body').click
-    choose("book_contribution_visibility_#{visibility}")
+    choose("#{work_type}_visibility_#{visibility}")
     case visibility
     when :open
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
@@ -72,7 +74,7 @@ RSpec.shared_context 'create work user context' do
     check('agreement')
     click_on('Save')
     expect(page).to have_content('My Test Work')
-    expect(page).to have_content "Your files are being processed by Hyrax in the background."
+    expect(page).to have_content("Your files are being processed by Hyku in the background.")
   end
 
   def human_work_type_name
