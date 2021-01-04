@@ -10,7 +10,7 @@ module Hyrax
                     fndr_project_ref funder institution issue keyword language library_of_congress_classification
                     license official_link org_unit place_of_publication project_name publisher related_identifier
                     related_url rights_holder rights_statement]
-    self.required_fields = %i[title resource_type creator institution]
+    self.required_fields = %i[title resource_type creator institution license]
 
     def build_permitted_params
       super.tap do |permitted_params|
