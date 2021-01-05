@@ -128,6 +128,9 @@ GEM
       parallel (>= 0.7.1)
       public_suffix (>= 2)
       rack (>= 1.3.6)
+    apparition (0.6.0)
+      capybara (~> 3.13, < 4)
+      websocket-driver (>= 0.6.5)
     arel (9.0.0)
     ast (2.4.1)
     autoprefixer-rails (10.1.0.0)
@@ -1081,6 +1084,7 @@ DEPENDENCIES
   activerecord-nulldb-adapter
   ammeter
   apartment
+  apparition
   aws-sdk-sqs
   bixby
   blacklight (~> 6.7)

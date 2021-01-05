@@ -16,28 +16,18 @@ FactoryBot.find_definitions
 
 # For testing generators
 require 'ammeter/init'
+require 'capybara/apparition'
 
 if ENV['CI']
-  # Capybara config copied over from Hyrax
-  Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
-    browser_options = ::Selenium::WebDriver::Chrome::Options.new
-    browser_options.args << '--headless'
-    browser_options.args << '--disable-gpu'
-    browser_options.args << '--no-sandbox'
-    # browser_options.args << '--disable-dev-shm-usage'
-    # browser_options.args << '--disable-extensions'
-    # client = Selenium::WebDriver::Remote::Http::Default.new
-    # client.timeout = 90 # instead of the default 60
-    # Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options, http_client: client)
-    Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+  Capybara.register_driver :apparition do |app|
+    Capybara::Apparition::Driver.new(app, js_errors: false)
   end
-
   Capybara.default_driver = :rack_test # This is a faster driver
-  Capybara.javascript_driver = :selenium_chrome_headless_sandboxless # This is slower
+  Capybara.javascript_driver = :apparition
   Capybara.default_max_wait_time = 10 # We may have a slow application, let's give it some time.
 
   # FIXME: Pin to older version of chromedriver to avoid issue with clicking non-visible elements
-  Webdrivers::Chromedriver.required_version = '72.0.3626.69'
+  # Webdrivers::Chromedriver.required_version = '72.0.3626.69'
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
