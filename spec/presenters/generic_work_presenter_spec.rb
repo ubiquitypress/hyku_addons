@@ -3,7 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe Hyrax::GenericWorkPresenter do
-  let(:presenter) { described_class.new(work, nil, nil) }
+  let(:presenter) { described_class.new(solr_document, nil, nil) }
+  let(:solr_document) { SolrDocument.new(work.to_solr) }
   let(:work) { build(:generic_work) }
 
   let(:additional_properties) do
