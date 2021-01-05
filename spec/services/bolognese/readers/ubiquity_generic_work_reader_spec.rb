@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "rails_helper"
 
 RSpec.describe Bolognese::Readers::UbiquityGenericWorkReader do
@@ -61,4 +62,3 @@ RSpec.describe Bolognese::Readers::UbiquityGenericWorkReader do
     end
   end
 end
-
