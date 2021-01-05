@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module HykuAddons
   module GenericWorkPresenterBehavior
     extend ActiveSupport::Concern
@@ -13,14 +14,9 @@ module HykuAddons
                            :date_accepted, :date_submitted, :project_name, :rights_holder, :place_of_publication,
                            :abstract, :alternate_identifier, :related_identifier, :creator_display,
                            :library_of_congress_classification, :alt_title, :dewey, :collection_id, :collection_names,
-                           :title, :date_created, :description].freeze
+                           :title, :date_created, :description, :export_as_ris].freeze
       delegate(*DELEGATED_METHODS, to: :solr_document)
       alias_method :isbns, :isbn
-    end
-
-    def export_as_ris
-      json = solr_document.attributes.merge('has_model' => model.model_name).to_json
-      Bolognese::Metadata.new(input: json, from: 'ubiquity_generic_work').ris
     end
 
     def creator_list
