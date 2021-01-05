@@ -6,7 +6,7 @@ module HykuAddons
     end
 
     def export_as_ris
-      json = attributes.merge.to_json
+      json = attributes.merge('has_model' => model_name).to_json
       Bolognese::Metadata.new(input: json, from: 'ubiquity_generic_work').ris
     end
   end
