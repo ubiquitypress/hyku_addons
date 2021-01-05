@@ -6,7 +6,8 @@ module HykuAddons
     end
 
     def export_as_ris
-      Hyrax::GenericWorkPresenter.new(self, nil, nil).export_as_ris
+      json = attributes.merge.to_json
+      Bolognese::Metadata.new(input: json, from: 'ubiquity_generic_work').ris
     end
   end
 end
