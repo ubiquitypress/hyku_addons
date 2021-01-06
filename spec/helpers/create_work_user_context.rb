@@ -30,10 +30,8 @@ RSpec.shared_context 'create work user context' do
     visit '/dashboard'
     click_link "Works"
     click_link "Add new work"
-
     choose "payload_concern", option: work_type.to_s.camelize
     # find("input[value='#{work_type.to_s.camelize}']", visible: true).find(:xpath, '..').click
-
     click_button "Create work"
     expect(page).to have_content "Add New #{human_work_type_name}"
   end
@@ -55,10 +53,13 @@ RSpec.shared_context 'create work user context' do
 
   def add_metadata_to_work
     click_link "Descriptions" # switch tab
-    fill_in('Title', with: 'My Test Work')
-    fill_in('Keyword', with: 'testing')
-    select('In Copyright', from: 'Rights statement')
-    yield if block_given?
+      fill_in('Title', with: 'My Test Work')
+      fill_in('Keyword', with: 'testing')
+      select('In Copyright', from: 'Rights statement')
+      select('Organisational', from: 'Creator name type')
+      fill_in('Creator organisation name', with: 'Ubiquity Press')
+      fill_in('book_contribution_institution', with: 'UP')
+      yield if block_given?
   end
 
   def set_visibility_to_work(visibility = :open)

@@ -12,7 +12,7 @@ RSpec.feature 'Create a BookContribution', js: false do
       visit_new_work_page
       add_files_to_work
       add_metadata_to_work do
-        # fill_in('Creator', with: 'Doe, Jane')
+
       end
       set_visibility_to_work
       check_agreement_and_submit
