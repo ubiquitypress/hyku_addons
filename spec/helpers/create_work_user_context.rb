@@ -10,7 +10,7 @@ RSpec.shared_context 'create work user context' do
   let(:workflow) do
     Sipity::Workflow.create!(active: true, name: 'test-workflow', permission_template: permission_template)
   end
-  let(:work_type) { :generic_work }
+  let(:work_type) { "generic_work" }
 
   before do
     # Create a single action that can be taken
@@ -37,7 +37,7 @@ RSpec.shared_context 'create work user context' do
   end
 
   def visit_new_work_page
-    visit "concern/#{work_type.pluralize}/new"
+    visit "concern/#{work_type.to_s.pluralize}/new"
     expect(page).to have_content "Add New #{human_work_type_name}"
   end
 
@@ -56,9 +56,9 @@ RSpec.shared_context 'create work user context' do
       fill_in('Title', with: 'My Test Work')
       fill_in('Keyword', with: 'testing')
       select('In Copyright', from: 'Rights statement')
-      select('Organisational', from: 'Creator name type')
-      fill_in('Creator organisation name', with: 'Ubiquity Press')
-      fill_in('book_contribution_institution', with: 'UP')
+      select('Organisational', from: "#{work_type}_creator__creator_name_type")
+      fill_in("#{work_type}_creator__creator_organization_name", with: 'Ubiquity Press')
+      fill_in("#{work_type}_institution", with: 'UP')
       yield if block_given?
   end
 
