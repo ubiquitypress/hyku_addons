@@ -2,7 +2,7 @@
 <%=f.fields_for :settings do |ff| %>
   <%= ff.label field_name %><br>
   <%= ff.label t("settings.helptexts.#{field_name}") %><br>
-  <%= ff.check_box field_name, {checked: @account.settings[field_name]}, true, false %>
+  <%= ff.check_box field_name, {}, "true", "false" %>
 <% end %>
 </div>
 
