@@ -22,8 +22,7 @@ RSpec.describe Hyrax::TimeBasedMediaArticleForm do
     it do
       terms = [
         :title, :creator, :visibilty, :visibility_during_embargo, :visibility_after_embargo,
-        :embargo_release_date, :visibility_during_lease, :visibility_after_lease, :lease_expiration_date,
-        :collection_ids
+        :embargo_release_date, :visibility_during_lease, :visibility_after_lease, :lease_expiration_date
       ]
       is_expected.not_to include(terms)
     end

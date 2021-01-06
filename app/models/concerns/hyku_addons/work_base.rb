@@ -82,15 +82,6 @@ module HykuAddons
       #   index.as :stored_searchable, :facetable
       # end
 
-      # Not needed?
-      property :collection_id, predicate: ::RDF::Vocab::BF2.identifies do |index|
-        index.as :stored_searchable, :facetable
-      end
-      # Not needed?
-      property :collection_names, predicate: ::RDF::Vocab::DC11.term(:collect) do |index|
-        index.as :stored_searchable, :facetable
-      end
-
       class_attribute :json_fields, :date_fields
       self.json_fields = %i[creator contributor funder alternate_identifier related_identifier]
       self.date_fields = %i[date_published date_accepted date_submitted]

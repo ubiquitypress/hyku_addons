@@ -47,8 +47,6 @@ FactoryBot.define do
     library_of_congress_classification { [''] }
     alt_title { [''] }
     dewey { '' }
-    collection_id { [''] }
-    collection_names { [''] }
 
     creator { [''] }
     contributor { [''] }

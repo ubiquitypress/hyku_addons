@@ -26,7 +26,7 @@ RSpec.describe Hyrax::GenericWorkForm do
                                  :visibilty, :visibility_during_embargo,
                                  :embargo_release_date, :visibility_after_embargo,
                                  :visibility_during_lease, :lease_expiration_date,
-                                 :visibility_after_lease, :collection_ids)
+                                 :visibility_after_lease)
     end
   end
 
