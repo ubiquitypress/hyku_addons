@@ -1,6 +1,6 @@
 RSpec.shared_context 'work forms context' do
 
-  let(:work) { GenericWork.new }
+  let(:work) { described_class.model_class.new }
   let(:form) { described_class.new(work, nil, nil) }
 
   def check_attribute_group_presence(group, attrs)
@@ -10,7 +10,7 @@ RSpec.shared_context 'work forms context' do
     end
   end
 
-  def creator_fields
+  def creator_params
     {
         creator: {
             creator_organization_name: 'creator_organization_name',
@@ -27,7 +27,7 @@ RSpec.shared_context 'work forms context' do
     }
   end
 
-  def contributor_fields
+  def contributor_params
     {
         contributor: {
             contributor_organization_name: 'contributor_organization_name',
@@ -45,7 +45,7 @@ RSpec.shared_context 'work forms context' do
     }
   end
 
-  def date_accepted_fields
+  def date_accepted_params
     {
         date_accepted: {
             date_accepted_year: 'date_accepted_year',
@@ -55,7 +55,7 @@ RSpec.shared_context 'work forms context' do
     }
   end
 
-  def date_published_fields
+  def date_published_params
     {
         date_published: {
             date_published_year: 'date_published_year',
@@ -65,7 +65,7 @@ RSpec.shared_context 'work forms context' do
     }
   end
 
-  def date_submitted_fields
+  def date_submitted_params
     {
         date_submitted: {
             date_submitted_year: 'date_submitted_year',
@@ -75,7 +75,7 @@ RSpec.shared_context 'work forms context' do
     }
   end
 
-  def editor_fields
+  def editor_params
     {
         editor: {
             editor_isni: 'editor_isni',
@@ -88,7 +88,7 @@ RSpec.shared_context 'work forms context' do
     }
   end
 
-  def funder_fields
+  def funder_params
     {
         funder: {
             funder_isni: 'funder_isni',
@@ -100,7 +100,7 @@ RSpec.shared_context 'work forms context' do
     }
   end
 
-  def alternate_identifier_fields
+  def alternate_identifier_params
     {
         alternate_identifier: {
             alternate_identifier: 'alternate_identifier',
@@ -110,7 +110,7 @@ RSpec.shared_context 'work forms context' do
   end
 
 
-  def related_identifier_fields
+  def related_identifier_params
     {
         related_identifier: {
             related_identifier: 'related_identifier',

@@ -31,8 +31,8 @@ RSpec.describe Hyrax::ArticleForm do
             title: ['foo'],
             rendering_ids: ['file-set-id'],
             abstract: 'abstract',
-        }.merge(creator_fields, contributor_fields, date_published_fields, date_submitted_fields, date_accepted_fields,
-                editor_fields, funder_fields, alternate_identifier_fields, related_identifier_fields)
+        }.merge(creator_params, contributor_params, date_published_params, date_submitted_params, date_accepted_params,
+                funder_params, alternate_identifier_params, related_identifier_params)
       end
 
       it 'permits parameters' do
@@ -48,8 +48,6 @@ RSpec.describe Hyrax::ArticleForm do
         check_attribute_group_presence(:date_published, [:date_published_year, :date_published_month, :date_published_day])
         check_attribute_group_presence(:date_submitted, [:date_submitted_year, :date_submitted_month, :date_submitted_day])
         check_attribute_group_presence(:date_accepted,  [:date_accepted_year, :date_accepted_month, :date_accepted_day])
-        # check_attribute_group_presence(:editor, [:editor_isni, :editor_orcid, :editor_family_name, :editor_given_name, :editor_organisational_name, :editor_institutional_relationship])
-        check_attribute_group_presence(:editor, [:editor_isni, :editor_orcid, :editor_family_name, :editor_given_name])
         check_attribute_group_presence(:funder, [:funder_name, :funder_doi, :funder_isni, :funder_ror, :funder_award])
         check_attribute_group_presence(:alternate_identifier, [:alternate_identifier, :alternate_identifier_type])
         check_attribute_group_presence(:related_identifier, [:related_identifier, :related_identifier_type, :relation_type] )

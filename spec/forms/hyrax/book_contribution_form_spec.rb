@@ -30,8 +30,8 @@ RSpec.describe Hyrax::BookContributionForm do
             title: ['foo'],
             rendering_ids: ['file-set-id'],
             abstract: 'abstract',
-        }.merge(creator_fields, contributor_fields, date_published_fields, date_submitted_fields, date_accepted_fields,
-                editor_fields, funder_fields, alternate_identifier_fields, related_identifier_fields)
+        }.merge(creator_params, contributor_params, date_published_params, date_submitted_params, date_accepted_params,
+                editor_params, funder_params, alternate_identifier_params, related_identifier_params)
       end
 
       it 'permits parameters' do

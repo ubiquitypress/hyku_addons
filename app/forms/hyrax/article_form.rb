@@ -8,45 +8,29 @@ module Hyrax
     include Hyrax::DOI::DOIFormBehavior
     # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
     include Hyrax::DOI::DataCiteDOIFormBehavior
-    include ::HykuAddons::GenericWorkFormOverrides
+    include ::HykuAddons::WorkForm
 
     self.model_class = ::Article
-    self.terms -= %i[media duration event_title event_location event_date series_name book_title editor edition version_number isbn
-                     current_he_institution related_exhibition related_exhibition_venue related_exhibition_date
-                     qualification_name qualification_level]
+    self.terms = %i[title resource_type creator alt_title contributor rendering_ids abstract date_published
+      institution org_unit project_name funder fndr_project_ref
+      journal_title pagination article_num
+      publisher place_of_publication issn eissn date_accepted date_submitted official_link
+      related_url language license rights_statement
+      rights_holder doi alternate_identifier related_identifier refereed keyword dewey
+      library_of_congress_classification add_info]
+    self.required_fields = %i[title resource_type creator institution]
 
-    def build_permitted_params
+    def self.build_permitted_params
       super.tap do |permitted_params|
-        permitted_params << { creator: [:creator_organization_name, :creator_given_name,
-                                        :creator_family_name, :creator_name_type, :creator_orcid, :creator_isni, :creator_ror, :creator_grid,
-                                        :creator_wikidata, creator_institutional_relationship: []] }
-        permitted_params << { contributor: [:contributor_organization_name, :contributor_given_name,
-                                            :contributor_family_name, :contributor_name_type, :contributor_orcid, :contributor_isni, :contributor_ror, :contributor_grid,
-                                            :contributor_wikidata, :contributor_type, contributor_institutional_relationship: []] }
-        permitted_params << { date_published: [:date_published_year, :date_published_month, :date_published_day] }
-        permitted_params << { funder: [:funder_name, :funder_doi, :funder_isni, :funder_ror, funder_award: []] }
-        permitted_params << { date_accepted: [:date_accepted_year, :date_accepted_month, :date_accepted_day] }
-        permitted_params << { date_submitted: [:date_submitted_year, :date_submitted_month, :date_submitted_day] }
-        permitted_params << { alternate_identifier: [:alternate_identifier, :alternate_identifier_type] }
-        permitted_params << { related_identifier: [:related_identifier, :related_identifier_type, :relation_type] }
+        permitted_params << creator_fields
+        permitted_params << contributor_fields
+        permitted_params << date_published_fields
+        permitted_params << funder_fields
+        permitted_params << date_accepted_fields
+        permitted_params << date_submitted_fields
+        permitted_params << alternate_identifier_fields
+        permitted_params << related_identifier_fields
       end
     end
-
-    # Helper methods for JSON fields
-    def creator_list
-      person_or_organization_list(:creator)
-    end
-
-    def contributor_list
-      person_or_organization_list(:contributor)
-    end
-
-    private
-
-      def person_or_organization_list(field)
-        # Return empty hash to ensure that it gets rendered at least once
-        return [{}] unless send(field)&.first.present?
-        JSON.parse(send(field).first)
-      end
   end
 end

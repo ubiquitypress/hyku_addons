@@ -2,7 +2,7 @@ module Hyrax
   class TimeBasedMediaArticleForm < Hyrax::Forms::WorkForm
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
-    include ::HykuAddons::GenericWorkFormOverrides
+    include ::HykuAddons::WorkForm
 
     self.model_class = ::TimeBasedMediaArticle
     self.terms = %i[title resource_type abstract add_info alt_title alternate_identifier
@@ -12,19 +12,15 @@ module Hyrax
                     related_url rights_holder rights_statement]
     self.required_fields = %i[title resource_type creator institution license]
 
-    def build_permitted_params
+    def self.build_permitted_params
       super.tap do |permitted_params|
-        permitted_params << { creator: [
-          :creator_organization_name, :creator_given_name,
-          :creator_family_name, :creator_name_type, :creator_orcid, :creator_isni,
-          :creator_ror, :creator_grid, :creator_wikidata, contributor_institutional_relationship: []
-        ]}
-        permitted_params << { date_published: [:date_published_year, :date_published_month, :date_published_day] }
-        permitted_params << { funder: [:funder_name, :funder_doi, :funder_isni, :funder_ror, funder_award: []] }
-        permitted_params << { date_accepted: [:date_accepted_year, :date_accepted_month, :date_accepted_day] }
-        permitted_params << { date_submitted: [:date_submitted_year, :date_submitted_month, :date_submitted_day] }
-        permitted_params << { alternate_identifier: [:alternate_identifier, :alternate_identifier_type] }
-        permitted_params << { related_identifier: [:related_identifier, :related_identifier_type, :relation_type] }
+        permitted_params << creator_fields
+        permitted_params << date_published_fields
+        permitted_params << funder_fields
+        permitted_params << date_accepted_fields
+        permitted_params << date_submitted_fields
+        permitted_params << alternate_identifier_fields
+        permitted_params << related_identifier_fields
       end
     end
   end
