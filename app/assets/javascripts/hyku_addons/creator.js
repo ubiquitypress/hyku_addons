@@ -70,7 +70,6 @@ $(document).on("turbolinks:load", function(){
   });
 
   $(".ubiquity_creator_name_type").each(function() {
-    console.log('onload')
     displayFields(this)
   })
 
