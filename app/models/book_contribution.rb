@@ -6,10 +6,53 @@ class BookContribution < ActiveFedora::Base
   include Hyrax::DOI::DOIBehavior
   # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
-  include ::HykuAddons::GenericWorkOverrides
+  include ::HykuAddons::WorkBase
 
-  self.json_fields = %i[creator contributor funder alternate_identifier related_identifier]
-  self.date_fields = %i[date_published date_accepted date_submitted]
+  property :series_name, predicate: ::RDF::Vocab::BF2.subseriesOf do |index|
+    index.as :stored_searchable, :facetable
+  end
+
+  property :book_title, predicate: ::RDF::Vocab::BIBO.term(:Proceedings), multiple: false do |index|
+    index.as :stored_searchable, :facetable
+  end
+
+  property :editor, predicate: ::RDF::Vocab::SCHEMA.Person do |index|
+    index.as :stored_searchable
+  end
+
+  property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
+    index.as :stored_searchable
+  end
+
+  property :edition, predicate: ::RDF::Vocab::BF2.edition, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :pagination, predicate: ::RDF::Vocab::BIBO.numPages, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :place_of_publication, predicate: ::RDF::Vocab::BF2.term(:Place) do |index|
+    index.as :stored_searchable, :facetable
+  end
+
+  property :isbn, predicate: ::RDF::Vocab::BIBO.isbn, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :issn, predicate: ::RDF::Vocab::BIBO.issn, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :eissn, predicate: ::RDF::Vocab::BIBO.eissn, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :refereed, predicate: ::RDF::Vocab::BIBO.term("status/peerReviewed"), multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  self.json_fields += %i[editor]
 
   self.indexer = BookContributionIndexer
   # Change this to restrict which works can be added as a child.
