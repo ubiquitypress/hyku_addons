@@ -1,0 +1,47 @@
+<div class="ubiquity_organization_fields js-creator-group">
+	<div class="form-group">
+		<label class="ubiquity_creator_organization_name_label control-label multi_value optional" for="<%= template %>_creator_organization_name">
+			Creator organisation name
+		</label>
+		<%= text_field_tag "#{template}[creator][][creator_organization_name]", hash.dig("creator_organization_name"),
+			class: "#{template}_creator_organization_name form-control multi-text-field multi_value ubiquity_creator_organization_name",
+			placeholder: 'Please enter the organisation\'s name.',
+			name: "#{template}[creator][][creator_organization_name]",
+			data: {field_name:'ubiquity_creator_organization_name'}
+		%>
+		<span class="text-danger error">Please complete this field.</span>
+	</div>
+	<div class="form-group">
+		<label class="control-label multi_value optional" for=" <%= template %>_creator_ror">
+			Creator organisation ROR
+		</label>
+		<%= text_field_tag "#{template}[creator][][creator_ror]",  hash.dig("creator_ror"),
+			class: "#{template}_creator form-control multi-text-field multi_value ubiquity_creator_ror",
+			placeholder: "Please enter the ROR ID, e.g. 05gknh003",
+			name: "#{template}[creator][][creator_ror]",
+			data: {field_name:'ubiquity_creator_ror'}
+		%>
+	</div>
+	<div class="form-group">
+		<label class="control-label multi_value optional" for="<%= template %>_creator_grid">
+			Creator organisation GRID
+		</label>
+		<%= text_field_tag "#{template}[creator][][creator_grid]",  hash.dig("creator_grid"),
+			class: "#{template}_creator form-control multi-text-field multi_value ubiquity_creator_grid",
+			placeholder: "Please enter the GRID ID, e.g. grid.280362.d",
+			name: "#{template}[creator][][creator_grid]",
+			data: { field_name:'ubiquity_creator_grid' }
+		%>
+	</div>
+	<div class="form-group">
+		<label class="control-label multi_value optional" for="<%= template %>_creator_wikidata">
+			Creator organisation Wikidata
+		</label>
+		<%= text_field_tag "#{template}[creator][][creator_wikidata]",  hash.dig("creator_wikidata"),
+			class: "#{template}_creator form-control multi-text-field multi_value ubiquity_creator_wikidata",
+			placeholder: "Please enter the Wikidata ID, e.g. Q23308",
+			name: "#{template}[creator][][creator_wikidata]",
+			data: {field_name:'ubiquity_creator_wikidata'}
+		%>
+	</div>
+</div>
