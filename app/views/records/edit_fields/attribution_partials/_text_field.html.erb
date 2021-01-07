@@ -9,7 +9,7 @@
 		data: { field_name: "ubiquity_#{field_slug}" },
 		required: local_assigns[:required]
 	} %>
-	<%= text_field_tag "#{template}[#{field_group}][][#{field_slug}]", hash.dig(field_slug), defaults.merge(local_assigns[:field_args] || {}) %>
+	<%= text_field_tag "#{template}[#{field_group}][][#{field_slug}]", hash.dig(field_slug.to_s), defaults.merge(local_assigns[:field_args] || {}) %>
 
 	<% if local_assigns[:required] %>
 		<div class="text-danger error"><%= t("deposit_form.required.label") %></div>

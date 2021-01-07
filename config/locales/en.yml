@@ -28,6 +28,9 @@ en:
       creator_institutional_relationship:
         label: Creator institutional relationship
         placeholder:
+      creator_isni:
+        label: Creator ISNI
+        placeholder: Please enter the creator's ISNI, e.g. 0000 1234 5678 9101.
 
   settings:
     helptexts:

@@ -20,8 +20,9 @@
 		</div>
 
 		<div class="ubiquity_organization_fields js-creator-group">
+			<% # TODO: work out why setting the name fields as required causes the deposit form to not register the meta data was entered %>
 			<% [
-				{ field_type: :text, field_slug: :creator_organization_name, required: true },
+				{ field_type: :text, field_slug: :creator_organization_name, required: false },
 				{ field_type: :text, field_slug: :creator_ror, required: false },
 				{ field_type: :text, field_slug: :creator_grid, required: false },
 				{ field_type: :text, field_slug: :creator_wikidata, required: false}
@@ -33,8 +34,8 @@
 
 		<div class="ubiquity_personal_fields js-creator-group">
 			<% [
-				{ field_type: :text, field_slug: :creator_family_name, required: true },
-				{ field_type: :text, field_slug: :creator_given_name, required: true },
+				{ field_type: :text, field_slug: :creator_family_name, required: false },
+				{ field_type: :text, field_slug: :creator_given_name, required: false },
 				{ field_type: :text, field_slug: :creator_orcid, required: false },
 				{ field_type: :select, field_slug: :creator_institutional_relationship, required: false, select_options: ['Staff member', 'Research associate'], field_args: { multiple: true } }
 			].each do |field| %>
@@ -43,17 +44,8 @@
 			<% end %>
 		</div>
 
-		<div class="form-group">
-			<label class="control-label multi_value optional" for="<%= template %>_creator_isni">
-				Creator ISNI
-			</label>
-			<%= text_field_tag "#{template}[creator][][creator_isni]", hash.dig("creator_isni"),
-				class: "#{template}_creator form-control multi-text-field multi_value ubiquity_creator_isni",
-				placeholder: 'Please enter the creator\'s ISNI, e.g. 0000 1234 5678 9101.',
-				name: "#{template}[creator][][creator_isni]",
-				data: {field_name:'ubiquity_creator_isni'}
-			%>
-		</div>
+		<% field_options = { field_type: :text, field_slug: :creator_isni, required: false, field_group: :creator, template: template, hash: hash } %>
+		<%= render "records/edit_fields/attribution_partials/#{field_options[:field_type]}_field", field_options %>
 
 		<div class="form-group">
 			<a href="#" class="text-danger remove_creator form-group">
