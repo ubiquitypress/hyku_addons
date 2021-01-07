@@ -1,0 +1,7 @@
+<div class="form-group">
+	<% options = { class: "control-label multi_value optional" } %>
+	<%= label_tag "#{template}_#{field_slug}", t("attribution.#{field_group}.#{field_slug}.label"), options %>
+
+	<% opts = options_for_select(select_options, selected: hash.dig(field_slug)) %>
+	<%= select_tag "#{template}[#{field_group}][][#{field_slug}", opts, { class: "form-control" }.merge(local_assigns[:field_args] || {}) %>
+</div>
