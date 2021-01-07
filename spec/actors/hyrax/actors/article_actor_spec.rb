@@ -4,8 +4,7 @@
 require 'rails_helper'
 
 RSpec.describe Hyrax::Actors::ArticleActor do
-
   it "behaves like a BaseActor" do
-    expect(Hyrax::Actors::ArticleActor).to be < Hyrax::Actors::BaseActor
+    expect(described_class).to be < Hyrax::Actors::BaseActor
   end
 end

@@ -17,7 +17,7 @@ RSpec.feature 'Create a Article', js: false do
       add_metadata_to_work do
         # fill_in('Creator', with: 'Doe, Jane')
       end
-      set_visibility_to_work
+      apply_work_visibility
       check_agreement_and_submit
     end
   end

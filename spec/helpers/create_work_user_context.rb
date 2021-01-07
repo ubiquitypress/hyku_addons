@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_context 'create work user context' do
   let(:user_attributes) do
     { email: 'test@example.com' }
@@ -18,10 +19,10 @@ RSpec.shared_context 'create work user context' do
 
     # Grant the user access to deposit into the admin set.
     Hyrax::PermissionTemplateAccess.create!(
-        permission_template_id: permission_template.id,
-        agent_type: 'user',
-        agent_id: user.user_key,
-        access: 'deposit'
+      permission_template_id: permission_template.id,
+      agent_type: 'user',
+      agent_id: user.user_key,
+      access: 'deposit'
     )
     login_as user
   end
@@ -46,23 +47,23 @@ RSpec.shared_context 'create work user context' do
     expect(page).to have_content "Add files"
     expect(page).to have_content "Add folder"
     within('span#addfiles') do
-      attach_file("files[]", "#{Rails.root}/spec/fixtures/hyrax/image.jp2", visible: false)
-      attach_file("files[]", "#{Rails.root}/spec/fixtures/hyrax/jp2_fits.xml", visible: false)
+      attach_file("files[]", Rails.root.join('spec', 'fixtures', 'hyrax', 'image.jp2'), visible: false)
+      attach_file("files[]", Rails.root.join('spec', 'fixtures', 'hyrax', 'jp2_fits.xml'), visible: false)
     end
   end
 
   def add_metadata_to_work
     click_link "Descriptions" # switch tab
-      fill_in('Title', with: 'My Test Work')
-      fill_in('Keyword', with: 'testing')
-      select('In Copyright', from: 'Rights statement')
-      select('Organisational', from: "#{work_type}_creator__creator_name_type")
-      fill_in("#{work_type}_creator__creator_organization_name", with: 'Ubiquity Press')
-      fill_in("#{work_type}_institution", with: 'UP')
-      yield if block_given?
+    fill_in('Title', with: 'My Test Work')
+    fill_in('Keyword', with: 'testing')
+    select('In Copyright', from: 'Rights statement')
+    select('Organisational', from: "#{work_type}_creator__creator_name_type")
+    fill_in("#{work_type}_creator__creator_organization_name", with: 'Ubiquity Press')
+    fill_in("#{work_type}_institution", with: 'UP')
+    yield if block_given?
   end
 
-  def set_visibility_to_work(visibility = :open)
+  def apply_work_visibility(visibility = :open)
     find('body').click
     choose("#{work_type}_visibility_#{visibility}")
     case visibility

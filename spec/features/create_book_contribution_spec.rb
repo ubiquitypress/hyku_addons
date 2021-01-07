@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require File.expand_path('../helpers/create_work_user_context', __dir__)
 
@@ -11,10 +12,8 @@ RSpec.feature 'Create a BookContribution', js: false do
     scenario do
       visit_new_work_page
       add_files_to_work
-      add_metadata_to_work do
-
-      end
-      set_visibility_to_work
+      add_metadata_to_work
+      apply_work_visibility
       check_agreement_and_submit
     end
   end

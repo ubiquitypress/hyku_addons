@@ -1,55 +1,46 @@
+# frozen_string_literal: true
 require 'rails_helper'
+require File.expand_path('../../helpers/work_forms_context', __dir__)
 
 RSpec.describe Hyrax::TimeBasedMediaArticleForm do
-  let(:work) { GenericWork.new }
-  let(:form) { described_class.new(work, nil, nil) }
+  include_context 'work forms context' do
+    describe "#required_fields" do
+      subject { form.required_fields }
 
-  describe ".required_fields" do
-    subject { form.required_fields }
-
-    it { is_expected.to eq %i[title resource_type creator institution license] }
+      it { is_expected.to eq %i[title resource_type creator institution license] }
+    end
   end
 
-  describe ".primary_terms" do
+  describe "#terms" do
     subject { form.primary_terms }
 
     it { is_expected.to eq %i[title resource_type creator institution license] }
   end
 
-  describe ".secondary_terms" do
-    subject { form.secondary_terms }
-
-    it do
-      terms = [
-        :title, :creator, :visibilty, :visibility_during_embargo, :visibility_after_embargo,
-        :embargo_release_date, :visibility_during_lease, :visibility_after_lease, :lease_expiration_date
-      ]
-      is_expected.not_to include(terms)
-    end
-  end
-
   describe ".model_attributes" do
-    let(:attributes) { { title: ['foo'], abstract: 'abstract' } }
-    let(:params) { ActionController::Parameters.new(attributes) }
     subject(:model_attributes) { described_class.model_attributes(params) }
 
-    it "permits parameters" do
-      expect(model_attributes[:title]).to eq ['foo']
-      expect(model_attributes[:abstract]).to eq 'abstract'
+    let(:params) { ActionController::Parameters.new(attributes) }
+    let(:attributes) do
+      {
+        media: 'media',
+        duration: 'duration',
+        version: 'version',
+        publisher: 'publisher',
+        place_of_publication: 'place_of_publication',
+        official_url: 'official_url',
+        related_url: 'related_url'
+      }.merge(common_params, date_submitted_params, date_accepted_params, editor_params, alternate_identifier_params,
+              event_params, related_identifier_params)
     end
 
-    context '.model_attributes' do
-      let(:attributes) { { title: [''], abstract: '', license: [''], on_behalf_of: 'Melissa' } }
-      let(:params) { ActionController::Parameters.new(attributes)}
-
-      it 'removes blank parameters' do
-        expect(model_attributes[:title]).to be_empty
-        expect(model_attributes[:abstract]).to be_nil
-        expect(model_attributes[:license]).to be_empty
-        expect(model_attributes[:on_behalf_of]).to eq 'Melissa'
-      end
+    it 'permits parameters' do
+      check_common_fields_presence
+      check_attribute_group_presence(:date_submitted, [:date_submitted_year, :date_submitted_month, :date_submitted_day])
+      check_attribute_group_presence(:date_accepted,  [:date_accepted_year, :date_accepted_month, :date_accepted_day])
+      check_attribute_group_presence(:alternate_identifier, [:alternate_identifier, :alternate_identifier_type])
+      check_attribute_group_presence(:related_identifier, [:related_identifier, :related_identifier_type, :relation_type])
+      check_attribute_group_presence(:event, [:event_title, :event_location])
     end
   end
-
-  include_examples("work_form")
 end

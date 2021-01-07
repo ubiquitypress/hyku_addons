@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Generated via
 #  `rails generate hyrax:work TimeBasedMediaArticle`
 module Hyrax
@@ -17,4 +19,3 @@ module Hyrax
                          :title, :date_created, :description].freeze
   end
 end
-

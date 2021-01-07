@@ -13,16 +13,20 @@ module HykuAddons
     end
 
     class_methods do
+      def common_fields
+        [:title, :resource_type, :alternative_name, :project_name, :institution, :abstract, creator_fields, contributor_fields,
+         date_published_fields, funder_fields]
+      end
+
       def creator_fields
-        { creator: [:creator_organization_name, :creator_given_name,
-                                          :creator_family_name, :creator_name_type, :creator_orcid, :creator_isni, :creator_ror, :creator_grid,
-                                          :creator_wikidata, creator_institutional_relationship: []] }
+        { creator: [:creator_organization_name, :creator_given_name, :creator_family_name, :creator_name_type, :creator_orcid,
+                    :creator_isni, :creator_ror, :creator_grid, :creator_wikidata, creator_institutional_relationship: []] }
       end
 
       def contributor_fields
-        { contributor: [:contributor_organization_name, :contributor_given_name,
-            :contributor_family_name, :contributor_name_type, :contributor_orcid, :contributor_isni, :contributor_ror, :contributor_grid,
-            :contributor_wikidata, :contributor_type, contributor_institutional_relationship: []] }
+        { contributor: [:contributor_organization_name, :contributor_given_name, :contributor_family_name, :contributor_name_type,
+                        :contributor_orcid, :contributor_isni, :contributor_ror, :contributor_grid, :contributor_wikidata,
+                        :contributor_type, contributor_institutional_relationship: []] }
       end
 
       def date_accepted_fields
@@ -38,7 +42,8 @@ module HykuAddons
       end
 
       def editor_fields
-        { editor: [:editor_isni, :editor_orcid, :editor_family_name, :editor_given_name, :editor_organisational_name, :editor_institutional_relationship] }
+        { editor: [:editor_isni, :editor_orcid, :editor_family_name, :editor_given_name, :editor_organisational_name,
+                   :editor_institutional_relationship] }
       end
 
       def funder_fields
@@ -51,6 +56,10 @@ module HykuAddons
 
       def related_identifier_fields
         { related_identifier: [:related_identifier, :related_identifier_type, :relation_type] }
+      end
+
+      def event_fields
+        { event: [:event_title, :event_location, event_date: event_date_fields[:event_date]] }
       end
 
       def event_date_fields

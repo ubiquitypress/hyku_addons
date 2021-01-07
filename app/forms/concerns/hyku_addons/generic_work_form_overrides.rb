@@ -20,14 +20,8 @@ module HykuAddons
     class_methods do
       def build_permitted_params
         super.tap do |permitted_params|
-          permitted_params << creator_fields
-          permitted_params << contributor_fields
+          permitted_params << common_fields
           permitted_params << editor_fields
-          permitted_params << date_accepted_fields
-          permitted_params << editor_fields
-          permitted_params << contributor_fields
-          permitted_params << date_published_fields
-          permitted_params << funder_fields
           permitted_params << event_date_fields
           permitted_params << editor_fields
           permitted_params << current_he_institution_fields
