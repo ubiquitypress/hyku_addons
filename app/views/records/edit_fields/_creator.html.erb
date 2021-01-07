@@ -2,12 +2,12 @@
 <% creator_types = HykuAddons::NameTypeService.new.select_active_options.flatten.uniq! %>
 
 <% f.object.creator_list.each do |hash| %>
-	<div class="ubiquity-meta-creator">
+	<div class="js-select-toggle">
 		<% field_options = {
 			field_slug: :creator_name_type,
 			select_options: creator_types,
 			required: template != "collection",
-			field_args: { class: 'ubiquity_creator_name_type form-control' },
+			field_args: { class: 'js-select-toggle-change form-control' },
 			field_group: :creator,
 			template: template,
 			hash: hash
@@ -43,13 +43,15 @@
 		<%= render "records/edit_fields/attribution_partials/text_field", field_options %>
 
 		<div class="form-group">
-			<a href="#" class="text-danger remove_creator form-group">
+			<a href="#" class="text-danger js-select-toggle-remove form-group">
 				<span class="glyphicon glyphicon-remove"></span>
 				<span class="controls-remove-text">Remove</span>
 			</a>
 			|
-			<a href="#" class="add_creator">Add another</a>
+			<a href="#" class="js-select-toggle-add">Add another</a>
 		</div>
+
+		<hr>
 	</div>
 <% end %>
 

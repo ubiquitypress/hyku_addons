@@ -55,6 +55,7 @@ $(document).on("turbolinks:load", function(){
     }
   });
 
+  // onFieldBlur
   $("body").on("blur", ".ubiquity_creator_organization_name", function (event) {
     event.preventDefault();
 
@@ -62,6 +63,7 @@ $(document).on("turbolinks:load", function(){
     creatorOrganizationAddOrRemoveRequiredAndMessage(fields);
   });
 
+  // onFieldBlur
   $("body").on("blur", ".ubiquity_creator_family_name, .ubiquity_creator_given_name", function (event) {
     event.preventDefault();
 
