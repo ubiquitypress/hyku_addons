@@ -4,6 +4,10 @@ en:
       label: Please complete this field.
   attribution:
     creator:
+      creator_name_type:
+        label: Creator name type
+        placeholder:
+        help_text: The person or group responsible for the work. Usually this is the author of the content.
       creator_organization_name:
         label: Creator organisation name
         placeholder: Please enter the organisation's name.
