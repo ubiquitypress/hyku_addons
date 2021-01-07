@@ -3,21 +3,16 @@
 
 <% f.object.creator_list.each do |hash| %>
 	<div class="ubiquity-meta-creator">
-		<div class="form-group">
-			<% required = template != 'collection' %>
-
-			<label class="control-label multi_value optional" for="<%= template %>_creator_name_type">
-				Creator name type
-				<% if required %>
-					<span class="label label-info required-tag">required</span>
-				<% end %>
-			</label>
-
-			<% opts = options_for_select(creator_types, selected: hash.dig("creator_name_type")) %>
-			<% select_params = { required: required, class: 'ubiquity_creator_name_type form-control', data: { field_name:'ubiquity_creator_name_type' } } %>
-			<%= select_tag "#{template}[creator][][creator_name_type]", opts, select_params %>
-			<p class="help-block">The person or group responsible for the work. Usually this is the author of the content.</p>
-		</div>
+		<% field_options = {
+			field_slug: :creator_name_type,
+			select_options: creator_types,
+			required: template != "collection",
+			field_args: { class: 'ubiquity_creator_name_type form-control' },
+			field_group: :creator,
+			template: template,
+			hash: hash
+		} %>
+		<%= render "records/edit_fields/attribution_partials/select_field", field_options %>
 
 		<div class="ubiquity_organization_fields js-creator-group">
 			<% # TODO: work out why setting the name fields as required causes the deposit form to not register the meta data was entered %>
@@ -44,8 +39,8 @@
 			<% end %>
 		</div>
 
-		<% field_options = { field_type: :text, field_slug: :creator_isni, required: false, field_group: :creator, template: template, hash: hash } %>
-		<%= render "records/edit_fields/attribution_partials/#{field_options[:field_type]}_field", field_options %>
+		<% field_options = { field_slug: :creator_isni, required: false, field_group: :creator, template: template, hash: hash } %>
+		<%= render "records/edit_fields/attribution_partials/text_field", field_options %>
 
 		<div class="form-group">
 			<a href="#" class="text-danger remove_creator form-group">
