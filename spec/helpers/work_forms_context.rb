@@ -164,10 +164,8 @@ RSpec.shared_context 'work forms context' do
 
   def event_params
     {
-      event: {
-        event_title: 'event_title',
-        event_location: 'event_location'
-      }.merge(event_date_params)
+      event_title: 'event_title',
+      event_location: 'event_location'
     }
   end
 

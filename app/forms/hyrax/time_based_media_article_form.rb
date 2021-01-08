@@ -17,6 +17,7 @@ module Hyrax
       super.tap do |permitted_params|
         permitted_params << common_fields
         permitted_params << editor_fields
+        permitted_params << event_date_fields
         permitted_params << %i[event_title event_location]
       end
     end

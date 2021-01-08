@@ -26,13 +26,16 @@ RSpec.describe Hyrax::ConferenceItemForm do
 
       let(:params) { ActionController::Parameters.new(attributes) }
       let(:attributes) do
-        common_params.merge(editor_params, event_params)
+        common_params.merge(editor_params, event_params, event_date_params)
       end
 
       it 'permits parameters' do
         check_common_fields_presence
         check_attribute_group_presence(:editor, [:editor_isni, :editor_orcid, :editor_family_name, :editor_given_name])
-        check_attribute_group_presence(:event, [:event_title, :event_location])
+        check_attribute_group_presence(:event_date, [:event_date_year, :event_date_month, :event_date_day])
+        %w[event_title event_location].each do |attr|
+          expect(model_attributes[attr]).to eq attr
+        end
       end
     end
   end
