@@ -13,3 +13,9 @@
 //= require rails-ujs
 //= require activestorage
 //= require_tree .
+
+$(document).on("turbolinks:load", function(){
+  new Eventable()
+  new SelectGroupToggle()
+  new Duplicatable()
+});

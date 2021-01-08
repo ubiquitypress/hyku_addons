@@ -1,20 +1,3 @@
-class Eventable {
-  constructor(){
-    this.registerEvents()
-  }
-
-  registerEvents(){
-    console.log("Eventable.registerEvents")
-
-    $("body").on("change", `[data-on-change-event]`, function(){
-      let eventName = $(this).data("on-change-event")
-
-      console.log(`Eventable.trigger event: ${eventName}`)
-      $("body").trigger(eventName, [$(this)])
-    })
-  }
-}
-
 class SelectGroupToggle {
   groupSelector = "[data-toggle-group]"
   controlSelector = "[data-toggle-control]"
@@ -52,7 +35,3 @@ class SelectGroupToggle {
   }
 }
 
-$(document).on("turbolinks:load", function(){
-  const events = new Eventable()
-  const selectListener = new SelectGroupToggle()
-});
