@@ -1,3 +1,6 @@
+// Example:
+// $("body").trigger("clear_inputs", [$(el)])
+
 class InputClearable {
   constructor(){
     this.registerListeners()

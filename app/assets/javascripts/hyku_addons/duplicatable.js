@@ -1,3 +1,9 @@
+// Example:
+//
+// <div data-duplicatable data-after-clone-action="clear_inputs">
+//   <a href="#" data-turbolinks="false" data-on-click-event="duplicate_parent">Add another</a>
+// </div>
+
 class Duplicatable {
   duplicatableSelector = "[data-duplicatable]"
 
@@ -24,7 +30,7 @@ class Duplicatable {
   }
 
   onRemoveParentEvent(event, clicked){
-    event.stopPropagation()
+    event.preventDefault()
     console.log("Duplicatable.onRemoveParentEvent")
   }
 }
