@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'hyrax/doi/engine'
+require 'bolognese/metadata'
 
 module HykuAddons
   class Engine < ::Rails::Engine
@@ -148,8 +149,8 @@ module HykuAddons
       end
     end
 
-    # Pre-existing Work type overrides
-    config.after_initialize do
+    # Pre-existing Work type overrides and dynamic includes
+    def self.dynamically_include_mixins
       GenericWork.include HykuAddons::GenericWorkOverrides
       GenericWork.include ::Hyrax::BasicMetadata
       WorkIndexer.include HykuAddons::WorkIndexerBehavior
@@ -162,6 +163,14 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
       Bolognese::Metadata.prepend Bolognese::Readers::UbiquityGenericWorkReader
       Hyrax::GenericWorksController.prepend HykuAddons::WorksControllerAdditionalMimeTypesBehavior
+    end
+
+    # Use #to_prepare because it reloads where after_initialize only runs once
+    # This might slow down every request so only do it in development environment
+    if Rails.env == 'development'
+      config.to_prepare { HykuAddons::Engine.dynamically_include_mixins }
+    else
+      config.after_initialize { HykuAddons::Engine.dynamically_include_mixins }
     end
   end
 end
