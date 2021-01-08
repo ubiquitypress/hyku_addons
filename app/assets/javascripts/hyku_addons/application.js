@@ -16,6 +16,7 @@
 
 $(document).on("turbolinks:load", function(){
   new Eventable()
-  new SelectGroupToggle()
+  new SelectToggleable()
   new Duplicatable()
+  new InputClearable()
 });
