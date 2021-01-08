@@ -2,6 +2,7 @@
 //
 // <div data-duplicatable data-after-clone-action="clear_inputs">
 //   <a href="#" data-turbolinks="false" data-on-click-event="duplicate_parent">Add another</a>
+//   <a href="#" data-turbolinks="false" data-on-click-event="remove_parent">Remove</a>
 // </div>
 
 class Duplicatable {
@@ -32,6 +33,8 @@ class Duplicatable {
   onRemoveParentEvent(event, clicked){
     event.preventDefault()
     console.log("Duplicatable.onRemoveParentEvent")
+
+    clicked.closest(this.duplicatableSelector).remove()
   }
 }
 
