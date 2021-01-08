@@ -1,38 +1,42 @@
-class SelectToggleable {
-  parentSelector = ".js-select-toggle"
-  addSelector = ".js-select-toggle-add"
-  removeSelector = ".js-select-toggle-remove"
-  changeSelector = ".js-select-toggle-change"
-  fieldBlurSelector = ".js-select-toggle-blur"
-
+class Eventable {
   constructor(){
     this.registerEvents()
   }
 
   registerEvents(){
-    $("body").on("click", this.addSelector, this.addSection.bind(this))
-    $("body").on("click", this.removeSelector, this.removeSection.bind(this))
-    $("body").on("change", this.changeSelector, this.changeSection.bind(this))
-    $("body").on("blur", this.fieldBlurSelector, this.onFieldBlur.bind(this))
+    console.log("registerEvents")
+    $("body").on("change", `[data-on-event=change]`, function(){
+      let eventName = $(this).data("send-event")
+
+      console.log(`trigger event: ${eventName}`)
+      $("body").trigger(eventName, [$(this)])
+    })
+  }
+}
+
+class SelectToggleableListener {
+  groupSelector = ".js-toggle-group"
+
+  constructor(){
+    this.registerListeners()
   }
 
-  addSection(event){
-    event.preventDefault()
+  registerListeners(){
+    console.log("registerListeners")
+
+    $("body").on("toggle_group", this.toggleSelectGroup.bind(this))
   }
 
-  removeSection(event){
-    event.preventDefault()
-  }
+  toggleSelectGroup(event, target){
+    console.log(`Performing: ${event.type}`)
 
-  changeSection(event){
-    event.preventDefault()
-  }
-
-  onFieldBlur(event){
-
+    let val = target.val()
+    $(this.groupSelector).hide()
+    $(`${this.groupSelector}[data-toggle-group=${val}]`).show()
   }
 }
 
 $(document).on("turbolinks:load", function(){
-  const toggleable = new SelectToggleable()
+  const events = new Eventable()
+  const selectListener = new SelectToggleableListener()
 });
