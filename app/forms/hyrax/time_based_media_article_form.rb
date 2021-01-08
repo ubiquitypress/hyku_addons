@@ -6,7 +6,7 @@ module Hyrax
     include ::HykuAddons::WorkForm
 
     self.model_class = ::TimeBasedMediaArticle
-    self.terms = %i[title resource_type abstract add_info alt_title alternate_identifier
+    self.terms = %i[title resource_type abstract add_info alt_title alternate_identifier event event_date
                     alternative_journal_title contributor creator date_accepted date_published date_submitted dewey doi
                     fndr_project_ref funder institution issue keyword language library_of_congress_classification
                     license official_link org_unit place_of_publication project_name publisher related_identifier
@@ -16,11 +16,7 @@ module Hyrax
     def self.build_permitted_params
       super.tap do |permitted_params|
         permitted_params << common_fields
-        permitted_params << date_accepted_fields
-        permitted_params << date_submitted_fields
         permitted_params << event_fields
-        permitted_params << alternate_identifier_fields
-        permitted_params << related_identifier_fields
       end
     end
   end

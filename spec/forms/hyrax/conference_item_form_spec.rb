@@ -4,7 +4,7 @@
 require 'rails_helper'
 require File.expand_path('../../helpers/work_forms_context', __dir__)
 
-RSpec.describe Hyrax::BookContributionForm do
+RSpec.describe Hyrax::ConferenceItemForm do
   include_context 'work forms context' do
     describe "#required_fields" do
       subject { form.required_fields }
@@ -16,8 +16,7 @@ RSpec.describe Hyrax::BookContributionForm do
       subject { form.terms }
 
       it do
-        is_expected.not_to include(:media, :duration, :event_title, :event_location, :event_date, :journal_title,
-                                   :alternative_journal_title, :version, :issue, :article_number, :current_he_institution,
+        is_expected.not_to include(:media, :duration, :journal_title, :edition, :alternative_journal_title, :version, :issue, :article_number, :current_he_institution,
                                    :related_exhibition, :related_exhibition_venue, :qualification_name, :qualification_level)
       end
     end
@@ -27,12 +26,13 @@ RSpec.describe Hyrax::BookContributionForm do
 
       let(:params) { ActionController::Parameters.new(attributes) }
       let(:attributes) do
-        common_params.merge(editor_params)
+        common_params.merge(editor_params, event_params)
       end
 
       it 'permits parameters' do
         check_common_fields_presence
         check_attribute_group_presence(:editor, [:editor_isni, :editor_orcid, :editor_family_name, :editor_given_name])
+        check_attribute_group_presence(:event, [:event_title, :event_location])
       end
     end
   end

@@ -27,15 +27,11 @@ RSpec.describe Hyrax::ArticleForm do
 
       let(:params) { ActionController::Parameters.new(attributes) }
       let(:attributes) do
-        common_params.merge(date_submitted_params, date_accepted_params, alternate_identifier_params, related_identifier_params)
+        common_params
       end
 
       it 'permits parameters' do
         check_common_fields_presence
-        check_attribute_group_presence(:date_submitted, [:date_submitted_year, :date_submitted_month, :date_submitted_day])
-        check_attribute_group_presence(:date_accepted,  [:date_accepted_year, :date_accepted_month, :date_accepted_day])
-        check_attribute_group_presence(:alternate_identifier, [:alternate_identifier, :alternate_identifier_type])
-        check_attribute_group_presence(:related_identifier, [:related_identifier, :related_identifier_type, :relation_type] )
       end
     end
   end

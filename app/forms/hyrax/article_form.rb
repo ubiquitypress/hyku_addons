@@ -21,10 +21,6 @@ module Hyrax
     def self.build_permitted_params
       super.tap do |permitted_params|
         permitted_params << common_fields
-        permitted_params << date_accepted_fields
-        permitted_params << date_submitted_fields
-        permitted_params << alternate_identifier_fields
-        permitted_params << related_identifier_fields
       end
     end
   end

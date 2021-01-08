@@ -14,8 +14,10 @@ module HykuAddons
 
     class_methods do
       def common_fields
-        [:title, :resource_type, :alternative_name, :project_name, :institution, :abstract, creator_fields, contributor_fields,
-         date_published_fields, funder_fields]
+        [:title, :resource_type, :alternative_name, :project_name, :institution, :abstract, :official_link, :related_url,
+         :language, :license, :rights_statement, :rights_holder, :doi, :peer_reviewed, :keywords, :dewey, :library_of_congress_classification,
+         :add_info, creator_fields, contributor_fields, date_published_fields, date_accepted_fields, date_submitted_fields,
+         funder_fields, related_identifier_fields, alternate_identifier_fields]
       end
 
       def creator_fields
