@@ -6,19 +6,19 @@ RSpec.describe Hyrax::GenericWorkForm do
   let(:work) { GenericWork.new }
   let(:form) { described_class.new(work, nil, nil) }
 
-  describe "#required_fields" do
+  describe ".required_fields" do
     subject { form.required_fields }
 
     it { is_expected.to eq [:title, :resource_type, :creator, :institution] }
   end
 
-  describe "#primary_terms" do
+  describe ".primary_terms" do
     subject { form.primary_terms }
 
     it { is_expected.to eq [:title, :resource_type, :creator, :institution, :license] }
   end
 
-  describe "#secondary_terms" do
+  describe ".secondary_terms" do
     subject { form.secondary_terms }
 
     it do
@@ -26,7 +26,7 @@ RSpec.describe Hyrax::GenericWorkForm do
                                  :visibilty, :visibility_during_embargo,
                                  :embargo_release_date, :visibility_after_embargo,
                                  :visibility_during_lease, :lease_expiration_date,
-                                 :visibility_after_lease, :collection_ids)
+                                 :visibility_after_lease)
     end
   end
 

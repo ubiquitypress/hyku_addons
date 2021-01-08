@@ -17,7 +17,7 @@ RSpec.describe GenericWork do
         :institution, :org_unit, :refereed, :funder, :fndr_project_ref, :add_info, :date_published,
         :date_accepted, :date_submitted, :project_name, :rights_holder, :place_of_publication,
         :abstract, :alternate_identifier, :related_identifier, :library_of_congress_classification,
-        :alt_title, :dewey, :collection_id, :collection_names
+        :alt_title, :dewey
       ]
     end
 
@@ -35,8 +35,7 @@ RSpec.describe GenericWork do
         :date_accepted_tesim, :date_submitted_tesim, :project_name_tesim, :rights_holder_tesim,
         :place_of_publication_tesim, :place_of_publication_sim, :abstract_tesim, :alternate_identifier_tesim,
         :related_identifier_tesim, :library_of_congress_classification_tesim, :library_of_congress_classification_sim,
-        :alt_title_tesim, :dewey_tesim, :collection_id_tesim, :collection_id_sim, :collection_names_tesim,
-        :collection_names_sim
+        :alt_title_tesim, :dewey_tesim
       ]
     end
 

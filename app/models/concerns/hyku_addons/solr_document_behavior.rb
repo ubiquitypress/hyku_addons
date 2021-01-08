@@ -22,7 +22,7 @@ module HykuAddons
       class_attribute :registered_attributes
       # Pre-seed registered attributes because they have already been created before this module is included
       self.registered_attributes = [:identifier, :based_near, :based_near_label, :related_url, :resource_type,
-                                    :edit_groups, :edit_people, :read_groups, :collection_ids, :admin_set, :member_ids,
+                                    :edit_groups, :edit_people, :read_groups, :admin_set, :member_ids,
                                     :member_of_collection_ids, :description, :abstract, :title, :contributor, :subject,
                                     :publisher, :language, :keyword, :license, :source, :date_created, :rights_statement,
                                     :mime_type, :workflow_state, :human_readable_type, :representative_id, :rendering_ids,
@@ -81,8 +81,6 @@ module HykuAddons
       attribute :library_of_congress_classification, SolrDocument::Solr::Array, solr_name('library_of_congress_classification')
       attribute :alt_title, SolrDocument::Solr::Array, solr_name('alt_title')
       attribute :alternative_journal_title, SolrDocument::Solr::Array, solr_name('alternative_journal_title')
-      attribute :collection_names, SolrDocument::Solr::Array, solr_name('collection_names')
-      attribute :collection_id, SolrDocument::Solr::Array, solr_name('collection_id')
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(
