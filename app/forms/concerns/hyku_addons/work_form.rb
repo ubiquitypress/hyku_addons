@@ -60,10 +60,6 @@ module HykuAddons
         { related_identifier: [:related_identifier, :related_identifier_type, :relation_type] }
       end
 
-      def event_fields
-        { event: [:event_title, :event_location, event_date: event_date_fields[:event_date]] }
-      end
-
       def event_date_fields
         { event_date: [:event_date_year, :event_date_month, :event_date_day] }
       end

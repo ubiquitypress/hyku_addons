@@ -62,7 +62,8 @@ class ConferenceItem < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  self.json_fields += %i[editor event]
+  self.json_fields += %i[editor]
+  self.date_fields += %i[event_date]
 
   self.indexer = ConferenceItemIndexer
   # Change this to restrict which works can be added as a child.
