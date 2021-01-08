@@ -2,15 +2,16 @@
 <% creator_types = HykuAddons::NameTypeService.new.select_active_options.flatten.uniq! %>
 
 <% f.object.creator_list.each do |hash| %>
-	<div class="js-toggle">
+	<div data-duplicate>
 		<% field_options = {
 			field_slug: :creator_name_type,
 			select_options: creator_types,
 			required: template != "collection",
 			field_args: {
-				class: 'js-toggle-control form-control',
+				class: 'form-control',
 				data: {
-					on_change_event: :toggle_group
+					toggle_control: 1,
+					on_change_event: :toggle_group,
 				}
 			},
 			field_group: :creator,
@@ -19,7 +20,7 @@
 		} %>
 		<%= render "records/edit_fields/attribution_partials/select_field", field_options %>
 
-		<div class="js-toggle-group" data-toggle-group="Organisational">
+		<div data-toggle-group="Organisational">
 			<% # TODO: wo out why setting the name fields as required causes the deposit form to not register the meta data was entered %>
 			<% [
 				{ field_type: :text, field_slug: :creator_organization_name, required: false },
@@ -32,7 +33,7 @@
 			<% end %>
 		</div>
 
-		<div class="js-toggle-group" data-toggle-group="Personal">
+		<div data-toggle-group="Personal">
 			<% [
 				{ field_type: :text, field_slug: :creator_family_name, required: false },
 				{ field_type: :text, field_slug: :creator_given_name, required: false },
@@ -48,12 +49,12 @@
 		<%= render "records/edit_fields/attribution_partials/text_field", field_options %>
 
 		<div class="form-group">
-			<a href="#" class="text-danger js-select-toggle-remove form-group">
+			<a href="#" class="text-danger js-select-toggle-remove form-group" data-duplicate-remove>
 				<span class="glyphicon glyphicon-remove"></span>
 				<span class="controls-remove-text">Remove</span>
 			</a>
 			|
-			<a href="#" class="js-select-toggle-add">Add another</a>
+			<a href="#" class="js-select-toggle-add" data-duplicte-add>Add another</a>
 		</div>
 
 		<hr>

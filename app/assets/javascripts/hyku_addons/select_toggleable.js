@@ -16,9 +16,8 @@ class Eventable {
 }
 
 class SelectGroupToggle {
-  parentSelector = ".js-toggle"
-  groupSelector = ".js-toggle-group"
-  controlSelector = ".js-toggle-control"
+  groupSelector = "[data-toggle-group]"
+  controlSelector = "[data-toggle-control]"
 
   constructor(){
     this.onLoad()
