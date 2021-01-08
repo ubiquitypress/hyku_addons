@@ -2,16 +2,15 @@
 <% creator_types = HykuAddons::NameTypeService.new.select_active_options.flatten.uniq! %>
 
 <% f.object.creator_list.each do |hash| %>
-	<div class="js-select-toggle">
+	<div class="js-toggle">
 		<% field_options = {
 			field_slug: :creator_name_type,
 			select_options: creator_types,
 			required: template != "collection",
 			field_args: {
-				class: 'js-eventable form-control',
+				class: 'js-toggle-control form-control',
 				data: {
-					on_event: :change,
-					send_event: :toggle_group
+					on_change_event: :toggle_group
 				}
 			},
 			field_group: :creator,
