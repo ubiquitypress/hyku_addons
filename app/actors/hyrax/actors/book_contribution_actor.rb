@@ -1,0 +1,9 @@
+# frozen_string_literal: true
+# Generated via
+#  `rails generate hyrax:work BookContribution`
+module Hyrax
+  module Actors
+    class BookContributionActor < Hyrax::Actors::BaseActor
+    end
+  end
+end

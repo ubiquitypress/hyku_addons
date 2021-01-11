@@ -69,8 +69,6 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       login_as user
     end
-
-    # rubocop:disable RSpec/ExampleLength
     it 'persists a new work with only required fields' do
       visit '/dashboard'
       click_link "Works"
@@ -114,7 +112,6 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       find('body').click
       choose('generic_work_visibility_open')
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
-      # rubocop:enable Metrics/LineLength
       check('agreement')
 
       # Save
@@ -145,9 +142,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       expect(page).to have_content "Your files are being processed by Hyku in the background."
     end
-    # rubocop:enable RSpec/ExampleLength
 
-    # rubocop:disable RSpec/ExampleLength
     it 'persists a new work with multi-part fields' do
       visit '/dashboard'
       click_link "Works"
@@ -239,7 +234,6 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Editor
       select('Personal', from: 'generic_work_editor__editor_name_type')
       fill_in('generic_work_editor__editor_isni', with: '0000 0001 2103 5000')
-      fill_in('generic_work_editor__editor_organization_name', with: 'British Library')
       fill_in('generic_work_editor__editor_orcid', with: '0000-0002-9079-600X')
       fill_in('generic_work_editor__editor_family_name', with: 'Curry')
       fill_in('generic_work_editor__editor_given_name', with: 'Timothy')
@@ -328,7 +322,6 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       find('body').click
       choose('generic_work_visibility_open')
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
-      # rubocop:enable Metrics/LineLength
       check('agreement')
 
       # Save
@@ -396,7 +389,6 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       # Editor
       expect(page).to have_link('', href: 'https://isni.org/isni/0000000121035000')
-      expect(page).to have_content('British Library')
       expect(page).to have_link('', href: 'https://orcid.org/000000029079600X')
       expect(page).to have_content('Curry, Timothy')
 
@@ -471,6 +463,5 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       expect(page).to have_content "Your files are being processed by Hyku in the background."
     end
-    # rubocop:enable RSpec/ExampleLength
   end
 end
