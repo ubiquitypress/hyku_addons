@@ -7,6 +7,7 @@
 
 class Cloneable {
   cloneableSelector = "[data-cloneable]"
+  afterEventsDataAttributeName = "data-after-clone-action"
 
   constructor(){
     this.registerListeners()
@@ -25,7 +26,7 @@ class Cloneable {
     let clone = target.clone()
 
     clone.insertAfter(target)
-    $("body").trigger(clone.attr("data-after-clone-action"), [clone])
+    this.triggerElementAfterEvents(clone)
   }
 
   onRemove(event, clicked){
@@ -33,6 +34,18 @@ class Cloneable {
     console.log("Cloneable.onRemove")
 
     clicked.closest(this.cloneableSelector).remove()
+  }
+
+  // Trigger any events requested, allowing for multiple space delimited event names
+  triggerElementAfterEvents(element){
+    // Ensure we have events to trigger
+    let events = element.attr(this.afterEventsDataAttributeName).split(" ").filter(String)
+
+    if (events.length == 0) {
+      return false;
+    }
+
+    events.forEach((event) => $("body").trigger(event, [element]))
   }
 }
 

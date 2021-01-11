@@ -20,8 +20,6 @@ class SelectToggleable {
   }
 
   onLoad(){
-    // console.log("SelectGroupToggle.onLoad")
-
     // Can't seen to get this to work via triggering the change event
     $(this.controlSelector).each($.proxy(function(i, el){
       this.toggleSelectGroup($(el))
@@ -29,8 +27,6 @@ class SelectToggleable {
   }
 
   registerListeners(){
-    // console.log("SelectGroupToggle.registerListeners")
-
     $("body").on("toggleable_group", this.onToggleGroupEvent.bind(this))
   }
 
@@ -39,11 +35,17 @@ class SelectToggleable {
   }
 
   toggleSelectGroup(target){
-    // console.log(`SelectGroupToggle.Receive Event: ${event.type}`)
-
     let val = target.val()
-    target.closest(this.parentSelector).find(this.groupSelector).hide()
-    target.closest(this.parentSelector).find(`${this.groupSelector}[data-toggleable-group=${val}]`).show()
+    let parent = target.closest(this.parentSelector)
+
+    parent.find(this.groupSelector).each(function(){
+      $(this).hide()
+      $("body").trigger("unset_required", [$(this)])
+    })
+
+    let element = parent.find(`${this.groupSelector}[data-toggleable-group=${val}]`)
+    element.show()
+    $("body").trigger("set_required", [element])
   }
 }
 

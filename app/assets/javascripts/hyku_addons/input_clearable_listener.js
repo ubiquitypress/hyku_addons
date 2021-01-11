@@ -1,20 +1,18 @@
 // Example:
 // $("body").trigger("clear_inputs", [$(el)])
 
-class InputClearable {
+class InputClearableListener {
+  eventName = "clear_inputs"
+
   constructor(){
     this.registerListeners()
   }
 
   registerListeners(){
-    console.log("InputClearable.registerListeners")
-
-    $("body").on("clear_inputs", this.onInputClearable.bind(this))
+    $("body").on(this.eventName, this.onEvent.bind(this))
   }
 
-  onInputClearable(event, target){
-    console.log("InputClearable.onInputClearable")
-
+  onEvent(event, target){
     target.find("input").val("")
     target.find("options").attr("selected", false)
     target.find("select").each(function(){

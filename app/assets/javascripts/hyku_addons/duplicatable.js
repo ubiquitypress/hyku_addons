@@ -13,15 +13,12 @@ class Cloneable {
   }
 
   registerListeners(){
-    // console.log("Cloneable.registerListeners")
-
     $("body").on("clone_parent", this.onClone.bind(this))
     $("body").on("remove_parent", this.onRemove.bind(this))
   }
 
   onClone(event, clicked){
     event.preventDefault()
-    console.log("Cloneable.onClone")
 
     let target = clicked.closest(this.cloneableSelector).last()
     let clone = target.clone()
@@ -32,7 +29,6 @@ class Cloneable {
 
   onRemove(event, clicked){
     event.preventDefault()
-    console.log("Cloneable.onRemove")
 
     clicked.closest(this.cloneableSelector).remove()
   }

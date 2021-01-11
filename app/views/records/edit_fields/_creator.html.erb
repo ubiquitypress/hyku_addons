@@ -23,7 +23,7 @@
 		<div data-toggleable-group="Organisational">
 			<% # TODO: workout why setting the name fields as required causes the deposit form to not register the meta data was entered %>
 			<% [
-				{ field_type: :text, field_slug: :creator_organization_name, required: false },
+				{ field_type: :text, field_slug: :creator_organization_name, required: false, field_args: { data: { "required": 1  } } },
 				{ field_type: :text, field_slug: :creator_ror, required: false },
 				{ field_type: :text, field_slug: :creator_grid, required: false },
 				{ field_type: :text, field_slug: :creator_wikidata, required: false}
