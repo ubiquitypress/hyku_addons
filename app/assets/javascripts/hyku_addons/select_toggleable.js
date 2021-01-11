@@ -11,7 +11,8 @@
 
 class SelectToggleable {
   parentSelector = "[data-toggleable]"
-  groupSelector = "[data-toggleable-group]"
+  groupAttributeName = "data-toggleable-group"
+  groupSelector = `[${this.groupAttributeName}]`
   controlSelector = "[data-toggleable-control]"
 
   constructor(){
@@ -38,12 +39,14 @@ class SelectToggleable {
     let val = target.val()
     let parent = target.closest(this.parentSelector)
 
+    // Hide all elements and unset required attributes by default
     parent.find(this.groupSelector).each(function(){
       $(this).hide()
       $("body").trigger("unset_required", [$(this)])
     })
 
-    let element = parent.find(`${this.groupSelector}[data-toggleable-group=${val}]`)
+    // Find matching element and toggle required
+    let element = parent.find(`[${this.groupAttributeName}=${val}]`)
     element.show()
     $("body").trigger("set_required", [element])
   }

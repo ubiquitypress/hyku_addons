@@ -16,13 +16,11 @@ class ToggleRequiredListener {
 
   onSetEvent(event, target){
     this.toggleRequired(target, true)
-
     this.addRequiredLabel(target)
   }
 
   onUnsetEvent(event, target){
     this.toggleRequired(target, false)
-
     this.removeRequiredLabel(target)
   }
 

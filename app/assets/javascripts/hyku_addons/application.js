@@ -15,9 +15,13 @@
 //= require_tree .
 
 $(document).on("turbolinks:load", function(){
+  // Register listeners before events, so that onload events are consumed
+  // Listeners
+  new InputClearableListener()
+  new ToggleRequiredListener();
+
+  // Events
   new Eventable()
   new SelectToggleable()
   new Cloneable()
-  new InputClearableListener()
-  new ToggleRequiredListener();
 });
