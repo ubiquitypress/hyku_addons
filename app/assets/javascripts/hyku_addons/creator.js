@@ -23,15 +23,15 @@ $(document).on("turbolinks:load", function(){
     $('.ubiquity_creator_name_type:last').val('Personal').trigger("change")
   });
 
-  $("body").on("click", ".remove_creator", function(event){
-    event.preventDefault();
-
-    if ($(".ubiquity-meta-creator").length == 1 ) {
-      return false
-    }
-
-    $(this).closest(".ubiquity-meta-creator").remove()
-  });
+//  $("body").on("click", ".remove_creator", function(event){
+//    event.preventDefault();
+//
+//    if ($(".ubiquity-meta-creator").length == 1 ) {
+//      return false
+//    }
+//
+//    $(this).closest(".ubiquity-meta-creator").remove()
+//  });
 
   //for hiding and showing values on the edit form for creator sub fields
   $("body").on("change", ".ubiquity_creator_name_type", function(event){
