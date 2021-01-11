@@ -40,8 +40,8 @@
 
 		<div data-toggleable-group="Personal">
 			<% [
-				{ field_type: :text, field_slug: :creator_family_name, field_args: { data: { multiple_required: :creator_name  } } },
-				{ field_type: :text, field_slug: :creator_given_name, field_args: { data: { multiple_required: :creator_name } } },
+				{ field_type: :text, field_slug: :creator_family_name, field_args: { data: { required_multiple_group: :creator_name, on_blur_event: :toggle_require_multiple } } },
+				{ field_type: :text, field_slug: :creator_given_name, field_args: { data: { required_multiple_group: :creator_name, on_blur_event: :toggle_require_multiple } } },
 				{ field_type: :text, field_slug: :creator_orcid },
 				{ field_type: :select, field_slug: :creator_institutional_relationship, select_options: ['Staff member', 'Research associate'], field_args: { multiple: true } }
 			].each do |field| %>

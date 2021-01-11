@@ -20,9 +20,11 @@ $(document).on("turbolinks:load", function(){
   new InputClearableListener()
   new RequiredFieldListener()
   new RequiredMultipleFieldListener()
+  new CloneableListener()
+  // We have onload methods here so this needs to be called last,
+  // or it might try and trigger an event not consumed yet
+  new SelectToggleableListener()
 
-  // Events
+  // Register our Events
   new Eventable()
-  new SelectToggleable()
-  new Cloneable()
 });

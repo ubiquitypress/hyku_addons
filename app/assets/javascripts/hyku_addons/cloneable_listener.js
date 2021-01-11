@@ -9,7 +9,7 @@
 //   <a href="#" data-turbolinks="false" data-on-click-event="remove_parent">Remove</a>
 // </div>
 
-class Cloneable {
+class CloneableListener {
   cloneableAttributeName = "data-cloneable"
   cloneableSelector = `[${this.cloneableAttributeName}]`
   afterEventsDataAttributeName = "data-after-clone-action"

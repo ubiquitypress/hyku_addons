@@ -9,7 +9,7 @@
 //    <div data-toggleable-group="Organisational"></div>
 //  </div>
 
-class SelectToggleable {
+class SelectToggleableListener {
   parentSelector = "[data-toggleable]"
   groupAttributeName = "data-toggleable-group"
   groupSelector = `[${this.groupAttributeName}]`
