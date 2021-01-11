@@ -11,7 +11,6 @@ class Eventable {
     $("body").on("change", "[data-on-change-event]", function(){
       let eventName = $(this).data("on-change-event")
 
-      // console.log(`Eventable.trigger event: ${eventName}`)
       $("body").trigger(eventName, [$(this)])
     })
 
@@ -20,7 +19,11 @@ class Eventable {
       event.preventDefault()
 
       let eventName = $(this).data("on-click-event")
-      console.log(`Eventable.trigger event: ${eventName}`)
+      $("body").trigger(eventName, [$(this)])
+    })
+
+    $("body").on("blur", "[data-on-blur-event]", function(event){
+      let eventName = $(this).data("on-blur-event")
       $("body").trigger(eventName, [$(this)])
     })
   }

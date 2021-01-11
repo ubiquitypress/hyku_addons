@@ -3,7 +3,7 @@
 	<%= label_tag "#{template}_#{field_slug}", options do %>
 		<%= t("attribution.#{field_group}.#{field_slug}.label") %>
 
-		<% if required %>
+		<% if local_assigns[:required] %>
 			<span class="label label-info required-tag">required</span>
 		<% end %>
 	<% end %>

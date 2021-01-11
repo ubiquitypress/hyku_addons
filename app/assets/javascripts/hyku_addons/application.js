@@ -18,7 +18,8 @@ $(document).on("turbolinks:load", function(){
   // Register listeners before events, so that onload events are consumed
   // Listeners
   new InputClearableListener()
-  new ToggleRequiredListener();
+  new RequiredFieldListener()
+  new RequiredMultipleFieldListener()
 
   // Events
   new Eventable()
