@@ -1,12 +1,17 @@
 // Example:
-//
-// <div data-cloneable data-after-clone-action="clear_inputs">
+//	<div
+//		data-toggleable
+//		data-cloneable="creator"
+//		data-after-clone-action="clear_inputs"
+//		data-cloneable-min="1"
+//	>
 //   <a href="#" data-turbolinks="false" data-on-click-event="clone_parent">Add another</a>
 //   <a href="#" data-turbolinks="false" data-on-click-event="remove_parent">Remove</a>
 // </div>
 
 class Cloneable {
-  cloneableSelector = "[data-cloneable]"
+  cloneableAttributeName = "data-cloneable"
+  cloneableSelector = `[${this.cloneableAttributeName}]`
   afterEventsDataAttributeName = "data-after-clone-action"
 
   constructor(){
@@ -20,7 +25,6 @@ class Cloneable {
 
   onClone(event, clicked){
     event.preventDefault()
-    console.log("Cloneable.onClone")
 
     let target = clicked.closest(this.cloneableSelector).last()
     let clone = target.clone()
@@ -31,7 +35,10 @@ class Cloneable {
 
   onRemove(event, clicked){
     event.preventDefault()
-    console.log("Cloneable.onRemove")
+
+    if(this.reachedMinCount(clicked)) {
+      return false
+    }
 
     clicked.closest(this.cloneableSelector).remove()
   }
@@ -46,6 +53,16 @@ class Cloneable {
     }
 
     events.forEach((event) => $("body").trigger(event, [element]))
+  }
+
+  // Set a min number of sublings for a cloneable element by:
+  // ... data-cloneable-min="1"
+  reachedMinCount(clicked) {
+    let parent = clicked.closest(this.cloneableSelector)
+    let attrName = parent.attr(this.cloneableAttributeName)
+    let siblingCount = $(`[${this.cloneableAttributeName}=${attrName}]`).length
+
+    return siblingCount <= (parent.data("cloneable-min") || 0)
   }
 }
 

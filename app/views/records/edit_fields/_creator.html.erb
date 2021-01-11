@@ -2,7 +2,12 @@
 <% creator_types = HykuAddons::NameTypeService.new.select_active_options.flatten.uniq! %>
 
 <% f.object.creator_list.each do |hash| %>
-	<div data-toggleable data-cloneable data-after-clone-action="clear_inputs">
+	<div
+		data-toggleable
+		data-cloneable="creator"
+		data-after-clone-action="clear_inputs"
+		data-cloneable-min="1"
+	>
 		<% field_options = {
 			field_slug: :creator_name_type,
 			select_options: creator_types,
