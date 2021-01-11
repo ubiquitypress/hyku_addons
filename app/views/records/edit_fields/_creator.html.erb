@@ -2,7 +2,7 @@
 <% creator_types = HykuAddons::NameTypeService.new.select_active_options.flatten.uniq! %>
 
 <% f.object.creator_list.each do |hash| %>
-	<div data-toggleable data-duplicatable data-after-clone-action="clear_inputs">
+	<div data-toggleable data-cloneable data-after-clone-action="clear_inputs">
 		<% field_options = {
 			field_slug: :creator_name_type,
 			select_options: creator_types,
@@ -21,7 +21,7 @@
 		<%= render "records/edit_fields/attribution_partials/select_field", field_options %>
 
 		<div data-toggleable-group="Organisational">
-			<% # TODO: wo out why setting the name fields as required causes the deposit form to not register the meta data was entered %>
+			<% # TODO: workout why setting the name fields as required causes the deposit form to not register the meta data was entered %>
 			<% [
 				{ field_type: :text, field_slug: :creator_organization_name, required: false },
 				{ field_type: :text, field_slug: :creator_ror, required: false },
@@ -54,7 +54,7 @@
 				<span class="controls-remove-text">Remove</span>
 			</a>
 			|
-			<a href="#" data-turbolinks="false" data-on-click-event="duplicate_parent">Add another</a>
+			<a href="#" data-turbolinks="false" data-on-click-event="clone_parent">Add another</a>
 		</div>
 
 		<hr>

@@ -1,3 +1,7 @@
+// Register events that can be consumed else where.
+//
+// Note: They don't need to be registered here, however it seems logical to
+// keep them in the same place for now.
 class Eventable {
   constructor(){
     this.registerEvents()

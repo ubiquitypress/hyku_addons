@@ -1,6 +1,6 @@
 // Example:
 //
-//	<div data-toggleable data-duplicatable data-after-clone-action="clear_inputs">
+//	<div data-toggleable data-cloneable data-after-clone-action="clear_inputs">
 //    <select class="form-control" data-toggleable-control data-on-change-event="toggleable_group">
 //      <option selected="selected" value="Personal">Personal</option>
 //      <option value="Organisational">Organisational</option>

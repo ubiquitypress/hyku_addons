@@ -13,8 +13,6 @@ class Cloneable {
   }
 
   registerListeners(){
-    // console.log("Cloneable.registerListeners")
-
     $("body").on("clone_parent", this.onClone.bind(this))
     $("body").on("remove_parent", this.onRemove.bind(this))
   }
