@@ -140,7 +140,7 @@ module HykuAddons
       Flipflop::Facade.module_eval do
         def method_missing(method, *args)
           if method[-1] == "?"
-            return false unless ActiveRecord::Base.connection.table_exists?(:hyrax_features)
+            return false unless ActiveRecord::Base.connected? && ActiveRecord::Base.connection.table_exists?(:hyrax_features)
             Flipflop::FeatureSet.current.enabled?(method[0..-2].to_sym)
           else
             super
