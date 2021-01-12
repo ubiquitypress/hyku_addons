@@ -1,8 +1,20 @@
 en:
-  deposit_form:
-    required:
-      label: Please complete this field.
-  attribution:
+  simple_form:
+    deposit_form:
+      required:
+        label: Please complete this field.
+      form_controls:
+        remove:
+          text: Remove
+        add:
+          text: Add another
+    date:
+      year:
+        label: Select year
+      month:
+        label: Select month if available
+      day:
+        label: Select day if available
     creator:
       creator_name_type:
         label: Creator name type
@@ -11,30 +23,109 @@ en:
       creator_organization_name:
         label: Creator organisation name
         placeholder: Please enter the organisation's name.
+        help_text:
       creator_ror:
         label: Creator organisation ROR
         placeholder: Please enter the ROR ID, e.g. 05gknh003
+        help_text:
       creator_grid:
         label: Creator organisation GRID
         placeholder: Please enter the GRID ID, e.g. grid.280362.d
+        help_text:
       creator_wikidata:
         label: Creator organisation Wikidata
         placeholder: Please enter the Wikidata ID, e.g. Q23308
+        help_text:
       creator_family_name:
         label: Creator family name
         placeholder: Please enter the creator's last name/family name.
+        help_text:
       creator_given_name:
         label: Creator given name
         placeholder: Please enter the creator's first name/given name.
+        help_text:
       creator_orcid:
         label: Creator ORCID
         placeholder: Please enter the creator's ORCID, e.g. 0000-1234-5678-9101.
+        help_text:
       creator_institutional_relationship:
         label: Creator institutional relationship
         placeholder:
+        help_text:
       creator_isni:
         label: Creator ISNI
         placeholder: Please enter the creator's ISNI, e.g. 0000 1234 5678 9101.
+        help_text:
+    contributor:
+      contributor_name_type:
+        label: Contributor name type
+        placeholder:
+        help_text: A person or group you want to recognise for playing a role in the creation of the work, but not the primary role.
+      contributor_organization_name:
+        label: Contributor organisation name
+        placeholder: Please enter the organisation's name.
+        help_text:
+      contributor_ror:
+        label: Contributor organisation ROR
+        placeholder: Please enter the ROR ID, e.g. 05gknh003
+        help_text:
+      contributor_grid:
+        label: Contributor organisation GRID
+        placeholder: Please enter the GRID ID, e.g. grid.280362.d
+        help_text:
+      contributor_wikidata:
+        label: Contributor organisation Wikidata
+        placeholder: Please enter the Wikidata ID, e.g. Q23308
+        help_text:
+      contributor_family_name:
+        label: Contributor family name
+        placeholder: Please enter the contributor's last name/family name.
+        help_text:
+      contributor_given_name:
+        label: Contributor given name
+        placeholder: Please enter the contributor's first name/given name.
+        help_text:
+      contributor_orcid:
+        label: Contributor ORCID
+        placeholder: Please enter the contributor's ORCID, e.g. 0000-1234-5678-9101.
+        help_text:
+      contributor_institutional_relationship:
+        label: Contributor institutional relationship
+        placeholder:
+        help_text:
+      contributor_isni:
+        label: Contributor ISNI
+        placeholder: Please enter the contributor's ISNI, e.g. 0000 1234 5678 9101.
+        help_text:
+    editor:
+      editor_name_type:
+        label: Editor name type
+        placeholder:
+        help_text: The editors that produced this item, in priority order. To add multiple editors, repeat this property.
+      editor_organization_name:
+        label: Editor organisation name
+        placeholder: Please enter the organisation's name.
+        help_text:
+      editor_family_name:
+        label: Editor family name
+        placeholder: Please enter the editor's last name/family name.
+        help_text:
+      editor_given_name:
+        label: Editor given name
+        placeholder: Please enter the editor's first name/given name.
+        help_text:
+      editor_orcid:
+        label: Editor ORCID
+        placeholder: Please enter the editor's ORCID, e.g. 0000-1234-5678-9101.
+        help_text:
+      editor_institutional_relationship:
+        label: Editor institutional relationship
+        placeholder:
+        help_text:
+      editor_isni:
+        label: Editor ISNI
+        placeholder: Please enter the editor's ISNI, e.g. 0000 1234 5678 9101.
+        help_text:
 
   settings:
     helptexts:
