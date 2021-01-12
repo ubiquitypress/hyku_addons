@@ -15,7 +15,7 @@ RSpec.describe HykuAddons::RegistrationsController, type: :feature do
       fill_in 'Email address', with: "test@test.com"
       fill_in 'user_password', with: "Potato123!"
       fill_in 'user_password_confirmation', with: "Potato123!"
-      expect{ click_on 'Create account' }.to change{ User.count }.by(1)
+      expect { click_on 'Create account' }.to change { User.count }.by(1)
       expect(page).to have_content("Create a new account")
     end
   end
