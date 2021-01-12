@@ -5,8 +5,8 @@
 //		data-after-clone-action="clear_inputs"
 //		data-cloneable-min="1"
 //	>
-//   <a href="#" data-turbolinks="false" data-on-click-event="clone_parent">Add another</a>
-//   <a href="#" data-turbolinks="false" data-on-click-event="remove_parent">Remove</a>
+//   <a href="#" data-turbolinks="false" data-on-click="clone_parent">Add another</a>
+//   <a href="#" data-turbolinks="false" data-on-click="remove_parent">Remove</a>
 // </div>
 
 class CloneableListener {
