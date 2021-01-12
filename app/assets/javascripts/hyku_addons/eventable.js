@@ -10,7 +10,6 @@ class Eventable {
   registerEvents(){
     $("body").on("change", "[data-on-change-event]", function(){
       let eventName = $(this).data("on-change-event")
-
       $("body").trigger(eventName, [$(this)])
     })
 
@@ -23,8 +22,8 @@ class Eventable {
     })
 
     $("body").on("blur", "[data-on-blur-event]", function(event){
-      console.log("on-blur-event")
       let eventName = $(this).data("on-blur-event")
+      console.log(eventName)
       $("body").trigger(eventName, [$(this)])
     })
   }

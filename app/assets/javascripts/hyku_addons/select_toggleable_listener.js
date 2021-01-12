@@ -14,6 +14,8 @@ class SelectToggleableListener {
   groupAttributeName = "data-toggleable-group"
   groupSelector = `[${this.groupAttributeName}]`
   controlSelector = "[data-toggleable-control]"
+  requiredSelector = "[data-required]"
+  eventName = "toggleable_group"
 
   constructor(){
     this.onLoad()
@@ -28,7 +30,7 @@ class SelectToggleableListener {
   }
 
   registerListeners(){
-    $("body").on("toggleable_group", this.onToggleGroupEvent.bind(this))
+    $("body").on(this.eventName, this.onToggleGroupEvent.bind(this))
   }
 
   onToggleGroupEvent(_event, target){
@@ -40,15 +42,21 @@ class SelectToggleableListener {
     let parent = target.closest(this.parentSelector)
 
     // Hide all elements and unset required attributes by default
-    parent.find(this.groupSelector).each(function(){
-      $(this).hide()
-      $("body").trigger("unset_required", [$(this)])
-    })
+    parent.find(this.groupSelector).each($.proxy(function(i, parent){
+      $(parent).hide()
+      this.toggleRequiredChildren($(parent), "unset_required")
+    }, this))
 
     // Find matching element and toggle required
     let element = parent.find(`[${this.groupAttributeName}=${val}]`)
     element.show()
-    $("body").trigger("set_required", [element])
+    this.toggleRequiredChildren(element, "set_required")
+  }
+
+  toggleRequiredChildren(parent, eventName) {
+    parent.find(this.requiredSelector).each(function(){
+      $("body").trigger(eventName, [$(this)])
+    }, this)
   }
 }
 
