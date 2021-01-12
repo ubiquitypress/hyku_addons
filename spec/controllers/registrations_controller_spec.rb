@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe HykuAddons::RegistrationsController, type: :feature do
+RSpec.describe Hyku::RegistrationsController, type: :feature do
   let(:account) { FactoryBot.create(:account) }
 
   context 'with account signup enabled' do
