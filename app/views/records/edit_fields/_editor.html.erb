@@ -1,91 +1,62 @@
 <% template = f.object.model.class.to_s.underscore %>
+<% types = HykuAddons::NameTypeService.new.select_active_options.flatten.uniq! %>
 
 <% f.object.editor_list.each do |hash| %>
+	<div
+		data-toggleable
+		data-cloneable="editor"
+		data-after-clone="clear_inputs"
+		data-cloneable-min="1"
+	>
+		<% field_options = {
+			field_slug: :editor_name_type,
+			select_options: types,
+			field_args: {
+				class: 'form-control',
+				data: {
+					toggleable_control: true,
+					on_change: :toggleable_group,
+					after_toggleable_hidden: :clear_inputs,
+				}
+			},
+			field_group: :editor,
+			template: template,
+			hash: hash
+		} %>
+		<%= render "records/edit_fields/attribution_partials/select_field", field_options %>
 
-  <div class="ubiquity-meta-editor" >
+		<div data-toggleable-group="Organisational">
+			<% [{ field_type: :text, field_slug: :editor_organization_name }].each do |field| %>
+				<% options = { field_group: :editor, template: template, hash: hash }.merge(field) %>
+				<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
+			<% end %>
+		</div>
 
-    <label class="control-label multi_value optional" for="#{template}_editor_name_type">
-      Editor name type</label>
-    <%= select_tag "#{template}[editor][][editor_name_type]", content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( HykuAddons::NameTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s, hash.dig("editor_name_type")),
-                   class:  'ubiquity_editor_name_type', data: {field_name:'ubiquity_editor_name_type'} %>
-    <br/>
+		<div data-toggleable-group="Personal">
+			<% [
+				{ field_type: :text, field_slug: :editor_family_name },
+				{ field_type: :text, field_slug: :editor_given_name },
+				{ field_type: :text, field_slug: :editor_orcid },
+				{ field_type: :select, field_slug: :editor_institutional_relationship, select_options: ['Staff member', 'Research associate'], field_args: { multiple: true } }
+			].each do |field| %>
+				<% options = { field_group: :editor, template: template, hash: hash }.merge(field) %>
+				<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
+			<% end %>
+		</div>
 
-    <p class="help-block">The editors that produced this item, in priority order. To add multiple editors, repeat this property.</p>
+		<% field_options = { field_slug: :editor_isni, field_group: :editor, template: template, hash: hash } %>
+		<%= render "records/edit_fields/attribution_partials/text_field", field_options %>
 
-    <label class="control-label multi_value optional" for="#{template}_editor_isni">
-      Editor ISNI</label>
-    <%= text_field_tag "#{template}[editor][][editor_isni]", hash.dig("editor_isni"),
-                       class: "#{template}_editor form-control multi-text-field multi_value ubiquity_editor_isni",
-                       placeholder: 'Please enter the editor\'s ISNI, e.g. 0000 1234 5678 9101.',
-                       name: "#{template}[editor][][editor_isni]",
-                       data: {field_name:'ubiquity_editor_isni'}
-    %>
-    <br/>
-  <span class="ubiquity_organization_fields">
+		<div class="form-group">
+			<a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_parent">
+				<span class="glyphicon glyphicon-remove"></span>
+				<span class="controls-remove-text">Remove</span>
+			</a>
+			|
+			<a href="#" data-turbolinks="false" data-on-click="clone_parent">Add another</a>
+		</div>
 
-    <label class="ubiquity_editor_organization_name_label control-label multi_value optional" for="#{template}_editor_organization_name">
-      Editor organisation name</label>
-    <%= text_field_tag  "#{template}[editor][][editor_organization_name]", hash.dig("editor_organization_name"),
-                        class: "#{template}_editor_organization_name form-control multi-text-field multi_value ubiquity_editor_organization_name",
-                        placeholder: 'Please enter the organisation\'s name.',
-                        name: "#{template}[editor][][editor_organization_name]",
-                        data: {field_name:'ubiquity_editor_organization_name'}
-    %>
-    <span style="color:blue;" class="error">Please complete this field.</span>
-  </span>
-  <br>
-  <span class="ubiquity_personal_fields">
-
-      <label class="control-label multi_value optional" for="#{template}_editor_orcid">
-        Editor ORCID</label>
-      <%= text_field_tag "#{template}[editor][][editor_orcid]", hash.dig("editor_orcid"),
-                         class: "#{template}_editor form-control multi-text-field multi_value ubiquity_editor_orcid",
-                         placeholder: 'Please enter the editor\'s ORCID, e.g. 0000-1234-5678-9101.',
-                         name: "#{template}[editor][][editor_orcid]",
-                         data: {field_name:'ubiquity_editor_orcid'}
-      %>
-      <br/>
-
-      <label class="control-label multi_value optional" for="#{template}_editor_family">
-        Editor family name</label>
-      <%= text_field_tag "#{template}[editor][][editor_family_name]", hash.dig("editor_family_name"),
-                         class: "#{template}_editor form-control multi-text-field multi_value ubiquity_editor_family_name",
-                         placeholder: 'Please enter the editor\'s last name/family name.',
-                         name: "#{template}[editor][][editor_family_name]",
-                         data: {field_name:'ubiquity_editor_family_name'}
-
-      %>
-      <br/>
-
-      <label class="control-label multi_value optional" for="#{template}_editor_given_name">
-        Editor given name  </label>
-      <%= text_field_tag "#{template}[editor][][editor_given_name]", hash.dig("editor_given_name"),
-                         class: "#{template}_editor form-control multi-text-field multi_value ubiquity_editor_given_name",
-                         placeholder: 'Please enter the editor\'s first name/given name.',
-                         name: "#{template}[editor][][editor_given_name]",
-                         data: {field_name:'ubiquity_editor_given_name'}
-
-      %>
-
-      <br/>
-      <p><label class="control-label multi_value optional" for="#{template}_editor_institutional_relationship">
-        Editor institutional relationship  </label> </p>
-      <%= select_tag "#{template}[editor][][editor_institutional_relationship]", content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select( ['Staff member', 'Research associate'], :to_s, :to_s, hash.dig("editor_institutional_relationship")),
-          multiple: true,  class: "form-control"
-           %>
-
-    </span> <!-- closes ubiquity_personal_fields -->
-
-    <br/>
-    <a href="#" style="color:red;"  class=" remove_editor form-group " data-removeUbiquityEditor=".ubiquity-meta-editor">
-      <span class="glyphicon glyphicon-remove"></span>
-      <span class="controls-remove-text">Remove</span>
-    </a>
-    |
-    <a href="#" class=" add_editor" data-addUbiquityEditor=".ubiquity-meta-editor">Add another </a>
-
-    <br/><br/><br/>
-
-  </div>
-
+		<hr>
+	</div>
 <% end %>
+

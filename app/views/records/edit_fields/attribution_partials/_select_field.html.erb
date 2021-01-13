@@ -1,0 +1,18 @@
+<div class="form-group">
+	<% options = { class: "control-label multi_value optional" } %>
+	<%= label_tag "#{template}_#{field_slug}", options do %>
+		<%= t("simple_form.#{field_group}.#{field_slug}.label") %>
+
+		<% if local_assigns[:required] %>
+			<span class="label label-info required-tag">required</span>
+		<% end %>
+	<% end %>
+
+	<% opts = options_for_select(select_options, selected: hash.dig(field_slug.to_s)) %>
+	<%= select_tag "#{template}[#{field_group}][][#{field_slug}", opts, { class: "form-control" }.merge(local_assigns[:field_args] || {}) %>
+
+	<% help_key = "simple_form.#{field_group}.#{field_slug}.help_text"  %>
+	<% if I18n.exists?(help_key) %>
+		<p class="help-block"><%= t(help_key) %></p>
+	<% end%>
+</div>

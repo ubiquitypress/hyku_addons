@@ -1,47 +1,69 @@
 <% template = f.object.model.class.to_s.underscore %>
-<% creator_types = HykuAddons::NameTypeService.new.select_active_options.flatten.uniq! %>
+<% types = HykuAddons::NameTypeService.new.select_active_options.flatten.uniq! %>
 
 <% f.object.creator_list.each do |hash| %>
-	<div class="ubiquity-meta-creator">
-		<div class="form-group">
-			<% required = template != 'collection' %>
+	<div
+		data-toggleable
+		data-cloneable="creator"
+		data-after-clone="clear_inputs"
+		data-cloneable-min="1"
+	>
+		<% field_options = {
+			field_slug: :creator_name_type,
+			select_options: types,
+			required: template != "collection",
+			field_args: {
+				class: 'form-control',
+				data: {
+					toggleable_control: true,
+					on_change: :toggleable_group,
+					after_toggleable_hidden: :clear_inputs,
+				}
+			},
+			field_group: :creator,
+			template: template,
+			hash: hash
+		} %>
+		<%= render "records/edit_fields/attribution_partials/select_field", field_options %>
 
-			<label class="control-label multi_value optional" for="<%= template %>_creator_name_type">
-				Creator name type
-				<% if required %>
-					<span class="label label-info required-tag">required</span>
-				<% end %>
-			</label>
-
-			<% opts = options_for_select(creator_types, selected: hash.dig("creator_name_type")) %>
-			<% select_params = { required: required, class: 'ubiquity_creator_name_type form-control', data: { field_name:'ubiquity_creator_name_type' } } %>
-			<%= select_tag "#{template}[creator][][creator_name_type]", opts, select_params %>
-			<p class="help-block">The person or group responsible for the work. Usually this is the author of the content.</p>
+		<div data-toggleable-group="Organisational">
+			<% # TODO: workout why setting the name fields as required causes the deposit form to not register the meta data was entered %>
+			<% [
+				{ field_type: :text, field_slug: :creator_organization_name, field_args: { data: { required: true } } },
+				{ field_type: :text, field_slug: :creator_ror },
+				{ field_type: :text, field_slug: :creator_grid },
+				{ field_type: :text, field_slug: :creator_wikidata }
+			].each do |field| %>
+				<% options = { field_group: :creator, template: template, hash: hash }.merge(field) %>
+				<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
+			<% end %>
 		</div>
 
-		<%= render "records/edit_fields/creator_organisation_fields", template: template, hash: hash %>
-		<%= render "records/edit_fields/creator_personal_fields", template: template, hash: hash %>
-
-		<div class="form-group">
-			<label class="control-label multi_value optional" for="<%= template %>_creator_isni">
-				Creator ISNI
-			</label>
-			<%= text_field_tag "#{template}[creator][][creator_isni]", hash.dig("creator_isni"),
-				class: "#{template}_creator form-control multi-text-field multi_value ubiquity_creator_isni",
-				placeholder: 'Please enter the creator\'s ISNI, e.g. 0000 1234 5678 9101.',
-				name: "#{template}[creator][][creator_isni]",
-				data: {field_name:'ubiquity_creator_isni'}
-			%>
+		<div data-toggleable-group="Personal">
+			<% [
+				{ field_type: :text, field_slug: :creator_family_name, field_args: { data: { required: true, required_group: :creator_name, on_blur: :toggle_required_group } } },
+				{ field_type: :text, field_slug: :creator_given_name, field_args: { data: { required: true, required_group: :creator_name, on_blur: :toggle_required_group } } },
+				{ field_type: :text, field_slug: :creator_orcid },
+				{ field_type: :select, field_slug: :creator_institutional_relationship, select_options: ['Staff member', 'Research associate'], field_args: { multiple: true } }
+			].each do |field| %>
+				<% options = { field_group: :creator, template: template, hash: hash }.merge(field) %>
+				<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
+			<% end %>
 		</div>
 
+		<% field_options = { field_slug: :creator_isni, required: false, field_group: :creator, template: template, hash: hash } %>
+		<%= render "records/edit_fields/attribution_partials/text_field", field_options %>
+
 		<div class="form-group">
-			<a href="#" class="text-danger remove_creator form-group">
+			<a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_parent">
 				<span class="glyphicon glyphicon-remove"></span>
-				<span class="controls-remove-text">Remove</span>
+				<span class="controls-remove-text"><%= t("simple_form.deposit_form.form_controls.remove.text") %></span>
 			</a>
 			|
-			<a href="#" class="add_creator">Add another</a>
+			<a href="#" data-turbolinks="false" data-on-click="clone_parent"><%= t("simple_form.deposit_form.form_controls.add.text") %></a>
 		</div>
+
+		<hr>
 	</div>
 <% end %>
 

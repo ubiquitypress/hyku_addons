@@ -130,12 +130,12 @@ GEM
       rack (>= 1.3.6)
     arel (9.0.0)
     ast (2.4.1)
-    autoprefixer-rails (10.1.0.0)
+    autoprefixer-rails (10.2.0.0)
       execjs
     awesome_nested_set (3.3.1)
       activerecord (>= 4.0.0, < 7.0)
     aws-eventstream (1.1.0)
-    aws-partitions (1.414.0)
+    aws-partitions (1.415.0)
     aws-sdk-core (3.110.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -164,7 +164,7 @@ GEM
       i18n
     bcrypt (3.1.16)
     benchmark_methods (0.7)
-    bibtex-ruby (5.1.6)
+    bibtex-ruby (6.0.0)
       latex-decode (~> 0.0)
     bindex (0.8.1)
     bixby (1.0.0)
@@ -293,7 +293,7 @@ GEM
     declarative (0.0.20)
     declarative-option (0.1.0)
     deep_merge (1.2.1)
-    deprecation (1.0.0)
+    deprecation (1.1.0)
       activesupport
     devise (4.7.3)
       bcrypt (~> 3.0)
@@ -701,7 +701,7 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.14.2)
+    minitest (5.14.3)
     mods (2.4.1)
       edtf
       iso-639
@@ -710,7 +710,7 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
-    namae (1.0.1)
+    namae (1.0.2)
     nest (3.2.0)
       redic
     net-http-persistent (4.0.0)
