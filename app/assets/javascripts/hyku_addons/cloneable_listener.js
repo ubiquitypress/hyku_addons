@@ -10,11 +10,11 @@
 // </div>
 
 class CloneableListener {
-  cloneableAttributeName = "data-cloneable"
-  cloneableSelector = `[${this.cloneableAttributeName}]`
-  afterEventsDataAttributeName = "data-after-clone"
-
   constructor(){
+    this.cloneableAttributeName = "data-cloneable"
+    this.cloneableSelector = `[${this.cloneableAttributeName}]`
+    this.afterEventsDataAttributeName = "data-after-clone"
+
     this.registerListeners()
   }
 
