@@ -1,18 +1,20 @@
 # frozen_string_literal: true
 # Generated via
-#  `rails generate hyrax:work BookContribution`
+#  `rails generate hyrax:work ExhibitionItem`
 module Hyrax
-  class DatasetPresenter < Hyrax::WorkShowPresenter
+  class ExhibitionItemPresenter < Hyrax::WorkShowPresenter
     # Adds behaviors for hyrax-doi plugin.
     include Hyrax::DOI::DOIPresenterBehavior
     # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
     include Hyrax::DOI::DataCiteDOIPresenterBehavior
     include ::HykuAddons::GenericWorkPresenterBehavior
 
-    DELEGATED_METHODS = [:institution, :org_unit, :refereed, :funder, :fndr_project_ref, :add_info, :date_published,
+    DELEGATED_METHODS = [:version, :pagination, :issn, :eissn, :official_link,
+                         :journal_title, :issue, :article_num, :alternative_journal_title,
+                         :institution, :org_unit, :refereed, :funder, :fndr_project_ref, :add_info, :date_published,
                          :date_accepted, :date_submitted, :project_name, :rights_holder, :place_of_publication,
                          :abstract, :alternate_identifier, :related_identifier, :creator_display,
                          :library_of_congress_classification, :alt_title, :dewey,
-                         :title, :date_created, :description].freeze
+                         :title, :date_created, :description, :related_exhibition, :related_exhibition_venue, :place_of_publication].freeze
   end
 end
