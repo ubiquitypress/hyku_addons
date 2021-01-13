@@ -60,7 +60,7 @@ RSpec.shared_context 'create work user context' do
     select('In Copyright', from: 'Rights statement')
     select('Organisational', from: "#{work_type}_creator__creator_name_type")
     fill_in("#{work_type}_creator__creator_organization_name", with: 'Ubiquity Press')
-    fill_in("#{work_type}_institution", with: 'UP')
+    select("British Library", from: "#{work_type}_institution")
     yield if block_given?
   end
 
