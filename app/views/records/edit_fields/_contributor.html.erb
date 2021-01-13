@@ -42,7 +42,12 @@
 				{ field_type: :text, field_slug: :contributor_family_name },
 				{ field_type: :text, field_slug: :contributor_given_name },
 				{ field_type: :text, field_slug: :contributor_orcid },
-				{ field_type: :select, field_slug: :contributor_institutional_relationship, select_options: ['Staff member', 'Research associate'], field_args: { multiple: true } }
+				{
+					field_type: :select,
+					field_slug: :contributor_institutional_relationship,
+					select_options: ['Staff member', 'Research associate'],
+					field_args: { multiple: true }
+				}
 			].each do |field| %>
 				<% options = { field_group: :contributor, template: template, hash: hash }.merge(field) %>
 				<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
@@ -51,6 +56,15 @@
 
 		<% field_options = { field_slug: :contributor_isni, field_group: :contributor, template: template, hash: hash } %>
 		<%= render "records/edit_fields/attribution_partials/text_field", field_options %>
+
+		<% field_options = {
+			field_slug: :contributor_type,
+			field_group: :contributor,
+			template: template,
+			hash: hash,
+			select_options: HykuAddons::ContributorGroupService.new.select_active_options.flatten.uniq!
+		} %>
+		<%= render "records/edit_fields/attribution_partials/select_field", field_options %>
 
 		<div class="form-group">
 			<a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_parent">

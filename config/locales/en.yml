@@ -97,6 +97,10 @@ en:
         label: Contributor ISNI
         placeholder: Please enter the contributor's ISNI, e.g. 0000 1234 5678 9101.
         help_text:
+      contributor_type:
+        label: Contributor role
+        placeholder:
+        help_text:
     editor:
       editor_name_type:
         label: Editor name type
