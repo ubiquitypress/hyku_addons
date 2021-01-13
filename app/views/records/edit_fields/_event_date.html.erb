@@ -1,3 +1,43 @@
+<% template = f.object.model.class.to_s.underscore %>
 <% event_date = f.object[:event_date] %>
-<%= render 'hyku_addons/event_date/event_date', f: f, event_date: event_date %>
-<%= render 'hyku_addons/event_date/event_date_js' %>
+
+<label class="control-label" for="event_date">Event date</label>
+
+<% event_date.each do |date| %>
+	<div
+		data-cloneable="<%= "#{template}_date" %>"
+		data-after-clone-action="clear_inputs"
+		data-cloneable-min="1"
+		class="ubiquity-meta-event-date"
+	>
+	<% raise f.object.inspect %>
+		<div class="form-inline">
+			<div class="form-group">
+				<% opts = { start_year: (Date.today.year + 6), end_year: (Date.today.year - 159), prompt: t("simple_form.date.year.label") } %>
+				<% params = { id: "#{template}_event_date__event_date_year", name: "#{template}[event_date][][event_date_year]", class: 'form-control ubiquity-date-input' } %>
+				<%= select_year(f.object.model.send("event_date").to_s.split('-')[0].to_i, opts, params) %>
+			</div>
+			<div class="form-group">
+				<% opts = { use_two_digit_numbers: true, prompt: t("simple_form.date.month.label") } %>
+				<% params = { id: "#{template}_event_date__event_date_month", name: "#{template}[event_date][][event_date_month]", class: 'form-control ubiquity-date-input' } %>
+				<%= select_month(f.object.model.send("event_date").to_s.split('-')[1].to_i, opts, params) %>
+			</div>
+			<div class="form-group">
+				<% opts = { use_two_digit_numbers: true, prompt: t("simple_form.date.day.label") } %>
+				<% params = { id: "#{template}_event_date__event_date_day", name: "#{template}[event_date][][event_date_day]", class: 'form-control ubiquity-date-input' } %>
+				<%= select_day(f.object.model.send("event_date").to_s.split('-')[2].to_i, opts, params) %>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_parent">
+				<span class="glyphicon glyphicon-remove"></span>
+				<span class="controls-remove-text"><%= t("simple_form.deposit_form.form_controls.remove.text") %></span>
+			</a>
+			|
+			<a href="#" data-turbolinks="false" data-on-click="clone_parent"><%= t("simple_form.deposit_form.form_controls.add.text") %></a>
+		</div>
+
+		<hr>
+	</div>
+<% end %>
