@@ -13,9 +13,9 @@ class InputClearableListener {
   }
 
   onEvent(event, target){
-    target.find("input").val("")
-    target.find("options").attr("selected", false)
-    target.find("select").each(function(){
+    $(target).find("input").val("")
+    $(target).find("options").attr("selected", false)
+    $(target).find("select").each(function(){
       $(this).trigger("change", [$(this)])
     })
   }

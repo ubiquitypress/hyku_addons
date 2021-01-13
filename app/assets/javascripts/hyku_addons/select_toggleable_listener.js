@@ -1,7 +1,12 @@
 // Example:
 //
 //	<div data-toggleable data-cloneable data-after-clone-action="clear_inputs">
-//    <select class="form-control" data-toggleable-control data-on-change-event="toggleable_group">
+//    <select
+//      class="form-control"
+//      data-toggleable-control
+//      data-on-change="toggleable_group"
+//      data-after-toggle-hidden="clear_inputs"
+//    >
 //      <option selected="selected" value="Personal">Personal</option>
 //      <option value="Organisational">Organisational</option>
 //    </select>
@@ -16,6 +21,7 @@ class SelectToggleableListener {
   controlSelector = "[data-toggleable-control]"
   requiredSelector = "[data-required]"
   eventName = "toggleable_group"
+  afterHiddenAttributeName = "data-after-toggleable-hidden"
 
   constructor(){
     this.onLoad()
@@ -37,20 +43,31 @@ class SelectToggleableListener {
     this.toggleSelectGroup(target)
   }
 
+  // NOTE:
+  // This method could be cleaned up, as its getting kinda messy with the amount its doing.
+  // Ideally, it would trigger an event and then move on. That event could then deal with the
+  // toggling of required attributes on elements, but i feel like that might be a step
+  // to far down the rabbit hole for now.
   toggleSelectGroup(target){
     let val = target.val()
     let parent = target.closest(this.parentSelector)
+    let selectedElement = parent.find(`[${this.groupAttributeName}=${val}]`)
+    let afterHiddenEventName = target.attr(this.afterHiddenAttributeName)
 
     // Hide all elements and unset required attributes by default
-    parent.find(this.groupSelector).each($.proxy(function(i, parent){
-      $(parent).hide()
-      this.toggleRequiredChildren($(parent), "unset_required")
+    parent.find(this.groupSelector).not(selectedElement).each($.proxy(function(i, group){
+      $(group).hide()
+      this.toggleRequiredChildren($(group), "unset_required")
+
+      // Trigger any after hide actions on the hidden elements
+      if (afterHiddenEventName) {
+        $("body").trigger(afterHiddenEventName, [group])
+      }
     }, this))
 
-    // Find matching element and toggle required
-    let element = parent.find(`[${this.groupAttributeName}=${val}]`)
-    element.show()
-    this.toggleRequiredChildren(element, "set_required")
+    // Show the selectedElement and toggle required
+    selectedElement.show()
+    this.toggleRequiredChildren(selectedElement, "set_required")
   }
 
   toggleRequiredChildren(parent, eventName) {
