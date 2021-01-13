@@ -2,7 +2,7 @@
 //	<div
 //		data-toggleable
 //		data-cloneable="creator"
-//		data-after-clone-action="clear_inputs"
+//		data-after-clone="clear_inputs"
 //		data-cloneable-min="1"
 //	>
 //   <a href="#" data-turbolinks="false" data-on-click="clone_parent">Add another</a>
@@ -12,7 +12,7 @@
 class CloneableListener {
   cloneableAttributeName = "data-cloneable"
   cloneableSelector = `[${this.cloneableAttributeName}]`
-  afterEventsDataAttributeName = "data-after-clone-action"
+  afterEventsDataAttributeName = "data-after-clone"
 
   constructor(){
     this.registerListeners()

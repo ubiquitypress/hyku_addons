@@ -1,6 +1,6 @@
 // Example:
 //
-//	<div data-toggleable data-cloneable data-after-clone-action="clear_inputs">
+//	<div data-toggleable data-cloneable data-after-clone="clear_inputs">
 //    <select
 //      class="form-control"
 //      data-toggleable-control
