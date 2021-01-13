@@ -23,7 +23,7 @@ $(document).on("turbolinks:load", function(){
   new CloneableListener()
   // We have onload methods here so this needs to be called last,
   // or it might try and trigger an event not being listened to
-  new SelectToggleableListener()
+  new ChangeToggleableListener()
 
   // Register our Events
   new Eventable()
