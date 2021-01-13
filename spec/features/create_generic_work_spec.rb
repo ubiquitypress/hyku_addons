@@ -103,7 +103,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       select('Article', from: 'Resource type')
 
       # Institution
-      fill_in('Institution', with: 'University of Virginia')
+      select('British Library', from: 'Institution')
 
       # With selenium and the chrome driver, focus remains on the
       # select box. Click outside the box so the next line can't find
