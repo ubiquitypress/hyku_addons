@@ -1,7 +1,7 @@
 <% template = f.object.model.class.to_s.underscore %>
 <% event_date = f.object[:event_date] %>
 <% # The original file used .to_s instead of .first, but this returned an array with a Triple instance %>
-<% date_value = f.object.model.send("event_date").first.split('-') %>
+<% date_value = f.object.model.send("event_date").first&.split('-') || [] %>
 
 <label class="control-label" for="event_date">Event date</label>
 
