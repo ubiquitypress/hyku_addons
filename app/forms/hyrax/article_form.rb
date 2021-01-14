@@ -11,11 +11,11 @@ module Hyrax
     include ::HykuAddons::WorkForm
 
     self.model_class = ::Article
-    self.terms = %i[title resource_type creator alt_title contributor rendering_ids abstract date_published
-                    institution org_unit project_name funder fndr_project_ref journal_title pagination article_num
-                    publisher place_of_publication issn eissn date_accepted date_submitted official_link
-                    related_url language license rights_statement rights_holder doi alternate_identifier related_identifier
-                    refereed keyword dewey library_of_congress_classification add_info]
+    add_terms %i[title resource_type creator alt_title contributor rendering_ids abstract date_published
+                 institution org_unit project_name funder fndr_project_ref journal_title pagination article_num
+                 publisher place_of_publication issn eissn date_accepted date_submitted official_link
+                 related_url language license rights_statement rights_holder doi alternate_identifier related_identifier
+                 refereed keyword dewey library_of_congress_classification add_info]
     self.required_fields = %i[title resource_type creator institution]
 
     def self.build_permitted_params

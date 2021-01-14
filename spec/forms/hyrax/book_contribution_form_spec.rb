@@ -15,10 +15,13 @@ RSpec.describe Hyrax::BookContributionForm do
     describe "#terms" do
       subject { form.terms }
 
-      it do
-        is_expected.not_to include(:media, :duration, :event_title, :event_location, :event_date, :journal_title,
-                                   :alternative_journal_title, :version, :issue, :article_number, :current_he_institution,
-                                   :related_exhibition, :related_exhibition_venue, :qualification_name, :qualification_level)
+      it "sets the terms" do
+        expected_terms = %i[title resource_type creator alt_title contributor rendering_ids abstract date_published
+                            institution org_unit project_name funder fndr_project_ref series_name book_title editor volume edition
+                            publisher place_of_publication isbn issn eissn date_accepted date_submitted official_link related_url
+                            language license rights_statement rights_holder doi alternate_identifier related_identifier refereed
+                            keyword dewey library_of_congress_classification add_info pagination]
+        is_expected.to include(*expected_terms)
       end
     end
 
