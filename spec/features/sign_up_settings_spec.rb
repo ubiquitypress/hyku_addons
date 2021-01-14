@@ -19,7 +19,7 @@ RSpec.describe "Sign Up", type: :feature do
       expect { click_on 'Create account' }.to change { User.count }.by(1)
     end
 
-    it "prevents users from createing an account containing the correct email formats" do
+    it "prevents users from creating an account without the correct email formats" do
       visit '/users/sign_up'
       fill_in 'user_display_name', with: "Test User"
       fill_in 'user_email', with: "test@badformat.com"
