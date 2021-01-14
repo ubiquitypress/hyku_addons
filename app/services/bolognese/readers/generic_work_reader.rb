@@ -4,8 +4,12 @@ require 'bolognese'
 module Bolognese
   module Readers
     # Use this with Bolognese like the following:
-    # json = Hyrax::GenericWorkPresenter::DELEGATED_METHODS.collect {|m| [m, p.send(m)]}.to_h.merge('has_model' => p.model.model_name).to_json
-    # m = Bolognese::Metadata.new(input: json, from: 'generic_work')
+    #
+    # json = Hyrax::GenericWorkPresenter::DELEGATED_METHODS.collect { |m|
+    #   [m, p.send(m)]
+    # }.to_h.merge('has_model' => p.model.model_name).to_json
+    # Bolognese::Readers::GenericWorkReader.new(input: json, from: 'generic_work')
+    #
     # Then crosswalk it with:
     # m.datacite
     # Or:

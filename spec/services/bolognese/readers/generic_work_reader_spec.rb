@@ -11,10 +11,6 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:description) { 'Swedish comic about the adventures of the residents of Moominvalley.' }
   let(:keyword) { 'Lighthouses' }
   let(:created_date) { 1945 }
-
-  let(:model_class) { Class.new(GenericWork) }
-  let(:work) { model_class.new(attributes) }
-
   let(:attributes) do
     {
       identifier: [identifier],
@@ -28,10 +24,10 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
       date_created: [created_date]
     }
   end
-
-  let(:metadata_class) { Bolognese::Readers::GenericWorkReader }
-
+  let(:model_class) { Class.new(GenericWork) }
+  let(:work) { model_class.new(attributes) }
   let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
+  let(:metadata_class) { Bolognese::Readers::GenericWorkReader }
   let(:metadata) { metadata_class.new(input: input, from: "generic_work") }
 
   it "reads a GenericWork" do
