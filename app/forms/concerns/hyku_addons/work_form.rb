@@ -13,6 +13,15 @@ module HykuAddons
     end
 
     class_methods do
+      def add_terms(work_type_terms = [])
+        self.terms = hyrax_terms() + work_type_terms
+      end
+
+      def hyrax_terms
+        %i[visibility files visibility_during_embargo embargo_release_date visibility_after_embargo visibility_during_lease
+           lease_expiration_date visibility_after_lease admin_set_id member_of_collection_ids ordered_member_ids in_works_ids source]
+      end
+
       def common_fields
         [:title, :resource_type, :alternative_name, :project_name, :institution, :abstract, :official_link, :related_url,
          :language, :license, :rights_statement, :rights_holder, :doi, :peer_reviewed, :keywords, :dewey, :library_of_congress_classification,

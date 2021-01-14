@@ -77,6 +77,7 @@ RSpec.shared_context 'create work user context' do
     check('agreement')
     click_on('Save')
     expect(page).to have_content('My Test Work')
+    expect(page).to have_content('Public')
     expect(page).to have_content("Your files are being processed by Hyku in the background.")
   end
 
