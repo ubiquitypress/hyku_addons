@@ -45,8 +45,8 @@ class CloneableListener {
 
   // Trigger any events requested, allowing for multiple space delimited event names
   triggerElementAfterEvents(element){
-    // Ensure we have events to trigger
-    let events = element.attr(this.afterEventsDataAttributeName).split(" ").filter(String)
+    // Ensure we have events to trigger and account for times when no events are required
+    let events = (element.attr(this.afterEventsDataAttributeName) || "").split(" ").filter(String)
 
     if (events.length == 0) {
       return false;
