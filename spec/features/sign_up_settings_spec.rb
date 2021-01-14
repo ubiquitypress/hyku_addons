@@ -5,17 +5,18 @@ require 'rails_helper'
 RSpec.describe Hyku::RegistrationsController, type: :feature do
   let(:account) { FactoryBot.create(:account) }
 
+  before do
+    Site.update(account: account)
+  end
+
   context 'with account signup enabled' do
     it "allows the user to create an account" do
-      account.settings['allow_signup'] = "true"
-      account.save!
       visit '/users/sign_up'
       fill_in 'user_display_name', with: "Test User"
       fill_in 'user_email', with: "test@test.com"
       fill_in 'user_password', with: "Potato123!"
       fill_in 'user_password_confirmation', with: "Potato123!"
       expect { click_on 'Create account' }.to change { User.count }.by(1)
-      expect(page).to have_content("Create a new account")
     end
   end
 

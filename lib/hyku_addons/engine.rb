@@ -59,6 +59,10 @@ module HykuAddons
           return super if current_account.settings['allow_signup'] == "true"
           redirect_to root_path, alert: t(:'hyku.account.signup_disabled')
         end
+
+        def current_account
+          Site.account
+        end
       end
 
       # Using a concern doesn't actually override the original method so inlining it here
