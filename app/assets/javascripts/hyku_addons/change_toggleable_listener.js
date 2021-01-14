@@ -15,15 +15,15 @@
 //  </div>
 
 class ChangeToggleableListener {
-  parentSelector = "[data-toggleable]"
-  groupAttributeName = "data-toggleable-group"
-  groupSelector = `[${this.groupAttributeName}]`
-  controlSelector = "[data-toggleable-control]"
-  requiredSelector = "[data-required]"
-  eventName = "toggleable_group"
-  afterHiddenAttributeName = "data-after-toggleable-hidden"
-
   constructor(){
+    this.parentSelector = "[data-toggleable]"
+    this.groupAttributeName = "data-toggleable-group"
+    this.groupSelector = `[${this.groupAttributeName}]`
+    this.controlSelector = "[data-toggleable-control]"
+    this.requiredSelector = "[data-required]"
+    this.eventName = "toggleable_group"
+    this.afterHiddenAttributeName = "data-after-toggleable-hidden"
+
     this.onLoad()
     this.registerListeners()
   }

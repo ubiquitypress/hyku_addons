@@ -2,12 +2,12 @@
 // <input type="text" value="" data-required>
 
 class RequiredFieldListener {
-  setEventName = "set_required"
-  unsetEventName = "unset_required"
-  requiredTagClass = "required-tag"
-  requiredTagSelector = `.${this.requiredTagClass}`
-
   constructor(){
+    this.setEventName = "set_required"
+    this.unsetEventName = "unset_required"
+    this.requiredTagClass = "required-tag"
+    this.requiredTagSelector = `.${this.requiredTagClass}`
+
     this.registerListeners()
   }
 

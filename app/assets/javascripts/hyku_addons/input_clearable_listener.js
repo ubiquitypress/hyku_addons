@@ -2,9 +2,9 @@
 // $("body").trigger("clear_inputs", [$(el)])
 
 class InputClearableListener {
-  eventName = "clear_inputs"
-
   constructor(){
+    this.eventName = "clear_inputs"
+
     this.registerListeners()
   }
 
