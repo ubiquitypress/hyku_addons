@@ -45,7 +45,6 @@ FactoryBot.modify do
                       "Enter word(s) about your work." },
         html_required: { "contributor": false },
         institutional_relationship: "Pacific University,Other",
-        sign_up_link: true,
         allow_signup: "true",
         redirect_on: true,
         email_hint_text: "Please enter your email",

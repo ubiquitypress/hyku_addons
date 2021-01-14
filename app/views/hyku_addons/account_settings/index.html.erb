@@ -41,7 +41,7 @@
     <% end %>
 
     <tr><td <b> Boolean fields </b></td> </tr>
-    <% ["sign_up_link", 'redirect_on', 'allow_signup', "hide_form_relationship_tab", "index_record_to_shared_search",
+    <% ['redirect_on', 'allow_signup', "hide_form_relationship_tab", "index_record_to_shared_search",
           "shared_login", "turn_off_fedora_collection_work_association",'enabled_doi', 'institutional_relationship_picklist'].each do |fname| %>
             <tr>
               <td id= "link-<%= fname %>"><b><%= fname.humanize %>:</b> <%= @account && @account.settings && @account.settings[fname] %> </td> <br>

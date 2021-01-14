@@ -125,7 +125,7 @@ RSpec.describe HykuAddons::AccountBehavior do
 
     context "settings from environment variable" do
       it "check all boolean truthy values" do
-        ["sign_up_link", 'redirect_on', 'allow_signup', "hide_form_relationship_tab",
+        ['redirect_on', 'allow_signup', "hide_form_relationship_tab",
          "shared_login", "turn_off_fedora_collection_work_association"].each do |key|
           expect(account.settings[key]).to be_truthy
           expect(account.settings[key]).to be_a(TrueClass)

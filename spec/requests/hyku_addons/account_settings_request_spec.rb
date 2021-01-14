@@ -66,12 +66,12 @@ RSpec.describe "::HykuAddons::AccountSettingsController", type: :request do
   describe "updating settings moved from environment variables" do
     context "boolean keys" do
       it "can set booleans setting keys to false" do
-        boolean_keys = [["sign_up_link", false], ['redirect_on', false], ['allow_signup', false],
+        boolean_keys = ['redirect_on', false], ['allow_signup', false],
                         ["hide_form_relationship_tab", false], ["shared_login", false], ["turn_off_fedora_collection_work_association", false]]
         boolean_hash = Hash[*boolean_keys.flatten]
         put admin_account_setting_url(account.id), params: { 'account' => { "settings" => boolean_hash } }
         account.reload
-        ["sign_up_link", 'redirect_on', 'allow_signup', "hide_form_relationship_tab",
+        ['redirect_on', 'allow_signup', "hide_form_relationship_tab",
          "shared_login", "turn_off_fedora_collection_work_association"].each do |key|
           expect(account.settings[key]).to eq 'false'
         end
