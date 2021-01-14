@@ -1,4 +1,10 @@
 en:
+  work_type:
+    show:
+      citations:
+        label: Citations
+        ris:
+          link_text: Download as RIS (Zotero, Endnote, Mendeley)
   simple_form:
     deposit_form:
       required:
