@@ -14,7 +14,7 @@ module HykuAddons
 
     class_methods do
       def add_terms(work_type_terms = [])
-        self.terms = hyrax_terms() + work_type_terms
+        self.terms = hyrax_terms + work_type_terms
       end
 
       def hyrax_terms

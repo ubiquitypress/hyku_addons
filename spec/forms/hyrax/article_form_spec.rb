@@ -13,14 +13,15 @@ RSpec.describe Hyrax::ArticleForm do
     end
 
     describe "#terms" do
-      subject { form.terms }
+      subject(:terms) { form.terms }
 
       it "sets the terms" do
-        expect(subject).to include(*%i[title resource_type creator alt_title contributor rendering_ids abstract date_published
+        expected_terms = %i[title resource_type creator alt_title contributor rendering_ids abstract date_published
                                        institution org_unit project_name funder fndr_project_ref journal_title pagination article_num
                                        publisher place_of_publication issn eissn date_accepted date_submitted official_link
                                        related_url language license rights_statement rights_holder doi alternate_identifier
-                                       related_identifier refereed keyword dewey library_of_congress_classification add_info])
+                                       related_identifier refereed keyword dewey library_of_congress_classification add_info]
+        is_expected.to include(*expected_terms)
       end
     end
 

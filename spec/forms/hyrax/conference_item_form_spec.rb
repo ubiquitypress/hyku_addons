@@ -15,12 +15,13 @@ RSpec.describe Hyrax::ConferenceItemForm do
     describe "#terms" do
       subject { form.terms }
 
-      it "sets the terms" do
-        expect(subject).to include(*%i[title resource_type creator alt_title contributor rendering_ids abstract date_published event_title event_location event_date
-                                       institution org_unit project_name funder fndr_project_ref series_name book_title editor volume
-                                       publisher place_of_publication isbn issn eissn date_accepted date_submitted official_link related_url
-                                       language license rights_statement rights_holder doi alternate_identifier related_identifier refereed
-                                       keyword dewey library_of_congress_classification add_info pagination])
+      it do
+        expected_terms = %i[title resource_type creator alt_title contributor rendering_ids abstract date_published event_title event_location event_date
+                            institution org_unit project_name funder fndr_project_ref series_name book_title editor volume
+                            publisher place_of_publication isbn issn eissn date_accepted date_submitted official_link related_url
+                            language license rights_statement rights_holder doi alternate_identifier related_identifier refereed
+                            keyword dewey library_of_congress_classification add_info pagination]
+        is_expected.to include(*expected_terms)
       end
     end
 
