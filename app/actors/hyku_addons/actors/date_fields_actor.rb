@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module HykuAddons
   module Actors
-    class DateFieldsActor < Hyrax::Actors::BaseActor
+    class DateFieldsActor < Hyrax::Actors::AbstractActor
       def create(env)
         serialize_date_fields(env) && next_actor.create(env)
       end
