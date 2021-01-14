@@ -1,3 +1,1 @@
-<% event_date = f.object[:event_date] %>
-<%= render 'hyku_addons/event_date/event_date', f: f, event_date: event_date %>
-<%= render 'hyku_addons/event_date/event_date_js' %>
+<%= render "records/edit_fields/cloneable_date", field_slug: :event_date, f: f %>
