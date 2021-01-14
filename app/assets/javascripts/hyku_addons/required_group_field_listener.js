@@ -4,10 +4,10 @@
 // <input name="last_name" type="text" value="" data-required="true" data-required-group="user_name" data-on-blur-event="toggle_required_group">
 
 class RequiredGroupFieldListener {
-  eventName = "toggle_required_group"
-  groupAttributeName = "data-required-group"
-
   constructor(){
+    this.eventName = "toggle_required_group"
+    this.groupAttributeName = "data-required-group"
+
     this.registerListeners()
   }
 
