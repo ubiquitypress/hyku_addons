@@ -8,7 +8,11 @@ en:
           text: Remove
         add:
           text: Add another
-    date:
+    event_date:
+      label: Event date
+    related_exhibition_date:
+      label: Related exhibition date
+    date_fields:
       year:
         label: Select year
       month:
