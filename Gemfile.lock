@@ -33,6 +33,15 @@ GIT
       aws-sdk-sqs (~> 1)
       rails (>= 4.2)
 
+GIT
+  remote: https://github.com/ubiquitypress/blacklight_oai_provider.git
+  revision: 94f309213df9b7125b2cf5b23322d670035a9349
+  branch: release-6.x
+  specs:
+    blacklight_oai_provider (6.0.0)
+      blacklight (~> 6.0)
+      oai (~> 1.0)
+
 PATH
   remote: .
   specs:
@@ -189,10 +198,6 @@ GEM
       bootstrap-sass (~> 3.0)
       openseadragon (>= 0.2.0)
       rails
-    blacklight_oai_provider (6.0.0)
-      blacklight (~> 6.0)
-      oai (~> 0.4)
-      rails (>= 4.2, < 6)
     bolognese (1.8.18)
       activesupport (>= 4.2.5)
       benchmark_methods (~> 0.7)
@@ -728,7 +733,7 @@ GEM
       activesupport (>= 3.2.18)
       i18n
       nokogiri
-    oai (0.4.0)
+    oai (1.1.0)
       builder (>= 3.1.0)
       faraday
       faraday_middleware
@@ -1090,7 +1095,7 @@ DEPENDENCIES
   aws-sdk-sqs
   bixby
   blacklight (~> 6.7)
-  blacklight_oai_provider (~> 6.0)
+  blacklight_oai_provider!
   bootstrap-datepicker-rails
   bulkrax!
   byebug

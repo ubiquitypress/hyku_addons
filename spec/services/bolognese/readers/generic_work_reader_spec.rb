@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe Bolognese::Readers::UbiquityGenericWorkReader do
+RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:identifier) { '123456' }
   let(:doi) { '10.18130/v3-k4an-w022' }
   let(:title) { 'Moomin' }
@@ -29,22 +29,18 @@ RSpec.describe Bolognese::Readers::UbiquityGenericWorkReader do
     }
   end
 
-  let(:metadata_class) do
-    Class.new(Bolognese::Metadata) do
-      include Bolognese::Readers::UbiquityGenericWorkReader
-    end
-  end
+  let(:metadata_class) { Bolognese::Readers::GenericWorkReader }
 
   let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
-  let(:metadata) { metadata_class.new(input: input, from: "ubiquity_generic_work") }
+  let(:metadata) { metadata_class.new(input: input, from: "generic_work") }
 
   it "reads a GenericWork" do
     expect(metadata).to be_a(Bolognese::Metadata)
   end
 
-  describe "#read_ubiquity_generic_work" do
+  describe "#read_generic_work" do
     it "responds to the method" do
-      expect(metadata).to respond_to(:read_ubiquity_generic_work)
+      expect(metadata).to respond_to(:read_generic_work)
     end
   end
 
