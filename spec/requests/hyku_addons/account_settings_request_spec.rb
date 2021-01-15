@@ -67,7 +67,7 @@ RSpec.describe "::HykuAddons::AccountSettingsController", type: :request do
     context "boolean keys" do
       it "can set booleans setting keys to false" do
         boolean_keys = ['redirect_on', false], ['allow_signup', false],
-                        ["hide_form_relationship_tab", false], ["shared_login", false], ["turn_off_fedora_collection_work_association", false]]
+                       ["hide_form_relationship_tab", false], ["shared_login", false], ["turn_off_fedora_collection_work_association", false]
         boolean_hash = Hash[*boolean_keys.flatten]
         put admin_account_setting_url(account.id), params: { 'account' => { "settings" => boolean_hash } }
         account.reload
