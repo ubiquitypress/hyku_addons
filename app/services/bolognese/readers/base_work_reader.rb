@@ -10,21 +10,25 @@ module Bolognese
 
         meta = string.present? ? Maremma.from_json(string) : {}
 
-        {
-          "identifiers" => read_identifiers(meta),
-          "types" => read_types(meta),
-          "doi" => normalize_doi(meta.fetch('doi', nil)&.first),
-          "titles" => read_titles(meta),
-          "creators" => read_creators(meta),
-          "contributors" => read_contributors(meta),
-          "publisher" => read_publisher(meta),
-          "publication_year" => read_publication_year(meta),
-          "descriptions" => read_descriptions(meta),
-          "subjects" => read_subjects(meta)
-        }.merge(read_options)
+        reader_attributes(meta).merge(read_options)
       end
 
       protected
+
+        def reader_attributes(meta)
+          {
+            "identifiers" => read_identifiers(meta),
+            "types" => read_types(meta),
+            "doi" => normalize_doi(meta.fetch('doi', nil)&.first),
+            "titles" => read_titles(meta),
+            "creators" => read_creators(meta),
+            "contributors" => read_contributors(meta),
+            "publisher" => read_publisher(meta),
+            "publication_year" => read_publication_year(meta),
+            "descriptions" => read_descriptions(meta),
+            "subjects" => read_subjects(meta)
+          }
+        end
 
         def read_types(meta)
           # TODO: Map work.resource_type or work.
