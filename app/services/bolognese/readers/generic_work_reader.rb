@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Use this with Bolognese like the following:
 #
 # json = Hyrax::GenericWorkPresenter::DELEGATED_METHODS.collect { |m|
