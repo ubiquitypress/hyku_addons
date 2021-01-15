@@ -77,7 +77,7 @@ class ExhibitionItem < ActiveFedora::Base
   self.json_fields += %i[editor]
   self.date_fields += %i[event_date related_exhibition_date]
 
-  self.indexer = ConferenceItemIndexer
+  self.indexer = ExhibitionItemIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }

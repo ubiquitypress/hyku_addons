@@ -175,9 +175,12 @@ module HykuAddons
       Hyrax.config do |config|
         # Injected via `rails g hyrax:work HykuAddons::Article`
         config.register_curation_concern :article
+        config.register_curation_concern :book
         config.register_curation_concern :book_contribution
         config.register_curation_concern :conference_item
         config.register_curation_concern :dataset
+        config.register_curation_concern :exhibition_item
+        config.register_curation_concern :report
         config.register_curation_concern :time_based_media_article
       end
     end
