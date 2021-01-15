@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", "~> 5.2.4", ">= 5.2.4.3"
 
+  spec.add_dependency 'blacklight_oai_provider', '~> 6.1'
   spec.add_dependency 'hyrax', '~> 2.8'
   spec.add_dependency 'hyrax-doi'
   # Pins to help bundler resolve

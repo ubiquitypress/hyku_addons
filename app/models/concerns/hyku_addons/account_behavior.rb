@@ -17,7 +17,7 @@ module HykuAddons
                      :work_type_list, :email_hint_text, :email_format, :help_texts, :work_unwanted_fields,
                      :required_json_property, :creator_fields, :contributor_fields, :metadata_labels,
                      :institutional_relationship_picklist, :institutional_relationship, :contributor_roles,
-                     :creator_roles, :html_required, :licence_list, :sign_up_link, :allow_signup, :redirect_on, :oai_admin_email,
+                     :creator_roles, :html_required, :licence_list, :allow_signup, :redirect_on, :oai_admin_email,
                      :file_size_limit, :enable_oai_metadata
 
       accepts_nested_attributes_for :datacite_endpoint, update_only: true

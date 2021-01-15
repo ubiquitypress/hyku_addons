@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module HykuAddons
   module Actors
-    class JSONFieldsActor < Hyrax::Actors::BaseActor
+    class JSONFieldsActor < Hyrax::Actors::AbstractActor
       def create(env)
         jsonify_fields(env) && next_actor.create(env)
       end
