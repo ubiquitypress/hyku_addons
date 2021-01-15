@@ -87,7 +87,7 @@ RSpec.describe HykuAddons::AccountBehavior do
         account = Account.new
         account.send(:remove_settings_hash_key_with_nil_value)
         ['help_texts', 'work_unwanted_fields', 'required_json_property', 'metadata_labels', 'html_required'].each do |key|
-          expect(account.settings[key].blank?).to be_truthy
+          expect(account.settings[key].blank?).to eq true
         end
       end
 
@@ -118,8 +118,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       end
 
       it " has index_record_to_shared_search" do
-        expect(account.index_record_to_shared_search).to eq true
-        expect(account.index_record_to_shared_search).to be_a(TrueClass)
+        expect(account.index_record_to_shared_search).to eq "true"
       end
     end
 
@@ -182,8 +181,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       end
 
       it "institutional_relationship_picklist" do
-        expect(account.settings['institutional_relationship_picklist']).to be_falsey
-        expect(account.settings['institutional_relationship_picklist']).to be_a(FalseClass)
+        expect(account.settings['institutional_relationship_picklist']).to eq "false"
       end
 
       it "has institutional_relationship key" do
@@ -201,7 +199,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       end
 
       it "has a hash of html_required" do
-        expect(account.settings['html_required']).to include("contributor" => false)
+        expect(account.settings['html_required']).to include("contributor" => "false")
         expect(account.settings['html_required']).to be_an_instance_of(Hash)
       end
 
