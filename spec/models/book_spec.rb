@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 # Generated via
-#  `rails generate hyrax:work ExhibitionItem`
+#  `rails generate hyrax:work Book`
 require 'rails_helper'
 
-RSpec.describe Hyrax::ExhibitionItemPresenter do
+RSpec.describe Book do
   it "has tests" do
     skip "Add your tests here"
   end

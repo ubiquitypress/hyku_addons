@@ -3,12 +3,13 @@
 #  `rails generate hyrax:work Dataset`
 class Dataset < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
+  # Adds behaviors for hyrax-doi plugin.
+  include Hyrax::DOI::DOIBehavior
+  # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
+  include Hyrax::DOI::DataCiteDOIBehavior
+  include ::HykuAddons::WorkBase
 
   property :version, predicate: ::RDF::Vocab::SCHEMA.version do |index|
-    index.as :stored_searchable
-  end
-
-  property :pagination, predicate: ::RDF::Vocab::BIBO.numPages, multiple: false do |index|
     index.as :stored_searchable
   end
 
