@@ -27,16 +27,15 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:model_class) { Class.new(GenericWork) }
   let(:work) { model_class.new(attributes) }
   let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
-  let(:metadata_class) { Bolognese::Readers::GenericWorkReader }
-  let(:metadata) { metadata_class.new(input: input, from: "generic_work") }
+  let(:metadata) { described_class.new(input: input, from: "work") }
 
   it "reads a GenericWork" do
     expect(metadata).to be_a(Bolognese::Metadata)
   end
 
-  describe "#read_generic_work" do
+  describe "#read_work" do
     it "responds to the method" do
-      expect(metadata).to respond_to(:read_generic_work)
+      expect(metadata).to respond_to(:read_work)
     end
   end
 
