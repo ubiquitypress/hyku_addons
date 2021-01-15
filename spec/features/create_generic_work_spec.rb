@@ -121,6 +121,9 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Title
       expect(page).to have_content('My Test Work')
 
+      # Visibility
+      expect(page).to have_content('Public')
+
       # Creator
       expect(page).to have_content('Hawking, Stephen')
       expect(page).to have_link('', href: 'https://orcid.org/000000029079593X')
@@ -329,6 +332,9 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # Check metadata fields render properly after save
       # Title
       expect(page).to have_content('My Test Work')
+
+      # Visibility
+      expect(page).to have_content('Public')
 
       # Creator
       expect(page).to have_content('Hawking, Stephen')
