@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'hyrax/doi/spec/shared_specs'
 
 RSpec.describe Hyrax::GenericWorkPresenter do
   let(:presenter) { described_class.new(solr_document, nil, nil) }
+  let(:presenter_class) { described_class }
   let(:solr_document) { SolrDocument.new(work.to_solr) }
+  let(:solr_document_class) { SolrDocument }
   let(:work) { build(:generic_work) }
+
+  it_behaves_like 'a DOI-enabled presenter'
+  it_behaves_like 'a DataCite DOI-enabled presenter'
 
   let(:additional_properties) do
     [

@@ -965,6 +965,8 @@ GEM
       rdf-xsd (~> 3.1)
       sparql (~> 3.1)
       sxp (~> 1.1)
+    shoulda-matchers (4.5.0)
+      activesupport (>= 4.2.0)
     sidekiq (6.1.2)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
@@ -1138,6 +1140,7 @@ DEPENDENCIES
   scss_lint
   secure_headers
   selenium-webdriver
+  shoulda-matchers
   sidekiq
   simplecov
   solr_wrapper (~> 2.0)
