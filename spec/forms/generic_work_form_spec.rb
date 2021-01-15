@@ -12,10 +12,19 @@ RSpec.describe Hyrax::GenericWorkForm do
     it { is_expected.to eq [:title, :resource_type, :creator, :institution] }
   end
 
-  describe ".primary_terms" do
-    subject { form.primary_terms }
+  describe "#terms" do
+    subject { form.terms }
 
-    it { is_expected.to eq [:title, :resource_type, :creator, :institution, :license] }
+    it do
+      expected_terms = %i[title resource_type creator alt_title contributor rendering_ids abstract date_published media duration
+                          institution org_unit project_name funder fndr_project_ref event_title event_location event_date
+                          series_name book_title editor journal_title alternative_journal_title volume edition version_number issue pagination article_num
+                          publisher place_of_publication isbn issn eissn current_he_institution date_accepted date_submitted official_link
+                          related_url related_exhibition related_exhibition_venue related_exhibition_date language license rights_statement
+                          rights_holder doi qualification_name qualification_level alternate_identifier related_identifier refereed keyword dewey
+                          library_of_congress_classification add_info]
+      is_expected.to include(*expected_terms)
+    end
   end
 
   describe ".secondary_terms" do
