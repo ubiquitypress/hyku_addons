@@ -60,7 +60,9 @@ module Bolognese
 
         def read_publication_year(meta)
           date = meta.dig("date_created")&.first || meta.dig("date_uploaded")
-          Date.edtf(date.to_s).first.year
+          Date.edtf(date.to_s).year
+
+        # TODO: Remove the catch all rescue as it seems like a smell to be catching all errors
         rescue StandardError
           Time.zone.today.year
         end
