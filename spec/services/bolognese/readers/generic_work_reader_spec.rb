@@ -41,16 +41,14 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
 
   context "crosswalks" do
     context "RIS" do
-      let(:ris) { metadata.ris.split("\r\n") }
-
       it "correctly populates the export" do
-        expect(ris).to include("T1  - #{title}")
-        expect(ris).to include("DO  - https://doi.org/#{doi}")
-        expect(ris).to include("AB  - #{description}")
-        expect(ris).to include("KW  - #{keyword}")
-        expect(ris).to include("PY  - #{date_created}")
-        expect(ris).to include("PB  - #{publisher}")
-        expect(ris).to include("ER  - ")
+        expect(metadata.ris).to include("T1  - #{title}")
+        expect(metadata.ris).to include("DO  - https://doi.org/#{doi}")
+        expect(metadata.ris).to include("AB  - #{description}")
+        expect(metadata.ris).to include("KW  - #{keyword}")
+        expect(metadata.ris).to include("PY  - #{date_created}")
+        expect(metadata.ris).to include("PB  - #{publisher}")
+        expect(metadata.ris).to include("ER  - ")
       end
     end
 
