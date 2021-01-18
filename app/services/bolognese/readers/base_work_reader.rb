@@ -59,9 +59,8 @@ module Bolognese
         end
 
         def read_publication_year(meta)
-          date = meta.fetch("date_created", nil)&.first
-          date ||= meta.fetch("date_uploaded", nil)
-          Date.edtf(date.to_s).year
+          date = meta.dig("date_created")&.first || meta.dig("date_uploaded")
+          Date.edtf(date.to_s).first.year
         rescue StandardError
           Time.zone.today.year
         end
