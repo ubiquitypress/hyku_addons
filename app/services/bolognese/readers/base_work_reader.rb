@@ -59,7 +59,7 @@ module Bolognese
 
         def read_types
           hyrax_resource_type = @meta.dig('has_model') || "Work"
-          resource_type = @meta.dig('resource_type') || hyrax_resource_type
+          resource_type = @meta.dig('resource_type').presence || hyrax_resource_type
 
           {
             "resourceTypeGeneral" => "Other",

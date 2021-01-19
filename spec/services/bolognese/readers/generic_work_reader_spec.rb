@@ -101,9 +101,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
 
       it 'correctly populates the datacite XML' do
         expect(datacite_xml.xpath('/resource/titles/title[1]/text()').to_s).to eq title
-        # FIXME:
-        # creator isn't present in the data returned. This should be the case as its in the hash above
-        # expect(datacite_xml.xpath('/resource/creators/creator[1]/creatorName/text()').to_s).to eq creator
+        expect(datacite_xml.xpath('/resource/creators/creator[1]/creatorName/text()').to_s).to eq creator
         expect(datacite_xml.xpath('/resource/publisher/text()').to_s).to eq publisher
         expect(datacite_xml.xpath('/resource/descriptions/description[1]/text()').to_s).to eq description
         expect(datacite_xml.xpath('/resource/contributors/contributor[1]/contributorName/text()').to_s).to eq contributor
