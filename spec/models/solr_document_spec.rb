@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'hyrax/doi/spec/shared_specs'
 
 RSpec.describe SolrDocument do
   let(:document) { described_class.new }
@@ -18,6 +19,10 @@ RSpec.describe SolrDocument do
       :creator_display, :contributor_display, :editor_display
     ]
   end
+
+  let(:solr_document_class) { described_class }
+  it_behaves_like 'a DOI-enabled solr document'
+  it_behaves_like 'a DataCite DOI-enabled solr document'
 
   describe 'accessors' do
     it 'defines accessors' do
