@@ -96,7 +96,8 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
       end
 
       it 'sets the DOI' do
-        expect(datacite_xml.xpath('/resource/identifier[@identifierType="DOI"]/text()').to_s).to eq "https://doi.org/#{doi}"
+        url = "https://doi.org/#{doi}"
+        expect(datacite_xml.xpath('/resource/identifier[@identifierType="DOI"]/text()').to_s).to eq url
       end
 
       it 'correctly populates the datacite XML' do
@@ -107,6 +108,10 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
         expect(datacite_xml.xpath('/resource/contributors/contributor[1]/contributorName/text()').to_s).to eq contributor
         expect(datacite_xml.xpath('/resource/subjects/subject[1]/text()').to_s).to eq keyword
         expect(datacite_xml.xpath('/resource/alternateIdentifiers/alternateIdentifier[1]/text()').to_s).to eq identifier
+        # FIXME:
+        # Why isn't this returning correctly?
+        lang = JSON.parse(datacite_xml.xpath('/resource/language/text()').to_s).first
+        expect(datacite_xml.xpath(lang).to_s).to eq language
       end
 
       it 'sets the hyrax work type' do

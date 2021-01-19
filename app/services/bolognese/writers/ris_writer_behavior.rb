@@ -20,7 +20,7 @@ module Bolognese
             "PB" => publisher,
             "PP" => meta.dig("place_of_publication"),
             "EP" => container.to_h["lastPage"],
-            "SN" => sort_related_identifiers,
+            "SN" => ordered_identifiers,
             "JO" => meta.dig("journal_title"),
             "LA" => meta.dig("language"),
             "N1" => meta.dig("add_info"),
@@ -32,7 +32,7 @@ module Bolognese
         end
 
         # Legacy code ordered the values and returned
-        def sort_related_identifiers
+        def ordered_identifiers
           related_identifiers
             .select { |h| h["relatedIdentifier"].present? }
             .map { |h| [h["relatedIdentifierType"], h["relatedIdentifier"]] }.to_h
