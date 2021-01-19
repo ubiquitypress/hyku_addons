@@ -189,6 +189,7 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
       User.include HykuAddons::UserEmailFormat
+      Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
