@@ -3,21 +3,21 @@
 
 class InputClearableListener {
   constructor(){
-    this.eventName = "clear_inputs"
+    this.eventName = "clear_inputs";
 
-    this.registerListeners()
+    this.registerListeners();
   }
 
   registerListeners(){
-    $("body").on(this.eventName, this.onEvent.bind(this))
+    $("body").on(this.eventName, this.onEvent.bind(this));
   }
 
   onEvent(event, target){
-    $(target).find("input").val("")
+    $(target).find("input").val("");
     $(target).find("select").each(function(){
       // By removing selected, rather than setting the select value to false, we avoid having no visble toggled element
-      $(this).find("option").attr("selected", false)
-      $(this).trigger("change", [$(this)])
+      $(this).find("option").attr("selected", false);
+      $(this).trigger("change", [$(this)]);
     })
   }
 }

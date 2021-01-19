@@ -9,21 +9,21 @@ class Eventable {
 
   registerEvents(){
     $("body").on("change", "[data-on-change]", function(){
-      let eventName = $(this).data("on-change")
-      $("body").trigger(eventName, [$(this)])
+      let eventName = $(this).data("on-change");
+      $("body").trigger(eventName, [$(this)]);
     })
 
     $("body").on("click", "[data-on-click]", function(event){
       // NOTE: I didn't want to prevent default here, but I can't seem to prevent the link clicks in the listeners
-      event.preventDefault()
+      event.preventDefault();
 
-      let eventName = $(this).data("on-click")
-      $("body").trigger(eventName, [$(this)])
+      let eventName = $(this).data("on-click");
+      $("body").trigger(eventName, [$(this)]);
     })
 
     $("body").on("blur", "[data-on-blur]", function(event){
-      let eventName = $(this).data("on-blur")
-      $("body").trigger(eventName, [$(this)])
+      let eventName = $(this).data("on-blur");
+      $("body").trigger(eventName, [$(this)]);
     })
   }
 }

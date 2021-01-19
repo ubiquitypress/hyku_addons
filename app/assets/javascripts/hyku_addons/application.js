@@ -17,14 +17,14 @@
 $(document).on("turbolinks:load", function(){
   // Register listeners before events, so that onload events are consumed
   // Listeners
-  new InputClearableListener()
-  new RequiredFieldListener()
-  new RequiredGroupFieldListener()
-  new CloneableListener()
+  new InputClearableListener();
+  new RequiredFieldListener();
+  new RequiredGroupFieldListener();
+  new CloneableListener();
   // We have onload methods here so this needs to be called last,
   // or it might try and trigger an event not being listened to
-  new ChangeToggleableListener()
+  new ChangeToggleableListener();
 
   // Register our Events
-  new Eventable()
+  new Eventable();
 });
