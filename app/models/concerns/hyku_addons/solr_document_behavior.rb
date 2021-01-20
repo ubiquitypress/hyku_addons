@@ -81,6 +81,10 @@ module HykuAddons
       attribute :library_of_congress_classification, SolrDocument::Solr::Array, solr_name('library_of_congress_classification')
       attribute :alt_title, SolrDocument::Solr::Array, solr_name('alt_title')
       attribute :alternative_journal_title, SolrDocument::Solr::Array, solr_name('alternative_journal_title')
+      attribute :page_display_order_number, SolrDocument::Solr::Array, solr_name('page_display_order_number')
+      attribute :additional_links, SolrDocument::Solr::Array, solr_name('additional_links')
+      attribute :irb_status, SolrDocument::Solr::Array, solr_name('irb_status')
+      attribute :irb_number, SolrDocument::Solr::Array, solr_name('irb_number')
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(

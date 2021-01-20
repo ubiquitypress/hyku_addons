@@ -90,6 +90,10 @@ module HykuAddons
         config.add_show_field solr_name("rights_holder", :stored_searchable)
         config.add_show_field solr_name("dewey", :stored_searchable)
         config.add_show_field solr_name("library_of_congress_classification", :stored_searchable)
+        config.add_show_field solr_name('page_display_order_number', :stored_searchable)
+        config.add_show_field solr_name('additional_links', :stored_searchable)
+        config.add_show_field solr_name('irb_status', :stored_searchable)
+        config.add_show_field solr_name('irb_number', :stored_searchable)
 
         # Re-configure search fields
         config.search_fields = {}
