@@ -5,23 +5,23 @@
 
 class RequiredGroupFieldListener {
   constructor(){
-    this.eventName = "toggle_required_group";
-    this.groupAttributeName = "data-required-group";
+    this.eventName = "toggle_required_group"
+    this.groupAttributeName = "data-required-group"
 
-    this.registerListeners();
+    this.registerListeners()
   }
 
   registerListeners(){
-    $("body").on(this.eventName, this.onEvent.bind(this));
+    $("body").on(this.eventName, this.onEvent.bind(this))
   }
 
   onEvent(event, target){
-    let group = $(`[${this.groupAttributeName}=${target.attr(this.groupAttributeName)}]`);
+    let group = $(`[${this.groupAttributeName}=${target.attr(this.groupAttributeName)}]`)
 
     group.not(target).each($.proxy(function(i, el){
-      let eventName = $(target).val().length ? "unset_required" : "set_required";
+      let eventName = $(target).val().length ? "unset_required" : "set_required"
 
-      $("body").trigger(eventName, [el]);
+      $("body").trigger(eventName, [el])
     }))
   }
 }

@@ -11,58 +11,58 @@
 
 class CloneableListener {
   constructor(){
-    this.cloneableAttributeName = "data-cloneable";
-    this.cloneableSelector = `[${this.cloneableAttributeName}]`;
-    this.afterEventsDataAttributeName = "data-after-clone";
+    this.cloneableAttributeName = "data-cloneable"
+    this.cloneableSelector = `[${this.cloneableAttributeName}]`
+    this.afterEventsDataAttributeName = "data-after-clone"
 
-    this.registerListeners();
+    this.registerListeners()
   }
 
   registerListeners(){
-    $("body").on("clone_parent", this.onClone.bind(this));
-    $("body").on("remove_parent", this.onRemove.bind(this));
+    $("body").on("clone_parent", this.onClone.bind(this))
+    $("body").on("remove_parent", this.onRemove.bind(this))
   }
 
   onClone(event, clicked){
-    event.preventDefault();
+    event.preventDefault()
 
-    let target = clicked.closest(this.cloneableSelector).last();
-    let clone = target.clone();
+    let target = clicked.closest(this.cloneableSelector).last()
+    let clone = target.clone()
 
-    clone.insertAfter(target);
-    this.triggerElementAfterEvents(clone);
+    clone.insertAfter(target)
+    this.triggerElementAfterEvents(clone)
   }
 
   onRemove(event, clicked){
-    event.preventDefault();
+    event.preventDefault()
 
     if(this.reachedMinCount(clicked)) {
-      return false;
+      return false
     }
 
-    clicked.closest(this.cloneableSelector).remove();
+    clicked.closest(this.cloneableSelector).remove()
   }
 
   // Trigger any events requested, allowing for multiple space delimited event names
   triggerElementAfterEvents(element){
     // Ensure we have events to trigger and account for times when no events are required
-    let events = (element.attr(this.afterEventsDataAttributeName) || "").split(" ").filter(String);
+    let events = (element.attr(this.afterEventsDataAttributeName) || "").split(" ").filter(String)
 
     if (events.length == 0) {
       return false;
     }
 
-    events.forEach((event) => $("body").trigger(event, [element]));
+    events.forEach((event) => $("body").trigger(event, [element]))
   }
 
   // Set a min number of sublings for a cloneable element by:
   // ... data-cloneable-min="1"
   reachedMinCount(clicked) {
-    let parent = clicked.closest(this.cloneableSelector);
-    let attrName = parent.attr(this.cloneableAttributeName);
-    let siblingCount = $(`[${this.cloneableAttributeName}=${attrName}]`).length;
+    let parent = clicked.closest(this.cloneableSelector)
+    let attrName = parent.attr(this.cloneableAttributeName)
+    let siblingCount = $(`[${this.cloneableAttributeName}=${attrName}]`).length
 
-    return siblingCount <= (parent.data("cloneable-min") || 0);
+    return siblingCount <= (parent.data("cloneable-min") || 0)
   }
 }
 
