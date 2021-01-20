@@ -2,23 +2,22 @@
 
 <div class="ubiquity-meta-alternate-identifier" >
   <label class="control-label multi_value optional" for="<% template %>_alternate_identifier">Alternate identifier</label>
-  <p class="help-block">May be used for local identifiers such as project codes, e.g. XTE12.</p>
-  <p class="help-block">Please include a prefix e.g. 'Project ID = XTE12' so a reader can distinguish between multiple identifiers</p>
+  <%= Hyrax::Renderers::DepositFormFieldHintRenderer.new.hint("alternate_identifier") %>
 
   <%= text_field_tag "#{template}[alternate_identifier][][alternate_identifier]", nil,
                      class: "#{template}_alternate_identifier form-control multi-text-field multi_value",
-                     placeholder: 'Add alternate identifier',
+                     placeholder: t("simple_form.placeholders.defaults.alternate_identifier"),
                      name: "#{template}[alternate_identifier][][alternate_identifier]"
   %>
 
   <br>
   <label class="control-label multi_value optional" for="<% template %>_alternate_identifier_type">
     Type of alternate identifier</label>
-  <p class="help-block">State the type of alternate identifier.</p>
+  <%= Hyrax::Renderers::DepositFormFieldHintRenderer.new.hint("alternate_identifier_type") %>
 
   <%= text_field_tag "#{template}[alternate_identifier][][alternate_identifier_type]", nil,
                      class: "#{template}_alternate_identifier form-control multi-text-field multi_value",
-                     placeholder: 'Add alternate identifier type',
+                    #  placeholder: t("simple_form.placeholders.defaults.alternate_identifier_type"),
                      name: "#{template}[alternate_identifier][][alternate_identifier_type]"
   %>
   <br>

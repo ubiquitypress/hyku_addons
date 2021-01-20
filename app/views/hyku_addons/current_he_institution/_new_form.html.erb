@@ -4,6 +4,8 @@
   <label class="control-label multi_value optional" for="#{template}_current_he_institution_name">
   Current HE Institution </label>
 
+  <%= Hyrax::Renderers::DepositFormFieldHintRenderer.new.hint("current_he_institution_name") %>
+  
   <%= select_tag "#{template}[current_he_institution][][current_he_institution_name]", options_from_collection_for_select( HykuAddons::CurrentHeInstitutionService.new.select_active_options.flatten.uniq!, :to_s, :to_s),
   :include_blank => true, :onchange => "populate_isni_ror()", class: 'form-control current_he_institution', data: {field_name:'ubiquity_cuurrent_he_name'} %>
 
