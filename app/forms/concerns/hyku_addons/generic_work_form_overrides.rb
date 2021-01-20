@@ -20,6 +20,10 @@ module HykuAddons
       include Hyrax::DOI::DOIFormBehavior
       # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
       include Hyrax::DOI::DataCiteDOIFormBehavior
+
+      def primary_terms
+        required_fields
+      end
     end
 
     class_methods do
