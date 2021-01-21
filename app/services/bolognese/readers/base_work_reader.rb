@@ -4,66 +4,100 @@ require 'bolognese'
 module Bolognese
   module Readers
     class BaseWorkReader < Bolognese::Metadata
+      def self.nested_attributes
+        {
+          container: %i[volume issue first_page last_page],
+        }
+      end
+
+      def self.after_actions
+        %i[build_types! build_nested_attributes! build_related_identifiers!]
+      end
+
       def read_work(string: nil, **options)
         options.except!(:doi, :id, :url, :sandbox, :validate, :ra)
         read_options = ActiveSupport::HashWithIndifferentAccess.new(options)
 
         @meta = string.present? ? Maremma.from_json(string) : {}
+
         reader_attributes.merge(read_options)
       end
 
       protected
 
         def reader_attributes
-          {
-            "identifiers" => read_identifiers,
-            "types" => read_types,
-            "doi" => normalize_doi(@meta.fetch('doi', nil)&.first),
-            "titles" => read_titles,
-            "creators" => read_creators,
-            "contributors" => read_contributors,
-            "publisher" => read_publisher,
-            "publication_year" => read_publication_year,
-            "place_of_publication" => read_place_of_publication,
-            "descriptions" => read_descriptions,
-            "subjects" => read_subjects,
-            "language" => read_language,
-            "editor" => read_editor,
-            "journal_title" => read_journal_title,
-            "add_info" => read_add_info,
-            "official_link" => read_official_link,
-            "container" => {
-              "volume" => read_volume,
-              "issue" => read_issue,
-              "firstPage" => nil,
-              "lastPage" => nil,
-              # FIXME: The order doesn't seem to be preserved so how can we have T1 and T2?
-              # "title" => alt_title,
-            },
-            "related_identifiers" => [
-              {
-                "relatedIdentifier" => @meta.dig("issn"),
-                "relatedIdentifierType" => "ISSN",
-                "relationType" => "Cites",
-              },
-              {
-                "relatedIdentifier" => @meta.dig("isbn"),
-                "relatedIdentifierType" => "ISBN",
-                "relationType" => "Cites",
-              }
-            ]
-          }
+          @reader_attributes = work_type_terms.map { |term| [term, term_value(term)] }.to_h
+
+          perform_after_actions!
+
+          @reader_attributes
         end
 
-        def read_types
-          hyrax_resource_type = @meta.dig('has_model') || "Work"
-          resource_type = @meta.dig('resource_type').presence || hyrax_resource_type
+        def work_form_class
+          @_work_form_class ||= "Hyrax::#{@meta["has_model"]}Form".constantize
+        end
 
-          {
+        def work_type_terms
+          @_work_type_terms ||= work_form_class.terms
+        end
+
+        # Set a standard for term getter methods, or default to the meta value
+        def term_value(term)
+          read_method_name = "read_#{term}".to_sym
+
+          respond_to?(read_method_name, true) ? send(read_method_name) : read_meta(term)
+        end
+
+        def read_meta(term)
+          @meta.dig(term.to_s)
+        end
+
+        # Perform any required actions after the attributes hash has been built, all actions need to updat the array
+        def perform_after_actions!
+          return {} unless self.class.after_actions.present?
+
+          self.class.after_actions.each { |action| send(action.to_sym) if respond_to?(action.to_sym, true) }
+        end
+
+        def build_types!
+          hyrax_resource_type = read_meta('has_model') || "Work"
+          resource_type = read_meta('resource_type').presence || hyrax_resource_type
+
+          @reader_attributes.merge!({
             "resourceTypeGeneral" => "Other",
             "resourceType" => resource_type,
             "hyrax" => hyrax_resource_type
-          }.compact
+          }.compact)
+        end
+
+        def build_nested_attributes!
+          self.class.nested_attributes.each do |key, terms|
+            parsed_values = terms.map do |term|
+              next unless (value = term_value(term)).present?
+
+              [term, value]
+            end.compact.to_h
+
+            @reader_attributes.merge!(key => parsed_values)
+          end
+        end
+
+        def build_related_identifiers!
+          identifier_keys = %w[isbn issn eissn]
+
+          return unless (@meta.keys & identifier_keys).present?
+
+          @reader_attributes.merge!({
+            related_identifiers: identifier_keys.map { |key|
+              next unless (value = @meta.dig(key)).present?
+
+              {
+                "relatedIdentifier" => value,
+                "relatedIdentifierType" => key.upcase,
+                "relationType" => "Cites",
+              }
+            }.compact
+          })
         end
 
         def read_creators
@@ -135,6 +169,10 @@ module Bolognese
           # Fallback to ':unav' since this is a required field for datacite
           # TODO: Should this default to application_name?
           parse_attributes(@meta.dig("publisher")).to_s.strip.presence || ":unav"
+        end
+
+        def read_doi
+          normalize_doi(@meta.fetch('doi', nil)&.first)
         end
     end
   end
