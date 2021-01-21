@@ -40,7 +40,6 @@ module Bolognese
             .values.first
         end
       end
-
     end
   end
 end

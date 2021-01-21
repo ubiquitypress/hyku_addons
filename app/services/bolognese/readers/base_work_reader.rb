@@ -44,14 +44,12 @@ module Bolognese
               {
                 "relatedIdentifier" => @meta.dig("issn"),
                 "relatedIdentifierType" => "ISSN",
-                "relationType" => "IsPartOf",
-                "resourceTypeGeneral" => "Collection"
+                "relationType" => "Cites",
               },
               {
                 "relatedIdentifier" => @meta.dig("isbn"),
                 "relatedIdentifierType" => "ISBN",
-                "relationType" => "IsPartOf",
-                "resourceTypeGeneral" => "Collection"
+                "relationType" => "Cites",
               }
             ]
           }
