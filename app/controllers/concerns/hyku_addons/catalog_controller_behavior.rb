@@ -13,6 +13,12 @@ module HykuAddons
         config.add_facet_field solr_name('member_of_collections', :symbol), limit: 5, label: 'Collections'
         config.add_facet_field solr_name("institution", :facetable), limit: 5, label: 'Institution'
         config.add_facet_field solr_name("language", :facetable), limit: 5, label: 'Language'
+        config.add_facet_field 'file_availability', query: {
+          # TODO: use i18n
+          available: { label: 'File available from this repository', fq: 'human_readable_type_tesim:Work AND ({!join from=id to=file_set_ids_ssim}visibility_ssi:open)' },
+          external_link: { label: 'External link (access may be restricted)', fq: 'human_readable_type_tesim:Work AND -doi_status_when_public_ssi:findable AND -doi_status_when_public_ssi:registered AND official_link_tesim:[* TO *]' },
+          not_available: { label: 'File not available', fq: 'human_readable_type_tesim:Work AND ({!join from=id to=file_set_ids_ssim}-visibility_ssi:open) AND ((*:* AND -official_link_tesim:[* TO *]) OR ((doi_status_when_public_ssi:findable OR doi_status_when_public_ssi:registered) AND official_link_tesim:[* TO *]))' }
+        }
         config.add_facet_fields_to_solr_request!
 
         # Re-configure index fields
