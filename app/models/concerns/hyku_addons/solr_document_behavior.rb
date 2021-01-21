@@ -85,6 +85,7 @@ module HykuAddons
       attribute :additional_links, SolrDocument::Solr::Array, solr_name('additional_links')
       attribute :irb_status, SolrDocument::Solr::Array, solr_name('irb_status')
       attribute :irb_number, SolrDocument::Solr::Array, solr_name('irb_number')
+      attribute :is_included_in, SolrDocument::Solr::Array, solr_name('is_included_in')
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(
