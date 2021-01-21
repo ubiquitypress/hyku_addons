@@ -22,7 +22,7 @@ module HykuAddons
       include Hyrax::DOI::DataCiteDOIFormBehavior
 
       def primary_terms
-        required_fields
+        super - %i[license]
       end
     end
 
