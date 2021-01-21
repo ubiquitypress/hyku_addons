@@ -6,6 +6,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:doi) { '10.18130/v3-k4an-w022' }
   let(:title) { 'Moomin' }
   # let(:alt_title) { 'alt-title' }
+  let(:resource_type) { "Book" }
   let(:creator) { 'Tove Jansson' }
   let(:contributor) { 'Elizabeth Portch' }
   let(:publisher) { 'Schildts' }
@@ -27,6 +28,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
       doi: [doi],
       # FIXME: If more than one title is provided, the order is nondeterministic.
       title: [title],
+      resource_type: [resource_type],
       creator: [creator],
       contributor: [contributor],
       publisher: [publisher],
@@ -64,6 +66,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
       it "correctly populates the export" do
         ris = metadata.ris
 
+        expect(ris).to include("TY  - BOOK") # TODO: This should be dynamic
         expect(ris).to include("T1  - #{title}")
         # FIXME: If more than one title is provided, the order is nondeterministic.
         # expect(ris).to include("T2  - #{alt_title}")

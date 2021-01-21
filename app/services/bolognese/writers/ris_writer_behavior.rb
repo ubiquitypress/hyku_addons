@@ -5,10 +5,45 @@ module Bolognese
     module RisWriterBehavior
       extend ActiveSupport::Concern
 
+      RESOURCE_TYPES = {
+        JOUR: ["Article default Journal article", "Article Book review", "Article Data paper",
+               "Article Editorial", "Article Letter to the editor", "Collection Data paper",
+               "Collection Journal article", "Collection Working paper"],
+        SOUND: ["Audio", "TimeBasedMedia Audio", "ExhibitionItem Audio-visual guide", "GenericWork Sound",
+                "TimeBasedMedia Interview (radio, television)", "TimeBasedMedia Musical composition",
+                "TimeBasedMedia Podcast", "Collection Sound"],
+        BOOK: ["Book default Book", "Book", "Book Grey literature", "Book Working paper", "Collection Book"],
+        DATA: ["Dataset default Dataset", "Dataset", "Dataset Numerical dataset", "Dataset Geographical dataset",
+               "Collection Database", "Collection Dataset", "Collection Geographical dataset"],
+        THES: ["Dissertation", "Masters Thesis", "GenericWork Dissertation",
+               "ThesisOrDissertation Doctoral thesis", "ThesisOrDissertation Master's dissertation",
+               "Collection Thesis (doctoral)"],
+        MAP: ["Map or Cartographic Material", "GenericWork Cartographic material",
+              "Collection Cartographic material"],
+        CHAP: ["Part of Book", "BookContribution default Book chapter", "BookContribution Book editorial",
+               "Collection Book chapter", "Collection Book editorial"],
+        CONF: ["Poster", "ConferenceItem Abstract", "ConferenceItem Conference paper (published)",
+               "ConferenceItem default Conference paper (unpublished)",
+               "ConferenceItem Conference poster (published)", "ConferenceItem Conference poster (unpublished)",
+               "ConferenceItem Lecture", "ConferenceItem Presentation", "Collection Conference paper (published)",
+               "Collection Conference paper (unpublished)", "Collection Conference poster (published)",
+               "Collection Conference poster (unpublished)"],
+        RPRT: ["Report", "Report Policy report", "Report default Research report", "Report Technical report",
+               "Collection Policy report", "Collection Research report", "Collection Technical report"],
+        COMP: ["Software or Program Code", "GenericWork Software", "Collection Software", "Dataset Software"],
+        VIDEO: ["Video", "TimeBasedMedia Animation", "TimeBasedMedia Video"],
+        MGZN: ["Article Magazine article", "Collection Magazine article"],
+        NEWS: ["Article Newspaper article", "Collection Newspaper article"],
+        MUSIC: ["GenericWork Musical notation", "Collection Musical notation"],
+        PAT: ["GenericWork Patent", "Collection Patent"],
+        ELEC: ["GenericWork Website", "Collection Website"],
+        BLOG: ["GenericWork Blog post", "Collection Blog post"]
+      }.freeze
+
       included do
         def ris
           {
-            "TY" => types["ris"],
+            "TY" => calculate_resource_type(types),
             "T1" => parse_attributes(titles, content: "title", first: true),
             "T2" => container && container["title"],
             "AU" => to_ris(creators),
@@ -38,6 +73,10 @@ module Bolognese
             .map { |h| [h["relatedIdentifierType"], h["relatedIdentifier"]] }.to_h
             .slice(*%w[ISBN ISSN EISSN])
             .values.first
+        end
+
+        def calculate_resource_type(types)
+          RESOURCE_TYPES.select { |k, v| v.include?(types["resourceType"].first) }.keys.first
         end
       end
     end
