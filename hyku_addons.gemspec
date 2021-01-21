@@ -42,5 +42,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pg"
   spec.add_development_dependency "rspec-rails"
   spec.add_development_dependency 'rspec_junit_formatter'
+  spec.add_development_dependency 'shoulda-matchers'
   spec.add_development_dependency 'webdrivers', '~> 4.0'
 end

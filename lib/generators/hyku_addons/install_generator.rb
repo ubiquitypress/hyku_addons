@@ -3,17 +3,16 @@ module HykuAddons
   class InstallGenerator < Rails::Generators::Base
     desc <<-EOS
       This generator makes the following changes to Hyku:
-        1. Installs and configures hyrax-doi
+        1. Injects work type overrides
+        2. Copies controlled vocabularies
+        3. Injects javascript
+        4. Injects helpers
     EOS
 
     source_root File.expand_path('templates', __dir__)
 
     def install_hyrax_doi
       generate 'hyrax:doi:install --datacite'
-      # Configure default_url_options
-      # Rails.application.routes.default_url_options[:host] = 'lvh.me:3000' ?
-
-      # generate 'hyrax:doi:add_to_work_type GenericWork --datacite'
     end
 
     def inject_overrides_into_curation_concerns

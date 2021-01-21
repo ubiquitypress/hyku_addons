@@ -10,11 +10,9 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
-//= require activestorage
 //= require_tree .
 
-$(document).on("turbolinks:load", function(){
+$(document).ready(function(){
   // Register listeners before events, so that onload events are consumed
   // Listeners
   new InputClearableListener()

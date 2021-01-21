@@ -32,40 +32,40 @@ en:
         help_text: The person or group responsible for the work. Usually this is the author of the content.
       creator_organization_name:
         label: Creator organisation name
-        placeholder: Please enter the organisation's name.
-        help_text:
+        placeholder: 
+        help_text: Please enter the organisation's name.
       creator_ror:
         label: Creator organisation ROR
-        placeholder: Please enter the ROR ID, e.g. 05gknh003
-        help_text:
+        placeholder: e.g. 05gknh003
+        help_text: Please enter the ROR ID
       creator_grid:
         label: Creator organisation GRID
-        placeholder: Please enter the GRID ID, e.g. grid.280362.d
-        help_text:
+        placeholder: e.g. grid.280362.d
+        help_text: Please enter the GRID ID
       creator_wikidata:
         label: Creator organisation Wikidata
-        placeholder: Please enter the Wikidata ID, e.g. Q23308
-        help_text:
+        placeholder: e.g. Q23308
+        help_text: Please enter the Wikidata ID 
       creator_family_name:
         label: Creator family name
-        placeholder: Please enter the creator's last name/family name.
-        help_text:
+        placeholder: e.g. Einstein
+        help_text: Please enter the creator's last name/family name.
       creator_given_name:
         label: Creator given name
-        placeholder: Please enter the creator's first name/given name.
-        help_text:
+        placeholder: e.g. Albert
+        help_text: Please enter the creator's first name/given name.
       creator_orcid:
         label: Creator ORCID
-        placeholder: Please enter the creator's ORCID, e.g. 0000-1234-5678-9101.
-        help_text:
+        placeholder: e.g. 0000-1234-5678-9101.
+        help_text: Please enter the creator's ORCID
       creator_institutional_relationship:
         label: Creator institutional relationship
         placeholder:
-        help_text:
+        help_text: The relationship of the creator within the institution.
       creator_isni:
         label: Creator ISNI
-        placeholder: Please enter the creator's ISNI, e.g. 0000 1234 5678 9101.
-        help_text:
+        placeholder: e.g. 0000 1234 5678 9101.
+        help_text: Please enter the creator's ISNI
     contributor:
       contributor_name_type:
         label: Contributor name type
@@ -77,40 +77,40 @@ en:
         help_text:
       contributor_ror:
         label: Contributor organisation ROR
-        placeholder: Please enter the ROR ID, e.g. 05gknh003
-        help_text:
+        placeholder: e.g. 05gknh003
+        help_text: Please enter the ROR ID
       contributor_grid:
         label: Contributor organisation GRID
-        placeholder: Please enter the GRID ID, e.g. grid.280362.d
-        help_text:
+        placeholder: e.g. grid.280362.d
+        help_text: Please enter the GRID ID
       contributor_wikidata:
         label: Contributor organisation Wikidata
-        placeholder: Please enter the Wikidata ID, e.g. Q23308
-        help_text:
+        placeholder: e.g. Q23308
+        help_text: Please enter the Wikidata ID
       contributor_family_name:
         label: Contributor family name
-        placeholder: Please enter the contributor's last name/family name.
-        help_text:
+        placeholder: e.g. Einstein
+        help_text: Please enter the contributor's last name/family name.
       contributor_given_name:
         label: Contributor given name
-        placeholder: Please enter the contributor's first name/given name.
-        help_text:
+        placeholder: e.g. Albert
+        help_text: Please enter the contributor's first name/given name.
       contributor_orcid:
         label: Contributor ORCID
-        placeholder: Please enter the contributor's ORCID, e.g. 0000-1234-5678-9101.
-        help_text:
+        placeholder: e.g. 0000-1234-5678-9101.
+        help_text: Please enter the contributor's ORCID
       contributor_institutional_relationship:
         label: Contributor institutional relationship
         placeholder:
         help_text:
       contributor_isni:
         label: Contributor ISNI
-        placeholder: Please enter the contributor's ISNI, e.g. 0000 1234 5678 9101.
-        help_text:
+        placeholder: e.g. 0000 1234 5678 9101.
+        help_text: Please enter the contributor's ISNI
       contributor_type:
         label: Contributor role
         placeholder:
-        help_text:
+        help_text: The relationship of the contributor within the instittion.
     editor:
       editor_name_type:
         label: Editor name type
@@ -118,28 +118,28 @@ en:
         help_text: The editors that produced this item, in priority order. To add multiple editors, repeat this property.
       editor_organization_name:
         label: Editor organisation name
-        placeholder: Please enter the organisation's name.
-        help_text:
+        placeholder: 
+        help_text: Please enter the organisation's name.
       editor_family_name:
         label: Editor family name
-        placeholder: Please enter the editor's last name/family name.
-        help_text:
+        placeholder: e.g. Einstein
+        help_text: Please enter the editor's last name/family name.
       editor_given_name:
         label: Editor given name
-        placeholder: Please enter the editor's first name/given name.
-        help_text:
+        placeholder: e.g. Albert
+        help_text: Please enter the editor's first name/given name.
       editor_orcid:
         label: Editor ORCID
-        placeholder: Please enter the editor's ORCID, e.g. 0000-1234-5678-9101.
-        help_text:
+        placeholder: e.g. 0000-1234-5678-9101
+        help_text: Please enter the editor's ORCID.
       editor_institutional_relationship:
         label: Editor institutional relationship
         placeholder:
         help_text:
       editor_isni:
         label: Editor ISNI
-        placeholder: Please enter the editor's ISNI, e.g. 0000 1234 5678 9101.
-        help_text:
+        placeholder: e.g. 0000 1234 5678 9101
+        help_text: Please enter the editor's ISNI.
 
   settings:
     helptexts:
