@@ -10,9 +10,11 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:creator) { 'Tove Jansson' }
   let(:contributor) { 'Elizabeth Portch' }
   let(:publisher) { 'Schildts' }
-  let(:description) { 'Swedish comic about the adventures of the residents of Moominvalley.' }
+  let(:abstract) { 'Swedish comic about the adventures of the residents of Moominvalley.' }
   let(:keyword) { 'Lighthouses' }
   let(:date_created) { 1945 }
+  let(:published_year) { 1946 }
+  let(:date_published) { "#{published_year}-01-01" }
   let(:editor) { "Test Editor" }
   let(:isbn) { "9781770460621" }
   let(:place_of_publication) { "Finland" }
@@ -32,9 +34,10 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
       creator: [creator],
       contributor: [contributor],
       publisher: [publisher],
-      description: [description],
+      abstract: abstract,
       keyword: [keyword],
       date_created: [date_created],
+      date_published: date_published,
       editor: [editor],
       isbn: isbn,
       place_of_publication: [place_of_publication],
@@ -63,19 +66,21 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
 
   context "crosswalks" do
     context "RIS" do
+      let(:ris_resource_type_identifier) { "BOOK" }
+
       it "correctly populates the export" do
         ris = metadata.ris
 
-        expect(ris).to include("TY  - BOOK") # TODO: This should be dynamic
+        expect(ris).to include("TY  - #{ris_resource_type_identifier}")
         expect(ris).to include("T1  - #{title}")
         # FIXME: If more than one title is provided, the order is nondeterministic.
         # expect(ris).to include("T2  - #{alt_title}")
         expect(ris).to include("AU  - #{creator}")
         expect(ris).to include("ED  - #{editor}")
         expect(ris).to include("DO  - https://doi.org/#{doi}")
-        expect(ris).to include("AB  - #{description}")
+        expect(ris).to include("AB  - #{abstract}")
         expect(ris).to include("KW  - #{keyword}")
-        expect(ris).to include("PY  - #{date_created}")
+        expect(ris).to include("PY  - #{published_year}")
         expect(ris).to include("PB  - #{publisher}")
         expect(ris).to include("PP  - #{place_of_publication}")
         expect(ris).to include("SN  - #{isbn}")

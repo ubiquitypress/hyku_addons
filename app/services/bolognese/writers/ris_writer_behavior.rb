@@ -4,7 +4,8 @@ module Bolognese
   module Writers
     module RisWriterBehavior
       extend ActiveSupport::Concern
-
+      DEFAULT_RESOURCE_TYPE = :GEN
+      # This was taken from the legacy application and i'm unsure which of them are required.
       RESOURCE_TYPES = {
         JOUR: ["Article default Journal article", "Article Book review", "Article Data paper",
                "Article Editorial", "Article Letter to the editor", "Collection Data paper",
@@ -43,27 +44,30 @@ module Bolognese
       included do
         def ris
           {
-            "TY" => calculate_resource_type(types),
-            "T1" => parse_attributes(titles, content: "title", first: true),
-            "T2" => container && container["title"],
-            "AU" => to_ris(creators),
-            "DO" => doi,
-            "ED" => meta.dig("editor"),
-            "AB" => parse_attributes(descriptions, content: "description", first: true),
-            "KW" => Array.wrap(subjects).map { |k| parse_attributes(k, content: "subject", first: true) }.presence,
-            "PY" => publication_year,
-            "PB" => publisher,
-            "PP" => meta.dig("place_of_publication"),
-            "EP" => container.to_h["lastPage"],
-            "SN" => ordered_identifiers,
-            "JO" => meta.dig("journal_title"),
-            "LA" => meta.dig("language"),
-            "N1" => meta.dig("add_info"),
-            "UR" => meta.dig("official_link"),
-            "IS" => container.to_h["issue"],
-            "VL" => container.to_h["volume"],
-            "ER" => ""
-          }.compact.map { |k, v| v.is_a?(Array) ? v.map { |vi| "#{k}  - #{vi}" }.join("\r\n") : "#{k}  - #{v}" }.join("\r\n")
+            TY: calculate_resource_type(types),
+            T1: parse_attributes(titles, content: "title", first: true),
+            T2: container && container["title"],
+            AU: to_ris(creators),
+            DO: doi,
+            ED: meta.dig("editor"),
+            AB: parse_attributes(descriptions, content: "description", first: true),
+            KW: Array.wrap(subjects).map { |k| parse_attributes(k, content: "subject", first: true) }.presence,
+            PY: publication_year,
+            PB: publisher,
+            PP: meta.dig("place_of_publication"),
+            EP: container.to_h["lastPage"],
+            SN: ordered_identifiers,
+            JO: meta.dig("journal_title"),
+            LA: meta.dig("language"),
+            N1: meta.dig("add_info"),
+            UR: meta.dig("official_link"),
+            IS: container.to_h["issue"],
+            VL: container.to_h["volume"],
+            ER: ""
+          }
+          .compact
+          .map { |k, v| v.is_a?(Array) ? v.map { |vi| "#{k}  - #{vi}" }.join("\r\n") : "#{k}  - #{v}" }
+          .join("\r\n")
         end
 
         # Legacy code ordered the values and returned
@@ -76,7 +80,7 @@ module Bolognese
         end
 
         def calculate_resource_type(types)
-          RESOURCE_TYPES.select { |k, v| v.include?(types["resourceType"].first) }.keys.first
+          RESOURCE_TYPES.select { |k, v| v.include?(types["resourceType"].first) }.keys.first || DEFAULT_RESOURCE_TYPE
         end
       end
     end

@@ -4,14 +4,31 @@ require 'bolognese'
 module Bolognese
   module Readers
     class BaseWorkReader < Bolognese::Metadata
+      # Some attributes are not copied over from data inside of hyku, but calculated in reader methds below.
+      def self.special_terms
+        %w[types]
+      end
+
+      # Some attributes wont match those that are expected by bolognese. This is
+      # a hash map of hyku attributes to bolognese attributes, old => new
+      def self.mismatched_attribute_map
+        {
+          "title" => "titles",
+          "creator" => "creators",
+          "abstract" => "descriptions",
+          "keyword" => "subjects",
+          "date_published" => "publication_year",
+        }
+      end
+
       def self.nested_attributes
         {
-          container: %i[volume issue first_page last_page],
+          "container" => %w[volume issue firstPage lastPage],
         }
       end
 
       def self.after_actions
-        %i[build_types! build_nested_attributes! build_related_identifiers!]
+        %i[build_nested_attributes! build_related_identifiers! update_mismatched_attributes!]
       end
 
       def read_work(string: nil, **options)
@@ -26,7 +43,9 @@ module Bolognese
       protected
 
         def reader_attributes
-          @reader_attributes = work_type_terms.map { |term| [term, term_value(term)] }.to_h
+          @reader_attributes = (self.class.special_terms + work_type_terms).map do |term|
+            [term.to_s, term_value(term)]
+          end.to_h
 
           perform_after_actions!
 
@@ -59,17 +78,18 @@ module Bolognese
           self.class.after_actions.each { |action| send(action.to_sym) if respond_to?(action.to_sym, true) }
         end
 
-        def build_types!
+        def read_types
           hyrax_resource_type = read_meta('has_model') || "Work"
           resource_type = read_meta('resource_type').presence || hyrax_resource_type
 
-          @reader_attributes.merge!({
+          {
             "resourceTypeGeneral" => "Other",
             "resourceType" => resource_type,
             "hyrax" => hyrax_resource_type
-          }.compact)
+          }
         end
 
+        # Process any special nested attributes, like the `container` param
         def build_nested_attributes!
           self.class.nested_attributes.each do |key, terms|
             parsed_values = terms.map do |term|
@@ -88,7 +108,7 @@ module Bolognese
           return unless (@meta.keys & identifier_keys).present?
 
           @reader_attributes.merge!({
-            related_identifiers: identifier_keys.map { |key|
+            "related_identifiers" => identifier_keys.map { |key|
               next unless (value = @meta.dig(key)).present?
 
               {
@@ -100,11 +120,18 @@ module Bolognese
           })
         end
 
-        def read_creators
+        # Some fields are required by both Hyku and Bolognese, but their names differ.
+        def update_mismatched_attributes!
+          self.class.mismatched_attribute_map.each do |old, new|
+            @reader_attributes[new] = @reader_attributes.delete(old)
+          end
+        end
+
+        def read_creator
           get_authors(Array.wrap(@meta.dig("creator"))) if @meta.dig("creator").present?
         end
 
-        def read_contributors
+        def read_contributor
           get_authors(Array.wrap(@meta.dig("contributor"))) if @meta.dig("contributor").present?
         end
 
@@ -140,16 +167,16 @@ module Bolognese
           Array.wrap(@meta.dig("journal_title")) if @meta.dig("journal_title").present?
         end
 
-        def read_titles
+        def read_title
           Array.wrap(@meta.dig("title")).select(&:present?).collect { |r| { "title" => sanitize(r) } }
         end
 
-        def read_descriptions
-          Array.wrap(@meta.dig("description")).select(&:present?).collect { |r| { "description" => sanitize(r) } }
+        def read_abstract
+          Array.wrap(@meta.dig("abstract")).select(&:present?).collect { |r| { "description" => sanitize(r) } }
         end
 
-        def read_publication_year
-          date = @meta.dig("date_created")&.first || @meta.dig("date_uploaded")
+        def read_date_published
+          date = read_meta("date_published") || read_meta("date_created")&.first || read_meta("date_uploaded")
           Date.edtf(date.to_s).year
 
         # TODO: Remove the catch all rescue as it seems like a smell to be catching all errors
@@ -157,7 +184,7 @@ module Bolognese
           Time.zone.today.year
         end
 
-        def read_subjects
+        def read_keyword
           Array.wrap(@meta.dig("keyword")).select(&:present?).collect { |r| { "subject" => sanitize(r) } }
         end
 
