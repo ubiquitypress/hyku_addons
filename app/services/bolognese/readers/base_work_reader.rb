@@ -125,7 +125,7 @@ module Bolognese
         end
 
         def work_form_class
-          @_work_form_class ||= "Hyrax::#{@meta["has_model"]}Form".constantize
+          @_work_form_class ||= "Hyrax::#{@meta['has_model']}Form".constantize
         end
 
         def work_type_terms

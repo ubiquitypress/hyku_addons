@@ -21,13 +21,13 @@ module Bolognese
           "creator" => "creators",
           "abstract" => "descriptions",
           "keyword" => "subjects",
-          "date_published" => "publication_year",
+          "date_published" => "publication_year"
         }
       end
 
       def self.nested_attributes
         {
-          "container" => %w[volume issue firstPage lastPage],
+          "container" => %w[volume issue firstPage lastPage]
         }
       end
 
@@ -85,17 +85,17 @@ module Bolognese
 
           return unless (@meta.keys & identifier_keys).present?
 
-          @reader_attributes.merge!({
-            "related_identifiers" => identifier_keys.map { |key|
+          @reader_attributes.merge!(
+            "related_identifiers" => identifier_keys.map do |key|
               next unless (value = @meta.dig(key)).present?
 
               {
                 "relatedIdentifier" => value,
                 "relatedIdentifierType" => key.upcase,
-                "relationType" => "Cites",
+                "relationType" => "Cites"
               }
-            }.compact
-          })
+            end.compact
+          )
         end
     end
   end

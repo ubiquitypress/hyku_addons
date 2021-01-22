@@ -11,6 +11,7 @@ AllCops:
 
 Metrics/ClassLength:
   Exclude:
+    - 'app/services/bolognese/readers/base_work_reader.rb'
     - 'lib/hyku_addons/engine.rb'
 
 Metrics/LineLength:
@@ -30,6 +31,7 @@ Metrics/BlockLength:
     - 'app/models/concerns/hyku_addons/solr_document_behavior.rb'
     - 'app/models/concerns/hyku_addons/work_base.rb'
     - 'app/forms/concerns/hyku_addons/work_form.rb'
+    - 'app/services/bolognese/writers/ris_writer_behavior.rb'
     - 'hyku_addons.gemspec'
     - 'lib/hyku_addons/engine.rb'
     - 'spec/**/*.rb'
@@ -38,6 +40,8 @@ Metrics/MethodLength:
   Exclude:
     - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
     - 'app/forms/concerns/hyku_addons/generic_work_form_overrides.rb'
+    - 'app/services/bolognese/readers/base_work_reader.rb'
+    - 'app/services/bolognese/writers/ris_writer_behavior.rb'
     - 'spec/**/*.rb'
 
 Metrics/CyclomaticComplexity:
@@ -47,6 +51,10 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Exclude:
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'app/services/bolognese/writers/ris_writer_behavior.rb'
 
 RSpec/DescribeClass:
   Exclude:
@@ -60,6 +68,11 @@ RSpec/ExampleLength:
   Max: 10
   Exclude:
     - 'spec/features/**/*'
+    - 'spec/services/bolognese/readers/generic_work_reader_spec.rb'
+
+RSpec/NestedGroups:
+  Exclude:
+    - 'spec/services/bolognese/readers/generic_work_reader_spec.rb'
 
 Style/SymbolProc:
   Exclude:
@@ -75,3 +88,7 @@ Style/MethodMissing:
 Rails/OutputSafety:
   Exclude:
     - 'app/renderers/**/*'
+
+Rails/Date:
+  Exclude:
+    - 'spec/services/bolognese/readers/generic_work_reader_spec.rb'
