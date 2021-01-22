@@ -34,7 +34,7 @@ module Bolognese
         options.except!(:doi, :id, :url, :sandbox, :validate, :ra)
         read_options = ActiveSupport::HashWithIndifferentAccess.new(options)
 
-        # Use an instance so that the method isn't passed around
+        # Use an instance variable so that the method isn't passed around
         @meta = string.present? ? Maremma.from_json(string) : {}
 
         reader_attributes.merge(read_options)
