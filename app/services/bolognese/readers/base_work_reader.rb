@@ -12,23 +12,20 @@ module Bolognese
       # Some attributes wont match those that are expected by bolognese. This is
       # a hash map of hyku attributes to bolognese attributes, old => new
       def self.mismatched_attribute_map
-        {
-          "title" => "titles",
-          "creator" => "creators",
-          "abstract" => "descriptions",
-          "keyword" => "subjects",
-          "date_published" => "publication_year",
-        }
+        {}
       end
 
+      # A hash of keys and their arry of nested attributes that need to be opperated on.
+      # Each of the hash keys will be used as the key name in @reader_attributes and each array index is used as a
+      # normal method to be found with `meta_values(key_name)`.
       def self.nested_attributes
-        {
-          "container" => %w[volume issue firstPage lastPage],
-        }
+        {}
       end
 
+      # An array of methods that should be called after the inital attributes have been collected.
+      # These methods should modify the `@reader_attributes` variable directly and be suffixed with `!`.
       def self.after_actions
-        %i[build_nested_attributes! build_related_identifiers! update_mismatched_attributes!]
+        %i[build_related_identifiers! update_mismatched_attributes!]
       end
 
       def read_work(string: nil, **options)
@@ -100,24 +97,6 @@ module Bolognese
 
             @reader_attributes.merge!(key => parsed_values)
           end
-        end
-
-        def build_related_identifiers!
-          identifier_keys = %w[isbn issn eissn]
-
-          return unless (@meta.keys & identifier_keys).present?
-
-          @reader_attributes.merge!({
-            "related_identifiers" => identifier_keys.map { |key|
-              next unless (value = @meta.dig(key)).present?
-
-              {
-                "relatedIdentifier" => value,
-                "relatedIdentifierType" => key.upcase,
-                "relationType" => "Cites",
-              }
-            }.compact
-          })
         end
 
         # Some fields are required by both Hyku and Bolognese, but their names differ.

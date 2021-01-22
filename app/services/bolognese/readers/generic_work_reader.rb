@@ -13,6 +13,46 @@
 module Bolognese
   module Readers
     class GenericWorkReader < BaseWorkReader
+      # Some attributes wont match those that are expected by bolognese. This is
+      # a hash map of hyku attributes to bolognese attributes, old => new
+      def self.mismatched_attribute_map
+        {
+          "title" => "titles",
+          "creator" => "creators",
+          "abstract" => "descriptions",
+          "keyword" => "subjects",
+          "date_published" => "publication_year",
+        }
+      end
+
+      def self.nested_attributes
+        {
+          "container" => %w[volume issue firstPage lastPage],
+        }
+      end
+
+      def self.after_actions
+        %i[build_nested_attributes!] + super
+      end
+
+      def build_related_identifiers!
+        identifier_keys = %w[isbn issn eissn]
+
+        return unless (@meta.keys & identifier_keys).present?
+
+        @reader_attributes.merge!({
+          "related_identifiers" => identifier_keys.map { |key|
+            next unless (value = @meta.dig(key)).present?
+
+            {
+              "relatedIdentifier" => value,
+              "relatedIdentifierType" => key.upcase,
+              "relationType" => "Cites",
+            }
+          }.compact
+        })
+      end
+
     end
   end
 end
