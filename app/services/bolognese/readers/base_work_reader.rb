@@ -53,6 +53,8 @@ module Bolognese
           @reader_attributes
         end
 
+        # This is a special method that adds some additional values to the meta object. As its not part of the
+        # document form fields, we are injecting it into the meta by adding the method to the specia_methods array
         def read_types
           hyrax_resource_type = read_meta("has_model") || DEFAULT_RESOURCE_TYPE
           resource_type = read_meta("resource_type").presence || hyrax_resource_type
