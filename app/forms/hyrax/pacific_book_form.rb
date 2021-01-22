@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Generated via
 #  `rails generate hyrax:work PacificBook`
 module Hyrax
@@ -10,9 +11,9 @@ module Hyrax
     include ::HykuAddons::WorkForm
 
     self.model_class = ::PacificBook
-    self.terms = %i[title alt_title resource_type creator contributor abstract date_published
-                      pagination is_included_in volume buy_book publisher isbn issn additional_links
-                      rights_holder license org_unit doi subject keyword refereed add_info]
+    add_terms %i[title alt_title resource_type creator contributor abstract date_published
+                 pagination is_included_in volume buy_book publisher isbn issn additional_links
+                 rights_holder license org_unit doi subject keyword refereed add_info]
 
     self.required_fields = %i[title creator org_unit pagination publisher]
 

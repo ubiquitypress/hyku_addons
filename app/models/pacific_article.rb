@@ -1,7 +1,7 @@
+# frozen_string_literal: true
 # Generated via
 #  `rails generate hyrax:work PacificArticle`
 class PacificArticle < ActiveFedora::Base
-
   include ::Hyrax::WorkBehavior
   # Adds behaviors for hyrax-doi plugin.
   include Hyrax::DOI::DOIBehavior

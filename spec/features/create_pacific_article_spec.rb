@@ -9,12 +9,12 @@ RSpec.feature 'Create a PacificArticle', js: false do
   include_context 'create pacific work user context' do
     let(:work_type) { "pacific_article" }
 
-      scenario do
-        visit_new_work_page
-        add_files_to_work
-        add_metadata_to_work
-        apply_work_visibility
-        check_agreement_and_submit
-      end
+    scenario do
+      visit_new_work_page
+      add_files_to_work
+      add_metadata_to_work
+      apply_work_visibility
+      check_agreement_and_submit
     end
   end
+end

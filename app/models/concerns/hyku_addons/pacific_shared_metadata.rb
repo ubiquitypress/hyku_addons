@@ -1,6 +1,6 @@
+# frozen_string_literal: true
 module HykuAddons
   module PacificSharedMetadata
-
     extend ActiveSupport::Concern
     included do
       property :journal_title, predicate: ::RDF::Vocab::BIBO.Journal, multiple: false do |index|
