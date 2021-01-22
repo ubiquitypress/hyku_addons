@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Bolognese
   module Readers
-    class TimeBaseMediaArticleReader < BaseWorkReader
+    class TimeBaseMediaArticleReader < GenericWorkReader
     end
   end
 end
