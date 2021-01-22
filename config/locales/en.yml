@@ -160,3 +160,7 @@ en:
       # Eveything below this line I am pretty confident we want to remove from the list
       creator_fields: I DON'T THINK WE WANT THIS HERE
       contributor_fields: I DON'T THINK WE WANT THIS HERE
+      work_type_list: I DON'T THINK WE WANT THIS HERE
+      turn_off_fedora_collection_work_association: I think we always want this set to true?
+      index_record_to_shared_search: Not sure this is an option the user needs
+      oai_admin_email: OAI endpoint contact email address
