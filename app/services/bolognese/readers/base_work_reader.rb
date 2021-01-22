@@ -4,6 +4,8 @@ require 'bolognese'
 module Bolognese
   module Readers
     class BaseWorkReader < Bolognese::Metadata
+      DEFAULT_RESOURCE_TYPE = "Work"
+
       # Some attributes are not copied over from data inside of hyku, but calculated in reader methods below.
       def self.special_terms
         %w[types]
@@ -25,7 +27,7 @@ module Bolognese
       # An array of methods that should be called after the inital attributes have been collected.
       # These methods should modify the `@reader_attributes` variable directly
       def self.after_actions
-        %i[build_related_identifiers! update_mismatched_attributes!]
+        []
       end
 
       def read_work(string: nil, **options)
@@ -51,58 +53,41 @@ module Bolognese
           @reader_attributes
         end
 
-        def read_creator
-          get_authors(Array.wrap(@meta.dig("creator"))) if @meta.dig("creator").present?
-        end
-
-        def read_contributor
-          get_authors(Array.wrap(@meta.dig("contributor"))) if @meta.dig("contributor").present?
-        end
-
-        def read_title
-          Array.wrap(@meta.dig("title")).select(&:present?).collect { |r| { "title" => sanitize(r) } }
-        end
-
-        def read_abstract
-          Array.wrap(@meta.dig("abstract")).select(&:present?).collect { |r| { "description" => sanitize(r) } }
-        end
-
-        def read_date_published
-          date = read_meta("date_published") || read_meta("date_created")&.first || read_meta("date_uploaded")
-          Date.edtf(date.to_s).year
-
-        # TODO: Remove the catch all rescue as it seems like a smell to be catching all errors
-        rescue StandardError
-          Time.zone.today.year
-        end
-
-        def read_keyword
-          Array.wrap(@meta.dig("keyword")).select(&:present?).collect { |r| { "subject" => sanitize(r) } }
-        end
-
-        def read_identifiers
-          Array.wrap(@meta.dig("identifier")).select(&:present?).collect { |r| { "identifier" => sanitize(r) } }
-        end
-
-        def read_publisher
-          # Fallback to ':unav' since this is a required field for datacite
-          # TODO: Should this default to application_name?
-          parse_attributes(@meta.dig("publisher")).to_s.strip.presence || ":unav"
-        end
-
-        def read_doi
-          normalize_doi(@meta.fetch('doi', nil)&.first)
-        end
-
         def read_types
-          hyrax_resource_type = read_meta('has_model') || "Work"
-          resource_type = read_meta('resource_type').presence || hyrax_resource_type
+          hyrax_resource_type = read_meta("has_model") || DEFAULT_RESOURCE_TYPE
+          resource_type = read_meta("resource_type").presence || hyrax_resource_type
 
           {
-            "resourceTypeGeneral" => "Other",
+            "resourceTypeGeneral" => "Other", # TODO: Not sure what this should be or how to work it out
             "resourceType" => resource_type,
             "hyrax" => hyrax_resource_type
           }
+        end
+
+        # Read from the meta array and try and work out what should be
+        # an array and what can be returned without adjustment
+        def read_meta(term)
+          value = @meta.dig(term.to_s)
+
+          return unless value.present?
+
+          if work_class.multiple?(term)
+            Array.wrap(value)
+          else
+            value
+          end
+        # Don't worry about methods that aren't in the form terms, just return the value and continue
+        rescue ActiveFedora::UnknownAttributeError
+          value
+        end
+
+      private
+
+        # Set a standard for term getter methods, or default to the meta value
+        def term_value(term)
+          read_method_name = "read_#{term}".to_sym
+
+          respond_to?(read_method_name, true) ? send(read_method_name) : read_meta(term)
         end
 
         # Process any special nested attributes, like the `container` param
@@ -125,9 +110,8 @@ module Bolognese
           end
         end
 
-      private
-
-        # Perform any required actions after the attributes hash has been built, all actions need to updat the array
+        # Perform any required actions after the attributes hash has been built,
+        # all actions need to updat the array
         def perform_after_actions!
           return {} unless self.class.after_actions.present?
 
@@ -144,29 +128,6 @@ module Bolognese
 
         def work_type_terms
           @_work_type_terms ||= work_form_class.terms
-        end
-
-        # Set a standard for term getter methods, or default to the meta value
-        def term_value(term)
-          read_method_name = "read_#{term}".to_sym
-
-          respond_to?(read_method_name, true) ? send(read_method_name) : read_meta(term)
-        end
-
-        # Try and work out what should be an array and what can be returned without adjustment
-        def read_meta(term)
-          value = @meta.dig(term.to_s)
-
-          return unless value.present?
-
-          if work_class.multiple?(term)
-            Array.wrap(value)
-          else
-            value
-          end
-        # Don't worry about methods that aren't in the form terms, just return the value and continue
-        rescue ActiveFedora::UnknownAttributeError
-          value
         end
     end
   end

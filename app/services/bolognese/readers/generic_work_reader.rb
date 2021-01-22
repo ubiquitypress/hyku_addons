@@ -32,27 +32,71 @@ module Bolognese
       end
 
       def self.after_actions
-        %i[build_nested_attributes!] + super
+        %i[build_related_identifiers! build_nested_attributes! update_mismatched_attributes!]
       end
 
-      def build_related_identifiers!
-        identifier_keys = %w[isbn issn eissn]
+      protected
 
-        return unless (@meta.keys & identifier_keys).present?
+        def read_creator
+          get_authors(read_meta("creator")) if @meta.dig("creator").present?
+        end
 
-        @reader_attributes.merge!({
-          "related_identifiers" => identifier_keys.map { |key|
-            next unless (value = @meta.dig(key)).present?
+        def read_contributor
+          get_authors(read_meta("contributor")) if @meta.dig("contributor").present?
+        end
 
-            {
-              "relatedIdentifier" => value,
-              "relatedIdentifierType" => key.upcase,
-              "relationType" => "Cites",
-            }
-          }.compact
-        })
-      end
+        def read_title
+          read_meta("title").select(&:present?).collect { |r| { "title" => sanitize(r) } }
+        end
 
+        def read_abstract
+          value = read_meta("abstract")
+
+          return unless value.present?
+
+          {
+            "description" => sanitize(value)
+          }
+        end
+
+        def read_date_published
+          date = read_meta("date_published") || read_meta("date_created")&.first || read_meta("date_uploaded")
+          Date.edtf(date.to_s).year
+
+        # TODO: Remove the catch all rescue as it seems like a smell to be catching all errors
+        rescue StandardError
+          Time.zone.today.year
+        end
+
+        def read_keyword
+          read_meta("keyword").select(&:present?).collect { |r| { "subject" => sanitize(r) } }
+        end
+
+        def read_publisher
+          parse_attributes(read_meta("publisher")).to_s.strip.presence || ":unav"
+        end
+
+        def read_doi
+          normalize_doi(@meta.fetch('doi', nil)&.first)
+        end
+
+        def build_related_identifiers!
+          identifier_keys = %w[isbn issn eissn]
+
+          return unless (@meta.keys & identifier_keys).present?
+
+          @reader_attributes.merge!({
+            "related_identifiers" => identifier_keys.map { |key|
+              next unless (value = @meta.dig(key)).present?
+
+              {
+                "relatedIdentifier" => value,
+                "relatedIdentifierType" => key.upcase,
+                "relationType" => "Cites",
+              }
+            }.compact
+          })
+        end
     end
   end
 end
