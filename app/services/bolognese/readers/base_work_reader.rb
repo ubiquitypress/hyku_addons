@@ -4,7 +4,7 @@ require 'bolognese'
 module Bolognese
   module Readers
     class BaseWorkReader < Bolognese::Metadata
-      # Some attributes are not copied over from data inside of hyku, but calculated in reader methds below.
+      # Some attributes are not copied over from data inside of hyku, but calculated in reader methods below.
       def self.special_terms
         %w[types]
       end
