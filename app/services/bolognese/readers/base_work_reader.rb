@@ -39,42 +39,6 @@ module Bolognese
 
       protected
 
-        def reader_attributes
-          @reader_attributes = (self.class.special_terms + work_type_terms).map do |term|
-            [term.to_s, term_value(term)]
-          end.to_h
-
-          perform_after_actions!
-
-          @reader_attributes
-        end
-
-        def work_form_class
-          @_work_form_class ||= "Hyrax::#{@meta["has_model"]}Form".constantize
-        end
-
-        def work_type_terms
-          @_work_type_terms ||= work_form_class.terms
-        end
-
-        # Set a standard for term getter methods, or default to the meta value
-        def term_value(term)
-          read_method_name = "read_#{term}".to_sym
-
-          respond_to?(read_method_name, true) ? send(read_method_name) : read_meta(term)
-        end
-
-        def read_meta(term)
-          @meta.dig(term.to_s)
-        end
-
-        # Perform any required actions after the attributes hash has been built, all actions need to updat the array
-        def perform_after_actions!
-          return {} unless self.class.after_actions.present?
-
-          self.class.after_actions.each { |action| send(action.to_sym) if respond_to?(action.to_sym, true) }
-        end
-
         def read_types
           hyrax_resource_type = read_meta('has_model') || "Work"
           resource_type = read_meta('resource_type').presence || hyrax_resource_type
@@ -114,38 +78,6 @@ module Bolognese
           get_authors(Array.wrap(@meta.dig("contributor"))) if @meta.dig("contributor").present?
         end
 
-        def read_language
-          Array.wrap(@meta.dig("language")) if @meta.dig("language").present?
-        end
-
-        def read_place_of_publication
-          Array.wrap(@meta.dig("place_of_publication")) if @meta.dig("place_of_publication").present?
-        end
-
-        def read_official_link
-          Array.wrap(@meta.dig("official_link")) if @meta.dig("official_link").present?
-        end
-
-        def read_add_info
-          Array.wrap(@meta.dig("add_info")) if @meta.dig("add_info").present?
-        end
-
-        def read_editor
-          Array.wrap(@meta.dig("editor")) if @meta.dig("editor").present?
-        end
-
-        def read_issue
-          Array.wrap(@meta.dig("issue")) if @meta.dig("issue").present?
-        end
-
-        def read_volume
-          Array.wrap(@meta.dig("volume")) if @meta.dig("volume").present?
-        end
-
-        def read_journal_title
-          Array.wrap(@meta.dig("journal_title")) if @meta.dig("journal_title").present?
-        end
-
         def read_title
           Array.wrap(@meta.dig("title")).select(&:present?).collect { |r| { "title" => sanitize(r) } }
         end
@@ -179,6 +111,61 @@ module Bolognese
 
         def read_doi
           normalize_doi(@meta.fetch('doi', nil)&.first)
+        end
+
+      private
+
+        # Compose and return the collected hash of values
+        def reader_attributes
+          @reader_attributes = (self.class.special_terms + work_type_terms).map do |term|
+            [term.to_s, term_value(term)]
+          end.to_h
+
+          perform_after_actions!
+
+          @reader_attributes
+        end
+
+        # Perform any required actions after the attributes hash has been built, all actions need to updat the array
+        def perform_after_actions!
+          return {} unless self.class.after_actions.present?
+
+          self.class.after_actions.each { |action| send(action.to_sym) if respond_to?(action.to_sym, true) }
+        end
+
+        def work_class
+          @_work_class ||= @meta["has_model"].constantize
+        end
+
+        def work_form_class
+          @_work_form_class ||= "Hyrax::#{@meta["has_model"]}Form".constantize
+        end
+
+        def work_type_terms
+          @_work_type_terms ||= work_form_class.terms
+        end
+
+        # Set a standard for term getter methods, or default to the meta value
+        def term_value(term)
+          read_method_name = "read_#{term}".to_sym
+
+          respond_to?(read_method_name, true) ? send(read_method_name) : read_meta(term)
+        end
+
+        # Try and work out what should be an array and what can be returned without adjustment
+        def read_meta(term)
+          value = @meta.dig(term.to_s)
+
+          return unless value.present?
+
+          if work_class.multiple?(term)
+            Array.wrap(value)
+          else
+            value
+          end
+        # Don't worry about methods that aren't in the form terms, just return the value and continue
+        rescue ActiveFedora::UnknownAttributeError
+          value
         end
     end
   end
