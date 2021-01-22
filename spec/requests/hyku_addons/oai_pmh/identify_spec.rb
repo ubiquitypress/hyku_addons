@@ -3,9 +3,16 @@ require 'spec_helper'
 RSpec.describe 'OIA-PMH Identify Request', multitenant: true do
   let(:xml) { Nokogiri::XML(response.body) }
 
-  let(:user)    { create(:user) }
-  let(:account) { create(:account, oai_admin_email: 'some@example.com', name: 'example') }
-  let(:work)    { create(:work, user: user) }
+  let(:user)       { create(:user) }
+  let(:account)    do
+    create(:account,
+           name: 'example',
+           oai_admin_email: 'some@example.com',
+           oai_prefix: 'hyku.example.com',
+           oai_sample_identifier: work.id,
+           )
+  end
+  let!(:work)      { create(:work, user: user) }
   let(:identifier) { work.id }
 
   before do
@@ -14,7 +21,6 @@ RSpec.describe 'OIA-PMH Identify Request', multitenant: true do
       block.call
     end
     host! account.cname
-    # debugger
     get '/catalog/oai?verb=Identify'
   end
 
@@ -34,12 +40,12 @@ RSpec.describe 'OIA-PMH Identify Request', multitenant: true do
   it "contains repository prefix/identifier" do
     expect(
       xml.at_xpath('//oai-identifier:repositoryIdentifier', 'oai-identifier' => "http://www.openarchives.org/OAI/2.0/oai-identifier").text
-    ).to eql 'hyku'
+    ).to eql 'hyku.example.com'
   end
 
   it "contains sample identifier" do
     expect(
       xml.at_xpath('//oai-identifier:sampleIdentifier', 'oai-identifier' => "http://www.openarchives.org/OAI/2.0/oai-identifier").text
-    ).to eql 'oai:hyku:806bbc5e-8ebe-468c-a188-b7c14fbe34df'
+    ).to eql "hyku.example.com:#{work.id}"
   end
 end
