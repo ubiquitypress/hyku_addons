@@ -10,11 +10,11 @@ module Hyrax
     include ::HykuAddons::WorkForm
 
     self.model_class = ::PacificBook
-    self.terms += %i[title alt_title resource_type creator contributor abstract date_published
+    self.terms = %i[title alt_title resource_type creator contributor abstract date_published
                       pagination is_included_in volume buy_book publisher isbn issn additional_links
-                      rights_holder license org_unit doi subject keyword refereed add_info
-                    ]
-    self.required_fields += %i[title creator org_unit pagination publisher]
+                      rights_holder license org_unit doi subject keyword refereed add_info]
+
+    self.required_fields = %i[title creator org_unit pagination publisher]
 
     def self.build_permitted_params
       super.tap do |permitted_params|

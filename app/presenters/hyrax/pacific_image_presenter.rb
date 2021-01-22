@@ -1,7 +1,7 @@
 # Generated via
-#  `rails generate hyrax:work PacificBook`
+#  `rails generate hyrax:work PacificImage`
 module Hyrax
-  class PacificBookPresenter < Hyrax::WorkShowPresenter
+  class PacificImagePresenter < Hyrax::WorkShowPresenter
     # Adds behaviors for hyrax-doi plugin.
     include Hyrax::DOI::DOIPresenterBehavior
     # Adds behaviors for DataCite DOIs via hyrax-doi plugin.

@@ -75,7 +75,7 @@ RSpec.shared_context 'create pacific work user context' do
     check('agreement')
     click_on('Save')
     expect(page).to have_content('My Test Work')
-    # expect(page).to have_content('Public') # This test is failing and works are not being saved as public, need to look into why 
+    expect(page).to have_content('Public') # This test is failing and works are not being saved as public, need to look into why
     expect(page).to have_content("Your files are being processed by Hyku in the background.")
   end
 

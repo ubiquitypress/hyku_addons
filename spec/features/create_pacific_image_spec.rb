@@ -1,14 +1,14 @@
 # Generated via
-#  `rails generate hyrax:work PacificBook`
+#  `rails generate hyrax:work PacificImage`
 require 'rails_helper'
 require File.expand_path('../helpers/create_pacific_work_user_context', __dir__)
 
 include Warden::Test::Helpers
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature 'Create a PacificBook', js: false do
+RSpec.feature 'Create a PacificImage', js: false do
   include_context 'create pacific work user context' do
-    let(:work_type) { "pacific_book" }
+    let(:work_type) { "pacific_image" }
 
     scenario do
       visit_new_work_page
