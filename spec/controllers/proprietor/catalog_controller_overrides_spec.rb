@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe CatalogController do
   describe "GET /oai" do
     before do
@@ -18,7 +20,7 @@ RSpec.describe CatalogController do
       let(:oai_enabled) { false }
 
       it "is raises a routing error" do
-        expect { get :oai }.to raise_error(ActionController::RoutingError, 'OAI Not enabled')
+        expect { get :oai }.to raise_error(ActionController::RoutingError, 'Enable the OAI Endpoint feature first')
       end
     end
   end

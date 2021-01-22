@@ -325,13 +325,13 @@ module HykuAddons
 
       private
 
-      def routing_error_unless_feature_enabled
-        raise ActionController::RoutingError.new('OAI Not enabled') unless Flipflop.enabled?(:oai_endpoint)
-      end
+        def routing_error_unless_feature_enabled
+          raise(ActionController::RoutingError.new('OAI Not enabled'), "Enable the OAI Endpoint feature first") unless Flipflop.enabled?(:oai_endpoint)
+        end
 
-      def oai_account_or_default_settings(controller, attr)
-        controller.send(:current_account).settings[attr].presence || Settings.oai[prefix]
-      end
+        def oai_account_or_default_settings(controller, attr)
+          controller.send(:current_account).settings[attr].presence || Settings.oai[prefix]
+        end
     end
   end
 end

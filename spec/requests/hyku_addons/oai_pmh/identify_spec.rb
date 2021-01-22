@@ -1,16 +1,16 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe 'OIA-PMH Identify Request', multitenant: true do
+RSpec.describe CatalogController, multitenant: true do
   let(:xml) { Nokogiri::XML(response.body) }
 
   let(:user)       { create(:user) }
   let(:account)    do
     create(:account,
-           name: 'example',
+           name:   'example',
            oai_admin_email: 'some@example.com',
-           oai_prefix: 'hyku.example.com',
-           oai_sample_identifier: work.id,
-           )
+           oai_prefix:      'hyku.example.com',
+           oai_sample_identifier: work.id)
   end
   let!(:work)      { create(:work, user: user) }
   let(:identifier) { work.id }
@@ -23,7 +23,6 @@ RSpec.describe 'OIA-PMH Identify Request', multitenant: true do
     host! account.cname
     get '/catalog/oai?verb=Identify'
   end
-
 
   it "contains repository name" do
     expect(xml.at_xpath('//xmlns:repositoryName').text).to eql 'example'
