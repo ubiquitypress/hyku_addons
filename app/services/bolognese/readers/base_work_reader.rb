@@ -17,6 +17,7 @@ module Bolognese
         {
           "title" => "titles",
           "creator" => "creators",
+          "contributor" => "contributors",
           "abstract" => "descriptions",
           "keyword" => "subjects",
           "date_published" => "publication_year",
