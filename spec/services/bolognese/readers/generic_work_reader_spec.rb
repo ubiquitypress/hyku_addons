@@ -95,8 +95,8 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
     end
 
     context 'datacite' do
-      let(:datacite_string) { metadata.datacite }
       subject(:datacite_xml) { Nokogiri::XML(datacite_string, &:strict).remove_namespaces! }
+      let(:datacite_string) { metadata.datacite }
 
       it 'creates datacite XML' do
         expect(datacite_string).to be_a String
