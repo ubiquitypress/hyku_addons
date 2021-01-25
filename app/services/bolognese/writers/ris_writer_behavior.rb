@@ -65,9 +65,9 @@ module Bolognese
             VL: container.to_h["volume"],
             ER: ""
           }
-            .compact
-            .map { |k, v| v.is_a?(Array) ? v.map { |vi| "#{k}  - #{vi}" }.join("\r\n") : "#{k}  - #{v}" }
-            .join("\r\n")
+          .compact
+          .map { |k, v| v.is_a?(Array) ? v.map { |vi| "#{k}  - #{vi}" }.join("\r\n") : "#{k}  - #{v}" }
+          .join("\r\n")
         end
 
         # Legacy code ordered the values and returned
