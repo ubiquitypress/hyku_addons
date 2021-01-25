@@ -178,4 +178,28 @@ RSpec.shared_context 'work forms context' do
       }
     }
   end
+
+  describe 'add_terms' do
+    context 'with no previous terms' do
+      it "adds the terms passed as params" do
+        described_class.add_terms :pagination
+        expect(form.terms).to include(:pagination)
+      end
+
+      it "doesnt add terms if not included in the list of valid terms" do
+        described_class.add_terms :foo
+        expect(form.terms).not_to include(:foo)
+      end
+
+      it "respects the correct order of the fields" do
+        described_class.add_terms :title
+        expect(form.terms.last).not_to eq :title
+      end
+
+      it "removes duplicates" do
+        described_class.add_terms :title
+        expect(form.terms).to include(:title).once
+      end
+    end
+  end
 end

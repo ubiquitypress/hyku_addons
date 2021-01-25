@@ -15,6 +15,7 @@ Metrics/ClassLength:
 
 Metrics/LineLength:
   Exclude:
+    - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
     - 'spec/jobs/register_doi_job_spec.rb'
 
 Metrics/ModuleLength:
