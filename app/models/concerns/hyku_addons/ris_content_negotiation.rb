@@ -6,7 +6,7 @@ module HykuAddons
     end
 
     def export_as_ris
-      json = attributes.merge("has_model" => model_name).to_json
+      json = attributes.merge("has_model" => to_model.model_name.name).to_json
 
       # NOTE:
       # Im not super happy with having 'work' here as it isn't dynamic, but requires that the reader

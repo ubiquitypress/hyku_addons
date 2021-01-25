@@ -94,6 +94,8 @@ module Bolognese
         end
 
         def read_keyword
+          return unless meta_value?("keyword")
+
           meta_value("keyword").collect { |r| { "subject" => sanitize(r) } }
         end
 
