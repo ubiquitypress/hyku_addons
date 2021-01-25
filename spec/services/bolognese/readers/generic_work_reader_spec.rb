@@ -95,8 +95,8 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
     end
 
     context 'datacite' do
-      subject(:datacite_xml) { Nokogiri::XML(datacite_string, &:strict).remove_namespaces! }
       let(:datacite_string) { metadata.datacite }
+      subject(:datacite_xml) { Nokogiri::XML(datacite_string, &:strict).remove_namespaces! }
 
       it 'creates datacite XML' do
         expect(datacite_string).to be_a String
@@ -108,32 +108,38 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
         expect(datacite_xml.xpath('/resource/identifier[@identifierType="DOI"]/text()').to_s).to eq url
       end
 
-      it 'correctly populates the datacite XML' do
-        expect(datacite_xml.xpath('/resource/titles/title[1]/text()').to_s).to eq title
-        expect(datacite_xml.xpath('/resource/creators/creator[1]/creatorName/text()').to_s).to eq creator
-        expect(datacite_xml.xpath('/resource/publisher/text()').to_s).to eq publisher
-        expect(datacite_xml.xpath('/resource/descriptions/description[1]/text()').to_s).to eq description
-        expect(datacite_xml.xpath('/resource/contributors/contributor[1]/contributorName/text()').to_s).to eq contributor
-        expect(datacite_xml.xpath('/resource/subjects/subject[1]/text()').to_s).to eq keyword
-        expect(datacite_xml.xpath('/resource/alternateIdentifiers/alternateIdentifier[1]/text()').to_s).to eq identifier
-        # FIXME: Why isn't this returning correctly?
-        lang = JSON.parse(datacite_xml.xpath('/resource/language/text()').to_s).first
-        expect(datacite_xml.xpath(lang).to_s).to eq language
+      context 'it correctly populates the datacite XML' do
+        it { expect(datacite_xml.xpath('/resource/titles/title[1]/text()').to_s).to eq title }
+        it { expect(datacite_xml.xpath('/resource/creators/creator[1]/creatorName/text()').to_s).to eq creator }
+        it { expect(datacite_xml.xpath('/resource/publisher/text()').to_s).to eq publisher }
+        it { expect(datacite_xml.xpath('/resource/descriptions/description[1]/text()').to_s).to eq abstract }
+        it { expect(datacite_xml.xpath('/resource/contributors/contributor[1]/contributorName/text()').to_s).to eq contributor }
+        it { expect(datacite_xml.xpath('/resource/subjects/subject[1]/text()').to_s).to eq keyword }
+        it { expect(JSON.parse(datacite_xml.xpath('/resource/language/text()').to_s).first).to eq language }
+        it {
+          xpath = '/resource/relatedIdentifiers/relatedIdentifier[@relatedIdentifierType="ISBN"]/text()'
+          expect(datacite_xml.xpath(xpath).to_s).to eq isbn
+        }
       end
 
-      it 'sets the hyrax work type' do
-        string = 'GenericWork'
-        expect(datacite_xml.xpath('/resource/resourceType[@resourceTypeGeneral="Other"]/text()').to_s).to eq string
+      it 'sets the resource type' do
+        type = JSON.parse(datacite_xml.xpath('/resource/resourceType[@resourceTypeGeneral="Other"]/text()').to_s).first
+        expect(type).to eq resource_type
       end
 
       context 'publication year' do
         let(:create_date) { '1945-01-01' }
         let(:upload_date) { DateTime.parse('2009-12-25 11:30').iso8601 }
 
+        it 'sets year from date_published by default' do
+          expect(datacite_xml.xpath('/resource/publicationYear/text()').to_s).to eq "1946"
+        end
+
         context 'with date_created' do
           before do
             work.date_created = [create_date]
             work.date_uploaded = upload_date
+            work.date_published = nil
           end
 
           it 'sets year from date_created' do
@@ -153,6 +159,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
           before do
             work.date_created = []
             work.date_uploaded = upload_date
+            work.date_published = nil
           end
 
           it 'sets year from date_uploaded' do
@@ -164,6 +171,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
           before do
             work.date_created = []
             work.date_uploaded = nil
+            work.date_published = nil
           end
 
           it 'defaults to current year' do
