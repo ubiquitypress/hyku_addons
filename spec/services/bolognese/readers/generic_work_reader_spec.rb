@@ -116,8 +116,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
         expect(datacite_xml.xpath('/resource/contributors/contributor[1]/contributorName/text()').to_s).to eq contributor
         expect(datacite_xml.xpath('/resource/subjects/subject[1]/text()').to_s).to eq keyword
         expect(datacite_xml.xpath('/resource/alternateIdentifiers/alternateIdentifier[1]/text()').to_s).to eq identifier
-        # FIXME:
-        # Why isn't this returning correctly?
+        # FIXME: Why isn't this returning correctly?
         lang = JSON.parse(datacite_xml.xpath('/resource/language/text()').to_s).first
         expect(datacite_xml.xpath(lang).to_s).to eq language
       end

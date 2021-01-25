@@ -65,9 +65,9 @@ module Bolognese
             VL: container.to_h["volume"],
             ER: ""
           }
-          .compact
-          .map { |k, v| v.is_a?(Array) ? v.map { |vi| "#{k}  - #{vi}" }.join("\r\n") : "#{k}  - #{v}" }
-          .join("\r\n")
+            .compact
+            .map { |k, v| v.is_a?(Array) ? v.map { |vi| "#{k}  - #{vi}" }.join("\r\n") : "#{k}  - #{v}" }
+            .join("\r\n")
         end
 
         # Legacy code ordered the values and returned
@@ -75,12 +75,12 @@ module Bolognese
           related_identifiers
             .select { |h| h["relatedIdentifier"].present? }
             .map { |h| [h["relatedIdentifierType"], h["relatedIdentifier"]] }.to_h
-            .slice(*%w[ISBN ISSN EISSN])
+            .slice('ISBN', 'ISSN', 'EISSN')
             .values.first
         end
 
         def calculate_resource_type(types)
-          RESOURCE_TYPES.select { |k, v| v.include?(types["resourceType"].first) }.keys.first || DEFAULT_RESOURCE_TYPE
+          RESOURCE_TYPES.select { |_k, v| v.include?(types["resourceType"].first) }.keys.first || DEFAULT_RESOURCE_TYPE
         end
       end
     end
