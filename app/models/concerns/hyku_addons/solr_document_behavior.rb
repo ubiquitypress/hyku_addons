@@ -99,7 +99,7 @@ module HykuAddons
     def meta_reader_class
       "Bolognese::Readers::#{@model.instance_variable_get(:@model)}Reader".constantize
     rescue NameError
-      "Bolognese::Readers::GenericWorkReader".constantize
+      Bolognese::Readers::GenericWorkReader
     end
   end
 end
