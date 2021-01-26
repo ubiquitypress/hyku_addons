@@ -8,10 +8,10 @@
 		name: "#{template}[#{field_group}][][#{field_slug}]",
 		data: { field_name: "ubiquity_#{field_slug}" },
 		required: local_assigns[:required]
-	} %>
-	<%= text_field_tag "#{template}[#{field_group}][][#{field_slug}]", hash.dig(field_slug.to_s), defaults.merge(local_assigns[:field_args] || {}) %>
+	}.merge(local_assigns[:field_args] || {}) %>
+	<%= text_field_tag "#{template}[#{field_group}][][#{field_slug}]", hash.dig(field_slug.to_s), defaults %>
 
-	<% help_key = "simple_form.#{field_group}.#{field_slug}.help_text"  %>
+  <% help_key = "simple_form.#{field_group}.#{field_slug}.help_text"  %>
 	<% if I18n.exists?(help_key) %>
 		<p class="help-block"><%= t(help_key) %></p>
 	<% end%>

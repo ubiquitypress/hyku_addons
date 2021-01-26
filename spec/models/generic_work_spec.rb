@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'hyrax/doi/spec/shared_specs'
 
 RSpec.describe GenericWork do
   let(:work) { described_class.new }
   let(:fully_described_work) { build(:fully_described_work) }
+
+  it_behaves_like 'a DOI-enabled model'
+  it_behaves_like 'a DataCite DOI-enabled model'
 
   describe 'additional properties' do
     let(:additional_properties) do

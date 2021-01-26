@@ -50,6 +50,22 @@ module HykuAddons
         end
       end
 
+      Hyku::RegistrationsController.class_eval do
+        def new
+          return super if current_account.settings['allow_signup'] == "true"
+          redirect_to root_path, alert: t(:'hyku.account.signup_disabled')
+        end
+
+        def create
+          return super if current_account.settings['allow_signup'] == "true"
+          redirect_to root_path, alert: t(:'hyku.account.signup_disabled')
+        end
+
+        def current_account
+          Site.account
+        end
+      end
+
       # Using a concern doesn't actually override the original method so inlining it here
       Proprietor::AccountsController.include HykuAddons::AccountControllerBehavior
       Proprietor::AccountsController.class_eval do
@@ -116,6 +132,11 @@ module HykuAddons
       end
     end
 
+    # Allow flipflop to load config/features.rb from the Hyrax gem:
+    initializer 'configure' do
+      Flipflop::FeatureLoader.current.append(self)
+    end
+
     # In test & dev environments, dynamically mount the hyku_addons in the parent app to avoid routing errors
     config.after_initialize do
       if Rails.env == 'development' || Rails.env == 'test'
@@ -178,6 +199,7 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
       Bolognese::Metadata.prepend Bolognese::Readers::UbiquityGenericWorkReader
       Hyrax::GenericWorksController.prepend HykuAddons::WorksControllerAdditionalMimeTypesBehavior
+      User.include HykuAddons::UserEmailFormat
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once

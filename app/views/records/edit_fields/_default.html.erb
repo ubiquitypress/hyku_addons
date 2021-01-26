@@ -1,0 +1,13 @@
+<% if f.object.multiple? key %>
+  <%= f.input key, 
+              as: :multi_value, 
+              input_html: { class: 'form-control' }, 
+              required: f.object.required?(key), 
+              placeholder: lambda { 
+                key = "simple_form.placeholders.defaults.#{key}"
+                I18n.exists?(key) ? t(key) : ''
+              }.call
+              %> 
+<% else %>
+  <%= f.input key, required: f.object.required?(key) %>
+<% end %>

@@ -5,6 +5,11 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     included do
+      # Adds behaviors for hyrax-doi plugin.
+      include Hyrax::DOI::DOIPresenterBehavior
+      # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
+      include Hyrax::DOI::DataCiteDOIPresenterBehavior
+
       DELEGATED_METHODS = [:volume, :pagination, :issn, :eissn, :official_link, :series_name, :edition,
                            :event_title, :event_date, :event_location, :book_title, :journal_title,
                            :issue, :article_num, :isbn, :media, :related_exhibition, :related_exhibition_date,

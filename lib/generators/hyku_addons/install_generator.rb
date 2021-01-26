@@ -3,17 +3,16 @@ module HykuAddons
   class InstallGenerator < Rails::Generators::Base
     desc <<-EOS
       This generator makes the following changes to Hyku:
-        1. Installs and configures hyrax-doi
+        1. Injects work type overrides
+        2. Copies controlled vocabularies
+        3. Injects javascript
+        4. Injects helpers
     EOS
 
     source_root File.expand_path('templates', __dir__)
 
     def install_hyrax_doi
       generate 'hyrax:doi:install --datacite'
-      # Configure default_url_options
-      # Rails.application.routes.default_url_options[:host] = 'lvh.me:3000' ?
-
-      # generate 'hyrax:doi:add_to_work_type GenericWork --datacite'
     end
 
     def inject_overrides_into_curation_concerns
@@ -39,13 +38,6 @@ module HykuAddons
         "\n" \
         "  # Helpers provided by hyku_addons plugin.\n" \
         "  include HykuAddons::HelperBehavior"
-      end
-    end
-
-    def override_blacklight_oai_provider_version
-      gsub_file(Rails.root.join('Gemfile'), "gem 'blacklight_oai_provider', '~> 6.0'", "gem 'blacklight_oai_provider', github: 'ubiquitypress/blacklight_oai_provider', branch: 'release-6.x'")
-      Bundler.with_original_env do
-        run 'bundle update blacklight_oai_provider oai'
       end
     end
   end
