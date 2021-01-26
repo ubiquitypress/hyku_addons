@@ -47,6 +47,7 @@ Metrics/MethodLength:
     - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
     - 'app/forms/concerns/hyku_addons/generic_work_form_overrides.rb'
     - 'app/forms/concerns/hyku_addons/work_form.rb'
+    - 'app/models/hyku_addons/csv_entry.rb'
     - 'app/services/bolognese/readers/base_work_reader.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
     - 'lib/hyku_addons/engine.rb'
@@ -55,15 +56,19 @@ Metrics/MethodLength:
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
+    - 'lib/hyku_addons/engine.rb'
 
 Metrics/PerceivedComplexity:
   Exclude:
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
+    - 'lib/hyku_addons/engine.rb'
 
 Metrics/AbcSize:
   Exclude:
     - 'app/forms/concerns/hyku_addons/work_form.rb'
+    - 'app/models/hyku_addons/csv_entry.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
+    - 'lib/hyku_addons/engine.rb'
 
 RSpec/DescribeClass:
   Exclude:
