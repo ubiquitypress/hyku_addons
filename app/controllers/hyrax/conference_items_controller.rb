@@ -3,11 +3,11 @@
 #  `rails generate hyrax:work ConferenceItem`
 module Hyrax
   # Generated controller for ConferenceItem
-  class ConferenceItemsController < ApplicationController
+  class ConferenceItemsController < ::ApplicationController
     # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
     include Hyrax::BreadcrumbsForWorks
-    include HykuAddons::WorksControllerAdditionalMimeTypesBehavior
+    include HykuAddons::WorksControllerBehavior
 
     self.curation_concern_type = ::ConferenceItem
 

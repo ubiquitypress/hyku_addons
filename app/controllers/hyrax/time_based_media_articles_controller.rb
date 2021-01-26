@@ -3,11 +3,11 @@
 #  `rails generate hyrax:work TimeBasedMediaArticle`
 module Hyrax
   # Generated controller for TimeBasedMediaArticle
-  class TimeBasedMediaArticlesController < ApplicationController
+  class TimeBasedMediaArticlesController < ::ApplicationController
     # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
     include Hyrax::BreadcrumbsForWorks
-    include HykuAddons::WorksControllerAdditionalMimeTypesBehavior
+    include HykuAddons::WorksControllerBehavior
 
     self.curation_concern_type = ::TimeBasedMediaArticle
 
