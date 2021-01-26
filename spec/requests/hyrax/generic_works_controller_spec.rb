@@ -19,6 +19,9 @@ RSpec.describe Hyrax::GenericWorksController, type: :request, multitenant: true 
   end
 
   describe "#show" do
+    it "tests stuff" do
+      expect(true).to eq true
+    end
     # context "when the work is public" do
     #   context "when requesting an HTML document" do
     #     # Make sure normal request still work
