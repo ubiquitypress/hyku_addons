@@ -3,10 +3,12 @@
 #  `rails generate hyrax:work BookContribution`
 module Hyrax
   # Generated controller for BookContribution
-  class BookContributionsController < ApplicationController
+  class BookContributionsController < ::ApplicationController
     # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
     include Hyrax::BreadcrumbsForWorks
+    include HykuAddons::WorksControllerBehavior
+
     self.curation_concern_type = ::BookContribution
 
     # Use this line if you want to use a custom presenter

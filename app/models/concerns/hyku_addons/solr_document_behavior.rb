@@ -94,5 +94,12 @@ module HykuAddons
         subject: 'keyword_tesim'
       )
     end
+
+    # Work out the reader class from the solr document model
+    def meta_reader_class
+      "Bolognese::Readers::#{@model.instance_variable_get(:@model)}Reader".constantize
+    rescue NameError
+      Bolognese::Readers::GenericWorkReader
+    end
   end
 end
