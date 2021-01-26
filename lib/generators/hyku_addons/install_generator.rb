@@ -24,7 +24,7 @@ module HykuAddons
     end
 
     def copy_controlled_vocabularies
-      directory HykuAddons::Engine.root.join("config", "authorities"), Rails.root.join("config", "authorities")
+      directory HykuAddons::Engine.root.join("config", "authorities"), Rails.root.join("config", "authorities"), force: true
     end
 
     def inject_javascript

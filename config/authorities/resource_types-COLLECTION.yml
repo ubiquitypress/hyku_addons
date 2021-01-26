@@ -1,0 +1,88 @@
+terms:
+  - id: 3D image
+    term: 3D image
+  - id: Abstract
+    term: Abstract
+  - id: Blog post
+    term: Blog post
+  - id: Book
+    term: Book
+  - id: Book chapter
+    term: Book chapter
+  - id: Book editorial
+    term: Book editorial
+  - id: Book review
+    term: Book review
+  - id: Cartographic material
+    term: Cartographic material
+  - id: Conference paper (published)
+    term: Conference paper (published)
+  - id: Conference paper (unpublished)
+    term: Conference paper (unpublished)
+  - id: Conference poster (published)
+    term: Conference poster (published)
+  - id: Conference poster (unpublished)
+    term: Conference poster (unpublished)
+  - id: Data paper
+    term: Data paper
+  - id: Database
+    term: Database
+  - id: Dataset
+    term: Dataset
+  - id: Editorial
+    term: Editorial
+  - id: Exhibition
+    term: Exhibition
+  - id: Geographical dataset
+    term: Geographical dataset
+  - id: Grey literature
+    term: Grey literature
+  - id: Interactive resource
+    term: Interactive resource
+  - id: Journal article
+    term: Journal article
+  - id: Learning object
+    term: Learning object
+  - id: Lecture
+    term: Lecture
+  - id: Letter to the editor
+    term: Letter to the editor
+  - id: Magazine article
+    term: Magazine article
+  - id: Moving image
+    term: Moving image
+  - id: Musical notation
+    term: Musical notation
+  - id: Newspaper article
+    term: Newspaper article
+  - id: Numerical dataset
+    term: Numerical dataset
+  - id: Patent
+    term: Patent
+  - id: Policy report
+    term: Policy report
+  - id: Presentation
+    term: Presentation
+  - id: Research report
+    term: Research report
+  - id: Software
+    term: Software
+  - id: Sound
+    term: Sound
+  - id: Still image
+    term: Still image
+  - id: Technical documentation
+    term: Technical documentation
+  - id: Technical report
+    term: Technical report
+  - id: Thesis (doctoral)
+    term: Thesis (doctoral)
+  - id: Website
+    term: Website
+  - id: Workflow
+    term: Workflow
+  - id: Working paper
+    term: Working paper
+  - id: Other
+    term: Other
+

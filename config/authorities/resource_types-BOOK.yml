@@ -1,0 +1,10 @@
+terms:
+  - id: Book
+    term: Book
+  - id: Grey literature
+    term: Grey literature
+  - id: Technical documentation
+    term: Technical documentation
+  - id: Working paper
+    term: Working paper
+
