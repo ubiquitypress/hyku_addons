@@ -8,7 +8,47 @@ class PacificArticle < ActiveFedora::Base
   # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
-  include HykuAddons::PacificSharedMetadata
+  included do
+    property :journal_title, predicate: ::RDF::Vocab::BIBO.Journal, multiple: false do |index|
+      index.as :stored_searchable, :facetable
+    end
+
+    property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
+      index.as :stored_searchable
+    end
+
+    property :issue, predicate: ::RDF::Vocab::Bibframe.term(:Serial), multiple: false do |index|
+      index.as :stored_searchable
+    end
+
+    property :pagination, predicate: ::RDF::Vocab::BIBO.numPages, multiple: false do |index|
+      index.as :stored_searchable
+    end
+
+    property :issn, predicate: ::RDF::Vocab::BIBO.issn, multiple: false do |index|
+      index.as :stored_searchable
+    end
+
+    property :refereed, predicate: ::RDF::Vocab::BIBO.term("status/peerReviewed"), multiple: false do |index|
+      index.as :stored_searchable
+    end
+
+    property :page_display_order_number, predicate: ::RDF::Vocab::SCHEMA.orderNumber, multiple: false do |index|
+      index.as :stored_searchable
+    end
+
+    property :additional_links, predicate: ::RDF::Vocab::SCHEMA.significantLinks, multiple: false do |index|
+      index.as :stored_searchable
+    end
+
+    property :irb_status, predicate: ::RDF::Vocab::BF2.Status, multiple: false do |index|
+      index.as :stored_searchable, :facetable
+    end
+
+    property :irb_number, predicate: ::RDF::Vocab::BIBO.identifier, multiple: false do |index|
+      index.as :stored_searchable, :facetable
+    end
+  end
 
   self.indexer = PacificArticleIndexer
   # Change this to restrict which works can be added as a child.

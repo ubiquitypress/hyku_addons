@@ -26,7 +26,7 @@ Metrics/BlockLength:
     - 'app/models/concerns/hyku_addons/solr_document_behavior.rb'
     - 'app/models/concerns/hyku_addons/work_base.rb'
     - 'app/forms/concerns/hyku_addons/work_form.rb'
-    - 'app/models/concerns/hyku_addons/pacific_shared_metadata.rb'
+    - 'app/models/pacific_article.rb'
     - 'hyku_addons.gemspec'
     - 'lib/hyku_addons/engine.rb'
     - 'spec/**/*.rb'

@@ -9,7 +9,16 @@ class PacificImage < ActiveFedora::Base
   # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
-  include HykuAddons::PacificSharedMetadata
+
+  included do
+    property :additional_links, predicate: ::RDF::Vocab::SCHEMA.significantLinks, multiple: false do |index|
+      index.as :stored_searchable
+    end
+
+    property :is_included_in, predicate: ::RDF::Vocab::BF2.part, multiple: false do |index|
+      index.as :stored_searchable
+    end
+  end
 
   self.indexer = PacificImageIndexer
   # Change this to restrict which works can be added as a child.
