@@ -178,6 +178,9 @@ module HykuAddons
         config.register_curation_concern :book_contribution
         config.register_curation_concern :conference_item
         config.register_curation_concern :time_based_media_article
+        config.register_curation_concern :pacific_article
+        config.register_curation_concern :pacific_book
+        config.register_curation_concern :pacific_image
       end
     end
 

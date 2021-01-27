@@ -1,0 +1,8 @@
+fr:
+  hyrax:
+    icons:
+      pacific_book:     'fa fa-file-text-o'
+    select_type:
+      pacific_book:
+        description:        "Pacific book œuvres"
+        name:               "Pacific Book"
