@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'hyrax/doi/spec/shared_specs'
 
 RSpec.describe Hyrax::GenericWorkForm do
   let(:work) { GenericWork.new }
   let(:form) { described_class.new(work, nil, nil) }
+
+  it_behaves_like 'a DOI-enabled form'
+  it_behaves_like 'a DataCite DOI-enabled form'
 
   describe ".required_fields" do
     subject { form.required_fields }
@@ -77,6 +81,4 @@ RSpec.describe Hyrax::GenericWorkForm do
       end
     end
   end
-
-  include_examples("work_form")
 end

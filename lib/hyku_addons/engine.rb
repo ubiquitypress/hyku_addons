@@ -132,6 +132,11 @@ module HykuAddons
       end
     end
 
+    # Allow flipflop to load config/features.rb from the Hyrax gem:
+    initializer 'configure' do
+      Flipflop::FeatureLoader.current.append(self)
+    end
+
     # In test & dev environments, dynamically mount the hyku_addons in the parent app to avoid routing errors
     config.after_initialize do
       if Rails.env == 'development' || Rails.env == 'test'
@@ -191,14 +196,14 @@ module HykuAddons
       CatalogController.include HykuAddons::CatalogControllerBehavior
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
-      Bolognese::Metadata.prepend Bolognese::Readers::UbiquityGenericWorkReader
-      Hyrax::GenericWorksController.prepend HykuAddons::WorksControllerAdditionalMimeTypesBehavior
       User.include HykuAddons::UserEmailFormat
+      Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
+      Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
     # This might slow down every request so only do it in development environment
-    if Rails.env == 'development'
+    if Rails.env.development?
       config.to_prepare { HykuAddons::Engine.dynamically_include_mixins }
     else
       config.after_initialize { HykuAddons::Engine.dynamically_include_mixins }

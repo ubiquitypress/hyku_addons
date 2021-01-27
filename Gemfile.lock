@@ -271,7 +271,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     colorize (0.8.1)
-    concurrent-ruby (1.1.7)
+    concurrent-ruby (1.1.8)
     config (2.2.3)
       deep_merge (~> 1.2, >= 1.2.1)
       dry-validation (~> 1.0, >= 1.0.0)
@@ -965,6 +965,8 @@ GEM
       rdf-xsd (~> 3.1)
       sparql (~> 3.1)
       sxp (~> 1.1)
+    shoulda-matchers (4.5.0)
+      activesupport (>= 4.2.0)
     sidekiq (6.1.2)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
@@ -1138,6 +1140,7 @@ DEPENDENCIES
   scss_lint
   secure_headers
   selenium-webdriver
+  shoulda-matchers
   sidekiq
   simplecov
   solr_wrapper (~> 2.0)
@@ -1153,4 +1156,4 @@ DEPENDENCIES
   zk
 
 BUNDLED WITH
-   2.2.3
+   2.2.5
