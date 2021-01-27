@@ -182,6 +182,7 @@ module HykuAddons
         config.register_curation_concern :exhibition_item
         config.register_curation_concern :report
         config.register_curation_concern :time_based_media_article
+        config.register_curation_concern :thesis_or_disertation
       end
     end
 

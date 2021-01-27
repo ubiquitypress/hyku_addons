@@ -3,9 +3,7 @@
 #  `rails generate hyrax:work TimeBasedMediaArticle`
 class TimeBasedMediaArticle < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
-  # Adds behaviors for hyrax-doi plugin.
   include Hyrax::DOI::DOIBehavior
-  # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
 

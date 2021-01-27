@@ -1,13 +1,11 @@
 # frozen_string_literal: true
-# Generated via
-#  `rails generate hyrax:work Dataset`
+
 module Hyrax
-  # Generated form for Dataset
   class DatasetForm < Hyrax::Forms::WorkForm
     include Hyrax::DOI::DOIFormBehavior
-    # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
     include Hyrax::DOI::DataCiteDOIFormBehavior
     include ::HykuAddons::WorkForm
+
     self.model_class = ::Dataset
     add_terms %i[title resource_type creator alt_title contributor rendering_ids abstract date_published
                  org_unit project_name funder fndr_project_ref version place_of_publication date_accepted date_submitted
