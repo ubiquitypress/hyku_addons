@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      pacific_image:     'fa fa-file-text-o'
+    select_type:
+      pacific_image:
+        # TODO: translate `human_name` into Chinese
+        description:        "Pacific image 作品"
+        name:               "Pacific Image"
+        # TODO: translate `human_name` into Chinese

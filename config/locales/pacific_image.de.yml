@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      pacific_image:     'fa fa-file-text-o'
+    select_type:
+      pacific_image:
+        description:        "Pacific image Werke"
+        name:               "Pacific Image"

@@ -32,6 +32,7 @@ Metrics/BlockLength:
     - 'app/models/concerns/hyku_addons/solr_document_behavior.rb'
     - 'app/models/concerns/hyku_addons/work_base.rb'
     - 'app/forms/concerns/hyku_addons/work_form.rb'
+    - 'app/models/pacific_article.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
     - 'hyku_addons.gemspec'
     - 'lib/hyku_addons/engine.rb'
@@ -89,7 +90,8 @@ Style/MethodMissing:
 Rails/OutputSafety:
   Exclude:
     - 'app/renderers/**/*'
-
+    
 Rails/Date:
   Exclude:
     - 'spec/services/bolognese/readers/generic_work_reader_spec.rb'
+
