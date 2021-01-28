@@ -39,7 +39,7 @@ json.is_included_in work.try(:is_included_in)
 json.isbn work.try(:isbn)
 json.issn work.try(:issn)
 json.issue work.try(:issue)
-journal_title work.try(:journal_title)
+json.journal_title work.try(:journal_title)
 json.keywords work.keyword
 json.language work.language
 #                                         "library_of_congress_classification" => nil,
