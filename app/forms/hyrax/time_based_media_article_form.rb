@@ -24,10 +24,6 @@ module Hyrax
       end
     end
 
-    def editor_list
-      person_or_organization_list(:editor)
-    end
-
     protected
 
       def additional_fields

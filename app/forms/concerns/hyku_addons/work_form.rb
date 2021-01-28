@@ -12,6 +12,10 @@ module HykuAddons
       person_or_organization_list(:contributor)
     end
 
+    def editor_list
+      person_or_organization_list(:editor)
+    end
+
     class_methods do
       # Adds the terms received as params to the work type terms list ensuring the correct order
       # @param work_type_terms [Array] array of terms to add to the work type
