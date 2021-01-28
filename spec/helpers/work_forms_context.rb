@@ -11,9 +11,11 @@ RSpec.shared_context 'work forms context' do
   end
 
   def check_common_fields_presence
-    %w[title alternative_name project_name institution abstract official_link language license
-       rights_statement rights_holder doi peer_reviewed keywords dewey library_of_congress_classification
-       add_info].each do |attr|
+    fields = %w[title alternative_name project_name institution abstract official_link language license
+       rights_statement rights_holder doi keywords dewey library_of_congress_classification
+       add_info]
+
+    fields.each do |attr|
       expect(model_attributes[attr]).to eq attr
     end
 
@@ -47,7 +49,6 @@ RSpec.shared_context 'work forms context' do
       rights_statement: 'rights_statement',
       rights_holder: 'rights_holder',
       doi: 'doi',
-      peer_reviewed: 'peer_reviewed',
       keywords: 'keywords',
       dewey: 'dewey',
       library_of_congress_classification: 'library_of_congress_classification',
