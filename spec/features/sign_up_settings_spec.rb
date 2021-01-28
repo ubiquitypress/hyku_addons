@@ -32,10 +32,16 @@ RSpec.describe "Sign Up", type: :feature do
 
   context 'with account signup diabled' do
     it 'does not allow a user to create an account' do
-      account.settings['allow_signup'] = "false"
+      account.allow_signup = "false"
       account.save!
       visit '/users/sign_up'
       expect(page).to have_content("Account registration is disabled")
+    end
+  end
+
+  context 'default value' do
+    it 'defaults to true' do
+      expect(Account.new.allow_signup).to eq "true"
     end
   end
 end
