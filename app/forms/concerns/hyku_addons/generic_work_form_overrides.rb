@@ -3,6 +3,8 @@ module HykuAddons
   module GenericWorkFormOverrides
     extend ActiveSupport::Concern
 
+    include Hyrax::DOI::DOIFormBehavior
+    include Hyrax::DOI::DataCiteDOIFormBehavior
     include ::HykuAddons::WorkForm
 
     included do
@@ -15,12 +17,7 @@ module HykuAddons
                   related_exhibition_venue related_exhibition_date language license rights_statement rights_holder doi
                   qualification_name qualification_level alternate_identifier related_identifier refereed keyword dewey
                   library_of_congress_classification add_info]
-      self.required_fields = %i[title resource_type creator institution]
-
-      # Adds behaviors for hyrax-doi plugin.
-      include Hyrax::DOI::DOIFormBehavior
-      # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
-      include Hyrax::DOI::DataCiteDOIFormBehavior
+      self.required_fields = %i[title resource_type creator institution date_published]
 
       def primary_terms
         super - %i[license]
@@ -42,10 +39,6 @@ module HykuAddons
           permitted_params << related_identifier_fields
         end
       end
-    end
-
-    def editor_list
-      person_or_organization_list(:editor)
     end
   end
 end
