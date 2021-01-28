@@ -7,7 +7,7 @@ RSpec.describe Hyrax::TimeBasedMediaArticleForm do
     describe "#required_fields" do
       subject { form.required_fields }
 
-      it { is_expected.to eq %i[title resource_type creator institution license] }
+      it { is_expected.to eq %i[title resource_type creator institution date_published] }
     end
   end
 
@@ -15,11 +15,11 @@ RSpec.describe Hyrax::TimeBasedMediaArticleForm do
     subject { form.terms }
 
     it "sets the terms" do
-      expected_terms = %i[title resource_type abstract add_info alt_title alternate_identifier event_title event_location event_date
-                          contributor creator date_accepted date_published date_submitted dewey doi
-                          fndr_project_ref funder institution keyword language library_of_congress_classification
-                          license official_link org_unit place_of_publication project_name publisher related_identifier
-                          related_url rights_holder rights_statement editor]
+      expected_terms = %i[title resource_type abstract add_info alt_title alternate_identifier event_title
+                          event_location event_date contributor creator date_accepted date_published date_submitted
+                          dewey doi fndr_project_ref funder institution keyword language
+                          library_of_congress_classification license official_link org_unit place_of_publication
+                          project_name publisher related_identifier related_url rights_holder rights_statement editor]
       is_expected.to include(*expected_terms)
     end
   end
