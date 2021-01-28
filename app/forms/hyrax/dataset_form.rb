@@ -13,12 +13,5 @@ module Hyrax
                  doi alternate_identifier related_identifier refereed keyword dewey library_of_congress_classification
                  add_info]
     self.required_fields = %i[title resource_type creator institution date_published]
-
-    def self.build_permitted_params
-      super.tap do |permitted_params|
-        permitted_params << common_fields
-        permitted_params << %i[version place_of_publication]
-      end
-    end
   end
 end

@@ -14,14 +14,5 @@ module Hyrax
                  alternate_identifier related_identifier refereed keyword dewey library_of_congress_classification
                  add_info pagination]
     self.required_fields = %i[title resource_type creator institution date_published]
-
-    def self.build_permitted_params
-      super.tap do |permitted_params|
-        permitted_params << common_fields
-        permitted_params << editor_fields
-        permitted_params << event_date_fields
-        permitted_params << %i[series_name book_title volume isbn issn eissn pagination event_title event_location]
-      end
-    end
   end
 end

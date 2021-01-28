@@ -17,6 +17,26 @@ module HykuAddons
     end
 
     class_methods do
+      # Group all params here so save on boiler plate
+      def build_permitted_params
+        super.tap do |permitted_params|
+          permitted_params << common_fields
+          permitted_params << creator_fields
+          permitted_params << contributor_fields
+          permitted_params << date_published_fields
+          permitted_params << date_accepted_fields
+          permitted_params << date_submitted_fields
+          permitted_params << editor_fields
+          permitted_params << funder_fields
+          permitted_params << alternate_identifier_fields
+          permitted_params << related_identifier_fields
+          permitted_params << alternate_identifier_fields
+          permitted_params << event_fields
+          permitted_params << current_he_institution_fields
+          permitted_params << related_exhibition_fields
+         end
+      end
+
       # Adds the terms received as params to the work type terms list ensuring the correct order
       # @param work_type_terms [Array] array of terms to add to the work type
       def add_terms(work_type_terms = [])
@@ -24,8 +44,9 @@ module HykuAddons
         self.terms = available_terms & (self.terms + Array.wrap(work_type_terms))
       end
 
+      # Form fields. Note, these to not necessarily match the params which need to be permitted
       def available_terms
-        %i[title alt_title resource_type creator contributor rendering_ids abstract date_published media duration
+        %i[title alt_title resource_type creator contributor abstract date_published media duration
            institution org_unit project_name funder fndr_project_ref event_title event_location event_date
            series_name book_title editor journal_title alternative_journal_title volume edition version_number issue
            pagination article_num publisher place_of_publication isbn issn eissn current_he_institution date_accepted
@@ -42,11 +63,11 @@ module HykuAddons
       end
 
       def common_fields
-        [:title, :resource_type, :alternative_name, :project_name, :institution, :abstract, :official_link,
-         :related_url, :language, :license, :rights_statement, :rights_holder, :doi, :refereed, :keywords,
-         :dewey, :library_of_congress_classification, :add_info, :issn, :isbn, :eissn, :event_title, :event_location,
-         creator_fields, contributor_fields, date_published_fields, date_accepted_fields, date_submitted_fields,
-         funder_fields, related_identifier_fields, alternate_identifier_fields]
+        %i[title alt_title resource_type abstract alternative_name project_name institution media official_link
+          related_url language license rights_statement rights_holder doi refereed keywords dewey
+          library_of_congress_classification add_info issn isbn eissn version series_name book_title pagination
+          publisher place_of_publication journal_title alternative_journal_title volume edition issue, article_num
+          qualification_name qualification_level]
       end
 
       def creator_fields
@@ -97,8 +118,8 @@ module HykuAddons
         { related_identifier: [:related_identifier, :related_identifier_type, :relation_type] }
       end
 
-      def event_date_fields
-        { event_date: [:event_date_year, :event_date_month, :event_date_day] }
+      def event_fields
+        [:event_title, :event_location, event_date: [:event_date_year, :event_date_month, :event_date_day]]
       end
 
       def current_he_institution_fields
@@ -108,11 +129,13 @@ module HykuAddons
         }
       end
 
-      def related_exhibition_date_fields
-        {
+      def related_exhibition_fields
+        [
+          :related_exhibition,
+          :related_exhibition_venue,
           related_exhibition_date: [:related_exhibition_date_year, :related_exhibition_date_month,
                                     :related_exhibition_date_day]
-        }
+        ]
       end
     end
 

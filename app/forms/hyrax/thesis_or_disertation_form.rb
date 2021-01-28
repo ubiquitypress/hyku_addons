@@ -15,15 +15,5 @@ module Hyrax
 
     self.required_fields = %i[title resource_type creator date_published institution qualification_level
                               qualification_name]
-
-    def self.build_permitted_params
-      super.tap do |permitted_params|
-        permitted_params << common_fields
-        permitted_params << current_he_institution_fields
-        permitted_params << alternate_identifier_fields
-        permitted_params << related_identifier_fields
-        permitted_params << %i[org_unit publisher place_of_publication qualification_name qualification_level]
-      end
-    end
   end
 end
