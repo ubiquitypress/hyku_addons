@@ -192,9 +192,11 @@ module HykuAddons
     # Pre-existing Work type overrides and dynamic includes
     def self.dynamically_include_mixins
       GenericWork.include HykuAddons::GenericWorkOverrides
+      Image.include HykuAddons::ImageOverrides
       GenericWork.include ::Hyrax::BasicMetadata
       WorkIndexer.include HykuAddons::WorkIndexerBehavior
       Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
+      Hyrax::ImageForm.include HykuAddons::ImageFormOverrides
       SolrDocument.include HykuAddons::SolrDocumentBehavior
       SolrDocument.include HykuAddons::SolrDocumentRis
       Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
