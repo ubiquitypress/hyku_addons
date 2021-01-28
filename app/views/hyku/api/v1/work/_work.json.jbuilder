@@ -3,20 +3,20 @@
 json.uuid work.id
 
 json.abstract work.description.first
-json.additional_info work.add_info
-json.additional_links work.additional_links
+json.additional_info work.try(:add_info)
+json.additional_links work.try(:additional_links)
 json.admin_set_name work.admin_set.first
 #                                         "alternative_journal_title" => nil,
-json.alternative_title work.alt_title
+json.alternative_title work.try(:alt_title)
 #                                         "article_number" => nil,
 #                                         "book_title" => nil,
-json.buy_book work.buy_book
+json.buy_book work.try(:buy_book)
 #                                         "challenged" => nil,
 json.cname @account.cname
 #                                         "collections" => nil,
 #                                         "current_he_institution" => nil,
 #                                         "date_accepted" => nil,
-json.date_published work.date_published
+json.date_published work.try(:date_published)
 json.date_submitted work.date_uploaded
 #                                         "degree" => nil,
 #                                         "dewey" => nil,
@@ -33,25 +33,25 @@ json.date_submitted work.date_uploaded
 #                                         "funder" => nil,
 #                                         "funder_project_reference" => nil,
 #                                         "institution" => nil,
-json.irb_number work.irb_number
-json.irb_status work.irb_status
-json.is_included_in work.is_included_in
-json.isbn work.isbn
-json.issn work.issn
-json.issue work.issue
-journal_title work.journal_title
+json.irb_number work.try(:irb_number)
+json.irb_status work.try(:irb_status)
+json.is_included_in work.try(:is_included_in)
+json.isbn work.try(:isbn)
+json.issn work.try(:issn)
+json.issue work.try(:issue)
+json.journal_title work.try(:journal_title)
 json.keywords work.keyword
 json.language work.language
 #                                         "library_of_congress_classification" => nil,
-json.license work.license
+json.license work.try(:license)
 #                                         "location" => nil,
 #                                         "material_media" => nil,
 #                                         "migration_id" => nil,
 #                                         "official_url" => nil,
-json.organisational_unit work.org_unit
+json.organisational_unit work.try(:org_unit)
 #                                         "outcome" => nil,
-json.page_display_order_number work.page_display_order_number
-json.pagination work.pagination
+json.page_display_order_number work.try(:page_display_order_number)
+json.pagination work.try(:pagination)
 #                                         "participant" => nil,
 #                                         "photo_caption" => nil,
 #                                         "photo_description" => nil,
@@ -61,14 +61,14 @@ json.publisher work.publisher
 #                                         "qualification_level" => nil,
 #                                         "qualification_name" => nil,
 #                                         "reading_level" => nil,
-json.refereed work.refereed
+json.refereed work.try(:refereed)
 #                                         "related_exhibition" => nil,
 #                                         "related_exhibition_date" => nil,
 #                                         "related_exhibition_venue" => nil,
 json.related_url work.related_url
 json.resource_type work.resource_type
 #                                         "review_data" => nil,
-json.rights_holder work.rights_holder
+json.rights_holder work.try(:rights_holder)
 json.rights_statement work.rights_statement
 #                                         "series_name" => nil,
 json.source work.source
@@ -80,6 +80,6 @@ json.title work.title.first
 json.type "work"
 #                                         "version" => nil,
 json.visibility work.solr_document.visibility
-json.volume work.volume
+json.volume work.try(:volume)
 json.work_type work.model.model_name.to_s
 json.workflow_status work.solr_document.workflow_state

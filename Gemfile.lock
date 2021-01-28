@@ -33,6 +33,15 @@ GIT
       aws-sdk-sqs (~> 1)
       rails (>= 4.2)
 
+GIT
+  remote: https://github.com/ubiquitypress/hyku-api
+  revision: 52e48bc6c53d10ce1951731d6d6ddc7f31b4a89a
+  branch: main
+  specs:
+    hyku-api (0.1.0)
+      jwt
+      rails (~> 5.2.4, >= 5.2.4.4)
+
 PATH
   remote: .
   specs:
@@ -1112,6 +1121,7 @@ DEPENDENCIES
   flipflop (~> 2.3)
   flutie
   honeybadger (~> 3.0)
+  hyku-api!
   hyku_addons!
   hyrax (~> 2.9)
   i18n-debug
