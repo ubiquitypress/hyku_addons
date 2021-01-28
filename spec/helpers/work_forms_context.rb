@@ -12,8 +12,8 @@ RSpec.shared_context 'work forms context' do
 
   def check_common_fields_presence
     %w[title alternative_name project_name institution abstract official_link language license
-      rights_statement rights_holder doi peer_reviewed keywords dewey library_of_congress_classification
-      add_info].each do |attr|
+       rights_statement rights_holder doi peer_reviewed keywords dewey library_of_congress_classification
+       add_info].each do |attr|
       expect(model_attributes[attr]).to eq attr
     end
 
@@ -53,7 +53,7 @@ RSpec.shared_context 'work forms context' do
       library_of_congress_classification: 'library_of_congress_classification',
       add_info: 'add_info'
     }.merge(creator_params, contributor_params, date_published_params, funder_params, date_accepted_params,
-            date_submitted_params,related_identifier_params, alternate_identifier_params)
+            date_submitted_params, related_identifier_params, alternate_identifier_params)
   end
 
   def creator_params
