@@ -30,7 +30,6 @@ module HykuAddons
         index.as :stored_searchable
       end
 
-      # From BasicMetadataDecorator
       property :refereed, predicate: ::RDF::Vocab::BIBO.term("status/peerReviewed"), multiple: false do |index|
         index.as :stored_searchable
       end
