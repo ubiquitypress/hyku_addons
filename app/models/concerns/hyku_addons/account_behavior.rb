@@ -24,6 +24,7 @@ module HykuAddons
       after_initialize :set_jsonb_help_texts_default_keys, :set_jsonb_work_unwanted_fields_default_keys
       after_initialize :set_jsonb_required_json_property_default_keys, :set_jsonb_html_required_default_keys
       after_initialize :set_jsonb_metadata_labels_default_keys, :set_jsonb_licence_list_default_keys
+      after_initialize :set_jsonb_allow_signup_default
       before_save :remove_settings_hash_key_with_nil_value
       validates :gtm_id, format: { with: /GTM-[A-Z0-9]{4,7}/, message: "Invalid GTM ID" }, allow_blank: true
       validates :contact_email, :oai_admin_email,
@@ -99,6 +100,11 @@ module HykuAddons
         self.licence_list = {
           name: nil, value: nil
         }
+      end
+
+      def set_jsonb_allow_signup_default
+        return if settings['allow_signup'].present?
+        self.allow_signup = 'true'
       end
 
       def remove_settings_hash_key_with_nil_value

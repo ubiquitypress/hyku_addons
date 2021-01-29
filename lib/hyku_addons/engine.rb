@@ -52,12 +52,12 @@ module HykuAddons
 
       Hyku::RegistrationsController.class_eval do
         def new
-          return super if current_account.settings['allow_signup'] == "true"
+          return super if current_account.allow_signup == "true"
           redirect_to root_path, alert: t(:'hyku.account.signup_disabled')
         end
 
         def create
-          return super if current_account.settings['allow_signup'] == "true"
+          return super if current_account.allow_signup == "true"
           redirect_to root_path, alert: t(:'hyku.account.signup_disabled')
         end
 
