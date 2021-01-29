@@ -1,15 +1,16 @@
 # frozen_string_literal: true
-# Generated via
-#  `rails generate hyrax:work Dataset`
+
 class Dataset < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
-  # Adds behaviors for hyrax-doi plugin.
   include Hyrax::DOI::DOIBehavior
-  # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
 
   property :version, predicate: ::RDF::Vocab::SCHEMA.version do |index|
+    index.as :stored_searchable
+  end
+
+  property :version_number, predicate: ::RDF::Vocab::SCHEMA.version do |index|
     index.as :stored_searchable
   end
 
@@ -22,8 +23,7 @@ class Dataset < ActiveFedora::Base
   end
 
   self.indexer = DatasetIndexer
-  # Change this to restrict which works can be added as a child.
-  # self.valid_child_concerns = []
+
   validates :title, presence: { message: 'Your work must have a title.' }
 
   # This must be included at the end, because it finalizes the metadata

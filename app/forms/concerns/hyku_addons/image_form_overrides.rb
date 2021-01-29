@@ -8,7 +8,7 @@ module HykuAddons
     include Hyrax::DOI::DataCiteDOIFormBehavior
     include ::HykuAddons::WorkForm
 
-    included do # version is used in the show page but populated by version_number from the edit and new form
+    included do
       add_terms %i[title resource_type creator alt_title contributor rendering_ids abstract date_published media
                    duration institution org_unit project_name funder fndr_project_ref
                    publisher place_of_publication date_accepted date_submitted official_link related_url

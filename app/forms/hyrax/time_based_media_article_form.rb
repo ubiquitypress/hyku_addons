@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Hyrax
   class TimeBasedMediaArticleForm < Hyrax::Forms::WorkForm
     include Hyrax::DOI::DOIFormBehavior

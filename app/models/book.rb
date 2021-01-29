@@ -10,10 +10,6 @@ class Book < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
-  property :book_title, predicate: ::RDF::Vocab::BIBO.term(:Proceedings), multiple: false do |index|
-    index.as :stored_searchable, :facetable
-  end
-
   property :editor, predicate: ::RDF::Vocab::SCHEMA.Person do |index|
     index.as :stored_searchable
   end
@@ -51,10 +47,7 @@ class Book < ActiveFedora::Base
   end
 
   self.json_fields += %i[editor]
-
   self.indexer = BookIndexer
-  # Change this to restrict which works can be added as a child.
-  # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
 
   # This must be included at the end, because it finalizes the metadata

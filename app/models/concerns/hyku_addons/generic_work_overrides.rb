@@ -8,12 +8,9 @@ module HykuAddons
 
     # TODO: Review indexing and switch to mostly _ssim instead of _tesim
     included do
-      # Adds behaviors for hyrax-doi plugin.
       include Hyrax::DOI::DOIBehavior
-      # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
       include Hyrax::DOI::DataCiteDOIBehavior
 
-      # From SharedMetadata
       property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
         index.as :stored_searchable
       end

@@ -31,14 +31,6 @@ class TimeBasedMediaArticle < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :version, predicate: ::RDF::Vocab::SCHEMA.version do |index|
-    index.as :stored_searchable
-  end
-
-  property :version_number, predicate: ::RDF::Vocab::SCHEMA.version do |index|
-    index.as :stored_searchable
-  end
-
   property :place_of_publication, predicate: ::RDF::Vocab::BF2.term(:Place) do |index|
     index.as :stored_searchable, :facetable
   end
