@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 module HykuAddons
-  class QualificationNameService < Hyrax::QaSelectService
-    def initialize(_authority_name = nil)
-      super('qualification_name')
+  class QualificationNameService < HykuAddons::QaSelectService
+    def initialize(model: nil)
+      super('qualification_name', model: model)
     end
   end
 end

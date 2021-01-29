@@ -1,0 +1,15 @@
+terms:
+  - id: Journal article
+    term: Journal article
+  - id: Book review
+    term: Book review
+  - id: Data paper
+    term: Data paper
+  - id: Editorial
+    term: Editorial
+  - id: Letter to the editor
+    term: Letter to the editor
+  - id: Magazine article
+    term: Magazine article
+  - id: Newspaper article
+    term: Newspaper article

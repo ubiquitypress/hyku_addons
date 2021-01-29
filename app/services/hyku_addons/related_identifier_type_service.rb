@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 module HykuAddons
-  class RelatedIdentifierTypeService < Hyrax::QaSelectService
-    def initialize(_authority_name = nil)
-      super('related_identifier_type')
+  class RelatedIdentifierTypeService < HykuAddons::QaSelectService
+    def initialize(model: nil)
+      super('related_identifier_type', model: model)
     end
   end
 end
