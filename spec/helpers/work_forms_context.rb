@@ -185,6 +185,13 @@ RSpec.shared_context 'work forms context' do
 
   describe 'add_terms' do
     context 'with no previous terms' do
+      around do |example|
+        # Reset the class variable to avoid side effects in subsequent tests
+        @terms = described_class.terms
+        example.run
+        described_class.terms = @terms
+      end
+
       it "adds the terms passed as params" do
         described_class.add_terms :pagination
         expect(form.terms).to include(:pagination)

@@ -77,6 +77,10 @@ RSpec/ExampleLength:
     - 'spec/requests/api_v1_work_spec.rb'
     - 'spec/services/bolognese/readers/generic_work_reader_spec.rb'
 
+RSpec/InstanceVariable:
+  Exclude:
+    - 'spec/helpers/work_forms_context.rb'
+
 RSpec/NestedGroups:
   Exclude:
     - 'spec/services/bolognese/readers/generic_work_reader_spec.rb'
