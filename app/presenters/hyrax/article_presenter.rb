@@ -5,7 +5,7 @@ module Hyrax
     include Hyrax::DOI::DataCiteDOIPresenterBehavior
     include ::HykuAddons::GenericWorkPresenterBehavior
 
-    DELEGATED_METHODS = [:volume, :pagination, :issn, :eissn, :official_link,
+    DELEGATED_METHODS = [:volume, :pagination, :issn, :eissn, :contributor_display, :publisher, :official_link,
                          :journal_title, :issue, :article_num, :alternative_journal_title,
                          :institution, :org_unit, :refereed, :funder, :fndr_project_ref, :add_info, :date_published,
                          :date_accepted, :date_submitted, :project_name, :rights_holder, :place_of_publication,

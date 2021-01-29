@@ -1,11 +1,8 @@
 # frozen_string_literal: true
-# Generated via
-#  `rails generate hyrax:work ExhibitionItem`
+
 module Hyrax
   class ExhibitionItemPresenter < Hyrax::WorkShowPresenter
-    # Adds behaviors for hyrax-doi plugin.
     include Hyrax::DOI::DOIPresenterBehavior
-    # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
     include Hyrax::DOI::DataCiteDOIPresenterBehavior
     include ::HykuAddons::GenericWorkPresenterBehavior
 
@@ -15,6 +12,7 @@ module Hyrax
                          :date_accepted, :date_submitted, :project_name, :rights_holder, :place_of_publication,
                          :abstract, :alternate_identifier, :related_identifier, :creator_display,
                          :library_of_congress_classification, :alt_title, :dewey,
-                         :title, :date_created, :description, :related_exhibition, :related_exhibition_venue, :place_of_publication].freeze
+                         :title, :date_created, :description, :related_exhibition, :related_exhibition_venue,
+                         :place_of_publication].freeze
   end
 end
