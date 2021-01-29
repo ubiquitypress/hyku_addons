@@ -9,17 +9,18 @@ RSpec.describe Hyrax::ConferenceItemForm do
     describe "#required_fields" do
       subject { form.required_fields }
 
-      it { is_expected.to eq [:title, :resource_type, :creator, :institution] }
+      it { is_expected.to eq %i[title resource_type creator institution date_published] }
     end
 
     describe "#terms" do
       subject { form.terms }
 
       it do
-        expected_terms = %i[title resource_type creator alt_title contributor rendering_ids abstract date_published event_title event_location event_date
-                            institution org_unit project_name funder fndr_project_ref series_name book_title editor volume
-                            publisher place_of_publication isbn issn eissn date_accepted date_submitted official_link related_url
-                            language license rights_statement rights_holder doi alternate_identifier related_identifier refereed
+        expected_terms = %i[title resource_type creator alt_title contributor rendering_ids abstract date_published
+                            event_title event_location event_date institution org_unit project_name funder
+                            fndr_project_ref series_name book_title editor volume publisher place_of_publication isbn
+                            issn eissn date_accepted date_submitted official_link related_url language license
+                            rights_statement rights_holder doi alternate_identifier related_identifier refereed
                             keyword dewey library_of_congress_classification add_info pagination]
         is_expected.to include(*expected_terms)
       end

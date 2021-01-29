@@ -175,9 +175,14 @@ module HykuAddons
       Hyrax.config do |config|
         # Injected via `rails g hyrax:work HykuAddons::Article`
         config.register_curation_concern :article
+        config.register_curation_concern :book
         config.register_curation_concern :book_contribution
         config.register_curation_concern :conference_item
+        config.register_curation_concern :dataset
+        config.register_curation_concern :exhibition_item
+        config.register_curation_concern :report
         config.register_curation_concern :time_based_media_article
+        config.register_curation_concern :thesis_or_disertation
         config.register_curation_concern :pacific_article
         config.register_curation_concern :pacific_book
         config.register_curation_concern :pacific_image
@@ -187,12 +192,15 @@ module HykuAddons
     # Pre-existing Work type overrides and dynamic includes
     def self.dynamically_include_mixins
       GenericWork.include HykuAddons::GenericWorkOverrides
+      Image.include HykuAddons::ImageOverrides
       GenericWork.include ::Hyrax::BasicMetadata
       WorkIndexer.include HykuAddons::WorkIndexerBehavior
       Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
+      Hyrax::ImageForm.include HykuAddons::ImageFormOverrides
       SolrDocument.include HykuAddons::SolrDocumentBehavior
       SolrDocument.include HykuAddons::SolrDocumentRis
       Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
+      Hyrax::ImagePresenter.include HykuAddons::GenericWorkPresenterBehavior
       CatalogController.include HykuAddons::CatalogControllerBehavior
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor

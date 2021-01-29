@@ -4,7 +4,7 @@
 require 'rails_helper'
 
 RSpec.describe Hyrax::Actors::TimeBasedMediaArticleActor do
-  it "has tests" do
-    skip "Add your tests here"
+  it "behaves like a BaseActor" do
+    expect(described_class).to be < Hyrax::Actors::BaseActor
   end
 end

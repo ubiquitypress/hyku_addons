@@ -7,7 +7,7 @@ require File.expand_path('../helpers/create_work_user_context', __dir__)
 include Warden::Test::Helpers
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature 'Create a Article', js: false do
+RSpec.feature 'Create an Article', js: false do
   include_context 'create work user context' do
     let(:work_type) { "article" }
 

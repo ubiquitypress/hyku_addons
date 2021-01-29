@@ -8,12 +8,9 @@ module HykuAddons
 
     # TODO: Review indexing and switch to mostly _ssim instead of _tesim
     included do
-      # Adds behaviors for hyrax-doi plugin.
       include Hyrax::DOI::DOIBehavior
-      # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
       include Hyrax::DOI::DataCiteDOIBehavior
 
-      # From SharedMetadata
       property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
         index.as :stored_searchable
       end
@@ -118,7 +115,6 @@ module HykuAddons
         index.as :stored_searchable
       end
 
-      # From BasicMetadataDecorator
       property :refereed, predicate: ::RDF::Vocab::BIBO.term("status/peerReviewed"), multiple: false do |index|
         index.as :stored_searchable
       end
@@ -129,6 +125,10 @@ module HykuAddons
 
       self.json_fields += %i[editor current_he_institution]
       self.date_fields += %i[event_date related_exhibition_date]
+
+      # This must be included at the end, because it finalizes the metadata
+      # schema (by adding accepts_nested_attributes)
+      include ::Hyrax::BasicMetadata
     end
   end
 end

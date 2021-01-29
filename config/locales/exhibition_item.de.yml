@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      exhibition_item:     'fa fa-file-text-o'
+    select_type:
+      exhibition_item:
+        description:        "Exhibition item Werke"
+        name:               "Exhibition Item"

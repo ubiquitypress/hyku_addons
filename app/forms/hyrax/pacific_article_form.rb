@@ -17,11 +17,5 @@ module Hyrax
                  irb_status irb_number add_info]
 
     self.required_fields = %i[title creator institution org_unit]
-
-    def self.build_permitted_params
-      super.tap do |permitted_params|
-        permitted_params << common_fields
-      end
-    end
   end
 end

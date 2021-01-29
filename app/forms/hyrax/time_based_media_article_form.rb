@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Hyrax
   class TimeBasedMediaArticleForm < Hyrax::Forms::WorkForm
     include Hyrax::DOI::DOIFormBehavior
@@ -6,24 +7,12 @@ module Hyrax
     include ::HykuAddons::WorkForm
 
     self.model_class = ::TimeBasedMediaArticle
-    add_terms %i[title resource_type abstract add_info alt_title alternate_identifier event_title event_location event_date
-                 contributor creator date_accepted date_published date_submitted dewey doi
-                 fndr_project_ref funder institution keyword language library_of_congress_classification
-                 license official_link org_unit place_of_publication project_name publisher related_identifier
-                 related_url rights_holder rights_statement editor]
-    self.required_fields = %i[title resource_type creator institution license]
-
-    def self.build_permitted_params
-      super.tap do |permitted_params|
-        permitted_params << common_fields
-        permitted_params << editor_fields
-        permitted_params << event_date_fields
-        permitted_params << %i[event_title event_location]
-      end
-    end
-
-    def editor_list
-      person_or_organization_list(:editor)
-    end
+    add_terms %i[title resource_type creator alt_title contributor rendering_ids abstract date_published media
+                 duration institution org_unit project_name funder fndr_project_ref event_title event_location event_date
+                 editor publisher place_of_publication date_accepted date_submitted
+                 official_link related_url related_exhibition related_exhibition_venue related_exhibition_date language
+                 license rights_statement rights_holder doi alternate_identifier related_identifier refereed keyword
+                 dewey library_of_congress_classification add_info]
+    self.required_fields = %i[title resource_type creator institution date_published]
   end
 end

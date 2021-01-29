@@ -3,9 +3,7 @@
 #  `rails generate hyrax:work TimeBasedMediaArticle`
 class TimeBasedMediaArticle < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
-  # Adds behaviors for hyrax-doi plugin.
   include Hyrax::DOI::DOIBehavior
-  # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
 
@@ -30,14 +28,6 @@ class TimeBasedMediaArticle < ActiveFedora::Base
   end
 
   property :editor, predicate: ::RDF::Vocab::SCHEMA.Person do |index|
-    index.as :stored_searchable
-  end
-
-  property :version, predicate: ::RDF::Vocab::SCHEMA.version do |index|
-    index.as :stored_searchable
-  end
-
-  property :version_number, predicate: ::RDF::Vocab::SCHEMA.version do |index|
     index.as :stored_searchable
   end
 

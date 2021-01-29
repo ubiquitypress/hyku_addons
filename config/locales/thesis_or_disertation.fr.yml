@@ -1,0 +1,8 @@
+fr:
+  hyrax:
+    icons:
+      thesis_or_disertation:     'fa fa-file-text-o'
+    select_type:
+      thesis_or_disertation:
+        description:        "Thesis or disertation œuvres"
+        name:               "Thesis Or Disertation"
