@@ -4,8 +4,6 @@ module HykuAddons
   module GenericWorkFormOverrides
     extend ActiveSupport::Concern
 
-    include Hyrax::DOI::DOIFormBehavior
-    include Hyrax::DOI::DataCiteDOIFormBehavior
     include ::HykuAddons::WorkForm
 
     included do
@@ -19,6 +17,10 @@ module HykuAddons
                    qualification_name qualification_level alternate_identifier related_identifier refereed keyword dewey
                    library_of_congress_classification add_info]
       self.required_fields = %i[title resource_type creator institution date_published]
+
+      # These includes are after add_terms because they add terms
+      include Hyrax::DOI::DOIFormBehavior
+      include Hyrax::DOI::DataCiteDOIFormBehavior
 
       def primary_terms
         super - %i[license]

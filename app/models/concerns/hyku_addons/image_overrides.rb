@@ -39,6 +39,10 @@ module HykuAddons
       end
 
       self.date_fields += %i[related_exhibition_date]
+
+      # This must be included at the end, because it finalizes the metadata
+      # schema (by adding accepts_nested_attributes)
+      include ::Hyrax::BasicMetadata
     end
   end
 end

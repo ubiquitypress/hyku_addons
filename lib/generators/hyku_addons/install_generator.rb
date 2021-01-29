@@ -19,8 +19,15 @@ module HykuAddons
       insert_into_file(Rails.root.join('app', 'models', 'generic_work.rb'), before: /^  include ::Hyrax::BasicMetadata/) do
         "\n  # HykuAddons initializer will include more modules and then close the work with this include\n  #"
       end
+      insert_into_file(Rails.root.join('app', 'models', 'image.rb'), before: /^  include ::Hyrax::BasicMetadata/) do
+        "\n  # HykuAddons initializer will include more modules and then close the work with this include\n  #"
+      end
+
       # Replace hyku override to avoid #doi and #isbn methods
       gsub_file(Rails.root.join('app', 'presenters', 'hyrax', 'generic_work_presenter.rb'), '< Hyku::WorkShowPresenter', '< Hyrax::WorkShowPresenter')
+      gsub_file(Rails.root.join('app', 'presenters', 'hyrax', 'image_presenter.rb'), '< Hyku::WorkShowPresenter', '< Hyrax::WorkShowPresenter')
+      # TODO: contribute this change upstream
+      gsub_file(Rails.root.join('app', 'controllers', 'hyrax', 'images_controller.rb'), 'Hyku::WorkShowPresenter', 'Hyrax::ImagePresenter')
     end
 
     def copy_controlled_vocabularies
