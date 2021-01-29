@@ -12,8 +12,8 @@ RSpec.shared_context 'work forms context' do
 
   def check_common_fields_presence
     fields = %w[title alternative_name project_name institution abstract official_link language license
-       rights_statement rights_holder doi keywords dewey library_of_congress_classification
-       add_info]
+                rights_statement rights_holder doi keywords dewey library_of_congress_classification
+                add_info]
 
     fields.each do |attr|
       expect(model_attributes[attr]).to eq attr

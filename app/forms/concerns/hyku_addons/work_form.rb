@@ -34,7 +34,7 @@ module HykuAddons
           permitted_params << event_fields
           permitted_params << current_he_institution_fields
           permitted_params << related_exhibition_fields
-         end
+        end
       end
 
       # Adds the terms received as params to the work type terms list ensuring the correct order
@@ -64,10 +64,10 @@ module HykuAddons
 
       def common_fields
         %i[title alt_title resource_type abstract alternative_name project_name institution media official_link
-          related_url language license rights_statement rights_holder doi refereed keywords dewey
-          library_of_congress_classification add_info issn isbn eissn version series_name book_title pagination
-          publisher place_of_publication journal_title alternative_journal_title volume edition issue, article_num
-          qualification_name qualification_level]
+           related_url language license rights_statement rights_holder doi refereed keywords dewey
+           library_of_congress_classification add_info issn isbn eissn version_number series_name book_title pagination
+           publisher place_of_publication journal_title alternative_journal_title volume edition issue article_num
+           qualification_name qualification_level]
       end
 
       def creator_fields
