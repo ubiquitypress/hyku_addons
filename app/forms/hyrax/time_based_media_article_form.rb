@@ -11,7 +11,7 @@ module Hyrax
                  editor publisher place_of_publication date_accepted date_submitted
                  official_link related_url related_exhibition related_exhibition_venue related_exhibition_date language
                  license rights_statement rights_holder doi alternate_identifier related_identifier refereed keyword
-                 dewey library_of_congress_classification add_info pagination]
+                 dewey library_of_congress_classification add_info]
     self.required_fields = %i[title resource_type creator institution date_published]
   end
 end
