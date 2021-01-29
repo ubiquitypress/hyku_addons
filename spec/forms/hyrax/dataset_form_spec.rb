@@ -13,7 +13,7 @@ RSpec.describe Hyrax::DatasetForm do
     end
 
     describe "#terms" do
-      subject { form.terms.sort }
+      subject(:terms) { form.terms.sort }
 
       it do
         terms = %i[title resource_type creator alt_title contributor rendering_ids abstract date_published
@@ -21,7 +21,7 @@ RSpec.describe Hyrax::DatasetForm do
                    date_accepted date_submitted official_link related_url language license rights_statement rights_holder
                    doi alternate_identifier related_identifier refereed keyword dewey library_of_congress_classification
                    add_info]
-        expect(terms.all? { |t| subject.include?(t) }).to eq true
+        expect(terms.all? { |t| terms.include?(t) }).to eq true
       end
     end
 
