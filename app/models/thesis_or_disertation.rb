@@ -1,6 +1,5 @@
 # frozen_string_literal: true
-# Generated via
-#  `rails generate hyrax:work ThesisOrDisertation`
+
 class ThesisOrDisertation < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include Hyrax::DOI::DOIBehavior
@@ -8,8 +7,7 @@ class ThesisOrDisertation < ActiveFedora::Base
   include ::HykuAddons::WorkBase
 
   self.indexer = ThesisOrDisertationIndexer
-  # Change this to restrict which works can be added as a child.
-  # self.valid_child_concerns = []
+
   validates :title, presence: { message: 'Your work must have a title.' }
 
   property :version, predicate: ::RDF::Vocab::SCHEMA.version do |index|
