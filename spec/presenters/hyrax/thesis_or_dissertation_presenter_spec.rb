@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Hyrax::ThesisOrDisertationPresenter do
+RSpec.describe Hyrax::ThesisOrDissertationPresenter do
   let(:presenter) { described_class.new(work, nil, nil) }
   let(:work) { build(:generic_work) }
 

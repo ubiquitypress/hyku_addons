@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 # Generated via
-#  `rails generate hyrax:work ThesisOrDisertation`
+#  `rails generate hyrax:work ThesisOrDissertation`
 require 'rails_helper'
 include Warden::Test::Helpers
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature 'Create a ThesisOrDisertation', js: false do
+RSpec.feature 'Create a ThesisOrDissertation', js: false do
   include_context 'create work user context' do
     let(:work_type) { "book" }
 
