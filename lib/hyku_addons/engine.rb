@@ -176,7 +176,7 @@ module HykuAddons
       ActiveSupport::Inflector.inflections(:en) do |inflect|
         inflect.irregular 'media', 'medias'
       end
-      
+
       Hyrax.config do |config|
         # Injected via `rails g hyrax:work HykuAddons::Article`
         config.register_curation_concern :article
