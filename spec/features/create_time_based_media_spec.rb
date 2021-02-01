@@ -7,7 +7,7 @@ include Warden::Test::Helpers
 # NOTE: If you generated more than one work, you have to set "js: true"
 RSpec.feature 'Create a Time Based Media Article', js: false do
   include_context 'create work user context' do
-    let(:work_type) { "time_based_media_article" }
+    let(:work_type) { "time_based_media" }
 
     scenario do
       visit_new_work_page

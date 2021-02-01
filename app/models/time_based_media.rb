@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # Generated via
-#  `rails generate hyrax:work TimeBasedMediaArticle`
-class TimeBasedMediaArticle < ActiveFedora::Base
+#  `rails generate hyrax:work TimeBasedMedia`
+class TimeBasedMedia < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include Hyrax::DOI::DOIBehavior
   include Hyrax::DOI::DataCiteDOIBehavior
@@ -54,7 +54,7 @@ class TimeBasedMediaArticle < ActiveFedora::Base
   self.json_fields += %i[editor]
   self.date_fields += %i[event_date related_exhibition_date]
 
-  self.indexer = TimeBasedMediaArticleIndexer
+  self.indexer = TimeBasedMediaIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }

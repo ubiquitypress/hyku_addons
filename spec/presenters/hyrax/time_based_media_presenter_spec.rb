@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Hyrax::TimeBasedMediaArticlePresenter do
+RSpec.describe Hyrax::TimeBasedMediaPresenter do
   let(:presenter) { described_class.new(work, nil, nil) }
   let(:work) { build(:generic_work) }
 

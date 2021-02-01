@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Hyrax
-  class TimeBasedMediaArticlePresenter < Hyrax::WorkShowPresenter
+  class TimeBasedMediaPresenter < Hyrax::WorkShowPresenter
     include Hyrax::DOI::DOIPresenterBehavior
     include Hyrax::DOI::DataCiteDOIPresenterBehavior
     include ::HykuAddons::GenericWorkPresenterBehavior
