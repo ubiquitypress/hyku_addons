@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Hyrax
-  class ThesisOrDisertationPresenter < Hyrax::WorkShowPresenter
+  class ThesisOrDissertationPresenter < Hyrax::WorkShowPresenter
     include Hyrax::DOI::DOIPresenterBehavior
     include Hyrax::DOI::DataCiteDOIPresenterBehavior
     include ::HykuAddons::GenericWorkPresenterBehavior

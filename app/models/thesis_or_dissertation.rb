@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-class ThesisOrDisertation < ActiveFedora::Base
+class ThesisOrDissertation < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include Hyrax::DOI::DOIBehavior
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
 
-  self.indexer = ThesisOrDisertationIndexer
+  self.indexer = ThesisOrDissertationIndexer
 
   validates :title, presence: { message: 'Your work must have a title.' }
 
