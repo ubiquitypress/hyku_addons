@@ -103,6 +103,7 @@ module HykuAddons
         config.add_show_field solr_name('irb_status', :stored_searchable)
         config.add_show_field solr_name('irb_number', :stored_searchable)
         config.add_show_field solr_name('is_included_in', :stored_searchable)
+        config.add_show_field solr_name('degree', :stored_searchable)
 
         # Re-configure search fields
         config.search_fields = {}

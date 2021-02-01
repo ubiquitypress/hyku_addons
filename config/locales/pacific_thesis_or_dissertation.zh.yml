@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      pacific_thesis_or_dissertation:     'fa fa-file-text-o'
+    select_type:
+      pacific_thesis_or_dissertation:
+        # TODO: translate `human_name` into Chinese
+        description:        "Pacific thesis or dissertation 作品"
+        name:               "Pacific Thesis Or Dissertation"
+        # TODO: translate `human_name` into Chinese

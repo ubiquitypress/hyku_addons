@@ -86,6 +86,7 @@ module HykuAddons
       attribute :irb_status, SolrDocument::Solr::Array, solr_name('irb_status')
       attribute :irb_number, SolrDocument::Solr::Array, solr_name('irb_number')
       attribute :is_included_in, SolrDocument::Solr::Array, solr_name('is_included_in')
+      attribute :degree, SolrDocument::Solr::Array, solr_name('degree')
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(
