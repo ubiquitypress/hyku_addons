@@ -181,7 +181,7 @@ module HykuAddons
         config.register_curation_concern :dataset
         config.register_curation_concern :exhibition_item
         config.register_curation_concern :report
-        config.register_curation_concern :time_based_media_article
+        config.register_curation_concern :time_based_media
         config.register_curation_concern :thesis_or_disertation
         config.register_curation_concern :pacific_article
         config.register_curation_concern :pacific_book

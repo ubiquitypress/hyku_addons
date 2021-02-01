@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # Generated via
-#  `rails generate hyrax:work TimeBasedMediaArticle`
-class TimeBasedMediaArticleIndexer < Hyrax::WorkIndexer
+#  `rails generate hyrax:work TimeBasedMedia`
+class TimeBasedMediaIndexer < Hyrax::WorkIndexer
   # This indexes the default metadata. You can remove it if you want to
   # provide your own metadata and indexing.
   include Hyrax::IndexesBasicMetadata

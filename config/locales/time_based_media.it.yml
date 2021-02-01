@@ -1,0 +1,8 @@
+it:
+  hyrax:
+    icons:
+      time_based_media:     'fa fa-file-text-o'
+    select_type:
+      time_based_media:
+        description:        "Time based media opere"
+        name:               "Time Based Media"
