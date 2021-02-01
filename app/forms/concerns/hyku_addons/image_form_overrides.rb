@@ -4,8 +4,6 @@ module HykuAddons
   module ImageFormOverrides
     extend ActiveSupport::Concern
 
-    include Hyrax::DOI::DOIFormBehavior
-    include Hyrax::DOI::DataCiteDOIFormBehavior
     include ::HykuAddons::WorkForm
 
     included do
@@ -16,6 +14,10 @@ module HykuAddons
                    rights_holder doi alternate_identifier related_identifier refereed keyword dewey
                    library_of_congress_classification add_info]
       self.required_fields = %i[title resource_type creator institution date_published]
+
+      # These must be added after the terms are defined
+      include Hyrax::DOI::DOIFormBehavior
+      include Hyrax::DOI::DataCiteDOIFormBehavior
     end
   end
 end

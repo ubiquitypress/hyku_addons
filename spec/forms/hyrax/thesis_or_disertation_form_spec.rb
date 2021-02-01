@@ -1,6 +1,5 @@
 # frozen_string_literal: true
-# Generated via
-#  `rails generate hyrax:work ThesisOrDisertation`
+
 require 'rails_helper'
 require File.expand_path('../../helpers/work_forms_context', __dir__)
 
