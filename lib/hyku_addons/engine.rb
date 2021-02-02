@@ -172,6 +172,11 @@ module HykuAddons
 
     # Pre-existing Work type overrides
     config.after_initialize do
+      # Avoid media pluralizing to medium
+      ActiveSupport::Inflector.inflections(:en) do |inflect|
+        inflect.irregular 'media', 'medias'
+      end
+
       Hyrax.config do |config|
         # Injected via `rails g hyrax:work HykuAddons::Article`
         config.register_curation_concern :article
@@ -182,6 +187,7 @@ module HykuAddons
         config.register_curation_concern :pacific_book
         config.register_curation_concern :pacific_image
         config.register_curation_concern :pacific_thesis_or_dissertation
+        config.register_curation_concern :pacific_book_chapter
       end
     end
 
