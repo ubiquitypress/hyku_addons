@@ -97,138 +97,37 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
         let(:attributes) do
           {
             "title": ["A work with all fields completed.", ""],
+            "alt_title" => ["Alternative title1", "Alternative title2", ""],
+            "book_title" => "Book title",
             "resource_type": ["Other", ""],
-            "editor" => [
-              {
-                "editor_name_type" => "Personal",
-                "editor_family_name" => "Chickpea",
-                "editor_given_name" => "Charlie",
-                "editor_orcid" => "0000-0003-2763-9755",
-              }.to_json
-            ],
-            "creator": [
-              {
-                "creator_name_type" => "Personal",
-                "creator_family_name" => "Chorizo",
-                "creator_given_name" => "Cherry-Ann",
-                "creator_orcid" => "0000-0003-2763-9755",
-                "creator_institutional_relationship" => ["Staff member"],
-                "creator_isni" => "123123123"
-              }.to_json,
-              {
-                "creator_name_type" => "Personal",
-                "creator_family_name" => "Gould",
-                "creator_given_name" => "Sara",
-                "creator_institutional_relationship" => ["Staff member"],
-              }.to_json
-            ],
-            "contributor": [
-              {
-                "contributor_name_type" => "Personal",
-                "contributor_organization_name" => "",
-                "contributor_family_name" => "Cheddar",
-                "contributor_given_name" => "Cheese",
-                "contributor_orcid" => "0000-0003-2763-9755",
-                "contributor_isni" => "0000000459890159",
-                "contributor_type" => "Project Leader"
-              }.to_json,
-              {
-                "contributor_name_type" => "Organisational",
-                "contributor_organization_name" => "The Cornflake House",
-                "contributor_type" => "Hosting Institution"
-              }.to_json
-            ],
-            "institution": ["British Library", "British Museum", ""],
-            "alt_title": ["Alternative title1", "Alternative title2", ""],
-            "date_published" => {
-              "date_published_year" => "2017",
-              "date_published_month" => "6",
-              "date_published_day" => "8"
-            }.to_json,
+            "editor" => ["Chickpea, Charlie"],
+            "creator": ["Chorizo, Cherry-Ann", "Gould, Sara"],
+            "contributor" => ["Cheddar, Cheese"],
+            "institution" => ["British Library", "British Museum", ""],
+            "date_published" => "2017-06-08",
             "abstract" => "So many foods starting with c. Including chapati and clementines.",
-            "media" => ["Image", "Food", ""],
             "duration" => ["duration1", "duration2", ""],
             "org_unit" => ["Department of Crackers", "Department2", ""],
             "project_name" => ["Project name2", "The Chicken project", ""],
-            "funder" => [
-              {
-                "funder_name" => "Henry Moore Foundation",
-                "funder_doi" => "http://dx.doi.org/10.13039/100012062",
-              }.to_json
-            ],
-            "fndr_project_ref" => ["Project reference1", "Project reference2", ""],
-            "event_title" => ["Cheese & Chocolate conference", "Event title2", ""],
-            "event_location" => ["Scarborough", "Event location2", ""],
-            "event_date" => [
-              {
-                "event_date_year" => "",
-                "event_date_month" => "",
-                "event_date_day" => ""
-              }.to_json
-            ],
             "series_name" => ["Series name2", ""],
-            "book_title" => "Book title",
             "journal_title" => "Celery and Celeriac Times",
-            "alternative_journal_title" => ["Alternative journal title2", "Alternative journal title1", ""],
-            "volume" => ["6", ""],
-            "edition" => "1",
-            "version_number" => ["2", ""],
-            "issue" => "3",
-            "pagination" => "1-2",
-            "article_num" => "e123",
             "publisher" => ["Crisps and Chips Publisher", ""],
             "place_of_publication" => ["Buenos Aires, Argentina", "Place of publication2", ""],
             "isbn" => "1234567890",
             "issn" => "0987654321",
             "eissn" => "1234-5678",
-            "date_accepted" => {
-              "date_accepted_year" => "2018",
-              "date_accepted_month" => "1",
-              "date_accepted_day" => "2"
-            }.to_json,
-            "date_submitted" => {
-              "date_submitted_year" => "2019",
-              "date_submitted_month" => "1",
-              "date_submitted_day" => "2"
-            }.to_json,
+            "date_accepted" => "2018-01-02",
+            "date_submitted" => "2019-01-02",
             "official_link" => "https://bl.oar.bl.uk/concern/book_contributions/3b41adc3-dfd0-4be3-a682-b78b6c5ed86d?locale=en",
-            "related_url" => ["https://ubiquitypress.com", "https://bl.uk", ""],
-            "related_exhibition" => ["Related exhibition1", "Related exhibition2", ""],
-            "related_exhibition_venue" => ["Related exhibition venue2", "Related exhibition venue1", ""],
-            "related_exhibition_date" => [""],
             "language" => ["Fra", "Eng", ""],
-            "license" => [
-              "http://creativecommons.org/publicdomain/zero/1.0/",
-              "http://creativecommons.org/licenses/by/3.0/us/",
-              ""
-            ],
-            "rights_statement" => ["http://rightsstatements.org/vocab/InC/1.0/"],
-            "rights_holder" => ["Rights holder2", "Custard Inc", ""],
-            "qualification_name" => "PhD",
-            "qualification_level" => "Doctoral",
-            "alternate_identifier" => [
-              {
-                "alternate_identifier" => "ABC 123456",
-                "alternate_identifier_type" => "Cheese type"
-              }.to_json,
-              {
-                "alternate_identifier" => "DEF 8910",
-                "alternate_identifier_type" => "Type of alternate identifier2"
-              }.to_json
-            ],
-            "related_identifier" => [
-              {
-                "related_identifier" => "9780297609445",
-                "related_identifier_type" => "ISBN",
-                "relation_type" => "IsSupplementedBy"
-              }.to_json
-            ],
-            "refereed" => "Peer-reviewed",
             "keyword" => ["Food", "Banana", ""],
-            "dewey" => "123",
-            "library_of_congress_classification" => ["AB", "CD", ""],
             "add_info" => "This record contains data in almost every field. Search foods beginning with c. Except rhubarb... additional fields filled with non-food-based items by Tom.",
             "source" => [""],
+            "volume" => ["6", ""],
+            "edition" => "1",
+            "version_number" => ["2", ""],
+            "issue" => "3",
+            "pagination" => "1-2",
           }
         end
 
