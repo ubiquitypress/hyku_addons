@@ -188,6 +188,7 @@ module HykuAddons
         config.register_curation_concern :pacific_image
         config.register_curation_concern :pacific_thesis_or_dissertation
         config.register_curation_concern :pacific_book_chapter
+        config.register_curation_concern :pacific_media
       end
     end
 

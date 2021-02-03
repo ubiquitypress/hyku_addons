@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      pacific_media:     'fa fa-file-text-o'
+    select_type:
+      pacific_media:
+        description:        "Pacific media works"
+        name:               "Pacific Media"
