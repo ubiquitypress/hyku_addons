@@ -43,13 +43,14 @@ module Bolognese
 
       included do
         def ris
+          # raise meta.dig('editor').inspect
           {
             TY: calculate_resource_type(types),
             T1: parse_attributes(titles, content: "title", first: true),
             T2: container && container["title"],
             AU: to_ris(creators),
             DO: doi,
-            ED: meta.dig("editor"),
+            ED: to_ris(meta.dig("editor")),
             AB: parse_attributes(descriptions, content: "description", first: true),
             KW: Array.wrap(subjects).map { |k| parse_attributes(k, content: "subject", first: true) }.presence,
             PY: publication_year,

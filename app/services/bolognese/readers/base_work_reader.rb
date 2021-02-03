@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 require 'bolognese'
 
+# NOTE:
+# Parent class to work type class readers.
+# The class name is build within SolrDocumentBehavior.meta_reader_class
+# and called from inside the RisContentNegotiation.export_as_ris,
+# which is a concern injected into the SolrDocument
 module Bolognese
   module Readers
     class BaseWorkReader < Bolognese::Metadata
@@ -61,15 +66,21 @@ module Bolognese
       protected
 
         def read_creator
-          return unless meta_value?("creator")
+          return unless (value = @meta.fetch('creator_display', @meta.dig('creator'))).present?
 
-          get_authors(meta_value("creator"))
+          get_authors(value)
         end
 
         def read_contributor
-          return unless meta_value?("contributor")
+          return unless (value = @meta.fetch('contributor_display', @meta.dig('contributor'))).present?
 
-          get_authors(meta_value("contributor"))
+          get_authors(value)
+        end
+
+        def read_editor
+          return unless (value = @meta.fetch('editor_display', @meta.dig('editor'))).present?
+
+          get_authors(value)
         end
 
         def read_title

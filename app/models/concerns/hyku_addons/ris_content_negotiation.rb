@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+
+# SCOPE:
+# We are currently inside the Solr document
 module HykuAddons
   module RisContentNegotiation
     def self.extended(document)
