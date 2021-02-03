@@ -33,7 +33,7 @@ module Bolognese
       # normal method to be found with `meta_values(key_name)`.
       def self.nested_attributes
         {
-          "container" => %w[volume issue firstPage lastPage]
+          "container" => %w[volume issue firstPage lastPage pagination]
         }
       end
 
@@ -62,6 +62,7 @@ module Bolognese
         @reader_attributes.merge(read_options)
       end
 
+      # Override the parent method as we have other fields
       def publication_year
         date = meta_value("date_published") || meta_value("date_created")&.first || meta_value("date_uploaded")
         Date.parse(date).year
@@ -194,6 +195,7 @@ module Bolognese
         # Process any special nested attributes, like the `container` param
         def build_nested_attributes!
           self.class.nested_attributes.each do |key, terms|
+            byebug
             parsed_values = terms.map do |term|
               next unless (value = term_value(term)).present?
 

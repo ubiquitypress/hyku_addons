@@ -66,10 +66,10 @@ module Bolognese
             UR: meta.dig("official_link"),
             IS: container.to_h["issue"],
             VL: container.to_h["volume"],
+            SP: container.to_h["pagination"],
             ER: ""
           }
 
-          # byebug
           expand_nested_and_prepare(hash)
         end
 
