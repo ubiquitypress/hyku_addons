@@ -92,15 +92,6 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
         end
       end
 
-      # DO  - doi.org/10.21250/tcq
-      # SP  - 1-2
-
-      # TODO:
-      # DO
-      # SP
-      #
-      # FIXME:
-      # PB- publisher outputting JSON
       describe "a complete work" do
         let(:attributes) do
           {
@@ -152,7 +143,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
           expect(ris).to include("ED  - Chickpea, Charlie")
           expect(ris).to include("AB  - So many foods starting with c. Including chapati and clementines.")
           expect(ris).to include("DA  - 2017-6-8")
-          # expect(ris).to include("DO  - doi.org/10.21250/tcq")
+          expect(ris).to include("DO  - doi.org/10.21250/tcq")
           expect(ris).to include("JO  - Celery and Celeriac Times")
           expect(ris).to include("LA  - Eng")
           expect(ris).to include("N1  - This record contains data in almost every field. Search foods beginning with c. Except rhubarb... additional fields filled with non-food-based items by Tom.")

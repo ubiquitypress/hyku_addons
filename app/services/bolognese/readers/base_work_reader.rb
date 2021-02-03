@@ -64,11 +64,13 @@ module Bolognese
 
       # Override the parent method as we have other fields
       def publication_year
-        date = meta_value("date_published") || meta_value("date_created")&.first || meta_value("date_uploaded")
-        Date.parse(date).year
+        @publication_year ||= begin
+          date = meta_value("date_published") || meta_value("date_created")&.first || meta_value("date_uploaded")
+          Date.parse(date).year
 
-      rescue Date::Error, TypeError
-        Time.zone.today.year
+        rescue Date::Error, TypeError
+          Time.zone.today.year
+        end
       end
 
       protected
@@ -110,7 +112,7 @@ module Bolognese
         end
 
         def read_publisher
-          parse_attributes(meta_value("publisher")).compact.select(&:present?).presence || :unav
+          Array.wrap(meta_value("publisher")).compact.select(&:present?).first.presence || :unav
         end
 
         def read_doi
@@ -130,6 +132,7 @@ module Bolognese
             dates << { "date" => value, "dateType" => denomination }
           end
 
+          @reader_attributes["publication_year"] = publication_year
           @reader_attributes["dates"] = dates
         end
 
@@ -195,7 +198,6 @@ module Bolognese
         # Process any special nested attributes, like the `container` param
         def build_nested_attributes!
           self.class.nested_attributes.each do |key, terms|
-            byebug
             parsed_values = terms.map do |term|
               next unless (value = term_value(term)).present?
 
