@@ -11,8 +11,9 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:publisher) { 'Schildts' }
   let(:abstract) { 'Swedish comic about the adventures of the residents of Moominvalley.' }
   let(:keyword) { 'Lighthouses' }
-  let(:date_created) { 1945 }
-  let(:published_year) { 1946 }
+  let(:created_year) { "1945" }
+  let(:date_created) { "#{created_year}-01-01" }
+  let(:published_year) { "1946" }
   let(:date_published) { "#{published_year}-01-01" }
   let(:editor) { "Test Editor" }
   let(:isbn) { "9781770460621" }
@@ -200,7 +201,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
         let(:upload_date) { DateTime.parse('2009-12-25 11:30').iso8601 }
 
         it 'sets year from date_published by default' do
-          expect(datacite_xml.xpath('/resource/publicationYear/text()').to_s).to eq "1946"
+          expect(datacite_xml.xpath('/resource/publicationYear/text()').to_s).to eq published_year
         end
 
         context 'with date_created' do
@@ -211,14 +212,14 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
           end
 
           it 'sets year from date_created' do
-            expect(datacite_xml.xpath('/resource/publicationYear/text()').to_s).to eq "1945"
+            expect(datacite_xml.xpath('/resource/publicationYear/text()').to_s).to eq created_year
           end
 
           context 'with only year' do
             let(:create_date) { '1945' }
 
             it 'sets year from date_created' do
-              expect(datacite_xml.xpath('/resource/publicationYear/text()').to_s).to eq "1945"
+              expect(datacite_xml.xpath('/resource/publicationYear/text()').to_s).to eq created_year
             end
           end
         end

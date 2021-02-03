@@ -66,9 +66,9 @@ module Bolognese
       def publication_year
         @publication_year ||= begin
           date = meta_value("date_published") || meta_value("date_created")&.first || meta_value("date_uploaded")
-          Date.parse(date).year
+          Date.edtf(date.to_s).year
 
-        rescue Date::Error, TypeError
+        rescue Date::Error, TypeError, NoMethodError
           Time.zone.today.year
         end
       end
