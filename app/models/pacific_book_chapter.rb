@@ -20,10 +20,6 @@ class PacificBookChapter < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :buy_book, predicate: ::RDF::Vocab::SCHEMA.BuyAction, multiple: true do |index|
-    index.as :stored_searchable
-  end
-
   property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
     index.as :stored_searchable
   end

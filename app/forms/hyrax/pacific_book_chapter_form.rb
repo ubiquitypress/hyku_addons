@@ -11,7 +11,7 @@ module Hyrax
 
     self.model_class = ::PacificBookChapter
     add_terms %i[title alt_title resource_type creator institution contributor abstract
-                 date_published book_title pagination is_included_in volume buy_book publisher isbn issn additional_links rights_holder license
+                 date_published book_title pagination is_included_in volume publisher isbn issn additional_links rights_holder license
                  org_unit doi subject keyword refereed add_info]
 
     self.required_fields = %i[title creator resource_type institution org_unit pagination publisher]
