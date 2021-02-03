@@ -24,7 +24,7 @@ module Bolognese
           "creator" => "creators",
           "contributor" => "contributors",
           "abstract" => "descriptions",
-          "keyword" => "subjects",
+          "keyword" => "subjects"
         }
       end
 

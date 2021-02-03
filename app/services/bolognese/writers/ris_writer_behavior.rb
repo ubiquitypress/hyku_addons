@@ -5,7 +5,7 @@ module Bolognese
     module RisWriterBehavior
       extend ActiveSupport::Concern
       DEFAULT_RESOURCE_TYPE = :GEN
-      RIS_DELIMITER = "\r\n".freeze
+      RIS_DELIMITER = "\r\n"
 
       # This was taken from the legacy application and i'm unsure which of them are required.
       RESOURCE_TYPES = {
