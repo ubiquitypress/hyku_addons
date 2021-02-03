@@ -4,7 +4,7 @@ require "rails_helper"
 RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:doi) { '10.18130/v3-k4an-w022' }
   let(:title) { 'Moomin' }
-  # let(:alt_title) { 'alt-title' }
+  let(:alt_title) { 'alt-title' }
   let(:resource_type) { "Book" }
   let(:creator) { 'Tove Jansson' }
   let(:contributor) { 'Elizabeth Portch' }
@@ -23,11 +23,12 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:issue) { 7 }
   let(:official_link) { "http://test-url.com" }
   let(:volume) { 2 }
+  let(:ris_resource_type_identifier) { "BOOK" }
   let(:attributes) do
     {
       doi: [doi],
-      # FIXME: If more than one title is provided, the order is nondeterministic.
       title: [title],
+      alt_title: [alt_title],
       resource_type: [resource_type],
       creator: [creator],
       contributor: [contributor],
@@ -47,7 +48,6 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
       volume: [volume]
     }
   end
-  let(:ris_resource_type_identifier) { "BOOK" }
 
   let(:model_class) { GenericWork }
   let(:work) { model_class.new(attributes) }
@@ -72,8 +72,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
 
           expect(ris).to include("TY  - #{ris_resource_type_identifier}")
           expect(ris).to include("T1  - #{title}")
-          # FIXME: If more than one title is provided, the order is nondeterministic.
-          # expect(ris).to include("T2  - #{alt_title}")
+          expect(ris).to include("T2  - #{alt_title}")
           expect(ris).to include("AU  - #{creator}")
           expect(ris).to include("ED  - #{editor}")
           expect(ris).to include("DO  - https://doi.org/#{doi}")
@@ -93,10 +92,19 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
         end
       end
 
+      # DO  - doi.org/10.21250/tcq
+      # SP  - 1-2
+
+      # TODO:
+      # DO
+      # SP
+      #
+      # FIXME:
+      # PB- publisher outputting JSON
       describe "a complete work" do
         let(:attributes) do
           {
-            "title": ["A work with all fields completed.", ""],
+            "title": ["A work with all fields completed."],
             "alt_title" => ["Alternative title1", "Alternative title2", ""],
             "book_title" => "Book title",
             "resource_type": ["Other", ""],
@@ -104,7 +112,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
             "creator": ["Chorizo, Cherry-Ann", "Gould, Sara"],
             "contributor" => ["Cheddar, Cheese"],
             "institution" => ["British Library", "British Museum", ""],
-            "date_published" => "2017-06-08",
+            "date_published" => "2017-6-8",
             "abstract" => "So many foods starting with c. Including chapati and clementines.",
             "duration" => ["duration1", "duration2", ""],
             "org_unit" => ["Department of Crackers", "Department2", ""],
@@ -116,8 +124,8 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
             "isbn" => "1234567890",
             "issn" => "0987654321",
             "eissn" => "1234-5678",
-            "date_accepted" => "2018-01-02",
-            "date_submitted" => "2019-01-02",
+            "date_accepted" => "2018-1-2",
+            "date_submitted" => "2019-1-2",
             "official_link" => "https://bl.oar.bl.uk/concern/book_contributions/3b41adc3-dfd0-4be3-a682-b78b6c5ed86d?locale=en",
             "language" => ["Fra", "Eng", ""],
             "keyword" => ["Food", "Banana", ""],
@@ -127,13 +135,13 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
             "edition" => "1",
             "version_number" => ["2", ""],
             "issue" => "3",
-            "pagination" => "1-2",
+            "pagination" => "1-2"
           }
         end
 
         it "outputs correctly" do
           ris = metadata.ris
-byebug
+
           expect(ris).to include("TY  - GEN")
           expect(ris).to include("T1  - A work with all fields completed.")
           expect(ris).to include("T2  - Book title")

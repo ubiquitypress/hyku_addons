@@ -25,7 +25,6 @@ module Bolognese
           "contributor" => "contributors",
           "abstract" => "descriptions",
           "keyword" => "subjects",
-          "date_published" => "publication_year"
         }
       end
 
@@ -41,7 +40,7 @@ module Bolognese
       # An array of methods that should be called after the inital attributes have been collected.
       # These methods should modify the `@reader_attributes` variable directly
       def self.after_actions
-        %i[build_related_identifiers! build_nested_attributes! update_mismatched_attributes!]
+        %i[build_related_identifiers! build_nested_attributes! build_dates! update_mismatched_attributes!]
       end
 
       # The primary point of interacting with the readers. The name of this method depends on what reader is specified
@@ -61,6 +60,14 @@ module Bolognese
         perform_after_actions!
 
         @reader_attributes.merge(read_options)
+      end
+
+      def publication_year
+        date = meta_value("date_published") || meta_value("date_created")&.first || meta_value("date_uploaded")
+        Date.parse(date).year
+
+      rescue Date::Error, TypeError
+        Time.zone.today.year
       end
 
       protected
@@ -95,15 +102,6 @@ module Bolognese
           }
         end
 
-        def read_date_published
-          date = meta_value("date_published") || meta_value("date_created")&.first || meta_value("date_uploaded")
-          Date.edtf(date.to_s).year
-
-          # TODO: Remove the catch all rescue as it seems like a smell to be catching all errors
-        rescue StandardError
-          Time.zone.today.year
-        end
-
         def read_keyword
           return unless meta_value?("keyword")
 
@@ -111,11 +109,27 @@ module Bolognese
         end
 
         def read_publisher
-          parse_attributes(meta_value("publisher")).to_s.strip.presence || :unav
+          parse_attributes(meta_value("publisher")).compact.select(&:present?).presence || :unav
         end
 
         def read_doi
           normalize_doi(meta_value('doi')&.first)
+        end
+
+        def build_dates!
+          dates = []
+
+          date_fields = { date_published: "Issued", date_created: "Created", date_modified: "Updated" }
+          date_fields.each do |term, denomination|
+            next unless meta_value?(term)
+
+            value = meta_value(term)
+            value = value.compact.first if value.is_a?(Array)
+
+            dates << { "date" => value, "dateType" => denomination }
+          end
+
+          @reader_attributes["dates"] = dates
         end
 
         def build_related_identifiers!
