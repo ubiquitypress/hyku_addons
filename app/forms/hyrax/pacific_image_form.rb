@@ -11,7 +11,7 @@ module Hyrax
     include ::HykuAddons::WorkForm
 
     self.model_class = ::PacificImage
-    add_terms %i[title alt_title resource_type creator contributor abstract date_published
+    add_terms %i[title alt_title resource_type creator contributor abstract institution date_published
                  is_included_in publisher additional_links
                  rights_holder license org_unit doi subject keyword add_info]
 
