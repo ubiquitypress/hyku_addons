@@ -104,3 +104,7 @@ Rails/Date:
   Exclude:
     - 'spec/services/bolognese/readers/generic_work_reader_spec.rb'
 
+Style/IfUnlessModifier:
+  Exclude:
+    - 'app/models/concerns/hyku_addons/solr_document_wrapper_extensions.rb'
+    - 'lib/hyku_addons/engine.rb'

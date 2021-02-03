@@ -24,13 +24,13 @@ RSpec.describe CatalogController, multitenant: true do
 
     it "contains repository prefix/identifier" do
       expect(
-          xml.at_xpath('//oai-identifier:repositoryIdentifier', 'oai-identifier' => "http://www.openarchives.org/OAI/2.0/oai-identifier").text
+        xml.at_xpath('//oai-identifier:repositoryIdentifier', 'oai-identifier' => "http://www.openarchives.org/OAI/2.0/oai-identifier").text
       ).to eql 'hyku.example.com'
     end
 
     it "contains sample identifier" do
       expect(
-          xml.at_xpath('//oai-identifier:sampleIdentifier', 'oai-identifier' => "http://www.openarchives.org/OAI/2.0/oai-identifier").text
+        xml.at_xpath('//oai-identifier:sampleIdentifier', 'oai-identifier' => "http://www.openarchives.org/OAI/2.0/oai-identifier").text
       ).to eql "hyku.example.com:#{work.id}"
     end
   end
