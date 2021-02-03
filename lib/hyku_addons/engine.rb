@@ -132,7 +132,6 @@ module HykuAddons
       end
     end
 
-    # Allow flipflop to load config/features.rb from the Hyrax gem:
     initializer 'configure' do
       Flipflop::FeatureLoader.current.append(self)
     end
@@ -165,6 +164,27 @@ module HykuAddons
             Flipflop::FeatureSet.current.enabled?(method[0..-2].to_sym)
           else
             super
+          end
+        end
+      end
+    end
+
+    initializer 'blacklight-oai-provider-extensions' do
+      BlacklightOaiProvider::SolrDocumentWrapper.class_eval do
+        # include HykuAddons::SolrDocumentWrapperExtensions
+        def find(selector, options = {})
+          return next_set(options[:resumption_token]) if options[:resumption_token]
+
+          if selector == :all
+            response = @controller.repository.search(conditions(options))
+
+            if limit && response.total > limit
+              return select_partial(BlacklightOaiProvider::ResumptionToken.new(options.merge(last: 0), nil, response.total))
+            end
+            response.documents
+          else
+            query = @controller.search_builder.where("id:#{selector}").query
+            @controller.repository.search(query).documents.first
           end
         end
       end
@@ -212,6 +232,7 @@ module HykuAddons
       User.include HykuAddons::UserEmailFormat
       Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
+      # BlacklightOaiProvider::SolrDocumentWrapper.include HykuAddons::SolrDocumentWrapperExtensions
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
