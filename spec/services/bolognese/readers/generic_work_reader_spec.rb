@@ -96,6 +96,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
       describe "a complete work" do
         let(:attributes) do
           {
+            "doi": [doi],
             "title": ["A work with all fields completed."],
             "alt_title" => ["Alternative title1", "Alternative title2", ""],
             "book_title" => "Book title",
@@ -104,7 +105,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
             "creator": ["Chorizo, Cherry-Ann", "Gould, Sara"],
             "contributor" => ["Cheddar, Cheese"],
             "institution" => ["British Library", "British Museum", ""],
-            "date_published" => "2017-6-8",
+            "date_published" => "2017-06-08",
             "abstract" => "So many foods starting with c. Including chapati and clementines.",
             "duration" => ["duration1", "duration2", ""],
             "org_unit" => ["Department of Crackers", "Department2", ""],
@@ -116,8 +117,8 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
             "isbn" => "1234567890",
             "issn" => "0987654321",
             "eissn" => "1234-5678",
-            "date_accepted" => "2018-1-2",
-            "date_submitted" => "2019-1-2",
+            "date_accepted" => "2018-01-02",
+            "date_submitted" => "2019-01-02",
             "official_link" => "https://bl.oar.bl.uk/concern/book_contributions/3b41adc3-dfd0-4be3-a682-b78b6c5ed86d?locale=en",
             "language" => ["Fra", "Eng", ""],
             "keyword" => ["Food", "Banana", ""],
@@ -143,10 +144,11 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
           expect(ris).to include("AU  - Gould, Sara")
           expect(ris).to include("ED  - Chickpea, Charlie")
           expect(ris).to include("AB  - So many foods starting with c. Including chapati and clementines.")
-          expect(ris).to include("DA  - 2017-6-8")
-          expect(ris).to include("DO  - doi.org/10.21250/tcq")
+          expect(ris).to include("DA  - 2017-06-08")
+          expect(ris).to include("DO  - https://doi.org/#{doi}")
           expect(ris).to include("JO  - Celery and Celeriac Times")
           expect(ris).to include("LA  - Eng")
+          expect(ris).to include("LA  - Fra")
           expect(ris).to include("N1  - This record contains data in almost every field. Search foods beginning with c. Except rhubarb... additional fields filled with non-food-based items by Tom.")
           expect(ris).to include("KW  - Banana")
           expect(ris).to include("KW  - Food")
