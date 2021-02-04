@@ -145,7 +145,6 @@ module Bolognese
             dates << { "date" => value, "dateType" => denomination }
           end
 
-          @reader_attributes["publication_year"] = publication_year
           @reader_attributes["dates"] = dates
         end
 
