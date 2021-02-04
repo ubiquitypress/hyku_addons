@@ -2,36 +2,65 @@
 require "rails_helper"
 
 RSpec.describe Bolognese::Readers::GenericWorkReader do
-  let(:doi) { '10.18130/v3-k4an-w022' }
-  let(:title) { 'Moomin' }
-  let(:alt_title) { 'alt-title' }
-  let(:resource_type) { "Book" }
-  let(:creator) { 'Tove Jansson' }
-  let(:contributor) { 'Elizabeth Portch' }
-  let(:publisher) { 'Schildts' }
   let(:abstract) { 'Swedish comic about the adventures of the residents of Moominvalley.' }
-  let(:keyword) { 'Lighthouses' }
-  let(:created_year) { "1945" }
-  let(:date_created) { "#{created_year}-01-01" }
-  let(:published_year) { "1946" }
-  let(:date_published) { "#{published_year}-01-01" }
-  let(:editor) { "Test Editor" }
-  let(:isbn) { "9781770460621" }
-  let(:place_of_publication) { "Finland" }
-  let(:journal_title) { "Test Journal Title" }
-  let(:language) { "Swedish" }
   let(:add_info) { "Nothing to report" }
+  let(:alt_title1) { 'alt-title' }
+  let(:alt_title2) { 'alt-title-2' }
+  let(:book_title) { "Book Title 1" }
+  let(:contributor) { 'Elizabeth Portch' }
+  let(:created_year) { "1945" }
+  let(:creator1) { 'Tove Jansson' }
+  let(:creator2) { 'Creator 2' }
+  let(:date_accepted) { "2018-01-02" }
+  let(:date_created) { "#{created_year}-01-01" }
+  let(:date_published) { "#{published_year}-01-01" }
+  let(:date_submitted) { "2019-01-02" }
+  let(:doi) { '10.18130/v3-k4an-w022' }
+  let(:duration1) { "duration1" }
+  let(:duration2) { "duration2" }
+  let(:edition) { "1" }
+  let(:editor) { "Test Editor" }
+  let(:eissn) { "1234-5678"  }
+  let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
+  let(:institution1) { "British Library" }
+  let(:institution2) { "British Museum" }
+  let(:isbn) { "9781770460621" }
+  let(:issn) { "0987654321" }
+  let(:issue) { "6" }
   let(:issue) { 7 }
+  let(:journal_title) { "Test Journal Title" }
+  let(:keyword) { 'Lighthouses' }
+  let(:keyword2) { 'Hippos' }
+  let(:language) { "Swedish" }
+  let(:language2) { "English" }
+  let(:metadata) { described_class.new(input: input, from: "work") }
+  let(:model_class) { GenericWork }
   let(:official_link) { "http://test-url.com" }
-  let(:volume) { 2 }
+  let(:org_unit1) { "Department of Crackers" }
+  let(:org_unit2) { "Department2" }
+  let(:pagination) { "1-2" }
+  let(:place_of_publication) { "Finland" }
+  let(:place_of_publication1) { "Buenos Aires, Argentina" }
+  let(:place_of_publication2) { "Place of publication2" }
+  let(:project_name1) { "Project name2" }
+  let(:project_name2) { "The Chicken projectca" }
+  let(:published_year) { "1946" }
+  let(:publisher) { 'Schildts' }
+  let(:resource_type) { "Book" }
   let(:ris_resource_type_identifier) { "BOOK" }
+  let(:series_name) { "Series name" }
+  let(:title) { 'Moomin' }
+  let(:version_number) { "3" }
+  let(:volume) { 2 }
+  let(:work) { model_class.new(attributes) }
+
   let(:attributes) do
     {
       doi: [doi],
       title: [title],
-      alt_title: [alt_title],
+      alt_title: [alt_title1],
       resource_type: [resource_type],
-      creator: [creator],
+      creator: [creator1],
       contributor: [contributor],
       publisher: [publisher],
       abstract: abstract,
@@ -50,11 +79,6 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
     }
   end
 
-  let(:model_class) { GenericWork }
-  let(:work) { model_class.new(attributes) }
-  let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
-  let(:metadata) { described_class.new(input: input, from: "work") }
-
   it "reads a GenericWork" do
     expect(metadata).to be_a(Bolognese::Metadata)
   end
@@ -68,13 +92,14 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   context "crosswalks" do
     context "RIS" do
       describe "a simple work" do
+
         it "correctly populates the export" do
           ris = metadata.ris
 
           expect(ris).to include("TY  - #{ris_resource_type_identifier}")
           expect(ris).to include("T1  - #{title}")
-          expect(ris).to include("T2  - #{alt_title}")
-          expect(ris).to include("AU  - #{creator}")
+          expect(ris).to include("T2  - #{alt_title1}")
+          expect(ris).to include("AU  - #{creator1}")
           expect(ris).to include("ED  - #{editor}")
           expect(ris).to include("DO  - https://doi.org/#{doi}")
           expect(ris).to include("AB  - #{abstract}")
@@ -96,39 +121,39 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
       describe "a complete work" do
         let(:attributes) do
           {
+            "abstract" => abstract,
+            "add_info" => add_info,
+            "alt_title" => [alt_title1, alt_title2, ""],
+            "book_title" => book_title,
+            "contributor" => [contributor],
+            "creator": [creator1, creator2, ""],
+            "date_accepted" => date_accepted,
+            "date_published" => date_published,
+            "date_submitted" => date_submitted,
             "doi": [doi],
-            "title": ["A work with all fields completed."],
-            "alt_title" => ["Alternative title1", "Alternative title2", ""],
-            "book_title" => "Book title",
+            "duration" => [duration1, duration2, ""],
+            "edition" => edition,
+            "editor" => [editor],
+            "eissn" => eissn,
+            "institution" => [institution1, institution2],
+            "isbn" => isbn,
+            "issn" => issn,
+            "issue" => issue,
+            "journal_title" => journal_title,
+            "keyword" => [keyword, keyword2, ""],
+            "language" => [language, language2],
+            "official_link" => official_link,
+            "org_unit" => [org_unit1, org_unit2],
+            "pagination" => pagination,
+            "place_of_publication" => [place_of_publication1, place_of_publication2],
+            "project_name" => [project_name1, project_name2],
+            "publisher" => [publisher, ""],
             "resource_type": ["Other", ""],
-            "editor" => ["Chickpea, Charlie"],
-            "creator": ["Chorizo, Cherry-Ann", "Gould, Sara"],
-            "contributor" => ["Cheddar, Cheese"],
-            "institution" => ["British Library", "British Museum", ""],
-            "date_published" => "2017-06-08",
-            "abstract" => "So many foods starting with c. Including chapati and clementines.",
-            "duration" => ["duration1", "duration2", ""],
-            "org_unit" => ["Department of Crackers", "Department2", ""],
-            "project_name" => ["Project name2", "The Chicken project", ""],
-            "series_name" => ["Series name2", ""],
-            "journal_title" => "Celery and Celeriac Times",
-            "publisher" => ["Crisps and Chips Publisher", ""],
-            "place_of_publication" => ["Buenos Aires, Argentina", "Place of publication2", ""],
-            "isbn" => "1234567890",
-            "issn" => "0987654321",
-            "eissn" => "1234-5678",
-            "date_accepted" => "2018-01-02",
-            "date_submitted" => "2019-01-02",
-            "official_link" => "https://bl.oar.bl.uk/concern/book_contributions/3b41adc3-dfd0-4be3-a682-b78b6c5ed86d?locale=en",
-            "language" => ["Fra", "Eng", ""],
-            "keyword" => ["Food", "Banana", ""],
-            "add_info" => "This record contains data in almost every field. Search foods beginning with c. Except rhubarb... additional fields filled with non-food-based items by Tom.",
+            "series_name" => [series_name, ""],
             "source" => [""],
-            "volume" => ["6", ""],
-            "edition" => "1",
-            "version_number" => ["2", ""],
-            "issue" => "3",
-            "pagination" => "1-2"
+            "title": [title],
+            "version_number" => [version_number, ""],
+            "volume" => [volume, ""],
           }
         end
 
@@ -136,31 +161,36 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
           ris = metadata.ris
 
           expect(ris).to include("TY  - GEN")
-          expect(ris).to include("T1  - A work with all fields completed.")
-          expect(ris).to include("T2  - Book title")
-          expect(ris).to include("T2  - Alternative title1")
-          expect(ris).to include("T2  - Alternative title2")
-          expect(ris).to include("AU  - Chorizo, Cherry-Ann")
-          expect(ris).to include("AU  - Gould, Sara")
-          expect(ris).to include("ED  - Chickpea, Charlie")
-          expect(ris).to include("AB  - So many foods starting with c. Including chapati and clementines.")
-          expect(ris).to include("DA  - 2017-06-08")
+          expect(ris).to include("T1  - #{title}")
+          expect(ris).to include("T2  - #{alt_title1}")
+          expect(ris).to include("T2  - #{alt_title2}")
+          expect(ris).to include("T2  - #{book_title}")
+          expect(ris).to include("AU  - #{creator1}")
+          expect(ris).to include("AU  - #{creator2}")
+          expect(ris).to include("ED  - #{editor}")
+          expect(ris).to include("AB  - #{abstract}")
+          expect(ris).to include("DA  - #{date_published}")
           expect(ris).to include("DO  - https://doi.org/#{doi}")
-          expect(ris).to include("JO  - Celery and Celeriac Times")
-          expect(ris).to include("LA  - Eng")
-          expect(ris).to include("LA  - Fra")
-          expect(ris).to include("N1  - This record contains data in almost every field. Search foods beginning with c. Except rhubarb... additional fields filled with non-food-based items by Tom.")
-          expect(ris).to include("KW  - Banana")
-          expect(ris).to include("KW  - Food")
-          expect(ris).to include("IS  - 3")
-          expect(ris).to include("PB  - Crisps and Chips Publisher")
-          expect(ris).to include("PP  - Place of publication2")
-          expect(ris).to include("PY  - 2017")
-          expect(ris).to include("SN  - 1234567890")
-          expect(ris).to include("SP  - 1-2")
-          expect(ris).to include("UR  - https://bl.oar.bl.uk/concern/book_contributions/3b41adc3-dfd0-4be3-a682-b78b6c5ed86d?locale=en")
-          expect(ris).to include("VL  - 6")
+          expect(ris).to include("JO  - #{journal_title}")
+          expect(ris).to include("LA  - #{language}")
+          expect(ris).to include("LA  - #{language2}")
+          expect(ris).to include("N1  - #{add_info}")
+          expect(ris).to include("KW  - #{keyword}")
+          expect(ris).to include("KW  - #{keyword2}")
+          expect(ris).to include("IS  - #{issue}")
+          expect(ris).to include("PB  - #{publisher}")
+          expect(ris).to include("PP  - #{place_of_publication1}")
+          expect(ris).to include("PP  - #{place_of_publication2}")
+          expect(ris).to include("PY  - #{published_year}")
+          expect(ris).to include("SN  - #{isbn}")
+          expect(ris).to include("SP  - #{pagination}")
+          expect(ris).to include("UR  - #{official_link}")
+          expect(ris).to include("VL  - #{volume}")
           expect(ris).to include("ER  - ")
+
+          #Ensure the priority of the identifiers is being respected
+          expect(ris).not_to include(issn)
+          expect(ris).not_to include(eissn)
         end
       end
     end
@@ -181,7 +211,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
 
       context 'it correctly populates the datacite XML' do
         it { expect(datacite_xml.xpath('/resource/titles/title[1]/text()').to_s).to eq title }
-        it { expect(datacite_xml.xpath('/resource/creators/creator[1]/creatorName/text()').to_s).to eq creator }
+        it { expect(datacite_xml.xpath('/resource/creators/creator[1]/creatorName/text()').to_s).to eq creator1 }
         it { expect(datacite_xml.xpath('/resource/publisher/text()').to_s).to eq publisher }
         it { expect(datacite_xml.xpath('/resource/descriptions/description[1]/text()').to_s).to eq abstract }
         it { expect(datacite_xml.xpath('/resource/contributors/contributor[1]/contributorName/text()').to_s).to eq contributor }
