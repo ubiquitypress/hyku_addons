@@ -1,6 +1,9 @@
 version: 2.1
+name: Circle CI adaptation
 orbs:
   samvera: samvera/circleci-orb@0
+on: push
+
 jobs:
   bundle_lint_test:
     parameters:
