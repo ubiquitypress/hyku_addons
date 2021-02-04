@@ -9,6 +9,8 @@ jobs:
         run: git submodule init
       - name: Git submodules update
         run: git submodule update
+      - name: Install bundler
+        run: gem install bundler
       - name: Set up dependencies
         run: bundle install
       - name: Add hyku internal app
