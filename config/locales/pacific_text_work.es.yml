@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      pacific_text_work:     'fa fa-file-text-o'
+    select_type:
+      pacific_text_work:
+        # TODO: translate `human_name` into Spanish
+        description:        "Pacific text work trabajos"
+        name:               "Pacific Text Work"
+        # TODO: translate `human_name` into Spanish

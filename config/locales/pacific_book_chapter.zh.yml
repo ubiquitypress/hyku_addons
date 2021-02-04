@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      pacific_book_chapter:     'fa fa-file-text-o'
+    select_type:
+      pacific_book_chapter:
+        # TODO: translate `human_name` into Chinese
+        description:        "Pacific book chapter 作品"
+        name:               "Pacific Book Chapter"
+        # TODO: translate `human_name` into Chinese

@@ -25,6 +25,7 @@ Metrics/ModuleLength:
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
     - 'app/models/concerns/hyku_addons/generic_work_overrides.rb'
+    - 'app/models/concerns/hyku_addons/solr_document_behavior.rb'
 
 Metrics/BlockLength:
   Exclude:
@@ -99,8 +100,7 @@ Style/MethodMissing:
 Rails/OutputSafety:
   Exclude:
     - 'app/renderers/**/*'
-    
+
 Rails/Date:
   Exclude:
     - 'spec/services/bolognese/readers/generic_work_reader_spec.rb'
-

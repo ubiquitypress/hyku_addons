@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      pacific_thesis_or_dissertation:     'fa fa-file-text-o'
+    select_type:
+      pacific_thesis_or_dissertation:
+        description:        "Pacific thesis or dissertation Werke"
+        name:               "Pacific Thesis Or Dissertation"

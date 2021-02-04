@@ -1,0 +1,8 @@
+fr:
+  hyrax:
+    icons:
+      pacific_uncategorized:     'fa fa-file-text-o'
+    select_type:
+      pacific_uncategorized:
+        description:        "Pacific uncategorized œuvres"
+        name:               "Pacific Uncategorized"
