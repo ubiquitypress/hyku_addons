@@ -13,7 +13,7 @@ module Bolognese
 
       # Some attributes are not copied over from data inside of hyku, but calculated in reader methods below.
       def self.special_terms
-        %w[types]
+        %w[types publication_year]
       end
 
       # Some attributes wont match those that are expected by bolognese. This is
@@ -62,17 +62,6 @@ module Bolognese
         @reader_attributes.merge(read_options)
       end
 
-      # Override the parent method as we have other fields
-      def publication_year
-        @publication_year ||= begin
-          date = meta_value("date_published") || meta_value("date_created")&.first || meta_value("date_uploaded")
-          Date.edtf(date.to_s).year
-
-        rescue Date::Error, TypeError, NoMethodError
-          Time.zone.today.year
-        end
-      end
-
       protected
 
         def read_creator
@@ -119,6 +108,30 @@ module Bolognese
           normalize_doi(meta_value('doi')&.first)
         end
 
+        # This is a special method that adds some additional values to the meta object. As its not part of the
+        # document form fields, we are injecting it into the meta by adding the method to the specia_methods array
+        def read_types
+          hyrax_resource_type = meta_value("has_model") || DEFAULT_RESOURCE_TYPE
+          resource_type = meta_value("resource_type").presence || hyrax_resource_type
+
+          {
+            "resourceTypeGeneral" => "Other", # TODO: Not sure what this should be or how to work it out
+            "resourceType" => resource_type,
+            "hyrax" => hyrax_resource_type
+          }
+        end
+
+        # Avoid overriding a parent method publication_year
+        def read_publication_year
+          @publication_year ||= begin
+            date = meta_value("date_published") || meta_value("date_created")&.first || meta_value("date_uploaded")
+            Date.edtf(date.to_s).year
+
+          rescue Date::Error, TypeError, NoMethodError
+            Time.zone.today.year
+          end
+        end
+
         def build_dates!
           dates = []
 
@@ -152,19 +165,6 @@ module Bolognese
               }
             end.compact
           )
-        end
-
-        # This is a special method that adds some additional values to the meta object. As its not part of the
-        # document form fields, we are injecting it into the meta by adding the method to the specia_methods array
-        def read_types
-          hyrax_resource_type = meta_value("has_model") || DEFAULT_RESOURCE_TYPE
-          resource_type = meta_value("resource_type").presence || hyrax_resource_type
-
-          {
-            "resourceTypeGeneral" => "Other", # TODO: Not sure what this should be or how to work it out
-            "resourceType" => resource_type,
-            "hyrax" => hyrax_resource_type
-          }
         end
 
         # Read from the meta array and try and work out what should be
