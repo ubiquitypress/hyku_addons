@@ -190,6 +190,9 @@ module HykuAddons
         config.register_curation_concern :pacific_book_chapter
         config.register_curation_concern :pacific_media
         config.register_curation_concern :pacific_news_clipping
+        config.register_curation_concern :pacific_presentation
+        config.register_curation_concern :pacific_text_work
+        config.register_curation_concern :pacific_uncategorized
       end
     end
 
