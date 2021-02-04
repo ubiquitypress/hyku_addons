@@ -100,7 +100,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       fill_in('generic_work_creator__creator_isni', with: '0000 0001 2103 4996')
 
       # Resource type
-      select('Article', from: 'Resource type')
+      select('Blog post', from: 'Resource type')
 
       # Institution
       select('University of Virginia', from: 'Institution')
@@ -130,7 +130,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       expect(page).to have_link('', href: 'https://isni.org/isni/0000000121034996')
 
       # Resource type
-      expect(page).to have_link('Article', href: /catalog\?f.*Bresource_type_sim.*Article/)
+      expect(page).to have_link('Blog post', href: /catalog\?f.*Bresource_type_sim.*Blog\+post/)
 
       # Institution
       expect(page).to have_content('University of Virginia')
@@ -176,7 +176,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       fill_in('generic_work_creator__creator_isni', with: '0000 0001 2103 4996')
 
       # Resource type
-      select('Article', from: 'Resource type')
+      select('Blog post', from: 'Resource type')
 
       # Alternative title
       fill_in('Alt title', with: 'All fields test')
@@ -342,7 +342,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       expect(page).to have_link('', href: 'https://isni.org/isni/0000000121034996')
 
       # Resource type
-      expect(page).to have_link('Article', href: /catalog\?f.*Bresource_type_sim.*Article/)
+      expect(page).to have_link('Blog post', href: /catalog\?f.*Bresource_type_sim.*Blog\+post/)
 
       # Alternative title
       expect(page).to have_content('All fields test')

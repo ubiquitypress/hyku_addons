@@ -9,13 +9,13 @@ RSpec.describe Hyrax::BookContributionForm do
     describe "#required_fields" do
       subject { form.required_fields }
 
-      it { is_expected.to eq [:title, :resource_type, :creator, :institution] }
+      it { is_expected.to eq %i[title resource_type creator institution date_published] }
     end
 
     describe "#terms" do
       subject { form.terms }
 
-      it "sets the terms" do
+      it do
         expected_terms = %i[title resource_type creator alt_title contributor rendering_ids abstract date_published
                             institution org_unit project_name funder fndr_project_ref series_name book_title editor volume edition
                             publisher place_of_publication isbn issn eissn date_accepted date_submitted official_link related_url

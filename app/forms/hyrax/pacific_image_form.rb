@@ -1,12 +1,8 @@
 # frozen_string_literal: true
-# Generated via
-#  `rails generate hyrax:work PacificImage`
+
 module Hyrax
-  # Generated form for PacificImage
   class PacificImageForm < Hyrax::Forms::WorkForm
-    # Adds behaviors for hyrax-doi plugin.
     include Hyrax::DOI::DOIFormBehavior
-    # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
     include Hyrax::DOI::DataCiteDOIFormBehavior
     include ::HykuAddons::WorkForm
 

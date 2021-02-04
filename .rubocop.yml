@@ -22,6 +22,7 @@ Metrics/LineLength:
 Metrics/ModuleLength:
   Exclude:
     - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
+    - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
     - 'app/models/concerns/hyku_addons/generic_work_overrides.rb'
     - 'app/models/concerns/hyku_addons/solr_document_behavior.rb'
@@ -43,8 +44,10 @@ Metrics/MethodLength:
   Exclude:
     - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
     - 'app/forms/concerns/hyku_addons/generic_work_form_overrides.rb'
+    - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/services/bolognese/readers/base_work_reader.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
+    - 'lib/hyku_addons/engine.rb'
     - 'spec/**/*.rb'
 
 Metrics/CyclomaticComplexity:
@@ -57,6 +60,7 @@ Metrics/PerceivedComplexity:
 
 Metrics/AbcSize:
   Exclude:
+    - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
 
 RSpec/DescribeClass:
@@ -73,6 +77,10 @@ RSpec/ExampleLength:
     - 'spec/features/**/*'
     - 'spec/requests/api_v1_work_spec.rb'
     - 'spec/services/bolognese/readers/generic_work_reader_spec.rb'
+
+RSpec/InstanceVariable:
+  Exclude:
+    - 'spec/helpers/work_forms_context.rb'
 
 RSpec/NestedGroups:
   Exclude:

@@ -53,7 +53,8 @@ end
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+# Require supporting ruby files from spec/support/ and subdirectories.  Note: engine, not Rails.root context.
+Dir[File.join(File.dirname(__FILE__), "support/**/*.rb")].each { |f| require f }
 
 require 'shoulda-matchers'
 Shoulda::Matchers.configure do |config|

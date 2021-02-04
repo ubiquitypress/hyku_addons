@@ -11,17 +11,22 @@ RSpec.shared_context 'work forms context' do
   end
 
   def check_common_fields_presence
-    %w[title alternative_name project_name institution abstract official_link language license
-       rights_statement rights_holder doi peer_reviewed keywords dewey library_of_congress_classification add_info].each do |attr|
+    fields = %w[title alternative_name project_name institution abstract official_link language license
+                rights_statement rights_holder doi keywords dewey library_of_congress_classification
+                add_info]
+
+    fields.each do |attr|
       expect(model_attributes[attr]).to eq attr
     end
+
     check_attribute_group_presence(:creator, [:creator_organization_name, :creator_given_name, :creator_family_name,
-                                              :creator_name_type, :creator_orcid, :creator_isni, :creator_ror, :creator_grid,
-                                              :creator_wikidata, :creator_institutional_relationship])
+                                              :creator_name_type, :creator_orcid, :creator_isni, :creator_ror,
+                                              :creator_grid, :creator_wikidata, :creator_institutional_relationship])
     check_attribute_group_presence(:contributor, [:contributor_organization_name, :contributor_given_name,
                                                   :contributor_family_name, :contributor_name_type, :contributor_orcid,
-                                                  :contributor_isni, :contributor_ror, :contributor_grid, :contributor_wikidata,
-                                                  :contributor_type, :contributor_institutional_relationship])
+                                                  :contributor_isni, :contributor_ror, :contributor_grid,
+                                                  :contributor_wikidata, :contributor_type,
+                                                  :contributor_institutional_relationship])
     check_attribute_group_presence(:date_published, [:date_published_year, :date_published_month, :date_published_day])
     check_attribute_group_presence(:date_accepted, [:date_accepted_year, :date_accepted_month, :date_accepted_day])
     check_attribute_group_presence(:date_submitted, [:date_submitted_year, :date_submitted_month, :date_submitted_day])
@@ -44,13 +49,12 @@ RSpec.shared_context 'work forms context' do
       rights_statement: 'rights_statement',
       rights_holder: 'rights_holder',
       doi: 'doi',
-      peer_reviewed: 'peer_reviewed',
       keywords: 'keywords',
       dewey: 'dewey',
       library_of_congress_classification: 'library_of_congress_classification',
       add_info: 'add_info'
-    }.merge(creator_params, contributor_params, date_published_params, funder_params, date_accepted_params, date_submitted_params,
-            related_identifier_params, alternate_identifier_params)
+    }.merge(creator_params, contributor_params, date_published_params, funder_params, date_accepted_params,
+            date_submitted_params, related_identifier_params, alternate_identifier_params)
   end
 
   def creator_params
@@ -181,6 +185,13 @@ RSpec.shared_context 'work forms context' do
 
   describe 'add_terms' do
     context 'with no previous terms' do
+      around do |example|
+        # Reset the class variable to avoid side effects in subsequent tests
+        @terms = described_class.terms
+        example.run
+        described_class.terms = @terms
+      end
+
       it "adds the terms passed as params" do
         described_class.add_terms :pagination
         expect(form.terms).to include(:pagination)

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 module HykuAddons
-  class ContributorGroupService < Hyrax::QaSelectService
-    def initialize(_authority_name = nil)
-      super('contributor_group')
+  class ContributorGroupService < HykuAddons::QaSelectService
+    def initialize(model: nil)
+      super('contributor_group', model: model)
     end
   end
 end

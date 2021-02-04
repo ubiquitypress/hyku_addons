@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 module HykuAddons
-  class CurrentHeInstitutionService < Hyrax::QaSelectService
-    def initialize(_authority_name = nil)
-      super('current_he_institution')
+  class CurrentHeInstitutionService < HykuAddons::QaSelectService
+    def initialize(model: nil)
+      super('current_he_institution', model: model)
     end
 
     def select_active_options_isni
