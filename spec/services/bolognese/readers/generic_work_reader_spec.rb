@@ -20,7 +20,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:duration2) { "duration2" }
   let(:edition) { "1" }
   let(:editor) { "Test Editor" }
-  let(:eissn) { "1234-5678"  }
+  let(:eissn) { "1234-5678" }
   let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
   let(:institution1) { "British Library" }
   let(:institution2) { "British Museum" }
@@ -92,7 +92,6 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   context "crosswalks" do
     context "RIS" do
       describe "a simple work" do
-
         it "correctly populates the export" do
           ris = metadata.ris
 
@@ -153,7 +152,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
             "source" => [""],
             "title": [title],
             "version_number" => [version_number, ""],
-            "volume" => [volume, ""],
+            "volume" => [volume, ""]
           }
         end
 
@@ -188,7 +187,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
           expect(ris).to include("VL  - #{volume}")
           expect(ris).to include("ER  - ")
 
-          #Ensure the priority of the identifiers is being respected
+          # Ensure the priority of the identifiers is being respected
           expect(ris).not_to include(issn)
           expect(ris).not_to include(eissn)
         end
