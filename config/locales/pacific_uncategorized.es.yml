@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      pacific_uncategorized:     'fa fa-file-text-o'
+    select_type:
+      pacific_uncategorized:
+        # TODO: translate `human_name` into Spanish
+        description:        "Pacific uncategorized trabajos"
+        name:               "Pacific Uncategorized"
+        # TODO: translate `human_name` into Spanish

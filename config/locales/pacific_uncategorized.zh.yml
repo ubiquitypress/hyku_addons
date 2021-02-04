@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      pacific_uncategorized:     'fa fa-file-text-o'
+    select_type:
+      pacific_uncategorized:
+        # TODO: translate `human_name` into Chinese
+        description:        "Pacific uncategorized 作品"
+        name:               "Pacific Uncategorized"
+        # TODO: translate `human_name` into Chinese
