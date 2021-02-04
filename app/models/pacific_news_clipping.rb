@@ -17,7 +17,7 @@ class PacificNewsClipping < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :location, predicate: ::RDF::Vocab::BF2.physicalLocation , multiple: false do |index|
+  property :location, predicate: ::RDF::Vocab::BF2.physicalLocation, multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
 
