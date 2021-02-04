@@ -21,7 +21,7 @@ module HykuAddons
     included do
       class_attribute :registered_attributes
       # Pre-seed registered attributes because they have already been created before this module is included
-      self.registered_attributes = [:identifier, :based_near, :based_near_label, :related_url, :resource_type,
+      self.registered_attributes = [:doi, :identifier, :based_near, :based_near_label, :related_url, :resource_type,
                                     :edit_groups, :edit_people, :read_groups, :admin_set, :member_ids,
                                     :member_of_collection_ids, :description, :abstract, :title, :contributor, :subject,
                                     :publisher, :language, :keyword, :license, :source, :date_created, :rights_statement,

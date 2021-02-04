@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 require 'bolognese'
 
+# NOTE:
+# Parent class to work type class readers.
+# The class name is build within SolrDocumentBehavior.meta_reader_class
+# and called from inside the RisContentNegotiation.export_as_ris,
+# which is a concern injected into the SolrDocument
 module Bolognese
   module Readers
     class BaseWorkReader < Bolognese::Metadata
@@ -8,7 +13,7 @@ module Bolognese
 
       # Some attributes are not copied over from data inside of hyku, but calculated in reader methods below.
       def self.special_terms
-        %w[types]
+        %w[types publication_year]
       end
 
       # Some attributes wont match those that are expected by bolognese. This is
@@ -19,8 +24,7 @@ module Bolognese
           "creator" => "creators",
           "contributor" => "contributors",
           "abstract" => "descriptions",
-          "keyword" => "subjects",
-          "date_published" => "publication_year"
+          "keyword" => "subjects"
         }
       end
 
@@ -29,14 +33,14 @@ module Bolognese
       # normal method to be found with `meta_values(key_name)`.
       def self.nested_attributes
         {
-          "container" => %w[volume issue firstPage lastPage]
+          "container" => %w[volume issue firstPage lastPage pagination]
         }
       end
 
       # An array of methods that should be called after the inital attributes have been collected.
       # These methods should modify the `@reader_attributes` variable directly
       def self.after_actions
-        %i[build_related_identifiers! build_nested_attributes! update_mismatched_attributes!]
+        %i[build_related_identifiers! build_nested_attributes! build_dates! update_mismatched_attributes!]
       end
 
       # The primary point of interacting with the readers. The name of this method depends on what reader is specified
@@ -61,15 +65,21 @@ module Bolognese
       protected
 
         def read_creator
-          return unless meta_value?("creator")
+          return unless (value = @meta.fetch('creator_display', @meta.dig('creator'))).present?
 
-          get_authors(meta_value("creator"))
+          get_authors(value)
         end
 
         def read_contributor
-          return unless meta_value?("contributor")
+          return unless (value = @meta.fetch('contributor_display', @meta.dig('contributor'))).present?
 
-          get_authors(meta_value("contributor"))
+          get_authors(value)
+        end
+
+        def read_editor
+          return unless (value = @meta.fetch('editor_display', @meta.dig('editor'))).present?
+
+          get_authors(value)
         end
 
         def read_title
@@ -84,15 +94,6 @@ module Bolognese
           }
         end
 
-        def read_date_published
-          date = meta_value("date_published") || meta_value("date_created")&.first || meta_value("date_uploaded")
-          Date.edtf(date.to_s).year
-
-          # TODO: Remove the catch all rescue as it seems like a smell to be catching all errors
-        rescue StandardError
-          Time.zone.today.year
-        end
-
         def read_keyword
           return unless meta_value?("keyword")
 
@@ -100,11 +101,51 @@ module Bolognese
         end
 
         def read_publisher
-          parse_attributes(meta_value("publisher")).to_s.strip.presence || :unav
+          Array.wrap(meta_value("publisher")).compact.select(&:present?).first.presence || :unav
         end
 
         def read_doi
           normalize_doi(meta_value('doi')&.first)
+        end
+
+        # This is a special method that adds some additional values to the meta object. As its not part of the
+        # document form fields, we are injecting it into the meta by adding the method to the specia_methods array
+        def read_types
+          hyrax_resource_type = meta_value("has_model") || DEFAULT_RESOURCE_TYPE
+          resource_type = meta_value("resource_type").presence || hyrax_resource_type
+
+          {
+            "resourceTypeGeneral" => "Other", # TODO: Not sure what this should be or how to work it out
+            "resourceType" => resource_type,
+            "hyrax" => hyrax_resource_type
+          }
+        end
+
+        # Avoid overriding a parent method publication_year
+        def read_publication_year
+          @publication_year ||= begin
+            date = meta_value("date_published") || meta_value("date_created")&.first || meta_value("date_uploaded")
+            Date.edtf(date.to_s).year
+
+          rescue Date::Error, TypeError, NoMethodError
+            Time.zone.today.year
+          end
+        end
+
+        def build_dates!
+          dates = []
+
+          date_fields = { date_published: "Issued", date_created: "Created", date_modified: "Updated" }
+          date_fields.each do |term, denomination|
+            next unless meta_value?(term)
+
+            value = meta_value(term)
+            value = value.compact.first if value.is_a?(Array)
+
+            dates << { "date" => value, "dateType" => denomination }
+          end
+
+          @reader_attributes["dates"] = dates
         end
 
         def build_related_identifiers!
@@ -123,19 +164,6 @@ module Bolognese
               }
             end.compact
           )
-        end
-
-        # This is a special method that adds some additional values to the meta object. As its not part of the
-        # document form fields, we are injecting it into the meta by adding the method to the specia_methods array
-        def read_types
-          hyrax_resource_type = meta_value("has_model") || DEFAULT_RESOURCE_TYPE
-          resource_type = meta_value("resource_type").presence || hyrax_resource_type
-
-          {
-            "resourceTypeGeneral" => "Other", # TODO: Not sure what this should be or how to work it out
-            "resourceType" => resource_type,
-            "hyrax" => hyrax_resource_type
-          }
         end
 
         # Read from the meta array and try and work out what should be
