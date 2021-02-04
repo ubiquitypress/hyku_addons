@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Generated via
 #  `rails generate hyrax:work PacificTextWork`
 module Hyrax
@@ -8,7 +9,7 @@ module Hyrax
     # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
     include Hyrax::DOI::DataCiteDOIFormBehavior
     include ::HykuAddons::WorkForm
-    
+
     self.model_class = ::PacificTextWork
     add_terms %i[title alt_title resource_type creator contributor abstract
                  date_published pagination is_included_in volume publisher issn source additional_links rights_holder license
