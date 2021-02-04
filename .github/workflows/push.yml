@@ -5,6 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Git submodules init
+        run: git submodule init
+      - name: Git submodules update
+        run: git submodule update
+      - name: Set up dependencies
+        run: bundle install
+      - name: Add hyku internal app
+        run: bundle exec rails g hyku_addons:install
       - name: Build the stack
         run: docker-compose build
       - name: Test
