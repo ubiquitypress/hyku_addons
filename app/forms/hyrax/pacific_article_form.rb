@@ -21,6 +21,10 @@ module Hyrax
     def self.build_permitted_params
       super.tap do |permitted_params|
         permitted_params << common_fields
+        permitted_params << [:alt_title, :pagination, :issue, :page_display_order_number,
+                             :volume, :journal_title, :publisher, :issn, :source,
+                             :additional_links, :org_unit, :subject, :keyword,
+                             :refereed, :irb_status, :irb_number]
       end
     end
   end
