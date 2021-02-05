@@ -112,6 +112,14 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                          "work_type" => "GenericWork",
                                          "workflow_status" => nil)
       end
+
+      it 'returns work json with data when it exists' do
+        abstract = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at tincidunt nisl. Nulla et lacus consequat, interdum eros nec, pulvinar."
+        work.abstract = abstract
+        work.save
+        get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
+        expect(json_response).to include("abstract" => abstract)
+      end
     end
   end
 end
