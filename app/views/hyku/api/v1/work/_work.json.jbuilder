@@ -18,7 +18,7 @@ json.cname @account.cname
 #                                         "date_accepted" => nil,
 json.date_published work.try(:date_published)
 json.date_submitted work.date_uploaded
-#                                         "degree" => nil,
+json.degree work.try(:degree)
 #                                         "dewey" => nil,
 #                                         "display" => "full",
 #                                         "doi" => nil,

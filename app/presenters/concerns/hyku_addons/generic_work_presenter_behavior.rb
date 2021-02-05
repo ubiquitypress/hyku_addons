@@ -5,9 +5,7 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     included do
-      # Adds behaviors for hyrax-doi plugin.
       include Hyrax::DOI::DOIPresenterBehavior
-      # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
       include Hyrax::DOI::DataCiteDOIPresenterBehavior
 
       DELEGATED_METHODS = [:volume, :pagination, :issn, :eissn, :contributor_display, :official_link, :series_name, :edition,
@@ -106,6 +104,7 @@ module HykuAddons
 
       def person_or_organization_list(field)
         return [] unless send(field)&.first.present?
+
         JSON.parse(send(field).first).collect do |hash|
           name = hash.slice("#{field}_family_name", "#{field}_given_name", "#{field}_organization_name").values.map(&:presence).compact.join(', ')
           PersonOrOrganization.new(name, hash["#{field}_orcid"], hash["#{field}_isni"], hash["#{field}_ror"], hash["#{field}_grid"], hash["#{field}_wikidata"])

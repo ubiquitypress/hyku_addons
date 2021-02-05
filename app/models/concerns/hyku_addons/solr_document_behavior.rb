@@ -21,7 +21,7 @@ module HykuAddons
     included do
       class_attribute :registered_attributes
       # Pre-seed registered attributes because they have already been created before this module is included
-      self.registered_attributes = [:identifier, :based_near, :based_near_label, :related_url, :resource_type,
+      self.registered_attributes = [:doi, :identifier, :based_near, :based_near_label, :related_url, :resource_type,
                                     :edit_groups, :edit_people, :read_groups, :admin_set, :member_ids,
                                     :member_of_collection_ids, :description, :abstract, :title, :contributor, :subject,
                                     :publisher, :language, :keyword, :license, :source, :date_created, :rights_statement,
@@ -86,6 +86,14 @@ module HykuAddons
       attribute :irb_status, SolrDocument::Solr::Array, solr_name('irb_status')
       attribute :irb_number, SolrDocument::Solr::Array, solr_name('irb_number')
       attribute :is_included_in, SolrDocument::Solr::Array, solr_name('is_included_in')
+      attribute :degree, SolrDocument::Solr::Array, solr_name('degree')
+      attribute :reading_level, SolrDocument::Solr::Array, solr_name('reading_level')
+      attribute :challenged, SolrDocument::Solr::Array, solr_name('challenged')
+      attribute :location, SolrDocument::Solr::Array, solr_name('location')
+      attribute :outcome, SolrDocument::Solr::Array, solr_name('outcome')
+      attribute :participant, SolrDocument::Solr::Array, solr_name('participant')
+      attribute :photo_caption, SolrDocument::Solr::Array, solr_name('photo_caption')
+      attribute :photo_description, SolrDocument::Solr::Array, solr_name('photo_description')
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(

@@ -1,0 +1,8 @@
+fr:
+  hyrax:
+    icons:
+      pacific_book_chapter:     'fa fa-file-text-o'
+    select_type:
+      pacific_book_chapter:
+        description:        "Pacific book chapter œuvres"
+        name:               "Pacific Book Chapter"

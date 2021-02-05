@@ -52,12 +52,12 @@ module HykuAddons
 
       Hyku::RegistrationsController.class_eval do
         def new
-          return super if current_account.allow_signup == "true"
+          return super if current_account&.allow_signup == "true"
           redirect_to root_path, alert: t(:'hyku.account.signup_disabled')
         end
 
         def create
-          return super if current_account.allow_signup == "true"
+          return super if current_account&.allow_signup == "true"
           redirect_to root_path, alert: t(:'hyku.account.signup_disabled')
         end
 
@@ -191,6 +191,13 @@ module HykuAddons
         config.register_curation_concern :pacific_article
         config.register_curation_concern :pacific_book
         config.register_curation_concern :pacific_image
+        config.register_curation_concern :pacific_thesis_or_dissertation
+        config.register_curation_concern :pacific_book_chapter
+        config.register_curation_concern :pacific_media
+        config.register_curation_concern :pacific_news_clipping
+        config.register_curation_concern :pacific_presentation
+        config.register_curation_concern :pacific_text_work
+        config.register_curation_concern :pacific_uncategorized
       end
     end
 

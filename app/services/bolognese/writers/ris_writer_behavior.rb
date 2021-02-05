@@ -5,6 +5,8 @@ module Bolognese
     module RisWriterBehavior
       extend ActiveSupport::Concern
       DEFAULT_RESOURCE_TYPE = :GEN
+      RIS_DELIMITER = "\r\n"
+
       # This was taken from the legacy application and i'm unsure which of them are required.
       RESOURCE_TYPES = {
         JOUR: ["Article default Journal article", "Article Book review", "Article Data paper",
@@ -43,15 +45,16 @@ module Bolognese
 
       included do
         def ris
-          {
+          hash = {
             TY: calculate_resource_type(types),
             T1: parse_attributes(titles, content: "title", first: true),
-            T2: container && container["title"],
+            T2: secondary_titles,
             AU: to_ris(creators),
             DO: doi,
-            ED: meta.dig("editor"),
+            ED: to_ris(meta.dig("editor")),
             AB: parse_attributes(descriptions, content: "description", first: true),
             KW: Array.wrap(subjects).map { |k| parse_attributes(k, content: "subject", first: true) }.presence,
+            DA: meta.dig('dates').find { |date| date["dateType"] == "Issued" }&.dig("date"),
             PY: publication_year,
             PB: publisher,
             PP: meta.dig("place_of_publication"),
@@ -63,11 +66,28 @@ module Bolognese
             UR: meta.dig("official_link"),
             IS: container.to_h["issue"],
             VL: container.to_h["volume"],
+            SP: container.to_h["pagination"],
             ER: ""
           }
+
+          expand_nested_and_prepare(hash)
+        end
+
+        # Expand nested arrays, remove any blank entries and expand into a RIS formatted string
+        def expand_nested_and_prepare(hash)
+          hash
             .compact
-            .map { |k, v| v.is_a?(Array) ? v.map { |vi| "#{k}  - #{vi}" }.join("\r\n") : "#{k}  - #{v}" }
-            .join("\r\n")
+            .map do |k, v|
+              if v.is_a?(Array)
+                v.map { |vi| "#{k}  - #{vi}" if vi.present? }.compact.join(RIS_DELIMITER)
+              else
+                "#{k}  - #{v}"
+              end
+            end.join(RIS_DELIMITER)
+        end
+
+        def secondary_titles
+          Array.wrap(parse_attributes(meta["alt_title"])) + Array.wrap(parse_attributes(meta['book_title']))
         end
 
         # Legacy code ordered the values and returned

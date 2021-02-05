@@ -9,13 +9,9 @@ module Hyrax
     include Hyrax::DOI::DataCiteDOIPresenterBehavior
     include ::HykuAddons::GenericWorkPresenterBehavior
 
-    DELEGATED_METHODS = [:volume, :pagination, :issn, :official_link,
-                         :journal_title, :issue, :institution, :org_unit, :refereed, :funder, :fndr_project_ref,
-                         :add_info, :date_published,
-                         :date_accepted, :date_submitted, :project_name, :rights_holder, :place_of_publication,
-                         :abstract, :alternate_identifier, :related_identifier, :creator_display,
-                         :library_of_congress_classification, :alt_title, :dewey,
-                         :title, :date_created, :description, :additional_links, :irb_status,
-                         :irb_number].freeze
+    DELEGATED_METHODS = %i[title alt_title resource_type creator contributor abstract institution date_published pagination issue page_display_order_number
+                           volume journal_title publisher issn source additional_links
+                           rights_holder license org_unit doi subject keyword refereed
+                           irb_status irb_number add_info].freeze
   end
 end
