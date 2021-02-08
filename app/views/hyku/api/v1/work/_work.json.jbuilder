@@ -2,7 +2,7 @@
 # FIXME: many attributes here left nil so specs will pass
 json.uuid work.id
 
-json.abstract work.abstract
+json.abstract work.try(:abstract)
 json.additional_info work.try(:add_info)
 json.additional_links work.try(:additional_links)
 json.admin_set_name work.admin_set.first
@@ -11,7 +11,7 @@ json.alternative_title work.try(:alt_title)
 #                                         "article_number" => nil,
 #                                         "book_title" => nil,
 json.buy_book work.try(:buy_book)
-#                                         "challenged" => nil,
+json.challenged work.try(:challenged)
 json.cname @account.cname
 #                                         "collections" => nil,
 #                                         "current_he_institution" => nil,
@@ -23,7 +23,7 @@ json.degree work.try(:degree)
 #                                         "display" => "full",
 #                                         "doi" => nil,
 # json.download_link nil
-#                                         "duration" => nil,
+json.duration work.try(:duration)
 #                                         "edition" => nil,
 #                                         "eissn" => nil,
 #                                         "event_date" => nil,
@@ -44,23 +44,23 @@ json.keywords work.keyword
 json.language work.language
 #                                         "library_of_congress_classification" => nil,
 json.license work.try(:license)
-#                                         "location" => nil,
+json.location work.try(:location)
 #                                         "material_media" => nil,
 #                                         "migration_id" => nil,
 #                                         "official_url" => nil,
 json.organisational_unit work.try(:org_unit)
-#                                         "outcome" => nil,
+json.outcome work.try(:outcome)
 json.page_display_order_number work.try(:page_display_order_number)
 json.pagination work.try(:pagination)
-#                                         "participant" => nil,
-#                                         "photo_caption" => nil,
-#                                         "photo_description" => nil,
+json.participant work.try(:participant)
+json.photo_caption work.try(:photo_caption)
+json.photo_description work.try(:photo_description)
 #                                         "place_of_publication" => nil,
 #                                         "project_name" => nil,
 json.publisher work.publisher
 #                                         "qualification_level" => nil,
 #                                         "qualification_name" => nil,
-#                                         "reading_level" => nil,
+json.reading_level work.try(:reading_level)
 json.refereed work.try(:refereed)
 #                                         "related_exhibition" => nil,
 #                                         "related_exhibition_date" => nil,
@@ -78,7 +78,7 @@ json.subject work.subject
 json.thumbnail_url nil
 json.title work.title.first
 json.type "work"
-#                                         "version" => nil,
+json.version work.try(:version)
 json.visibility work.solr_document.visibility
 json.volume work.try(:volume)
 json.work_type work.model.model_name.to_s

@@ -118,7 +118,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
         work.abstract = abstract
         work.save
         get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
-        expect(json_response).to include("abstract" => abstract)
+        expect(json_response).to include("abstract" => [abstract])
       end
     end
   end
