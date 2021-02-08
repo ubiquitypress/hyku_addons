@@ -2,8 +2,6 @@
 
 module Hyrax
   class DatasetForm < Hyrax::Forms::WorkForm
-    include Hyrax::DOI::DOIFormBehavior
-    include Hyrax::DOI::DataCiteDOIFormBehavior
     include ::HykuAddons::WorkForm
 
     self.model_class = ::Dataset
@@ -13,5 +11,8 @@ module Hyrax
                  doi alternate_identifier related_identifier refereed keyword dewey library_of_congress_classification
                  add_info]
     self.required_fields = %i[title resource_type creator institution date_published]
+
+    include Hyrax::DOI::DOIFormBehavior
+    include Hyrax::DOI::DataCiteDOIFormBehavior
   end
 end

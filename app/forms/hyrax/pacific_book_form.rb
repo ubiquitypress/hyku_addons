@@ -2,8 +2,6 @@
 
 module Hyrax
   class PacificBookForm < Hyrax::Forms::WorkForm
-    include Hyrax::DOI::DOIFormBehavior
-    include Hyrax::DOI::DataCiteDOIFormBehavior
     include ::HykuAddons::WorkForm
 
     self.model_class = ::PacificBook
@@ -12,6 +10,9 @@ module Hyrax
                  rights_holder license org_unit doi subject keyword refereed add_info]
 
     self.required_fields = %i[title creator resource_type institution org_unit pagination publisher]
+
+    include Hyrax::DOI::DOIFormBehavior
+    include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def self.build_permitted_params
       super.tap do |permitted_params|

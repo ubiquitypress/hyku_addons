@@ -4,10 +4,6 @@
 module Hyrax
   # Generated form for PacificUncategorized
   class PacificUncategorizedForm < Hyrax::Forms::WorkForm
-    # Adds behaviors for hyrax-doi plugin.
-    include Hyrax::DOI::DOIFormBehavior
-    # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
-    include Hyrax::DOI::DataCiteDOIFormBehavior
     include ::HykuAddons::WorkForm
 
     self.model_class = ::PacificUncategorized
@@ -16,6 +12,9 @@ module Hyrax
                  doi degree org_unit subject keyword refereed irb_status irb_number add_info]
 
     self.required_fields = %i[title resource_type creator institution org_unit refereed]
+
+    include Hyrax::DOI::DOIFormBehavior
+    include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def self.build_permitted_params
       super.tap do |permitted_params|

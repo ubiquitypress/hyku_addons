@@ -2,8 +2,6 @@
 
 module Hyrax
   class ConferenceItemForm < Hyrax::Forms::WorkForm
-    include Hyrax::DOI::DOIFormBehavior
-    include Hyrax::DOI::DataCiteDOIFormBehavior
     include ::HykuAddons::WorkForm
 
     self.model_class = ::ConferenceItem
@@ -14,5 +12,8 @@ module Hyrax
                  alternate_identifier related_identifier refereed keyword dewey library_of_congress_classification
                  add_info pagination]
     self.required_fields = %i[title resource_type creator institution date_published]
+
+    include Hyrax::DOI::DOIFormBehavior
+    include Hyrax::DOI::DataCiteDOIFormBehavior
   end
 end

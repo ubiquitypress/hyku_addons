@@ -10,3 +10,4 @@ spec/internal_test_hyku/tmp/
 coverage/
 tmp/
 fits.log
+.ruby-version
