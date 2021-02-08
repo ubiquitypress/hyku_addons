@@ -59,7 +59,7 @@ module HykuAddons
       def hyrax_terms
         %i[visibility files visibility_during_embargo embargo_release_date visibility_after_embargo
            visibility_during_lease lease_expiration_date visibility_after_lease admin_set_id member_of_collection_ids
-           ordered_member_ids in_works_ids source rendering_ids]
+           ordered_member_ids in_works_ids rendering_ids]
       end
 
       def common_fields
