@@ -12,6 +12,9 @@ module HykuAddons
     included do
       def autofill
         respond_to do |format|
+          format.js { render js: datacite_json_from_doi(params[:doi]), status: :ok }
+
+          # NOTE: This is temporary, just so we have a URL to debug
           format.html { render js: datacite_json_from_doi(params[:doi]), status: :ok }
         end
       rescue ::Hyrax::DOI::NotFoundError => e
