@@ -247,6 +247,7 @@ module HykuAddons
       User.include HykuAddons::UserEmailFormat
       Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
+      Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
