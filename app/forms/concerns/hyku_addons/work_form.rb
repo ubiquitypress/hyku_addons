@@ -52,8 +52,7 @@ module HykuAddons
            pagination article_num publisher place_of_publication isbn issn eissn current_he_institution date_accepted
            date_submitted official_link related_url related_exhibition related_exhibition_venue related_exhibition_date
            language license rights_statement rights_holder doi qualification_name qualification_level draft_doi
-           alternate_identifier related_identifier refereed keyword dewey library_of_congress_classification add_info
-          ] + hyrax_terms
+           alternate_identifier related_identifier refereed keyword dewey library_of_congress_classification add_info] + hyrax_terms
       end
 
       def hyrax_terms
