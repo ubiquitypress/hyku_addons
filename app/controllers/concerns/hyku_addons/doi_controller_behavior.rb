@@ -12,10 +12,10 @@ module HykuAddons
     included do
       def autofill
         respond_to do |format|
-          format.js { render js: datacite_json_from_doi(params[:doi]), status: :ok }
+          format.js { render js: formatted_work(params[:doi]), status: :ok }
 
           # NOTE: This is temporary, just so we have a URL to debug
-          format.html { render js: datacite_json_from_doi(params[:doi]), status: :ok }
+          format.html { render js: formatted_work(params[:doi]), status: :ok }
         end
       rescue ::Hyrax::DOI::NotFoundError => e
         respond_to do |format|
@@ -23,12 +23,12 @@ module HykuAddons
         end
       end
 
-      def datacite_json_from_doi(doi)
+      def formatted_work(doi)
         meta = Bolognese::Metadata.new(input: doi)
 
         raise Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." if meta.blank? || meta.doi.blank?
 
-        meta.datacite_json
+        meta.hyrax_work.to_json
       end
     end
   end
