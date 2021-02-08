@@ -128,7 +128,7 @@ module HykuAddons
     initializer 'hyku_addon.available_work_type_bug_fix' do
       Hyrax::QuickClassificationQuery.class_eval do
         def normalized_model_names
-          models.map { |name| concern_name_normalizer.call(name) if Site.first.available_works.include? name }.compact
+          models.map { |name| concern_name_normalizer.call(name) if Site.first.available_works.include?(name) }.compact
         end
       end
     end
