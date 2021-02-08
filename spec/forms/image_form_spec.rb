@@ -25,10 +25,10 @@ RSpec.describe Hyrax::ImageForm do
                         :place_of_publication, :date_accepted, :date_submitted, :official_link, :related_url,
                         :related_exhibition, :related_exhibition_venue, :related_exhibition_date, :language, :license,
                         :rights_statement, :rights_holder, :doi, :alternate_identifier, :related_identifier, :refereed,
-                        :keyword, :dewey, :library_of_congress_classification, :add_info, :rendering_ids, :visibility,
+                        :keyword, :dewey, :library_of_congress_classification, :add_info, :visibility,
                         :files, :visibility_during_embargo, :embargo_release_date, :visibility_after_embargo,
                         :visibility_during_lease, :lease_expiration_date, :visibility_after_lease, :admin_set_id,
-                        :member_of_collection_ids, :ordered_member_ids, :in_works_ids, :source]
+                        :member_of_collection_ids, :ordered_member_ids, :in_works_ids, :rendering_ids]
       is_expected.to include(*expected_terms)
     end
   end

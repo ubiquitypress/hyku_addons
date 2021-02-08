@@ -38,6 +38,8 @@ class ThesisOrDissertation < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  self.json_fields += %i[current_he_institution]
+
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata

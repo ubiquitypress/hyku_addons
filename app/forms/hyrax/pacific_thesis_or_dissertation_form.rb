@@ -4,10 +4,6 @@
 module Hyrax
   # Generated form for PacificThesisOrDissertation
   class PacificThesisOrDissertationForm < Hyrax::Forms::WorkForm
-    # Adds behaviors for hyrax-doi plugin.
-    include Hyrax::DOI::DOIFormBehavior
-    # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
-    include Hyrax::DOI::DataCiteDOIFormBehavior
     include ::HykuAddons::WorkForm
 
     self.model_class = ::PacificThesisOrDissertation
@@ -16,6 +12,9 @@ module Hyrax
                  rights_holder license degree org_unit doi subject keyword add_info]
 
     self.required_fields = %i[title resource_type creator institution org_unit]
+
+    include Hyrax::DOI::DOIFormBehavior
+    include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def self.build_permitted_params
       super.tap do |permitted_params|

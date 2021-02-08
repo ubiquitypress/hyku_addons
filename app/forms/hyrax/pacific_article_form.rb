@@ -4,10 +4,6 @@
 module Hyrax
   # Generated form for PacificArticle
   class PacificArticleForm < Hyrax::Forms::WorkForm
-    # Adds behaviors for hyrax-doi plugin.
-    include Hyrax::DOI::DOIFormBehavior
-    # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
-    include Hyrax::DOI::DataCiteDOIFormBehavior
     include ::HykuAddons::WorkForm
 
     self.model_class = ::PacificArticle
@@ -17,6 +13,9 @@ module Hyrax
                  irb_status irb_number add_info]
 
     self.required_fields = %i[title creator resource_type institution org_unit]
+
+    include Hyrax::DOI::DOIFormBehavior
+    include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def self.build_permitted_params
       super.tap do |permitted_params|

@@ -2,8 +2,6 @@
 
 module Hyrax
   class PacificImageForm < Hyrax::Forms::WorkForm
-    include Hyrax::DOI::DOIFormBehavior
-    include Hyrax::DOI::DataCiteDOIFormBehavior
     include ::HykuAddons::WorkForm
 
     self.model_class = ::PacificImage
@@ -12,6 +10,9 @@ module Hyrax
                  rights_holder license org_unit doi subject keyword add_info]
 
     self.required_fields = %i[title creator resource_type institution org_unit]
+
+    include Hyrax::DOI::DOIFormBehavior
+    include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def self.build_permitted_params
       super.tap do |permitted_params|
