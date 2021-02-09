@@ -39,7 +39,7 @@ module HykuAddons
       end
 
       def formatted_work
-        meta = Bolognese::Metadata.new(input: doi)
+        meta = curation_concern_reader_class.new(input: doi)
 
         raise Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." if meta.blank? || meta.doi.blank?
 
@@ -47,7 +47,17 @@ module HykuAddons
       end
 
       def curation_concern_class
-        params[:curation_concern].camelize.constantize
+        curation_concern.constantize
+      end
+
+      def curation_concern_reader_class
+        "Bolognese::Readers::#{curation_concern}Reader".constantize
+      rescue NameError
+        Bolognese::Readers::GenericWorkReader
+      end
+
+      def curation_concern
+        params[:curation_concern].camelize
       end
 
       def doi
