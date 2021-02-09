@@ -20,7 +20,7 @@ class FillDOIForm {
       return false
     }
 
-    console.log(response.data)
+    console.log(this.response.data)
 
     Object.entries(this.response.data).forEach(([field, value]) => {
       if (value == undefined || value.length == 0) {
@@ -42,6 +42,7 @@ class FillDOIForm {
       $(value).each((index, val) => {
         this.setValue(field, val, index)
 
+        // We can only add one new field at a time
         $(this.wrapperSelector(field)).find('button.add').click()
       })
 
