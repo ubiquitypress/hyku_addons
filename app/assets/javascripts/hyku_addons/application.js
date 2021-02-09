@@ -26,5 +26,5 @@ $(document).ready(function(){
   // Register our Events
   new Eventable()
 
-  new FillDOIForm()
+  new PrefillWorkFormViaDOI()
 });
