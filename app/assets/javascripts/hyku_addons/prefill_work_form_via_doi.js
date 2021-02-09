@@ -1,4 +1,4 @@
-class FillDOIForm {
+class PrefillWorkFormViaDOI {
   constructor(){
     this.buttonSelector = "#doi-autofill-btn"
     this.form = $(this.buttonSelector).closest("form")
