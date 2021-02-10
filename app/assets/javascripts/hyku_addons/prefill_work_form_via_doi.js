@@ -20,30 +20,25 @@ class PrefillWorkFormViaDOI {
       return false
     }
 
-    console.log(this.response.data)
+    // console.log(this.response.data)
 
     Object.entries(this.response.data).forEach(([field, value]) => {
-      if (value == undefined || value.length == 0) {
-        return false
-      }
-
       this.processField(field, value)
     })
   }
 
   processField(field, value) {
-    if (this.response.fields.json.includes(field)) {
-      console.log('json', field, value)
-
-    } else if (this.response.fields.date.includes(field)) {
-      console.log('date', field, value)
-
-    } else if (Array.isArray(value)) {
+    if ($.type(value) == "array") {
       $(value).each((index, val) => {
         this.setValue(field, val, index)
 
         // We can only add one new field at a time
         $(this.wrapperSelector(field)).find('button.add').click()
+      })
+
+    } else if ($.type(value) == "object") {
+      Object.entries(value).forEach(([field, value]) => {
+        this.setValue(field, value)
       })
 
     } else {
@@ -52,11 +47,15 @@ class PrefillWorkFormViaDOI {
   }
 
   setValue(field, value, index = 0) {
-    $($(this.inputId(field)).get(index)).val(value)
+    if (value == undefined || value.length == 0) {
+      return false
+    }
+
+    $($(this.inputSelector(field)).get(index)).val(value)
   }
 
-  inputId(field) {
-    return `#${this.fieldName(field)}`
+  inputSelector(field) {
+    return `${this.wrapperSelector(field)} .${this.fieldName(field)}`
   }
 
   wrapperSelector(field) {

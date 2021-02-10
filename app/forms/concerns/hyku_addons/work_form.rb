@@ -86,6 +86,10 @@ module HykuAddons
         }
       end
 
+      def date_created_fields
+        { date_created: [:date_created_year, :date_created_month, :date_created_day] }
+      end
+
       def date_accepted_fields
         { date_accepted: [:date_accepted_year, :date_accepted_month, :date_accepted_day] }
       end
