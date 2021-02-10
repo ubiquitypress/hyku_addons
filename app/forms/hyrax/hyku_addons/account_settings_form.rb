@@ -31,15 +31,16 @@ module Hyrax
       end
 
       def attributes
-        Hash[::HykuAddons::AccountSettingsCollection.all.map { |attr| [attr, send(attr)] }]
+        Hash[::HykuAddons::AccountSettingsCollection.all.map { |attr| [attr, send(attr)] }].deep_stringify_keys
       end
 
       def attributes=(attrs)
-        attrs.each { |k, v| send("#{k}=", v) }
+        attrs.to_h.each { |k, v| send("#{k}=", v) }
       end
 
       def persist!
-        account.update settings: attributes
+        account.settings = attributes
+        account.save
       end
 
       def update_attributes(attrs)

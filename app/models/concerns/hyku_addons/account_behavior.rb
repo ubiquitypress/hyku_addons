@@ -23,7 +23,7 @@ module HykuAddons
     private
 
       def initialize_settings
-        settings.merge!({
+        settings.reverse_merge!({
           allow_signup: "true",
           help_texts: {
             subject: nil,
