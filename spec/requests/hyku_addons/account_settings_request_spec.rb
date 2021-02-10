@@ -17,7 +17,7 @@ RSpec.describe "::HykuAddons::AccountSettingsController", type: :request do
   end
 
   describe 'GET /admin/account_settings' do
-    it "GETS index  /admin/account_settings" do
+    it "GETS index /admin/account_settings" do
       get admin_account_settings_url
       expect(response).to have_http_status(:ok)
     end

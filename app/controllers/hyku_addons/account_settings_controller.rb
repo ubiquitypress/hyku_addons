@@ -19,16 +19,11 @@ module HykuAddons
     end
 
     def update
-      @account.update(account_params)
-      redirect_to admin_account_settings_path
+      _update
     end
 
     def update_single
-      @account.settings.merge!(account_params['settings'])
-      # removes nil keys in the hash
-      @account.settings.compact
-      @account.save if @account.settings_changed?
-      redirect_to admin_account_settings_path
+      _update
     end
 
     private
@@ -57,5 +52,15 @@ module HykuAddons
           params['account']['settings'][key].map! { |str| str.split(' ') }.flatten!
         end
       end
+
+    def _update
+      @settings_form = Hyrax::HykuAddons::AccountSettingsForm.new(@account)
+      if @settings_form.update_attributes(account_params[:settings])
+        flash = { notice: t(".success") }
+      else
+        flash = { error: t(".error") }
+      end
+      redirect_to admin_account_settings_path, flash: flash
+    end
   end
 end

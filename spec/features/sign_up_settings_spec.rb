@@ -41,6 +41,7 @@ RSpec.describe "Sign Up", type: :feature do
 
   context 'default value' do
     it 'defaults to true' do
+      byebug
       expect(Account.new.allow_signup).to eq "true"
     end
   end
