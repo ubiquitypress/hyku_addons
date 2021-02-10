@@ -14,8 +14,8 @@ json.buy_book work.try(:buy_book)
 json.challenged work.try(:challenged)
 json.cname @account.cname
 #                                         "collections" => nil,
-json.contributor work.contributor
-json.creator work.creator
+json.creator JSON.parse(work.creator.try(:first))
+json.contributor JSON.parse(work.contributor.try(:first))
 #                                         "current_he_institution" => nil,
 #                                         "date_accepted" => nil,
 json.date_published work.try(:date_published)
