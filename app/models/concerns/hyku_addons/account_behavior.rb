@@ -22,47 +22,47 @@ module HykuAddons
 
     private
 
-    def initialize_settings
-      self.settings.merge!({
-        allow_signup: "true",
-        help_texts: {
-          subject: nil,
-          org_unit: nil,
-          refereed: nil,
-          additional_information: nil,
-          publisher: nil,
-          volume: nil,
-          pagination: nil,
-          isbn: nil,
-          issn: nil,
-          duration: nil,
-          version: nil,
-          keyword: nil
-        },
-        work_unwanted_fields: {
-          book_chapter: nil,
-          article: nil,
-          news_clipping: nil
-        },
-        required_json_property: {
-          media: [],
-          presentation: [],
-          text_work: [],
-          uncategorized: [],
-          news_clipping: [],
-          article_work: [],
-          book_work: [],
-          image_work: [],
-          thesis_or_dissertation_work: []
-        },
-        metadata_labels: {
-          institutional_relationship: nil,
-          family_name: nil,
-          given_name: nil,
-          org_unit: nil,
-          version_number: nil
-        }
-      }.stringify_keys)
-    end
+      def initialize_settings
+        settings.merge!({
+          allow_signup: "true",
+          help_texts: {
+            subject: nil,
+            org_unit: nil,
+            refereed: nil,
+            additional_information: nil,
+            publisher: nil,
+            volume: nil,
+            pagination: nil,
+            isbn: nil,
+            issn: nil,
+            duration: nil,
+            version: nil,
+            keyword: nil
+          },
+          work_unwanted_fields: {
+            book_chapter: nil,
+            article: nil,
+            news_clipping: nil
+          },
+          required_json_property: {
+            media: [],
+            presentation: [],
+            text_work: [],
+            uncategorized: [],
+            news_clipping: [],
+            article_work: [],
+            book_work: [],
+            image_work: [],
+            thesis_or_dissertation_work: []
+          },
+          metadata_labels: {
+            institutional_relationship: nil,
+            family_name: nil,
+            given_name: nil,
+            org_unit: nil,
+            version_number: nil
+          }
+        }.stringify_keys)
+      end
   end
 end

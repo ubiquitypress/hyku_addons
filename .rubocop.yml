@@ -47,6 +47,7 @@ Metrics/MethodLength:
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/services/bolognese/readers/base_work_reader.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
+    - 'app/models/concerns/hyku_addons/account_behavior.rb'
     - 'lib/hyku_addons/engine.rb'
     - 'spec/**/*.rb'
 

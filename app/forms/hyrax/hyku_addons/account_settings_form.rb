@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Hyrax
   module HykuAddons
     class AccountSettingsForm
@@ -30,11 +31,11 @@ module Hyrax
       end
 
       def attributes
-        Hash[::HykuAddons::AccountSettingsCollection.all.map{ |attr| [attr, self.send(attr)] }]
+        Hash[::HykuAddons::AccountSettingsCollection.all.map { |attr| [attr, send(attr)] }]
       end
 
       def attributes=(attrs)
-        attrs.each { |k, v| self.send("#{k}=", v) }
+        attrs.each { |k, v| send("#{k}=", v) }
       end
 
       def persist!
@@ -48,19 +49,19 @@ module Hyrax
 
       private
 
-      def validate_email_format
-        Array.wrap(email_format).each do |email|
-          errors.add(:email_format) unless email.match?(/@\S*\.\S*/)
-        end
-      end
-
-      def validate_contact_emails
-        ['weekly_email_list', 'monthly_email_list', 'yearly_email_list'].each do |key|
-          Array.wrap(attributes[key]).each do |email|
-            errors.add(:"#{key}") unless email.match?(URI::MailTo::EMAIL_REGEXP)
+        def validate_email_format
+          Array.wrap(email_format).each do |email|
+            errors.add(:email_format) unless email.match?(/@\S*\.\S*/)
           end
         end
-      end
+
+        def validate_contact_emails
+          ['weekly_email_list', 'monthly_email_list', 'yearly_email_list'].each do |key|
+            Array.wrap(attributes[key]).each do |email|
+              errors.add(:"#{key}") unless email.match?(URI::MailTo::EMAIL_REGEXP)
+            end
+          end
+        end
     end
   end
 end

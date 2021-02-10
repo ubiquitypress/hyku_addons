@@ -53,14 +53,10 @@ module HykuAddons
         end
       end
 
-    def _update
-      @settings_form = Hyrax::HykuAddons::AccountSettingsForm.new(@account)
-      if @settings_form.update_attributes(account_params[:settings])
-        flash = { notice: t(".success") }
-      else
-        flash = { error: t(".error") }
+      def _update
+        @settings_form = Hyrax::HykuAddons::AccountSettingsForm.new(@account)
+        flash = @settings_form.update_attributes(account_params[:settings]) ? { notice: t(".success") } : { error: t(".error") }
+        redirect_to admin_account_settings_path, flash: flash
       end
-      redirect_to admin_account_settings_path, flash: flash
-    end
   end
 end
