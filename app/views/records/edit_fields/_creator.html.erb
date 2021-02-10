@@ -2,6 +2,7 @@
 <% types = HykuAddons::NameTypeService.new.select_active_options.flatten.uniq! %>
 <% f.object.creator_list.each do |hash| %>
 	<div
+    class="<%= template %>_creator"
 		data-toggleable
 		data-cloneable="creator"
 		data-after-clone="clear_inputs"
@@ -12,7 +13,7 @@
 			select_options: types,
 			required: template != "collection",
 			field_args: {
-				class: 'form-control',
+        class: 'form-control creator_name_type',
 				data: {
 					toggleable_control: true,
 					on_change: :toggleable_group,

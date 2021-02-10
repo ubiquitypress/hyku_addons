@@ -3,6 +3,7 @@
 
 <% f.object.contributor_list.each do |hash| %>
 	<div
+    class="<%= template %>_contributor"
 		data-toggleable
 		data-cloneable="contributor"
 		data-after-clone="clear_inputs"
