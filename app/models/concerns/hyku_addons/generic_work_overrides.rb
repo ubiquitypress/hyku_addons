@@ -124,7 +124,7 @@ module HykuAddons
       end
 
       self.json_fields += %i[editor current_he_institution]
-      self.date_fields += %i[event_date related_exhibition_date date_created]
+      self.date_fields += %i[event_date related_exhibition_date]
 
       # This must be included at the end, because it finalizes the metadata
       # schema (by adding accepts_nested_attributes)
