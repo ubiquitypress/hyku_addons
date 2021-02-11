@@ -36,12 +36,15 @@ module HykuAddons
         end
 
         def formatted_work
-          meta = reader_class.new(input: doi).read_work
+          # Download the requested DOI response
+          input = reader_class.new(input: doi)
+
+          # Use that response to build the object as we would expect it
+          meta = reader_class.new(input: input.string)
 
           raise Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." if meta.blank? || meta.doi.blank?
 
-          # Call the method on the reader that matches the work type e.g. `meta.generic_work`
-          meta.send(curation_concern.to_sym)
+          meta.hyku_addons_work(work_model: curation_concern)
         end
 
         def reader_class
