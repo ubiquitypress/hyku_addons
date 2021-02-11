@@ -1,12 +1,11 @@
 module Bolognese
   module Writers
-    module GenericWorkWriter
-      def self.special_fields
-        %i[json_fields date_fields]
-      end
+    module HykuAddonsWriter
+      def hyku_addons_work(work_model:)
+        # Set this so it can be accessed universally
+        types["workModel"] = work_model
 
-      def generic_work
-        attributes = {
+        @hyku_addons_work = {
           'identifier' => Array(identifiers).select { |id| id["identifierType"] != "DOI" }.pluck("identifier"),
           'doi' => build_hyrax_work_doi,
           'title' => titles&.pluck("title"),
@@ -18,27 +17,16 @@ module Bolognese
           'description' => build_hyrax_work_description,
           'keyword' => subjects&.pluck("subject")
         }
-        hyrax_work_class = determine_hyrax_work_class
-        # Only pass attributes that the work type knows about
-        hyrax_work_class.new(attributes.slice(*hyrax_work_class.attribute_names))
 
-        process_special_fields!
+        process_json_fields!
+        process_date_fields!
+
+        # NOTE:
+        # We cannot return a reader instance as the JSON/Date fields cause an ActiveTriples::Relation::ValueError error
+        @hyku_addons_work
       end
 
       private
-        def determine_hyrax_work_class
-          # Need to check that the class `responds_to? :doi`?
-          types["hyrax"]&.safe_constantize || build_hyrax_work_class
-        end
-
-        def build_hyrax_work_class
-          Class.new(ActiveFedora::Base).tap do |c|
-            c.include ::Hyrax::WorkBehavior
-            c.include ::Hyrax::DOI::DOIBehavior
-            # Put BasicMetadata include last since it finalizes the metadata schema
-            c.include ::Hyrax::BasicMetadata
-          end
-        end
 
         def build_hyrax_work_doi
           Array(doi&.sub('https://doi.org/', ''))
@@ -49,29 +37,21 @@ module Bolognese
           descriptions.pluck("description").map { |d| Array(d).join("\n") }
         end
 
-        def curation_concern
-          params.require(:curation_concern).camelize
+        def work_model
+          types["workModel"].camelize
         end
 
         def form_class
-          "Hyrax::#{curation_concern}Form".constantize
+          "Hyrax::#{work_model}Form".constantize
         end
 
-        def model_class
-          curation_concern.constantize
-        end
-
-        def process_special_fields!
-          self.class.special_fields.each do |field|
-            method_name = "process_#{field}!".to_sym
-
-            send(method_name) if respond_to?(method_name, true)
-          end
+        def work_class
+          work_model&.safe_constantize
         end
 
         def process_json_fields!
           # Only iterate over the minimum necessary fields
-          fields = @work.slice(*model_class.json_fields.map(&:to_s))
+          fields = @hyku_addons_work.slice(*work_class.json_fields.map(&:to_s))
 
           fields.each do |key, value|
             # Convert the array field fields into hash keys with nil values
@@ -84,13 +64,13 @@ module Bolognese
               hash["#{key}_given_name".to_sym] = name[1]
             end
 
-            @work[key] = hash
+            @hyku_addons_work[key] = hash
           end
         end
 
         def process_date_fields!
           segments = %i[year month day]
-          fields = @work.slice(*model_class.date_fields.map(&:to_s))
+          fields = @hyku_addons_work.slice(*work_class.date_fields.map(&:to_s))
 
           fields.each do |key, value|
             hash = Hash[form_class.send("#{key}_fields").dig(key.to_sym).zip]
@@ -100,7 +80,7 @@ module Bolognese
             # Use the segment to call the required method on the date and assign to the correct json date field
             segments.each { |segment, _index| hash["#{key}_#{segment}".to_sym] = date.send(segment) }
 
-            @work[key] = hash
+            @hyku_addons_work[key] = hash
           end
         end
     end
