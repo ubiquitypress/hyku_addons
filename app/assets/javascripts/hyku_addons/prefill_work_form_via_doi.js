@@ -20,7 +20,7 @@ class PrefillWorkFormViaDOI {
       return false
     }
 
-    // console.log(this.response.data)
+    console.log(this.response.data)
 
     Object.entries(this.response.data).forEach(([field, value]) => {
       this.processField(field, value)
