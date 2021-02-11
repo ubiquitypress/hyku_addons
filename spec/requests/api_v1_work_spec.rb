@@ -114,11 +114,13 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
       end
 
       context 'with data when it exists' do
-        let(:work) { create(:work, visibility: 'open', abstract: abstract) }
+        let(:work) { create(:work, visibility: 'open', abstract: abstract, creator: creator) }
         let(:abstract) { 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at tincidunt nisl. Nulla et lacus consequat, interdum eros nec, pulvinar.' }
+        let(:creator) { ["[{\"creator_organization_name\":\"\",\"creator_given_name\":\"Bertie\",\"creator_family_name\":\"Wooles\",\"creator_name_type\":\"Personal\",\"creator_orcid\":\"0000 1111 2222 3333\",\"creator_isni\":\"\",\"creator_ror\":\"\",\"creator_grid\":\"\",\"creator_wikidata\":\"\"}]"] }
         it 'returns work json' do
           get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
-          expect(json_response).to include("abstract" => [abstract])
+          expect(json_response).to include("abstract" => [abstract],
+                                           "creator" => [{ "creator_organization_name" => "", "creator_given_name" => "Bertie", "creator_family_name" => "Wooles", "creator_name_type" => "Personal", "creator_orcid" => "0000 1111 2222 3333", "creator_isni" => "", "creator_ror" => "", "creator_grid" => "", "creator_wikidata" => "" }])
         end
       end
     end
