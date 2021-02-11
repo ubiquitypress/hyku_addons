@@ -15,14 +15,10 @@ json.challenged work.try(:challenged)
 json.cname @account.cname
 #                                         "collections" => nil,
 creator = work.creator.try(:first)
-if creator
-  json.creator JSON.parse(creator)
-end
+json.creator creator.present? ? JSON.parse(creator) : []
 
 contributor = work.contributor.try(:first)
-if contributor
- json.contributor JSON.parse(contributor)
-end
+json.contributor contributor.present? ? JSON.parse(creator) : []
 #                                         "current_he_institution" => nil,
 #                                         "date_accepted" => nil,
 json.date_published work.try(:date_published)
