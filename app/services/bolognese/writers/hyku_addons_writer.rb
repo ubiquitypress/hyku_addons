@@ -1,7 +1,12 @@
 # frozen_string_literal: true
+
 module Bolognese
   module Writers
     module HykuAddonsWriter
+
+      # NOTE:
+      # Add new fields here that should be available to prefill the work forms.
+      # You must also add the logic to the PrefillWorkFormViaDOI JS class.
       def hyku_addons_work(work_model:)
         # Set this so it can be accessed universally
         types["workModel"] = work_model
@@ -11,8 +16,8 @@ module Bolognese
           'doi' => Array(doi),
           'title' => titles&.pluck("title"),
           # FIXME: This may not roundtrip since datacite normalizes the creator name
-          'creator' => creators,
-          'contributor' => contributors,
+          'creator' => write_involved("creators"),
+          'contributor' => write_involved("contributors"),
           'publisher' => Array(publisher),
           'date_created' => write_dates("Issued"),
           'date_updated' => write_dates("Updated"),
@@ -23,6 +28,11 @@ module Bolognese
       end
 
       protected
+
+        def write_involved(type)
+          # Convert the keys to singular and underscored, to match field names
+          meta.dig(type).map { |hash| hash.map { |k,v| ["#{type.singularize}_#{k.underscore}", v] }.to_h }
+        end
 
         def write_dates(type)
           Array(dates.find { |hash| hash["dateType"] == type }&.dig("date"))
