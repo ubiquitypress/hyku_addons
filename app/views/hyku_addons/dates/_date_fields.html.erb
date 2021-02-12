@@ -3,7 +3,7 @@
 	<p class="help-block"><%= t("simple_form.hints.defaults.date_#{date_type}") %></p>
 </div>
 
-<div class="form-inline">
+<div class="form-inline <%= "#{template}_date_#{date_type}" %>">
 	<div class="form-group">
 		<%= select_year(f.object.model.send("date_#{date_type}").to_s.split('-')[0].to_i, {start_year: (Date.today.year + 6), end_year: (Date.today.year - 159), prompt: "Select year"}, {id: "#{template}_date_#{date_type}__date_#{date_type}_year", name: "#{template}[date_#{date_type}][][date_#{date_type}_year]", class: "form-control ubiquity-date-#{date_type}-year ubiquity-date-input"} ) %>
 	</div>

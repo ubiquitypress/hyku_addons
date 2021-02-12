@@ -35,6 +35,9 @@ class PrefillWorkFormViaDOI {
   }
 
   processField(field, value) {
+// if (field == "date_published") {
+//   debugger
+// }
     if ($.type(value) == "array") {
       $(value).each((index, val) => {
         // If we need to check JSON fields recursively
@@ -65,7 +68,8 @@ class PrefillWorkFormViaDOI {
   }
 
   inputSelector(field) {
-    return `${this.wrapperSelector(field)} .${this.fieldName(field)}`
+    // return `${this.wrapperSelector(field)} .${this.fieldName(field)}`
+    return `.${this.fieldName(field)}`
   }
 
   wrapperSelector(field) {
