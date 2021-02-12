@@ -39,6 +39,7 @@ Metrics/BlockLength:
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
     - 'hyku_addons.gemspec'
     - 'lib/hyku_addons/engine.rb'
+    - 'lib/tasks/*.rake'
     - 'spec/**/*.rb'
 
 Metrics/MethodLength:
