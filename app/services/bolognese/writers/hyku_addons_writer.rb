@@ -3,6 +3,7 @@
 module Bolognese
   module Writers
     module HykuAddonsWriter
+      DATE_FORMAT = "%Y-%-m-%-d"
 
       # NOTE:
       # Add new fields here that should be available to prefill the work forms.
@@ -21,7 +22,7 @@ module Bolognese
           'publisher' => Array(publisher),
           'date_created' => write_dates("Issued"),
           'date_updated' => write_dates("Updated"),
-          "date_published" => Date.edtf(publication_year).strftime("%Y-%m-%d"),
+          "date_published" => format_date(publication_year),
           'description' => write_descriptions,
           'keyword' => subjects&.pluck("subject")
         }
@@ -29,13 +30,20 @@ module Bolognese
 
       protected
 
+        # Date values are formatted without number padding in the form
+        def format_date(date_string)
+          return unless date_string.present?
+
+          Date.edtf(date_string).strftime(DATE_FORMAT)
+        end
+
         def write_involved(type)
           # Convert the keys to singular and underscored, to match field names
           meta.dig(type).map { |hash| hash.map { |k,v| ["#{type.singularize}_#{k.underscore}", v] }.to_h }
         end
 
         def write_dates(type)
-          Array(dates.find { |hash| hash["dateType"] == type }&.dig("date"))
+          Array(format_date(dates.find { |hash| hash["dateType"] == type }&.dig("date")))
         end
 
         def write_descriptions
