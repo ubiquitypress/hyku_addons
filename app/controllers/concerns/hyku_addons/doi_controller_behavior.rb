@@ -17,6 +17,7 @@ module HykuAddons
           format.js { render json: json_response, status: :ok }
 
           # NOTE: This is temporary, just so we have a URL to debug
+          # format.html { render xml: raw_response.string, status: :ok }
           format.html { render json: json_response, status: :ok }
         end
 
@@ -36,15 +37,22 @@ module HykuAddons
         end
 
         def formatted_work
-          # Download the requested DOI response
-          input = reader_class.new(input: doi)
-
-          # Use that response to build the object as we would expect it
-          meta = reader_class.new(input: input.string)
+          meta = reader_class_meta
 
           raise Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." if meta.blank? || meta.doi.blank?
 
+          # Found in HykuAddons::HykuAddonsWriter
           meta.hyku_addons_work(work_model: curation_concern)
+        end
+
+        # Use that response to build the object as we would expect it
+        def reader_class_meta
+          reader_class.new(input: raw_response.string)
+        end
+
+        # Download the requested DOI response
+        def raw_response
+          @_raw_response ||= reader_class.new(input: doi)
         end
 
         def reader_class
