@@ -1,5 +1,6 @@
 class PrefillWorkFormViaDOI {
   constructor(){
+
     this.buttonSelector = "#doi-autofill-btn"
     this.form = $(this.buttonSelector).closest("form")
 
@@ -7,6 +8,12 @@ class PrefillWorkFormViaDOI {
     $(this.buttonSelector).attr('data-confirm', false)
 
     this.registerListeners()
+
+    // TODO:
+    // Remove this testing code
+    $('#generic_work_doi').val('10.21250/tcq')
+    $(this.buttonSelector).click()
+    $("[aria-controls=metadata]").click()
   }
 
   registerListeners(){
@@ -30,9 +37,12 @@ class PrefillWorkFormViaDOI {
   processField(field, value) {
     if ($.type(value) == "array") {
       $(value).each((index, val) => {
-        this.setValue(field, val, index)
+        // If we need to check JSON fields recursively
+        if ($.type(val) == "object") {
+          return this.processField(field, val)
+        }
 
-        // We can only add one new field at a time
+        this.setValue(field, val, index)
         $(this.wrapperSelector(field)).find('button.add').click()
       })
 
