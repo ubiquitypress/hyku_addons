@@ -5,15 +5,15 @@ class PrefillWorkFormViaDOI {
     this.form = $(this.buttonSelector).closest("form")
 
     // TODO: Remove this when out of development
-    $(this.buttonSelector).attr('data-confirm', false)
+    // $(this.buttonSelector).attr('data-confirm', false)
 
     this.registerListeners()
 
     // TODO:
     // Remove this testing code
-    $('#generic_work_doi').val('10.21250/tcq')
-    $(this.buttonSelector).click()
-    $("[aria-controls=metadata]").click()
+    // $('#generic_work_doi').val('10.21250/tcq')
+    // $(this.buttonSelector).click()
+    // $("[aria-controls=metadata]").click()
   }
 
   registerListeners(){
@@ -27,20 +27,16 @@ class PrefillWorkFormViaDOI {
       return false
     }
 
-    console.log(this.response.data)
-
     Object.entries(this.response.data).forEach(([field, value]) => {
       this.processField(field, value)
     })
   }
 
   processField(field, value) {
-    if (value == undefined || value.length == 0) {
+    if (this.isBlank(value)) {
       return false;
     }
-// if (field == "date_published") {
-//   debugger
-// }
+
     if ($.type(value) == "array") {
       $(value).each((index, val) => {
         // If we need to check JSON fields recursively
@@ -63,7 +59,7 @@ class PrefillWorkFormViaDOI {
   }
 
   setValue(field, value, index = 0) {
-    if (value == undefined || value.length == 0) {
+    if (this.isBlank(value)) {
       return false
     }
 
@@ -80,5 +76,9 @@ class PrefillWorkFormViaDOI {
 
   fieldName(field) {
     return `${this.response.curation_concern}_${field}`
+  }
+
+  isBlank(value) {
+    value == undefined || value.length == 0
   }
 }

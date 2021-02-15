@@ -17,8 +17,8 @@ module HykuAddons
           format.js { render json: json_response, status: :ok }
 
           # NOTE: This is temporary, just so we have a URL to debug
-          # format.html { render xml: raw_response.string, status: :ok }
-          format.html { render json: json_response, status: :ok }
+          format.html { render xml: raw_response.string, status: :ok }
+          # format.html { render json: json_response, status: :ok }
         end
 
       rescue ::Hyrax::DOI::NotFoundError => e
