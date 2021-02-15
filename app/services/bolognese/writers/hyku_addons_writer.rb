@@ -1,17 +1,14 @@
 # frozen_string_literal: true
 
+# NOTE:
+# Add new fields here that should be available to prefill the work forms.
+# You must also add the logic to the PrefillWorkFormViaDOI JS class.
 module Bolognese
   module Writers
     module HykuAddonsWriter
       DATE_FORMAT = "%Y-%-m-%-d"
 
-      # NOTE:
-      # Add new fields here that should be available to prefill the work forms.
-      # You must also add the logic to the PrefillWorkFormViaDOI JS class.
-      def hyku_addons_work(work_model:)
-        # Set this so it can be accessed universally
-        types["workModel"] = work_model
-
+      def hyku_addons_work
         {
           'identifier' => Array(identifiers).select { |id| id["identifierType"] != "DOI" }.pluck("identifier"),
           'doi' => Array(doi),
@@ -66,18 +63,6 @@ module Bolognese
           return unless date_string.present?
 
           Date.edtf(date_string)
-        end
-
-        def work_model
-          types["workModel"].camelize
-        end
-
-        def form_class
-          "Hyrax::#{work_model}Form".constantize
-        end
-
-        def work_class
-          work_model&.safe_constantize
         end
     end
   end

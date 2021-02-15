@@ -13,7 +13,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWriter do
       describe "a complete work" do
         let(:fixture) { File.read Rails.root.join('../fixtures/work_from_doi_complete.xml') }
         let(:meta) { Bolognese::Metadata.new(input: fixture) }
-        let(:result) { meta.hyku_addons_work(work_model: "generic_work") }
+        let(:result) { meta.hyku_addons_work }
 
         it { expect(meta.doi).to be_present }
         it { expect(result).to be_a Hash }
