@@ -10,3 +10,5 @@ spec/internal_test_hyku/tmp/
 coverage/
 tmp/
 fits.log
+package.json
+.eslintrc.yml
