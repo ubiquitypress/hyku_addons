@@ -3,14 +3,14 @@
 	<p class="help-block"><%= t("simple_form.hints.defaults.date_#{date_type}") %></p>
 </div>
 
-<div class="form-inline <%= "#{template}_date_#{date_type}" %>">
+<div class="form-inline <%= "date_#{date_type}" %>">
 	<div class="form-group">
-		<%= select_year(f.object.model.send("date_#{date_type}").to_s.split('-')[0].to_i, {start_year: (Date.today.year + 6), end_year: (Date.today.year - 159), prompt: "Select year"}, {id: "#{template}_date_#{date_type}__date_#{date_type}_year", name: "#{template}[date_#{date_type}][][date_#{date_type}_year]", class: "form-control ubiquity-date-#{date_type}-year ubiquity-date-input"} ) %>
+    <%= select_year(f.object.model.send("date_#{date_type}").to_s.split('-')[0].to_i, {start_year: (Date.today.year + 6), end_year: (Date.today.year - 159), prompt: "Select year"}, {id: "#{template}_date_#{date_type}__date_#{date_type}_year", name: "#{template}[date_#{date_type}][][date_#{date_type}_year]", class: "form-control ubiquity-date-#{date_type}-year ubiquity-date-input #{template}_date_#{date_type}_year" }) %>
 	</div>
 	<div class="form-group">
-		<%= select_month(f.object.model.send("date_#{date_type}").to_s.split('-')[1].to_i, { use_two_digit_numbers: true, prompt: 'select month if available'}, {id: "#{template}_date_#{date_type}__date_#{date_type}_month", name: "#{template}[date_#{date_type}][][date_#{date_type}_month]", :class => "form-control ubiquity-date-#{date_type}-month ubiquity-date-input"}) %>
+		<%= select_month(f.object.model.send("date_#{date_type}").to_s.split('-')[1].to_i, { use_two_digit_numbers: true, prompt: 'select month if available'}, {id: "#{template}_date_#{date_type}__date_#{date_type}_month", name: "#{template}[date_#{date_type}][][date_#{date_type}_month]", class: "form-control ubiquity-date-#{date_type}-month ubiquity-date-input #{template}_date_#{date_type}_month" }) %>
 	</div>
 	<div class="form-group">
-		<%= select_day(f.object.model.send("date_#{date_type}").to_s.split('-')[2].to_i, { use_two_digit_numbers: true, prompt: 'select day if available'}, {id: "#{template}_date_#{date_type}__date_#{date_type}_day", name: "#{template}[date_#{date_type}][][date_#{date_type}_day]", :class => "form-control ubiquity-date-#{date_type}-day ubiquity-date-input"}) %>
+		<%= select_day(f.object.model.send("date_#{date_type}").to_s.split('-')[2].to_i, { use_two_digit_numbers: true, prompt: 'select day if available'}, {id: "#{template}_date_#{date_type}__date_#{date_type}_day", name: "#{template}[date_#{date_type}][][date_#{date_type}_day]", class: "form-control ubiquity-date-#{date_type}-day ubiquity-date-input #{template}_date_#{date_type}_day" }) %>
 	</div>
 </div>

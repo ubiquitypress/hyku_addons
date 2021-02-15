@@ -16,13 +16,12 @@ module Bolognese
           'identifier' => Array(identifiers).select { |id| id["identifierType"] != "DOI" }.pluck("identifier"),
           'doi' => Array(doi),
           'title' => titles&.pluck("title"),
-          # FIXME: This may not roundtrip since datacite normalizes the creator name
           'creator' => write_involved("creators"),
           'contributor' => write_involved("contributors"),
           'publisher' => Array(publisher),
-          'date_created' => write_dates("Issued"),
-          'date_updated' => write_dates("Updated"),
-          "date_published" => format_date(publication_year),
+          'date_created' => write_date("date_created", collect_date("Issued")),
+          'date_updated' => write_date("date_updated", collect_date("Updated")),
+          "date_published" => write_date_published,
           'description' => write_descriptions,
           'keyword' => subjects&.pluck("subject")
         }
@@ -30,20 +29,23 @@ module Bolognese
 
       protected
 
-        # Date values are formatted without number padding in the form
-        def format_date(date_string)
-          return unless date_string.present?
+        def write_date_published
+          write_date("date_published", Array(format_date(publication_year)))
+        end
 
-          Date.edtf(date_string).strftime(DATE_FORMAT)
+        def write_date(field, dates)
+          dates.map do |date|
+            {
+              "#{field}_year" => date.year,
+              "#{field}_month" => date.month,
+              "#{field}_day" => date.day
+            }
+          end
         end
 
         def write_involved(type)
           # Convert the keys to singular and underscored, to match field names
           meta.dig(type).map { |hash| hash.map { |k,v| ["#{type.singularize}_#{k.underscore}", v] }.to_h }
-        end
-
-        def write_dates(type)
-          Array(format_date(dates.find { |hash| hash["dateType"] == type }&.dig("date")))
         end
 
         def write_descriptions
@@ -53,6 +55,18 @@ module Bolognese
         end
 
       private
+
+        # `dates` is an array of hashes containing all date information
+        def collect_date(type)
+          Array(format_date(dates.find { |hash| hash["dateType"] == type }&.dig("date")))
+        end
+
+        # Date values are formatted without number padding in the form
+        def format_date(date_string)
+          return unless date_string.present?
+
+          Date.edtf(date_string)
+        end
 
         def work_model
           types["workModel"].camelize
