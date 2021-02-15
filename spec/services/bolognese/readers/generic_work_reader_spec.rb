@@ -90,22 +90,6 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
     end
   end
 
-  context "Hyku Addons Writer" do
-    describe "a complete work" do
-      it "outputs correctly" do
-        # fixture = File.read Rails.root.join('../fixtures/work_from_doi.xml')
-        fixture = File.read Rails.root.join('../fixtures/work_from_doi_complete.xml')
-
-        meta = described_class.new(input: fixture)
-
-        result = meta.hyku_addons_work(work_model: "generic_work")
-
-        # byebug
-        expect(meta.doi).to be_present
-        expect(result).to be_a Hash
-      end
-    end
-  end
   context "crosswalks" do
     context "RIS" do
       describe "a simple work" do
