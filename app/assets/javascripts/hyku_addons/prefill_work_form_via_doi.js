@@ -1,6 +1,6 @@
 class PrefillWorkFormViaDOI {
   constructor(){
-
+    this.targetInputSelector = "select, input, textarea, checkbox, radio"
     this.buttonSelector = "#doi-autofill-btn"
     this.form = $(this.buttonSelector).closest("form")
 
@@ -35,6 +35,9 @@ class PrefillWorkFormViaDOI {
   }
 
   processField(field, value) {
+    if (value == undefined || value.length == 0) {
+      return false;
+    }
 // if (field == "date_published") {
 //   debugger
 // }
@@ -64,11 +67,10 @@ class PrefillWorkFormViaDOI {
       return false
     }
 
-    $($(this.inputSelector(field)).get(index)).val(value)
+    $($(this.inputSelector(field)).filter(this.targetInputSelector).get(index)).val(value)
   }
 
   inputSelector(field) {
-    // return `${this.wrapperSelector(field)} .${this.fieldName(field)}`
     return `.${this.fieldName(field)}`
   }
 
