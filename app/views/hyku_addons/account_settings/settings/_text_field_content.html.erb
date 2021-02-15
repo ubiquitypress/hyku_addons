@@ -1,8 +1,8 @@
 <div class="form-group">
   <%= f.fields_for :settings do |ff| %>
     <%= ff.label field_name %><br>
-    <%= ff.label t("settings.helptexts.#{field_name}") %><br>
-    <%= ff.text_field field_name, :value => @account.settings[field_name], class: 'form-control', id: field_name %><br>
+    <%= t("settings.helptexts.#{field_name}") %><br>
+    <%= ff.text_field field_name, :value => @account.settings[field_name], class: 'form-control', id: field_name %>
   <% end %>
 </div>
 
