@@ -52,19 +52,19 @@ module Bolognese
           descriptions.pluck("description").map { |d| Array(d).join("\n") }
         end
 
-        private
+      private
 
-          def work_model
-            types["workModel"].camelize
-          end
+        def work_model
+          types["workModel"].camelize
+        end
 
-          def form_class
-            "Hyrax::#{work_model}Form".constantize
-          end
+        def form_class
+          "Hyrax::#{work_model}Form".constantize
+        end
 
-          def work_class
-            work_model&.safe_constantize
-          end
+        def work_class
+          work_model&.safe_constantize
+        end
     end
   end
 end
