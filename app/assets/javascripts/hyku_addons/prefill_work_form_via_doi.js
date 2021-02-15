@@ -4,12 +4,12 @@ class PrefillWorkFormViaDOI {
     this.buttonSelector = "#doi-autofill-btn"
     this.form = $(this.buttonSelector).closest("form")
 
-    // TODO: Remove this when out of development
+    // NOTE: Remove this when out of development
     // $(this.buttonSelector).attr('data-confirm', false)
 
     this.registerListeners()
 
-    // TODO:
+    // NOTE:
     // Remove this testing code
     // $('#generic_work_doi').val('10.21250/tcq')
     // $(this.buttonSelector).click()
