@@ -32,7 +32,7 @@ en:
         help_text: The person or group responsible for the work. Usually this is the author of the content.
       creator_organization_name:
         label: Creator organisation name
-        placeholder: 
+        placeholder:
         help_text: Please enter the organisation's name.
       creator_ror:
         label: Creator organisation ROR
@@ -45,7 +45,7 @@ en:
       creator_wikidata:
         label: Creator organisation Wikidata
         placeholder: e.g. Q23308
-        help_text: Please enter the Wikidata ID 
+        help_text: Please enter the Wikidata ID
       creator_family_name:
         label: Creator family name
         placeholder: e.g. Einstein
@@ -118,7 +118,7 @@ en:
         help_text: The editors that produced this item, in priority order. To add multiple editors, repeat this property.
       editor_organization_name:
         label: Editor organisation name
-        placeholder: 
+        placeholder:
         help_text: Please enter the organisation's name.
       editor_family_name:
         label: Editor family name
@@ -167,6 +167,5 @@ en:
       creator_fields: I DON'T THINK WE WANT THIS HERE
       contributor_fields: I DON'T THINK WE WANT THIS HERE
       work_type_list: I DON'T THINK WE WANT THIS HERE
-      turn_off_fedora_collection_work_association: I think we always want this set to true?
       index_record_to_shared_search: Not sure this is an option the user needs
       oai_admin_email: OAI endpoint contact email address

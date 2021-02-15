@@ -42,7 +42,7 @@
 
     <tr><td><b>Boolean fields</b></td></tr>
     <% ['redirect_on', 'allow_signup', "hide_form_relationship_tab", "index_record_to_shared_search",
-        "shared_login", "turn_off_fedora_collection_work_association",'enabled_doi', 'institutional_relationship_picklist'].each do |fname| %>
+        "shared_login", 'enabled_doi', 'institutional_relationship_picklist'].each do |fname| %>
         <tr>
           <td id="link-<%= fname %>"><b><%= fname.humanize %>:</b> <%= @account && @account.settings && @account.settings[fname] %></td>
           <td><%= link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_single_boolean', field_name: fname), class: "btn btn-xs btn-default", remote: true %></td>
