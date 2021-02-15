@@ -129,20 +129,12 @@ RSpec.describe HykuAddons::AccountBehavior do
         end
       end
 
-      it "contains live key" do
-        expect(account.settings['live']).to eq "commons.pacificu.edu"
-      end
-
       it "has enabled_doi" do
         expect(account.settings['enabled_doi']).to be_falsey
       end
 
       it "contains gtm_id" do
         expect(account.settings['gtm_id']).to eq "GTM-123456"
-      end
-
-      it "contains work_type_list" do
-        expect(account.settings['work_type_list']).to include("ArticleWork,BookWork")
       end
 
       it "has email_hint_text" do
