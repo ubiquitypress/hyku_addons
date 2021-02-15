@@ -1,6 +1,6 @@
 <% content_for :page_header do %>
-  <h1> <%= link_to "Back",  hyku_addons.admin_account_settings_path, class: "btn btn-xs btn-default" %></h1><br>
-  <h1><span class="fa fa-gears"></span> Editing Account Settings</h1>
+  <h1> <%= link_to "Back", hyku_addons.admin_account_settings_path, class: "btn btn-xs btn-default" %></h1><br>
+  <h1><span class="fa fa-gears"></span>Editing Account Settings</h1>
 <% end %>
 
 <table class="table table-striped">
@@ -8,7 +8,7 @@
     <tr></tr>
   </thead>
   <tbody>
-    <%= form_for(@account, url: hyku_addons.admin_account_setting_path(@account), :html => { class: 'form control' }) do |f| %>
+    <%= form_for(@account, url: hyku_addons.admin_account_setting_path(@account), html: { class: 'form control' }) do |f| %>
       <% ['contact_email', 'gtm_id', 'institutional_relationship', 'creator_fields', 'contributor_fields'].each do |fname| %>
         <tr>
           <%= render 'hyku_addons/account_settings/settings/text_field_content',  account: @account, field_name: fname, f: f, display_save_button: false %>
@@ -33,10 +33,7 @@
         </tr>
       <% end %>
 
-      <div class="panel-footer">
-        <%= f.submit class: 'btn btn-primary pull-right' %> <br>
-        <h1> <%= link_to "Back",  hyku_addons.admin_account_settings_path, class: "btn btn-xs btn-default  pull-right" %></h1>
-      </div>
+      <%= render "hyku_addons/account_settings/settings/submit_buttons", f: f %>
     <% end %>
   </tbody>
 </table>
