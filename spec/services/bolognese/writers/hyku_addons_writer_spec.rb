@@ -11,7 +11,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWriter do
   context "Hyku Addons Writer" do
     context "outputs correctly" do
       describe "a complete work" do
-        let(:fixture) { File.read Rails.root.join('../', 'fixtures', 'work_from_doi_complete.xml') }
+        let(:fixture) { File.read Rails.root.join('..', 'fixtures', 'work_from_doi_complete.xml') }
         let(:meta) { Bolognese::Metadata.new(input: fixture) }
         let(:result) { meta.hyku_addons_work }
 
