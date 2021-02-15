@@ -42,7 +42,7 @@ module Bolognese
 
         def write_involved(type)
           # Convert the keys to singular and underscored, to match field names
-          meta.dig(type).map { |hash| hash.map { |k,v| ["#{type.singularize}_#{k.underscore}", v] }.to_h }
+          meta.dig(type).map { |hash| hash.map { |k, v| ["#{type.singularize}_#{k.underscore}", v] }.to_h }
         end
 
         def write_descriptions

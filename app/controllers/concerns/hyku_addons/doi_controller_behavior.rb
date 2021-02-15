@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # TODO: Why is this required, or we see NotFoundError class not found
 module Hyrax
   module DOI
@@ -11,6 +12,7 @@ module HykuAddons
   module DOIControllerBehavior
     extend ActiveSupport::Concern
 
+    # rubocop:disable Metrics/BlockLength
     included do
       def autofill
         respond_to do |format|
@@ -65,5 +67,6 @@ module HykuAddons
           params.require(:doi)
         end
     end
+    # rubocop:enable Metrics/BlockLength
   end
 end
