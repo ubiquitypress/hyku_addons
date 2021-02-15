@@ -1,57 +1,42 @@
+<% content_for :page_header do %>
+  <h1> <%= link_to "Back",  hyku_addons.admin_account_settings_path, class: "btn btn-xs btn-default" %></h1><br>
+  <h1><span class="fa fa-gears"></span> Editing Account Settings</h1>
+<% end %>
 
-  <% content_for :page_header do %>
-    <h1> <%= link_to "Back",  hyku_addons.admin_account_settings_path, class: "btn btn-xs btn-default" %></h1><br>
-     <h1><span class="fa fa-gears"></span> Editing Account Settings</h1>
-   <% end %>
-
-
-
-   <table class="table table-striped">
-   <thead>
-     <tr>
-
-     </tr>
-   </thead>
-   <tbody>
-   <%= form_for(@account, url: hyku_addons.admin_account_setting_path(@account), :html => { class: 'form control' }) do |f| %>
-
-
-     <% ['contact_email', 'gtm_id', 'live', 'institutional_relationship', 'creator_fields', 'contributor_fields'].each do |fname| %>
-      <tr>
-
-         <%= render 'hyku_addons/account_settings/settings/text_field_content',  account: @account, field_name: fname, f: f, display_save_button: false %>
-
-      </tr>
-     <% end %>
-
-     <% ['weekly_email_list', 'monthly_email_list', 'yearly_email_list' 'email_format', 'contributor_roles', 'creator_roles'].each do |fname| %>
-       <tr>
-         <%= render 'hyku_addons/account_settings/settings/array_list_content', field_name: fname,  html_name_element: fname, f: f, display_save_button: false %>
-       </tr>
-     <% end %>
-
-     <% ['work_unwanted_fields', 'required_json_property', 'metadata_labels'].each do |settings_hash_key| %>
-      <tr>
-         <%= render 'hyku_addons/account_settings/settings/hash_settings_content', field_name: settings_hash_key, html_name_element: settings_hash_key, f: f, display_save_button: false %>
-      </tr>
-     <% end %>
-
-     <% ['allow_signup', "hide_form_relationship_tab", 'enabled_doi', 'institutional_relationship_picklist'].each do |fname| %>
+<table class="table table-striped">
+  <thead>
+    <tr></tr>
+  </thead>
+  <tbody>
+    <%= form_for(@account, url: hyku_addons.admin_account_setting_path(@account), :html => { class: 'form control' }) do |f| %>
+      <% ['contact_email', 'gtm_id', 'institutional_relationship', 'creator_fields', 'contributor_fields'].each do |fname| %>
         <tr>
-
-            <%= render 'hyku_addons/account_settings/settings/boolean_field_content', field_name: fname, f: f, display_save_button: false %>
-
+          <%= render 'hyku_addons/account_settings/settings/text_field_content',  account: @account, field_name: fname, f: f, display_save_button: false %>
         </tr>
-     <% end %>
+      <% end %>
 
+      <% ['weekly_email_list', 'monthly_email_list', 'yearly_email_list', 'email_format', 'contributor_roles', 'creator_roles'].each do |fname| %>
+        <tr>
+          <%= render 'hyku_addons/account_settings/settings/array_list_content', field_name: fname,  html_name_element: fname, f: f, display_save_button: false %>
+        </tr>
+      <% end %>
+
+      <% ['work_unwanted_fields', 'required_json_property', 'metadata_labels'].each do |settings_hash_key| %>
+        <tr>
+          <%= render 'hyku_addons/account_settings/settings/hash_settings_content', field_name: settings_hash_key, html_name_element: settings_hash_key, f: f, display_save_button: false %>
+        </tr>
+      <% end %>
+
+      <% ['allow_signup', "hide_form_relationship_tab", 'enabled_doi', 'institutional_relationship_picklist'].each do |fname| %>
+        <tr>
+          <%= render 'hyku_addons/account_settings/settings/boolean_field_content', field_name: fname, f: f, display_save_button: false %>
+        </tr>
+      <% end %>
 
       <div class="panel-footer">
-          <%= f.submit class: 'btn btn-primary pull-right' %> <br>
-          <h1> <%= link_to "Back",  hyku_addons.admin_account_settings_path, class: "btn btn-xs btn-default  pull-right" %></h1>
+        <%= f.submit class: 'btn btn-primary pull-right' %> <br>
+        <h1> <%= link_to "Back",  hyku_addons.admin_account_settings_path, class: "btn btn-xs btn-default  pull-right" %></h1>
       </div>
-
-
     <% end %>
-
-   </tbody>
- </table>
+  </tbody>
+</table>

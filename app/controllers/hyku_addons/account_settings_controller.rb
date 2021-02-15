@@ -52,7 +52,8 @@ module HykuAddons
       end
 
       def map_array_fields
-        ['email_format', 'weekly_email_list', 'monthly_email_list', 'yearly_email_list', 'contributor_roles', 'creator_roles'].each do |key|
+        keys = %w[email_format weekly_email_list monthly_email_list yearly_email_list contributor_roles creator_roles]
+        keys.each do |key|
           next if params['account']['settings'][key].blank?
           params['account']['settings'][key].map! { |str| str.split(' ') }.flatten!
         end
