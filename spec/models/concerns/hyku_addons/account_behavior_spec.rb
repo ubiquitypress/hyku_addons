@@ -116,10 +116,6 @@ RSpec.describe HykuAddons::AccountBehavior do
         expect(account.google_scholarly_work_types).to be_an_instance_of(Array)
         expect(account.google_scholarly_work_types).to include('Book')
       end
-
-      it " has index_record_to_shared_search" do
-        expect(account.index_record_to_shared_search).to eq "true"
-      end
     end
 
     context "settings from environment variable" do

@@ -35,8 +35,7 @@ module HykuAddons
 
       def account_params
         params.require(:account).permit(
-          settings: [:contact_email, :index_record_to_shared_search, :enabled_doi, :gtm_id,
-                     :file_size_limit, :enable_oai_metadata,
+          settings: [:contact_email, :enabled_doi, :gtm_id, :file_size_limit, :enable_oai_metadata,
                      :add_collection_list_form_display, :hide_form_relationship_tab, :shared_login,
                      :redirect_on, :institutional_relationship_picklist, :institutional_relationship,
                      :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,

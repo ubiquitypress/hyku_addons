@@ -11,7 +11,7 @@ module HykuAddons
 
       store_accessor :data, :is_parent
       store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
-                     :index_record_to_shared_search, :google_scholarly_work_types,
+                     :google_scholarly_work_types,
                      :enabled_doi, :gtm_id, :add_collection_list_form_display, :hide_form_relationship_tab, :shared_login,
                      :email_format, :help_texts, :work_unwanted_fields,
                      :metadata_labels,
