@@ -33,7 +33,6 @@ FactoryBot.modify do
                       "publisher": " ", "volume": " ", "pagination": " ", "isbn": " ", "issn": " ", "duration":
                       "Enter the length of the work (i.e. 15 minutes).", "version": " ", "keyword":
                       "Enter word(s) about your work." },
-        html_required: { "contributor": "false" },
         institutional_relationship: "Pacific University,Other",
         allow_signup: "true",
         redirect_on: "true",

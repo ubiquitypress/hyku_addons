@@ -42,7 +42,7 @@ module HykuAddons
                      :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,
                      email_format: [], help_texts: {}, work_unwanted_fields: {},
                      contributor_roles: [], metadata_labels: {},
-                     creator_roles: [], html_required: {}, licence_list: [:name, :url],
+                     creator_roles: [], licence_list: [:name, :url],
                      weekly_email_list: [], monthly_email_list: [], yearly_email_list: []]
         )
       end

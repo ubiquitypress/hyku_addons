@@ -16,12 +16,11 @@ module HykuAddons
                      :email_format, :help_texts, :work_unwanted_fields,
                      :metadata_labels,
                      :institutional_relationship_picklist, :institutional_relationship, :contributor_roles,
-                     :creator_roles, :html_required, :licence_list, :allow_signup, :redirect_on, :oai_admin_email,
+                     :creator_roles, :licence_list, :allow_signup, :redirect_on, :oai_admin_email,
                      :file_size_limit, :enable_oai_metadata, :oai_prefix, :oai_sample_identifier
 
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
       after_initialize :set_jsonb_help_texts_default_keys, :set_jsonb_work_unwanted_fields_default_keys
-      after_initialize :set_jsonb_html_required_default_keys
       after_initialize :set_jsonb_metadata_labels_default_keys, :set_jsonb_licence_list_default_keys
       after_initialize :set_jsonb_allow_signup_default
       before_save :remove_settings_hash_key_with_nil_value
@@ -78,13 +77,6 @@ module HykuAddons
         }
       end
 
-      def set_jsonb_html_required_default_keys
-        return if settings['html_required'].present?
-        self.html_required = {
-          contributor: nil
-        }
-      end
-
       def set_jsonb_licence_list_default_keys
         return if settings['licence_list'].present?
         self.licence_list = {
@@ -98,7 +90,7 @@ module HykuAddons
       end
 
       def remove_settings_hash_key_with_nil_value
-        ['help_texts', 'work_unwanted_fields', 'metadata_labels', 'html_required'].each do |key|
+        ['help_texts', 'work_unwanted_fields', 'metadata_labels'].each do |key|
           settings[key].delete_if { |_hash_key, value| value.blank? } if settings[key].class == Hash
         end
       end

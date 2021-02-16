@@ -94,12 +94,6 @@ RSpec.describe "::HykuAddons::AccountSettingsController", type: :request do
         expect(account.settings['licence_list'].first).to include('name' => 'new licence')
         expect(response).to redirect_to admin_account_settings_url
       end
-
-      it "can update html_required a hash" do
-        patch update_single_admin_account_setting_url(account.id), params: { 'account' => { 'settings' => { 'html_required' => { "contributor" => true } } } }
-        account.reload
-        expect(account.settings['html_required']).to include("contributor" => 'true')
-      end
     end
   end
 end

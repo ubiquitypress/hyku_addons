@@ -86,7 +86,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       it " #remove_settings_hash_key_with_nil_value before_save callback can remove initialized values settings hash" do
         account = Account.new
         account.send(:remove_settings_hash_key_with_nil_value)
-        ['help_texts', 'work_unwanted_fields', 'metadata_labels', 'html_required'].each do |key|
+        ['help_texts', 'work_unwanted_fields', 'metadata_labels'].each do |key|
           expect(account.settings[key].blank?).to eq true
         end
       end
@@ -170,11 +170,6 @@ RSpec.describe HykuAddons::AccountBehavior do
       it "contains an array of creator_roles" do
         expect(account.settings['creator_roles']).to include("Faculty")
         expect(account.settings['creator_roles']).to be_an_instance_of(Array)
-      end
-
-      it "has a hash of html_required" do
-        expect(account.settings['html_required']).to include("contributor" => "false")
-        expect(account.settings['html_required']).to be_an_instance_of(Hash)
       end
 
       it "contails an array of licence_list" do
