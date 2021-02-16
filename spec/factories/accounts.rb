@@ -29,10 +29,6 @@ FactoryBot.modify do
         institutional_relationship_picklist: "false",
         contributor_roles:  ["Advisor", "Partner Organization", "Contributor ", "Editor"],
         creator_roles: ["Faculty", "Staff", "Student", "Other"],
-        help_texts: { "subject": "Select word(s)  about your work.", "org_unit": "Enter your department, center, or group at Pacific", "refereed": "", "additional_information": "",
-                      "publisher": " ", "volume": " ", "pagination": " ", "isbn": " ", "issn": " ", "duration":
-                      "Enter the length of the work (i.e. 15 minutes).", "version": " ", "keyword":
-                      "Enter word(s) about your work." },
         institutional_relationship: "Pacific University,Other",
         allow_signup: "true",
         redirect_on: "true",

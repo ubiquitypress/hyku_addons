@@ -86,7 +86,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       it " #remove_settings_hash_key_with_nil_value before_save callback can remove initialized values settings hash" do
         account = Account.new
         account.send(:remove_settings_hash_key_with_nil_value)
-        ['help_texts', 'work_unwanted_fields', 'metadata_labels'].each do |key|
+        ['work_unwanted_fields', 'metadata_labels'].each do |key|
           expect(account.settings[key].blank?).to eq true
         end
       end
@@ -135,10 +135,6 @@ RSpec.describe HykuAddons::AccountBehavior do
 
       it "contains email_format" do
         expect(account.settings['email_format']).to include("@pacificu.edu")
-      end
-
-      it "has help_texts" do
-        expect(account.settings['help_texts']).to include("subject" => "Select word(s)  about your work.")
       end
 
       it "has work_unwanted_fields" do
