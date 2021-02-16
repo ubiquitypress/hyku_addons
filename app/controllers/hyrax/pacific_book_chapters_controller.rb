@@ -1,15 +1,12 @@
 # frozen_string_literal: true
-# Generated via
-#  `rails generate hyrax:work PacificBookChapter`
+
 module Hyrax
-  # Generated controller for PacificBookChapter
   class PacificBookChaptersController < ApplicationController
-    # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
     include Hyrax::BreadcrumbsForWorks
-    self.curation_concern_type = ::PacificBookChapter
+    include HykuAddons::WorksControllerBehavior
 
-    # Use this line if you want to use a custom presenter
+    self.curation_concern_type = ::PacificBookChapter
     self.show_presenter = Hyrax::PacificBookChapterPresenter
   end
 end
