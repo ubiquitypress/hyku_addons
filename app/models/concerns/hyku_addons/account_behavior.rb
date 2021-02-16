@@ -12,8 +12,7 @@ module HykuAddons
       store_accessor :data, :is_parent
       store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
                      :google_scholarly_work_types,
-                     :enabled_doi, :gtm_id, :add_collection_list_form_display, :hide_form_relationship_tab,
-                     :shared_login, :email_format, :metadata_labels,
+                     :enabled_doi, :gtm_id, :hide_form_relationship_tab, :shared_login, :email_format, :metadata_labels,
                      :institutional_relationship_picklist, :institutional_relationship, :contributor_roles,
                      :creator_roles, :allow_signup, :redirect_on, :oai_admin_email,
                      :file_size_limit, :enable_oai_metadata, :oai_prefix, :oai_sample_identifier
