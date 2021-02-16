@@ -86,7 +86,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       it " #remove_settings_hash_key_with_nil_value before_save callback can remove initialized values settings hash" do
         account = Account.new
         account.send(:remove_settings_hash_key_with_nil_value)
-        ['help_texts', 'work_unwanted_fields', 'required_json_property', 'metadata_labels', 'html_required'].each do |key|
+        ['help_texts', 'work_unwanted_fields', 'metadata_labels', 'html_required'].each do |key|
           expect(account.settings[key].blank?).to eq true
         end
       end
@@ -147,11 +147,6 @@ RSpec.describe HykuAddons::AccountBehavior do
 
       it "has work_unwanted_fields" do
         expect(account.settings["work_unwanted_fields"]).to include("news_clipping" => "institution", "article" => "institution")
-      end
-
-      it "contains required_json_property" do
-        expect(account.settings['required_json_property'].keys).to include('media', 'text_work')
-        expect(account.settings['required_json_property']['media']).to include("creator_institutional_relationship")
       end
 
       it "has creator_fields" do

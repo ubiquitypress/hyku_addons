@@ -14,14 +14,14 @@ module HykuAddons
                      :index_record_to_shared_search, :google_scholarly_work_types,
                      :enabled_doi, :gtm_id, :add_collection_list_form_display, :hide_form_relationship_tab, :shared_login,
                      :email_format, :help_texts, :work_unwanted_fields,
-                     :required_json_property, :creator_fields, :contributor_fields, :metadata_labels,
+                     :creator_fields, :contributor_fields, :metadata_labels,
                      :institutional_relationship_picklist, :institutional_relationship, :contributor_roles,
                      :creator_roles, :html_required, :licence_list, :allow_signup, :redirect_on, :oai_admin_email,
                      :file_size_limit, :enable_oai_metadata, :oai_prefix, :oai_sample_identifier
 
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
       after_initialize :set_jsonb_help_texts_default_keys, :set_jsonb_work_unwanted_fields_default_keys
-      after_initialize :set_jsonb_required_json_property_default_keys, :set_jsonb_html_required_default_keys
+      after_initialize :set_jsonb_html_required_default_keys
       after_initialize :set_jsonb_metadata_labels_default_keys, :set_jsonb_licence_list_default_keys
       after_initialize :set_jsonb_allow_signup_default
       before_save :remove_settings_hash_key_with_nil_value
@@ -70,15 +70,6 @@ module HykuAddons
         }
       end
 
-      # populate with names of json keys that should be required eg "media": ["creator_institutional_relationship"]
-      # means "creator_institutional_relationship" is required for media work_type
-      def set_jsonb_required_json_property_default_keys
-        return if settings['required_json_property'].present?
-        self.required_json_property = { media: [], presentation: [], text_work: [], uncategorized: [],
-                                        news_clipping: [], article_work: [], book_work: [],
-                                        image_work: [], thesis_or_dissertation_work: [] }
-      end
-
       def set_jsonb_metadata_labels_default_keys
         return if settings['metadata_labels'].present?
         self.metadata_labels = {
@@ -107,7 +98,7 @@ module HykuAddons
       end
 
       def remove_settings_hash_key_with_nil_value
-        ['help_texts', 'work_unwanted_fields', 'required_json_property', 'metadata_labels', 'html_required'].each do |key|
+        ['help_texts', 'work_unwanted_fields', 'metadata_labels', 'html_required'].each do |key|
           settings[key].delete_if { |_hash_key, value| value.blank? } if settings[key].class == Hash
         end
       end
