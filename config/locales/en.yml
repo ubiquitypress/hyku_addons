@@ -163,7 +163,5 @@ en:
       file_size_limit: This should be set to 536870912000
       institutional_relationship_picklist: Enable or Disable Institutional Relationship Picklist
       # Eveything below this line I am pretty confident we want to remove from the list
-      creator_fields: I DON'T THINK WE WANT THIS HERE
-      contributor_fields: I DON'T THINK WE WANT THIS HERE
       index_record_to_shared_search: Not sure this is an option the user needs
       oai_admin_email: OAI endpoint contact email address

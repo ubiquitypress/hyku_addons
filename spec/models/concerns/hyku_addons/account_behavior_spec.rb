@@ -149,14 +149,6 @@ RSpec.describe HykuAddons::AccountBehavior do
         expect(account.settings["work_unwanted_fields"]).to include("news_clipping" => "institution", "article" => "institution")
       end
 
-      it "has creator_fields" do
-        expect(account.settings["creator_fields"]).to include("creator_group,creator_name_type")
-      end
-
-      it "contains contributor_fields" do
-        expect(account.settings["contributor_fields"]).to include("contributor_suffix,contributor_institutional_relationship")
-      end
-
       it "has metadata_labels" do
         expect(account.settings['metadata_labels']).to include("institutional_relationship" => "Institution", "family_name" => "Last Name")
         expect(account.settings['metadata_labels']).to be_an_instance_of(Hash)

@@ -23,9 +23,6 @@ FactoryBot.modify do
         work_unwanted_fields: { "book_chapter": "library_of_congress_classification,related_identifier,alternate_identifier,dewey,series_name,
                                 fndr_project_ref,funder,project_name,editor,institution,buy_book",
                                 "article": "institution", "news_clipping": "institution" },
-        creator_fields: "creator_group,creator_name_type,creator_organization_name,creator_given_name,creator_family_name,
-                         creator_position,creator_suffix,creator_affiliation,creator_role,creator_middle_name,creator_institutional_relationship",
-        contributor_fields: "contributor_suffix,contributor_institutional_relationship,contributor_middle_name,contributor_given_name,contributor_family_name,contributor_role",
         metadata_labels: { "institutional_relationship": "Institution", "family_name":
                            "Last Name", "given_name": "First Name", "org_unit": "Department", "version_number":
                           "Version" },

@@ -14,7 +14,7 @@ module HykuAddons
                      :index_record_to_shared_search, :google_scholarly_work_types,
                      :enabled_doi, :gtm_id, :add_collection_list_form_display, :hide_form_relationship_tab, :shared_login,
                      :email_format, :help_texts, :work_unwanted_fields,
-                     :creator_fields, :contributor_fields, :metadata_labels,
+                     :metadata_labels,
                      :institutional_relationship_picklist, :institutional_relationship, :contributor_roles,
                      :creator_roles, :html_required, :licence_list, :allow_signup, :redirect_on, :oai_admin_email,
                      :file_size_limit, :enable_oai_metadata, :oai_prefix, :oai_sample_identifier

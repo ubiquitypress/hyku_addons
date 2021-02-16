@@ -8,7 +8,7 @@
 <table class="table table-striped">
   <tbody>
     <%= form_for(@account, url: hyku_addons.admin_account_setting_path(@account), html: { class: 'form control' }) do |f| %>
-      <% ['contact_email', 'gtm_id', 'institutional_relationship', 'creator_fields', 'contributor_fields'].each do |fname| %>
+      <% ['contact_email', 'gtm_id', 'institutional_relationship'].each do |fname| %>
         <tr>
           <%= render 'hyku_addons/account_settings/settings/text_field_content',  account: @account, field_name: fname, f: f, display_save_button: false %>
         </tr>
