@@ -62,17 +62,6 @@ RSpec.describe 'AccountSettings', type: :system do
         account.reload
         expect(account.settings['contact_email']).to eq('do@do.com')
       end
-
-      it "can update a settings with hash value" do
-        visit hyku_addons.edit_admin_account_setting_url(id: account.id, partial_name: 'render_hash_settingss', field_name: 'work_unwanted_fields')
-        expect(page).to have_css('label', text: 'Work unwanted fields')
-        expect(page).to have_css('label', text: 'Book chapter')
-        find_field("account[settings][work_unwanted_fields][book_chapter]").set "library_of_congress_classification,related_identifier,alternate_identifier,dewey,series_name,
-                                                                                fndr_project_ref,funder,project_name,isbn"
-        click_button 'Save changes'
-        account.reload
-        expect(account.settings['work_unwanted_fields']['book_chapter']).to include('isbn')
-      end
     end
   end
 

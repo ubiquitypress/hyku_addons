@@ -152,7 +152,6 @@ en:
       email_format: Set a list of email format for emails that may sign up to your repository e.g (@ubiquitypress.com @gmail.com). Leave a single space between each domain
       contributor_roles: List of roles contributors to the work can include. Leave a single space between each role
       creator_roles: List of roles creators to the work can include. Leave a single space between each role
-      work_unwanted_fields: List of fields to be removed from deposit forms
       metadata_labels: Change the labels of metadata fields on deposit forms
       redirect_on: Redirect to the front end after a work is created
       allow_signup: Allow users to sign up to your repository

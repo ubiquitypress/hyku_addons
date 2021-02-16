@@ -20,9 +20,6 @@ FactoryBot.modify do
         gtm_id: "GTM-123456", enable_doi: "false",
         hide_form_relationship_tab: "true", shared_login: "true",
         email_format: ["@pacificu.edu", "@ubiquitypress.com", "@test.com"],
-        work_unwanted_fields: { "book_chapter": "library_of_congress_classification,related_identifier,alternate_identifier,dewey,series_name,
-                                fndr_project_ref,funder,project_name,editor,institution,buy_book",
-                                "article": "institution", "news_clipping": "institution" },
         metadata_labels: { "institutional_relationship": "Institution", "family_name":
                            "Last Name", "given_name": "First Name", "org_unit": "Department", "version_number":
                           "Version" },

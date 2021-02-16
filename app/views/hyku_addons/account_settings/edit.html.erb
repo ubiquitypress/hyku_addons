@@ -20,7 +20,7 @@
         </tr>
       <% end %>
 
-      <% ['work_unwanted_fields', 'metadata_labels'].each do |settings_hash_key| %>
+      <% ['metadata_labels'].each do |settings_hash_key| %>
         <tr>
           <%= render 'hyku_addons/account_settings/settings/hash_settings_content', field_name: settings_hash_key, html_name_element: settings_hash_key, f: f, display_save_button: false %>
         </tr>

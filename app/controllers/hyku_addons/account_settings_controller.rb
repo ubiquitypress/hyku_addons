@@ -39,8 +39,7 @@ module HykuAddons
                      :add_collection_list_form_display, :hide_form_relationship_tab, :shared_login,
                      :redirect_on, :institutional_relationship_picklist, :institutional_relationship,
                      :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,
-                     email_format: [],  work_unwanted_fields: {},
-                     contributor_roles: [], metadata_labels: {},
+                     email_format: [], contributor_roles: [], metadata_labels: {},
                      creator_roles: [], licence_list: [:name, :url],
                      weekly_email_list: [], monthly_email_list: [], yearly_email_list: []]
         )

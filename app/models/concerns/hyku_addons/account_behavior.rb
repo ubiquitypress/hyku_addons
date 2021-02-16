@@ -12,15 +12,13 @@ module HykuAddons
       store_accessor :data, :is_parent
       store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
                      :google_scholarly_work_types,
-                     :enabled_doi, :gtm_id, :add_collection_list_form_display, :hide_form_relationship_tab, :shared_login,
-                     :email_format, :work_unwanted_fields,
-                     :metadata_labels,
+                     :enabled_doi, :gtm_id, :add_collection_list_form_display, :hide_form_relationship_tab,
+                     :shared_login, :email_format, :metadata_labels,
                      :institutional_relationship_picklist, :institutional_relationship, :contributor_roles,
                      :creator_roles, :licence_list, :allow_signup, :redirect_on, :oai_admin_email,
                      :file_size_limit, :enable_oai_metadata, :oai_prefix, :oai_sample_identifier
 
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
-      after_initialize :set_jsonb_work_unwanted_fields_default_keys
       after_initialize :set_jsonb_metadata_labels_default_keys, :set_jsonb_licence_list_default_keys
       after_initialize :set_jsonb_allow_signup_default
       before_save :remove_settings_hash_key_with_nil_value
@@ -53,13 +51,6 @@ module HykuAddons
         end
       end
 
-      def set_jsonb_work_unwanted_fields_default_keys
-        return if settings['work_unwanted_fields'].present?
-        self.work_unwanted_fields = {
-          book_chapter: nil, article: nil, news_clipping: nil
-        }
-      end
-
       def set_jsonb_metadata_labels_default_keys
         return if settings['metadata_labels'].present?
         self.metadata_labels = {
@@ -81,7 +72,7 @@ module HykuAddons
       end
 
       def remove_settings_hash_key_with_nil_value
-        ['work_unwanted_fields', 'metadata_labels'].each do |key|
+        ['metadata_labels'].each do |key|
           settings[key].delete_if { |_hash_key, value| value.blank? } if settings[key].class == Hash
         end
       end
