@@ -125,10 +125,6 @@ RSpec.describe HykuAddons::AccountBehavior do
         end
       end
 
-      it "has enabled_doi" do
-        expect(account.settings['enabled_doi']).to be_falsey
-      end
-
       it "contains gtm_id" do
         expect(account.settings['gtm_id']).to eq "GTM-123456"
       end

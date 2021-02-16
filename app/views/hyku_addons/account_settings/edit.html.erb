@@ -26,7 +26,7 @@
         </tr>
       <% end %>
 
-      <% ['allow_signup', "hide_form_relationship_tab", 'enabled_doi', 'institutional_relationship_picklist'].each do |fname| %>
+      <% ['allow_signup', "hide_form_relationship_tab", 'institutional_relationship_picklist'].each do |fname| %>
         <tr>
           <%= render 'hyku_addons/account_settings/settings/boolean_field_content', field_name: fname, f: f, display_save_button: false %>
         </tr>

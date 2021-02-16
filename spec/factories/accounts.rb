@@ -17,8 +17,7 @@ FactoryBot.modify do
         contact_email: 'abc@abc.com', weekly_email_list: ["aaa@aaa.com", "bbb@bl.uk"], monthly_email_list: ["aaa@aaa.com", "bbb@bl.uk"],
         yearly_email_list: ["aaa@aaa.com", "bbb@bl.uk"],
         google_scholarly_work_types: ['Article', 'Book', 'ThesisOrDissertation', 'BookChapter'],
-        gtm_id: "GTM-123456", enable_doi: "false",
-        hide_form_relationship_tab: "true", shared_login: "true",
+        gtm_id: "GTM-123456", hide_form_relationship_tab: "true", shared_login: "true",
         email_format: ["@pacificu.edu", "@ubiquitypress.com", "@test.com"],
         metadata_labels: { "institutional_relationship": "Institution", "family_name":
                            "Last Name", "given_name": "First Name", "org_unit": "Department", "version_number":

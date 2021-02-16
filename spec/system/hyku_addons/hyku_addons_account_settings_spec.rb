@@ -34,12 +34,6 @@ RSpec.describe 'AccountSettings', type: :system do
       expect(page).to have_http_status(:ok)
       expect(page).to have_css("label", text: "Weekly email list")
     end
-
-    it "can display single boolean field for edit" do
-      visit hyku_addons.edit_admin_account_setting_url(id: account, partial_name: 'render_single_boolean', field_name: 'enabled_doi')
-      expect(page).to have_http_status(:ok)
-      expect(page).to have_css("label", text: "Enabled DOI")
-    end
   end
 
   describe 'Single settings key' do

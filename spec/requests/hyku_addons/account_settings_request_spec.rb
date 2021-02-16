@@ -36,7 +36,7 @@ RSpec.describe "::HykuAddons::AccountSettingsController", type: :request do
       end
 
       it "GET boolean_field edit page" do
-        get edit_admin_account_setting_url(id: account, partial_name: 'render_single_boolean', field_name: 'enabled_doi')
+        get edit_admin_account_setting_url(id: account, partial_name: 'render_single_boolean', field_name: 'hide_form_relationship_tab')
         expect(response).to have_http_status(:ok)
       end
     end
@@ -77,11 +77,11 @@ RSpec.describe "::HykuAddons::AccountSettingsController", type: :request do
       end
 
       it "can set booleans setting keys to true" do
-        boolean_keys = [['enabled_doi', true], ['institutional_relationship_picklist', true]]
+        boolean_keys = [['institutional_relationship_picklist', true]]
         boolean_hash = Hash[*boolean_keys.flatten]
         put admin_account_setting_url(account.id), params: { 'account' => { "settings" => boolean_hash } }
         account.reload
-        ['enabled_doi', 'institutional_relationship_picklist'].each do |key|
+        ['institutional_relationship_picklist'].each do |key|
           expect(account.settings[key]).to be_truthy
         end
         expect(response).to redirect_to admin_account_settings_url
