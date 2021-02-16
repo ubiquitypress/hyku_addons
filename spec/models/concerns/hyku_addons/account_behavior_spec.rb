@@ -137,10 +137,6 @@ RSpec.describe HykuAddons::AccountBehavior do
         expect(account.settings['gtm_id']).to eq "GTM-123456"
       end
 
-      it "has email_hint_text" do
-        expect(account.settings['email_hint_text']).to include("Please enter your email")
-      end
-
       it "contains email_format" do
         expect(account.settings['email_format']).to include("@pacificu.edu")
       end

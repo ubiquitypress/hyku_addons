@@ -46,7 +46,6 @@ FactoryBot.modify do
         institutional_relationship: "Pacific University,Other",
         allow_signup: "true",
         redirect_on: "true",
-        email_hint_text: "Please enter your email",
         licence_list: [{ name: "CC BY 4.0 Attribution", url: "https://creativecommons.org/licenses/by/4.0/" },
                        { name: "CC BY-NC 4.0 Attribution-NonCommercial", url: "https://creativecommons.org/licenses/by-nc/4.0/" },
                        { name: "CC BY-SA 4.0 Attribution ShareAlike", url: "https://creativecommons.org/licenses/by-sa/4.0/" },
