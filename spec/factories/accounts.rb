@@ -29,14 +29,6 @@ FactoryBot.modify do
         institutional_relationship: "Pacific University,Other",
         allow_signup: "true",
         redirect_on: "true",
-        licence_list: [{ name: "CC BY 4.0 Attribution", url: "https://creativecommons.org/licenses/by/4.0/" },
-                       { name: "CC BY-NC 4.0 Attribution-NonCommercial", url: "https://creativecommons.org/licenses/by-nc/4.0/" },
-                       { name: "CC BY-SA 4.0 Attribution ShareAlike", url: "https://creativecommons.org/licenses/by-sa/4.0/" },
-                       { name: "CC BY-ND 4.0 Attribution NoDerivs", url: "https://creativecommons.org/licenses/by-nd/4.0/" },
-                       { name: "CC BY-NC-SA 4.0 Attribution-NonCommercial-ShareAlike", url: "https://creativecommons.org/licenses/by-nc-sa/4.0/" },
-                       { name: "CC BY-NC-ND 4.0 Attribution NonCommercial-NoDerivs", url: "https://creativecommons.org/licenses/by-nc-nd/4.0/" },
-                       { name: "CC Public Domain Mark 1.0", url: "https://creativecommons.org/publicdomain/mark/1.0/" },
-                       { name: "CC0 1.0 Universal Public Domain", url: "http://creativecommons.org/publicdomain/zero/1.0/" }]
       }
     end
     data do

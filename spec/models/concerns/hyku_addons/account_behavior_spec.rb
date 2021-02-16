@@ -159,11 +159,6 @@ RSpec.describe HykuAddons::AccountBehavior do
         expect(account.settings['creator_roles']).to include("Faculty")
         expect(account.settings['creator_roles']).to be_an_instance_of(Array)
       end
-
-      it "contails an array of licence_list" do
-        expect(account.settings['licence_list']).to include("name" => "CC BY 4.0 Attribution", "url" => "https://creativecommons.org/licenses/by/4.0/")
-        expect(account.settings['licence_list']).to be_an_instance_of(Array)
-      end
     end
 
     context 'data jsonb keys' do

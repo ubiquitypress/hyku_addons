@@ -86,14 +86,6 @@ RSpec.describe "::HykuAddons::AccountSettingsController", type: :request do
         end
         expect(response).to redirect_to admin_account_settings_url
       end
-
-      it "can update licence_list an array of hash" do
-        patch update_single_admin_account_setting_url(account.id), params: { 'account' => { 'settings' => { 'licence_list' => [{ name: "new licence",
-                                                                                                                                 url: "https://creativecommons.org/licenses/by/4.0/" }] } } }
-        account.reload
-        expect(account.settings['licence_list'].first).to include('name' => 'new licence')
-        expect(response).to redirect_to admin_account_settings_url
-      end
     end
   end
 end
