@@ -36,8 +36,7 @@ module HykuAddons
       def account_params
         params.require(:account).permit(
           settings: [:contact_email, :gtm_id, :file_size_limit, :enable_oai_metadata,
-                     :hide_form_relationship_tab, :shared_login,
-                     :redirect_on, :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,
+                     :shared_login, :redirect_on, :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,
                      email_format: [], weekly_email_list: [], monthly_email_list: [], yearly_email_list: []]
         )
       end

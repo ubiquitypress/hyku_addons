@@ -36,7 +36,7 @@ RSpec.describe "::HykuAddons::AccountSettingsController", type: :request do
       end
 
       it "GET boolean_field edit page" do
-        get edit_admin_account_setting_url(id: account, partial_name: 'render_single_boolean', field_name: 'hide_form_relationship_tab')
+        get edit_admin_account_setting_url(id: account, partial_name: 'render_single_boolean', field_name: 'shared_login')
         expect(response).to have_http_status(:ok)
       end
     end
@@ -66,11 +66,11 @@ RSpec.describe "::HykuAddons::AccountSettingsController", type: :request do
   describe "updating settings moved from environment variables" do
     context "boolean keys" do
       it "can set booleans setting keys to false" do
-        boolean_keys = [['redirect_on', false], ['allow_signup', false], ["hide_form_relationship_tab", false], ["shared_login", false]]
+        boolean_keys = [['redirect_on', false], ['allow_signup', false], ["shared_login", false]]
         boolean_hash = Hash[*boolean_keys.flatten]
         put admin_account_setting_url(account.id), params: { 'account' => { "settings" => boolean_hash } }
         account.reload
-        ['redirect_on', 'allow_signup', "hide_form_relationship_tab", "shared_login"].each do |key|
+        ['redirect_on', 'allow_signup', "shared_login"].each do |key|
           expect(account.settings[key]).to eq 'false'
         end
         expect(response).to redirect_to admin_account_settings_url

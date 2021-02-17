@@ -151,7 +151,6 @@ en:
       email_format: Set a list of email format for emails that may sign up to your repository e.g (@ubiquitypress.com @gmail.com). Leave a single space between each domain
       redirect_on: Redirect to the front end after a work is created
       allow_signup: Allow users to sign up to your repository
-      hide_form_relationship_tab: Shows the relationship tab on the form
       enable_oai_metadata: Enable or disable OAI link
       shared_login: Enable or disable shared login
       file_size_limit: This should be set to 536870912000
