@@ -20,7 +20,7 @@ FactoryBot.modify do
         gtm_id: "GTM-123456", hide_form_relationship_tab: "true", shared_login: "true",
         email_format: ["@pacificu.edu", "@ubiquitypress.com", "@test.com"],
         allow_signup: "true",
-        redirect_on: "true",
+        redirect_on: "true"
       }
     end
     data do
