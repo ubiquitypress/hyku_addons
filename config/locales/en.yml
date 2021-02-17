@@ -150,8 +150,6 @@ en:
       monthly_email_list: List of email addresses to email the monthly report. Leave a single space between each email
       yearly_email_list: List of email addresses to email the yearly report. Leave a single space between each email
       email_format: Set a list of email format for emails that may sign up to your repository e.g (@ubiquitypress.com @gmail.com). Leave a single space between each domain
-      contributor_roles: List of roles contributors to the work can include. Leave a single space between each role
-      creator_roles: List of roles creators to the work can include. Leave a single space between each role
       redirect_on: Redirect to the front end after a work is created
       allow_signup: Allow users to sign up to your repository
       hide_form_relationship_tab: Shows the relationship tab on the form

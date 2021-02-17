@@ -137,16 +137,6 @@ RSpec.describe HykuAddons::AccountBehavior do
       it "has institutional_relationship key" do
         expect(account.settings['institutional_relationship']).to eq "Pacific University,Other"
       end
-
-      it "contributor_roles" do
-        expect(account.settings['contributor_roles']).to include("Advisor")
-        expect(account.settings['contributor_roles']).to be_an_instance_of(Array)
-      end
-
-      it "contains an array of creator_roles" do
-        expect(account.settings['creator_roles']).to include("Faculty")
-        expect(account.settings['creator_roles']).to be_an_instance_of(Array)
-      end
     end
 
     context 'data jsonb keys' do

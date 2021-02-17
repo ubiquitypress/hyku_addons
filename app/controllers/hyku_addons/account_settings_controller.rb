@@ -39,8 +39,7 @@ module HykuAddons
                      :hide_form_relationship_tab, :shared_login,
                      :redirect_on, :institutional_relationship,
                      :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,
-                     email_format: [], contributor_roles: [],
-                     creator_roles: [], weekly_email_list: [], monthly_email_list: [], yearly_email_list: []]
+                     email_format: [],  weekly_email_list: [], monthly_email_list: [], yearly_email_list: []]
         )
       end
 
@@ -49,7 +48,7 @@ module HykuAddons
       end
 
       def map_array_fields
-        keys = %w[email_format weekly_email_list monthly_email_list yearly_email_list contributor_roles creator_roles]
+        keys = %w[email_format weekly_email_list monthly_email_list yearly_email_list]
         keys.each do |key|
           next if params['account']['settings'][key].blank?
           params['account']['settings'][key].map! { |str| str.split(' ') }.flatten!
