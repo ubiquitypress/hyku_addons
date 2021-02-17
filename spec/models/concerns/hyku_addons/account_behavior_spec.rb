@@ -134,10 +134,6 @@ RSpec.describe HykuAddons::AccountBehavior do
         expect(account.settings['email_format']).to include("@pacificu.edu")
       end
 
-      it "institutional_relationship_picklist" do
-        expect(account.settings['institutional_relationship_picklist']).to eq "false"
-      end
-
       it "has institutional_relationship key" do
         expect(account.settings['institutional_relationship']).to eq "Pacific University,Other"
       end

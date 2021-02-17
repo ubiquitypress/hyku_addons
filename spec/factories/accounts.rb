@@ -19,7 +19,6 @@ FactoryBot.modify do
         google_scholarly_work_types: ['Article', 'Book', 'ThesisOrDissertation', 'BookChapter'],
         gtm_id: "GTM-123456", hide_form_relationship_tab: "true", shared_login: "true",
         email_format: ["@pacificu.edu", "@ubiquitypress.com", "@test.com"],
-        institutional_relationship_picklist: "false",
         contributor_roles:  ["Advisor", "Partner Organization", "Contributor ", "Editor"],
         creator_roles: ["Faculty", "Staff", "Student", "Other"],
         institutional_relationship: "Pacific University,Other",

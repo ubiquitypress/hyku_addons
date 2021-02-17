@@ -158,5 +158,4 @@ en:
       enable_oai_metadata: Enable or disable OAI link
       shared_login: Enable or disable shared login
       file_size_limit: This should be set to 536870912000
-      institutional_relationship_picklist: Enable or Disable Institutional Relationship Picklist
       oai_admin_email: OAI endpoint contact email address

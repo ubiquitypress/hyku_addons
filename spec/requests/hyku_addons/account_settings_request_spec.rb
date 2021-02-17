@@ -77,11 +77,11 @@ RSpec.describe "::HykuAddons::AccountSettingsController", type: :request do
       end
 
       it "can set booleans setting keys to true" do
-        boolean_keys = [['institutional_relationship_picklist', true]]
+        boolean_keys = [['allow_signup', true]]
         boolean_hash = Hash[*boolean_keys.flatten]
         put admin_account_setting_url(account.id), params: { 'account' => { "settings" => boolean_hash } }
         account.reload
-        ['institutional_relationship_picklist'].each do |key|
+        ['allow_signup'].each do |key|
           expect(account.settings[key]).to be_truthy
         end
         expect(response).to redirect_to admin_account_settings_url
