@@ -42,7 +42,6 @@ module HykuAddons
       def add_terms(work_type_terms = [])
         self.terms ||= hyrax_terms
         self.terms = (self.terms + Array.wrap(work_type_terms)) & available_terms
-        puts "TERMS HERE ARE #{self.terms}"
       end
 
       # Form fields. Note, these to not necessarily match the params which need to be permitted
