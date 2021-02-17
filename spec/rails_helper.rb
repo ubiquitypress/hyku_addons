@@ -72,6 +72,9 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
+ActiveJob::Base.queue_adapter = :test
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -107,4 +110,33 @@ RSpec.configure do |config|
   # They enable url_helpers not to throw error in Rspec system spec and request spec.
   # config.include Rails.application.routes.url_helpers
   config.include HykuAddons::Engine.routes.url_helpers
+
+  # Use this example metadata when you want to perform jobs inline during testing.
+  #
+  #   describe '#my_method`, :perform_enqueued do
+  #     ...
+  #   end
+  #
+  # If you pass an `Array` of job classes, they will be treated as the filter list.
+  #
+  #   describe '#my_method`, perform_enqueued: [MyJobClass] do
+  #     ...
+  #   end
+  #
+  # Limit to specific job classes with:
+  #
+  #   ActiveJob::Base.queue_adapter.filter = [JobClass]
+  #
+  config.around(:example, :perform_enqueued) do |example|
+    ActiveJob::Base.queue_adapter.filter =
+      example.metadata[:perform_enqueued].try(:to_a)
+    ActiveJob::Base.queue_adapter.perform_enqueued_jobs    = true
+    ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = true
+
+    example.run
+
+    ActiveJob::Base.queue_adapter.filter = nil
+    ActiveJob::Base.queue_adapter.perform_enqueued_jobs    = false
+    ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = false
+  end
 end
