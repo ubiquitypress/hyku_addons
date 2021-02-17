@@ -133,10 +133,6 @@ RSpec.describe HykuAddons::AccountBehavior do
       it "contains email_format" do
         expect(account.settings['email_format']).to include("@pacificu.edu")
       end
-
-      it "has institutional_relationship key" do
-        expect(account.settings['institutional_relationship']).to eq "Pacific University,Other"
-      end
     end
 
     context 'data jsonb keys' do

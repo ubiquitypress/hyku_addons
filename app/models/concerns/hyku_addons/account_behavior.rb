@@ -11,9 +11,8 @@ module HykuAddons
 
       store_accessor :data, :is_parent
       store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
-                     :google_scholarly_work_types,
-                     :gtm_id, :hide_form_relationship_tab, :shared_login, :email_format,
-                     :institutional_relationship, :allow_signup, :redirect_on, :oai_admin_email,
+                     :google_scholarly_work_types, :gtm_id, :hide_form_relationship_tab, :shared_login, :email_format,
+                     :allow_signup, :redirect_on, :oai_admin_email,
                      :file_size_limit, :enable_oai_metadata, :oai_prefix, :oai_sample_identifier
 
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
