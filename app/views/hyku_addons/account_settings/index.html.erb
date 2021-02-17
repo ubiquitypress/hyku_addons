@@ -31,13 +31,17 @@
       </tr>
     <% end %>
 
-    <tr><td><b>Hash fields that hold a list</b></td></tr>
-    <% ['metadata_labels'].each do|fname| %>
-      <tr>
-        <td id="link-<%= fname %>"><b> <%= fname.humanize %>:</b> <%= @account && @account.settings && @account.settings[fname].try(:to_sentence) %></td>
-        <td><%=link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_hash_settings', field_name: fname), class: "btn btn-xs btn-default", remote: true  %></td>
-      </tr>
-    <% end %>
+		<% # NOTE: This section is being left in the code incase we need to add new hash options %>
+		<% settings = [] %>
+		<% if settings.present? %>
+			<tr><td><b>Hash fields that hold a list</b></td></tr>
+			<% settings.each do|fname| %>
+				<tr>
+					<td id="link-<%= fname %>"><b> <%= fname.humanize %>:</b> <%= @account && @account.settings && @account.settings[fname].try(:to_sentence) %></td>
+					<td><%=link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_hash_settings', field_name: fname), class: "btn btn-xs btn-default", remote: true  %></td>
+				</tr>
+			<% end %>
+		<% end %>
 
     <tr><td><b>Boolean fields</b></td></tr>
     <% ['redirect_on', 'allow_signup', "hide_form_relationship_tab", "shared_login", 'institutional_relationship_picklist'].each do |fname| %>

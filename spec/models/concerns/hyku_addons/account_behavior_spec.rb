@@ -83,10 +83,11 @@ RSpec.describe HykuAddons::AccountBehavior do
   describe 'Settings Customisations' do
     let(:account) { build(:account) }
     context 'settings jsonb keys' do
-      it " #remove_settings_hash_key_with_nil_value before_save callback can remove initialized values settings hash" do
+      # All of the settings for this test have been removed AFAIK, but i'll leave it pending incase another is added
+      xit " #remove_settings_hash_key_with_nil_value before_save callback can remove initialized values settings hash" do
         account = Account.new
         account.send(:remove_settings_hash_key_with_nil_value)
-        ['metadata_labels'].each do |key|
+        [].each do |key|
           expect(account.settings[key].blank?).to eq true
         end
       end
@@ -131,11 +132,6 @@ RSpec.describe HykuAddons::AccountBehavior do
 
       it "contains email_format" do
         expect(account.settings['email_format']).to include("@pacificu.edu")
-      end
-
-      it "has metadata_labels" do
-        expect(account.settings['metadata_labels']).to include("institutional_relationship" => "Institution", "family_name" => "Last Name")
-        expect(account.settings['metadata_labels']).to be_an_instance_of(Hash)
       end
 
       it "institutional_relationship_picklist" do

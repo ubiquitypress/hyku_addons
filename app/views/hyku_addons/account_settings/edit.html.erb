@@ -20,11 +20,15 @@
         </tr>
       <% end %>
 
-      <% ['metadata_labels'].each do |settings_hash_key| %>
-        <tr>
-          <%= render 'hyku_addons/account_settings/settings/hash_settings_content', field_name: settings_hash_key, html_name_element: settings_hash_key, f: f, display_save_button: false %>
-        </tr>
-      <% end %>
+			<% # NOTE: This section is being left in the code incase we need to add new hash options %>
+			<% settings = [] %>
+			<% if settings.present? %>
+				<% settings.each do |settings_hash_key| %>
+					<tr>
+						<%= render 'hyku_addons/account_settings/settings/hash_settings_content', field_name: settings_hash_key, html_name_element: settings_hash_key, f: f, display_save_button: false %>
+					</tr>
+				<% end %>
+			<% end %>
 
       <% ['allow_signup', "hide_form_relationship_tab", 'institutional_relationship_picklist'].each do |fname| %>
         <tr>
