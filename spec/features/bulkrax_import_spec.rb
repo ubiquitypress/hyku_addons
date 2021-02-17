@@ -18,8 +18,8 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
   let(:import_batch_file) { 'spec/fixtures/csv/pacific_articles.csv' }
   let(:field_mapping) do
     {
-      # "title" => {"from"=>["title"], "split"=>true, "parsed"=>false, "if"=>nil, "excluded"=>false},
-      "date_published" => { "from" => ["date_published_1"], "split" => true, "parsed" => true, "if" => nil, "excluded" => false },
+      "date_published" => { "from" => ["date_published"], "split" => true, "parsed" => true, "if" => nil, "excluded" => false },
+      # Is this admin set mapping really necessary?
       "" => { "from" => ["admin_set"], "split" => false, "parsed" => false, "if" => nil, "excluded" => true }
     }
   end

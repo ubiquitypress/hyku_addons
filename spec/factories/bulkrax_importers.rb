@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+# Copied here from Bulkrax so they can be availabe for our tests
+# Later we could make a PR to expose them in Bulkrax so we don't have to copy them anymore
 
 FactoryBot.define do
   factory :bulkrax_importer, class: 'Bulkrax::Importer' do
