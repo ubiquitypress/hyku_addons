@@ -16,7 +16,7 @@
     </tr>
 
     <tr><td><b>Single text fields</b></td></tr>
-    <% ['contact_email', 'gtm_id', 'oai_admin_email', 'oai_prefix', 'oai_sample_identifier'].each do |fname| %>
+    <% HykuAddons::AccountBehavior::TEXT_SETTINGS.each do |fname| %>
       <tr>
         <td id="link-<%= fname %>"><b><%= fname.humanize %>:</b> <%= @account && @account.settings && @account.settings[fname] %></td>
         <td><%= link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_text_fields', field_name: fname), class: "btn btn-xs btn-default", remote: true %></td>
@@ -24,16 +24,14 @@
     <% end %>
 
     <tr><td><b>Array fields that hold a list</b></td></tr>
-    <% ['weekly_email_list', 'monthly_email_list', 'yearly_email_list', 'email_format'].each do |fname| %>
+    <% HykuAddons::AccountBehavior::ARRAY_SETTINGS.each do |fname| %>
       <tr>
         <td id="link-<%= fname %>"><b> <%= fname.humanize %>:</b> <%= @account && @account.settings && @account.settings[fname].try(:to_sentence) %></td>
         <td><%=link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_array_list', field_name: fname), class: "btn btn-xs btn-default", remote: true %></td>
       </tr>
     <% end %>
 
-		<% # NOTE: This section is being left in the code incase we need to add new hash options %>
-		<% settings = [] %>
-		<% if settings.present? %>
+		<% if (settings = HykuAddons::AccountBehavior::HASH_SETTINGS).present? %>
 			<tr><td><b>Hash fields that hold a list</b></td></tr>
 			<% settings.each do|fname| %>
 				<tr>
@@ -44,7 +42,7 @@
 		<% end %>
 
     <tr><td><b>Boolean fields</b></td></tr>
-    <% ['redirect_on', 'allow_signup', "shared_login"].each do |fname| %>
+    <% HykuAddons::AccountBehavior::BOOLEAN_SETTINGS.each do |fname| %>
         <tr>
           <td id="link-<%= fname %>"><b><%= fname.humanize %>:</b> <%= @account && @account.settings && @account.settings[fname] %></td>
           <td><%= link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_single_boolean', field_name: fname), class: "btn btn-xs btn-default", remote: true %></td>
