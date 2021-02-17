@@ -181,6 +181,23 @@ module HykuAddons
       end
     end
 
+    initializer 'hyku_addons.bulkrax_overrides' do
+      Bulkrax.system_identifier_field = 'id'
+      # Replace bulkrax csv parser with hyku_addons version
+      csv_parser_config = Bulkrax.parsers.find { |p| p[:class_name] = "HykuAddons::CsvParser" if p[:class_name] == "Bulkrax::CsvParser" }
+      csv_parser_config[:class_name] = "HykuAddons::CsvParser"
+    end
+
+    initializer 'hyku_addons.hyrax_identifier_overrides' do
+      Hyrax::Identifier::Dispatcher.class_eval do
+        def assign_for(object:, attribute: :identifier)
+          record = registrar.register!(object: object)
+          object.public_send("#{attribute}=".to_sym, Array.wrap(record.identifier))
+          object
+        end
+      end
+    end
+
     # Pre-existing Work type overrides
     config.after_initialize do
       # Avoid media pluralizing to medium
