@@ -83,15 +83,6 @@ RSpec.describe HykuAddons::AccountBehavior do
   describe 'Settings Customisations' do
     let(:account) { build(:account) }
     context 'settings jsonb keys' do
-      # All of the settings for this test have been removed AFAIK, but i'll leave it pending incase another is added
-      xit " #remove_settings_hash_key_with_nil_value before_save callback can remove initialized values settings hash" do
-        account = Account.new
-        account.send(:remove_settings_hash_key_with_nil_value)
-        [].each do |key|
-          expect(account.settings[key].blank?).to eq true
-        end
-      end
-
       it 'has contact_email key that is not empty' do
         expect(account.settings['contact_email']).to eq 'abc@abc.com'
         expect(account.settings['contact_email']).to be_an_instance_of(String)

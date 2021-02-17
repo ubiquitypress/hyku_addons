@@ -17,7 +17,6 @@ module HykuAddons
 
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
       after_initialize :set_jsonb_allow_signup_default
-      before_save :remove_settings_hash_key_with_nil_value
       validates :gtm_id, format: { with: /GTM-[A-Z0-9]{4,7}/, message: "Invalid GTM ID" }, allow_blank: true
       validates :contact_email, :oai_admin_email,
                 format: { with: URI::MailTo::EMAIL_REGEXP },
