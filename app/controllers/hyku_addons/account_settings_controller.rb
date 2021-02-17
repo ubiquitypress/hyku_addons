@@ -35,15 +35,9 @@ module HykuAddons
 
       def account_params
         params.require(:account).permit(
-          settings: [:contact_email, :index_record_to_shared_search, :live, :enabled_doi, :gtm_id,
-                     :turn_off_fedora_collection_work_association, :file_size_limit, :enable_oai_metadata,
-                     :add_collection_list_form_display, :hide_form_relationship_tab, :shared_login,
-                     :redirect_on, :institutional_relationship_picklist, :institutional_relationship,
-                     :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,
-                     email_format: [], help_texts: {}, work_unwanted_fields: {}, work_type_list: [],
-                     required_json_property: {}, contributor_roles: [], metadata_labels: {},
-                     creator_roles: [], html_required: {}, licence_list: [:name, :url],
-                     weekly_email_list: [], monthly_email_list: [], yearly_email_list: []]
+          settings: [:contact_email, :gtm_id, :file_size_limit, :enable_oai_metadata,
+                     :shared_login, :redirect_on, :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,
+                     email_format: [], weekly_email_list: [], monthly_email_list: [], yearly_email_list: []]
         )
       end
 
@@ -52,7 +46,8 @@ module HykuAddons
       end
 
       def map_array_fields
-        ['email_format', 'weekly_email_list', 'monthly_email_list', 'yearly_email_list', 'contributor_roles', 'creator_roles'].each do |key|
+        keys = %w[email_format weekly_email_list monthly_email_list yearly_email_list]
+        keys.each do |key|
           next if params['account']['settings'][key].blank?
           params['account']['settings'][key].map! { |str| str.split(' ') }.flatten!
         end

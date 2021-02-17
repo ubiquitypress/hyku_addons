@@ -83,14 +83,6 @@ RSpec.describe HykuAddons::AccountBehavior do
   describe 'Settings Customisations' do
     let(:account) { build(:account) }
     context 'settings jsonb keys' do
-      it " #remove_settings_hash_key_with_nil_value before_save callback can remove initialized values settings hash" do
-        account = Account.new
-        account.send(:remove_settings_hash_key_with_nil_value)
-        ['help_texts', 'work_unwanted_fields', 'required_json_property', 'metadata_labels', 'html_required'].each do |key|
-          expect(account.settings[key].blank?).to eq true
-        end
-      end
-
       it 'has contact_email key that is not empty' do
         expect(account.settings['contact_email']).to eq 'abc@abc.com'
         expect(account.settings['contact_email']).to be_an_instance_of(String)
@@ -116,96 +108,21 @@ RSpec.describe HykuAddons::AccountBehavior do
         expect(account.google_scholarly_work_types).to be_an_instance_of(Array)
         expect(account.google_scholarly_work_types).to include('Book')
       end
-
-      it " has index_record_to_shared_search" do
-        expect(account.index_record_to_shared_search).to eq "true"
-      end
     end
 
     context "settings from environment variable" do
       it "check all boolean truthy values" do
-        ['redirect_on', 'allow_signup', "hide_form_relationship_tab",
-         "shared_login", "turn_off_fedora_collection_work_association"].each do |key|
+        ['redirect_on', 'allow_signup', "shared_login"].each do |key|
           expect(account.settings[key]).to eq("true")
         end
-      end
-
-      it "contains live key" do
-        expect(account.settings['live']).to eq "commons.pacificu.edu"
-      end
-
-      it "has enabled_doi" do
-        expect(account.settings['enabled_doi']).to be_falsey
       end
 
       it "contains gtm_id" do
         expect(account.settings['gtm_id']).to eq "GTM-123456"
       end
 
-      it "contains work_type_list" do
-        expect(account.settings['work_type_list']).to include("ArticleWork,BookWork")
-      end
-
-      it "has email_hint_text" do
-        expect(account.settings['email_hint_text']).to include("Please enter your email")
-      end
-
       it "contains email_format" do
         expect(account.settings['email_format']).to include("@pacificu.edu")
-      end
-
-      it "has help_texts" do
-        expect(account.settings['help_texts']).to include("subject" => "Select word(s)  about your work.")
-      end
-
-      it "has work_unwanted_fields" do
-        expect(account.settings["work_unwanted_fields"]).to include("news_clipping" => "institution", "article" => "institution")
-      end
-
-      it "contains required_json_property" do
-        expect(account.settings['required_json_property'].keys).to include('media', 'text_work')
-        expect(account.settings['required_json_property']['media']).to include("creator_institutional_relationship")
-      end
-
-      it "has creator_fields" do
-        expect(account.settings["creator_fields"]).to include("creator_group,creator_name_type")
-      end
-
-      it "contains contributor_fields" do
-        expect(account.settings["contributor_fields"]).to include("contributor_suffix,contributor_institutional_relationship")
-      end
-
-      it "has metadata_labels" do
-        expect(account.settings['metadata_labels']).to include("institutional_relationship" => "Institution", "family_name" => "Last Name")
-        expect(account.settings['metadata_labels']).to be_an_instance_of(Hash)
-      end
-
-      it "institutional_relationship_picklist" do
-        expect(account.settings['institutional_relationship_picklist']).to eq "false"
-      end
-
-      it "has institutional_relationship key" do
-        expect(account.settings['institutional_relationship']).to eq "Pacific University,Other"
-      end
-
-      it "contributor_roles" do
-        expect(account.settings['contributor_roles']).to include("Advisor")
-        expect(account.settings['contributor_roles']).to be_an_instance_of(Array)
-      end
-
-      it "contains an array of creator_roles" do
-        expect(account.settings['creator_roles']).to include("Faculty")
-        expect(account.settings['creator_roles']).to be_an_instance_of(Array)
-      end
-
-      it "has a hash of html_required" do
-        expect(account.settings['html_required']).to include("contributor" => "false")
-        expect(account.settings['html_required']).to be_an_instance_of(Hash)
-      end
-
-      it "contails an array of licence_list" do
-        expect(account.settings['licence_list']).to include("name" => "CC BY 4.0 Attribution", "url" => "https://creativecommons.org/licenses/by/4.0/")
-        expect(account.settings['licence_list']).to be_an_instance_of(Array)
       end
     end
 

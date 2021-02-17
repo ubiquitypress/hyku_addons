@@ -1,22 +1,16 @@
-
-
 <div class="form-group">
-<% array_keys =  @account.settings[field_name]&.keys || [] %>
-<%=f.fields_for :settings do |ff| %>
-  <%= ff.label field_name %><br>
-  <%= ff.label t("settings.helptexts.#{field_name}") %><br>
+  <% array_keys =  @account.settings[field_name]&.keys || [] %>
+  <%= f.fields_for :settings do |ff| %>
+    <% next unless array_keys.present? %>
 
-  <% array_keys.each do |hash_key| %>
-    <%= ff.label hash_key %>:
-    <%= ff.text_field field_name.to_sym, :value => @account.settings[field_name][hash_key],
-      name: "#{f.object_name}[settings][#{field_name}][#{hash_key}]", class: 'form-control' %><br>
+    <%= ff.label field_name %><br>
+    <%= t("settings.helptexts.#{field_name}") %><br>
+
+    <% array_keys.each do |hash_key| %>
+      <%= ff.label hash_key %>:
+      <%= ff.text_field field_name.to_sym, value: @account.settings[field_name][hash_key], name: "#{f.object_name}[settings][#{field_name}][#{hash_key}]", class: 'form-control' %><br>
+    <% end %>
   <% end %>
-<% end %>
 </div>
 
-<% if  display_save_button == true %>
-<div class="panel-footer">
-<%= f.submit class: 'btn btn-primary pull-right' %> <br>
-<h1> <%= link_to "Back",  hyku_addons.admin_account_settings_path, class: "btn btn-xs btn-default  pull-right" %></h1>
-</div>
-<% end %>
+<%= render "hyku_addons/account_settings/settings/submit_buttons", f: f if display_save_button %>
