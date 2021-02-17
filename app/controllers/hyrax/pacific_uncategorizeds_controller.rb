@@ -1,15 +1,12 @@
 # frozen_string_literal: true
-# Generated via
-#  `rails generate hyrax:work PacificUncategorized`
+
 module Hyrax
-  # Generated controller for PacificUncategorized
   class PacificUncategorizedsController < ApplicationController
-    # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
     include Hyrax::BreadcrumbsForWorks
-    self.curation_concern_type = ::PacificUncategorized
+    include HykuAddons::WorksControllerBehavior
 
-    # Use this line if you want to use a custom presenter
+    self.curation_concern_type = ::PacificUncategorized
     self.show_presenter = Hyrax::PacificUncategorizedPresenter
   end
 end
