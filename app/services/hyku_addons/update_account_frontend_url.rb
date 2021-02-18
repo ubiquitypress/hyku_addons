@@ -16,7 +16,7 @@ class HykuAddons::UpdateAccountFrontendUrl
 
   ##
   # @return [Boolean] true if validations pass and was able to update the account
-  def save
+  def perform
     valid? && update_account_frontend_url
   end
 

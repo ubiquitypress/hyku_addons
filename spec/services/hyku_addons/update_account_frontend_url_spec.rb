@@ -9,7 +9,7 @@ RSpec.describe HykuAddons::UpdateAccountFrontendUrl do
     let(:frontend_url) { "http://example.com/frontend" }
     before do
       allow(service).to receive(:update_account_frontend_url)
-      service.save
+      service.perform
     end
 
     it "updates the frontend_url of the Account" do
@@ -27,9 +27,8 @@ RSpec.describe HykuAddons::UpdateAccountFrontendUrl do
 
   describe "update_account_frontend_url" do
     let(:frontend_url) { "http://example.com/frontend" }
-
     before do
-      service.save
+      service.perform
     end
 
     it "updates the account frontend_url" do
