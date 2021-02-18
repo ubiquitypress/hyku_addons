@@ -70,6 +70,8 @@ services:
     volumes:
       - ./.docker-postgres:/docker-entrypoint-initdb.d
       - db:/data
+    ports:
+      - "5432:5432"
     networks:
       internal:
 
