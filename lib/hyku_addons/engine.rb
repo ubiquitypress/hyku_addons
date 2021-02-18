@@ -17,6 +17,10 @@ module HykuAddons
       end
     end
 
+    config.before_initialize do
+      HykuAddons::I18nMultitenant.configure(I18n)
+    end
+
     initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
       require_dependency 'hyrax/search_state'
 
@@ -247,6 +251,8 @@ module HykuAddons
       User.include HykuAddons::UserEmailFormat
       Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
+      # NOTE: Not sure the best place to inject this?
+      ::ApplicationController.include HykuAddons::ApplicationControllerBehavior
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
