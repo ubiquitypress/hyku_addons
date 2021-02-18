@@ -17,6 +17,9 @@ FactoryBot.find_definitions
 # For testing generators
 require 'ammeter/init'
 
+# Optional execution of specs for examples that fail randomly on CI
+require File.expand_path('support/optional_example', __dir__)
+
 if ENV['CI']
   # Capybara config copied over from Hyrax
   Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
@@ -127,6 +130,7 @@ RSpec.configure do |config|
   #
   #   ActiveJob::Base.queue_adapter.filter = [JobClass]
   #
+
   config.around(:example, :perform_enqueued) do |example|
     ActiveJob::Base.queue_adapter.filter =
       example.metadata[:perform_enqueued].try(:to_a)
@@ -139,4 +143,7 @@ RSpec.configure do |config|
     ActiveJob::Base.queue_adapter.perform_enqueued_jobs    = false
     ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = false
   end
+
+  # Add support for conditional execution of specs
+  config.include OptionalExample
 end
