@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OptionalExample
   RSpec.configure do |config|
     config.after do |example|
@@ -8,7 +10,6 @@ module OptionalExample
       end
     end
   end
-
 
   def optional(message)
     RSpec.current_example.metadata[:optional] = true
