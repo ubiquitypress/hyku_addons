@@ -11,7 +11,7 @@ module Hyrax
                  volume journal_title publisher issn source additional_links
                  rights_holder license org_unit doi subject keyword refereed
                  irb_status irb_number add_info]
-
+    self.terms -= %i[language rights_statement]
     self.required_fields = %i[title creator resource_type institution org_unit]
 
     include Hyrax::DOI::DOIFormBehavior

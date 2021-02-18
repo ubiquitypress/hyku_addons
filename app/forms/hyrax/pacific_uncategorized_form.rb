@@ -12,7 +12,7 @@ module Hyrax
                  doi degree org_unit subject keyword refereed irb_status irb_number add_info]
 
     self.required_fields = %i[title resource_type creator institution org_unit refereed]
-
+    self.terms -= %i[language rights_statement]
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 

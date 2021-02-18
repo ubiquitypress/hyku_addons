@@ -12,7 +12,7 @@ module Hyrax
                  org_unit doi subject keyword refereed add_info]
 
     self.required_fields = %i[title creator resource_type institution org_unit]
-
+    self.terms -= %i[language rights_statement]
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
