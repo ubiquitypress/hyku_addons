@@ -32,7 +32,7 @@ en:
         help_text: The person or group responsible for the work. Usually this is the author of the content.
       creator_organization_name:
         label: Creator organisation name
-        placeholder: 
+        placeholder:
         help_text: Please enter the organisation's name.
       creator_ror:
         label: Creator organisation ROR
@@ -45,7 +45,7 @@ en:
       creator_wikidata:
         label: Creator organisation Wikidata
         placeholder: e.g. Q23308
-        help_text: Please enter the Wikidata ID 
+        help_text: Please enter the Wikidata ID
       creator_family_name:
         label: Creator family name
         placeholder: e.g. Einstein
@@ -120,6 +120,15 @@ en:
         label: Contributor role
         placeholder:
         help_text: The relationship of the contributor within the instittion.
+      contributor_middle_name:
+        label: Middle Name
+        placeholder: Please enter a middle name
+      contributor_suffix:
+        label: Suffix
+        placeholder: " "
+      contributor_institution:
+        label: Contributor Institution
+        placeholder: " "
     editor:
       editor_name_type:
         label: Editor name type
@@ -127,7 +136,7 @@ en:
         help_text: The editors that produced this item, in priority order. To add multiple editors, repeat this property.
       editor_organization_name:
         label: Editor organisation name
-        placeholder: 
+        placeholder:
         help_text: Please enter the organisation's name.
       editor_family_name:
         label: Editor family name
