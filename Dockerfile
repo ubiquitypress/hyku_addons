@@ -1,6 +1,6 @@
 # Ripped off from Avalon
 # Base stage for building gems
-FROM        ruby:2.7.1-buster as bundle
+FROM        ruby:2.7.2-buster as bundle
 RUN         echo "deb http://deb.debian.org/debian buster-backports main" >> /etc/apt/sources.list \
          && apt-get update \
          && rm -rf /var/lib/apt/lists/* \
