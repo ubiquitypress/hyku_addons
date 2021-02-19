@@ -90,6 +90,9 @@ def gather_values(field, row)
   elsif field == 'model'
     # FIXME: make this model mapping configurable
     field_values.map { |v| "Pacific" + v.delete_suffix("Work") }
+  elsif field == 'file'
+    # Placeholder file for now
+    ['nypl-hydra-of-lerna.jpg']
   else
     field_values
   end

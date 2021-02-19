@@ -15,7 +15,7 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
            parser_fields: { 'import_file_path' => import_batch_file },
            limit: 0)
   end
-  let(:import_batch_file) { 'spec/fixtures/csv/pacific_articles.csv' }
+  let(:import_batch_file) { 'spec/fixtures/csv/pacific_articles.metadata.csv' }
   let(:field_mapping) do
     {
       "date_published" => { "from" => ["date_published"], "split" => true, "parsed" => true, "if" => nil, "excluded" => false },
@@ -44,6 +44,17 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       expect(work.date_published).to eq "2010-1-1"
       expect(JSON.parse(work.creator.first)).to be_present
       expect(work.resource_type).to eq ["Research Article"]
+    end
+
+    context 'with files' do
+      let(:import_batch_file) { 'spec/fixtures/csv/pacific_articles.csv' }
+
+      it 'imports files' do
+        importer.import_works
+        work = PacificArticle.find('c109b1ff-6d9a-4498-b86c-190e7dcbe2e0')
+        expect(work.file_sets.size).to eq 1
+        expect(work.file_sets.first.original_file.file_name).to eq ["nypl-hydra-of-lerna.jpg"]
+      end
     end
   end
 
