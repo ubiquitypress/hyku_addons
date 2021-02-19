@@ -10,7 +10,7 @@ module HykuAddons
       # Eager load required for overrides in the initializer below
       # There is probably a better solution for this but I don't think it is worth the time
       # tinkering with it since this works and doesn't cause too much of a slowdown
-      if Rails.env == 'development' # Only do this for development environment for now
+      if Rails.env.development?
         Rails.application.configure do
           config.eager_load = true
         end
