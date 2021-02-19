@@ -7,11 +7,11 @@ module Hyrax
     include ::HykuAddons::WorkForm
 
     self.model_class = ::PacificBookChapter
-    add_terms %i[title alt_title resource_type creator institution contributor abstract
+    add_terms %i[title alt_title resource_type creator contributor abstract
                  date_published book_title pagination is_included_in volume publisher isbn issn additional_links rights_holder license
                  org_unit doi subject keyword refereed add_info]
     self.terms -= %i[language rights_statement]
-    self.required_fields = %i[title creator resource_type institution org_unit pagination publisher]
+    self.required_fields = %i[title creator resource_type org_unit pagination publisher]
 
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior

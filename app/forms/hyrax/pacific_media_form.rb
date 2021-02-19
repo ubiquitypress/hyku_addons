@@ -6,12 +6,12 @@ module Hyrax
     include ::HykuAddons::WorkForm
 
     self.model_class = ::PacificMedia
-    add_terms %i[title alt_title resource_type creator contributor institution abstract
+    add_terms %i[title alt_title resource_type creator contributor abstract
                  date_published duration version is_included_in
                  publisher additional_links rights_holder license
                  org_unit doi subject keyword refereed add_info]
     self.terms -= %i[language rights_statement]
-    self.required_fields = %i[title creator resource_type institution org_unit]
+    self.required_fields = %i[title creator resource_type org_unit]
 
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior

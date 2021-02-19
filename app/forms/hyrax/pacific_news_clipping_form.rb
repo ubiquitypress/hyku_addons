@@ -9,7 +9,7 @@ module Hyrax
                  photo_caption photo_description pagination is_included_in additional_links
                  rights_holder license doi subject keyword add_info]
     self.terms -= %i[language rights_statement]
-    self.required_fields = %i[title creator resource_type institution]
+    self.required_fields = %i[title creator resource_type]
 
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior

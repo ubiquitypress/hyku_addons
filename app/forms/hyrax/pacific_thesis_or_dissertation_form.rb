@@ -11,7 +11,7 @@ module Hyrax
                  pagination is_included_in publisher additional_links
                  rights_holder license degree org_unit doi subject keyword add_info]
 
-    self.required_fields = %i[title resource_type creator institution org_unit]
+    self.required_fields = %i[title resource_type creator org_unit]
     self.terms -= %i[language rights_statement]
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
