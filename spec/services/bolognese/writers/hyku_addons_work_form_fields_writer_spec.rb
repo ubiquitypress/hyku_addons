@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe Bolognese::Writers::HykuAddonsWriter do
+RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
   describe "#hyku_addons_work" do
     it "responds to the method" do
-      expect(Bolognese::Metadata.new).to respond_to(:hyku_addons_work)
+      expect(Bolognese::Metadata.new).to respond_to(:hyku_addons_work_form_fields)
     end
   end
 
   context "Hyku Addons Writer" do
     context "outputs correctly" do
       describe "a complete work" do
-        let(:fixture) { File.read Rails.root.join('..', 'fixtures', 'work_from_doi_complete.xml') }
+        let(:fixture) { File.read Rails.root.join('..', 'fixtures', 'crossref_result.xml') }
         let(:meta) { Bolognese::Metadata.new(input: fixture) }
-        let(:result) { meta.hyku_addons_work }
+        let(:result) { meta.hyku_addons_work_form_fields }
 
         it { expect(meta.doi).to be_present }
         it { expect(result).to be_a Hash }

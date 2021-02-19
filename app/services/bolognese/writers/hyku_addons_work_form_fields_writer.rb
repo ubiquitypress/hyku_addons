@@ -5,10 +5,10 @@
 # You must also add the logic to the PrefillWorkFormViaDOI JS class.
 module Bolognese
   module Writers
-    module HykuAddonsWriter
+    module HykuAddonsWorkFormFieldsWriter
       DATE_FORMAT = "%Y-%-m-%-d"
 
-      def hyku_addons_work
+      def hyku_addons_work_form_fields
         {
           'identifier' => Array(identifiers).select { |id| id["identifierType"] != "DOI" }.pluck("identifier"),
           'doi' => Array(doi),
