@@ -1,28 +1,39 @@
+# frozen_string_literal: true
+
 require "i18n"
 
 module HykuAddons
   module I18nMultitenant
+
+    # Set the required locale
     def self.set(options)
-      I18n.locale = locale_for(options)
+      I18n.locale = _locale_for(options)
     end
 
+    # Execute block in the desired locale and retore
     def self.with_locale(options)
-      I18n.with_locale(locale_for(options)) { yield }
+      I18n.with_locale(_locale_for(options)) { yield }
     end
 
-    def self.locale_for(locale: I18n.default_locale, tenant: nil)
-      if tenant&.to_s.present?
-        "#{locale}-#{tenant.to_s.upcase.tr(' .-', '_')}"
-      else
-        locale
-      end
-    end
-
+    # Ensure Fallbacks are configured
     def self.configure(config, enforce_available_locales: false)
       config.enforce_available_locales = enforce_available_locales
       config.backend.class.send(:include, I18n::Backend::Fallbacks)
 
       config.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
+    end
+
+    # Calculate the locale for the current request and return a string
+    def self._locale_for(locale: I18n.default_locale, tenant: nil)
+      if tenant&.to_s.present?
+        "#{locale}-#{processed_tenant(tenant)}"
+      else
+        locale
+      end
+    end
+
+    def self.processed_tenant(tenant)
+      tenant.to_s.upcase.tr(' .-', '_')
     end
   end
 end
