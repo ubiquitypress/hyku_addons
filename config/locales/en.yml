@@ -66,6 +66,15 @@ en:
         label: Creator ISNI
         placeholder: e.g. 0000 1234 5678 9101.
         help_text: Please enter the creator's ISNI
+      creator_middle_name:
+        label: Middle Name
+        placeholder: Please enter a middle name
+      creator_suffix:
+        label: Suffix
+        placeholder: " "
+      creator_institution:
+        label: Creator Institution
+        placeholder: " "
     contributor:
       contributor_name_type:
         label: Contributor name type
