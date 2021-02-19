@@ -17,6 +17,10 @@ class PacificBookChapter < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  property :additional_links, predicate: ::RDF::Vocab::SCHEMA.significantLinks, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
   property :is_included_in, predicate: ::RDF::Vocab::BF2.part, multiple: false do |index|
     index.as :stored_searchable
   end

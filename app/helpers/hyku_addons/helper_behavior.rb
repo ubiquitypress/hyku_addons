@@ -2,5 +2,7 @@
 module HykuAddons
   module HelperBehavior
     include HykuAddons::MultipleMetadataFieldsHelper
+    include HykuAddons::CreatorFieldHelper
+    include HykuAddons::ContributorFieldHelper
   end
 end
