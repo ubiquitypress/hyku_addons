@@ -4,8 +4,14 @@ require "i18n"
 
 module HykuAddons
   module I18nMultitenant
+    # Ensure Fallbacks are configured
+    def self.configure(config, enforce_available_locales: false)
+      config.enforce_available_locales = enforce_available_locales
+      config.backend.class.send(:include, I18n::Backend::Fallbacks)
 
-    # Set the required locale
+      config.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
+    end
+
     def self.set(options)
       I18n.locale = _locale_for(options)
     end
@@ -13,14 +19,6 @@ module HykuAddons
     # Execute block in the desired locale and retore
     def self.with_locale(options)
       I18n.with_locale(_locale_for(options)) { yield }
-    end
-
-    # Ensure Fallbacks are configured
-    def self.configure(config, enforce_available_locales: false)
-      config.enforce_available_locales = enforce_available_locales
-      config.backend.class.send(:include, I18n::Backend::Fallbacks)
-
-      config.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
     end
 
     # Calculate the locale for the current request and return a string

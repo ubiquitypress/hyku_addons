@@ -11,10 +11,10 @@ module HykuAddons
       # which is why the complicated logic for deciding the current locale is inside of hyku_addon_locale
       #
       # URL: http://repo.lvh.me:3000/admin/account_settings?locale=en
-      # outputs: "en-REPO"
+      # locale: "en-REPO"
       #
       # URL: http://repo.lvh.me:3000/admin/account_settings?locale=en-REPO
-      # outputs: "en-REPO"
+      # locale: "en-REPO"
       #
       # NOTE:
       # See `I18n.fallbacks` for the registered fallback locales
