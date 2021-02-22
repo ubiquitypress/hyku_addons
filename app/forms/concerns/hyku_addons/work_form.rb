@@ -41,7 +41,7 @@ module HykuAddons
       # @param work_type_terms [Array] array of terms to add to the work type
       def add_terms(work_type_terms = [])
         self.terms ||= hyrax_terms
-        self.terms = available_terms & (self.terms + Array.wrap(work_type_terms))
+        self.terms = (self.terms + Array.wrap(work_type_terms)) & available_terms
       end
 
       # Form fields. Note, these to not necessarily match the params which need to be permitted
@@ -52,7 +52,9 @@ module HykuAddons
            pagination article_num publisher place_of_publication isbn issn eissn current_he_institution date_accepted
            date_submitted official_link related_url related_exhibition related_exhibition_venue related_exhibition_date
            language license rights_statement rights_holder doi qualification_name qualification_level draft_doi
-           alternate_identifier related_identifier refereed keyword dewey library_of_congress_classification add_info] + hyrax_terms
+           alternate_identifier related_identifier refereed keyword dewey library_of_congress_classification add_info page_display_order_number
+           irb_number irb_status subject additional_links is_included_in buy_book challenged location outcome participant reading_level photo_caption
+           photo_discription degree] + hyrax_terms
       end
 
       def hyrax_terms
@@ -71,17 +73,17 @@ module HykuAddons
 
       def creator_fields
         {
-          creator: [:creator_organization_name, :creator_given_name, :creator_family_name, :creator_name_type,
-                    :creator_orcid, :creator_isni, :creator_ror, :creator_grid, :creator_wikidata,
+          creator: [:creator_organization_name, :creator_given_name, :creator_middle_name, :creator_family_name, :creator_name_type,
+                    :creator_orcid, :creator_isni, :creator_ror, :creator_grid, :creator_wikidata, :creator_suffix, :creator_institution,
                     creator_institutional_relationship: []]
         }
       end
 
       def contributor_fields
         {
-          contributor: [:contributor_organization_name, :contributor_given_name, :contributor_family_name,
+          contributor: [:contributor_organization_name, :contributor_given_name, :contributor_middle_name, :contributor_family_name,
                         :contributor_name_type, :contributor_orcid, :contributor_isni, :contributor_ror,
-                        :contributor_grid, :contributor_wikidata, :contributor_type,
+                        :contributor_grid, :contributor_wikidata, :creator_suffix, :creator_institution, :contributor_type,
                         contributor_institutional_relationship: []]
         }
       end

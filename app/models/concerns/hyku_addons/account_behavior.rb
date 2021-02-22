@@ -1,9 +1,16 @@
 # frozen_string_literal: true
+
 # Customer organization account
 module HykuAddons
   module AccountBehavior
     extend ActiveSupport::Concern
     include ActiveModel::Validations
+
+    ARRAY_SETTINGS = ['weekly_email_list', 'monthly_email_list', 'yearly_email_list', 'email_format'].freeze
+    BOOLEAN_SETTINGS = ['redirect_on', 'allow_signup', "shared_login"].freeze
+    HASH_SETTINGS = [].freeze
+    TEXT_SETTINGS = ['contact_email', 'gtm_id', 'oai_admin_email', 'oai_prefix', 'oai_sample_identifier'].freeze
+
     included do
       belongs_to :datacite_endpoint, dependent: :delete
       has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :destroy, inverse_of: :parent

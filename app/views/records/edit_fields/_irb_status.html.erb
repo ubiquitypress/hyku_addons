@@ -1,0 +1,4 @@
+<%= f.input :irb_status, as: :select,
+            collection: HykuAddons::IrbStatusService.new(model: f.object.model.class).select_active_options,
+            include_blank: true,
+            input_html: { class: 'form-control' } %>
