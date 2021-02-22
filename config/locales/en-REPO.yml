@@ -1,0 +1,17 @@
+en:
+  simple_form:
+    creator:
+      creator_institutional_relationship:
+        label: Institution
+        placeholder:
+        help_text: The relationship of the creator within the institution.
+    contributor:
+      contributor_institutional_relationship:
+        label: Institution
+        placeholder:
+        help_text:
+    editor:
+      editor_institutional_relationship:
+        label: Institutional
+        placeholder:
+        help_text:
