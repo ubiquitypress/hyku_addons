@@ -2,9 +2,10 @@
 module HykuAddons
   class QaSelectService < Hyrax::QaSelectService
     # model - CurationConcern model
-    def initialize(authority_name, model: nil)
+    def initialize(authority_name, model: nil, request: nil)
       @authority_name = authority_name
       @model = model
+      @request = request
 
       # Search for authority with the following precedence:
       # authority_name-MODEL_NAME-TENANT-NAME
@@ -41,7 +42,15 @@ module HykuAddons
       end
 
       def tenant_name
-        @tenant_name ||= Site.instance&.account&.name&.upcase
+        @tenant_name ||= begin
+          account = if @request.present?
+                      Account.from_request(@request)
+                    else
+                      Site.instance&.account
+                    end
+
+          account&.name&.upcase
+        end
       end
   end
 end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 module HykuAddons
   class CurrentHeInstitutionService < HykuAddons::QaSelectService
-    def initialize(model: nil)
-      super('current_he_institution', model: model)
+    def initialize(model: nil, request: request)
+      super('current_he_institution', model: model, request: request)
     end
 
     def select_active_options_isni
