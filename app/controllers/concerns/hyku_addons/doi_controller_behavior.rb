@@ -1,21 +1,12 @@
 # frozen_string_literal: true
 
-# TODO: Why is this required, or we see NotFoundError class not found
-module Hyrax
-  module DOI
-    class Error < ::StandardError; end
-    class NotFoundError < Hyrax::DOI::Error; end
-  end
-end
-
 module HykuAddons
   module DOIControllerBehavior
     extend ActiveSupport::Concern
-
-    # rubocop:disable Metrics/BlockLength
     included do
       def autofill
         respond_to do |format|
+          # TODO: Make this respond to json instead of js
           format.js { render json: json_response, status: :ok }
 
           # NOTE: This is temporary, just so we have a URL to debug
@@ -32,31 +23,15 @@ module HykuAddons
       protected
 
         def json_response
-          { data: formatted_work }.to_json
+          { data: formatted_work, curation_concern: curation_concern }.to_json
         end
 
         def formatted_work
-          meta = reader_class_meta
+          meta = Bolognese::Metadata.new(input: doi)
 
-          raise Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." if meta.blank? || meta.doi.blank?
+          raise ::Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." if meta.blank? || meta.doi.blank?
 
-          meta.hyku_addons_work
-        end
-
-        # Use that response to build the object as we would expect it
-        def reader_class_meta
-          reader_class.new(input: raw_response.string)
-        end
-
-        # Download the requested DOI response
-        def raw_response
-          @_raw_response ||= reader_class.new(input: doi)
-        end
-
-        def reader_class
-          "Bolognese::Readers::#{curation_concern.camelize}Reader".constantize
-        rescue NameError
-          Bolognese::Readers::GenericWorkReader
+          meta.hyku_addons_work_form_fields
         end
 
         def curation_concern
