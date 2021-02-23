@@ -4,6 +4,7 @@ require 'csv'
 require 'optparse'
 
 JSON_FIELDS = ["creator", "contributor", "editor", "funder"].freeze
+DOI_REGEX = /10\.\d{4,}(\.\d+)*\/[-._;():\/A-Za-z\d]+/.freeze
 
 options = {}
 options_parser = OptionParser.new do |opts|
@@ -90,6 +91,11 @@ def gather_values(field, row)
   elsif field == 'model'
     # FIXME: make this model mapping configurable
     field_values.map { |v| "Pacific" + v.delete_suffix("Work") }
+  elsif field == 'doi'
+    # Extract DOI from DOI url
+    field_values.map do |v|
+      v&.match(DOI_REGEX)&.first.to_s
+    end
   elsif field == 'file'
     # Placeholder file for now
     ['nypl-hydra-of-lerna.jpg']
