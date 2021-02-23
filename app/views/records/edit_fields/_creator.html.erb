@@ -40,11 +40,12 @@
 		</div>
 
 		<div data-toggleable-group="Personal">
+			<% creator_inst_rel_options = HykuAddons::InstitutionalRelationshipService.new(model: f.object.model.class).select_active_options %>
 			<% personal_fields = [
 				{ field_type: :text, field_slug: :creator_family_name, field_args: { data: { required: true, required_group: :creator_name, on_blur: :toggle_required_group } } },
 				{ field_type: :text, field_slug: :creator_given_name, field_args: { data: { required: true, required_group: :creator_name, on_blur: :toggle_required_group } } },
 				{ field_type: :text, field_slug: :creator_orcid },
-				{ field_type: :select, field_slug: :creator_institutional_relationship, select_options: HykuAddons::InstitutionalRelationshipService.new.select_active_options, field_args: { multiple: true } }] %>
+				{ field_type: :select, field_slug: :creator_institutional_relationship, select_options: creator_inst_rel_options, field_args: { multiple: true } }] %>
 			<% personal_fields = add_pacific_creator_personal_fields(personal_fields) if template.include? "pacific" %>
 			<% personal_fields.each do |field| %>
 				<% options = { field_group: :creator, template: template, hash: hash }.merge(field) %>
