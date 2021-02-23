@@ -1,0 +1,12 @@
+en:
+  simple_form:
+    creator:
+      creator_institutional_relationship:
+        label: Creator Role
+        placeholder:
+        help_text: The role of the creator
+    contributor:
+      contributor_type:
+        label: Contributor role
+        placeholder:
+        help_text: The relationship of the contributor within the instittion.
