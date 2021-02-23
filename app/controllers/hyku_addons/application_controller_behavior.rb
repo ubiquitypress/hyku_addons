@@ -30,9 +30,7 @@ module HykuAddons
           current = (params.dig("locale") || I18n.default_locale)
 
           # If we the tenant is already in the URL, then strip it out and return just the language part
-          if current.to_s.include?(processed_tenant)
-            return (current.to_s.split("-") - [processed_tenant]).join("-").to_sym
-          end
+          return (current.to_s.split("-") - [processed_tenant]).join("-").to_sym if current.to_s.include?(processed_tenant)
 
           current.to_sym
         end
