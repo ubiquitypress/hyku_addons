@@ -239,6 +239,8 @@ module HykuAddons
       WorkIndexer.include HykuAddons::WorkIndexerBehavior
       Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
       Hyrax::ImageForm.include HykuAddons::ImageFormOverrides
+      Hyrax::Forms::CollectionForm.include HykuAddons::CollectionFormBehavior
+      Hyrax::CollectionPresenter.include HykuAddons::CollectionPresenterBehavior
       SolrDocument.include HykuAddons::SolrDocumentBehavior
       SolrDocument.include HykuAddons::SolrDocumentRis
       Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
