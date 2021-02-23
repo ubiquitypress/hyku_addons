@@ -10,12 +10,6 @@ RSpec.describe HykuAddons::I18nMultitenant do
   end
 
   describe ".set" do
-    it "passes options to _locale_for" do
-      expect(described_class).to receive(:_locale_for).with(options)
-
-      described_class.set(options)
-    end
-
     it "changes the locale" do
       expect(I18n.locale).to eq(:en)
 
