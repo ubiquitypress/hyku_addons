@@ -32,7 +32,7 @@ en:
         help_text: The person or group responsible for the work. Usually this is the author of the content.
       creator_organization_name:
         label: Creator organisation name
-        placeholder: 
+        placeholder:
         help_text: Please enter the organisation's name.
       creator_ror:
         label: Creator organisation ROR
@@ -45,7 +45,7 @@ en:
       creator_wikidata:
         label: Creator organisation Wikidata
         placeholder: e.g. Q23308
-        help_text: Please enter the Wikidata ID 
+        help_text: Please enter the Wikidata ID
       creator_family_name:
         label: Creator family name
         placeholder: e.g. Einstein
@@ -66,6 +66,15 @@ en:
         label: Creator ISNI
         placeholder: e.g. 0000 1234 5678 9101.
         help_text: Please enter the creator's ISNI
+      creator_middle_name:
+        label: Middle Name
+        placeholder: Please enter a middle name
+      creator_suffix:
+        label: Suffix
+        placeholder: " "
+      creator_institution:
+        label: Creator Institution
+        placeholder: " "
     contributor:
       contributor_name_type:
         label: Contributor name type
@@ -111,6 +120,15 @@ en:
         label: Contributor role
         placeholder:
         help_text: The relationship of the contributor within the instittion.
+      contributor_middle_name:
+        label: Middle Name
+        placeholder: Please enter a middle name
+      contributor_suffix:
+        label: Suffix
+        placeholder: " "
+      contributor_institution:
+        label: Contributor Institution
+        placeholder: " "
     editor:
       editor_name_type:
         label: Editor name type
@@ -118,7 +136,7 @@ en:
         help_text: The editors that produced this item, in priority order. To add multiple editors, repeat this property.
       editor_organization_name:
         label: Editor organisation name
-        placeholder: 
+        placeholder:
         help_text: Please enter the organisation's name.
       editor_family_name:
         label: Editor family name
@@ -145,28 +163,13 @@ en:
     helptexts:
       gtm_id: The ID of your Google Tag Manager account
       contact_email: Email recipient of messages sent via the contact form
-      institutional_relationship: Define the institutional relationship dropdown list
       weekly_email_list: List of email addresses to email the weekly report. Leave a single space between each email
       monthly_email_list: List of email addresses to email the monthly report. Leave a single space between each email
       yearly_email_list: List of email addresses to email the yearly report. Leave a single space between each email
       email_format: Set a list of email format for emails that may sign up to your repository e.g (@ubiquitypress.com @gmail.com). Leave a single space between each domain
-      contributor_roles: List of roles contributors to the work can include. Leave a single space between each role
-      creator_roles: List of roles creators to the work can include. Leave a single space between each role
-      work_unwanted_fields: List of fields to be removed from deposit forms
-      required_json_property: Adds creator_institutional_relationship dropdown to work types. Not sure we want this here
-      metadata_labels: Change the labels of metadata fields on deposit forms
       redirect_on: Redirect to the front end after a work is created
       allow_signup: Allow users to sign up to your repository
-      hide_form_relationship_tab: Shows the relationship tab on the form
-      enabled_doi: Enable or disable DOI minting
       enable_oai_metadata: Enable or disable OAI link
       shared_login: Enable or disable shared login
       file_size_limit: This should be set to 536870912000
-      institutional_relationship_picklist: Enable or Disable Institutional Relationship Picklist
-      # Eveything below this line I am pretty confident we want to remove from the list
-      creator_fields: I DON'T THINK WE WANT THIS HERE
-      contributor_fields: I DON'T THINK WE WANT THIS HERE
-      work_type_list: I DON'T THINK WE WANT THIS HERE
-      turn_off_fedora_collection_work_association: I think we always want this set to true?
-      index_record_to_shared_search: Not sure this is an option the user needs
       oai_admin_email: OAI endpoint contact email address

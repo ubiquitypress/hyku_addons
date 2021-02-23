@@ -25,7 +25,7 @@ module HykuAddons
 
         def name_blank?(field, obj)
           return false unless field.in? [:creator, :contributor, :editor]
-          recursive_blank?(obj.map { |o| o.reject { |k, _v| k == "#{field}_name_type" } })
+          recursive_blank?(Array(obj).map { |o| o.reject { |k, _v| k == "#{field}_name_type" } })
         end
 
         def recursive_blank?(obj)

@@ -1,0 +1,15 @@
+terms:
+  - id: Article
+    term: Article
+  - id: Research Article
+    term: Research Article
+  - id: Editorial/Commentary
+    term: Editorial/Commentary
+  - id: Essay
+    term: Essay
+  - id: Letter
+    term: Letter
+  - id: Review article
+    term: Review article
+  - id: Creative work
+    term: Creative work

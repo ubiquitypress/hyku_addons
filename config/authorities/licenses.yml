@@ -1,0 +1,43 @@
+terms:
+  - id:
+    term: CC BY 4.0 Attribution
+    active: true
+  - id:
+    term: CC BY-NC 4.0 Attribution-NonCommercial
+    active: true
+  - id:
+    term: CC BY-SA 4.0 Attribution ShareAlike
+    active: true
+  - id:
+    term: CC BY-ND 4.0 Attribution NoDerivs
+    active: true
+  - id:
+    term: CC BY-NC-SA 4.0 Attribution-NonCommercial-ShareAlike
+    active: true
+  - id:
+    term: CC BY-NC-ND 4.0 Attribution NonCommercial-NoDerivs
+    active: true
+  - id:
+    term: CC Public Domain Mark 1.0
+    active: true
+  - id:
+    term: CC0 1.0 Universal Public Domain
+    active: true
+  - id:
+    term: MIT
+    active: true
+  - id:
+    term: GNU General Public License v3.0
+    active: true
+  - id:
+    term: Apache License v2.0
+    active: true
+  - id:
+    term: Open Database License (ODBL)
+    active: true
+  - id:
+    term: Mozilla Public License (MPL)
+    active: true
+  - id:
+    term: Open Government Licence (OGL)
+    active: true

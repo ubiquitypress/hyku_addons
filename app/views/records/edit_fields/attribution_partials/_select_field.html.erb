@@ -9,8 +9,7 @@
 	<% end %>
 
 	<% opts = options_for_select(select_options, selected: hash.dig(field_slug.to_s)) %>
-  <%= select_tag "#{template}[#{field_group}][][#{field_slug}", opts, { class: "form-control #{template}_#{field_slug}" }.merge(local_assigns[:field_args] || {}) %>
-
+	<%= select_tag "#{template}[#{field_group}][][#{field_slug}]", opts, { class: "form-control" }.merge(local_assigns[:field_args] || {}) %>
 	<% help_key = "simple_form.#{field_group}.#{field_slug}.help_text"  %>
 	<% if I18n.exists?(help_key) %>
 		<p class="help-block"><%= t(help_key) %></p>

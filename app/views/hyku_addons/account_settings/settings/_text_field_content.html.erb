@@ -1,14 +1,9 @@
 <div class="form-group">
-<%= f.fields_for :settings do |ff| %>
-  <%= ff.label field_name %><br>
-  <%= ff.label t("settings.helptexts.#{field_name}") %><br>
-  <%= ff.text_field field_name, :value => @account.settings[field_name], class: 'form-control', id: field_name %><br>
-<% end %>
+  <%= f.fields_for :settings do |ff| %>
+    <%= ff.label field_name %><br>
+    <%= t("settings.helptexts.#{field_name}") %><br>
+    <%= ff.text_field field_name, :value => @account.settings[field_name], class: 'form-control', id: field_name %>
+  <% end %>
 </div>
 
-<% if display_save_button == true %>
-<div class="panel-footer">
- <%= f.submit class: 'btn btn-primary pull-right' %> <br>
- <h1> <%= link_to "Back",  hyku_addons.admin_account_settings_path, class: "btn btn-xs btn-default  pull-right" %></h1>
-</div>
-<% end %>
+<%= render "hyku_addons/account_settings/settings/submit_buttons", f: f if display_save_button %>

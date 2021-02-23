@@ -11,8 +11,8 @@ module Hyrax
                  date_published pagination is_included_in volume publisher issn source additional_links rights_holder license
                  org_unit doi subject keyword refereed add_info]
 
-    self.required_fields = %i[title creator resource_type institution org_unit]
-
+    self.required_fields = %i[title creator resource_type org_unit]
+    self.terms -= %i[language rights_statement]
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 

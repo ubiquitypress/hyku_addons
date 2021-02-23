@@ -181,6 +181,23 @@ module HykuAddons
       end
     end
 
+    initializer 'hyku_addons.bulkrax_overrides' do
+      Bulkrax.system_identifier_field = 'id'
+      # Replace bulkrax csv parser with hyku_addons version
+      csv_parser_config = Bulkrax.parsers.find { |p| p[:class_name] = "HykuAddons::CsvParser" if p[:class_name] == "Bulkrax::CsvParser" }
+      csv_parser_config[:class_name] = "HykuAddons::CsvParser"
+    end
+
+    initializer 'hyku_addons.hyrax_identifier_overrides' do
+      Hyrax::Identifier::Dispatcher.class_eval do
+        def assign_for(object:, attribute: :identifier)
+          record = registrar.register!(object: object)
+          object.public_send("#{attribute}=".to_sym, Array.wrap(record.identifier))
+          object
+        end
+      end
+    end
+
     # Pre-existing Work type overrides
     config.after_initialize do
       # Avoid media pluralizing to medium
@@ -209,6 +226,8 @@ module HykuAddons
         config.register_curation_concern :pacific_presentation
         config.register_curation_concern :pacific_text_work
         config.register_curation_concern :pacific_uncategorized
+
+        config.license_service_class = HykuAddons::LicenseService
       end
     end
 
@@ -220,6 +239,8 @@ module HykuAddons
       WorkIndexer.include HykuAddons::WorkIndexerBehavior
       Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
       Hyrax::ImageForm.include HykuAddons::ImageFormOverrides
+      Hyrax::Forms::CollectionForm.include HykuAddons::CollectionFormBehavior
+      Hyrax::CollectionPresenter.include HykuAddons::CollectionPresenterBehavior
       SolrDocument.include HykuAddons::SolrDocumentBehavior
       SolrDocument.include HykuAddons::SolrDocumentRis
       Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
