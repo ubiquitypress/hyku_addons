@@ -64,7 +64,7 @@
 			field_group: :contributor,
 			template: template,
 			hash: hash,
-			select_options: HykuAddons::ContributorGroupService.new.select_active_options.flatten.uniq!,
+			select_options: HykuAddons::ContributorGroupService.new(model: f.object.model.class).select_active_options.flatten.uniq!,
 			field_args: { prompt: "Please Select..." }
 		} %>
 		<%= render "records/edit_fields/attribution_partials/select_field", field_options %>
