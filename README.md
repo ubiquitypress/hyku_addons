@@ -49,6 +49,9 @@ Initializers that should be run within Hyku can be added to `config/initializers
 ### I18n Locales
 Locale files can be overridden or added in `config/locales`.  The locale files in this engine are appended to `I18n.load_path` so they have precedence over Hyku and Hyrax's locales.
 
+#### Customizing locales per tenant
+I18n locales can be customized to override default translations for a specific tenant with fallbacks to the original translations.  To do this, create a locale file in `config/locales` that matches the name of an existing locale file but with `-TENANT_NAME` appended to the name.  For example, `en.yml` can be overriden for tenant `demo` with a file called `en-DEMO.yml`.  *Be sure to name the YAML root the same as the tenant (`en-DEMO:` in the example above).*
+
 ### Generators
 Any generators that this engine provides downstream to Hyku should be defined in `lib/generators/hyku_addons/`.  Generators provided by rails or other gems/engines can be run like normal from this engine's root (e.g. `rails g job UbiquityExporter`).
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HykuAddons
-  class AccountSettingsController < AdminController
+  class AccountSettingsController < ::AdminController
     before_action :set_account
     before_action :map_array_fields, only: [:update, :update_single]
 

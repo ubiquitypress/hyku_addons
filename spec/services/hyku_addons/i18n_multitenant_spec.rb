@@ -19,11 +19,11 @@ RSpec.describe HykuAddons::I18nMultitenant do
     end
   end
 
-  describe "._locale_for" do
+  describe ".locale_for" do
     it "returns the correctly formatted string" do
-      expect(described_class._locale_for(options)).to eq("en-TEST")
-      expect(described_class._locale_for(locale: :en)).to eq("en")
-      expect(described_class._locale_for(locale: "pt-BR", tenant: "Test")).to eq("pt-BR-TEST")
+      expect(described_class.locale_for(options)).to eq("en-TEST")
+      expect(described_class.locale_for(locale: "en")).to eq("en")
+      expect(described_class.locale_for(locale: "pt-BR", tenant: "Test")).to eq("pt-BR-TEST")
     end
   end
 

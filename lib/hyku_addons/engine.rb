@@ -251,8 +251,7 @@ module HykuAddons
       User.include HykuAddons::UserEmailFormat
       Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
-      # NOTE: Not sure the best place to inject this?
-      ::ApplicationController.include HykuAddons::ApplicationControllerBehavior
+      ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
