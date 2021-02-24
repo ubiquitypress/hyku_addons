@@ -116,3 +116,10 @@ bundle exec rspec `find spec -name *_spec.rb | grep -v internal_test_hyku`
 You shouldn't need to run anything from inside `spec/internal_test_hyku` unless explicitly told to do so.
 
 Note that at this time the application must be run in test mode due to a bug in loading the development environment.
+
+### Debugging
+
+Byebug is installed and can be used in tests and the running rails server.  If using in the rails server, you will need to attach to the already running web container to interact with byebug:
+```
+docker attach hyku_addons_web_1
+```
