@@ -18,7 +18,7 @@ namespace :hyku do
     task :cleanup, [:tenant] => [:environment] do |_t, args|
       account = load_account(args[:tenant])
       AccountElevator.switch!(account.cname)
-      if check_confirmation
+      if check_confirmation(account)
         if CleanupAccountJob.perform_now(account)
           puts "Account successfully deleted"
           exit 0
@@ -59,14 +59,21 @@ def load_account(tenant)
   account
 end
 
-def check_confirmation
+def check_confirmation(account)
   unless ENV['CONFIRM'] == 'yes'
     $stderr.puts <<-EOC
 WARNING: This process will destroy all data for this tenant in:
 DB: All tables
-Fedora: #{ActiveFedora.fedora.build_connection.http.url_prefix}
-Solr: #{ActiveFedora.solr_config[:url]}
-Redis: #{Sidekiq.redis { |c| c._client.options.values_at(:host, :port, :db).join(':') }}
+Fedora:
+\tConnection: #{ActiveFedora.fedora.build_connection.http.url_prefix}
+\tBase Path: #{account.fcrepo_endpoint.options[:base_path]}
+Solr:
+\tConnection: #{ActiveFedora.solr_config[:url]}
+\tCollection: #{account.solr_endpoint.options[:collection]}
+Redis:
+\tConnection: #{Sidekiq.redis { |c| c._client.options.values_at(:host, :port, :db).join(':') }}
+\tNamespace: #{account.redis_endpoint.options[:namespace]}
+
 Please run `rake hyku:account:cleanup[{tenant}] CONFIRM=yes` to confirm.
     EOC
     exit 1
