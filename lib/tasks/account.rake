@@ -67,7 +67,7 @@ DB: All tables
 Fedora: #{ActiveFedora.fedora.build_connection.http.url_prefix}
 Solr: #{ActiveFedora.solr_config[:url]}
 Redis: #{Sidekiq.redis { |c| c._client.options.values_at(:host, :port, :db).join(':') }}
-Please run `rake hyku:account:cleanup[{name}] CONFIRM=yes` to confirm.
+Please run `rake hyku:account:cleanup[{tenant}] CONFIRM=yes` to confirm.
     EOC
     exit 1
   end
