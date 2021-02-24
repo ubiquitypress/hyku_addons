@@ -17,8 +17,8 @@ namespace :hyku do
     desc 'destroy an account and all the data within'
     task :cleanup, [:tenant] => [:environment] do |_t, args|
       account = load_account(args[:tenant])
+      AccountElevator.switch!(account.cname)
       if check_confirmation
-        AccountElevator.switch!(account.cname)
         if CleanupAccountJob.perform_now(account)
           puts "Account successfully deleted"
           exit 0
