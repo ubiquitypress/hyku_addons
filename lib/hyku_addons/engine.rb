@@ -10,11 +10,15 @@ module HykuAddons
       # Eager load required for overrides in the initializer below
       # There is probably a better solution for this but I don't think it is worth the time
       # tinkering with it since this works and doesn't cause too much of a slowdown
-      if Rails.env == 'development' # Only do this for development environment for now
+      if Rails.env.development?
         Rails.application.configure do
           config.eager_load = true
         end
       end
+    end
+
+    config.before_initialize do
+      HykuAddons::I18nMultitenant.configure(I18n)
     end
 
     initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
@@ -251,6 +255,7 @@ module HykuAddons
       User.include HykuAddons::UserEmailFormat
       Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
+      ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
