@@ -1,8 +1,7 @@
-en:
+en-PACIFIC:
   simple_form:
     creator:
       creator_institutional_relationship:
         label: Creator Role
         placeholder:
         help_text: The role of the creator
-
