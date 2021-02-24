@@ -14,16 +14,6 @@ namespace :hyku do
       end
     end
 
-    desc 'Update the frontend url of an account'
-    task :frontend_url, [:tenant, :frontend_url] => [:environment] do |_t, args|
-      account = Account.find_by(tenant: args[:tenant])
-      if HykuAddons::UpdateAccountFrontendUrl.new(account, args[:frontend_url]).perform
-        Rails.logger.info "Account #{account.tenant} frontend_url successfully changed"
-      else
-        Rails.logger.error "The operation could not be completed"
-      end
-    end
-
     desc 'destroy an account and all the data within'
     task :cleanup, [:name] => [:environment] do |_t, args|
       account = Account.find_by(name: args[:name])
@@ -35,6 +25,26 @@ namespace :hyku do
       end
       puts "Could not cleanup the tenant"
       exit 1
+    end
+
+    desc 'Update the frontend url of an account'
+    task :frontend_url, [:tenant, :frontend_url] => [:environment] do |_t, args|
+      account = Account.find_by(tenant: args[:tenant])
+      if HykuAddons::UpdateAccountFrontendUrl.new(account, args[:frontend_url]).perform
+        Rails.logger.info "Account #{account.tenant} frontend_url successfully changed"
+      else
+        Rails.logger.error "The operation could not be completed"
+      end
+    end
+
+    desc 'Update the cname of an account'
+    task :cname, [:tenant, :cname] => [:environment] do |_t, args|
+      account = Account.find_by(tenant: args[:tenant])
+      if HykuAddons::UpdateAccountCname.new(account, args[:cname]).perform
+        Rails.logger.info "Account #{account.tenant} cname successfully changed"
+      else
+        Rails.logger.error "The operation could not be completed"
+      end
     end
   end
 end
