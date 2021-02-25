@@ -28,6 +28,7 @@ module HykuAddons
       validates :contact_email, :oai_admin_email,
                 format: { with: URI::MailTo::EMAIL_REGEXP },
                 allow_blank: true
+      validates :tenant, format: { with: /\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/ }
       validate :validate_email_format, :validate_contact_emails
     end
 
