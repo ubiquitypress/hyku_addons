@@ -119,7 +119,9 @@ Note that at this time the application must be run in test mode due to a bug in 
 
 ### Debugging
 
-Byebug is installed and can be used in tests and the running rails server.  If using in the rails server, you will need to attach to the already running web container to interact with byebug:
+Byebug is installed and can be used in tests and the running rails server. You will need to start your web containers in 'detached' mode and then attach to the container to interact with byebug:
+
 ```
+docker-compose up -d web
 docker attach hyku_addons_web_1
 ```
