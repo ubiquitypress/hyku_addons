@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'hyku-api', git: 'https://github.com/ubiquitypress/hyku-api', branch: 'main'
+gem 'hyrax-doi', git: 'https://github.com/prdanelli/hyrax-doi', branch: 'Feature/EnableDOIFlipFlop'
 
 # Declare your gem's dependencies in hyku_addons.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and

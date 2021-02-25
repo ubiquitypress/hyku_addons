@@ -22,6 +22,7 @@ FROM        bundle as bundle-dev
 RUN         bundle config set without 'production'
 RUN         bundle config set with 'aws development test postgres'
 ENV         CFLAGS=-Wno-error=format-overflow
+RUN					/bin/bash -c "mkdir -p /home/app/vendor/gems/hyrax-doi"
 RUN         bundle install
 
 
@@ -29,7 +30,7 @@ RUN         bundle install
 FROM        ruby:2.7.1-slim-buster as base
 
 RUN         apt-get update && apt-get install -y --no-install-recommends curl gnupg2 \
-         && curl -sL http://deb.nodesource.com/setup_8.x | bash - 
+         && curl -sL http://deb.nodesource.com/setup_8.x | bash -
 RUN         apt-get update && apt-get install -y --no-install-recommends --allow-unauthenticated \
             nodejs \
             sendmail \
@@ -66,6 +67,7 @@ RUN         useradd -m -U app \
          && su -s /bin/bash -c "mkdir -p /home/app" app
 WORKDIR     /home/app
 
+RUN					su -s /bin/bash -c "mkdir -p /home/app/vendor/gems/hyrax-doi" app
 
 # Build devevelopment image
 FROM        base as dev

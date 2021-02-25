@@ -121,6 +121,7 @@ services:
       - assets:/home/app/spec/internal_test_hyku/public/assets
       - cache:/home/app/spec/internal_test_hyku/tmp/cache
       - .:/home/app
+      - /home/paul/Ubiquity/hyrax-doi:/home/app/vendor/gems/hyrax-doi
     networks:
       internal:
 
