@@ -32,7 +32,7 @@ en:
         help_text: The person or group responsible for the work. Usually this is the author of the content.
       creator_organization_name:
         label: Creator organisation name
-        placeholder:
+        placeholder: The British Library
         help_text: Please enter the organisation's name.
       creator_ror:
         label: Creator organisation ROR
