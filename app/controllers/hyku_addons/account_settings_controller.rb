@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
-require_dependency "hyku_addons/application_controller"
-
 module HykuAddons
-  class AccountSettingsController < AdminController
+  class AccountSettingsController < ::AdminController
     before_action :set_account
     before_action :map_array_fields, only: [:update, :update_single]
-
-    def index; end
 
     def edit
       # instance variables to pass values to the js.erb files

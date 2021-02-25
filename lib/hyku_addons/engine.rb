@@ -10,11 +10,15 @@ module HykuAddons
       # Eager load required for overrides in the initializer below
       # There is probably a better solution for this but I don't think it is worth the time
       # tinkering with it since this works and doesn't cause too much of a slowdown
-      if Rails.env == 'development' # Only do this for development environment for now
+      if Rails.env.development?
         Rails.application.configure do
           config.eager_load = true
         end
       end
+    end
+
+    config.before_initialize do
+      HykuAddons::I18nMultitenant.configure(I18n)
     end
 
     initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
@@ -198,6 +202,14 @@ module HykuAddons
       end
     end
 
+    initializer 'hyku_addons.hyrax_admin_set_create_overrides' do
+      Hyrax::Admin::AdminSetsController.class_eval do
+        def create_admin_set
+          admin_set_create_service.call(admin_set: @admin_set, creating_user: nil)
+        end
+      end
+    end
+
     # Pre-existing Work type overrides
     config.after_initialize do
       # Avoid media pluralizing to medium
@@ -253,6 +265,7 @@ module HykuAddons
       Bolognese::Metadata.include Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
       Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
+      ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
