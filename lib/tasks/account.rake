@@ -3,8 +3,8 @@
 namespace :hyku do
   namespace :account do
     desc 'Create an account'
-    task :create, [:name, :admin_emails] => [:environment] do |_t, args|
-      account = Account.new(name: args[:name])
+    task :create, [:name, :uuid, :admin_emails] => [:environment] do |_t, args|
+      account = Account.new(name: args[:name], tenant: args[:uuid].presence)
       CreateAccount.new(account).save
       AccountElevator.switch!(account.cname)
       Array.wrap(args[:admin_emails]).each do |admin_email|

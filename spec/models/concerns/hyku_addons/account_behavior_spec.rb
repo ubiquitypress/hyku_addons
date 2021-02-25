@@ -133,4 +133,41 @@ RSpec.describe HykuAddons::AccountBehavior do
       end
     end
   end
+
+  describe "valid?" do
+    before do
+      account.tenant = uuid
+      account.valid?
+    end
+
+    context "with no tenant UUID" do
+      let(:uuid) { nil }
+
+      it "sets a valid tenant UUID" do
+        expect(account.tenant).to be_present
+        expect(account.errors[:tenant]).to be_empty
+      end
+    end
+
+    context "with a valid tenant UUID" do
+      let(:uuid) { SecureRandom.uuid }
+
+      it "respects the existing tenant UUID" do
+        expect(account.tenant).to eq uuid
+        expect(account.errors[:tenant]).to be_empty
+      end
+    end
+
+    context "with an invalid tenant UUID" do
+      let(:uuid) { 'foo-bar' }
+
+      it "respects the existing tenant UUID" do
+        expect(account.tenant).to eq uuid
+      end
+
+      it "is invalid" do
+        expect(account.errors[:tenant]).not_to be_empty
+      end
+    end
+  end
 end
