@@ -1,48 +1,48 @@
 <% provide :page_header do %>
-	<br>
-	<h1>
-		<span class="fa fa-user"></span>Account Settings
-		<%= link_to "Edit all fields ", hyku_addons.edit_admin_account_setting_path(@account), class: "btn btn-default", style: "margin-left: 20px" %>
-	</h1>
+  <br>
+  <h1>
+    <span class="fa fa-user"></span>Account Settings
+    <%= link_to "Edit all fields ", hyku_addons.edit_admin_account_setting_path(@account), class: "btn btn-default", style: "margin-left: 20px" %>
+  </h1>
 <% end %>
 
 <table class="table table-striped">
-	<tbody>
-		<% HykuAddons::AccountBehavior::TEXT_SETTINGS.each do |fname| %>
-			<tr>
-				<td id="link-<%= fname %>"><b><%= fname.humanize %>:</b> <%= @account&.settings[fname] %></td>
-				<td><%= link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_text_fields', field_name: fname), class: "btn btn-xs btn-default", remote: true %></td>
-			</tr>
-		<% end %>
+  <tbody>
+    <% HykuAddons::AccountBehavior::TEXT_SETTINGS.each do |fname| %>
+      <tr>
+        <td id="link-<%= fname %>"><b><%= fname.humanize %>:</b> <%= @account&.settings[fname] %></td>
+        <td><%= link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_text_fields', field_name: fname), class: "btn btn-xs btn-default", remote: true %></td>
+      </tr>
+    <% end %>
 
-		<% HykuAddons::AccountBehavior::ARRAY_SETTINGS.each do |fname| %>
-			<tr>
-				<td id="link-<%= fname %>"><b> <%= fname.humanize %>:</b> <%= @account&.settings[fname]&.to_sentence %></td>
-				<td><%=link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_array_list', field_name: fname), class: "btn btn-xs btn-default", remote: true %></td>
-			</tr>
-		<% end %>
+    <% HykuAddons::AccountBehavior::ARRAY_SETTINGS.each do |fname| %>
+      <tr>
+        <td id="link-<%= fname %>"><b> <%= fname.humanize %>:</b> <%= @account&.settings[fname]&.to_sentence %></td>
+        <td><%=link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_array_list', field_name: fname), class: "btn btn-xs btn-default", remote: true %></td>
+      </tr>
+    <% end %>
 
-		<% if (settings = HykuAddons::AccountBehavior::HASH_SETTINGS).present? %>
-			<% settings.each do|fname| %>
-				<tr>
-					<td id="link-<%= fname %>"><b> <%= fname.humanize %>:</b> <%= @account&.settings[fname]&.to_sentence %></td>
-					<td><%=link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_hash_settings', field_name: fname), class: "btn btn-xs btn-default", remote: true  %></td>
-				</tr>
-			<% end %>
-		<% end %>
+    <% if (settings = HykuAddons::AccountBehavior::HASH_SETTINGS).present? %>
+      <% settings.each do|fname| %>
+        <tr>
+          <td id="link-<%= fname %>"><b> <%= fname.humanize %>:</b> <%= @account&.settings[fname]&.to_sentence %></td>
+          <td><%=link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_hash_settings', field_name: fname), class: "btn btn-xs btn-default", remote: true  %></td>
+        </tr>
+      <% end %>
+    <% end %>
 
-		<% HykuAddons::AccountBehavior::BOOLEAN_SETTINGS.each do |fname| %>
-			<tr>
-				<td id="link-<%= fname %>"><b><%= fname.humanize %>:</b> <%= @account&.settings[fname] %></td>
-				<td><%= link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_single_boolean', field_name: fname), class: "btn btn-xs btn-default", remote: true %></td>
-			</tr>
-		<% end %>
+    <% HykuAddons::AccountBehavior::BOOLEAN_SETTINGS.each do |fname| %>
+      <tr>
+        <td id="link-<%= fname %>"><b><%= fname.humanize %>:</b> <%= @account&.settings[fname] %></td>
+        <td><%= link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_single_boolean', field_name: fname), class: "btn btn-xs btn-default", remote: true %></td>
+      </tr>
+    <% end %>
 
-		<% fname = "google_scholarly_work_types" %>
+    <% fname = "google_scholarly_work_types" %>
     <% options = Site.instance.available_works %>
-		<tr>
+    <tr>
       <td id="link-<%= fname %>"><b><%= fname.humanize %>:</b><br> <%= @account.settings[fname].select(&:present?).compact.join(", ") %></td>
-			<td><%= link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_select', field_name: fname, options: options), class: "btn btn-xs btn-default", remote: true %></td>
-		</tr>
-	</tbody>
+      <td><%= link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_select', field_name: fname, options: options), class: "btn btn-xs btn-default", remote: true %></td>
+    </tr>
+  </tbody>
 </table>
