@@ -20,7 +20,6 @@ class ChangeToggleableListener {
     this.groupAttributeName = "data-toggleable-group"
     this.groupSelector = `[${this.groupAttributeName}]`
     this.controlSelector = "[data-toggleable-control]"
-    this.requiredSelector = "[data-required]"
     this.eventName = "toggleable_group"
     this.afterHiddenAttributeName = "data-after-toggleable-hidden"
 
@@ -71,7 +70,7 @@ class ChangeToggleableListener {
   }
 
   toggleRequiredChildren(parent, eventName) {
-    parent.find(this.requiredSelector).each(function(){
+    parent.find("[data-required='true']").each(function(){
       $("body").trigger(eventName, [$(this)])
     }, this)
   }
