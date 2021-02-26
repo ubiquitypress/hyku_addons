@@ -7,7 +7,7 @@ namespace :hyku do
       account = Account.new(name: args[:name], tenant: args[:uuid].presence)
       CreateAccount.new(account).save
       AccountElevator.switch!(account.cname)
-      Array.wrap(args[:admin_emails]).each do |admin_email|
+      Array.wrap(args.to_a[2..-1]).each do |admin_email|
         User.invite!(email: admin_email) do |u|
           u.add_role(:admin)
         end
