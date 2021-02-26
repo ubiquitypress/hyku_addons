@@ -31,6 +31,12 @@ module HykuAddons
       parsed_metadata
     end
 
+    # Override to use the value in prefer the named admin set provided in the admin_set column then fallback to previous behavior
+    def add_admin_set_id
+      parsed_metadata['admin_set_id'] = AdminSet.where(title: raw_metadata['admin_set']).first&.id if parsed_metadata['admin_set_id'].blank?
+      parsed_metadata['admin_set_id'] = importerexporter.admin_set_id if parsed_metadata['admin_set_id'].blank?
+    end
+
     # TODO: memoize factory class to avoid having to compute it each time
     def add_date_fields
       factory_class.date_fields.map(&:to_s).each do |field|

@@ -4,7 +4,7 @@ require 'csv'
 require 'optparse'
 
 JSON_FIELDS = ["creator", "contributor", "editor", "funder"].freeze
-DOI_REGEX = /10\.\d{4,}(\.\d+)*\/[-._;():\/A-Za-z\d]+/.freeze
+DOI_REGEX = /10\.\d{4,}(\.\d+)*\/[-._;():\/A-Za-z\d]+/
 
 options = {}
 options_parser = OptionParser.new do |opts|
