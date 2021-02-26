@@ -32,6 +32,17 @@
         </tr>
       <% end %>
 
+			<% fname = "google_scholarly_work_types" %>
+      <% options = Site.instance.available_works %>
+			<tr>
+        <%= render 'hyku_addons/account_settings/settings/select_field_content',
+          field_name: fname,
+          f: f,
+          options: options,
+          display_save_button: false
+        %>
+			</tr>
+
       <%= render "hyku_addons/account_settings/settings/submit_buttons", f: f %>
     <% end %>
   </tbody>
