@@ -6,7 +6,6 @@
 <% end %>
 
 <%= form_for @account, url: hyku_addons.admin_account_setting_path(@account), html: { class: 'form control' } do |f| %>
-
   <% HykuAddons::AccountBehavior::TEXT_SETTINGS.each do |fname| %>
     <div class="col-12">
       <%= render 'hyku_addons/account_settings/settings/text_field_content',  account: @account, field_name: fname, f: f, display_save_button: false %>
