@@ -30,7 +30,6 @@ RSpec.describe Hyku::API::V1::TenantController, type: :request, clean: true, mul
       expect(json_response.dig("settings", "google_scholarly_work_types")).to eq(work_types)
     end
 
-
     it "includes the tenant setting" do
       account.settings["google_scholarly_work_types"] = ["Book"]
       account.save
