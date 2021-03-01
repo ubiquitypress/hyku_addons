@@ -33,8 +33,8 @@ module HykuAddons
 
     # Override to use the value in prefer the named admin set provided in the admin_set column then fallback to previous behavior
     def add_admin_set_id
-      parsed_metadata['admin_set_id'] = AdminSet.where(title: raw_metadata['admin_set']).first&.id if parsed_metadata['admin_set_id'].blank?
-      parsed_metadata['admin_set_id'] = importerexporter.admin_set_id if parsed_metadata['admin_set_id'].blank?
+      parsed_metadata['admin_set_id'] = nil if parsed_metadata['admin_set_id'].blank?
+      parsed_metadata['admin_set_id'] ||= AdminSet.where(title: raw_metadata['admin_set']).first&.id || importerexporter.admin_set_id
     end
 
     # TODO: memoize factory class to avoid having to compute it each time
