@@ -8,17 +8,6 @@ GIT
       rubyzip (>= 1.0.0)
 
 GIT
-  remote: https://github.com/prdanelli/hyrax-doi
-  revision: b76a8b598e15b518c3a9f96bb861fc6215950995
-  branch: Feature/EnableDOIFlipFlop
-  specs:
-    hyrax-doi (0.2.0)
-      bolognese (~> 1.8, >= 1.8.6)
-      flipflop (~> 2.3)
-      hyrax (~> 2.9)
-      rails (~> 5.2.4, >= 5.2.4.3)
-
-GIT
   remote: https://github.com/samvera-labs/bulkrax.git
   revision: 6f2f20a60387495bc142e5f57d62d3675452425d
   specs:
@@ -576,6 +565,10 @@ GEM
       signet
       solrizer (>= 3.4, < 5)
       tinymce-rails (~> 4.1)
+    hyrax-doi (0.2.0)
+      bolognese (~> 1.8, >= 1.8.6)
+      hyrax (~> 2.9)
+      rails (~> 5.2.4, >= 5.2.4.3)
     i18n (1.8.9)
       concurrent-ruby (~> 1.0)
     i18n-debug (1.2.0)
@@ -1148,7 +1141,6 @@ DEPENDENCIES
   hyku-api!
   hyku_addons!
   hyrax (~> 2.9)
-  hyrax-doi!
   i18n-debug
   i18n-tasks
   is_it_working
