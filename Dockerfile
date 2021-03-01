@@ -66,8 +66,6 @@ RUN         useradd -m -U app \
          && su -s /bin/bash -c "mkdir -p /home/app" app
 WORKDIR     /home/app
 
-RUN					su -s /bin/bash -c "mkdir -p /home/app/vendor/gems/hyrax-doi" app
-
 # Build devevelopment image
 FROM        base as dev
 
