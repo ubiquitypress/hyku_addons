@@ -22,7 +22,6 @@ FROM        bundle as bundle-dev
 RUN         bundle config set without 'production'
 RUN         bundle config set with 'aws development test postgres'
 ENV         CFLAGS=-Wno-error=format-overflow
-RUN					/bin/bash -c "mkdir -p /home/app/vendor/gems/hyrax-doi"
 RUN         bundle install
 
 
