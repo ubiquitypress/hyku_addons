@@ -4,5 +4,6 @@ module HykuAddons
     include HykuAddons::MultipleMetadataFieldsHelper
     include HykuAddons::CreatorFieldHelper
     include HykuAddons::ContributorFieldHelper
+    include HykuAddons::RevisedAdminSetWorkFormHelper
   end
 end
