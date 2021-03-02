@@ -25,4 +25,9 @@ $(document).ready(function(){
 
   // Register our Events
   new Eventable()
+
+  $("[data-behavior=select-work]").each(function () {
+    new SelectWorkType($(this));
+  });
 });
+
