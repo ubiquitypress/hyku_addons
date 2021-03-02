@@ -5,7 +5,7 @@ module HykuAddons
     REVISED_TABS = ["relationships"].freeze
 
     def form_tabs_for(form:)
-      if Flipflop.enabled?(:revised_admin_set_layout) && can_edit?(form) && depositor?(form)
+      if Flipflop.enabled?(:simplified_admin_set_selection) && can_edit?(form) && depositor?(form)
         return super - REVISED_TABS
       end
 
