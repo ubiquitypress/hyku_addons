@@ -1,15 +1,13 @@
-<% # Override from Hyrax 2.6 - Admin set for flexible contexts %>
-<% # TODO: This should not live in views/shared.  It does not need to be included on every page. %>
 <div class="modal worktypes fade" id="worktypes-to-create" tabindex="-1" role="dialog" aria-labelledby="select-worktype-label">
   <div class="modal-dialog" role="document">
     <form class="modal-content new-work-select">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="<%= t('hyrax.dashboard.heading_actions.close') %>"><span aria-hidden="true">&times;</span></button>
-        <h2 class="modal-title">Select Admin Set</h2>
+				<h2 class="modal-title"><%= t("work_type_modal.admin_set.title") %></h2>
       </div>
       <div class="modal_body">
-        <div class="select-work-admin-set">
-          <%= select_tag :admin_set_id, options_for_select(available_admin_sets) %>
+        <div class="select-work-admin-set" style="padding: 20px;">
+          <%= select_tag :admin_set_id, options_for_select(available_admin_sets), class: "form-control" %>
         </div>
       </div>
       <div class="modal-header">
