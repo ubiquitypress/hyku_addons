@@ -5,34 +5,41 @@
   <br>
 <% end %>
 
-<table class="table table-striped">
-  <tbody>
-    <%= form_for(@account, url: hyku_addons.admin_account_setting_path(@account), html: { class: 'form control' }) do |f| %>
-      <% HykuAddons::AccountBehavior::TEXT_SETTINGS.each do |fname| %>
-        <tr>
-          <%= render 'hyku_addons/account_settings/settings/text_field_content',  account: @account, field_name: fname, f: f, display_save_button: false %>
-        </tr>
-      <% end %>
+<%= form_for @account, url: hyku_addons.admin_account_setting_path(@account), html: { class: 'form control' } do |f| %>
+  <% HykuAddons::AccountBehavior::TEXT_SETTINGS.each do |fname| %>
+    <div class="col-12">
+      <%= render 'hyku_addons/account_settings/settings/text_field_content',  account: @account, field_name: fname, f: f, display_save_button: false %>
+    <div>
+  <% end %>
 
-			<% HykuAddons::AccountBehavior::ARRAY_SETTINGS.each do |fname| %>
-				<tr>
-          <%= render 'hyku_addons/account_settings/settings/array_list_content', field_name: fname,  html_name_element: fname, f: f, display_save_button: false %>
-        </tr>
-      <% end %>
+  <% HykuAddons::AccountBehavior::ARRAY_SETTINGS.each do |fname| %>
+    <div class="col-12">
+      <%= render 'hyku_addons/account_settings/settings/array_list_content', field_name: fname,  html_name_element: fname, f: f, display_save_button: false %>
+    <div>
+  <% end %>
 
-			<% HykuAddons::AccountBehavior::HASH_SETTINGS.each do |settings_hash_key| %>
-				<tr>
-					<%= render 'hyku_addons/account_settings/settings/hash_settings_content', field_name: settings_hash_key, html_name_element: settings_hash_key, f: f, display_save_button: false %>
-				</tr>
-			<% end %>
+  <% HykuAddons::AccountBehavior::HASH_SETTINGS.each do |settings_hash_key| %>
+    <div class="col-12">
+      <%= render 'hyku_addons/account_settings/settings/hash_settings_content', field_name: settings_hash_key, html_name_element: settings_hash_key, f: f, display_save_button: false %>
+    <div>
+  <% end %>
 
-			<% HykuAddons::AccountBehavior::BOOLEAN_SETTINGS.each do |fname| %>
-        <tr>
-          <%= render 'hyku_addons/account_settings/settings/boolean_field_content', field_name: fname, f: f, display_save_button: false %>
-        </tr>
-      <% end %>
+  <% HykuAddons::AccountBehavior::BOOLEAN_SETTINGS.each do |fname| %>
+    <div class="col-12">
+      <%= render 'hyku_addons/account_settings/settings/boolean_field_content', field_name: fname, f: f, display_save_button: false %>
+    <div>
+  <% end %>
 
-      <%= render "hyku_addons/account_settings/settings/submit_buttons", f: f %>
-    <% end %>
-  </tbody>
-</table>
+  <% fname = "google_scholarly_work_types" %>
+  <% options = Site.instance.available_works %>
+  <div class="col-12">
+    <%= render 'hyku_addons/account_settings/settings/select_field_content',
+      field_name: fname,
+      f: f,
+      options: options,
+      display_save_button: false
+    %>
+  <div>
+
+  <%= render "hyku_addons/account_settings/settings/submit_buttons", f: f %>
+<% end %>
