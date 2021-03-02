@@ -4,7 +4,7 @@ Flipflop.configure do
           default: true,
           description: "Enable OAI-PMH endpoint for harvesting."
 
-  feature :revised_admin_set_layout,
+  feature :simplified_admin_set_selection,
           default: false,
-          description: "Move the admin set to the works modal and hide the relationships tab on the deposit form"
+          description: "The admin set to deposit works is selected from the add work modal and the relationships tab on the deposit form is hidden for depositors."
 end
