@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HykuAddons
-  module RevisedAdminSetWorkFormHelper
+  module SimplifiedAdminSetSelectionWorkFormHelper
     REVISED_TABS = ["relationships"].freeze
 
     def form_tabs_for(form:)
