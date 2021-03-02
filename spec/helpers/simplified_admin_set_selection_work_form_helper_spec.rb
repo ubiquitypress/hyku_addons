@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "HykuAddons::RevisedAdminSetWorkFormHelper" do
+RSpec.describe "HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper" do
   describe "form_tabs_for" do
     let(:work) { GenericWork.new(title: ["Moomin"]) }
     let(:form) { Hyrax::GenericWorkForm.new(work, nil, nil) }
