@@ -1,4 +1,7 @@
 en:
+  work_type_modal:
+    admin_set:
+      title: Select Collection/Admin Set
   work_type:
     show:
       citations:
