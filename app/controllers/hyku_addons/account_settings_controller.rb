@@ -33,7 +33,8 @@ module HykuAddons
         params.require(:account).permit(
           settings: [:contact_email, :gtm_id, :file_size_limit, :enable_oai_metadata,
                      :shared_login, :redirect_on, :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,
-                     email_format: [], weekly_email_list: [], monthly_email_list: [], yearly_email_list: []]
+                     google_scholarly_work_types: [], email_format: [], weekly_email_list: [], monthly_email_list: [],
+                     yearly_email_list: []]
         )
       end
 
