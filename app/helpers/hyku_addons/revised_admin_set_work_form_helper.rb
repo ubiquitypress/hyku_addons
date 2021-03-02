@@ -2,25 +2,27 @@
 
 module HykuAddons
   module RevisedAdminSetWorkFormHelper
-    PACIFIC = "Pacific"
     REVISED_TABS = ["relationships"].freeze
 
     def form_tabs_for(form:)
-      if pacific_account? && pacific_form?(form) && can_edit?(form) && depositor?(form)
+      if Flipflop.enabled?(:revised_admin_set_layout) && can_edit?(form) && depositor?(form)
         return super - REVISED_TABS
       end
 
       super
     end
 
-    protected
-
-    def pacific_form?(form)
-      form.model_class.name.match?(PACIFIC)
+    def available_admin_sets
+      # Restrict available_admin_sets to only those current user can desposit to.
+      @available_admin_sets ||= sources_for_deposit.map do |admin_set_id|
+        [AdminSet.find(admin_set_id).title.first, admin_set_id]
+      end
     end
 
-    def pacific_account?
-      current_account.name == PACIFIC
+    protected
+
+    def sources_for_deposit
+      Hyrax::Collections::PermissionsService.source_ids_for_deposit(ability: current_ability, source_type: 'admin_set')
     end
 
     def can_edit?(form)
