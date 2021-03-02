@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'hyrax/doi/errors'
 
 module HykuAddons
   module DOIControllerBehavior
