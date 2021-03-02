@@ -14,12 +14,13 @@ RSpec.describe "HykuAddons::RevisedAdminSetWorkFormHelper" do
         v.assign(view_assigns)
       end
     end
+    let(:feature_name) { :simplified_admin_set_selection }
 
     describe "when the feature is disabled" do
       before do
         Flipflop::FeatureSet.current.replace do
           Flipflop.configure do
-            feature :revised_admin_set_layout, default: false
+            feature feature_name, default: false
           end
         end
       end
@@ -33,7 +34,7 @@ RSpec.describe "HykuAddons::RevisedAdminSetWorkFormHelper" do
       before do
         Flipflop::FeatureSet.current.replace do
           Flipflop.configure do
-            feature :revised_admin_set_layout, default: true
+            feature feature_name default: true
           end
         end
       end
