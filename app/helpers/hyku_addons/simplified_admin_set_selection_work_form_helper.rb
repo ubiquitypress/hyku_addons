@@ -2,11 +2,9 @@
 
 module HykuAddons
   module SimplifiedAdminSetSelectionWorkFormHelper
-    REVISED_TABS = ["relationships"].freeze
-
     def form_tabs_for(form:)
       if Flipflop.enabled?(:simplified_admin_set_selection) && can_edit?(form) && depositor?(form)
-        return super - REVISED_TABS
+        return super - ["relationships"]
       end
 
       super
