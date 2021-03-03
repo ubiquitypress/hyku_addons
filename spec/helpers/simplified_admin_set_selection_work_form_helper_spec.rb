@@ -2,40 +2,55 @@
 
 require "rails_helper"
 
-RSpec.describe "HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper" do
-  describe "form_tabs_for" do
-    let(:work) { GenericWork.new(title: ["Moomin"]) }
-    let(:form) { Hyrax::GenericWorkForm.new(work, nil, nil) }
-    let(:helper) do
-      _view.tab do |v|
-        v.extend(ApplicationHelper)
-        v.extend(HyraxHelper)
-        v.extend(Hyrax::DOI::WorkFormHelper)
-        v.assign(view_assigns)
-      end
+RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
+  let(:model_class) do
+    Class.new(GenericWork) do
+      include ::HykuAddons::GenericWorkOverrides
     end
-    let(:feature_name) { :simplified_admin_set_selection }
+  end
+  let(:work) { model_class.new(title: ["Moomin"]) }
+  let(:form_class) do
+    Class.new(Hyrax::GenericWorkForm) do
+      include ::HykuAddons::GenericWorkFormOverrides
+    end
+  end
+  let(:form) { form_class.new(work, nil, nil) }
+  let(:helper) do
+    _view.tab do |v|
+      v.extend(ApplicationHelper)
+      v.extend(HyraxHelper)
+      v.extend(HykuAddons::HelperBehavior)
+      v.assign(view_assigns)
+    end
+  end
 
-    describe "when the feature is disabled" do
+  describe "form_tabs_for" do
+    context "when the feature is disabled" do
       before do
         Flipflop::FeatureSet.current.replace do
           Flipflop.configure do
-            feature feature_name, default: false
+            feature :simplified_admin_set_selection, default: false
           end
         end
       end
 
       it "includes relationships" do
       end
+
+      it "doesn't include admin_set_id in the form primary_terms" do
+      end
     end
 
-    describe "when the feature is enabled" do
+    context "when the feature is enabled" do
       before do
         Flipflop::FeatureSet.current.replace do
           Flipflop.configure do
-            feature feature_name default: true
+            feature :simplified_admin_set_selection, default: true
           end
         end
+      end
+
+      it "includes admin_set_id" do
       end
     end
   end
