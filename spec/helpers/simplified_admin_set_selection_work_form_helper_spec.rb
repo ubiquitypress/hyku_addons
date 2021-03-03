@@ -16,7 +16,7 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
   end
   let(:form) { form_class.new(work, nil, nil) }
   let(:helper) do
-    _view.tab do |v|
+    _view.tap do |v|
       v.extend(ApplicationHelper)
       v.extend(HyraxHelper)
       v.extend(HykuAddons::HelperBehavior)
@@ -35,6 +35,7 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
       end
 
       it "includes relationships" do
+        expect(helper.form_tabs_for(form: form)).to include("relationships")
       end
 
       it "doesn't include admin_set_id in the form primary_terms" do
@@ -50,7 +51,8 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
         end
       end
 
-      it "includes admin_set_id" do
+      it "includes relationships" do
+        expect(helper.form_tabs_for(form: form)).not_to include("relationships")
       end
     end
   end
