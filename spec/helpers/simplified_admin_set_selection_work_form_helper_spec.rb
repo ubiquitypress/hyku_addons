@@ -26,7 +26,6 @@ RSpec.describe "HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper" do
       end
 
       it "includes relationships" do
-
       end
     end
 
@@ -38,7 +37,6 @@ RSpec.describe "HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper" do
           end
         end
       end
-
     end
   end
 end
