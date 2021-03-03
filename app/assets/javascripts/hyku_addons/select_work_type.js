@@ -1,3 +1,7 @@
+// NOTE:
+// This class is not being exported as a module because of the difficulties in getting it to override the
+// existing version which is found within Hyrax. Instead it is loaded by the rails asset pipeline and
+// instantiated within the application.js for this plugin.
 class SelectWorkType {
   /**
    * Initializes the class in the context of an individual table element
@@ -29,6 +33,7 @@ class SelectWorkType {
   // when the form is submitted route to the correct location
   routingLogic(e) {
     e.preventDefault()
+
     if (this.destination() === undefined)
       return false
     // get the destination from the data attribute of the selected radio button
@@ -42,7 +47,6 @@ class SelectWorkType {
     let admin_set_id = this.form.find('select').val()
     let url = this.form.find('input[type="radio"]:checked').data(this.type)
 
-    console.log(url + "&admin_set_id=" + admin_set_id)
     return url + "&admin_set_id=" + admin_set_id
   }
 }
