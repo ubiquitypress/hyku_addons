@@ -10,3 +10,5 @@ en-PACIFIC:
         label: Contributor role
         placeholder:
         help_text: The relationship of the contributor within the instittion.
+      contributor_institutional_relationship:
+        label: Contributor Role
