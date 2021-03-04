@@ -40,10 +40,10 @@
 
     <% fname = "google_scholarly_work_types" %>
     <% options = Site.instance.available_works %>
-		<% current_selection = @account.settings.dig(fname)&.select(&:present?)&.compact&.join(", ") %>
+    <% current_selection = @account.settings.dig(fname)&.select(&:present?)&.compact&.join(", ") %>
 
     <tr>
-			<td id="link-<%= fname %>"><b><%= fname.humanize %>:</b><br> <%= current_selection %></td>
+      <td id="link-<%= fname %>"><b><%= fname.humanize %>:</b><br> <%= current_selection %></td>
       <td><%= link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_select', field_name: fname, options: options), class: "btn btn-xs btn-default", remote: true %></td>
     </tr>
   </tbody>
