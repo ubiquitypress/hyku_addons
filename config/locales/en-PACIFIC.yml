@@ -1,4 +1,7 @@
 en-PACIFIC:
+  work_type_modal:
+    admin_set:
+      title: Select Collection/Admin Set
   simple_form:
     creator:
       creator_institutional_relationship:

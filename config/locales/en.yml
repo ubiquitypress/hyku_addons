@@ -1,4 +1,7 @@
 en:
+  work_type_modal:
+    admin_set:
+      title: Admin Set
   work_type:
     show:
       citations:
