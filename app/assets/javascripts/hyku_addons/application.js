@@ -25,4 +25,10 @@ $(document).ready(function(){
 
   // Register our Events
   new Eventable()
+
+  // Currently this is the only way I can get the code being executed within the scope of the HykuAddons plugin.
+  $("[data-behavior=select-work]").each(function () {
+    new SelectWorkType($(this));
+  });
 });
+
