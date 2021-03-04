@@ -1,0 +1,22 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default account-form">
+			<%= form_for(account, url: hyku_addons.update_single_admin_account_setting_path(account), :html => { class: 'form control' }) do |f| %>
+				<div class="panel-body">
+					<% if @account.errors.any? %>
+						<div id="error_explanation">
+							<h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
+							<ul>
+								<% @account.errors.messages.each do |key, messages| %>
+									<li><%= key %> &quot;<%= @account.errors.details[key].first[:value] %>&quot; <%= messages.join(' and ') %></li>
+								<% end %>
+							</ul>
+						</div>
+					<% end %>
+
+					<%= render 'hyku_addons/account_settings/settings/select_field_content', field_name: field_name, f: f, display_save_button: true %>
+			<% end %>
+		</div>
+	</div>
+</div>
+

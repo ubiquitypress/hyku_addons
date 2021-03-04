@@ -37,6 +37,18 @@ jobs:
       SETTINGS__BULKRAX__ENABLED: true
 
     steps:
+      - run:
+          name: Install the FITS
+          command: |
+            mkdir ~/fits
+            wget "https://github.com/harvard-lts/fits/releases/download/1.4.1/fits-1.4.1.zip"
+            unzip -d ~/fits/ "fits-1.4.1.zip"
+            chmod a+x ~/fits/fits.sh
+            ln -s ~/fits/fits.sh ~/fits/fits
+            rm "fits-1.4.1.zip"
+            echo "export PATH=$HOME/fits:$PATH" >> $BASH_ENV
+            source $BASH_ENV
+
       - samvera/cached_checkout
 
       - run: git submodule init && git submodule update

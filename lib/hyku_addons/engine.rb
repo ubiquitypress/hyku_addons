@@ -190,6 +190,63 @@ module HykuAddons
       # Replace bulkrax csv parser with hyku_addons version
       csv_parser_config = Bulkrax.parsers.find { |p| p[:class_name] = "HykuAddons::CsvParser" if p[:class_name] == "Bulkrax::CsvParser" }
       csv_parser_config[:class_name] = "HykuAddons::CsvParser"
+
+      Bulkrax::ObjectFactory.class_eval do
+        def run
+          arg_hash = { id: attributes[:id], name: 'UPDATE', klass: klass }
+          @object = find
+          if object
+            object.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX if object.respond_to? :reindex_extent
+            ActiveSupport::Notifications.instrument('import.importer', arg_hash) { update }
+          else
+            ActiveSupport::Notifications.instrument('import.importer', arg_hash.merge(name: 'CREATE')) { create }
+          end
+          yield(object) if block_given?
+          object
+        end
+
+        # An ActiveFedora bug when there are many habtm <-> has_many associations means they won't all get saved.
+        # https://github.com/projecthydra/active_fedora/issues/874
+        # 2+ years later, still open!
+        def create
+          attrs = create_attributes
+          @object = klass.new
+          object.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX if object.respond_to? :reindex_extent
+          run_callbacks :save do
+            run_callbacks :create do
+              if klass == AdminSet
+                create_admin_set(attrs)
+              elsif klass == ::Collection
+                create_collection(attrs)
+              else
+                work_actor.create(environment(attrs))
+              end
+            end
+          end
+          log_created(object)
+        end
+
+        def create_admin_set(attrs)
+          attrs.delete('collection_type_gid')
+          object.members = members
+          object.attributes = attrs
+          object.save!
+        end
+
+        def find
+          return find_by_id if attributes[:id]
+          return search_by_identifier if attributes[system_identifier_field].present?
+          return search_by_title if klass == AdminSet && attributes[:title].present?
+        end
+
+        def search_by_title
+          AdminSet.where(title: Array(attributes[:title]).first).first
+        end
+
+        def permitted_attributes
+          klass.properties.keys.map(&:to_sym) + %i[id edit_users edit_groups read_groups visibility work_members_attributes admin_set_id]
+        end
+      end
     end
 
     initializer 'hyku_addons.hyrax_identifier_overrides' do

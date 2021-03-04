@@ -1,9 +1,12 @@
 # frozen_string_literal: true
+# Copied here from Bulkrax so they can be availabe for our tests
+# Later we could make a PR to expose them in Bulkrax so we don't have to copy them anymore
+# Changed admin_set_id to be default admin set
 
 FactoryBot.define do
   factory :bulkrax_importer, class: 'Bulkrax::Importer' do
     name { "A.N. Import" }
-    admin_set_id { "MyString" }
+    admin_set_id { "admin_set/default" }
     user { FactoryBot.build(:base_user) }
     frequency { "PT0S" }
     parser_klass { "Bulkrax::OaiDcParser" }
@@ -14,7 +17,7 @@ FactoryBot.define do
 
   factory :bulkrax_importer_oai, class: 'Bulkrax::Importer' do
     name { 'Oai Collection' }
-    admin_set_id { 'MyString' }
+    admin_set_id { 'admin_set/default' }
     user { FactoryBot.build(:base_user) }
     frequency { 'PT0S' }
     parser_klass { 'Bulkrax::OaiDcParser' }
@@ -30,7 +33,7 @@ FactoryBot.define do
 
   factory :bulkrax_importer_csv, class: 'Bulkrax::Importer' do
     name { 'CSV Import' }
-    admin_set_id { 'MyString' }
+    admin_set_id { 'admin_set/default' }
     user { FactoryBot.build(:base_user) }
     frequency { 'PT0S' }
     parser_klass { 'Bulkrax::CsvParser' }
@@ -42,7 +45,7 @@ FactoryBot.define do
 
   factory :bulkrax_importer_csv_complex, class: 'Bulkrax::Importer' do
     name { 'CSV Import' }
-    admin_set_id { 'MyString' }
+    admin_set_id { 'admin_set/default' }
     user { FactoryBot.build(:base_user) }
     frequency { 'PT0S' }
     parser_klass { 'Bulkrax::CsvParser' }
@@ -53,7 +56,7 @@ FactoryBot.define do
 
   factory :bulkrax_importer_bagit, class: 'Bulkrax::Importer' do
     name { 'Bagit Import' }
-    admin_set_id { 'MyString' }
+    admin_set_id { 'admin_set/default' }
     user { FactoryBot.build(:base_user) }
     frequency { 'PT0S' }
     parser_klass { 'Bulkrax::BagitParser' }
@@ -71,7 +74,7 @@ FactoryBot.define do
 
   factory :bulkrax_importer_csv_bad, class: 'Bulkrax::Importer' do
     name { 'CSV Import' }
-    admin_set_id { 'MyString' }
+    admin_set_id { 'admin_set/default' }
     user { FactoryBot.build(:base_user) }
     frequency { 'PT0S' }
     parser_klass { 'Bulkrax::CsvParser' }
@@ -82,7 +85,7 @@ FactoryBot.define do
 
   factory :bulkrax_importer_csv_failed, class: 'Bulkrax::Importer' do
     name { 'CSV Import' }
-    admin_set_id { 'MyString' }
+    admin_set_id { 'admin_set/default' }
     user { FactoryBot.build(:base_user) }
     frequency { 'PT0S' }
     parser_klass { 'Bulkrax::CsvParser' }
@@ -93,7 +96,7 @@ FactoryBot.define do
 
   factory :bulkrax_importer_xml, class: 'Bulkrax::Importer' do
     name { 'XML Import' }
-    admin_set_id { 'MyString' }
+    admin_set_id { 'admin_set/default' }
     user { FactoryBot.build(:base_user) }
     frequency { 'PT0S' }
     parser_klass { 'Bulkrax::XmlParser' }
