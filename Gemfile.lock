@@ -27,8 +27,8 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/hyrax-doi
-  revision: 49d69fc9d164d2ad704cd474bb1b23ddad62dec5
-  branch: cjcolvar-patch-1
+  revision: aa7368d2ddc508004248adc36dc997c3afa9a466
+  branch: main
   specs:
     hyrax-doi (0.2.0)
       bolognese (~> 1.8, >= 1.8.6)
