@@ -27,6 +27,7 @@ module HykuAddons
       add_local
       add_date_fields
       add_json_fields
+      add_resource_type
 
       parsed_metadata
     end
@@ -57,6 +58,10 @@ module HykuAddons
         end
         parsed_metadata[field] = field_json
       end
+    end
+
+    def add_resource_type
+      parsed_metadata['resource_type'] = HykuAddons::ResourceTypesService.new(model: parsed_metadata['model']).label(src.to_s.strip.titleize) rescue nil
     end
 
     # Override to allow `id` as system identifier field
