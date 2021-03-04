@@ -15,14 +15,7 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
     end
   end
   let(:form) { form_class.new(work, nil, nil) }
-  let(:helper) do
-    _view.tap do |v|
-      v.extend(ApplicationHelper)
-      v.extend(HyraxHelper)
-      v.extend(HykuAddons::HelperBehavior)
-      v.assign(view_assigns)
-    end
-  end
+  let(:helper) { _view }
 
   describe "form_tabs_for" do
     context "when the feature is disabled" do
@@ -36,9 +29,6 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
 
       it "includes relationships" do
         expect(helper.form_tabs_for(form: form)).to include("relationships")
-      end
-
-      it "doesn't include admin_set_id in the form primary_terms" do
       end
     end
 
