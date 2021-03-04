@@ -35,7 +35,7 @@ GIT
 
 GIT
   remote: https://github.com/ubiquitypress/hyku-api
-  revision: 04cf018c460ec1cbb6f455b155d852299fb0ab14
+  revision: cbce8f09f51f77ee2a496c017ab6b2b528edfa26
   branch: main
   specs:
     hyku-api (0.1.0)
@@ -740,7 +740,7 @@ GEM
       redic
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
-    nio4r (2.5.5)
+    nio4r (2.5.7)
     noid (0.9.0)
     noid-rails (3.0.2)
       actionpack (>= 5.0.0, < 7)
