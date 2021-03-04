@@ -20,11 +20,7 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
   describe "form_tabs_for" do
     context "when the feature is disabled" do
       before do
-        Flipflop::FeatureSet.current.replace do
-          Flipflop.configure do
-            feature :simplified_admin_set_selection, default: false
-          end
-        end
+        allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(false)
       end
 
       it "includes relationships" do
@@ -34,11 +30,9 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
 
     context "when the feature is enabled" do
       before do
-        Flipflop::FeatureSet.current.replace do
-          Flipflop.configure do
-            feature :simplified_admin_set_selection, default: true
-          end
-        end
+        allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(true)
+        expect(helper).to receive(:can_edit?).with(form.model).and_return(true)
+        expect(helper).to receive(:depositor?).with(form.depositor).and_return(true)
       end
 
       it "includes relationships" do

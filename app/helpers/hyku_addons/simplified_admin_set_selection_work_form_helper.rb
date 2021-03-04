@@ -24,18 +24,10 @@ module HykuAddons
       end
 
       def can_edit?(model)
-        # NOTE:
-        # This is gross, but without it the specs fail with:
-        # `*** Flipflop::FeatureError Exception: Feature 'transfer_works' unknown.`
-        return true if Rails.env.test?
-
         current_ability.can?(:edit, model)
       end
 
       def depositor?(depositor)
-        # Other wise `undefined method `user_key' for nil:NilClass`
-        return true if Rails.env.test?
-
         current_user.user_key == depositor
       end
   end
