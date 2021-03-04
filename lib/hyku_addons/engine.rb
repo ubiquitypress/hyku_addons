@@ -319,7 +319,9 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
       User.include HykuAddons::UserEmailFormat
       Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
+      Bolognese::Metadata.include Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
+      Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
     end
 

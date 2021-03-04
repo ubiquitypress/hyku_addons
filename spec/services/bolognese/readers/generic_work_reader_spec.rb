@@ -21,7 +21,6 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:edition) { "1" }
   let(:editor) { "Test Editor" }
   let(:eissn) { "1234-5678" }
-  let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
   let(:institution1) { "British Library" }
   let(:institution2) { "British Museum" }
   let(:isbn) { "9781770460621" }
@@ -33,8 +32,6 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:keyword2) { 'Hippos' }
   let(:language) { "Swedish" }
   let(:language2) { "English" }
-  let(:metadata) { described_class.new(input: input, from: "work") }
-  let(:model_class) { GenericWork }
   let(:official_link) { "http://test-url.com" }
   let(:org_unit1) { "Department of Crackers" }
   let(:org_unit2) { "Department2" }
@@ -52,7 +49,6 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:title) { 'Moomin' }
   let(:version_number) { "3" }
   let(:volume) { 2 }
-  let(:work) { model_class.new(attributes) }
 
   let(:attributes) do
     {
@@ -78,6 +74,11 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
       volume: [volume]
     }
   end
+
+  let(:model_class) { GenericWork }
+  let(:work) { model_class.new(attributes) }
+  let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
+  let(:metadata) { described_class.new(input: input, from: "work") }
 
   it "reads a GenericWork" do
     expect(metadata).to be_a(Bolognese::Metadata)

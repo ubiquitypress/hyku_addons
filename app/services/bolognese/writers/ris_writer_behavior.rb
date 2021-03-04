@@ -4,6 +4,7 @@ module Bolognese
   module Writers
     module RisWriterBehavior
       extend ActiveSupport::Concern
+
       DEFAULT_RESOURCE_TYPE = :GEN
       RIS_DELIMITER = "\r\n"
 

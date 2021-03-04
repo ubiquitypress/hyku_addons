@@ -26,6 +26,17 @@ GIT
       simple_form
 
 GIT
+  remote: https://github.com/samvera-labs/hyrax-doi
+  revision: aa7368d2ddc508004248adc36dc997c3afa9a466
+  branch: main
+  specs:
+    hyrax-doi (0.2.0)
+      bolognese (~> 1.8, >= 1.8.6)
+      flipflop (~> 2.3)
+      hyrax (~> 2.9)
+      rails (~> 5.2.4, >= 5.2.4.3)
+
+GIT
   remote: https://github.com/tawan/active-elastic-job.git
   revision: 06b3bba79210f573316be1f094eb84e181cb4174
   specs:
@@ -565,10 +576,6 @@ GEM
       signet
       solrizer (>= 3.4, < 5)
       tinymce-rails (~> 4.1)
-    hyrax-doi (0.2.0)
-      bolognese (~> 1.8, >= 1.8.6)
-      hyrax (~> 2.9)
-      rails (~> 5.2.4, >= 5.2.4.3)
     i18n (1.8.9)
       concurrent-ruby (~> 1.0)
     i18n-debug (1.2.0)
@@ -1142,6 +1149,7 @@ DEPENDENCIES
   hyku-api!
   hyku_addons!
   hyrax (~> 2.9)
+  hyrax-doi!
   i18n-debug
   i18n-tasks
   is_it_working
