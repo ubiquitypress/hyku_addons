@@ -6,18 +6,8 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
   include Devise::Test::ControllerHelpers
 
   let(:user) { create(:user) }
-  let(:model_class) do
-    Class.new(GenericWork) do
-      include ::HykuAddons::GenericWorkOverrides
-    end
-  end
-  let(:work) { model_class.new(title: ["Moomin"], depositor: user.user_key) }
-  let(:form_class) do
-    Class.new(Hyrax::GenericWorkForm) do
-      include ::HykuAddons::GenericWorkFormOverrides
-    end
-  end
-  let(:form) { form_class.new(work, nil, nil) }
+  let(:work) { GenericWork.new(title: ["Moomin"], depositor: user.user_key) }
+  let(:form) { Hyrax::GenericWorkForm.new(work, nil, nil) }
   let(:helper) { _view }
 
   describe "#form_tabs_for" do
