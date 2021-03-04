@@ -32,6 +32,30 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
         expect(helper.form_tabs_for(form: form)).not_to include("relationships")
       end
     end
+
+    context "when the user can not edit the work and is not the depositor" do
+      before do
+        allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(true)
+        allow(helper).to receive(:can_edit?).with(form.model).and_return(false)
+        allow(helper).to receive(:depositor?).with(form.depositor).and_return(false)
+      end
+
+      it "includes relationships" do
+        expect(helper.form_tabs_for(form: form)).to include("relationships")
+      end
+    end
+
+    context "when the user can edit the work but is not the depositor" do
+      before do
+        allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(true)
+        allow(helper).to receive(:can_edit?).with(form.model).and_return(true)
+        allow(helper).to receive(:depositor?).with(form.depositor).and_return(false)
+      end
+
+      it "includes relationships" do
+        expect(helper.form_tabs_for(form: form)).to include("relationships")
+      end
+    end
   end
 
   describe "#available_admin_sets" do
