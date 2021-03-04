@@ -4,7 +4,7 @@ module HykuAddons
   module SimplifiedAdminSetSelectionWorkFormHelper
     def form_tabs_for(form:)
       if Flipflop.enabled?(:simplified_admin_set_selection) && can_edit?(form.model) && depositor?(form.depositor)
-        return super - ["relationships"]
+        super - ["relationships"]
       else
         super
       end

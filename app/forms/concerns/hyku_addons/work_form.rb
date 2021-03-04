@@ -121,9 +121,7 @@ module HykuAddons
     end
 
     def initialize(model, current_ability, controller)
-      if Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig('admin_set_id').present?
-        model.admin_set_id = controller.params['admin_set_id']
-      end
+      model.admin_set_id = controller.params['admin_set_id'] if Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig('admin_set_id').present?
 
       super(model, current_ability, controller)
     end

@@ -34,8 +34,8 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
     context "when the feature is enabled" do
       before do
         allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(true)
-        expect(helper).to receive(:can_edit?).with(form.model).and_return(true)
-        expect(helper).to receive(:depositor?).with(form.depositor).and_return(true)
+        allow(helper).to receive(:can_edit?).with(form.model).and_return(true)
+        allow(helper).to receive(:depositor?).with(form.depositor).and_return(true)
       end
 
       it "includes relationships" do
@@ -50,27 +50,10 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
     end
   end
 
-  describe "#can_edit?" do
-    before do
-      # We need to signin the user so that `current_user` is accessible to us
-      sign_in(user)
-    end
-
-    it "calls current_ability" do
-      expect(helper.current_ability).to receive(:can?).with(:edit, form.model)
-      helper.can_edit?(form.model)
-    end
-  end
-
   describe "#depositor?" do
     context "when the depositor is signed in" do
       before do
         sign_in(user)
-      end
-
-      it "calls user_key on current_user" do
-        expect(helper.current_user).to receive(:user_key)
-        helper.depositor?(form.depositor)
       end
 
       it "is true" do
