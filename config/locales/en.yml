@@ -167,7 +167,6 @@ en:
       monthly_email_list: List of email addresses to email the monthly report. Leave a single space between each email
       yearly_email_list: List of email addresses to email the yearly report. Leave a single space between each email
       email_format: Set a list of email format for emails that may sign up to your repository e.g (@ubiquitypress.com @gmail.com). Leave a single space between each domain
-      redirect_on: Redirect to the front end after a work is created
       allow_signup: Allow users to sign up to your repository
       enable_oai_metadata: Enable or disable OAI link
       shared_login: Enable or disable shared login

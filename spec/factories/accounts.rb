@@ -19,8 +19,7 @@ FactoryBot.modify do
         google_scholarly_work_types: ['Article', 'Book', 'ThesisOrDissertation', 'BookChapter'],
         gtm_id: "GTM-123456", shared_login: "true",
         email_format: ["@pacificu.edu", "@ubiquitypress.com", "@test.com"],
-        allow_signup: "true",
-        redirect_on: "true"
+        allow_signup: "true"
       }
     end
     data do
