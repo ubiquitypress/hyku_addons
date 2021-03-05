@@ -14,7 +14,7 @@ json.buy_book work.try(:buy_book)
 json.challenged work.try(:challenged)
 json.cname @account.cname
 #                                         "collections" => nil,
-creator = work.creator.try(:first)
+creator = work.creator_json.try(:first)
 json.creator creator.present? ? JSON.parse(creator) : []
 
 contributor = work.contributor.try(:first)
