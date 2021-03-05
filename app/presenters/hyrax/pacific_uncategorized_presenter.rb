@@ -9,7 +9,7 @@ module Hyrax
     include Hyrax::DOI::DataCiteDOIPresenterBehavior
     include ::HykuAddons::GenericWorkPresenterBehavior
 
-    DELEGATED_METHODS = %i[title alt_title resource_type creator contributor abstract
+    DELEGATED_METHODS = %i[title alt_title resource_type creator creator_json contributor abstract
                            date_published duration version pagination is_included_in volume issue journal_title publisher isbn issn additional_links rights_holder license
                            doi degree org_unit subject keyword refereed irb_status irb_number add_info].freeze
   end

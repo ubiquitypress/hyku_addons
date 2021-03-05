@@ -5,7 +5,7 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     def creator_list
-      @creator_list ||= person_or_organization_list(:creator)
+      @creator_list ||= person_or_organization_list(:creator_json)
     end
 
     def contributor_list

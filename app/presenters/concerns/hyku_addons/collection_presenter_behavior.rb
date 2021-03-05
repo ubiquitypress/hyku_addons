@@ -6,6 +6,6 @@ module HykuAddons
 
     include HykuAddons::PersonOrOrganizationPresenterBehavior
 
-    delegate :contributor_display, :creator, to: :solr_document
+    delegate :contributor_display, :creator, :creator_json, to: :solr_document
   end
 end

@@ -66,7 +66,7 @@ module Bolognese
       protected
 
         def read_creator
-          return unless (value = @meta.fetch('creator', @meta.dig('creator'))).present?
+          return unless (value = @meta.fetch('creator', @meta.dig('creator_json'))).present?
 
           get_authors(value)
         end
