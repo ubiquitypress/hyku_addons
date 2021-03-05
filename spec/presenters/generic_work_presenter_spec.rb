@@ -22,7 +22,7 @@ RSpec.describe Hyrax::GenericWorkPresenter do
       :current_he_institution, :qualification_name, :qualification_level, :duration, :editor,
       :institution, :org_unit, :refereed, :funder, :fndr_project_ref, :add_info, :date_published,
       :date_accepted, :date_submitted, :project_name, :rights_holder, :place_of_publication,
-      :abstract, :alternate_identifier, :related_identifier, :creator_display,
+      :abstract, :alternate_identifier, :related_identifier, :creator, :creator_json,
       :library_of_congress_classification, :alt_title, :dewey,
       :title, :date_created, :description
     ]
