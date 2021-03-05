@@ -16,7 +16,7 @@ RSpec.describe SolrDocument do
       :date_accepted, :date_submitted, :project_name, :rights_holder, :place_of_publication,
       :abstract, :alternate_identifier, :related_identifier, :creator, :contributor,
       :library_of_congress_classification, :alt_title, :dewey,
-      :creator_display, :contributor_display, :editor_display
+      :creator_json, :contributor_display, :editor_display
     ]
   end
 

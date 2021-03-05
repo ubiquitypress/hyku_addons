@@ -74,7 +74,8 @@ module HykuAddons
       attribute :related_exhibition_venue, SolrDocument::Solr::Array, solr_name('related_exhibition_venue')
       attribute :related_exhibition_date, SolrDocument::Solr::Array, solr_name('related_exhibition_date')
       attribute :editor, SolrDocument::Solr::Array, solr_name('editor')
-      attribute :creator_display, SolrDocument::Solr::Array, 'creator_display_ssim'
+      attribute :creator, SolrDocument::Solr::Array, 'creator_display_ssim'
+      attribute :creator_json, SolrDocument::Solr::Array, 'creator_ssim'
       attribute :contributor_display, SolrDocument::Solr::Array, 'contributor_display_ssim'
       attribute :editor_display, SolrDocument::Solr::Array, 'editor_display_ssim'
       attribute :dewey, SolrDocument::Solr::Array, solr_name('dewey')
