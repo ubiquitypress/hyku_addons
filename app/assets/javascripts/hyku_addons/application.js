@@ -12,6 +12,8 @@
 //
 //= require_tree .
 
+const SelectWorkType = require("hyku_addons/select_work_type")
+
 $(document).ready(function(){
   // Register listeners before events, so that onload events are consumed
   // Listeners
@@ -30,7 +32,7 @@ $(document).ready(function(){
 
   // Currently this is the only way I can get the code being executed within the scope of the HykuAddons plugin.
   $("[data-behavior=select-work]").each(function () {
-    new SelectWorkType($(this));
+    new SelectWorkType($(this))
   });
 });
 
