@@ -1,0 +1,8 @@
+<% if (admin_set_id = params.dig("admin_set_id")) %>
+	<% model = f.object.model.class.to_s.underscore %>
+	<% title = AdminSet.find(admin_set_id).title.first %>
+	<% collection_id = Collection.where(title: title).first.id %>
+	<input type="hidden" name="<%= "#{model}[member_of_collections_attributes][0][id]" %>" value="<%= collection_id %>">
+<% else %>
+	<!-- AdminSet ID not found -->
+<% end %>
