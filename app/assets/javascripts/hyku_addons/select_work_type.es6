@@ -4,10 +4,13 @@ export default class SelectWorkType {
 	 * @param {jQuery} element the table element that this class represents
 	 */
 	constructor(element) {
+		// NOTE: this is temporary
+		console.log('mine', element)
+
 		this.$element = element;
 		this.target = element.data('target')
 		this.modal = $(this.target)
-		this.form = this.modal.find('form.new-work-select')
+		this.form = this.modal.find('form.hyku_addons-new-work-select')
 
 		// launch the modal.
 		element.on('click', (e) => {
