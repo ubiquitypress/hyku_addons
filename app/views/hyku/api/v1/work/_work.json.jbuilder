@@ -79,8 +79,17 @@ json.rights_statement work.rights_statement
 json.source work.source
 json.subject work.subject
 # json.thumbnail_base64_string nil
-# json.thumbnail_url work.thumbnail_path
-json.thumbnail_url nil
+if work.representative_presenter&.solr_document&.public?
+  components = {
+    scheme: Rails.application.routes.default_url_options.fetch(:protocol, 'http'),
+    host: @account.cname,
+    path: work.solr_document.thumbnail_path.split('?')[0],
+    query: work.solr_document.thumbnail_path.split('?')[1]
+  }
+  json.thumbnail_url URI::Generic.build(components).to_s
+else
+  json.thumbnail_url nil
+end
 json.title work.title.first
 json.type "work"
 json.version work.try(:version)
