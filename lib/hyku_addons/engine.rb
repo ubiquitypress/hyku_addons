@@ -186,10 +186,29 @@ module HykuAddons
     end
 
     initializer 'hyku_addons.bulkrax_overrides' do
-      Bulkrax.system_identifier_field = 'id'
-      # Replace bulkrax csv parser with hyku_addons version
-      csv_parser_config = Bulkrax.parsers.find { |p| p[:class_name] = "HykuAddons::CsvParser" if p[:class_name] == "Bulkrax::CsvParser" }
-      csv_parser_config[:class_name] = "HykuAddons::CsvParser"
+      Bulkrax.setup do |config|
+        config.system_identifier_field = 'id'
+        config.reserved_properties -= ['depositor']
+        config.parsers += [{ class_name: "HykuAddons::CsvParser", name: "Ubiquity Repositiories Hyku 1 CSV", partial: "csv_fields" }]
+        config.field_mappings["HykuAddons::CsvParser"] = {
+                                                           "institution" => { split: true },
+                                                           "org_unit" => { split: true },
+                                                            "fndr_project_ref" => { split: true },
+                                                            "project_name" => { split: true },
+                                                            "rights_holder" => { split: true },
+                                                            "library_of_congress_classification" => { split: true },
+                                                            "alt_title" => { split: true },
+                                                            "volume" => { split: true },
+                                                            "duration" => { split: true },
+                                                            "version" => { split: true },
+                                                            "publisher" => { split: true },
+                                                            "keyword" => { split: true },
+                                                            "license" => { split: true },
+                                                            "subject" => { split: true, parse: true },
+                                                            "language" => { split: true, parse: true },
+                                                            "resource_type" => { split: true, parse: true }
+                                                          }
+      end
 
       Bulkrax::ObjectFactory.class_eval do
         def run

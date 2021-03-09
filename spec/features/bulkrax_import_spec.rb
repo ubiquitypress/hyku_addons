@@ -8,19 +8,19 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
   let(:importer) do
     create(:bulkrax_importer_csv,
            user: user,
-           field_mapping: field_mapping,
+           field_mapping: Bulkrax.field_mapping["HykuAddons::CsvParser"],
            parser_klass: "HykuAddons::CsvParser",
            parser_fields: { 'import_file_path' => import_batch_file },
            limit: 0)
   end
   let(:import_batch_file) { 'spec/fixtures/csv/pacific_articles.metadata.csv' }
-  let(:field_mapping) do
-    {
-      "date_published" => { "from" => ["date_published"], "split" => true, "parsed" => true, "if" => nil, "excluded" => false },
-      # Is this admin set mapping really necessary?
-      # "" => { "from" => ["admin_set"], "split" => false, "parsed" => false, "if" => nil, "excluded" => true }
-    }
-  end
+  # let(:field_mapping) do
+  #   {
+  #     "date_published" => { "from" => ["date_published"], "split" => true, "parsed" => true, "if" => nil, "excluded" => false },
+  #     # Is this admin set mapping really necessary?
+  #     # "" => { "from" => ["admin_set"], "split" => false, "parsed" => false, "if" => nil, "excluded" => true }
+  #   }
+  # end
 
   before do
     account
@@ -45,6 +45,8 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       expect(work.date_published).to eq "2010-1-1"
       expect(JSON.parse(work.creator.first)).to be_present
       expect(work.resource_type).to eq ["Research Article"]
+      expect(work.publisher).to eq [1,2]
+      expect(work.depositor).to eq 'abc'
     end
 
     context 'with files' do
