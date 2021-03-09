@@ -63,11 +63,13 @@ Customizations and overrides included in this engine should be put behind a `Fli
 
 ### Overriding Hyku/Hyrax
 
-There are many approaches to overriding and which to use will depend on the context.  For views that need to be overridden copy the file into this engine at the same path as the original.  For classes it may be possible to create a new module containing the overrides and then prepend it into the original class in an initializer.  
+There are many approaches to overriding and which to use will depend on the context.  For views that need to be overridden copy the file into this engine at the same path as the original.  For classes it may be possible to create a new module containing the overrides and then prepend it into the original class in an initializer.
 
 When behavior that is tested in Hyku changes, copy the relevant test files from the internal test hyku into the engine at the same path as the original.  This will cause rspec to skip the original tests in favor of the engine's copy of them.
 
 ## Development
+
+The rails server will be running at http://lvh.me:3000 and tenants will be subdomains like http://tenant1.lvh.me:3000.
 
 Check out the code then initialize the internal test hyku application:
 ```
@@ -89,11 +91,73 @@ Attaching to the hyku container to run commands can be done by running:
 ```
 docker-compose exec web /bin/bash
 ```
-Then granting superadmin powers to a new user:
+
+### Setting up an account and super admin
+
+There are a few options and steps here, so we will outline the easiest possible path to get you up and running.
+
+#### Create a Super Admin
+
+Enter bash inside container
+
+```sh
+docker-compose exec web /bin/bash
 ```
-bundle exec rake app:hyku:superadmin:grant[username]
+
+Using the following command you will be asked to enter an email address and password
+
+```sh
+bundle exec rails app:hyku_addons:superadmin:create
 ```
-The rails server will be running at http://lvh.me:3000 and tenants will be subdomains like http://tenant1.lvh.me:3000.
+
+#### Create an account
+
+##### Via app interface
+
+Goto the accounts screen http://lvh.me:3000/proprietor/accounts?locale=en
+
+##### Via console
+
+Hyku has option to create an account via the command line. You will first need a valid UUID. Goto the console:
+
+```sh
+docker-compose exec web bundle exec rails console
+```
+
+Copy the string returned from secure random for use as the account UUID
+
+```ruby
+# Copy this to your clipboard
+SecureRandom.uuid
+```
+
+The account create command requires 4 arguments:
+
++ Account name - lower case and hyphen seperated
++ UUID - copied from above
++ CNAME - full domain of the account tenant without the rails testing port (3000), i.e. test.lvh.me
++ Admin Email - The email address of the user you created above
+
+```sh
+# Example
+docker-compose exec web bundle exec rails "app:hyku:account:create[test, aa070467-09d7-4b13-bb5a-7192f900e6c3, test.lvh.me, your-email@address.com]"
+```
+
+### Activate user
+
+Your user will need to be activated as invitations are not sent from local development environments. Enter the rails console:
+
+```sh
+docker-compose exec web bundle exec rails console
+```
+
+```ruby
+# Set the account to the one you have just created. For example:
+AccountElevator.switch!(Account.first.cname)
+
+# NOTE: The password is being set again as it doesn't seem to be correct when trying to login
+User.first.update(invitation_token: nil, invitation_accepted_at: DateTime.current, password: 'test1234')
+```
 
 ### Testing
 
