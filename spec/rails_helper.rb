@@ -35,6 +35,7 @@ if ENV['CI']
     Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
   end
 
+  Capybara.default_max_wait_time = 8 # Try to reduce flakey test failures due to JS changing displayed content (e.g. modal, changing tabs)
   Capybara.default_driver = :rack_test # This is a faster driver
   Capybara.javascript_driver = :selenium_chrome_headless_sandboxless # This is slower
   Capybara.default_max_wait_time = 10 # We may have a slow application, let's give it some time.
