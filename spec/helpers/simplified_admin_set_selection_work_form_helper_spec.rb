@@ -24,7 +24,7 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
     context "when the feature is enabled" do
       before do
         allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(true)
-        allow(helper).to receive(:can_edit?).with(form.model).and_return(true)
+        allow(helper).to receive(:permission?).with(form.model).and_return(true)
         allow(helper).to receive(:depositor?).with(form.depositor).and_return(true)
       end
 
@@ -36,11 +36,12 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
     context "when the user can edit the work but is not the depositor" do
       before do
         allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(true)
-        allow(helper).to receive(:can_edit?).with(form.model).and_return(true)
+        allow(helper).to receive(:permission?).with(form.model).and_return(true)
         allow(helper).to receive(:depositor?).with(form.depositor).and_return(false)
       end
 
       it "includes relationships" do
+        byebug
         expect(helper.form_tabs_for(form: form)).to include("relationships")
       end
     end
