@@ -23,7 +23,7 @@ module HykuAddons
       # See `I18n.fallbacks` for the registered fallback locales
       # @override
       def set_locale
-        I18nMultitenant.set(locale: requested_locale, tenant: current_account.name)
+        I18nMultitenant.set(locale: requested_locale, tenant: current_account&.name)
       end
 
       def requested_locale
