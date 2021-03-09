@@ -41,7 +41,6 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
       end
 
       it "includes relationships" do
-        byebug
         expect(helper.form_tabs_for(form: form)).to include("relationships")
       end
     end
