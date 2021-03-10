@@ -4,5 +4,5 @@ it:
       pacific_media:     'fa fa-file-text-o'
     select_type:
       pacific_media:
-        description:        "Pacific media opere"
-        name:               "Pacific Media"
+        description:        "Media opere"
+        name:               "Media"

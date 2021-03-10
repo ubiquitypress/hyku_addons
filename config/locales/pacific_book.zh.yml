@@ -5,6 +5,6 @@ zh:
     select_type:
       pacific_book:
         # TODO: translate `human_name` into Chinese
-        description:        "Pacific book 作品"
-        name:               "Pacific Book"
+        description:        "Book 作品"
+        name:               "Book"
         # TODO: translate `human_name` into Chinese

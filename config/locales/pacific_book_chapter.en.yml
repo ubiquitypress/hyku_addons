@@ -4,5 +4,5 @@ en:
       pacific_book_chapter:     'fa fa-file-text-o'
     select_type:
       pacific_book_chapter:
-        description:        "Pacific book chapter works"
-        name:               "Pacific Book Chapter"
+        description:        "Book chapter work"
+        name:               "Book Chapter"

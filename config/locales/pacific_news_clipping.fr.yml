@@ -4,5 +4,5 @@ fr:
       pacific_news_clipping:     'fa fa-file-text-o'
     select_type:
       pacific_news_clipping:
-        description:        "Pacific news clipping œuvres"
-        name:               "Pacific News Clipping"
+        description:        "News clipping œuvres"
+        name:               "News Clipping"

@@ -4,5 +4,5 @@ en:
       pacific_text_work:     'fa fa-file-text-o'
     select_type:
       pacific_text_work:
-        description:        "Pacific text work works"
-        name:               "Pacific Text Work"
+        description:        "Text work work"
+        name:               "Text Work"

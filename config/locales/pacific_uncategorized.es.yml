@@ -5,6 +5,6 @@ es:
     select_type:
       pacific_uncategorized:
         # TODO: translate `human_name` into Spanish
-        description:        "Pacific uncategorized trabajos"
-        name:               "Pacific Uncategorized"
+        description:        "Uncategorized trabajos"
+        name:               "Uncategorized"
         # TODO: translate `human_name` into Spanish

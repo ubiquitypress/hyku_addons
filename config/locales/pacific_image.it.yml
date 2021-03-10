@@ -4,5 +4,5 @@ it:
       pacific_image:     'fa fa-file-text-o'
     select_type:
       pacific_image:
-        description:        "Pacific image opere"
-        name:               "Pacific Image"
+        description:        "Image opere"
+        name:               "Image"

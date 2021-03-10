@@ -5,6 +5,6 @@ zh:
     select_type:
       pacific_thesis_or_dissertation:
         # TODO: translate `human_name` into Chinese
-        description:        "Pacific thesis or dissertation 作品"
-        name:               "Pacific Thesis Or Dissertation"
+        description:        "Thesis or dissertation 作品"
+        name:               "Thesis Or Dissertation"
         # TODO: translate `human_name` into Chinese
