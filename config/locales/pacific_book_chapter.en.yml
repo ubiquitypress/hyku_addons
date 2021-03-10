@@ -4,5 +4,5 @@ en:
       pacific_book_chapter:     'fa fa-file-text-o'
     select_type:
       pacific_book_chapter:
-        description:        "Book chapter work"
-        name:               "A separately-authored chapter or section in a book."
+        description:        "A separately-authored chapter or section in a book."
+        name:               "Book Chapter"

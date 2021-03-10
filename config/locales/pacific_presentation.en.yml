@@ -4,5 +4,5 @@ en:
       pacific_presentation:     'fa fa-file-text-o'
     select_type:
       pacific_presentation:
-        description:        "Presentation work"
-        name:               "A poster, slides, or other tools used in a speech or talk."
+        description:        "A poster, slides, or other tools used in a speech or talk."
+        name:               "Presentation"
