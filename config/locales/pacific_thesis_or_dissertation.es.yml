@@ -5,6 +5,6 @@ es:
     select_type:
       pacific_thesis_or_dissertation:
         # TODO: translate `human_name` into Spanish
-        description:        "Pacific thesis or dissertation trabajos"
-        name:               "Pacific Thesis Or Dissertation"
+        description:        "Thesis or dissertation trabajos"
+        name:               "Thesis Or Dissertation"
         # TODO: translate `human_name` into Spanish

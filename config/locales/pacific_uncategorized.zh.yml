@@ -5,6 +5,6 @@ zh:
     select_type:
       pacific_uncategorized:
         # TODO: translate `human_name` into Chinese
-        description:        "Pacific uncategorized 作品"
-        name:               "Pacific Uncategorized"
+        description:        "Uncategorized 作品"
+        name:               "Uncategorized"
         # TODO: translate `human_name` into Chinese

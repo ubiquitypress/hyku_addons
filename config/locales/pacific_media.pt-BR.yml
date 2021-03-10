@@ -4,5 +4,5 @@ pt-BR:
       pacific_media:     'fa fa-file-text-o'
     select_type:
       pacific_media:
-        description:        "Pacific media trabalhos"
-        name:               "Pacific Media"
+        description:        "Media trabalhos"
+        name:               "Media"
