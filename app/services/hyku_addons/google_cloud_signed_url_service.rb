@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "google/cloud/storage"
 
 # s = HykuAddons::GoogleCloudSignedUrlService.new(bucket_name: ENV["FEDORA_BUCKET], filename: nil)
@@ -19,16 +20,16 @@ module HykuAddons
 
     protected
 
-    def options
-      {
-        method: "GET",
-        expires: EXPIRES_IN,
-        version: :v4
-      }
-    end
+      def options
+        {
+          method: "GET",
+          expires: EXPIRES_IN,
+          version: :v4
+        }
+      end
 
-    def storage
-      @storage ||= Google::Cloud::Storage.new
-    end
+      def storage
+        @storage ||= Google::Cloud::Storage.new
+      end
   end
 end
