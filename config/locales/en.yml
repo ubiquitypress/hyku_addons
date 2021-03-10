@@ -175,3 +175,8 @@ en:
       shared_login: Enable or disable shared login
       file_size_limit: This should be set to 536870912000
       oai_admin_email: OAI endpoint contact email address
+
+  hyrax:
+    collections:
+      show:
+        item_count: Items
