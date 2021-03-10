@@ -1,25 +1,19 @@
 export default class SelectWorkType {
 	/**
-	 * Initializes the class in the context of an individual table element
-	 * @param {jQuery} element the table element that this class represents
+	 * Initializes the class in the context of an individual table button
+	 * @param {jQuery} button the table button that this class represents
 	 */
-	constructor(element) {
-		// NOTE: this is temporary
-		console.log('mine', element)
-
-		this.$element = element;
-		this.target = element.data('target')
+	constructor(button) {
+		this.target = button.data('target')
 		this.modal = $(this.target)
 		this.form = this.modal.find('form.hyku_addons-new-work-select')
+		this.type = "single" // Set a default
 
-		// launch the modal.
-		element.on('click', (e) => {
+		button.on('click', (e) => {
 			e.preventDefault()
+
 			this.modal.modal()
-			// ensure the type is set for the last clicked element
-			// type is either "batch" or "single" (work)
-			this.type = element.data('create-type')
-			// add custom routing logic when the modal is shown
+			this.type = button.data('create-type')
 			this.form.on('submit', this.routingLogic.bind(this))
 		});
 
@@ -34,21 +28,22 @@ export default class SelectWorkType {
 		e.preventDefault()
 
 		if (this.destination() === undefined) {
-			console.log('destination nil')
 			return false
 		}
 
-		// get the destination from the data attribute of the selected radio button
 		window.location.href = this.destination()
 	}
 
 	// Each input has two attributes that contain paths, one for the batch and one
-	// for a single work.  So, given the value of 'this.type', return the appropriate
-	// path.
+	// for a single work. So, given the value of 'this.type', return the appropriate path.
 	destination() {
 		let admin_set_id = this.form.find('select').val()
 		let url = this.form.find('input[type="radio"]:checked').data(this.type)
 
-		return url + "&admin_set_id=" + admin_set_id
+		if (admin_set_id !== undefined) {
+			url += "&admin_set_id=" + admin_set_id
+		}
+
+		return url
 	}
 }
