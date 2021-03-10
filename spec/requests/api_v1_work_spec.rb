@@ -57,7 +57,11 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                          #  "event_date" => nil,
                                          #  "event_location" => nil,
                                          #  "event_title" => nil,
-                                         #  "files" => nil,
+                                         "files" => {
+                                           "has_private_files" => false,
+                                           "has_registered_files" => false,
+                                           "has_public_files" => false
+                                         },
                                          #  "funder" => nil,
                                          #  "funder_project_reference" => nil,
                                          #  "institution" => nil,
