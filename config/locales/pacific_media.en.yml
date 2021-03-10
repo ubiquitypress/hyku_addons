@@ -5,4 +5,4 @@ en:
     select_type:
       pacific_media:
         description:        "Media works"
-        name:               "Media"
+        name:               "A multimedia output such as a video or audio recording."

@@ -5,4 +5,4 @@ en:
     select_type:
       pacific_text_work:
         description:        "Text work work"
-        name:               "Text Work"
+        name:               "A written work"

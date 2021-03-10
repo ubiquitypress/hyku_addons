@@ -5,4 +5,4 @@ en:
     select_type:
       pacific_thesis_or_dissertation:
         description:        "Thesis or dissertation work"
-        name:               "Thesis Or Dissertation"
+        name:               "A research document submitted to support candidature for a degree."

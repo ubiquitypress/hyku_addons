@@ -40,7 +40,7 @@ RSpec.shared_context 'create pacific work user context' do
 
   def visit_new_work_page
     visit "concern/#{work_type.to_s.pluralize}/new"
-    expect(page).to have_content "Add New #{human_work_type_name}"
+    expect(page).to have_content "Add New Pacific #{human_work_type_name}"
   end
 
   def add_files_to_work

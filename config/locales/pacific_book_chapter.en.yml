@@ -5,4 +5,4 @@ en:
     select_type:
       pacific_book_chapter:
         description:        "Book chapter work"
-        name:               "Book Chapter"
+        name:               "A separately-authored chapter or section in a book."
