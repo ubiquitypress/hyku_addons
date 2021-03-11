@@ -206,7 +206,7 @@ module HykuAddons
           "license" => { split: true },
           "subject" => { split: true, parsed: true },
           "language" => { split: true, parsed: true },
-          "resource_type" => { split: true, parsed: true },
+          "resource_type" => { split: true, parsed: false },
           "date_published" => { split: true, parsed: true }
         }
       end

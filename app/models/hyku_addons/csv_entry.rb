@@ -79,11 +79,14 @@ module HykuAddons
     end
 
     def add_resource_type
-      parsed_metadata['resource_type'] = begin
-                                           HykuAddons::ResourceTypesService.new(model: parsed_metadata['model']).label(src.to_s.strip.titleize)
-                                         rescue
-                                           nil
-                                         end
+      resource_type_service = HykuAddons::ResourceTypesService.new(model: parsed_metadata['model'].safe_constantize)
+      parsed_metadata['resource_type'] = parsed_metadata['resource_type'].map do |resource_type|
+        begin
+          resource_type_service.label(resource_type.strip.titleize)
+        rescue
+          nil
+        end
+      end.compact
     end
 
     # Override to allow `id` as system identifier field
