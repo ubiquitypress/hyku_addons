@@ -2,7 +2,6 @@
 
 module HykuAddons
   class CreatorPresenter
-
     def display_creator(creator)
       @value_array = []
       parsed_json = JSON.parse(creator.first)

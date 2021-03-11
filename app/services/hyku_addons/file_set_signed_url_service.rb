@@ -30,7 +30,7 @@ module HykuAddons
       end
 
       def grouped_digest
-        digest.split('').in_groups_of(2).first(3).map { |g| g.join }.join("/")
+        digest.split('').in_groups_of(2).first(3).map(&:join).join("/")
       end
 
       def digest
