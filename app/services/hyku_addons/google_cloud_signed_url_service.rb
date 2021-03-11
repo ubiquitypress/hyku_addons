@@ -39,7 +39,7 @@ module HykuAddons
       end
 
       def digest
-        @_digest ||= @file.digest.first.to_s.split(':').last
+        @file.digest.first.to_s.split(':').last
       end
 
       def signing_options
