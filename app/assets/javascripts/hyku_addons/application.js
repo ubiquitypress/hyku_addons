@@ -30,7 +30,7 @@ $(document).ready(function(){
 
   new PrefillWorkFormViaDOI()
 
-  $("[data-behavior=select-work]").each(function () {
+  $("[data-behavior=hyku_addons-select-work]").each(function () {
     new SelectWorkType($(this))
   });
 });
