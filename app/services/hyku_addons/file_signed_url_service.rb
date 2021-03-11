@@ -5,15 +5,18 @@ require 'google/cloud/storage'
 # Example:
 # https://demo.ubiquityrepo-ah.website/concern/file_sets/d6facdbe-da76-47ef-8544-555b8acf0523?locale=en
 #
-# HykuAddons::FileSetSignedUrlService.new(file_set_id: 'd6facdbe-da76-47ef-8544-555b8acf0523').perform
+# file = FileSet.find(file_set_id).original_file
+# HykuAddons::FileSignedUrlService.new(file: file).perform
 
 module HykuAddons
-  class FileSetSignedUrlService
+  class FileSignedUrlService
     STORAGE_PATH_PREFIX = "fcrepo.binary.directory"
 
-    def initialize(file_set_id:, bucket_name: ENV["FEDORA_BUCKET"])
+    def initialize(file:, bucket_name: ENV["FEDORA_BUCKET"])
+      raise ArgumentError, 'Hydra::PCDM::File is required' unless file.is_a?(Hydra::PCDM::File)
+
+      @file = file
       @bucket_name = bucket_name
-      @file_set = FileSet.find(file_set_id)
     end
 
     def perform
@@ -34,7 +37,7 @@ module HykuAddons
       end
 
       def digest
-        @file_set.original_file.digest.first.to_s.split(':').last
+        @file.digest.first.to_s.split(":").last
       end
 
       def signing_options
