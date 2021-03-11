@@ -4,5 +4,5 @@ de:
       pacific_uncategorized:     'fa fa-file-text-o'
     select_type:
       pacific_uncategorized:
-        description:        "Pacific uncategorized Werke"
-        name:               "Pacific Uncategorized"
+        description:        "Uncategorized Werke"
+        name:               "Uncategorized"

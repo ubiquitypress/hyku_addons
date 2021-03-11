@@ -4,5 +4,5 @@ pt-BR:
       pacific_thesis_or_dissertation:     'fa fa-file-text-o'
     select_type:
       pacific_thesis_or_dissertation:
-        description:        "Pacific thesis or dissertation trabalhos"
-        name:               "Pacific Thesis Or Dissertation"
+        description:        "Thesis or dissertation trabalhos"
+        name:               "Thesis Or Dissertation"

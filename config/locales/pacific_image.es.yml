@@ -5,6 +5,6 @@ es:
     select_type:
       pacific_image:
         # TODO: translate `human_name` into Spanish
-        description:        "Pacific image trabajos"
-        name:               "Pacific Image"
+        description:        "Image trabajos"
+        name:               "Image"
         # TODO: translate `human_name` into Spanish
