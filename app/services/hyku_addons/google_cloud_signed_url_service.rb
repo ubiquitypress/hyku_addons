@@ -2,53 +2,55 @@
 
 require 'google/cloud/storage'
 
-# work = ActiveFedora::Base.find('04e13d46-4e4c-4268-89f2-b920038dd3ae')
-# fs = work.file_sets.first
-# file = fs.original_file
-# file.digest.first.to_s
-# file.digest.first.to_s.split(':').last
-# work.id_to_uri
-
-# # this is using 4 pairs and not 3?
-# ActiveFedora::Base.id_to_uri("fa8d674ef8fcb8e48821457d21a2476b2f2a5225")
-
-## Working
+# Example:
 #
-# ENV["GOOGLE_CLOUD_PROJECT"] = 'advancinghyku'
-# bucket_name = ENV["FEDORA_BUCKET"]
-# ENV['GOOGLE_CLOUD_KEYFILE_JSON'] = ENV['GOOGLE_APPLICATION_CREDENTIALS']
-# storage = Google::Cloud::Storage.new
-# prefix = 'fcrepo.binary.directory'
-# path = [prefix, "b8/d4/fb/b8d4fbfe87d67fc88eef11b51d0a2eb690454c49"].join("/")
-# bucket = storage.bucket(bucket_name)
-# file = bucket.file(path)
-# file.signed_url(method: "GET", expires: 600)
+# work = ActiveFedora::Base.find('04e13d46-4e4c-4268-89f2-b920038dd3ae')
+# file = work.file_sets.first.original_file
+
+# HykuAddons::GoogleCloudSignedUrlService.new(file: file).perform
 
 module HykuAddons
   class GoogleCloudSignedUrlService
-    def initalize(bucket_name:, filename:)
+    EXCEPTION_MESSAGE = "Hydra::PCDM::File is required - work.file_sets.first.original_file"
+    GOOGLE_CLOUD_STORAGE_FOLDER_PREFIX = "fcrepo.binary.directory"
+
+    def initialize(bucket_name: ENV["FEDORA_BUCKET"], file:)
       @bucket_name = bucket_name
-      @filename = filename
+      @file = file
+
+      raise EXCEPTION_MESSAGE unless @file.is_a?(Hydra::PCDM::File)
     end
 
     def perform
       bucket = storage.bucket(@bucket_name)
-      file = bucket.file(@filename)
+      file = bucket.file(file_path)
 
-      file.signed_url(options)
+      file.signed_url(signing_options)
     end
 
     protected
 
-      def options
+      def file_path
+        [GOOGLE_CLOUD_STORAGE_FOLDER_PREFIX, grouped_digest].join("/")
+      end
+
+      def grouped_digest
+        [digest.split('').in_groups_of(2).first(3).map { |g| g.join }.join("/"), digest].join("/")
+      end
+
+      def digest
+        @_digest ||= @file.digest.first.to_s.split(':').last
+      end
+
+      def signing_options
         {
           method: "GET",
-          expires: ENV["DOWNLOAD_LINK_EXP_MINUTES"] * 60
+          expires: ENV["DOWNLOAD_LINK_EXP_MINUTES"].to_i * 60
         }
       end
 
       def storage
-        @storage ||= Google::Cloud::Storage.new
+        @_storage ||= Google::Cloud::Storage.new
       end
   end
 end

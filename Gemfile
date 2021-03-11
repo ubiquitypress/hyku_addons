@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'google-cloud-storage', '~> 1.30'
+gem 'google-cloud-storage', '~> 1.31'
 gem 'hyku-api', git: 'https://github.com/ubiquitypress/hyku-api', branch: 'main'
 gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi', branch: 'main'
 
