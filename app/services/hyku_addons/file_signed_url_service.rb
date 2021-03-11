@@ -5,7 +5,7 @@ require 'google/cloud/storage'
 # Example:
 # https://demo.ubiquityrepo-ah.website/concern/file_sets/d6facdbe-da76-47ef-8544-555b8acf0523?locale=en
 #
-# file = FileSet.find(file_set_id).original_file
+# file = FileSet.find("d6facdbe-da76-47ef-8544-555b8acf0523").original_file
 # HykuAddons::FileSignedUrlService.new(file: file).perform
 
 module HykuAddons
