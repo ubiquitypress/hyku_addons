@@ -186,10 +186,30 @@ module HykuAddons
     end
 
     initializer 'hyku_addons.bulkrax_overrides' do
-      Bulkrax.system_identifier_field = 'id'
-      # Replace bulkrax csv parser with hyku_addons version
-      csv_parser_config = Bulkrax.parsers.find { |p| p[:class_name] = "HykuAddons::CsvParser" if p[:class_name] == "Bulkrax::CsvParser" }
-      csv_parser_config[:class_name] = "HykuAddons::CsvParser"
+      Bulkrax.setup do |config|
+        config.system_identifier_field = 'id'
+        config.reserved_properties -= ['depositor']
+        config.parsers += [{ class_name: "HykuAddons::CsvParser", name: "Ubiquity Repositiories Hyku 1 CSV", partial: "csv_fields" }]
+        config.field_mappings["HykuAddons::CsvParser"] = {
+          "institution" => { split: true },
+          "org_unit" => { split: true },
+          "fndr_project_ref" => { split: true },
+          "project_name" => { split: true },
+          "rights_holder" => { split: true },
+          "library_of_congress_classification" => { split: true },
+          "alt_title" => { split: true },
+          "volume" => { split: true },
+          "duration" => { split: true },
+          "version" => { split: true },
+          "publisher" => { split: true },
+          "keyword" => { split: true },
+          "license" => { split: true },
+          "subject" => { split: true, parsed: true },
+          "language" => { split: true, parsed: true },
+          "resource_type" => { split: true, parsed: false },
+          "date_published" => { split: true, parsed: true }
+        }
+      end
 
       Bulkrax::ObjectFactory.class_eval do
         def run
@@ -214,7 +234,7 @@ module HykuAddons
           object.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX if object.respond_to? :reindex_extent
           run_callbacks :save do
             run_callbacks :create do
-              if klass == AdminSet
+              if klass == ::AdminSet
                 create_admin_set(attrs)
               elsif klass == ::Collection
                 create_collection(attrs)
@@ -226,7 +246,30 @@ module HykuAddons
           log_created(object)
         end
 
+        def update
+          raise "Object doesn't exist" unless object
+          destroy_existing_files if @replace_files && (klass != ::Collection || klass != ::AdminSet)
+          attrs = update_attributes
+          run_callbacks :save do
+            if klass == ::AdminSet
+              update_admin_set(attrs)
+            elsif klass == ::Collection
+              update_collection(attrs)
+            else
+              work_actor.update(environment(attrs))
+            end
+          end
+          log_updated(object)
+        end
+
         def create_admin_set(attrs)
+          attrs.delete('collection_type_gid')
+          object.members = members
+          object.attributes = attrs
+          object.save!
+        end
+
+        def update_admin_set(attrs)
           attrs.delete('collection_type_gid')
           object.members = members
           object.attributes = attrs
@@ -246,7 +289,48 @@ module HykuAddons
         def permitted_attributes
           klass.properties.keys.map(&:to_sym) + %i[id edit_users edit_groups read_groups visibility work_members_attributes admin_set_id]
         end
+
+        # Override if we need to map the attributes from the parser in
+        # a way that is compatible with how the factory needs them.
+        def transform_attributes
+          if klass == ::Collection || klass == ::AdminSet
+            attributes.slice(*permitted_attributes)
+          else
+            attributes.slice(*permitted_attributes).merge(file_attributes)
+          end
+        end
       end
+
+      # FIXME: This might only be important for debugging
+      # Bulkrax::ImportWorkJob.class_eval do
+      #   def perform(*args)
+      #     entry = Bulkrax::Entry.find(args[0])
+      #     importer_run = Bulkrax::ImporterRun.find(args[1])
+      #     begin
+      #       entry.build
+      #     rescue Bulkrax::CollectionsCreatedError => e
+      #       byebug
+      #       # Don't retry on error of collection not created because it goes into an infinite loop
+      #       # A failed record is much better
+      #       entry.status_info(e)
+      #     end
+
+      #     if entry.status == "Complete"
+      #       importer_run.increment!(:processed_records)
+      #     else
+      #       # do not retry here because whatever parse error kept you from creating a work will likely
+      #       # keep preventing you from doing so.
+      #       importer_run.increment!(:failed_records)
+      #     end
+      #     entry.save!
+      #     return if importer_run.enqueued_records.positive?
+      #     if importer_run.failed_records.positive?
+      #       importer_run.importer.status_info('Complete (with failures)')
+      #     else
+      #       importer_run.importer.status_info('Complete')
+      #     end
+      #   end
+      # end
     end
 
     initializer 'hyku_addons.hyrax_identifier_overrides' do
