@@ -46,7 +46,7 @@ GIT
 
 GIT
   remote: https://github.com/ubiquitypress/hyku-api
-  revision: 8196653cc90224d25b7d481be31a4427f7b4ef5b
+  revision: 223dfedf46145731903374ba252c0770cdb20d8a
   branch: main
   specs:
     hyku-api (0.1.0)
