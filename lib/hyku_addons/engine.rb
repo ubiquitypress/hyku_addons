@@ -331,6 +331,10 @@ module HykuAddons
       config.to_prepare { HykuAddons::Engine.dynamically_include_mixins }
     else
       config.after_initialize { HykuAddons::Engine.dynamically_include_mixins }
+      # This is needed to allow the API search to copy the blacklight configuration after our customisations are applied.
+      initializer 'hyku_addons.blacklight_config override' do
+        CatalogController.include HykuAddons::CatalogControllerBehavior
+      end
     end
   end
 end
