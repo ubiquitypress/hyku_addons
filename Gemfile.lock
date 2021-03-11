@@ -58,6 +58,7 @@ PATH
   specs:
     hyku_addons (0.1.0)
       blacklight_oai_provider (~> 6.1)
+      google-cloud-storage (~> 1.31)
       hyrax (~> 2.8)
       hyrax-doi
       maremma (< 4.8)
@@ -1165,7 +1166,6 @@ DEPENDENCIES
   fcrepo_wrapper (~> 0.4)
   flipflop (~> 2.3)
   flutie
-  google-cloud-storage (~> 1.31)
   honeybadger (~> 3.0)
   hyku-api!
   hyku_addons!
