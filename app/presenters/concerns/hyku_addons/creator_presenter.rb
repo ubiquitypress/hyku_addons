@@ -2,9 +2,9 @@
 
 module HykuAddons
   class CreatorPresenter
-    def display_creator(creator)
+    def display_creator(creators)
       @value_array = []
-      parsed_json = JSON.parse(creator.first)
+      parsed_json = JSON.parse(creators.first)
       parsed_json.each do |creator|
         if creator["creator_name_type"] == "Personal"
           creator_personal_array(creator)
