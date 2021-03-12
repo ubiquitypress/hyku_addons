@@ -7,7 +7,7 @@ module Hyrax
     include ::HykuAddons::WorkForm
 
     self.model_class = ::PacificThesisOrDissertation
-    add_terms %i[title alt_title resource_type creator contributor institution abstract date_published
+    add_terms %i[title alt_title resource_type creator contributor abstract date_published
                  pagination is_included_in publisher additional_links
                  rights_holder license degree org_unit doi subject keyword add_info]
 
