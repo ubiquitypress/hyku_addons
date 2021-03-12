@@ -389,7 +389,7 @@ module HykuAddons
       GenericWork.include HykuAddons::GenericWorkOverrides
       Image.include HykuAddons::ImageOverrides
       GenericWork.include ::Hyrax::BasicMetadata
-      WorkIndexer.include HykuAddons::WorkIndexerBehavior
+      Hyrax::WorkIndexer.include HykuAddons::WorkIndexerBehavior
       Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
       Hyrax::ImageForm.include HykuAddons::ImageFormOverrides
       Hyrax::Forms::CollectionForm.include HykuAddons::CollectionFormBehavior
