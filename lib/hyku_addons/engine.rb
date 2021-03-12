@@ -407,6 +407,7 @@ module HykuAddons
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
       Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
+      ::Hyrax::FileSetsController.include HykuAddons::FileSetsControllerBehavior
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
