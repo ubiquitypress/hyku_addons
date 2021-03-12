@@ -23,11 +23,17 @@ module HykuAddons
       # See `I18n.fallbacks` for the registered fallback locales
       # @override
       def set_locale
-        I18nMultitenant.set(locale: requested_locale, tenant: current_account&.name)
+        I18nMultitenant.set(locale: requested_locale, tenant: current_tenant_name)
       end
 
       def requested_locale
         params[:locale] || I18n.default_locale
+      end
+
+      # Use the setting if its been set or fall back to the tenants name.
+      # NOTE: The settings value can be "" or nil, so presence is used to check
+      def current_tenant_name
+        current_account&.settings&.dig("locale_name").presence || current_account&.name
       end
   end
 end
