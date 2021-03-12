@@ -82,7 +82,7 @@ module HykuAddons
                                             solr_endpoint_attributes: %i[id url],
                                             fcrepo_endpoint_attributes: %i[id url base_path],
                                             datacite_endpoint_attributes: %i[mode prefix username password],
-                                            settings: [:file_size_limit])
+                                            settings: %i[file_size_limit locale_name])
           end
       end
 
