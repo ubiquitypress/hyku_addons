@@ -6,5 +6,6 @@ HykuAddons::Engine.routes.draw do
       get :update_single
     end
   end
-  get "/concern/parent/:parent_id/file_sets/:id/download", to: "/hyrax/file_sets#download", as: "file_set_download"
+
+  get "/api/v1/tenant/:tenant_id/files/:id/download", to: "/hyku/api/v1/files#download"
 end
