@@ -1,5 +1,5 @@
 module HykuAddons
-  module FileSetsControllerBehavior
+  module FilesControllerBehavior
     extend ActiveSupport::Concern
 
     def download
