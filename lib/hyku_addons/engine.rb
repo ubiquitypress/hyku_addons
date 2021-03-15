@@ -351,6 +351,10 @@ module HykuAddons
       end
     end
 
+    initializer 'hyku_addons.session_storage_overrides' do
+      Rails.application.config.session_store :cookie_store, key: '_hyku_session', same_site: :lax
+    end
+
     # Pre-existing Work type overrides
     config.after_initialize do
       # Avoid media pluralizing to medium
