@@ -71,23 +71,26 @@ headers.reject { |h| h.start_with?(*multiple_field_names) || h == 'file' }.each 
   @fields[field] = { old_indexes: [old_index], new_index: new_index }
 end
 
-# Rename id to source_identifier
-new_headers[new_headers.index("id")] = "source_identifier"
-@fields["source_identifier"] = @fields.delete("id")
+# Rename fields
+field_mappings = {
+  'id' => 'source_identifier',
+  'collection_id' => 'collection',
+  'work_type' => 'model',
+  'additional_information' => 'add_info',
+  'alternative_title' => 'alt_title',
+  'organisational_unit' => 'org_unit'
+}
 
-# Rename collection_id to collection
-new_headers[new_headers.index("collection_id")] = "collection"
-@fields["collection"] = @fields.delete("collection_id")
-
-# Rename work_type to model
-new_headers[new_headers.index("work_type")] = "model"
-@fields["model"] = @fields.delete("work_type")
+field_mappings.each do |old_name, new_name|
+  new_headers[new_headers.index(old_name)] = new_name
+  @fields[new_name] = @fields.delete(old_name)
+end
 
 def gather_values(field, row)
   field_values = row.values_at(*@fields[field][:old_indexes])
   if field == 'resource_type'
     model_name = row.values_at(*@fields["model"][:old_indexes]).first
-    field_values.map { |v| v.delete_prefix(model_name + " ") }
+    field_values.map { |v| v.delete_prefix(model_name + " ").delete_prefix('default ') }
   elsif field == 'model'
     # FIXME: make this model mapping configurable
     field_values.map { |v| "Pacific" + v.delete_suffix("Work") }

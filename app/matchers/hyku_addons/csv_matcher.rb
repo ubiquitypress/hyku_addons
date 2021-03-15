@@ -8,14 +8,5 @@ module HykuAddons
       date_hash['date_published_day'] = date_parts[2] if date_parts[2].present?
       date_hash
     end
-
-    # Only add valid resource types
-    def parse_resource_type(src)
-      HykuAddons::ResourceTypesService.new.label(src.to_s.strip.titleize)
-    rescue KeyError
-      nil
-    end
-
-    # TODO: Repeat this for other authority fields?
   end
 end

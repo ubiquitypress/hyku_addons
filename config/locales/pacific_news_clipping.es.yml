@@ -5,6 +5,6 @@ es:
     select_type:
       pacific_news_clipping:
         # TODO: translate `human_name` into Spanish
-        description:        "Pacific news clipping trabajos"
-        name:               "Pacific News Clipping"
+        description:        "News clipping trabajos"
+        name:               "News Clipping"
         # TODO: translate `human_name` into Spanish

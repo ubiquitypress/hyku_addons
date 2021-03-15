@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 module HykuAddons
   class CsvParser < Bulkrax::CsvParser
+    # FIXME: Override to make debugging easier
+    def perform_method
+      return :perform_now if Rails.env == 'development' || Rails.env == 'test'
+      super
+    end
+
     def entry_class
       HykuAddons::CsvEntry
     end
@@ -21,7 +27,11 @@ module HykuAddons
           collection_type_gid: Hyrax::CollectionType.find_or_create_admin_set_type.gid
         }
         new_entry = find_or_create_entry(admin_set_entry_class, admin_set_name, 'Bulkrax::Importer', metadata)
-        Bulkrax::ImportWorkCollectionJob.perform_now(new_entry.id, current_run.id)
+        begin
+          Bulkrax::ImportWorkCollectionJob.perform_now(new_entry.id, current_run.id)
+        rescue StandardError => e
+          new_entry.status_info(e)
+        end
         increment_counters(index, true)
       end
 
@@ -34,7 +44,11 @@ module HykuAddons
           collection_type_gid: Hyrax::CollectionType.find_or_create_default_collection_type.gid
         }
         new_entry = find_or_create_entry(collection_entry_class, collection, 'Bulkrax::Importer', metadata)
-        Bulkrax::ImportWorkCollectionJob.perform_now(new_entry.id, current_run.id)
+        begin
+          Bulkrax::ImportWorkCollectionJob.perform_now(new_entry.id, current_run.id)
+        rescue StandardError => e
+          new_entry.status_info(e)
+        end
         increment_counters(index, true)
       end
     end

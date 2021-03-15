@@ -113,7 +113,7 @@ module HykuAddons
     included do
       def primary_terms
         if Flipflop.enabled?(:simplified_admin_set_selection)
-          super + %i[admin_set_id]
+          super + %i[admin_set_id member_of_collection_id]
         else
           super
         end
