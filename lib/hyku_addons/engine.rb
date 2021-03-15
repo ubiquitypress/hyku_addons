@@ -385,6 +385,9 @@ module HykuAddons
         config.register_curation_concern :pacific_uncategorized
 
         config.license_service_class = HykuAddons::LicenseService
+        
+        # FIXME: This setting is global and affects all tenants
+        config.work_requires_files = false
       end
     end
 
