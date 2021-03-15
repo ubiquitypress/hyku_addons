@@ -1,7 +1,7 @@
 <%= presenter.attribute_to_html(:alt_title, label: "Alternative Title", html_dl: true) %>
 <%= presenter.attribute_to_html(:resource_type, render_as: :faceted, html_dl: true) %>
 
-<%= presenter.attribute_to_html(:creator, render_as: :linked_name, values: presenter.creator_list, search_field: 'creator_display_ssim', html_dl: true) %>
+<%= presenter.attribute_to_html(:creator_json, render_as: :linked_name, values: presenter.creator_list, search_field: 'creator_display_ssim', html_dl: true) %>
 <%= presenter.attribute_to_html(:contributor, render_as: :linked_name, values: presenter.contributor_list, search_field: 'contributor_display_ssim', html_dl: true) %>
 
 <%= presenter.attribute_to_html(:abstract, html_dl: true) %>
