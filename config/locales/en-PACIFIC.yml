@@ -4,14 +4,36 @@ en-PACIFIC:
       title: Select Collection/Admin Set
   simple_form:
     creator:
+      creator_family_name:
+        label: Last Name
+      creator_given_name:
+        label: First Name
       creator_institutional_relationship:
         label: Creator Role
         placeholder:
         help_text: The role of the creator
     contributor:
+      contributor_family_name:
+        label: Last Name
+      contributor_given_name:
+        label: First Name
       contributor_type:
         label: Contributor role
         placeholder:
         help_text: The relationship of the contributor within the instittion.
+      contributor_isni:
+        label: Contributor Organisation Isni
       contributor_institutional_relationship:
         label: Contributor Role
+    labels:
+      defaults:
+        org_unit: Department
+        related_url: Source
+        keywords: Keyword
+        irb_status: IRB Status
+        irb_number: IRB Number
+    hints:
+      defaults:
+        org_unit: Enter your department, center, or group at Pacific
+        related_url: " "
+
