@@ -3,6 +3,11 @@ module HykuAddons
   module FilesControllerBehavior
     extend ActiveSupport::Concern
 
+    # /api/v1/tenant/:tenant_id/files/:file_set_id/work
+    def work
+      render plain: file_presenter.parent&.id, status: 200
+    end
+
     # /api/v1/tenant/:tenant_id/files/:file_set_id/download
     def download
       render json: {
