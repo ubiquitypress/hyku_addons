@@ -5,6 +5,6 @@ es:
     select_type:
       pacific_book:
         # TODO: translate `human_name` into Spanish
-        description:        "Pacific book trabajos"
-        name:               "Pacific Book"
+        description:        "Book trabajos"
+        name:               "Book"
         # TODO: translate `human_name` into Spanish

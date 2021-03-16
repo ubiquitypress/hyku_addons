@@ -4,5 +4,5 @@ fr:
       pacific_presentation:     'fa fa-file-text-o'
     select_type:
       pacific_presentation:
-        description:        "Pacific presentation œuvres"
-        name:               "Pacific Presentation"
+        description:        "Presentation œuvres"
+        name:               "Presentation"

@@ -4,5 +4,5 @@ pt-BR:
       pacific_book:     'fa fa-file-text-o'
     select_type:
       pacific_book:
-        description:        "Pacific book trabalhos"
-        name:               "Pacific Book"
+        description:        "Book trabalhos"
+        name:               "Book"

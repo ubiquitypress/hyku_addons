@@ -1,4 +1,7 @@
 en-PACIFIC:
+  work_type_modal:
+    admin_set:
+      title: Select Collection/Admin Set
   simple_form:
     creator:
       creator_family_name:
@@ -20,6 +23,8 @@ en-PACIFIC:
         help_text: The relationship of the contributor within the instittion.
       contributor_isni:
         label: Contributor Organisation Isni
+      contributor_institutional_relationship:
+        label: Contributor Role
     labels:
       defaults:
         org_unit: Department
@@ -31,3 +36,4 @@ en-PACIFIC:
       defaults:
         org_unit: Enter your department, center, or group at Pacific
         related_url: " "
+

@@ -7,7 +7,7 @@ module HykuAddons
     include ActiveModel::Validations
 
     ARRAY_SETTINGS = ['weekly_email_list', 'monthly_email_list', 'yearly_email_list', 'email_format'].freeze
-    BOOLEAN_SETTINGS = ['redirect_on', 'allow_signup', "shared_login"].freeze
+    BOOLEAN_SETTINGS = ['allow_signup', "shared_login"].freeze
     HASH_SETTINGS = [].freeze
     TEXT_SETTINGS = ['contact_email', 'gtm_id', 'oai_admin_email', 'oai_prefix', 'oai_sample_identifier'].freeze
 
@@ -19,8 +19,8 @@ module HykuAddons
       store_accessor :data, :is_parent
       store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
                      :google_scholarly_work_types, :gtm_id, :shared_login, :email_format,
-                     :allow_signup, :redirect_on, :oai_admin_email,
-                     :file_size_limit, :enable_oai_metadata, :oai_prefix, :oai_sample_identifier
+                     :allow_signup, :oai_admin_email, :file_size_limit, :enable_oai_metadata, :oai_prefix,
+                     :oai_sample_identifier, :locale_name
 
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
       after_initialize :set_jsonb_allow_signup_default

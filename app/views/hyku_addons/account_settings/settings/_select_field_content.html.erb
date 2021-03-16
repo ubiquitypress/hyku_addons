@@ -1,0 +1,11 @@
+<% options ||= params[:options] %>
+
+<div class="form-group">
+	<%= f.fields_for :settings do |ff| %>
+		<%= ff.label field_name %><br>
+    <%= ff.select field_name, options_for_select(options, @account.settings[field_name]), { include_blank: false }, { class: 'form-control', multiple: true } %>
+    <%= t("settings.helptexts.#{field_name}") %><br>
+	<% end %>
+</div>
+
+<%= render "hyku_addons/account_settings/settings/submit_buttons", f: f if display_save_button %>

@@ -5,10 +5,6 @@ module HykuAddons
 
     include HykuAddons::PersonOrOrganizationFormBehavior
 
-    def editor_list
-      person_or_organization_list(:editor)
-    end
-
     class_methods do
       # Group all params here so save on boiler plate
       def build_permitted_params
@@ -112,6 +108,26 @@ module HykuAddons
                                     :related_exhibition_date_day]
         ]
       end
+    end
+
+    included do
+      def primary_terms
+        if Flipflop.enabled?(:simplified_admin_set_selection)
+          super + %i[admin_set_id member_of_collection_id]
+        else
+          super
+        end
+      end
+    end
+
+    def initialize(model, current_ability, controller)
+      model.admin_set_id = controller.params['admin_set_id'] if Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig('admin_set_id').present?
+
+      super(model, current_ability, controller)
+    end
+
+    def editor_list
+      person_or_organization_list(:editor)
     end
   end
 end

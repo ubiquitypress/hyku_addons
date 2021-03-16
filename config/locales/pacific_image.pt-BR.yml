@@ -4,5 +4,5 @@ pt-BR:
       pacific_image:     'fa fa-file-text-o'
     select_type:
       pacific_image:
-        description:        "Pacific image trabalhos"
-        name:               "Pacific Image"
+        description:        "Image trabalhos"
+        name:               "Image"

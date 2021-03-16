@@ -1,12 +1,12 @@
-<div class="form-group <%= "#{field_slug}-group" %>">
+<div class="form-group <%= "#{field_slug}-group #{template}_#{field_slug}" %>">
 	<% options = { class: "control-label multi_value optional" } %>
 	<%= label_tag "#{template}_#{field_slug}", t("simple_form.#{field_group}.#{field_slug}.label"), options %>
 
 	<% defaults = {
-		class: "#{template}_#{field_group} form-control multi-text-field multi_value",
+    class: "#{template}_#{field_group} #{template}_#{field_slug} form-control multi-text-field multi_value",
 		placeholder: t("simple_form.#{field_group}.#{field_slug}.placeholder"),
 		name: "#{template}[#{field_group}][][#{field_slug}]",
-		data: { field_name: "ubiquity_#{field_slug}" },
+		data: { field_name: "ubiquity_#{field_slug}", template: template, field_group: field_group },
 		required: local_assigns[:required]
 	}.merge(local_assigns[:field_args] || {}) %>
 	<%= text_field_tag "#{template}[#{field_group}][][#{field_slug}]", hash.dig(field_slug.to_s), defaults %>

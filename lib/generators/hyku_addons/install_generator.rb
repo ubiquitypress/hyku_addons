@@ -40,6 +40,12 @@ module HykuAddons
       end
     end
 
+    def inject_stylesheet
+      insert_into_file(Rails.root.join('app', 'assets', 'stylesheets', 'application.css'), after: /require hyrax$/) do
+        "\n *= require hyku_addons/application"
+      end
+    end
+
     def inject_into_helper
       insert_into_file(Rails.root.join('app', 'helpers', 'hyrax_helper.rb'), after: 'include Hyrax::HyraxHelperBehavior') do
         "\n" \

@@ -12,6 +12,8 @@
 //
 //= require_tree .
 
+const SelectWorkType = require("hyku_addons/select_work_type")
+
 $(document).ready(function(){
   // Register listeners before events, so that onload events are consumed
   // Listeners
@@ -25,4 +27,11 @@ $(document).ready(function(){
 
   // Register our Events
   new Eventable()
+
+  new PrefillWorkFormViaDOI()
+
+  $("[data-behavior=hyku_addons-select-work]").each(function () {
+    new SelectWorkType($(this))
+  });
 });
+

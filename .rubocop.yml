@@ -49,8 +49,10 @@ Metrics/MethodLength:
     - 'app/forms/concerns/hyku_addons/generic_work_form_overrides.rb'
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/models/hyku_addons/csv_entry.rb'
+    - 'app/parsers/hyku_addons/csv_parser.rb'
     - 'app/services/bolognese/readers/base_work_reader.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
+    - 'bin/transform_export_batch.rb'
     - 'lib/hyku_addons/engine.rb'
     - 'lib/tasks/account.rake'
     - 'spec/**/*.rb'
@@ -113,3 +115,7 @@ Rails/OutputSafety:
 Rails/Date:
   Exclude:
     - 'spec/services/bolognese/readers/generic_work_reader_spec.rb'
+
+Rails/FindBy:
+  Exclude:
+    - 'app/models/hyku_addons/csv_entry.rb'

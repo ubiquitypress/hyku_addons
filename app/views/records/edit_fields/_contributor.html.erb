@@ -3,6 +3,7 @@
 
 <% f.object.contributor_list.each do |hash| %>
 	<div
+    class="<%= template %>_contributor"
 		data-toggleable
 		data-cloneable="contributor"
 		data-after-clone="clear_inputs"
@@ -45,7 +46,7 @@
 				{
 					field_type: :select,
 					field_slug: :contributor_institutional_relationship,
-					select_options: ['Staff member', 'Research associate'],
+					select_options: HykuAddons::ContributorInstitutionalRelationshipService.new(model: f.object.model.class).select_active_options.flatten.uniq!,
 					field_args: { multiple: true }
 				}
 			] %>

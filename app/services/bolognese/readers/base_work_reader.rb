@@ -10,6 +10,7 @@ module Bolognese
   module Readers
     class BaseWorkReader < Bolognese::Metadata
       DEFAULT_RESOURCE_TYPE = "Work"
+      DEFAULT_META_MODEL = "GenericWork"
 
       # Some attributes are not copied over from data inside of hyku, but calculated in reader methods below.
       def self.special_terms
@@ -223,15 +224,19 @@ module Bolognese
         end
 
         def work_class
-          @_work_class ||= @meta["has_model"].constantize
+          @_work_class ||= meta_model.constantize
         end
 
         def work_form_class
-          @_work_form_class ||= "Hyrax::#{@meta['has_model']}Form".constantize
+          @_work_form_class ||= "Hyrax::#{meta_model}Form".constantize
         end
 
         def work_type_terms
           @_work_type_terms ||= work_form_class.terms
+        end
+
+        def meta_model
+          @meta["has_model"] || DEFAULT_META_MODEL
         end
     end
   end

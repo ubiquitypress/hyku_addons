@@ -34,7 +34,11 @@ json.duration work.try(:duration)
 #                                         "event_date" => nil,
 #                                         "event_location" => nil,
 #                                         "event_title" => nil,
-# json.files nil
+json.files do
+  json.has_private_files work.file_set_presenters.any? { |fsp| fsp.solr_document.private? }
+  json.has_registered_files work.file_set_presenters.any? { |fsp| fsp.solr_document.registered? }
+  json.has_public_files work.file_set_presenters.any? { |fsp| fsp.solr_document.public? }
+end
 #                                         "funder" => nil,
 #                                         "funder_project_reference" => nil,
 #                                         "institution" => nil,
@@ -79,8 +83,17 @@ json.rights_statement work.rights_statement
 json.source work.source
 json.subject work.subject
 # json.thumbnail_base64_string nil
-# json.thumbnail_url work.thumbnail_path
-json.thumbnail_url nil
+if work.representative_presenter&.solr_document&.public?
+  components = {
+    scheme: Rails.application.routes.default_url_options.fetch(:protocol, 'http'),
+    host: @account.cname,
+    path: work.solr_document.thumbnail_path.split('?')[0],
+    query: work.solr_document.thumbnail_path.split('?')[1]
+  }
+  json.thumbnail_url URI::Generic.build(components).to_s
+else
+  json.thumbnail_url nil
+end
 json.title work.title.first
 json.type "work"
 json.version work.try(:version)

@@ -82,7 +82,7 @@ module HykuAddons
                                             solr_endpoint_attributes: %i[id url],
                                             fcrepo_endpoint_attributes: %i[id url base_path],
                                             datacite_endpoint_attributes: %i[mode prefix username password],
-                                            settings: [:file_size_limit])
+                                            settings: %i[file_size_limit locale_name])
           end
       end
 
@@ -186,10 +186,151 @@ module HykuAddons
     end
 
     initializer 'hyku_addons.bulkrax_overrides' do
-      Bulkrax.system_identifier_field = 'id'
-      # Replace bulkrax csv parser with hyku_addons version
-      csv_parser_config = Bulkrax.parsers.find { |p| p[:class_name] = "HykuAddons::CsvParser" if p[:class_name] == "Bulkrax::CsvParser" }
-      csv_parser_config[:class_name] = "HykuAddons::CsvParser"
+      Bulkrax.setup do |config|
+        config.system_identifier_field = 'id'
+        config.reserved_properties -= ['depositor']
+        config.parsers += [{ class_name: "HykuAddons::CsvParser", name: "Ubiquity Repositiories Hyku 1 CSV", partial: "csv_fields" }]
+        config.field_mappings["HykuAddons::CsvParser"] = {
+          "institution" => { split: true },
+          "org_unit" => { split: true },
+          "fndr_project_ref" => { split: true },
+          "project_name" => { split: true },
+          "rights_holder" => { split: true },
+          "library_of_congress_classification" => { split: true },
+          "alt_title" => { split: true },
+          "volume" => { split: true },
+          "duration" => { split: true },
+          "version" => { split: true },
+          "publisher" => { split: true },
+          "keyword" => { split: true },
+          "license" => { split: true },
+          "subject" => { split: true, parsed: true },
+          "language" => { split: true, parsed: true },
+          "resource_type" => { split: true, parsed: false },
+          "date_published" => { split: true, parsed: true }
+        }
+      end
+
+      Bulkrax::ObjectFactory.class_eval do
+        def run
+          arg_hash = { id: attributes[:id], name: 'UPDATE', klass: klass }
+          @object = find
+          if object
+            object.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX if object.respond_to? :reindex_extent
+            ActiveSupport::Notifications.instrument('import.importer', arg_hash) { update }
+          else
+            ActiveSupport::Notifications.instrument('import.importer', arg_hash.merge(name: 'CREATE')) { create }
+          end
+          yield(object) if block_given?
+          object
+        end
+
+        # An ActiveFedora bug when there are many habtm <-> has_many associations means they won't all get saved.
+        # https://github.com/projecthydra/active_fedora/issues/874
+        # 2+ years later, still open!
+        def create
+          attrs = create_attributes
+          @object = klass.new
+          object.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX if object.respond_to? :reindex_extent
+          run_callbacks :save do
+            run_callbacks :create do
+              if klass == ::AdminSet
+                create_admin_set(attrs)
+              elsif klass == ::Collection
+                create_collection(attrs)
+              else
+                work_actor.create(environment(attrs))
+              end
+            end
+          end
+          log_created(object)
+        end
+
+        def update
+          raise "Object doesn't exist" unless object
+          destroy_existing_files if @replace_files && (klass != ::Collection || klass != ::AdminSet)
+          attrs = update_attributes
+          run_callbacks :save do
+            if klass == ::AdminSet
+              update_admin_set(attrs)
+            elsif klass == ::Collection
+              update_collection(attrs)
+            else
+              work_actor.update(environment(attrs))
+            end
+          end
+          log_updated(object)
+        end
+
+        def create_admin_set(attrs)
+          attrs.delete('collection_type_gid')
+          object.members = members
+          object.attributes = attrs
+          object.save!
+        end
+
+        def update_admin_set(attrs)
+          attrs.delete('collection_type_gid')
+          object.members = members
+          object.attributes = attrs
+          object.save!
+        end
+
+        def find
+          return find_by_id if attributes[:id]
+          return search_by_identifier if attributes[system_identifier_field].present?
+          return search_by_title if klass == AdminSet && attributes[:title].present?
+        end
+
+        def search_by_title
+          AdminSet.where(title: Array(attributes[:title]).first).first
+        end
+
+        def permitted_attributes
+          klass.properties.keys.map(&:to_sym) + %i[id edit_users edit_groups read_groups visibility work_members_attributes admin_set_id]
+        end
+
+        # Override if we need to map the attributes from the parser in
+        # a way that is compatible with how the factory needs them.
+        def transform_attributes
+          if klass == ::Collection || klass == ::AdminSet
+            attributes.slice(*permitted_attributes)
+          else
+            attributes.slice(*permitted_attributes).merge(file_attributes)
+          end
+        end
+      end
+
+      # FIXME: This might only be important for debugging
+      # Bulkrax::ImportWorkJob.class_eval do
+      #   def perform(*args)
+      #     entry = Bulkrax::Entry.find(args[0])
+      #     importer_run = Bulkrax::ImporterRun.find(args[1])
+      #     begin
+      #       entry.build
+      #     rescue Bulkrax::CollectionsCreatedError => e
+      #       byebug
+      #       # Don't retry on error of collection not created because it goes into an infinite loop
+      #       # A failed record is much better
+      #       entry.status_info(e)
+      #     end
+
+      #     if entry.status == "Complete"
+      #       importer_run.increment!(:processed_records)
+      #     else
+      #       # do not retry here because whatever parse error kept you from creating a work will likely
+      #       # keep preventing you from doing so.
+      #       importer_run.increment!(:failed_records)
+      #     end
+      #     entry.save!
+      #     return if importer_run.enqueued_records.positive?
+      #     if importer_run.failed_records.positive?
+      #       importer_run.importer.status_info('Complete (with failures)')
+      #     else
+      #       importer_run.importer.status_info('Complete')
+      #     end
+      #   end
+      # end
     end
 
     initializer 'hyku_addons.hyrax_identifier_overrides' do
@@ -208,6 +349,10 @@ module HykuAddons
           admin_set_create_service.call(admin_set: @admin_set, creating_user: nil)
         end
       end
+    end
+
+    initializer 'hyku_addons.session_storage_overrides' do
+      Rails.application.config.session_store :cookie_store, key: '_hyku_session', same_site: :lax
     end
 
     # Pre-existing Work type overrides
@@ -240,6 +385,9 @@ module HykuAddons
         config.register_curation_concern :pacific_uncategorized
 
         config.license_service_class = HykuAddons::LicenseService
+
+        # FIXME: This setting is global and affects all tenants
+        config.work_requires_files = false
       end
     end
 
@@ -248,7 +396,7 @@ module HykuAddons
       GenericWork.include HykuAddons::GenericWorkOverrides
       Image.include HykuAddons::ImageOverrides
       GenericWork.include ::Hyrax::BasicMetadata
-      WorkIndexer.include HykuAddons::WorkIndexerBehavior
+      Hyrax::WorkIndexer.include HykuAddons::WorkIndexerBehavior
       Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
       Hyrax::ImageForm.include HykuAddons::ImageFormOverrides
       Hyrax::Forms::CollectionForm.include HykuAddons::CollectionFormBehavior
@@ -262,8 +410,11 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
       User.include HykuAddons::UserEmailFormat
       Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
+      Bolognese::Metadata.include Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
+      Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
+      ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
@@ -272,6 +423,10 @@ module HykuAddons
       config.to_prepare { HykuAddons::Engine.dynamically_include_mixins }
     else
       config.after_initialize { HykuAddons::Engine.dynamically_include_mixins }
+      # This is needed to allow the API search to copy the blacklight configuration after our customisations are applied.
+      initializer 'hyku_addons.blacklight_config override' do
+        CatalogController.include HykuAddons::CatalogControllerBehavior
+      end
     end
   end
 end

@@ -23,7 +23,13 @@ module HykuAddons
       include Hyrax::DOI::DataCiteDOIFormBehavior
 
       def primary_terms
-        super - %i[license]
+        primary_terms = super - %i[license]
+
+        if Flipflop.enabled?(:simplified_admin_set_selection)
+          primary_terms + %i[admin_set_id member_of_collection_id]
+        else
+          primary_terms
+        end
       end
     end
   end

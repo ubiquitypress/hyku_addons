@@ -1,4 +1,7 @@
 en:
+  work_type_modal:
+    admin_set:
+      title: Admin Set
   work_type:
     show:
       citations:
@@ -32,7 +35,7 @@ en:
         help_text: The person or group responsible for the work. Usually this is the author of the content.
       creator_organization_name:
         label: Creator organisation name
-        placeholder:
+        placeholder: The British Library
         help_text: Please enter the organisation's name.
       creator_ror:
         label: Creator organisation ROR
@@ -166,10 +169,16 @@ en:
       weekly_email_list: List of email addresses to email the weekly report. Leave a single space between each email
       monthly_email_list: List of email addresses to email the monthly report. Leave a single space between each email
       yearly_email_list: List of email addresses to email the yearly report. Leave a single space between each email
-      email_format: Set a list of email format for emails that may sign up to your repository e.g (@ubiquitypress.com @gmail.com). Leave a single space between each domain
-      redirect_on: Redirect to the front end after a work is created
+      email_format: Set a list of email domains that are allowed sign up to this repository e.g (@ubiquitypress.com @gmail.com). Leave a single space between each domain.
       allow_signup: Allow users to sign up to your repository
       enable_oai_metadata: Enable or disable OAI link
       shared_login: Enable or disable shared login
       file_size_limit: This should be set to 536870912000
+      locale_name: |
+        The name of the tenant specific locale suffix added to their locale.yml files. Only alphabetic characters should be added, no symbols or numbers, these will then be capitalised.
       oai_admin_email: OAI endpoint contact email address
+
+  hyrax:
+    collections:
+      show:
+        item_count: Items

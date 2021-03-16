@@ -4,5 +4,5 @@ it:
       pacific_article:     'fa fa-file-text-o'
     select_type:
       pacific_article:
-        description:        "Pacific article opere"
-        name:               "Pacific Article"
+        description:        "Article opere"
+        name:               "Article"

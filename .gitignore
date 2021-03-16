@@ -11,4 +11,4 @@ coverage/
 tmp/
 fits.log
 package.json
-.eslintrc.yml
+.eslintrc.*
