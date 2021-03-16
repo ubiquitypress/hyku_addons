@@ -3,6 +3,7 @@ module HykuAddons
   module FilesControllerBehavior
     extend ActiveSupport::Concern
 
+    # /api/v1/tenant/:tenant_id/files/:file_set_id/work
     def work
       render plain: file_set.parent.attributes.dig("id"), status: 200
     end
