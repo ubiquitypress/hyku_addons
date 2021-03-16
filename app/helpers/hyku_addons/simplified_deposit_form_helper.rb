@@ -18,4 +18,3 @@ module HykuAddons
       end
   end
 end
-

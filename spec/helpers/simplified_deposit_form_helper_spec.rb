@@ -56,4 +56,3 @@ RSpec.describe HykuAddons::SimplifiedDepositFormHelper do
     end
   end
 end
-
