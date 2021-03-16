@@ -7,4 +7,8 @@ Flipflop.configure do
   feature :simplified_admin_set_selection,
           default: false,
           description: "The admin set to deposit works is selected from the add work modal and the relationships tab on the deposit form is hidden for depositors."
+
+  feature :simplified_deposit_form,
+          default: false,
+          description: "Hide the DOI tab from non-admin users"
 end
