@@ -77,6 +77,9 @@ git submodule init
 git submodule update
 bundle install
 bundle exec rails g hyku_addons:install
+
+# If you are using Docker, you will need to do the `hyku_addons:install` within the container
+docker-compose exec web bundle exec rails g hyku_addons:install
 ```
 
 ### Docker
