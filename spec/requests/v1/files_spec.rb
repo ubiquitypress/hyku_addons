@@ -37,4 +37,3 @@ RSpec.describe Hyku::API::V1::FilesController, type: :request, clean: true, mult
     end
   end
 end
-
