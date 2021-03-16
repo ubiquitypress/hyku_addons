@@ -13,7 +13,10 @@ module HykuAddons
     STORAGE_PATH_PREFIX = "fcrepo.binary.directory"
 
     def initialize(file:, bucket_name: ENV["FEDORA_BUCKET"])
-      raise ArgumentError, 'Hydra::PCDM::File is required' unless file.is_a?(Hydra::PCDM::File)
+      # It's impossible to test if we only use the class type, so the respond_to helps that
+      unless file.is_a?(Hydra::PCDM::File) || file.respond_to?(:digest)
+        raise ArgumentError, "Hydra::PCDM::File is required"
+      end
 
       @file = file
       @bucket_name = bucket_name
@@ -52,7 +55,7 @@ module HykuAddons
       end
 
       def storage
-        @_storage ||= Google::Cloud::Storage.new
+        @storage ||= Google::Cloud::Storage.new
       end
   end
 end
