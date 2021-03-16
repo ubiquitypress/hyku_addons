@@ -3,7 +3,7 @@
 module HykuAddons
   module SimplifiedDepositFormHelper
     def form_tabs_for(form:)
-      if Flipflop.enabled?(:simplified_deposit_form) && permission?(form.model)
+      if Flipflop.enabled?(:simplified_deposit_form) && applicable?(form.model)
         super - ["doi"]
       else
         super
@@ -13,7 +13,7 @@ module HykuAddons
     protected
 
       # If the user is not an admin
-      def permission?(model)
+      def applicable?(model)
         current_ability.can?(model.persisted? ? :edit : :create, model) && !current_user.has_role?(:admin)
       end
   end
