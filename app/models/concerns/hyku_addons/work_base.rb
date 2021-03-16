@@ -6,6 +6,10 @@ module HykuAddons
 
     # TODO: Review indexing and switch to mostly _ssim instead of _tesim
     included do
+      property :title, predicate: ::RDF::Vocab::DC.title, multiple: false do |index|
+        index.as :stored_searchable
+      end
+
       # From SharedMetadata
       property :official_link, predicate: ::RDF::Vocab::SCHEMA.url, multiple: false do |index|
         index.as :stored_searchable

@@ -25,7 +25,7 @@ class PacificBookChapter < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
+  property :volume, predicate: ::RDF::Vocab::BIBO.volume, multiple: false do |index|
     index.as :stored_searchable
   end
 
