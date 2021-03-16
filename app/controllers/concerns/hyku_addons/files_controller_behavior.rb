@@ -3,6 +3,7 @@ module HykuAddons
   module FilesControllerBehavior
     extend ActiveSupport::Concern
 
+    # /api/v1/tenant/:tenant_id/files/:file_set_id/download
     def download
       render json: {
         signed_url: HykuAddons::FileSignedUrlService.new(file: file_set.original_file).perform,
