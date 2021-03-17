@@ -14,7 +14,7 @@
 
 const SelectWorkType = require("hyku_addons/select_work_type")
 
-const onLoad = function(){
+const onLoad = function() {
   // Prevent JS being loaded twice
   if ($("body").attr("data-js-loaded") === "true") {
     return
@@ -35,7 +35,7 @@ const onLoad = function(){
 
   new PrefillWorkFormViaDOI()
 
-  $("[data-behavior=hyku_addons-select-work]").each(function () {
+  $("[data-behavior=hyku_addons-select-work]").each(function() {
     new SelectWorkType($(this))
   });
 
