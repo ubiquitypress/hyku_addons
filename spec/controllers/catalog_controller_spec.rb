@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe CatalogController, clean: true do
-  let!(:work) { create(:work, official_link: official_link, doi_status_when_public: doi_status) }
+  let!(:work) { PacificArticle.create(title: ['Test'], official_link: official_link, doi_status_when_public: doi_status) }
   let!(:file_set) { create(:file_set, visibility: file_visibility) }
   let(:official_link) { nil }
   let(:doi_status) { nil }
