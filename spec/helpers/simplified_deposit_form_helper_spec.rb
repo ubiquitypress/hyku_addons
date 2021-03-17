@@ -34,24 +34,8 @@ RSpec.describe HykuAddons::SimplifiedDepositFormHelper do
         allow(Flipflop).to receive(:enabled?).with(:simplified_deposit_form).and_return(true)
       end
 
-      describe "when the user is not an admin" do
-        before do
-          allow(helper).to receive(:applicable?).with(form.model).and_return(true)
-        end
-
-        it "includes doi" do
-          expect(helper.form_tabs_for(form: form)).not_to include("doi")
-        end
-      end
-
-      describe "when the user is an admin" do
-        before do
-          allow(helper).to receive(:applicable?).with(form.model).and_return(false)
-        end
-
-        it "includes doi" do
-          expect(helper.form_tabs_for(form: form)).to include("doi")
-        end
+      it "doesn't includes doi" do
+        expect(helper.form_tabs_for(form: form)).not_to include("doi")
       end
     end
   end
