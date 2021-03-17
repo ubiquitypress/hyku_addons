@@ -6,5 +6,6 @@ module HykuAddons
     include HykuAddons::CreatorFieldHelper
     include HykuAddons::ContributorFieldHelper
     include HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper
+    include HykuAddons::SimplifiedDepositFormHelper
   end
 end

@@ -14,7 +14,12 @@
 
 const SelectWorkType = require("hyku_addons/select_work_type")
 
-$(document).ready(function(){
+const onLoad = function() {
+  // Prevent JS being loaded twice
+  if ($("body").attr("data-js-loaded") === "true") {
+    return
+  }
+
   // Register listeners before events, so that onload events are consumed
   // Listeners
   new InputClearableListener()
@@ -30,8 +35,13 @@ $(document).ready(function(){
 
   new PrefillWorkFormViaDOI()
 
-  $("[data-behavior=hyku_addons-select-work]").each(function () {
+  $("[data-behavior=hyku_addons-select-work]").each(function() {
     new SelectWorkType($(this))
   });
-});
 
+  $("body").attr("data-js-loaded", "true")
+}
+
+// Ensure that page load (via turbolinks) and page refresh (via browser request) both load JS
+$(document).ready(onLoad)
+$(document).on("turbolinks:load", onLoad)

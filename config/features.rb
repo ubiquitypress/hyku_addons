@@ -11,4 +11,8 @@ Flipflop.configure do
   feature :hide_collections_link,
           default: false,
           description: "Hides collections tab on sidebar for non admin users"
+
+  feature :simplified_deposit_form,
+          default: false,
+          description: "Hide the DOI tab from non-admin users"
 end
