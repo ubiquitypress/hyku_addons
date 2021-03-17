@@ -1,5 +1,5 @@
 <li class="h5"><%= t('hyrax.admin.sidebar.repository_objects') %></li>
-  <% if can?(:manage, :collection_types) %>
+  <% if Flipflop.enabled?(:hide_collections_link) && current_user.can?(:manage, Collection)%>
     <%= menu.nav_link(hyrax.my_collections_path,
                       onclick: "dontChangeAccordion(event);",
                       also_active_for: hyrax.dashboard_collections_path) do %>
