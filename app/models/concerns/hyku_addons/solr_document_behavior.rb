@@ -30,6 +30,7 @@ module HykuAddons
                                     :date_modified, :date_uploaded, :create_date, :modified_date, :embargo_release_date,
                                     :lease_expiration_date]
 
+      attribute :file_size, SolrDocument::Solr::String, "file_size_lts"
       attribute :extent, SolrDocument::Solr::Array, solr_name('extent')
       attribute :rendering_ids, SolrDocument::Solr::Array, solr_name('hasFormat', :symbol)
       attribute :isni, SolrDocument::Solr::Array, solr_name('isni')
