@@ -40,9 +40,7 @@ const onLoad = function() {
   });
 
   // Reorder the notifications table by date desc by default
-  $(".datatable.notifications").find("[aria-label~='Date:']").each(function(){
-    $(this).click()
-  })
+  $(".datatable.notifications").find("[aria-label~='Date:']").click()
 
   $("body").attr("data-js-loaded", "true")
 }
