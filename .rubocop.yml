@@ -119,3 +119,7 @@ Rails/Date:
 Rails/FindBy:
   Exclude:
     - 'app/models/hyku_addons/csv_entry.rb'
+
+Naming/AccessorMethodName:
+  Exclude:
+    - 'app/services/hyku_addons/jwt_cookies_service.rb'
