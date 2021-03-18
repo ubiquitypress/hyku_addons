@@ -4,5 +4,5 @@ en:
       pacific_book:     'fa fa-file-text-o'
     select_type:
       pacific_book:
-        description:        "A written text published in printed or electronic form."
+        description:        "A written text published in printed or electronic form"
         name:               "Book"

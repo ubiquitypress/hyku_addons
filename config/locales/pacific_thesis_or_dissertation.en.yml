@@ -4,5 +4,5 @@ en:
       pacific_thesis_or_dissertation:     'fa fa-file-text-o'
     select_type:
       pacific_thesis_or_dissertation:
-        description:        "A research document submitted to support candidature for a degree."
+        description:        "A research document submitted to support candidature for a degree"
         name:               "Thesis Or Dissertation"
