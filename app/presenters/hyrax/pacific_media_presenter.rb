@@ -10,7 +10,7 @@ module Hyrax
     include ::HykuAddons::GenericWorkPresenterBehavior
 
     DELEGATED_METHODS = %i[title alt_title resource_type creator contributor institution abstract
-                           date_published duration version is_included_in
+                           date_published duration version_number is_included_in
                            publisher additional_links rights_holder license
                            org_unit doi subject keyword refereed add_info].freeze
   end

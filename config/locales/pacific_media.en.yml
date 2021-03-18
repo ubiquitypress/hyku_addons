@@ -4,5 +4,5 @@ en:
       pacific_media:     'fa fa-file-text-o'
     select_type:
       pacific_media:
-        description:        "A multimedia output such as a video or audio recording."
+        description:        "A multimedia output such as a video or audio recording"
         name:               "Media"

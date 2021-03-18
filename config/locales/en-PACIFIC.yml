@@ -1,7 +1,7 @@
 en-PACIFIC:
   work_type_modal:
     admin_set:
-      title: Select Collection/Admin Set
+      title: Select Collection
   simple_form:
     creator:
       creator_family_name:
@@ -32,8 +32,9 @@ en-PACIFIC:
         keywords: Keyword
         irb_status: IRB Status
         irb_number: IRB Number
+        version_number: Version
     hints:
       defaults:
         org_unit: Enter your department, center, or group at Pacific
         related_url: " "
-
+        version_number: " "
