@@ -1,0 +1,4 @@
+<%= f.input key, input_html: {
+  name: "#{f.object.model.class.name.underscore}[#{key}][]",
+  value: f.object.send(key)&.first
+} %>
