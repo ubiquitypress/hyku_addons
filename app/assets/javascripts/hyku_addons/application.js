@@ -39,6 +39,11 @@ const onLoad = function() {
     new SelectWorkType($(this))
   });
 
+  // Reorder the notifications table by date desc by default
+  $(".datatable.notifications").find("[aria-label~='Date:']").each(function(){
+    $(this).click()
+  })
+
   $("body").attr("data-js-loaded", "true")
 }
 
