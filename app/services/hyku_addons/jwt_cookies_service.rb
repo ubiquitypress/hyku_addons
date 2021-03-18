@@ -13,14 +13,14 @@ module HykuAddons
     end
 
     def set_jwt_cookies(user = nil)
+      return unless @account.present?
       user ||= @user
       set_jwt_cookie(:jwt, value: generate_token(user_id: user.id, type: user_roles(user)), expires: 1.week.from_now)
       set_jwt_cookie(:refresh, value: generate_token(user_id: user.id, exp: 1.week.from_now.to_i), expires: 1.week.from_now)
     end
 
     def remove_jwt_cookies
-      Rails.logger.info @account
-      Rails.logger.info cookie_domain
+      return unless @account.present?
       %i[jwt refresh].each do |cookie|
         set_jwt_cookie(cookie, value: '', expires: 10_000.hours.ago)
       end
