@@ -33,7 +33,7 @@ module HykuAddons
       end
 
       def generate_token(payload = {})
-        JWT.encode(payload.reverse_merge(exp: (Time.now.utc + 1.hour).to_i), JWT_SECRET)
+        ::JWT.encode(payload.reverse_merge(exp: (Time.now.utc + 1.hour).to_i), JWT_SECRET)
       end
 
       def default_cookie_options
