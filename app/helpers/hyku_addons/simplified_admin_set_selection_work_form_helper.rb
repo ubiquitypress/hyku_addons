@@ -3,7 +3,7 @@
 module HykuAddons
   module SimplifiedAdminSetSelectionWorkFormHelper
     def form_tabs_for(form:)
-      if current_user.has_role?(:admin, Site.instance)
+      if current_user&.has_role?(:admin, Site.instance)
         super
       elsif enabled? && permission?(form.model) && depositor?(form.depositor)
         super - ["relationships"]
@@ -36,7 +36,7 @@ module HykuAddons
       end
 
       def depositor?(depositor)
-        current_user.user_key == depositor
+        current_user&.user_key == depositor
       end
   end
 end
