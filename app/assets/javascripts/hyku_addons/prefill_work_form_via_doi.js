@@ -18,6 +18,9 @@ class PrefillWorkFormViaDOI {
       return false
     }
 
+    // Switch to the description tab automatically
+    $("[aria-controls='metadata']").click()
+
     Object.entries(this.response.data).forEach(([field, value]) => {
       this.processField(field, value)
     })
@@ -54,7 +57,7 @@ class PrefillWorkFormViaDOI {
       return false
     }
 
-    $($(this.inputSelector(field)).filter(this.targetInputSelector).get(index)).val(value)
+    $($(this.inputSelector(field)).find(this.targetInputSelector).get(index)).val(value)
   }
 
   inputSelector(field) {
