@@ -3,7 +3,9 @@
 module HykuAddons
   module SimplifiedAdminSetSelectionWorkFormHelper
     def form_tabs_for(form:)
-      if Flipflop.enabled?(:simplified_admin_set_selection) && permission?(form.model) && depositor?(form.depositor)
+      if current_user&.has_role?(:admin, Site.instance)
+        super
+      elsif enabled? && permission?(form.model) && depositor?(form.depositor)
         super - ["relationships"]
       else
         super
@@ -25,12 +27,16 @@ module HykuAddons
         Hyrax::Collections::PermissionsService.source_ids_for_deposit(options)
       end
 
+      def enabled?
+        Flipflop.enabled?(:simplified_admin_set_selection)
+      end
+
       def permission?(model)
         current_ability.can?(model.persisted? ? :edit : :create, model)
       end
 
       def depositor?(depositor)
-        current_user.user_key == depositor
+        current_user&.user_key == depositor
       end
   end
 end

@@ -16,9 +16,23 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
     # Please stub a default value first if message might be received with other args as well.
     allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(false)
     allow(Flipflop).to receive(:enabled?).with(:simplified_deposit_form).and_return(false)
+
+    allow(controller).to receive(:current_user) { user }
   end
 
   describe "#form_tabs_for" do
+    context "when the user is an admin and the feature is enabled" do
+      before do
+        user.add_role(:admin, Site.instance)
+
+        allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(true)
+      end
+
+      it "shows the tab" do
+        expect(helper.form_tabs_for(form: form)).to include("relationships")
+      end
+    end
+
     context "when the feature is disabled" do
       before do
         allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(false)
@@ -62,10 +76,6 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
 
   describe "#depositor?" do
     context "when the depositor is signed in" do
-      before do
-        sign_in(user)
-      end
-
       it "is true" do
         expect(helper.depositor?(form.depositor)).to be_truthy
       end
@@ -75,7 +85,7 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
       let(:admin) { create(:admin) }
 
       before do
-        sign_in(admin)
+        allow(controller).to receive(:current_user) { admin }
       end
 
       it "is false" do
