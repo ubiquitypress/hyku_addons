@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'jwt'
+
 # Manages the JWT authentication cookies based on Warden callbacks.
 module HykuAddons
   class JwtCookiesService
