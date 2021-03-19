@@ -18,11 +18,29 @@ RSpec.describe HykuAddons::MultitenantLocaleControllerBehavior, type: :request, 
     host! account.cname
   end
 
-  describe "" do
-    it "" do
-      # byebug
+  describe "when no locale name is set on an account" do
+    before do
+      account.settings["locale_name"] = nil
+      account.save
+
       get main_app.polymorphic_path(work)
-      # byebug
+    end
+
+    it "returns a normal locale code" do
+      expect(response.body).to include('lang="en"')
+    end
+  end
+
+  describe "when a locale name is set on an account" do
+    before do
+      account.settings["locale_name"] = "test"
+      account.save
+
+      get main_app.polymorphic_path(work)
+    end
+
+    it "appends the locale name to the languge code" do
+      expect(response.body).to include('lang="en-TEST"')
     end
   end
 end
