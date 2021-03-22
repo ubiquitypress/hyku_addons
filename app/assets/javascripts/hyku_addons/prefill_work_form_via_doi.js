@@ -53,13 +53,13 @@ class PrefillWorkFormViaDOI {
       })
 
     } else if ($.type(value) == "object") {
-
       var wrapper = this.wrapper(field, index)
+
       Object.entries(value).forEach(([childField, childValue]) => {
         $(wrapper.find($(this.inputSelector(childField))).find(this.targetInputSelector).get(0)).val(childValue)
       })
 
-      // Don't create extra cloneable blocks unlesswe have more data to add
+      // Don't create extra cloneable blocks unless we have more data to add
       if (index + 1 < this.arrayValuesLength) {
         wrapper.find("[data-on-click=clone_parent]").trigger("click")
       }
