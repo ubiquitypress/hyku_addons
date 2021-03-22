@@ -3,8 +3,14 @@ class PrefillWorkFormViaDOI {
     this.targetInputSelector = "select, input, textarea, checkbox, radio"
     this.buttonSelector = "#doi-autofill-btn"
     this.form = $(this.buttonSelector).closest("form")
+    // Object wide caceh for items in arrays
+    this.arrayValuesLength = 0
 
     this.registerListeners()
+
+    $(this.buttonSelector).attr("data-confirm", "")
+    $("input#article_doi").val("http://doi.org/10.5334/cie.17")
+    $("#doi-autofill-btn").click()
   }
 
   registerListeners(){
@@ -18,6 +24,8 @@ class PrefillWorkFormViaDOI {
       return false
     }
 
+    console.info("response: ", this.response)
+
     // Switch to the description tab automatically
     $("[aria-controls='metadata']").click()
 
@@ -26,27 +34,35 @@ class PrefillWorkFormViaDOI {
     })
   }
 
-  processField(field, value) {
+  processField(field, value, index = 0) {
     if (this.isBlank(value)) {
       return false;
     }
 
     if ($.type(value) == "array") {
-      $(value).each((index, val) => {
+      this.arrayValuesLength = value.length
+
+      $(value).each((i, val) => {
         // If we need to check JSON fields recursively
         if ($.type(val) == "object") {
-          return this.processField(field, val)
+          return this.processField(field, val, i)
         }
 
-        this.setValue(field, val, index)
-        $(this.wrapperSelector(field)).find('button.add').click()
+        this.setValue(field, val, i)
+        this.wrapper(field).find('button.add').click()
       })
 
     } else if ($.type(value) == "object") {
-      Object.entries(value).forEach(([field, value]) => {
-        this.setValue(field, value)
+
+      var wrapper = this.wrapper(field, index)
+      Object.entries(value).forEach(([childField, childValue]) => {
+        $(wrapper.find($(this.inputSelector(childField))).find(this.targetInputSelector).get(0)).val(childValue)
       })
 
+      // Don't create extra cloneable blocks unlesswe have more data to add
+      if (index + 1 < this.arrayValuesLength) {
+        wrapper.find("[data-on-click=clone_parent]").trigger("click")
+      }
     } else {
       this.setValue(field, value)
     }
@@ -62,6 +78,11 @@ class PrefillWorkFormViaDOI {
 
   inputSelector(field) {
     return `.${this.fieldName(field)}`
+  }
+
+  // returns the jq wrapper object with the correct index
+  wrapper(field, index = 0) {
+    return $($(this.wrapperSelector(field)).get(index))
   }
 
   wrapperSelector(field) {
