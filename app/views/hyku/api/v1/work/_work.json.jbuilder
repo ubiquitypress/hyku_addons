@@ -101,3 +101,7 @@ json.visibility work.solr_document.visibility
 json.volume work.try(:volume)
 json.work_type work.model.model_name.to_s
 json.workflow_status work.solr_document.workflow_state
+
+collection_ids = work.member_of_collection_ids
+collections = collection_ids.map { |id| {uuid: id, title: ActiveFedora::Base.find(id).title.first} } if collection_ids.present?
+json.collections collections
