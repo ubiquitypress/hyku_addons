@@ -16,17 +16,17 @@ module Bolognese
 
       def hyku_addons_work_form_fields
         {
-          'identifier' => Array(identifiers).select { |id| id["identifierType"] != "DOI" }.pluck("identifier"),
-          'doi' => Array(doi),
-          'title' => titles&.pluck("title"),
-          'creator' => write_involved("creators"),
-          'contributor' => write_involved("contributors"),
-          'publisher' => Array(publisher),
-          'date_created' => write_date("date_created", collect_date("Issued")),
-          'date_updated' => write_date("date_updated", collect_date("Updated")),
+          "identifier" => Array(identifiers).select { |id| id["identifierType"] != "DOI" }.pluck("identifier"),
+          "doi" => Array(doi),
+          "title" => titles&.pluck("title"),
+          "creator" => write_involved("creators"),
+          "contributor" => write_involved("contributors"),
+          "publisher" => Array(publisher),
+          "date_created" => write_date("date_created", collect_date("Issued")),
+          "date_updated" => write_date("date_updated", collect_date("Updated")),
           "date_published" => write_date_published,
-          'description' => write_descriptions,
-          'keyword' => subjects&.pluck("subject")
+          "abstract" => write_descriptions,
+          "keyword" => subjects&.pluck("subject")
         }
       end
 

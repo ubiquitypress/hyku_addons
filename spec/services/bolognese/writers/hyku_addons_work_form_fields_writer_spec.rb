@@ -50,7 +50,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["title"]).to eq ["SARS-CoV-2 S protein:ACE2 interaction reveals novel allosteric targets"] }
       it { expect(result["doi"]).to eq ["10.7554/elife.63646"] }
 
-      it { expect(result["description"].first).to include("The spike (S) protein is the main handle for SARS-CoV-2") }
+      it { expect(result["abstract"].first).to include("The spike (S) protein is the main handle for SARS-CoV-2") }
       it { expect(result["keywords"]).to be_nil }
 
       it { expect(result["date_created"]).to be_an(Array) }
