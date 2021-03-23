@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crossref_result xmlns="http://www.crossref.org/qrschema/3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.crossref.org/qrschema/3.0 http://www.crossref.org/schemas/crossref_query_output3.0.xsd">
+	<query_result>
+		<head>
+			<doi_batch_id>none</doi_batch_id>
+		</head>
+		<body>
+			<query status="resolved">
+				<doi type="journal_article">10.7554/eLife.63646</doi>
+				<crm-item name="publisher-name" type="string">eLife Sciences Publications, Ltd</crm-item>
+				<crm-item name="prefix-name" type="string">eLife Sciences Publications, Ltd.</crm-item>
+				<crm-item name="member-id" type="number">4374</crm-item>
+				<crm-item name="citation-id" type="number">123953565</crm-item>
+				<crm-item name="journal-id" type="number">189365</crm-item>
+				<crm-item name="deposit-timestamp" type="number">20210304160036</crm-item>
+				<crm-item name="owner-prefix" type="string">10.7554</crm-item>
+				<crm-item name="last-update" type="date">2021-03-04T16:00:47Z</crm-item>
+				<crm-item name="created" type="date">2021-02-08T13:01:20Z</crm-item>
+				<crm-item name="citedby-count" type="number">1</crm-item>
+				<crm-item name="relation" type="doi" claim="isReviewOf">10.7554/eLife.63646.sa1</crm-item>
+				<crm-item name="relation" type="doi" claim="isReviewOf">10.7554/eLife.63646.sa2</crm-item>
+				<doi_record>
+					<crossref xmlns="http://www.crossref.org/xschema/1.1" xsi:schemaLocation="http://www.crossref.org/xschema/1.1 http://doi.crossref.org/schemas/unixref1.1.xsd">
+						<journal>
+							<journal_metadata language="en">
+								<full_title>eLife</full_title>
+								<issn media_type="electronic">2050-084X</issn>
+							</journal_metadata>
+							<journal_issue>
+								<publication_date media_type="online">
+									<month>02</month>
+									<day>08</day>
+									<year>2021</year>
+								</publication_date>
+								<journal_volume>
+									<volume>10</volume>
+								</journal_volume>
+							</journal_issue>
+							<journal_article publication_type="full_text" reference_distribution_opts="any">
+								<titles>
+									<title>SARS-CoV-2 S protein:ACE2 interaction reveals novel allosteric targets</title>
+								</titles>
+								<contributors>
+									<person_name contributor_role="author" sequence="first">
+										<given_name>Palur V</given_name>
+										<surname>Raghuvamsi</surname>
+										<affiliation>Department of Biological Sciences, National University of Singapore, Singapore, Singapore</affiliation>
+										<affiliation>Bioinformatics Institute, Agency for Science, Technology, and Research (A*STAR), Singapore, Singapore</affiliation>
+										<ORCID authenticated="true">https://orcid.org/0000-0002-0897-6935</ORCID>
+									</person_name>
+									<person_name contributor_role="author" sequence="additional">
+										<given_name>Nikhil K</given_name>
+										<surname>Tulsian</surname>
+										<affiliation>Department of Biological Sciences, National University of Singapore, Singapore, Singapore</affiliation>
+										<affiliation>Centre for Life Sciences, Department of Biochemistry, National University of Singapore, Singapore, Singapore</affiliation>
+										<ORCID authenticated="true">https://orcid.org/0000-0001-6577-6748</ORCID>
+									</person_name>
+									<person_name contributor_role="author" sequence="additional">
+										<given_name>Firdaus</given_name>
+										<surname>Samsudin</surname>
+										<affiliation>Bioinformatics Institute, Agency for Science, Technology, and Research (A*STAR), Singapore, Singapore</affiliation>
+									</person_name>
+									<person_name contributor_role="author" sequence="additional">
+										<given_name>Xinlei</given_name>
+										<surname>Qian</surname>
+										<affiliation>Life Sciences Institute, Centre for Life Sciences, National University of Singapore, Singapore, Singapore</affiliation>
+									</person_name>
+									<person_name contributor_role="author" sequence="additional">
+										<given_name>Kiren</given_name>
+										<surname>Purushotorman</surname>
+										<affiliation>Life Sciences Institute, Centre for Life Sciences, National University of Singapore, Singapore, Singapore</affiliation>
+									</person_name>
+									<person_name contributor_role="author" sequence="additional">
+										<given_name>Gu</given_name>
+										<surname>Yue</surname>
+										<affiliation>Life Sciences Institute, Centre for Life Sciences, National University of Singapore, Singapore, Singapore</affiliation>
+									</person_name>
+									<person_name contributor_role="author" sequence="additional">
+										<given_name>Mary M</given_name>
+										<surname>Kozma</surname>
+										<affiliation>Life Sciences Institute, Centre for Life Sciences, National University of Singapore, Singapore, Singapore</affiliation>
+									</person_name>
+									<person_name contributor_role="author" sequence="additional">
+										<given_name>Wong Y</given_name>
+										<surname>Hwa</surname>
+										<affiliation>School of Biological Sciences, Nanyang Technological University, Singapore, Singapore</affiliation>
+									</person_name>
+									<person_name contributor_role="author" sequence="additional">
+										<given_name>Julien</given_name>
+										<surname>Lescar</surname>
+										<affiliation>School of Biological Sciences, Nanyang Technological University, Singapore, Singapore</affiliation>
+									</person_name>
+									<person_name contributor_role="author" sequence="additional">
+										<given_name>Peter J</given_name>
+										<surname>Bond</surname>
+										<affiliation>Department of Biological Sciences, National University of Singapore, Singapore, Singapore</affiliation>
+										<affiliation>Bioinformatics Institute, Agency for Science, Technology, and Research (A*STAR), Singapore, Singapore</affiliation>
+										<ORCID authenticated="true">https://orcid.org/0000-0003-2900-098X</ORCID>
+									</person_name>
+									<person_name contributor_role="author" sequence="additional">
+										<given_name>Paul A</given_name>
+										<surname>MacAry</surname>
+										<affiliation>Life Sciences Institute, Centre for Life Sciences, National University of Singapore, Singapore, Singapore</affiliation>
+									</person_name>
+									<person_name contributor_role="author" sequence="additional">
+										<given_name>Ganesh S</given_name>
+										<surname>Anand</surname>
+										<affiliation>Department of Biological Sciences, National University of Singapore, Singapore, Singapore</affiliation>
+										<affiliation>Current address: Department of Chemistry, Department of Biochemistry and Molecular Biology, Center for Infectious Disease Dynamics -Huck Institute of the Life Sciences, The Pennsylvania State University, University Park, United States</affiliation>
+										<ORCID authenticated="true">https://orcid.org/0000-0001-8995-3067</ORCID>
+									</person_name>
+								</contributors>
+								<jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+									<jats:p>The spike (S) protein is the main handle for SARS-CoV-2 to enter host cells via surface angiotensin-converting enzyme 2 (ACE2) receptors. How ACE2 binding activates proteolysis of S protein is unknown. Here, using amide hydrogen–deuterium exchange mass spectrometry and molecular dynamics simulations, we have mapped the S:ACE2 interaction interface and uncovered long-range allosteric propagation of ACE2 binding to sites necessary for host-mediated proteolysis of S protein, critical for viral host entry. Unexpectedly, ACE2 binding enhances dynamics at a distal S1/S2 cleavage site and flanking protease docking site ~27 Å away while dampening dynamics of the stalk hinge (central helix and heptad repeat [HR]) regions ~130 Å away. This highlights that the stalk and proteolysis sites of the S protein are dynamic hotspots in the prefusion state. Our findings provide a dynamics map of the S:ACE2 interface in solution and also offer mechanistic insights into how ACE2 binding is allosterically coupled to distal proteolytic processing sites and viral–host membrane fusion. Thus, protease docking sites flanking the S1/S2 cleavage site represent alternate allosteric hotspot targets for potential therapeutic development.</jats:p>
+								</jats:abstract>
+								<publication_date media_type="online">
+									<month>02</month>
+									<day>08</day>
+									<year>2021</year>
+								</publication_date>
+								<publisher_item>
+									<item_number item_number_type="article_number">e63646</item_number>
+									<identifier id_type="doi">10.7554/eLife.63646</identifier>
+								</publisher_item>
+								<crossmark>
+									<crossmark_policy>10.7554/eLife.63646</crossmark_policy>
+									<crossmark_domains>
+										<crossmark_domain>
+											<domain>elifesciences.org</domain>
+										</crossmark_domain>
+									</crossmark_domains>
+									<crossmark_domain_exclusive>false</crossmark_domain_exclusive>
+									<custom_metadata>
+										<fr:program xmlns:fr="http://www.crossref.org/fundref.xsd" name="fundref">
+											<fr:assertion name="fundgroup">
+												<fr:assertion name="funder_name">
+													National Medical Research Council
+													<fr:assertion name="funder_identifier">http://dx.doi.org/10.13039/501100001349</fr:assertion>
+												</fr:assertion>
+												<fr:assertion name="award_number">WBS#R-571-000-081-213 Establishment of assays for drug screening and virus characterization of the newly emerged novel coronavirus (2019-nCoV) which is also known as the Wuhan coronavirus</fr:assertion>
+											</fr:assertion>
+											<fr:assertion name="fundgroup">
+												<fr:assertion name="funder_name">
+													A*STAR Bioinformatics Institute
+													<fr:assertion name="funder_identifier">http://dx.doi.org/10.13039/501100001441</fr:assertion>
+												</fr:assertion>
+											</fr:assertion>
+											<fr:assertion name="fundgroup">
+												<fr:assertion name="funder_name">
+													National University of Singapore
+													<fr:assertion name="funder_identifier">http://dx.doi.org/10.13039/501100001352</fr:assertion>
+												</fr:assertion>
+											</fr:assertion>
+											<fr:assertion name="fundgroup">
+												<fr:assertion name="funder_name">
+													Ministry of Education - Singapore
+													<fr:assertion name="funder_identifier">http://dx.doi.org/10.13039/501100001459</fr:assertion>
+												</fr:assertion>
+												<fr:assertion name="award_number">MOE2017-T2-A40-112</fr:assertion>
+											</fr:assertion>
+										</fr:program>
+										<ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+											<ai:license_ref applies_to="vor">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+											<ai:license_ref applies_to="am">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+											<ai:license_ref applies_to="tdm">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+										</ai:program>
+									</custom_metadata>
+								</crossmark>
+								<archive_locations>
+									<archive name="CLOCKSS"/>
+								</archive_locations>
+								<doi_data>
+									<doi>10.7554/eLife.63646</doi>
+									<resource>https://elifesciences.org/articles/63646</resource>
+									<collection property="text-mining">
+										<item>
+											<resource mime_type="application/pdf">https://cdn.elifesciences.org/articles/63646/elife-63646-v2.pdf</resource>
+										</item>
+										<item>
+											<resource mime_type="application/xml">https://cdn.elifesciences.org/articles/63646/elife-63646-v2.xml</resource>
+										</item>
+									</collection>
+								</doi_data>
+								<citation_list>
+									<citation key="bib1">
+										<journal_title>SoftwareX</journal_title>
+										<author>Abraham</author>
+										<volume>1-2</volume>
+										<first_page>19</first_page>
+										<cYear>2015</cYear>
+										<article_title>GROMACS: high performance molecular simulations through multi-level parallelism from laptops to supercomputers</article_title>
+										<doi>10.1016/j.softx.2015.06.001</doi>
+									</citation>
+									<citation key="bib2">
+										<journal_title>Scientific Reports</journal_title>
+										<author>Ali</author>
+										<volume>10</volume>
+										<cYear>2020</cYear>
+										<article_title>Dynamics of the ACE2-SARS-CoV-2/SARS-CoV spike protein interface reveal unique mechanisms</article_title>
+										<doi>10.1038/s41598-020-71188-3</doi>
+										<elocation_id>14214</elocation_id>
+									</citation>
+									<citation key="bib3">
+										<journal_title>Nature Medicine</journal_title>
+										<author>Andersen</author>
+										<volume>26</volume>
+										<first_page>450</first_page>
+										<cYear>2020</cYear>
+										<article_title>The proximal origin of SARS-CoV-2</article_title>
+										<doi>10.1038/s41591-020-0820-9</doi>
+									</citation>
+									<citation key="bib4">
+										<journal_title>The Lancet</journal_title>
+										<author>Bar-Zeev</author>
+										<volume>396</volume>
+										<first_page>868</first_page>
+										<cYear>2020</cYear>
+										<article_title>COVID-19 vaccines: early success and remaining challenges</article_title>
+										<doi>10.1016/S0140-6736(20)31867-5</doi>
+									</citation>
+									<citation key="bib5">
+										<journal_title>Science</journal_title>
+										<author>Cai</author>
+										<volume>369</volume>
+										<first_page>1586</first_page>
+										<cYear>2020</cYear>
+										<article_title>Distinct conformational states of SARS-CoV-2 spike protein</article_title>
+										<doi>10.1126/science.abd4251</doi>
+									</citation>
+									<citation key="bib6">
+										<journal_title>Science</journal_title>
+										<author>Chan</author>
+										<volume>369</volume>
+										<first_page>1261</first_page>
+										<cYear>2020</cYear>
+										<article_title>Engineering human ACE2 to optimize binding to the spike protein of SARS coronavirus 2</article_title>
+										<doi>10.1126/science.abc0870</doi>
+									</citation>
+									<citation key="bib7">
+										<journal_title>Advances in Virus Research</journal_title>
+										<author>Corman</author>
+										<volume>100</volume>
+										<first_page>163</first_page>
+										<cYear>2018</cYear>
+										<article_title>Hosts and sources of endemic human coronaviruses</article_title>
+										<doi>10.1016/bs.aivir.2018.01.001</doi>
+									</citation>
+									<citation key="bib8">
+										<journal_title>Science</journal_title>
+										<author>Dev</author>
+										<volume>353</volume>
+										<first_page>172</first_page>
+										<cYear>2016</cYear>
+										<article_title>Structural basis for membrane anchoring of HIV-1 envelope spike</article_title>
+										<doi>10.1126/science.aaf7066</doi>
+									</citation>
+									<citation key="bib9">
+										<journal_title>Protein Science</journal_title>
+										<author>Eramian</author>
+										<volume>15</volume>
+										<first_page>1653</first_page>
+										<cYear>2006</cYear>
+										<article_title>A composite score for predicting errors in protein structure models</article_title>
+										<doi>10.1110/ps.062095806</doi>
+									</citation>
+									<citation key="bib10">
+										<journal_title>The Journal of Chemical Physics</journal_title>
+										<author>Essmann</author>
+										<volume>103</volume>
+										<first_page>8577</first_page>
+										<cYear>1995</cYear>
+										<article_title>A smooth particle mesh Ewald method</article_title>
+										<doi>10.1063/1.470117</doi>
+									</citation>
+									<citation key="bib11">
+										<journal_title>Nature Communications</journal_title>
+										<author>Fan</author>
+										<volume>11</volume>
+										<cYear>2020</cYear>
+										<article_title>Cryo-EM analysis of the post-fusion structure of the SARS-CoV spike glycoprotein</article_title>
+										<doi>10.1038/s41467-020-17371-6</doi>
+										<elocation_id>3618</elocation_id>
+									</citation>
+									<citation key="bib12">
+										<journal_title>Journal of Biological Chemistry</journal_title>
+										<author>Hakansson-McReynolds</author>
+										<volume>281</volume>
+										<first_page>11965</first_page>
+										<cYear>2006</cYear>
+										<article_title>Solution structure of the severe acute respiratory syndrome-coronavirus heptad repeat 2 domain in the prefusion state</article_title>
+										<doi>10.1074/jbc.M601174200</doi>
+									</citation>
+									<citation key="bib13">
+										<journal_title>Rapid Communications in Mass Spectrometry</journal_title>
+										<author>Hamuro</author>
+										<volume>22</volume>
+										<first_page>1041</first_page>
+										<cYear>2008</cYear>
+										<article_title>Specificity of immobilized porcine pepsin in H/D exchange compatible conditions</article_title>
+										<doi>10.1002/rcm.3467</doi>
+									</citation>
+									<citation key="bib14">
+										<journal_title>Journal of Computational Chemistry</journal_title>
+										<author>Hess</author>
+										<volume>18</volume>
+										<first_page>1463</first_page>
+										<cYear>1997</cYear>
+										<article_title>LINCS: a linear constraint solver for molecular simulations</article_title>
+										<doi>10.1002/(SICI)1096-987X(199709)18:12&lt;1463::AID-JCC4&gt;3.0.CO;2-H</doi>
+									</citation>
+									<citation key="bib15">
+										<journal_title>Cell</journal_title>
+										<author>Hoffmann</author>
+										<volume>181</volume>
+										<first_page>271</first_page>
+										<cYear>2020</cYear>
+										<article_title>SARS-CoV-2 cell entry depends on ACE2 and TMPRSS2 and is blocked by a clinically proven protease inhibitor</article_title>
+										<doi>10.1016/j.cell.2020.02.052</doi>
+									</citation>
+									<citation key="bib16">
+										<journal_title>Annual Review of Biophysics and Biomolecular Structure</journal_title>
+										<author>Hoofnagle</author>
+										<volume>32</volume>
+										<first_page>1</first_page>
+										<cYear>2003</cYear>
+										<article_title>Protein analysis by hydrogen exchange mass spectrometry</article_title>
+										<doi>10.1146/annurev.biophys.32.110601.142417</doi>
+									</citation>
+									<citation key="bib17">
+										<journal_title>Physical Review A</journal_title>
+										<author>Hoover</author>
+										<volume>31</volume>
+										<first_page>1695</first_page>
+										<cYear>1985</cYear>
+										<article_title>Canonical dynamics: equilibrium phase-space distributions</article_title>
+										<doi>10.1103/PhysRevA.31.1695</doi>
+									</citation>
+									<citation key="bib18">
+										<journal_title>Journal of Pharmaceutical Sciences</journal_title>
+										<author>Houde</author>
+										<volume>100</volume>
+										<first_page>2071</first_page>
+										<cYear>2011</cYear>
+										<article_title>The utility of hydrogen/deuterium exchange mass spectrometry in biopharmaceutical comparability studies</article_title>
+										<doi>10.1002/jps.22432</doi>
+									</citation>
+									<citation key="bib19">
+										<journal_title>Journal of Computational Chemistry</journal_title>
+										<author>Huang</author>
+										<volume>34</volume>
+										<first_page>2135</first_page>
+										<cYear>2013</cYear>
+										<article_title>CHARMM36 all-atom additive protein force field: validation based on comparison to NMR data</article_title>
+										<doi>10.1002/jcc.23354</doi>
+									</citation>
+									<citation key="bib20">
+										<journal_title>Journal of Molecular Graphics</journal_title>
+										<author>Humphrey</author>
+										<volume>14</volume>
+										<first_page>33</first_page>
+										<cYear>1996</cYear>
+										<article_title>VMD: visual molecular dynamics</article_title>
+										<doi>10.1016/0263-7855(96)00018-5</doi>
+									</citation>
+									<citation key="bib21">
+										<journal_title>Journal of Virology</journal_title>
+										<author>Jia</author>
+										<volume>79</volume>
+										<first_page>14614</first_page>
+										<cYear>2005</cYear>
+										<article_title>ACE2 receptor expression and severe acute respiratory syndrome coronavirus infection depend on differentiation of human airway epithelia</article_title>
+										<doi>10.1128/JVI.79.23.14614-14621.2005</doi>
+									</citation>
+									<citation key="bib22">
+										<journal_title>Nature</journal_title>
+										<author>Ke</author>
+										<volume>588</volume>
+										<first_page>498</first_page>
+										<cYear>2020</cYear>
+										<article_title>Structures and distributions of SARS-CoV-2 spike proteins on intact virions</article_title>
+										<doi>10.1038/s41586-020-2665-2</doi>
+									</citation>
+									<citation key="bib23">
+										<journal_title>Journal of Virology</journal_title>
+										<author>Klumperman</author>
+										<volume>68</volume>
+										<first_page>6523</first_page>
+										<cYear>1994</cYear>
+										<article_title>Coronavirus M proteins accumulate in the Golgi complex beyond the site of virion budding</article_title>
+										<doi>10.1128/JVI.68.10.6523-6534.1994</doi>
+									</citation>
+									<citation key="bib24">
+										<journal_title>Journal of Cell Biology</journal_title>
+										<author>Krijnse-Locker</author>
+										<volume>124</volume>
+										<first_page>55</first_page>
+										<cYear>1994</cYear>
+										<article_title>Characterization of the budding compartment of mouse hepatitis virus: evidence that transport from the RER to the golgi complex requires only one vesicular transport step</article_title>
+										<doi>10.1083/jcb.124.1.55</doi>
+									</citation>
+									<citation key="bib25">
+										<journal_title>Nature</journal_title>
+										<author>Lan</author>
+										<volume>581</volume>
+										<first_page>215</first_page>
+										<cYear>2020</cYear>
+										<article_title>Structure of the SARS-CoV-2 spike receptor-binding domain bound to the ACE2 receptor</article_title>
+										<doi>10.1038/s41586-020-2180-5</doi>
+									</citation>
+									<citation key="bib26">
+										<journal_title>Journal of Clinical Microbiology</journal_title>
+										<author>Lau</author>
+										<volume>44</volume>
+										<first_page>2063</first_page>
+										<cYear>2006</cYear>
+										<article_title>Coronavirus HKU1 and other coronavirus infections in Hong Kong</article_title>
+										<doi>10.1128/JCM.02614-05</doi>
+									</citation>
+									<citation key="bib27">
+										<journal_title>Journal of Chemical Theory and Computation</journal_title>
+										<author>Lee</author>
+										<volume>12</volume>
+										<first_page>405</first_page>
+										<cYear>2016</cYear>
+										<article_title>CHARMM-GUI input generator for NAMD, GROMACS, AMBER, OpenMM, and CHARMM/OpenMM simulations using the CHARMM36 additive force field</article_title>
+										<doi>10.1021/acs.jctc.5b00935</doi>
+									</citation>
+									<citation key="bib28">
+										<journal_title>Journal of Chemical Theory and Computation</journal_title>
+										<author>Lee</author>
+										<volume>15</volume>
+										<first_page>775</first_page>
+										<cYear>2019</cYear>
+										<article_title>CHARMM-GUI Membrane Builder for Complex Biological Membrane Simulations with Glycolipids and Lipoglycans</article_title>
+										<doi>10.1021/acs.jctc.8b01066</doi>
+									</citation>
+									<citation key="bib29">
+										<journal_title>Science</journal_title>
+										<author>Li</author>
+										<volume>309</volume>
+										<first_page>1864</first_page>
+										<cYear>2005</cYear>
+										<article_title>Structure of SARS coronavirus spike receptor-binding domain complexed with receptor</article_title>
+										<doi>10.1126/science.1116480</doi>
+									</citation>
+									<citation key="bib30">
+										<journal_title>Nature Communications</journal_title>
+										<author>Lim</author>
+										<volume>8</volume>
+										<cYear>2017</cYear>
+										<article_title>Conformational changes in intact dengue virus reveal serotype-specific expansion</article_title>
+										<doi>10.1038/ncomms14339</doi>
+										<elocation_id>14339</elocation_id>
+									</citation>
+									<citation key="bib31">
+										<journal_title>Structure</journal_title>
+										<author>Lim</author>
+										<volume>25</volume>
+										<first_page>1391</first_page>
+										<cYear>2017</cYear>
+										<article_title>Epitope and paratope mapping reveals Temperature-Dependent alterations in the Dengue-Antibody interface</article_title>
+										<doi>10.1016/j.str.2017.07.007</doi>
+									</citation>
+									<citation key="bib32">
+										<journal_title>Molecular Physics</journal_title>
+										<author>Nosé</author>
+										<volume>52</volume>
+										<first_page>255</first_page>
+										<cYear>1984</cYear>
+										<article_title>A molecular dynamics method for simulations in the canonical ensemble</article_title>
+										<doi>10.1080/00268978400101201</doi>
+									</citation>
+									<citation key="bib33">
+										<journal_title>Journal of Applied Physics</journal_title>
+										<author>Parrinello</author>
+										<volume>52</volume>
+										<first_page>7182</first_page>
+										<cYear>1981</cYear>
+										<article_title>Polymorphic transitions in single crystals: A new molecular dynamics method</article_title>
+										<doi>10.1063/1.328693</doi>
+									</citation>
+									<citation key="bib34">
+										<journal_title>Virology</journal_title>
+										<author>Petit</author>
+										<volume>360</volume>
+										<first_page>264</first_page>
+										<cYear>2007</cYear>
+										<article_title>Palmitoylation of the cysteine-rich endodomain of the SARS-coronavirus spike glycoprotein is important for spike-mediated cell fusion</article_title>
+										<doi>10.1016/j.virol.2006.10.034</doi>
+									</citation>
+									<citation key="bib35">
+										<journal_title>Journal of Molecular Biology</journal_title>
+										<author>Ramachandran</author>
+										<volume>7</volume>
+										<first_page>95</first_page>
+										<cYear>1963</cYear>
+										<article_title>Stereochemistry of polypeptide chain configurations</article_title>
+										<doi>10.1016/S0022-2836(63)80023-6</doi>
+									</citation>
+									<citation key="bib36">
+										<journal_title>Journal of Molecular Biology</journal_title>
+										<author>Šali</author>
+										<volume>234</volume>
+										<first_page>779</first_page>
+										<cYear>1993</cYear>
+										<article_title>Comparative protein modelling by satisfaction of spatial restraints</article_title>
+										<doi>10.1006/jmbi.1993.1626</doi>
+									</citation>
+									<citation key="bib37">
+										<journal_title>PNAS</journal_title>
+										<author>Sampaio</author>
+										<volume>108</volume>
+										<first_page>1903</first_page>
+										<cYear>2011</cYear>
+										<article_title>Membrane lipidome of an epithelial cell line</article_title>
+										<doi>10.1073/pnas.1019267108</doi>
+									</citation>
+									<citation key="bib38">
+										<journal_title>PLOS Pathogens</journal_title>
+										<author>Shang</author>
+										<volume>16</volume>
+										<cYear>2020</cYear>
+										<article_title>Structure of mouse coronavirus spike protein complexed with receptor reveals mechanism for viral entry</article_title>
+										<doi>10.1371/journal.ppat.1008392</doi>
+										<elocation_id>e1008392</elocation_id>
+									</citation>
+									<citation key="bib39">
+										<journal_title>Journal of Virology</journal_title>
+										<author>St-Jean</author>
+										<volume>78</volume>
+										<first_page>8824</first_page>
+										<cYear>2004</cYear>
+										<article_title>Human respiratory coronavirus OC43: genetic stability and neuroinvasion</article_title>
+										<doi>10.1128/JVI.78.16.8824-8834.2004</doi>
+									</citation>
+									<citation key="bib40">
+										<journal_title>Trends in Microbiology</journal_title>
+										<author>Su</author>
+										<volume>24</volume>
+										<first_page>490</first_page>
+										<cYear>2016</cYear>
+										<article_title>Epidemiology, genetic recombination, and pathogenesis of coronaviruses</article_title>
+										<doi>10.1016/j.tim.2016.03.003</doi>
+									</citation>
+									<citation key="bib41">
+										<journal_title>Antiviral Research</journal_title>
+										<author>Tan</author>
+										<volume>65</volume>
+										<first_page>69</first_page>
+										<cYear>2005</cYear>
+										<article_title>Characterization of viral proteins encoded by the SARS-coronavirus genome</article_title>
+										<doi>10.1016/j.antiviral.2004.10.001</doi>
+									</citation>
+									<citation key="bib42">
+										<journal_title>Journal of Biological Chemistry</journal_title>
+										<author>Towler</author>
+										<volume>279</volume>
+										<first_page>17996</first_page>
+										<cYear>2004</cYear>
+										<article_title>ACE2 X-Ray structures reveal a large Hinge-bending motion important for inhibitor binding and catalysis</article_title>
+										<doi>10.1074/jbc.M311191200</doi>
+									</citation>
+									<citation key="bib43">
+										<journal_title>Science</journal_title>
+										<author>Turoňová</author>
+										<volume>370</volume>
+										<first_page>203</first_page>
+										<cYear>2020</cYear>
+										<article_title>In situ structural analysis of SARS-CoV-2 spike reveals flexibility mediated by three hinges</article_title>
+										<doi>10.1126/science.abd5223</doi>
+									</citation>
+									<citation key="bib44">
+										<journal_title>Trends in Cell Biology</journal_title>
+										<author>van Meer</author>
+										<volume>8</volume>
+										<first_page>29</first_page>
+										<cYear>1998</cYear>
+										<article_title>Lipids of the golgi membrane</article_title>
+										<doi>10.1016/S0962-8924(97)01196-3</doi>
+									</citation>
+									<citation key="bib45">
+										<journal_title>The Journal of Physical Chemistry Letters</journal_title>
+										<author>Vankadari</author>
+										<volume>11</volume>
+										<first_page>6655</first_page>
+										<cYear>2020</cYear>
+										<article_title>Structure of furin protease binding to SARS-CoV-2 spike glycoprotein and implications for potential targets and virulence</article_title>
+										<doi>10.1021/acs.jpclett.0c01698</doi>
+									</citation>
+									<citation key="bib46">
+										<journal_title>PNAS</journal_title>
+										<author>Walls</author>
+										<volume>114</volume>
+										<first_page>11157</first_page>
+										<cYear>2017</cYear>
+										<article_title>Tectonic conformational changes of a coronavirus spike glycoprotein promote membrane fusion</article_title>
+										<doi>10.1073/pnas.1708727114</doi>
+									</citation>
+									<citation key="bib47">
+										<journal_title>Cell</journal_title>
+										<author>Walls</author>
+										<volume>181</volume>
+										<first_page>281</first_page>
+										<cYear>2020</cYear>
+										<article_title>Structure, function, and antigenicity of the SARS-CoV-2 spike glycoprotein</article_title>
+										<doi>10.1016/j.cell.2020.02.058</doi>
+									</citation>
+									<citation key="bib48">
+										<journal_title>Cell</journal_title>
+										<author>Wang</author>
+										<volume>181</volume>
+										<first_page>894</first_page>
+										<cYear>2020</cYear>
+										<article_title>Structural and functional basis of SARS-CoV-2 entry by using human ACE2</article_title>
+										<doi>10.1016/j.cell.2020.03.045</doi>
+									</citation>
+									<citation key="bib49">
+										<journal_title>PNAS</journal_title>
+										<author>Wang</author>
+										<volume>117</volume>
+										<first_page>13967</first_page>
+										<cYear>2020</cYear>
+										<article_title>Enhanced receptor binding of SARS-CoV-2 through networks of hydrogen-bonding and hydrophobic interactions</article_title>
+										<doi>10.1073/pnas.2008209117</doi>
+									</citation>
+									<citation key="bib50">
+										<journal_title>mBio</journal_title>
+										<author>Warnes</author>
+										<volume>6</volume>
+										<cYear>2015</cYear>
+										<article_title>Human coronavirus 229E remains infectious on common touch surface materials</article_title>
+										<doi>10.1128/mBio.01697-15</doi>
+										<elocation_id>e01697</elocation_id>
+									</citation>
+									<citation key="bib51">
+										<journal_title>Science</journal_title>
+										<author>Watanabe</author>
+										<volume>369</volume>
+										<first_page>330</first_page>
+										<cYear>2020</cYear>
+										<article_title>Site-specific glycan analysis of the SARS-CoV-2 spike</article_title>
+										<doi>10.1126/science.abb9983</doi>
+									</citation>
+									<citation key="bib52">
+										<journal_title>Science</journal_title>
+										<author>Wrapp</author>
+										<volume>367</volume>
+										<first_page>1260</first_page>
+										<cYear>2020</cYear>
+										<article_title>Cryo-EM structure of the 2019-nCoV spike in the prefusion conformation</article_title>
+										<doi>10.1126/science.abb2507</doi>
+									</citation>
+									<citation key="bib53">
+										<journal_title>Science</journal_title>
+										<author>Yan</author>
+										<volume>367</volume>
+										<first_page>1444</first_page>
+										<cYear>2020</cYear>
+										<article_title>Structural basis for the recognition of SARS-CoV-2 by full-length human ACE2</article_title>
+										<doi>10.1126/science.abb2762</doi>
+									</citation>
+								</citation_list>
+								<component_list/>
+							</journal_article>
+						</journal>
+					</crossref>
+				</doi_record>
+			</query>
+		</body>
+	</query_result>
+</crossref_result>

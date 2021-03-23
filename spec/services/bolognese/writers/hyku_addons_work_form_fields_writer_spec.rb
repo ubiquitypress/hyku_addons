@@ -9,37 +9,46 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
   end
 
   context "Hyku Addons Writer" do
-    context "outputs correctly" do
-      describe "a complete work" do
-        let(:fixture) { File.read Rails.root.join('..', 'fixtures', 'crossref_result.xml') }
-        let(:meta) { Bolognese::Metadata.new(input: fixture) }
-        let(:result) { meta.hyku_addons_work_form_fields }
+    let(:meta) { Bolognese::Metadata.new(input: fixture) }
+    let(:result) { meta.hyku_addons_work_form_fields }
 
-        it { expect(meta.doi).to be_present }
-        it { expect(result).to be_a Hash }
-        it { expect(result["publisher"]).to eq ["Ubiquity Press, Ltd."] }
-        it { expect(result["title"]).to eq ["As Paisagens Sonora, Olfactiva e Culinária em Alice’s Adventures in Wonderland (1865), de Lewis Carroll"] }
-        it { expect(result["doi"]).to eq ["10.5334/as.1"] }
+    describe "10.5334-as.1.xml" do
+      let(:fixture) { File.read Rails.root.join('..', 'fixtures', 'doi', '10.5334-as.1.xml') }
 
-        it { expect(result["creator"]).to be_an(Array) }
-        it { expect(result["creator"].first["creator_given_name"]).to eq "Rogério Miguel" }
-        it { expect(result["creator"].first["creator_family_name"]).to eq "Puga" }
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+      it { expect(result["publisher"]).to eq ["Ubiquity Press, Ltd."] }
+      it { expect(result["title"]).to eq ["As Paisagens Sonora, Olfactiva e Culinária em Alice’s Adventures in Wonderland (1865), de Lewis Carroll"] }
+      it { expect(result["doi"]).to eq ["10.5334/as.1"] }
 
-        it { expect(result["date_created"]).to be_an(Array) }
-        it { expect(result["date_created"].first["date_created_year"]).to be 2020 }
-        it { expect(result["date_created"].first["date_created_month"]).to be 2 }
-        it { expect(result["date_created"].first["date_created_day"]).to be 14 }
+      it { expect(result["creator"]).to be_an(Array) }
+      it { expect(result["creator"].first["creator_given_name"]).to eq "Rogério Miguel" }
+      it { expect(result["creator"].first["creator_family_name"]).to eq "Puga" }
 
-        it { expect(result["date_updated"]).to be_an(Array) }
-        it { expect(result["date_updated"].first["date_updated_year"]).to be 2020 }
-        it { expect(result["date_updated"].first["date_updated_month"]).to be 12 }
-        it { expect(result["date_updated"].first["date_updated_day"]).to be 18 }
+      it { expect(result["date_created"]).to be_an(Array) }
+      it { expect(result["date_created"].first["date_created_year"]).to be 2020 }
+      it { expect(result["date_created"].first["date_created_month"]).to be 2 }
+      it { expect(result["date_created"].first["date_created_day"]).to be 14 }
 
-        it { expect(result["date_published"]).to be_an(Array) }
-        it { expect(result["date_published"].first["date_published_year"]).to be 2020 }
-        it { expect(result["date_published"].first["date_published_month"]).to be 1 }
-        it { expect(result["date_published"].first["date_published_day"]).to be 1 }
-      end
+      it { expect(result["date_updated"]).to be_an(Array) }
+      it { expect(result["date_updated"].first["date_updated_year"]).to be 2020 }
+      it { expect(result["date_updated"].first["date_updated_month"]).to be 12 }
+      it { expect(result["date_updated"].first["date_updated_day"]).to be 18 }
+
+      it { expect(result["date_published"]).to be_an(Array) }
+      it { expect(result["date_published"].first["date_published_year"]).to be 2020 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 1 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 1 }
+    end
+
+    describe "10.7554-elife.63646.xml, a journal doi with multiple complete creators" do
+      let(:fixture) { File.read Rails.root.join('..', 'fixtures', 'doi', '10.7554-elife.63646.xml') }
+
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+      it { expect(result["publisher"]).to eq ["eLife Sciences Publications, Ltd"] }
+      it { expect(result["title"]).to eq ["SARS-CoV-2 S protein:ACE2 interaction reveals novel allosteric targets"] }
+      it { expect(result["doi"]).to eq ["10.7554/elife.63646"] }
     end
   end
 end

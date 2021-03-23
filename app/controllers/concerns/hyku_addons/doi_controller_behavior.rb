@@ -13,7 +13,9 @@ module HykuAddons
           if Rails.env.development?
             format.html { render json: json_response, status: :ok }
 
-            # NOTE: Use this to see the raw XML returned, useful for creating fixtures for specs
+            # NOTE: Use this to see the raw XML returned, useful for creating fixtures for specs,
+            # copy the raw sauce, NOT the html rendered output or you will see errors:
+            #
             # http://repo.lvh.me:3000/doi/autofill.xml?curation_concern=generic_work&doi=10.7554/elife.63646
             format.xml { render xml: raw_response.string, status: :ok }
           end
