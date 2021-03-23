@@ -8,8 +8,10 @@ class PrefillWorkFormViaDOI {
 
     this.registerListeners()
 
+    // NOTE:
+    // Use the following for debugging only
     $(this.buttonSelector).attr("data-confirm", "")
-    $("input#article_doi").val("http://doi.org/10.5334/cie.17")
+    $("input#article_doi").val("http://doi.org/10.7554/eLife.63646")
     $("#doi-autofill-btn").click()
   }
 
@@ -24,7 +26,7 @@ class PrefillWorkFormViaDOI {
       return false
     }
 
-    console.info("response: ", this.response)
+    console.info("response: ", this.response.data)
 
     // Switch to the description tab automatically
     $("[aria-controls='metadata']").click()
