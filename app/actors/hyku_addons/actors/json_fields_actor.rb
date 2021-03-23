@@ -17,6 +17,7 @@ module HykuAddons
             if name_blank?(field, env.attributes[field]) || recursive_blank?(env.attributes[field])
               env.attributes.delete(field)
             else
+              env.attributes[field].reject! { |o| name_blank?(field, o) || recursive_blank?(o) } if env.attributes[field].is_a? Array
               env.attributes[field] = env.attributes[field].to_json
             end
             env.attributes[field] = Array(env.attributes[field]) if env.curation_concern.class.multiple?(field)

@@ -71,6 +71,7 @@ Metrics/PerceivedComplexity:
 
 Metrics/AbcSize:
   Exclude:
+    - 'app/actors/hyku_addons/actors/json_fields_actor.rb'
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/models/hyku_addons/csv_entry.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
