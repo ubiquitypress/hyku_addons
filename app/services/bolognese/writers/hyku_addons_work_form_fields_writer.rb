@@ -4,7 +4,7 @@
 # Add new fields here that should be available to prefill the work forms.
 # You must also add the logic to the PrefillWorkFormViaDOI JS class.
 #
-# Raw output from this class can be accessed via:
+# Raw output from this class can be accessed via - Copy the raw source, not the HTML output:
 # http://YOUR_TENANT.lvh.me:3000/doi/autofill?curation_concern=generic_work&doi=YOUR_DOI
 #
 # E.g
