@@ -12,7 +12,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
     let(:meta) { Bolognese::Metadata.new(input: fixture) }
     let(:result) { meta.hyku_addons_work_form_fields }
 
-    describe "10.5334-as.1.xml, an article" do
+    describe "an article" do
       let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.5334-as.1.xml") }
 
       it { expect(meta.doi).to be_present }
@@ -42,7 +42,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["creator"].first["creator_family_name"]).to eq "Puga" }
     end
 
-    describe "10.7554-elife.63646.xml, a journal doi with multiple complete creators" do
+    describe "a journal doi with multiple complete creators" do
       let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", '10.7554-elife.63646.xml') }
 
       it { expect(meta.doi).to be_present }
@@ -53,7 +53,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["doi"]).to eq ["10.7554/elife.63646"] }
 
       it { expect(result["abstract"].first).to include("The spike (S) protein is the main handle for SARS-CoV-2") }
-      it { expect(result["keywords"]).to be_nil }
+      it { expect(result["keyword"]).to be_nil }
 
       it { expect(result["date_created"]).to be_an(Array) }
       it { expect(result["date_created"].first["date_created_year"]).to be 2021 }
@@ -88,7 +88,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["creator"][1]["creator_orcid"]).to eq "https://orcid.org/0000-0001-6577-6748" }
     end
 
-    describe "10.5040-9780755697397.0006.xml, a book chapter" do
+    describe "a book chapter" do
       let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.5040-9780755697397.0006.xml") }
 
       it { expect(meta.doi).to be_present }
@@ -108,13 +108,12 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
 
       it { expect(result["creator"]).to be_an(Array) }
       it { expect(result["creator"].size).to eq 1 }
-
       it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
       it { expect(result["creator"][0]["creator_given_name"]).to eq "Sharon" }
       it { expect(result["creator"][0]["creator_family_name"]).to eq "Lockyer" }
     end
 
-    describe "10.5040-9780755697397.xml, a book" do
+    describe "a book" do
       let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.5040-9780755697397.xml") }
 
       it { expect(meta.doi).to be_present }
@@ -139,6 +138,131 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["creator"].size).to eq 1 }
       it { expect(result["creator"][0]["creator_name_type"]).to eq "Organizational" }
       it { expect(result["creator"][0]["creator_name"]).to eq ":(unav)" }
+    end
+
+    describe "a report" do
+      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.1920-bn.ifs.2003.0038.xml") }
+
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+
+      it { expect(result["publisher"]).to eq ["Institute for Fiscal Studies"] }
+      it { expect(result["title"]).to eq ["Is middle Britain middle-income Britain?"] }
+      it { expect(result["doi"]).to eq ["10.1920/bn.ifs.2003.0038"] }
+
+      it { expect(result["date_published"]).to be_an(Array) }
+      it { expect(result["date_published"].first["date_published_year"]).to be 2003 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 1 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 1 }
+
+      it { expect(result["contributor"]).to be_an(Array) }
+      it { expect(result["contributor"].size).to eq 0 }
+
+      it { expect(result["creator"]).to be_an(Array) }
+      it { expect(result["creator"].size).to eq 1 }
+      it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][0]["creator_given_name"]).to eq "Matthew" }
+      it { expect(result["creator"][0]["creator_family_name"]).to eq "Wakefield" }
+    end
+
+    describe "a blog post" do
+      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.18785-fa.m165.xml") }
+
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+
+      it { expect(result["publisher"]).to eq ["University of Southern Mississippi"] }
+      it { expect(result["title"]).to eq ["Great Britain Parliament"] }
+      it { expect(result["doi"]).to eq ["10.18785/fa.m165"] }
+
+      it { expect(result["date_published"]).to be_an(Array) }
+      it { expect(result["date_published"].first["date_published_year"]).to be 2017 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 1 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 1 }
+
+      it { expect(result["contributor"]).to be_an(Array) }
+      it { expect(result["contributor"].size).to eq 0 }
+
+      it { expect(result["creator"]).to be_an(Array) }
+      it { expect(result["creator"].size).to eq 1 }
+      it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][0]["creator_given_name"]).to eq "Special Collections, University Libraries" }
+      it { expect(result["creator"][0]["creator_family_name"]).to eq "University of Southern Mississippi" }
+    end
+
+    describe "a journal article" do
+      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.1080-14714787.2012.641791.xml") }
+
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+
+      it { expect(result["publisher"]).to eq ["Informa UK Limited"] }
+      it { expect(result["title"]).to eq ["Cinema, Colour and the Festival of Britain, 1951"] }
+      it { expect(result["doi"]).to eq ["10.1080/14714787.2012.641791"] }
+
+      it { expect(result["date_published"]).to be_an(Array) }
+      it { expect(result["date_published"].first["date_published_year"]).to be 2012 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 1 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 1 }
+
+      it { expect(result["contributor"]).to be_an(Array) }
+      it { expect(result["contributor"].size).to eq 0 }
+
+      it { expect(result["creator"]).to be_an(Array) }
+      it { expect(result["creator"].size).to eq 1 }
+      it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][0]["creator_given_name"]).to eq "Sarah" }
+      it { expect(result["creator"][0]["creator_family_name"]).to eq "Street" }
+    end
+
+    describe "a dataset post" do
+      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.7925-drs1.duchas_5019334.xml") }
+
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+
+      it { expect(result["publisher"]).to eq ["National Folklore Collection, University College Dublin"] }
+      it { expect(result["title"]).to eq ["Witchcraft"] }
+      it { expect(result["doi"]).to eq ["10.7925/drs1.duchas_5019334"] }
+      it { expect(result["abstract"].first).to include("Story collected by William Morris") }
+      it { expect(result["keyword"]).to eq ["diviners", "Soothsayers", "Lucht feasa"] }
+
+      it { expect(result["date_published"]).to be_an(Array) }
+      it { expect(result["date_published"].first["date_published_year"]).to be 2017 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 1 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 1 }
+
+      it { expect(result["contributor"]).to be_an(Array) }
+
+      # This seems wierd, as 3 are normal contributors, but 3 are Funders
+      it { expect(result["contributor"].size).to eq 6 }
+
+      it { expect(result["contributor"][0]["contributor_name_type"]).to eq "Personal" }
+      it { expect(result["contributor"][0]["contributor_given_name"]).to eq "Gan Ainm / Mícheál Ó" }
+      it { expect(result["contributor"][0]["contributor_family_name"]).to eq "Séaghdha" }
+
+      it { expect(result["contributor"][1]["contributor_name_type"]).to eq "Personal" }
+      it { expect(result["contributor"][1]["contributor_given_name"]).to eq "William" }
+      it { expect(result["contributor"][1]["contributor_family_name"]).to eq "Morris" }
+
+      it { expect(result["contributor"][2]["contributor_name_type"]).to eq "Personal" }
+      it { expect(result["contributor"][2]["contributor_given_name"]).to eq "William" }
+      it { expect(result["contributor"][2]["contributor_family_name"]).to eq "Morris" }
+
+      it { expect(result["creator"]).to be_an(Array) }
+      it { expect(result["creator"].size).to eq 3 }
+
+      it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][0]["creator_given_name"]).to eq "Gan Ainm / Mícheál Ó" }
+      it { expect(result["creator"][0]["creator_family_name"]).to eq "Séaghdha" }
+
+      it { expect(result["creator"][1]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][1]["creator_given_name"]).to eq "William" }
+      it { expect(result["creator"][1]["creator_family_name"]).to eq "Morris" }
+
+      it { expect(result["creator"][2]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][2]["creator_given_name"]).to eq "William" }
+      it { expect(result["creator"][2]["creator_family_name"]).to eq "Morris" }
     end
   end
 end

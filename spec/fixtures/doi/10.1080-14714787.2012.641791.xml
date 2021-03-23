@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crossref_result xmlns="http://www.crossref.org/qrschema/3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.crossref.org/qrschema/3.0 http://www.crossref.org/schemas/crossref_query_output3.0.xsd">
+  <query_result>
+    <head>
+      <doi_batch_id>none</doi_batch_id>
+    </head>
+    <body>
+      <query status="resolved">
+        <doi type="journal_article">10.1080/14714787.2012.641791</doi>
+        <crm-item name="publisher-name" type="string">Informa UK Limited</crm-item>
+        <crm-item name="prefix-name" type="string">Informa UK (Taylor &amp; Francis)</crm-item>
+        <crm-item name="member-id" type="number">301</crm-item>
+        <crm-item name="citation-id" type="number">54094625</crm-item>
+        <crm-item name="journal-id" type="number">85412</crm-item>
+        <crm-item name="deposit-timestamp" type="number">2012022404293300640</crm-item>
+        <crm-item name="owner-prefix" type="string">10.1080</crm-item>
+        <crm-item name="last-update" type="date">2016-11-28T12:52:56Z</crm-item>
+        <crm-item name="created" type="date">2012-02-24T07:29:55Z</crm-item>
+        <crm-item name="citedby-count" type="number">1</crm-item>
+        <doi_record>
+          <crossref xmlns="http://www.crossref.org/xschema/1.1" xsi:schemaLocation="http://www.crossref.org/xschema/1.1 http://doi.crossref.org/schemas/unixref1.1.xsd">
+            <journal>
+              <journal_metadata language="en">
+                <full_title>Visual Culture in Britain</full_title>
+                <abbrev_title>Visual Culture in Britain</abbrev_title>
+                <issn media_type="print">1471-4787</issn>
+                <issn media_type="electronic">1941-8361</issn>
+              </journal_metadata>
+              <journal_issue>
+                <publication_date media_type="print">
+                  <month>03</month>
+                  <year>2012</year>
+                </publication_date>
+                <journal_volume>
+                  <volume>13</volume>
+                </journal_volume>
+                <issue>1</issue>
+              </journal_issue>
+              <journal_article publication_type="full_text">
+                <titles>
+                  <title>Cinema, Colour and the Festival of Britain, 1951</title>
+                </titles>
+                <contributors>
+                  <person_name sequence="first" contributor_role="author">
+                    <given_name>Sarah</given_name>
+                    <surname>Street</surname>
+                  </person_name>
+                </contributors>
+                <publication_date media_type="print">
+                  <month>03</month>
+                  <year>2012</year>
+                </publication_date>
+                <pages>
+                  <first_page>83</first_page>
+                  <last_page>99</last_page>
+                </pages>
+                <publisher_item>
+                  <item_number item_number_type="sequence-number">5</item_number>
+                  <identifier id_type="doi">10.1080/14714787.2012.641791</identifier>
+                </publisher_item>
+                <doi_data>
+                  <doi>10.1080/14714787.2012.641791</doi>
+                  <resource>http://www.tandfonline.com/doi/abs/10.1080/14714787.2012.641791</resource>
+                  <collection property="crawler-based" setbyID="taylor">
+                    <item crawler="iParadigms">
+                      <resource>http://www.tandfonline.com/doi/pdf/10.1080/14714787.2012.641791</resource>
+                    </item>
+                  </collection>
+                </doi_data>
+              </journal_article>
+            </journal>
+          </crossref>
+        </doi_record>
+      </query>
+    </body>
+  </query_result>
+</crossref_result>
+

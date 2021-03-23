@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="http://datacite.org/schema/kernel-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
+	<identifier identifierType="DOI">10.7925/DRS1.DUCHAS_5019334</identifier>
+	<creators>
+		<creator>
+			<creatorName>Séaghdha, Gan ainm / Mícheál Ó</creatorName>
+		</creator>
+		<creator>
+			<creatorName>Morris, William</creatorName>
+		</creator>
+		<creator>
+			<creatorName>Morris, William</creatorName>
+		</creator>
+	</creators>
+	<titles>
+		<title xml:lang="en">Witchcraft</title>
+	</titles>
+	<publisher>National Folklore Collection, University College Dublin</publisher>
+	<publicationYear>2017</publicationYear>
+	<subjects>
+		<subject xml:lang="en-us" subjectScheme="AFSET" schemeURI="http://id.loc.gov/vocabulary/ethnographicTerms/afset005341">diviners</subject>
+		<subject xml:lang="en-us" subjectScheme="DUCHAS" schemeURI="urn:duchas:topic_id:5191993">Soothsayers</subject>
+		<subject xml:lang="en-us" subjectScheme="DUCHAS" schemeURI="urn:duchas:topic_id:5191993">Lucht feasa</subject>
+	</subjects>
+	<contributors>
+		<contributor contributorType="Other">
+			<contributorName>Séaghdha, Gan ainm / Mícheál Ó</contributorName>
+		</contributor>
+		<contributor contributorType="Other">
+			<contributorName>Morris, William</contributorName>
+		</contributor>
+		<contributor contributorType="Other">
+			<contributorName>Morris, William</contributorName>
+		</contributor>
+		<contributor contributorType="Funder">
+			<contributorName>Ireland. Department of Arts, Culture, and the Gaeltacht</contributorName>
+			<nameIdentifier nameIdentifierScheme="VIAF" schemeURI="http://www.viaf.org">130344669</nameIdentifier>
+		</contributor>
+		<contributor contributorType="Funder">
+			<contributorName>University College Dublin</contributorName>
+			<nameIdentifier nameIdentifierScheme="VIAF" schemeURI="http://www.viaf.org">155872427</nameIdentifier>
+		</contributor>
+		<contributor contributorType="Funder">
+			<contributorName>National Folklore Foundation</contributorName>
+		</contributor>
+	</contributors>
+	<dates>
+		<date dateType="Issued">2017</date>
+		<date dateType="Available">2017-11-15</date>
+	</dates>
+	<language>en</language>
+	<resourceType resourceTypeGeneral="Dataset">folktale</resourceType>
+	<alternateIdentifiers>
+		<alternateIdentifier alternateIdentifierType="DUCHAS">5019334</alternateIdentifier>
+		<alternateIdentifier alternateIdentifierType="URL">http://digital.ucd.ie/view/duchas:5019334</alternateIdentifier>
+	</alternateIdentifiers>
+	<relatedIdentifiers/>
+	<sizes>
+		<size>p. 014</size>
+		<size>0560 volume</size>
+	</sizes>
+	<rightsList>
+		<rights rightsURI="info:eu-repo/semantics/openAccess"/>
+		<rights rightsURI="https://creativecommons.org/licenses/by-nc/4.0/">UseAndReproduction: Use of this resource is governed by the terms and conditions of the Creative Commons "Attribution-NonCommercial-NoDerivatives 4.0 International" License &lt;https://creativecommons.org/licenses/by-nc/4.0/&gt;</rights>
+		<rights rightsURI="http://n2t.net/ark:/87925/h1cc0xm5">UseAndReproduction: To use for commercial purposes, please contact the National Folklore Collection, UCD</rights>
+		<rights>UseAndReproduction: Glenbeigh Records Management</rights>
+		<rights>UseAndReproduction: "Witchcraft"in "The Schools' Manuscript Collection," held by University College Dublin, National Folklore Collection UCD. © University College Dublin. Digital content by: Glenbeigh Records Management, published by UCD Library, University College Dublin &lt;https://doi.org/10.7925/drs1.duchas_5019334&gt;</rights>
+	</rightsList>
+	<descriptions>
+		<description xml:lang="en" descriptionType="Abstract">Story collected by William Morris, a student at Grangemocler (B.) Carrick-on-Suir school (Grangemockler, Co. Tipperary) from informant William Morris.</description>
+		<description xml:lang="en" descriptionType="Other">Collected as part of the Schools' Folklore scheme, 1937-1938, under the supervision of teacher Gan ainm / Mícheál Ó Séaghdha.</description>
+		<description xml:lang="en" descriptionType="Other">Supported by funding from the Department of Arts, Heritage and the Gaeltacht (Ireland), University College Dublin, and the National Folklore Foundation (Fondúireacht Bhéaloideas Éireann), 2014-2016.</description>
+	</descriptions>
+	<geoLocations>
+		<geoLocation>
+			<geoLocationPoint>52.4575092416748990 -7.4933935956993496</geoLocationPoint>
+		</geoLocation>
+	</geoLocations>
+</resource>

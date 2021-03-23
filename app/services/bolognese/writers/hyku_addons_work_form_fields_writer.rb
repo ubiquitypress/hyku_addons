@@ -40,7 +40,12 @@ module Bolognese
 
             # Individual name identifiers will require specific tranformations as required
             involved["#{type_name}_name_identifiers"]&.each_with_object(involved) do |hash, involved|
-              involved["#{type_name}_#{hash["nameIdentifierScheme"].downcase}"] = hash["nameIdentifier"]
+              involved["#{type_name}_#{hash['nameIdentifierScheme'].downcase}"] = hash["nameIdentifier"]
+            end
+
+            # Incase edge cases don't provide a full set of name values, but should have: 10.7925/drs1.duchas_5019334
+            if involved["#{type_name}_name"]&.match?(/,/) && involved["#{type_name}_given_name"].blank?
+              involved["#{type_name}_family_name"], involved["#{type_name}_given_name"] = involved["#{type_name}_name"].split(", ")
             end
 
             involved
