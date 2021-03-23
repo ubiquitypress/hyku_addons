@@ -60,11 +60,13 @@ Metrics/MethodLength:
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
+    - 'bin/transform_export_batch.rb'
     - 'lib/hyku_addons/engine.rb'
 
 Metrics/PerceivedComplexity:
   Exclude:
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
+    - 'bin/transform_export_batch.rb'
     - 'lib/hyku_addons/engine.rb'
 
 Metrics/AbcSize:
@@ -96,6 +98,10 @@ RSpec/InstanceVariable:
 RSpec/NestedGroups:
   Exclude:
     - 'spec/services/bolognese/readers/generic_work_reader_spec.rb'
+
+Style/RescueModifier:
+  Exclude:
+    - 'bin/transform_export_batch.rb'
 
 Style/SymbolProc:
   Exclude:

@@ -103,7 +103,7 @@ def gather_values(field, row)
   elsif field == 'file'
     # Placeholder file for now
     ['nypl-hydra-of-lerna.jpg']
-  elsif field =~ /_role/
+  elsif field.match?(/_role/)
     field_values.map do |v|
       JSON.parse(v).join('|') rescue nil
     end
