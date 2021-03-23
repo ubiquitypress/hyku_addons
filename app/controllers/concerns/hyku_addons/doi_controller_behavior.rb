@@ -7,10 +7,11 @@ module HykuAddons
     included do
       def autofill
         respond_to do |format|
-          # TODO: Make this respond to json instead of js
           format.js { render json: json_response, status: :ok }
 
           if Rails.env.development?
+            format.json { render json: json_response, status: :ok }
+
             format.html { render json: json_response, status: :ok }
 
             # NOTE: Use this to see the raw XML returned, useful for creating fixtures for specs,
