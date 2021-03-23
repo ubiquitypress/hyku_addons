@@ -3,6 +3,12 @@
 # NOTE:
 # Add new fields here that should be available to prefill the work forms.
 # You must also add the logic to the PrefillWorkFormViaDOI JS class.
+#
+# Raw output from this class can be accessed via:
+# http://YOUR_TENANT.lvh.me:3000/doi/autofill?curation_concern=generic_work&doi=YOUR_DOI
+#
+# E.g
+# http://repo.lvh.me:3000/doi/autofill?curation_concern=generic_work&doi=10.7554/elife.63646
 module Bolognese
   module Writers
     module HykuAddonsWorkFormFieldsWriter
@@ -26,6 +32,27 @@ module Bolognese
 
       protected
 
+        def write_involved(type)
+          type_name = type.to_s.singularize
+
+          meta.dig(type).map do |involved|
+            involved.transform_keys! { |key| "#{type_name}_#{key.underscore}" }
+
+            # Individual name identifiers will require specific tranformations as required
+            involved["#{type_name}_name_identifiers"]&.each_with_object(involved) do |hash, involved|
+              involved["#{type_name}_#{hash["nameIdentifierScheme"].downcase}"] = hash["nameIdentifier"]
+            end
+
+            involved
+          end
+        end
+
+        def write_descriptions
+          return nil if descriptions.blank?
+
+          descriptions.pluck("description").map { |d| Array(d).join("\n") }
+        end
+
         def write_date_published
           write_date("date_published", Array(format_date(publication_year)))
         end
@@ -38,17 +65,6 @@ module Bolognese
               "#{field}_day" => date.day
             }
           end
-        end
-
-        def write_involved(type)
-          # Convert the keys to singular and underscored, to match field names
-          meta.dig(type).map { |hash| hash.map { |k, v| ["#{type.singularize}_#{k.underscore}", v] }.to_h }
-        end
-
-        def write_descriptions
-          return nil if descriptions.blank?
-
-          descriptions.pluck("description").map { |d| Array(d).join("\n") }
         end
 
       private
