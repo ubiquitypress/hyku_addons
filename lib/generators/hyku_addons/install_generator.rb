@@ -3,10 +3,13 @@ module HykuAddons
   class InstallGenerator < Rails::Generators::Base
     desc <<-EOS
       This generator makes the following changes to Hyku:
-        1. Injects work type overrides
-        2. Copies controlled vocabularies
-        3. Injects javascript
-        4. Injects helpers
+        1. Installs hyrax-doi
+        2. Injects work type overrides
+        3. Copies controlled vocabularies
+        4. Injects javascript
+        5. Injects CSS
+        6. Injects helpers
+        7. Installs workflows
     EOS
 
     source_root File.expand_path('templates', __dir__)
@@ -52,6 +55,13 @@ module HykuAddons
         "  # Helpers provided by hyku_addons plugin.\n" \
         "  include HykuAddons::HelperBehavior"
       end
+    end
+
+    # These workflows will be loaded on the creation of new tenants
+    # To load these in existing tenants run:
+    #  `rake tenantize:task[hyrax:workflow:load]`
+    def install_workflows
+      template('hyku_addons_mediated_deposit_workflow.json.erb', "config/workflows/hyku_addons_mediated_deposit_workflow.json")
     end
   end
 end
