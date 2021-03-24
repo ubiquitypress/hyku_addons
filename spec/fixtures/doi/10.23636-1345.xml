@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+	<identifier identifierType="DOI">10.23636/1345</identifier>
+	<creators>
+		<creator>
+			<creatorName nameType="Organizational">British Library</creatorName>
+			<nameIdentifier nameIdentifierScheme="ISNI" schemeURI="">http://isni.org/isni/0000000123081542</nameIdentifier>
+		</creator>
+		<creator>
+			<creatorName nameType="Personal">Moretto, Nicolas</creatorName>
+			<givenName>Nicolas</givenName>
+			<familyName>Moretto</familyName>
+		</creator>
+	</creators>
+	<titles>
+		<title>Catalogue records of photographs (1850-1950)</title>
+	</titles>
+	<publisher>British Library</publisher>
+	<publicationYear>2021</publicationYear>
+	<resourceType resourceTypeGeneral="Dataset"/>
+	<subjects>
+		<subject>photographs</subject>
+		<subject>datasets</subject>
+		<subject>metadata</subject>
+		<subject>catalogues</subject>
+	</subjects>
+	<contributors>
+		<contributor contributorType="Other">
+			<contributorName nameType="Personal">Atanassova, Rossitza</contributorName>
+			<givenName>Rossitza</givenName>
+			<familyName>Atanassova</familyName>
+			<nameIdentifier nameIdentifierScheme="ORCID" schemeURI="">https://orcid.org/0000-0003-4005-2668</nameIdentifier>
+			<nameIdentifier nameIdentifierScheme="ISNI" schemeURI="">http://isni.org/isni/0000000048095185</nameIdentifier>
+		</contributor>
+		<contributor contributorType="Other">
+			<contributorName nameType="Personal">Baker, James</contributorName>
+			<givenName>James</givenName>
+			<familyName>Baker</familyName>
+			<nameIdentifier nameIdentifierScheme="ORCID" schemeURI="">https://orcid.org/0000-0002-2682-6922</nameIdentifier>
+			<nameIdentifier nameIdentifierScheme="ISNI" schemeURI="">http://isni.org/isni/0000000427103560</nameIdentifier>
+		</contributor>
+	</contributors>
+	<dates>
+		<date dateType="Issued">2021</date>
+	</dates>
+	<alternateIdentifiers>
+		<alternateIdentifier alternateIdentifierType="URL">https://doi.org/10.23636/1345</alternateIdentifier>
+	</alternateIdentifiers>
+	<sizes/>
+	<formats/>
+	<version/>
+	<rightsList>
+		<rights rightsURI="http://creativecommons.org/publicdomain/zero/1.0/"/>
+	</rightsList>
+	<descriptions>
+		<description descriptionType="Abstract">A set of catalogue records for photographs (created 1850-1950) that are held at the British Library. Export from the Integrated Archives and Manuscripts System of only CC0 published records. Personal or sensitive information has been removed. This dataset was created specifically for the Legacies of Catalogue Descriptions and Curatorial Voice: Opportunities for Digital Scholarship project to demonstrate computational analysis of catalogue data using corpus linguistic methods and tools.</description>
+	</descriptions>
+	<fundingReferences>
+		<fundingReference>
+			<funderName>Arts and Humanities Research Council</funderName>
+			<funderIdentifier funderIdentifierType="Crossref Funder ID">https://doi.org/10.13039/501100000267</funderIdentifier>
+			<awardNumber>AH/T013036/1</awardNumber>
+		</fundingReference>
+	</fundingReferences>
+</resource>
+
