@@ -44,6 +44,13 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
 
     describe "a journal doi with multiple complete creators" do
       let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", '10.7554-elife.63646.xml') }
+      let(:json_data) { File.read Rails.root.join("..", "fixtures", "ror", "501100001349.json") }
+
+      before do
+        allow_any_instance_of(Faraday::Connection).to receive(:get).and_return(
+          double(Faraday::Response, status: 200, body: json_data, success?: true)
+        )
+      end
 
       it { expect(meta.doi).to be_present }
       it { expect(result).to be_a Hash }
@@ -86,6 +93,17 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["creator"][1]["creator_given_name"]).to eq "Nikhil K" }
       it { expect(result["creator"][1]["creator_family_name"]).to eq "Tulsian" }
       it { expect(result["creator"][1]["creator_orcid"]).to eq "https://orcid.org/0000-0001-6577-6748" }
+
+      # As there is only a single funder being mocked, just check that one and ignore the others
+      it { expect(result["funder"]).to be_an(Array) }
+      it { expect(result["funder"].size).to eq 4 }
+
+      it { expect(result["funder"][0]["funder_name"]).to eq "National Medical Research Council" }
+      it { expect(result["funder"][0]["funder_award"].first).to include "WBS#R-571-000-081-213" }
+      it { expect(result["funder"][0]["funder_doi"]).to eq "10.13039/501100001349" }
+      it { expect(result["funder"][0]["funder_isni"]).to eq "0000 0004 4687 8046" }
+      it { expect(result["funder"][0]["funder_fundref"]).to eq "501100001349" }
+      it { expect(result["funder"][0]["funder_grid"]).to eq "grid.452975.8" }
     end
 
     describe "a book chapter" do
@@ -235,6 +253,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["contributor"]).to be_an(Array) }
 
       # This seems wierd, as 3 are normal contributors, but 3 are Funders
+      # The DOI appears to be incorrectly formatted, however this does give us some edge cases to account for
       it { expect(result["contributor"].size).to eq 6 }
 
       it { expect(result["contributor"][0]["contributor_name_type"]).to eq "Personal" }
@@ -263,6 +282,67 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["creator"][2]["creator_name_type"]).to eq "Personal" }
       it { expect(result["creator"][2]["creator_given_name"]).to eq "William" }
       it { expect(result["creator"][2]["creator_family_name"]).to eq "Morris" }
+    end
+
+    describe "a data set with funder information" do
+      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.23636-1345.xml") }
+      let(:json_data) { File.read Rails.root.join("..", "fixtures", "ror", "501100000267.json") }
+
+      before do
+        allow_any_instance_of(Faraday::Connection).to receive(:get).and_return(
+          double(Faraday::Response, status: 200, body: json_data, success?: true)
+        )
+      end
+
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+
+      it { expect(result["publisher"]).to eq ["British Library"] }
+      it { expect(result["title"]).to eq ["Catalogue records of photographs (1850-1950)"] }
+      it { expect(result["doi"]).to eq ["10.23636/1345"] }
+      it { expect(result["keyword"]).to eq ["photographs", "datasets", "metadata", "catalogues"] }
+
+      it { expect(result["date_published"]).to be_an(Array) }
+      it { expect(result["date_published"].first["date_published_year"]).to be 2021 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 1 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 1 }
+
+      it { expect(result["contributor"]).to be_an(Array) }
+      it { expect(result["contributor"].size).to eq 2 }
+
+      it { expect(result["contributor"][0]["contributor_name_type"]).to eq "Personal" }
+      it { expect(result["contributor"][0]["contributor_given_name"]).to eq "Rossitza" }
+      it { expect(result["contributor"][0]["contributor_family_name"]).to eq "Atanassova" }
+      it { expect(result["contributor"][0]["contributor_isni"]).to eq "http://isni.org/isni/0000000048095185" }
+      it { expect(result["contributor"][0]["contributor_orcid"]).to eq "https://orcid.org/0000-0003-4005-2668" }
+
+      it { expect(result["contributor"][1]["contributor_name_type"]).to eq "Personal" }
+      it { expect(result["contributor"][1]["contributor_given_name"]).to eq "James" }
+      it { expect(result["contributor"][1]["contributor_family_name"]).to eq "Baker" }
+      it { expect(result["contributor"][1]["contributor_isni"]).to eq "http://isni.org/isni/0000000427103560" }
+      it { expect(result["contributor"][1]["contributor_orcid"]).to eq "https://orcid.org/0000-0002-2682-6922" }
+
+      it { expect(result["creator"]).to be_an(Array) }
+      it { expect(result["creator"].size).to eq 2 }
+
+      it { expect(result["creator"][0]["creator_name_type"]).to eq "Organizational" }
+      it { expect(result["creator"][0]["creator_name"]).to eq "British Library" }
+      it { expect(result["creator"][0]["creator_isni"]).to eq "http://isni.org/isni/0000000123081542" }
+
+      it { expect(result["creator"][1]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][1]["creator_given_name"]).to eq "Nicolas" }
+      it { expect(result["creator"][1]["creator_family_name"]).to eq "Moretto" }
+
+      it { expect(result["funder"]).to be_an(Array) }
+      it { expect(result["funder"].size).to eq 1 }
+
+      it { expect(result["funder"][0]["funder_name"]).to eq "Arts and Humanities Research Council" }
+      it { expect(result["funder"][0]["funder_award"]).to eq ["AH/T013036/1"] }
+      it { expect(result["funder"][0]["funder_doi"]).to eq "10.13039/501100000267" }
+      it { expect(result["funder"][0]["funder_isni"]).to eq "0000 0004 3497 6001" }
+      it { expect(result["funder"][0]["funder_fundref"]).to eq "501100007818" }
+      it { expect(result["funder"][0]["funder_wikidata"]).to eq "Q4801497" }
+      it { expect(result["funder"][0]["funder_grid"]).to eq "grid.426413.6" }
     end
   end
 end

@@ -1,0 +1,65 @@
+{
+	"number_of_results": 1,
+	"time_taken": 24,
+	"items": [
+		{
+			"id": "https://ror.org/04x3cxs03",
+			"name": "National Medical Research Council",
+			"email_address": null,
+			"ip_addresses": [],
+			"established": 1994,
+			"types": [
+				"Government"
+			],
+			"relationships": [
+				{
+					"label": "Ministry of Health",
+					"type": "Parent",
+					"id": "https://ror.org/00mrhvv69"
+				}
+			],
+			"addresses": [],
+			"links": [],
+			"aliases": [],
+			"acronyms": [],
+			"status": "active",
+			"wikipedia_url": "",
+			"labels": [],
+			"country": {},
+			"external_ids": {
+				"ISNI": {
+					"preferred": null,
+					"all": [
+						"0000 0004 4687 8046"
+					]
+				},
+				"FundRef": {
+					"preferred": null,
+					"all": [
+						"501100001349"
+					]
+				},
+				"GRID": {
+					"preferred": "grid.452975.8",
+					"all": "grid.452975.8"
+				}
+			}
+		}
+	],
+	"meta": {
+		"types": [
+			{
+				"id": "government",
+				"title": "Government",
+				"count": 1
+			}
+		],
+		"countries": [
+			{
+				"id": "sg",
+				"title": "Republic of Singapore",
+				"count": 1
+			}
+		]
+	}
+}

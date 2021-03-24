@@ -13,6 +13,8 @@ module Bolognese
   module Writers
     module HykuAddonsWorkFormFieldsWriter
       DATE_FORMAT = "%Y-%-m-%-d"
+      DOI_REGEX = /10.\d{4,9}\/[-._;()\/:A-Z0-9]+/
+      ROR_QUERY_URL = "https://api.ror.org/organizations?query="
 
       def hyku_addons_work_form_fields
         {
@@ -21,6 +23,7 @@ module Bolognese
           "title" => titles&.pluck("title"),
           "creator" => write_involved("creators"),
           "contributor" => write_involved("contributors"),
+          "funder" => write_funders,
           "publisher" => Array(publisher),
           "date_created" => write_date("date_created", collect_date("Issued")),
           "date_updated" => write_date("date_updated", collect_date("Updated")),
@@ -32,23 +35,51 @@ module Bolognese
 
       protected
 
-        def write_involved(type)
-          type_name = type.to_s.singularize
+        def write_funders
+          funding_references.map do |funder|
+            funder.transform_keys!(&:underscore)
 
-          meta.dig(type).map do |involved|
-            involved.transform_keys! { |key| "#{type_name}_#{key.underscore}" }
+            # TODO: Need to get the award name from the number here
+            funder["funder_award"] = Array.wrap(funder["award_number"])
+
+            if (doi = funder["funder_identifier"].match(DOI_REGEX)).present?
+              # Ensure we only ever use the doi_id and not the full URL
+              funder["funder_doi"] = doi[0]
+
+              # doi should be similar to "10.13039/501100000267" however we only want the second segment
+              doi_suffix = funder["funder_doi"].split("/").last
+              response = Faraday.get("#{ROR_QUERY_URL}#{doi_suffix}")
+
+              if response.success?
+                data = JSON.parse(response.body)
+
+                data["items"][0]["external_ids"].each do |type, values|
+                  funder["funder_#{type.downcase}"] = values["preferred"] || values["all"].first
+                end
+              end
+            end
+
+            funder
+          end
+        end
+
+        def write_involved(type)
+          key = type.to_s.singularize
+
+          meta.dig(type).map do |item|
+            item.transform_keys! { |k| "#{key}_#{k.underscore}" }
 
             # Individual name identifiers will require specific tranformations as required
-            involved["#{type_name}_name_identifiers"]&.each_with_object(involved) do |hash, involved|
-              involved["#{type_name}_#{hash['nameIdentifierScheme'].downcase}"] = hash["nameIdentifier"]
+            item["#{key}_name_identifiers"]&.each_with_object(item) do |hash, item|
+              item["#{key}_#{hash['nameIdentifierScheme'].downcase}"] = hash["nameIdentifier"]
             end
 
             # Incase edge cases don't provide a full set of name values, but should have: 10.7925/drs1.duchas_5019334
-            if involved["#{type_name}_name"]&.match?(/,/) && involved["#{type_name}_given_name"].blank?
-              involved["#{type_name}_family_name"], involved["#{type_name}_given_name"] = involved["#{type_name}_name"].split(", ")
+            if item["#{key}_name"]&.match?(/,/) && item["#{key}_given_name"].blank?
+              item["#{key}_family_name"], item["#{key}_given_name"] = item["#{key}_name"].split(", ")
             end
 
-            involved
+            item
           end
         end
 
