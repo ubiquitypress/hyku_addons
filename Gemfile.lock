@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/minad/mimemagic.git
+  revision: 01f92d86d15d85cfd0f20dabd025dcbd36a8a60f
+  ref: 01f92d86d15d85cfd0f20dabd025dcbd36a8a60f
+  specs:
+    mimemagic (0.3.5)
+
+GIT
   remote: https://github.com/notch8/willow_sword.git
   revision: 0a669d78617c6003e4aa1a46a10447be92be27d5
   specs:
@@ -46,7 +53,7 @@ GIT
 
 GIT
   remote: https://github.com/ubiquitypress/hyku-api
-  revision: 68dc546bd2377923733375e86f8412834304858b
+  revision: 485009b625a1a9495db182ac6e35424e568a7867
   branch: main
   specs:
     hyku-api (0.1.0)
@@ -750,7 +757,6 @@ GEM
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2020.1104)
-    mimemagic (0.3.5)
     mini_magick (4.11.0)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
@@ -1178,6 +1184,7 @@ DEPENDENCIES
   jquery-rails
   listen (>= 3.0.5, < 3.2)
   lograge
+  mimemagic!
   mods (~> 2.4)
   parser (~> 2.5.3)
   pg
