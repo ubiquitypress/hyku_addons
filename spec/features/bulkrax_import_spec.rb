@@ -44,7 +44,7 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       expect(work.title).to eq ["Bourdieu's Art"]
       expect(work.date_published).to eq "2010-1-1"
       expect(JSON.parse(work.creator.first)).to be_present
-      # FIXME: next line fails because term not in list see parse_resource_type
+      expect(JSON.parse(work.creator.first).size).to eq 1
       expect(work.resource_type).to eq ["Research Article"]
       expect(work.publisher).to eq ['Pacific University Press', 'Ubiquity Press']
       expect(work.depositor).to eq 'batchuser@example.com'

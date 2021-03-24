@@ -79,7 +79,7 @@ module HykuAddons
     end
 
     def add_resource_type
-      resource_type_service = HykuAddons::ResourceTypesService.new(model: parsed_metadata['model'].safe_constantize)
+      resource_type_service = HykuAddons::ResourceTypesService.new(model: parsed_metadata['model']&.safe_constantize)
       parsed_metadata['resource_type'] = parsed_metadata['resource_type'].map do |resource_type|
         begin
           resource_type_service.label(resource_type.strip.titleize)

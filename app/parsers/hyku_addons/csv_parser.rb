@@ -3,7 +3,7 @@ module HykuAddons
   class CsvParser < Bulkrax::CsvParser
     # FIXME: Override to make debugging easier
     def perform_method
-      return :perform_now if Rails.env == 'development' || Rails.env == 'test'
+      return :perform_now unless Rails.env.production?
       super
     end
 
