@@ -19,7 +19,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result).to be_a Hash }
 
       it { expect(result["publisher"]).to eq ["Ubiquity Press, Ltd."] }
-      it { expect(result["title"]).to eq ["As Paisagens Sonora, Olfactiva e Culinária em Alice’s Adventures in Wonderland (1865), de Lewis Carroll"] }
+      it { expect(result["title"].first).to include "As Paisagens Sonora, Olfactiva e Culinária em Alice’s" }
       it { expect(result["doi"]).to eq ["10.5334/as.1"] }
 
       it { expect(result["date_created"]).to be_an(Array) }
@@ -104,6 +104,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["funder"][0]["funder_isni"]).to eq "0000 0004 4687 8046" }
       it { expect(result["funder"][0]["funder_fundref"]).to eq "501100001349" }
       it { expect(result["funder"][0]["funder_grid"]).to eq "grid.452975.8" }
+      it { expect(result["funder"][0]["funder_ror"]).to eq "https://ror.org/04x3cxs03" }
     end
 
     describe "a book chapter" do
@@ -343,6 +344,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["funder"][0]["funder_fundref"]).to eq "501100007818" }
       it { expect(result["funder"][0]["funder_wikidata"]).to eq "Q4801497" }
       it { expect(result["funder"][0]["funder_grid"]).to eq "grid.426413.6" }
+      it { expect(result["funder"][0]["funder_ror"]).to eq "https://ror.org/0505m1554" }
     end
   end
 end
