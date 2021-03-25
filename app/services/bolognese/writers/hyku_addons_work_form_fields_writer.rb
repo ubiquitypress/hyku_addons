@@ -56,6 +56,8 @@ module Bolognese
                 data["items"][0]["external_ids"].each do |type, values|
                   funder["funder_#{type.downcase}"] = values["preferred"] || values["all"].first
                 end
+
+                funder["funder_ror"] = data["items"][0]["id"]
               end
             end
 
