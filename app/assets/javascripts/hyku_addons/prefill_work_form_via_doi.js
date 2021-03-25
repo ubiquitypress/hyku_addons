@@ -3,7 +3,7 @@ class PrefillWorkFormViaDOI {
     this.targetInputSelector = "select, input, textarea, checkbox, radio"
     this.buttonSelector = "#doi-autofill-btn"
     this.form = $(this.buttonSelector).closest("form")
-    // Object wide caceh for items in arrays
+    // Object wide cache for items in arrays
     this.arrayValuesLength = 0
 
     this.registerListeners()
@@ -30,6 +30,9 @@ class PrefillWorkFormViaDOI {
 
     // Switch to the description tab automatically
     $("[aria-controls='metadata']").click()
+
+    // TODO: REMOVE DEBUGGING
+    $(".additional-fields").click()
 
     Object.entries(this.response.data).forEach(([field, value]) => {
       this.processField(field, value)

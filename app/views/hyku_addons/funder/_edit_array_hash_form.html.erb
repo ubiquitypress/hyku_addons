@@ -1,86 +1,111 @@
 <% template = f.object.model.class.to_s.underscore %>
 
+<div class="<%= template %>_funder">
+  <% array_of_hash.each_with_index do |hash, index| %>
+    <div class="ubiquity-meta-funder">
 
-<% array_of_hash.each_with_index do |hash, index| %>
-  <div class="ubiquity-meta-funder" >
+      <% field_slug = "funder_name" %>
+      <%# NOTE: This is span because using a div will break the autocomplete for the first element %>
+      <%# and i'd like to refactor all of this so preserving functionality is enough for now %>
+      <span class="form-group <%= "#{field_slug}-group #{template}_#{field_slug}" %>">
+        <label class="control-label multi_value optional" for="<%= template %>_funder_name">
+          Funder Name
+        </label>
+        <%= text_field_tag "#{template}[funder][][funder_name]", hash.dig("funder_name"),
+          class: "#{template}_funder form-control multi-text-field multi_value ubiquity_funder_name",
+          placeholder: "Please start typing the funder's name, then select from the dropdown list ",
+          name: "#{template}[funder][][funder_name]",
+          data: {
+            field_name: 'ubiquity_funder_name',
+            'autocomplete-url' => '/authorities/search/crossref/funders',
+            'autocomplete' => "funder",
+          }
+        %>
+      </span>
+      <br><br>
 
-    <label class="control-label multi_value optional" for="#{template}_funder_name">
-      Funder Name</label>
+      <% field_slug = "funder_doi" %>
+      <div class="form-group <%= "#{field_slug}-group #{template}_#{field_slug}" %>">
+        <label class="control-label multi_value optional" for="<%= template %>_funder_doi">
+          Funder DOI</label>
 
-    <%= text_field_tag "#{template}[funder][][funder_name]", hash.dig("funder_name"),
-                        class: "#{template}_funder form-control multi-text-field multi_value ubiquity_funder_name",
-                        placeholder: "Please start typing the funder's name, then select from the dropdown list ",
-                        name: "#{template}[funder][][funder_name]",
-                        data: { field_name:'ubiquity_funder_name',
-                          'autocomplete-url' => '/authorities/search/crossref/funders',
-                          'autocomplete' => "funder",
-                        }
-    %>
-    <br/>
-    <label class="control-label multi_value optional" for="#{template}funder_doi">
-      Funder DOI</label>
+        <%= text_field_tag "#{template}[funder][][funder_doi]", hash.dig("funder_doi"),
+          class: "#{template}_funder form-control multi-text-field multi_value ubiquity_funder_doi",
+          placeholder: "Please enter the DOI",
+          name: "#{template}[funder][][funder_doi]",
+          data: {field_name:'ubiquity_funder_doi'}
+        %>
+      </div>
 
-    <%= text_field_tag "#{template}[funder][][funder_doi]",  hash.dig("funder_doi"),
-                       class: "#{template}_funder form-control multi-text-field multi_value ubiquity_funder_doi",
-                       placeholder: "Please enter the DOI",
-                       name: "#{template}[funder][][funder_doi]",
-                       data: {field_name:'ubiquity_funder_doi'}
-    %>
-    <br/>
-    <label class="control-label multi_value optional" for="#{template}funder_isni">
-      Funder ISNI</label>
+      <% field_slug = "funder_isni" %>
+      <div class="form-group <%= "#{field_slug}-group #{template}_#{field_slug}" %>">
+        <label class="control-label multi_value optional" for="<%= template %>_funder_isni">
+          Funder ISNI </label>
 
-    <%= text_field_tag "#{template}[funder][][funder_isni]",  hash.dig("funder_isni"),
-                       class: "#{template}_funder form-control multi-text-field multi_value ubiquity_funder_isni",
-                       placeholder: "Please enter the ISNI",
-                       name: "#{template}[funder][][funder_isni]",
-                       data: {field_name:'ubiquity_funder_isni'}
-    %>
-    <br/>
-    <label class="control-label multi_value optional" for="#{template}funder_ror">
-      Funder ROR</label>
+        <%= text_field_tag "#{template}[funder][][funder_isni]", hash.dig("funder_isni"),
+          class: "#{template}_funder form-control multi-text-field multi_value ubiquity_funder_isni",
+          placeholder: "Please enter the ISNI",
+          name: "#{template}[funder][][funder_isni]",
+          data: {field_name:'ubiquity_funder_isni'}
+        %>
+      </div>
 
-    <%= text_field_tag "#{template}[funder][][funder_ror]",  hash.dig("funder_ror"),
-                       class: "#{template}_funder form-control multi-text-field multi_value ubiquity_funder_ror",
-                       placeholder: "Please enter the ROR",
-                       name: "#{template}[funder][][funder_ror]",
-                       data: {field_name:'ubiquity_funder_ror'}
-    %>
-    <br/>
-    <div class='form-group'>
-      <label class="control-label multi_value optional" for="#{template}_funder_award">
-        Funder Awards </label>
-      <ul class="listing funder_awards_input_fields_wrap" style='padding-left: 0px;'>
-        <% funder_award_list = hash.dig("funder_award").presence || [] %>
-        <% if funder_award_list.present? %>
-          <% funder_award_list.each do |funder_award| %>
-            <li class="field-wrapper input-group input-append">
-              <%= text_field_tag "#{template}[funder][][funder_award][]", funder_award,
-                                  class: "#{template}_funder form-control multi-text-field multi_value ubiquity_funder_awards",
-                                  placeholder: "Please enter the award number",
-                                  name: "#{template}[funder][][funder_award][]",
-                                  data: {field_name:'ubiquity_funder_awards'} %>
-            </li>
-          <%end%>
-        <%else%>
-          <li class="field-wrapper input-group input-append">
-            <%= text_field_tag "#{template}[funder][][funder_award][]", nil,
-                                class: "#{template}_funder form-control multi-text-field multi_value ubiquity_funder_awards",
-                                placeholder: "Please enter the award number",
-                                name: "#{template}[funder][][funder_award][]",
-                                data: {field_name:'ubiquity_funder_awards'} %>
-        <%end%>
-      </ul>
-      <a href='#' class="add_another_funder_awards_button form-group">
-        <span class="glyphicon glyphicon-plus"></span>
-        Add another Award number
-      </a>
+      <% field_slug = "funder_ror" %>
+      <div class="form-group <%= "#{field_slug}-group #{template}_#{field_slug}" %>">
+        <label class="control-label multi_value optional" for="<%= template %>_funder_ror">
+          Funder ROR </label>
+
+        <%= text_field_tag "#{template}[funder][][funder_ror]", hash.dig("funder_ror"),
+          class: "#{template}_funder form-control multi-text-field multi_value ubiquity_funder_ror",
+          placeholder: "Please enter the ROR",
+          name: "#{template}[funder][][funder_ror]",
+          data: {field_name:'ubiquity_funder_ror'}
+        %>
+      </div>
+
+      <% field_slug = "funder_award" %>
+      <div class="form-group <%= "#{field_slug}-group #{template}_#{field_slug}" %>">
+        <label class="control-label multi_value optional" for="<%= template %>_funder_award">
+          Funder Awards </label>
+
+          <ul class="listing funder_awards_input_fields_wrap" style='padding-left: 0px;'>
+            <% funder_award_list = hash.dig("funder_award").presence || [] %>
+            <% if funder_award_list.present? %>
+              <% funder_award_list.each do |funder_award| %>
+                <li class="field-wrapper input-group input-append">
+                  <%= text_field_tag "#{template}[funder][][funder_award][]", funder_award,
+                    class: "#{template}_funder form-control multi-text-field multi_value ubiquity_funder_awards",
+                    placeholder: "Please enter the award number",
+                    name: "#{template}[funder][][funder_award][]",
+                    data: {field_name:'ubiquity_funder_awards'} %>
+                </li>
+              <% end %>
+
+            <% else %>
+              <li class="field-wrapper input-group input-append">
+                <%= text_field_tag "#{template}[funder][][funder_award][]", nil,
+                  class: "#{template}_funder form-control multi-text-field multi_value ubiquity_funder_awards",
+                  placeholder: "Please enter the award number",
+                  name: "#{template}[funder][][funder_award][]",
+                  data: {field_name:'ubiquity_funder_awards'} %>
+            <% end %>
+          </ul>
+          <a href='#' class="add_another_funder_awards_button form-group">
+            <span class="glyphicon glyphicon-plus"></span>
+            Add another Award number
+          </a>
+      </div>
+
+      <div class="form-group">
+        <a href="#" class="text-danger remove_funder form-group" data-removeUbiquityfunder=".ubiquity-meta-funder">
+          <span class="glyphicon glyphicon-remove"></span>
+          <span class="controls-remove-text">Remove</span>
+        </a>
+        |
+        <a href="#" class="add_funder" data-addUbiquityfunder=".ubiquity-meta-funder">Add another Funder</a>
+      </div>
+
+      <hr>
     </div>
-
-  <a href="#" style="color:red;"  class="remove_funder form-group" data-removeUbiquityfunder=".ubiquity-meta-funder">
-    <span class="glyphicon glyphicon-remove"></span>
-    <span class="controls-remove-text">Remove</span>
-  </a>
-  <a href="#" class="add_funder" data-addUbiquityfunder=".ubiquity-meta-funder">Add another </a>
-  </div>
-<% end %>
+  <% end %>
+</div>

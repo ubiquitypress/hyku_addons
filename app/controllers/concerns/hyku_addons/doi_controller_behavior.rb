@@ -7,6 +7,7 @@ module HykuAddons
     included do
       def autofill
         respond_to do |format|
+          # TODO: Use JSON response NOT JS
           format.js { render json: json_response, status: :ok }
 
           if Rails.env.development?
