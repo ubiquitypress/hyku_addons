@@ -10,7 +10,8 @@ class PrefillWorkFormViaDOI {
 
     // NOTE:
     // Use the following for debugging only
-    $(this.buttonSelector).attr("data-confirm", "")
+    //
+    // $(this.buttonSelector).attr("data-confirm", "")
     // $("input#article_doi").val("http://dx.doi.org/10.5040/9780755697397.0006")
     // $("#doi-autofill-btn").click()
   }
