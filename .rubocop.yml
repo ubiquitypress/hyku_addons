@@ -130,3 +130,7 @@ Rails/FindBy:
 Naming/AccessorMethodName:
   Exclude:
     - 'app/services/hyku_addons/jwt_cookies_service.rb'
+
+RSpec/LetSetup:
+  Exclude:
+    - 'spec/features/bulkrax_import_spec.rb'
