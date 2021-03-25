@@ -3,17 +3,9 @@ class PrefillWorkFormViaDOI {
     this.targetInputSelector = "select, input, textarea, checkbox, radio"
     this.buttonSelector = "#doi-autofill-btn"
     this.form = $(this.buttonSelector).closest("form")
-    // Object wide cache for items in arrays
     this.arrayValuesLength = 0
 
     this.registerListeners()
-
-    // NOTE:
-    // Use the following for debugging only
-    //
-    // $(this.buttonSelector).attr("data-confirm", "")
-    // $("input#article_doi").val("http://dx.doi.org/10.5040/9780755697397.0006")
-    // $("#doi-autofill-btn").click()
   }
 
   registerListeners(){
@@ -27,13 +19,8 @@ class PrefillWorkFormViaDOI {
       return false
     }
 
-    console.info("response: ", this.response.data)
-
     // Switch to the description tab automatically
     $("[aria-controls='metadata']").click()
-
-    // TODO: REMOVE DEBUGGING
-    $(".additional-fields").click()
 
     Object.entries(this.response.data).forEach(([field, value]) => {
       this.processField(field, value)
@@ -67,7 +54,7 @@ class PrefillWorkFormViaDOI {
 
       // Don't create extra cloneable blocks unless we have more data to add
       if (index + 1 < this.arrayValuesLength) {
-        wrapper.find("[data-on-click=clone_parent]").trigger("click")
+        wrapper.find("[data-on-click=clone_parent], .add_funder").trigger("click")
       }
     } else {
       this.setValue(field, value)

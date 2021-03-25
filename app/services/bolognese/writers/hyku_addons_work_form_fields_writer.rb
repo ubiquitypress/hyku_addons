@@ -40,9 +40,9 @@ module Bolognese
             funder.transform_keys!(&:underscore)
 
             # TODO: Need to get the award name from the number here
-            funder["funder_award"] = Array.wrap(funder["award_number"])
+            funder["funder_award"] = Array.wrap(funder.delete("award_number"))
 
-            if (doi = funder["funder_identifier"].match(DOI_REGEX)).present?
+            if (doi = funder["funder_identifier"]&.match(DOI_REGEX)).present?
               # Ensure we only ever use the doi_id and not the full URL
               funder["funder_doi"] = doi[0]
 
