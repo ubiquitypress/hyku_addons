@@ -8,6 +8,30 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
     end
   end
 
+  # This method is overwritten for the time being so as to fix an issue with how they are validating funder DOIs
+  describe "#validate_funder_doi" do
+    let(:subject) { Bolognese::Metadata.new }
+
+    it "validates the DOI" do
+      expect(subject.send(:validate_funder_doi, "10.13039/501100001711")).to eq "https://doi.org/10.13039/501100001711"
+    end
+
+    it "validates the DOI" do
+      expect(subject.send(:validate_funder_doi, "501100001711")).to eq "https://doi.org/10.13039/501100001711"
+    end
+
+    context "when the DOI is an eLife DOI" do
+      it "validates the DOI" do
+        expect(subject.send(:validate_funder_doi, "10.13039/100000050")).to eq "https://doi.org/10.13039/100000050"
+      end
+
+      it "validates the DOI" do
+        expect(subject.send(:validate_funder_doi, "10.13039/100006492")).to eq "https://doi.org/10.13039/100006492"
+      end
+    end
+
+  end
+
   context "Hyku Addons Writer" do
     let(:meta) { Bolognese::Metadata.new(input: fixture) }
     let(:result) { meta.hyku_addons_work_form_fields }

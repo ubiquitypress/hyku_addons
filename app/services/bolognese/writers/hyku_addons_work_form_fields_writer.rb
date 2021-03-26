@@ -33,7 +33,38 @@ module Bolognese
         }
       end
 
+      # NOTE:
+      # This is here until its fixed upstream
+      #
+      # Some DOIs (10.7554/eLife.67932, 10.7554/eLife.65703) have namespaced funder keys, which causes
+      # them not to be properly extracted inside of the crossref_reader:
+      # https://github.com/datacite/bolognese/blob/master/lib/bolognese/readers/crossref_reader.rb#L66
+      #
+      # I've tried to overwrite as little as possible and use `super` instead of including the whole method
+      def get_crossref(id: nil, **options)
+        return { "string" => nil, "state" => "not_found" } unless id.present?
+
+        string = super.dig("string")
+
+        string = Nokogiri::XML(string, nil, 'UTF-8', &:noblanks).remove_namespaces!.to_s if string.present?
+
+        { "string" => string }
+      end
+
       protected
+
+        # NOTE:
+        # This is here until its fixed upstream
+        #
+        # The `(5.+)` seems to invalidate valid funder DOIs
+        def validate_funder_doi(doi)
+          doi = Array(/\A(?:(http|https):\/(\/)?(dx\.)?(doi.org|handle.test.datacite.org)\/)?(doi:)?(10\.13039\/)?(.+)\z/.match(doi)).last
+          # remove non-printing whitespace and downcase
+          if doi.present?
+            doi.delete("\u200B").downcase
+            "https://doi.org/10.13039/#{doi}"
+          end
+        end
 
         def write_funders
           funding_references.map do |funder|
