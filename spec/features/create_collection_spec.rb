@@ -66,17 +66,17 @@ RSpec.feature 'Create a Collection', js: false, clean: true do
     expect(page).not_to have_content('Contributor')
   end
 
-context "when user is not an admin" do
-  it "Does not display the collections link when the setting is off" do
-    allow(Flipflop).to receive(:enabled?).with(:show_repository_objects_links).and_return(false)
-    visit '/dashboard'
-    expect(page).not_to have_link("Collections")
-  end
+  context "when user is not an admin" do
+    it "Does not display the collections link when the setting is off" do
+      allow(Flipflop).to receive(:enabled?).with(:show_repository_objects_links).and_return(false)
+      visit '/dashboard'
+      expect(page).not_to have_link("Collections")
+    end
 
-  it "Does display the collections link when the setting is on" do
-    allow(Flipflop).to receive(:enabled?).with(:show_repository_objects_links).and_return(true)
-    visit '/dashboard'
-    expect(page).to have_link("Collections")
+    it "Does display the collections link when the setting is on" do
+      allow(Flipflop).to receive(:enabled?).with(:show_repository_objects_links).and_return(true)
+      visit '/dashboard'
+      expect(page).to have_link("Collections")
+    end
   end
-end
 end
