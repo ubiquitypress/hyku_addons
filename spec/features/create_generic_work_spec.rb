@@ -284,6 +284,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       # Language
       # License
+      select('CC BY 4.0 Attribution', from: 'generic_work_license')
       # TODO?
 
       # Rights statement
@@ -435,6 +436,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       # Language
       # License
+      expect(page).to have_link('CC BY 4.0 Attribution', href: 'https://creativecommons.org/licenses/by/4.0/')
       # TODO?
 
       # Rights statement
