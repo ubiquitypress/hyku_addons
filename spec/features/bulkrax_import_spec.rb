@@ -64,6 +64,30 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
         expect(work.file_sets.size).to eq 1
         expect(work.file_sets.first.original_file.file_name).to eq ["nypl-hydra-of-lerna.jpg"]
       end
+
+      context 'with an alternate file path location' do
+        let(:path_to_files) { Rails.root.join('tmp', 'importer') }
+
+        before do
+          allow(ENV).to receive(:[]).and_call_original
+          allow(ENV).to receive(:[]).with("BULKRAX_FILE_PATH").and_return(path_to_files)
+          FileUtils.mkdir_p path_to_files
+          FileUtils.cp_r 'spec/fixtures/csv/files/.', path_to_files
+        end
+
+        after do
+          FileUtils.rm_rf path_to_files
+        end
+
+        it 'imports files' do
+          # For some reason this has to be explictly set here and the meta tag in the top-most describe isn't sticking
+          ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
+          importer.import_works
+          work = PacificArticle.find('c109b1ff-6d9a-4498-b86c-190e7dcbe2e0')
+          expect(work.file_sets.size).to eq 1
+          expect(work.file_sets.first.original_file.file_name).to eq ["nypl-hydra-of-lerna.jpg"]
+        end
+      end
     end
   end
 
