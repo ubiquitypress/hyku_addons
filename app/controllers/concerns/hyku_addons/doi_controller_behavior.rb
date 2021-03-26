@@ -4,15 +4,23 @@ require 'hyrax/doi/errors'
 module HykuAddons
   module DOIControllerBehavior
     extend ActiveSupport::Concern
+    # rubocop:disable Metrics/BlockLength
     included do
       def autofill
         respond_to do |format|
-          # TODO: Make this respond to json instead of js
+          # TODO: Use JSON response NOT JS
           format.js { render json: json_response, status: :ok }
 
-          # NOTE: This is temporary, just so we have a URL to debug
-          # format.html { render xml: raw_response.string, status: :ok }
-          format.html { render json: json_response, status: :ok }
+          if Rails.env.development?
+            # http://repo.lvh.me:3000/doi/autofill.json?curation_concern=generic_work&doi=10.7554/elife.63646
+            format.json { render json: json_response, status: :ok }
+
+            # NOTE: Use this to see the raw XML returned, useful for creating fixtures for specs,
+            # copy the raw sauce, NOT the html rendered output or you will see errors:
+            #
+            # http://repo.lvh.me:3000/doi/autofill.xml?curation_concern=generic_work&doi=10.7554/elife.63646
+            format.xml { render xml: raw_response.string, status: :ok }
+          end
         end
 
       rescue ::Hyrax::DOI::NotFoundError => e
@@ -28,11 +36,15 @@ module HykuAddons
         end
 
         def formatted_work
-          meta = Bolognese::Metadata.new(input: doi)
+          meta = raw_response
 
-          raise ::Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." if meta.blank? || meta.doi.blank?
+          raise ::Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." unless meta&.string.present?
 
           meta.hyku_addons_work_form_fields
+        end
+
+        def raw_response
+          Bolognese::Metadata.new(input: doi)
         end
 
         def curation_concern

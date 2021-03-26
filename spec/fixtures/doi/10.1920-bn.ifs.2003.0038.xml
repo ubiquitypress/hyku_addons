@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crossref_result xmlns="http://www.crossref.org/qrschema/3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.crossref.org/qrschema/3.0 http://www.crossref.org/schemas/crossref_query_output3.0.xsd">
+	<query_result>
+		<head>
+			<doi_batch_id>none</doi_batch_id>
+		</head>
+		<body>
+			<query status="resolved">
+				<doi type="report-paper_title">10.1920/bn.ifs.2003.0038</doi>
+				<crm-item name="publisher-name" type="string">Institute for Fiscal Studies</crm-item>
+				<crm-item name="prefix-name" type="string">Institute for Fiscal Studies</crm-item>
+				<crm-item name="member-id" type="number">10170</crm-item>
+				<crm-item name="citation-id" type="number">92270368</crm-item>
+				<crm-item name="book-id" type="number">2466021</crm-item>
+				<crm-item name="deposit-timestamp" type="number">20180815035759</crm-item>
+				<crm-item name="owner-prefix" type="string">10.1920</crm-item>
+				<crm-item name="last-update" type="date">2018-08-15T16:06:45Z</crm-item>
+				<crm-item name="created" type="date">2017-08-10T13:46:41Z</crm-item>
+				<crm-item name="citedby-count" type="number">0</crm-item>
+				<doi_record>
+					<crossref xmlns="http://www.crossref.org/xschema/1.1" xsi:schemaLocation="http://www.crossref.org/xschema/1.1 http://doi.crossref.org/schemas/unixref1.1.xsd">
+						<report-paper>
+							<report-paper_metadata language="en">
+								<contributors>
+									<person_name sequence="first" contributor_role="author">
+										<given_name>Matthew</given_name>
+										<surname>Wakefield</surname>
+									</person_name>
+								</contributors>
+								<titles>
+									<title>Is middle Britain middle-income Britain?</title>
+								</titles>
+								<publication_date media_type="online">
+									<month>09</month>
+									<day>01</day>
+									<year>2003</year>
+								</publication_date>
+								<institution>
+									<institution_name>ESRC Centre for the Microeconomic Analysis of Public Policy (CPP) at IFS</institution_name>
+								</institution>
+								<institution>
+									<institution_name>The IFS</institution_name>
+								</institution>
+								<doi_data>
+									<doi>10.1920/bn.ifs.2003.0038</doi>
+									<resource>http://www.ifs.org.uk/bns/bn38.pdf</resource>
+								</doi_data>
+							</report-paper_metadata>
+						</report-paper>
+					</crossref>
+				</doi_record>
+			</query>
+		</body>
+	</query_result>
+</crossref_result>

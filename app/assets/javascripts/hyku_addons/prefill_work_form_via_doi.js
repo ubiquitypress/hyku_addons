@@ -3,6 +3,7 @@ class PrefillWorkFormViaDOI {
     this.targetInputSelector = "select, input, textarea, checkbox, radio"
     this.buttonSelector = "#doi-autofill-btn"
     this.form = $(this.buttonSelector).closest("form")
+    this.arrayValuesLength = 0
 
     this.registerListeners()
   }
@@ -26,27 +27,35 @@ class PrefillWorkFormViaDOI {
     })
   }
 
-  processField(field, value) {
+  processField(field, value, index = 0) {
     if (this.isBlank(value)) {
       return false;
     }
 
     if ($.type(value) == "array") {
-      $(value).each((index, val) => {
+      this.arrayValuesLength = value.length
+
+      $(value).each((i, val) => {
         // If we need to check JSON fields recursively
         if ($.type(val) == "object") {
-          return this.processField(field, val)
+          return this.processField(field, val, i)
         }
 
-        this.setValue(field, val, index)
-        $(this.wrapperSelector(field)).find('button.add').click()
+        this.setValue(field, val, i)
+        this.wrapper(field).find('button.add').click()
       })
 
     } else if ($.type(value) == "object") {
-      Object.entries(value).forEach(([field, value]) => {
-        this.setValue(field, value)
+      var wrapper = this.wrapper(field, index)
+
+      Object.entries(value).forEach(([childField, childValue]) => {
+        $(wrapper.find($(this.inputSelector(childField))).find(this.targetInputSelector).get(0)).val(childValue)
       })
 
+      // Don't create extra cloneable blocks unless we have more data to add
+      if (index + 1 < this.arrayValuesLength) {
+        wrapper.find("[data-on-click=clone_parent], .add_funder").trigger("click")
+      }
     } else {
       this.setValue(field, value)
     }
@@ -62,6 +71,11 @@ class PrefillWorkFormViaDOI {
 
   inputSelector(field) {
     return `.${this.fieldName(field)}`
+  }
+
+  // returns the jq wrapper object with the correct index
+  wrapper(field, index = 0) {
+    return $($(this.wrapperSelector(field)).get(index))
   }
 
   wrapperSelector(field) {
