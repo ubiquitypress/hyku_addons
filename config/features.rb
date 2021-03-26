@@ -10,7 +10,7 @@ Flipflop.configure do
 
   feature :show_repository_objects_links,
           default: true,
-          description: "Shows collections, import and expot links on the sidebar for non admin users"
+          description: "Shows collections, importer and exporter links on the sidebar for non admin users"
 
   feature :simplified_deposit_form,
           default: false,
