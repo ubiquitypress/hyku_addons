@@ -74,12 +74,15 @@ The rails server will be running at http://lvh.me:3000 and tenants will be subdo
 Check out the code then initialize the internal test hyku application:
 ```
 git submodule init
-git submodule update
+git submodule update --remote
 bundle install
 bundle exec rails g hyku_addons:install
 
 # If you are using Docker, you will need to do the `hyku_addons:install` within the container
 docker-compose exec web bundle exec rails g hyku_addons:install
+
+# If you see an error where by Zookeeper cannot be installed via Bundler, the following should work:
+CFLAGS=-Wno-error=format-overflow  gem install zookeeper -v '1.4.11' --source 'https://rubygems.org/'
 ```
 
 ### Docker

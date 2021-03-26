@@ -60,15 +60,18 @@ Metrics/MethodLength:
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
+    - 'bin/transform_export_batch.rb'
     - 'lib/hyku_addons/engine.rb'
 
 Metrics/PerceivedComplexity:
   Exclude:
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
+    - 'bin/transform_export_batch.rb'
     - 'lib/hyku_addons/engine.rb'
 
 Metrics/AbcSize:
   Exclude:
+    - 'app/actors/hyku_addons/actors/json_fields_actor.rb'
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/models/hyku_addons/csv_entry.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
@@ -97,6 +100,10 @@ RSpec/NestedGroups:
   Exclude:
     - 'spec/services/bolognese/readers/generic_work_reader_spec.rb'
 
+Style/RescueModifier:
+  Exclude:
+    - 'bin/transform_export_batch.rb'
+
 Style/SymbolProc:
   Exclude:
     - 'app/models/concerns/hyku_addons/account_behavior.rb'
@@ -123,3 +130,7 @@ Rails/FindBy:
 Naming/AccessorMethodName:
   Exclude:
     - 'app/services/hyku_addons/jwt_cookies_service.rb'
+
+RSpec/LetSetup:
+  Exclude:
+    - 'spec/features/bulkrax_import_spec.rb'

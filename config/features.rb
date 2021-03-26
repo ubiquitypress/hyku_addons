@@ -8,9 +8,9 @@ Flipflop.configure do
           default: false,
           description: "The admin set to deposit works is selected from the add work modal and the relationships tab on the deposit form is hidden for depositors."
 
-  feature :show_collections_link,
+  feature :show_repository_objects_links,
           default: true,
-          description: "Shows collections tab on sidebar for non admin users"
+          description: "Shows collections, importer and exporter links on the sidebar for non admin users"
 
   feature :simplified_deposit_form,
           default: false,

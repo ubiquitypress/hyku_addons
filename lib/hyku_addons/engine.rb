@@ -203,7 +203,7 @@ module HykuAddons
           "version" => { split: true },
           "publisher" => { split: true },
           "keyword" => { split: true },
-          "license" => { split: true },
+          "license" => { split: '\|', parsed: true },
           "subject" => { split: true, parsed: true },
           "language" => { split: true, parsed: true },
           "resource_type" => { split: true, parsed: false },
@@ -353,6 +353,26 @@ module HykuAddons
 
     initializer 'hyku_addons.session_storage_overrides' do
       Rails.application.config.session_store :cookie_store, key: '_hyku_session', same_site: :lax
+    end
+
+    initializer 'hyku_addons.license_renderer_override' do
+      # Override to explicitly call our license service with model
+      Hyrax::Renderers::LicenseAttributeRenderer.class_eval do
+        def attribute_value_to_html(value)
+          begin
+            parsed_uri = URI.parse(value)
+          rescue URI::InvalidURIError
+            nil
+          end
+          license_service = HykuAddons::LicenseService.new(model: options[:work_type]&.safe_constantize)
+          has_term = license_service.active_elements.pluck("id").include?(value)
+          if parsed_uri.nil? || !has_term
+            ERB::Util.h(value)
+          else
+            %(<a href=#{ERB::Util.h(value)} target="_blank">#{license_service.label(value)}</a>)
+          end
+        end
+      end
     end
 
     # Pre-existing Work type overrides

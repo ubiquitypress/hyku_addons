@@ -4,6 +4,8 @@ require 'rails_helper'
 
 RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
   let(:user) { create(:user, email: 'test@example.com') }
+  # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
+  let!(:depositor) { create(:user, email: 'batchuser@example.com') }
   let(:account) { create(:account) }
   let(:importer) do
     create(:bulkrax_importer_csv,
@@ -44,8 +46,9 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       expect(work.title).to eq ["Bourdieu's Art"]
       expect(work.date_published).to eq "2010-1-1"
       expect(JSON.parse(work.creator.first)).to be_present
-      # FIXME: next line fails because term not in list see parse_resource_type
+      expect(JSON.parse(work.creator.first).size).to eq 1
       expect(work.resource_type).to eq ["Research Article"]
+      expect(work.license).to eq ["https://commons.pacificu.edu/rights"]
       expect(work.publisher).to eq ['Pacific University Press', 'Ubiquity Press']
       expect(work.depositor).to eq 'batchuser@example.com'
     end
@@ -54,6 +57,8 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       let(:import_batch_file) { 'spec/fixtures/csv/pacific_articles.csv' }
 
       it 'imports files' do
+        # For some reason this has to be explictly set here and the meta tag in the top-most describe isn't sticking
+        ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
         importer.import_works
         work = PacificArticle.find('c109b1ff-6d9a-4498-b86c-190e7dcbe2e0')
         expect(work.file_sets.size).to eq 1

@@ -23,4 +23,24 @@ terms:
   - term: CC0 1.0 Universal Public Domain
     id: http://creativecommons.org/publicdomain/zero/1.0
     active: true
-
+  - id: https://opensource.org/licenses/MIT
+    term: MIT
+    active: true
+  - id: https://www.gnu.org/licenses/gpl-3.0.en.html
+    term: GNU General Public License v3.0
+    active: true
+  - id: https://www.apache.org/licenses/LICENSE-2.0
+    term: Apache License v2.0
+    active: true
+  - id: https://opendatacommons.org/licenses/odbl/1.0/
+    term: Open Database License (ODBL)
+    active: true
+  - id: https://www.mozilla.org/en-US/MPL/2.0/
+    term: Mozilla Public License (MPL)
+    active: true
+  - id: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+    term: Open Government Licence (OGL)
+    active: true
+  - id: https://commons.pacificu.edu/rights
+    term: Default
+    active: true
