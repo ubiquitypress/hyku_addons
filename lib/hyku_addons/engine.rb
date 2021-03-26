@@ -203,7 +203,7 @@ module HykuAddons
           "version" => { split: true },
           "publisher" => { split: true },
           "keyword" => { split: true },
-          "license" => { split: true },
+          "license" => { split: '\|', parsed: true },
           "subject" => { split: true, parsed: true },
           "language" => { split: true, parsed: true },
           "resource_type" => { split: true, parsed: false },
