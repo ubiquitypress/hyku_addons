@@ -104,5 +104,16 @@ module HykuAddons
       return true if record["admin_set"].blank?
       AdminSet.where(title: record["admin_set"]).first.present?
     end
+
+    # If only filename is given, construct the path (/files/my_file)
+    def path_to_file(file)
+      # return if we already have the full file path
+      return file if File.exist?(file)
+      path = ENV['BULKRAX_FILE_PATH']
+      path ||= importerexporter.parser.path_to_files
+      f = File.join(path, file)
+      return f if File.exist?(f)
+      raise "File #{f} does not exist"
+    end
   end
 end
