@@ -68,6 +68,7 @@ RSpec.feature 'Create a Collection', js: false, clean: true do
 
   context "when user is not an admin" do
     it "Does not display the collections link when the setting is off" do
+      user.remove_role(:admin) # Ensure user is not an admin for this test
       allow(Flipflop).to receive(:enabled?).with(:show_repository_objects_links).and_return(false)
       visit '/dashboard'
       expect(page).not_to have_link("Collections")
