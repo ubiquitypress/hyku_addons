@@ -10,26 +10,25 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
 
   # This method is overwritten for the time being so as to fix an issue with how they are validating funder DOIs
   describe "#validate_funder_doi" do
-    let(:subject) { Bolognese::Metadata.new }
+    let(:meta) { Bolognese::Metadata.new }
 
-    it "validates the DOI" do
-      expect(subject.send(:validate_funder_doi, "10.13039/501100001711")).to eq "https://doi.org/10.13039/501100001711"
+    it "validates for an expected DOI" do
+      expect(meta.send(:validate_funder_doi, "10.13039/501100001711")).to eq "https://doi.org/10.13039/501100001711"
     end
 
-    it "validates the DOI" do
-      expect(subject.send(:validate_funder_doi, "501100001711")).to eq "https://doi.org/10.13039/501100001711"
+    it "validates for an expected DOI suffix" do
+      expect(meta.send(:validate_funder_doi, "501100001711")).to eq "https://doi.org/10.13039/501100001711"
     end
 
     context "when the DOI is an eLife DOI" do
-      it "validates the DOI" do
-        expect(subject.send(:validate_funder_doi, "10.13039/100000050")).to eq "https://doi.org/10.13039/100000050"
+      it "validates a new DOI" do
+        expect(meta.send(:validate_funder_doi, "10.13039/100000050")).to eq "https://doi.org/10.13039/100000050"
       end
 
-      it "validates the DOI" do
-        expect(subject.send(:validate_funder_doi, "10.13039/100006492")).to eq "https://doi.org/10.13039/100006492"
+      it "validates another new DOI" do
+        expect(meta.send(:validate_funder_doi, "10.13039/100006492")).to eq "https://doi.org/10.13039/100006492"
       end
     end
-
   end
 
   context "Hyku Addons Writer" do
@@ -71,8 +70,8 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       let(:json_data) { File.read Rails.root.join("..", "fixtures", "ror", "501100001349.json") }
 
       before do
-        allow_any_instance_of(Faraday::Connection).to receive(:get).and_return(
-          double(Faraday::Response, status: 200, body: json_data, success?: true)
+        allow(Faraday).to receive(:get).and_return(
+          instance_double(Faraday::Response, status: 200, body: json_data, success?: true)
         )
       end
 
@@ -314,8 +313,8 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       let(:json_data) { File.read Rails.root.join("..", "fixtures", "ror", "501100000267.json") }
 
       before do
-        allow_any_instance_of(Faraday::Connection).to receive(:get).and_return(
-          double(Faraday::Response, status: 200, body: json_data, success?: true)
+        allow(Faraday).to receive(:get).and_return(
+          instance_double(Faraday::Response, status: 200, body: json_data, success?: true)
         )
       end
 

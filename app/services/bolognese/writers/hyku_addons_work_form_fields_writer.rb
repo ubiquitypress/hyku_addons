@@ -58,12 +58,14 @@ module Bolognese
         #
         # The `(5.+)` seems to invalidate valid funder DOIs
         def validate_funder_doi(doi)
-          doi = Array(/\A(?:(http|https):\/(\/)?(dx\.)?(doi.org|handle.test.datacite.org)\/)?(doi:)?(10\.13039\/)?(.+)\z/.match(doi)).last
+          regex = /\A(?:(http|https):\/(\/)?(dx\.)?(doi.org|handle.test.datacite.org)\/)?(doi:)?(10\.13039\/)?(.+)\z/
+          doi = Array(regex.match(doi)).last
+
+          return unless doi.present?
+
           # remove non-printing whitespace and downcase
-          if doi.present?
-            doi.delete("\u200B").downcase
-            "https://doi.org/10.13039/#{doi}"
-          end
+          doi.delete("\u200B").downcase
+          "https://doi.org/10.13039/#{doi}"
         end
 
         def write_funders
@@ -77,13 +79,7 @@ module Bolognese
               # Ensure we only ever use the doi_id and not the full URL
               funder["funder_doi"] = doi[0]
 
-              # doi should be similar to "10.13039/501100000267" however we only want the second segment
-              doi_suffix = funder["funder_doi"].split("/").last
-              response = Faraday.get("#{ROR_QUERY_URL}#{doi_suffix}")
-
-              if response.success?
-                data = JSON.parse(response.body)
-
+              if (data = get_funder_ror(funder["funder_doi"])).present?
                 data["items"][0]["external_ids"].each do |type, values|
                   funder["funder_#{type.downcase}"] = values["preferred"] || values["all"].first
                 end
@@ -103,14 +99,12 @@ module Bolognese
             item.transform_keys! { |k| "#{key}_#{k.underscore}" }
 
             # Individual name identifiers will require specific tranformations as required
-            item["#{key}_name_identifiers"]&.each_with_object(item) do |hash, item|
-              item["#{key}_#{hash['nameIdentifierScheme'].downcase}"] = hash["nameIdentifier"]
+            item["#{key}_name_identifiers"]&.each_with_object(item) do |hash, identifier|
+              identifier["#{key}_#{hash['nameIdentifierScheme'].downcase}"] = hash["nameIdentifier"]
             end
 
             # Incase edge cases don't provide a full set of name values, but should have: 10.7925/drs1.duchas_5019334
-            if item["#{key}_name"]&.match?(/,/) && item["#{key}_given_name"].blank?
-              item["#{key}_family_name"], item["#{key}_given_name"] = item["#{key}_name"].split(", ")
-            end
+            item["#{key}_family_name"], item["#{key}_given_name"] = item["#{key}_name"].split(", ") if item["#{key}_name"]&.match?(/,/) && item["#{key}_given_name"].blank?
 
             item
           end
@@ -134,6 +128,15 @@ module Bolognese
               "#{field}_day" => date.day
             }
           end
+        end
+
+        # doi should be similar to "10.13039/501100000267" however we only want the second segment
+        def get_funder_ror(funder_doi)
+          response = Faraday.get("#{ROR_QUERY_URL}#{funder_doi.split('/').last}")
+
+          return unless response.success?
+
+          JSON.parse(response.body)
         end
 
       private

@@ -4,6 +4,7 @@ require 'hyrax/doi/errors'
 module HykuAddons
   module DOIControllerBehavior
     extend ActiveSupport::Concern
+    # rubocop:disable Metrics/BlockLength
     included do
       def autofill
         respond_to do |format|
