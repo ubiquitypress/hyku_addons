@@ -79,7 +79,8 @@ module Bolognese
               # Ensure we only ever use the doi_id and not the full URL
               funder["funder_doi"] = doi[0]
 
-              get_funder_ror(funder["funder_doi"]).dig("external_ids")&.each do |type, values|
+              data = get_funder_ror(funder["funder_doi"])
+              data.dig("external_ids")&.each do |type, values|
                 funder["funder_#{type.downcase}"] = values["preferred"] || values["all"].first
               end
 
