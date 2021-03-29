@@ -79,13 +79,12 @@ module Bolognese
               # Ensure we only ever use the doi_id and not the full URL
               funder["funder_doi"] = doi[0]
 
-              if (data = get_funder_ror(funder["funder_doi"])).present?
-                data["items"][0]["external_ids"].each do |type, values|
-                  funder["funder_#{type.downcase}"] = values["preferred"] || values["all"].first
-                end
-
-                funder["funder_ror"] = data["items"][0]["id"]
+              data = get_funder_ror(funder["funder_doi"])
+              data.dig("external_ids")&.each do |type, values|
+                funder["funder_#{type.downcase}"] = values["preferred"] || values["all"].first
               end
+
+              funder["funder_ror"] = data.dig("id")
             end
 
             funder
@@ -130,13 +129,15 @@ module Bolognese
           end
         end
 
-        # doi should be similar to "10.13039/501100000267" however we only want the second segment
+        # Always returns a hash
         def get_funder_ror(funder_doi)
+          # doi should be similar to "10.13039/501100000267" however we only want the second segment
           response = Faraday.get("#{ROR_QUERY_URL}#{funder_doi.split('/').last}")
 
-          return unless response.success?
+          return {} unless response.success?
 
-          JSON.parse(response.body)
+          # `body.items` is an array of hashes - but we only need the first one
+          JSON.parse(response.body)&.dig("items")&.first || {}
         end
 
       private

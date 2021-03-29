@@ -11,7 +11,8 @@ module HykuAddons
           # TODO: Use JSON response NOT JS
           format.js { render json: json_response, status: :ok }
 
-          if Rails.env.development?
+          # Allow easier debugging of DOIs in production
+          if current_user&.has_role?(:admin)
             # http://repo.lvh.me:3000/doi/autofill.json?curation_concern=generic_work&doi=10.7554/elife.63646
             format.json { render json: json_response, status: :ok }
 
