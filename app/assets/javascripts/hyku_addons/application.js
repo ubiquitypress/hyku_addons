@@ -33,7 +33,7 @@ const onLoad = function() {
   // Register our Events
   new Eventable()
 
-  new PrefillWorkFormViaDOI()
+  new AutofillWorkForm()
 
   $("[data-behavior=hyku_addons-select-work]").each(function() {
     new SelectWorkType($(this))
