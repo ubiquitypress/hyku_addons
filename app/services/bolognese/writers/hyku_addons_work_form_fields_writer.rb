@@ -25,8 +25,6 @@ module Bolognese
           "contributor" => write_involved("contributors"),
           "funder" => write_funders,
           "publisher" => Array(publisher),
-          "date_created" => write_date("date_created", collect_date("Issued")),
-          "date_updated" => write_date("date_updated", collect_date("Updated")),
           "date_published" => write_date_published,
           "abstract" => write_descriptions,
           "keyword" => subjects&.pluck("subject")
