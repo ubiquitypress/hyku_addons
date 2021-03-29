@@ -28,7 +28,7 @@ module HykuAddons
       # @param work_type_terms [Array] array of terms to add to the work type
       def add_terms(work_type_terms = [])
         self.terms ||= hyrax_terms
-        self.terms = (self.terms + Array.wrap(work_type_terms)) & available_terms
+        self.terms = (Array.wrap(work_type_terms) + self.terms) & available_terms
       end
 
       # Form fields. Note, these to not necessarily match the params which need to be permitted

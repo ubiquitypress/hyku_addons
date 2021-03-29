@@ -9,6 +9,9 @@ en:
         ris:
           link_text: Download as RIS (Zotero, Endnote, Mendeley)
   simple_form:
+    labels:
+      defaults:
+        official_link: Official URL
     deposit_form:
       required:
         label: Please complete this field.
