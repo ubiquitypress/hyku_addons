@@ -15,4 +15,8 @@ Flipflop.configure do
   feature :simplified_deposit_form,
           default: false,
           description: "Hide the DOI tab from non-admin users"
+
+  feature :import_mode,
+          default: false,
+          description: "Import mode - Background jobs are run on specially named queues"
 end

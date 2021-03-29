@@ -435,6 +435,7 @@ module HykuAddons
       Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
+      ::ActiveJob::Base.include HykuAddons::ImportMode
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
