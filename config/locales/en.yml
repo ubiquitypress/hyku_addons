@@ -179,6 +179,13 @@ en:
       oai_admin_email: OAI endpoint contact email address
 
   hyrax:
+    works:
+      form:
+        autofill:
+          button:
+            disable_with: Autofilling form...
+            confirm: |
+              Warning: this operation will replace any existing description fields.
     collections:
       show:
         item_count: Items
