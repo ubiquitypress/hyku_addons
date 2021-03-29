@@ -79,12 +79,13 @@ module Bolognese
               # Ensure we only ever use the doi_id and not the full URL
               funder["funder_doi"] = doi[0]
 
-              if (data = get_funder_ror(funder["funder_doi"])).present?
-                data["items"][0]["external_ids"].each do |type, values|
+              data = get_funder_ror(funder["funder_doi"]).first
+              if data.present?
+                data.dig("external_ids")&.each do |type, values|
                   funder["funder_#{type.downcase}"] = values["preferred"] || values["all"].first
                 end
 
-                funder["funder_ror"] = data["items"][0]["id"]
+                funder["funder_ror"] = data.dig("id")
               end
             end
 
@@ -134,9 +135,15 @@ module Bolognese
         def get_funder_ror(funder_doi)
           response = Faraday.get("#{ROR_QUERY_URL}#{funder_doi.split('/').last}")
 
-          return unless response.success?
+          return [] unless response.success?
 
-          JSON.parse(response.body)
+          body = JSON.parse(response.body)
+
+          if body.dig("number_of_results").positive?
+            body.dig("items")
+          else
+            []
+          end
         end
 
       private
