@@ -37,7 +37,7 @@
 <%= presenter.attribute_to_html(:eissn, label: "eISSN", html_dl: true) %>
 <%= render "hyku_addons/current_he_institution/show", presenter: presenter %>
 <%= presenter.attribute_to_html(:date_accepted, html_dl: true) %>
-<%= presenter.attribute_to_html(:official_link, render_as: :external_link, label: "Official URL", html_dl: true) %>
+<%= presenter.attribute_to_html(:official_link, render_as: :external_link, html_dl: true) %>
 <%= presenter.attribute_to_html(:related_url, render_as: :external_link, label: "Related URL", html_dl: true) %>
 <%= presenter.attribute_to_html(:related_exhibition, html_dl: true) %>
 <%= presenter.attribute_to_html(:related_exhibition_venue, html_dl: true) %>

@@ -33,8 +33,10 @@ en-PACIFIC:
         irb_status: IRB Status
         irb_number: IRB Number
         version_number: Version
+        official_link: DOI
     hints:
       defaults:
         org_unit: Enter your department, center, or group at Pacific
         related_url: " "
         version_number: " "
+        official_link: A persistent digital object identifier, if your item already has one then enter this here in the following model e.g. 10.21250/tcq y

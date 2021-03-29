@@ -9,7 +9,7 @@ module Hyrax
     self.model_class = ::PacificArticle
     add_terms %i[title alt_title resource_type creator contributor abstract date_published pagination issue page_display_order_number
                  volume journal_title publisher issn source additional_links
-                 rights_holder license org_unit doi subject keyword refereed
+                 rights_holder license org_unit official_link subject keyword refereed
                  irb_status irb_number add_info]
     self.terms -= %i[language rights_statement]
     self.required_fields = %i[title creator resource_type org_unit]
