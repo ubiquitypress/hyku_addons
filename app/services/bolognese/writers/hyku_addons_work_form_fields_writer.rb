@@ -25,12 +25,10 @@ module Bolognese
           "contributor" => write_involved("contributors"),
           "funder" => write_funders,
           "publisher" => Array(publisher),
-          "date_created" => write_date("date_created", collect_date("Issued")),
-          "date_updated" => write_date("date_updated", collect_date("Updated")),
           "date_published" => write_date_published,
           "abstract" => write_descriptions,
           "keyword" => subjects&.pluck("subject")
-        }
+        }.compact.reject { |_key, value| value.blank? }
       end
 
       # NOTE:
@@ -69,7 +67,7 @@ module Bolognese
         end
 
         def write_funders
-          funding_references.map do |funder|
+          funding_references&.map do |funder|
             funder.transform_keys!(&:underscore)
 
             # TODO: Need to get the award name from the number here
@@ -94,7 +92,7 @@ module Bolognese
         def write_involved(type)
           key = type.to_s.singularize
 
-          meta.dig(type).map do |item|
+          meta.dig(type)&.map do |item|
             item.transform_keys! { |k| "#{key}_#{k.underscore}" }
 
             # Individual name identifiers will require specific tranformations as required
@@ -112,7 +110,7 @@ module Bolognese
         def write_descriptions
           return nil if descriptions.blank?
 
-          descriptions.pluck("description").map { |d| Array(d).join("\n") }
+          descriptions.pluck("description")&.map { |d| Array(d).join("\n") }
         end
 
         def write_date_published
