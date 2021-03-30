@@ -23,7 +23,7 @@
   margin-bottom: 10px;
   margin-left: 5px;
 
-  p.no-margin {
+  p.no-margin, p:last-child {
     margin-bottom: 0;
   }
 }
