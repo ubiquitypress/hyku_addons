@@ -96,9 +96,12 @@ class AutofillWorkForm {
   }
 
   logSuccess() {
-    let fields = this.updatedFields.map((field) => {
-      return field.split("_").map((str) => { return str.charAt(0).toUpperCase() + str.slice(1) }).join(" ")
-    }).join(", ")
+    let fields = this.updatedFields
+      .map((field) => {
+        return field.split("_").map((str) => { return str.charAt(0).toUpperCase() + str.slice(1) }).join(" ")
+      })
+      .join(", ")
+      .replace(/,([^,]*)$/, " and" + '$1')
 
     this.updatedFields = []
 
