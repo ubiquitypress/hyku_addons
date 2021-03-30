@@ -8,8 +8,7 @@ RSpec.describe HykuAddons::ImportMode, perform_enqueued_jobs: true do
       block.call
     end
 
-    test_strategy = Flipflop::FeatureSet.current.test!
-    test_strategy.switch!(:import_mode, import_mode)
+    allow(Flipflop).to receive(:enabled?).with(:import_mode).and_return(import_mode)
   end
 
   let(:job) do
