@@ -4,16 +4,10 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     def queue_name
-      if non_tenant_job?
-        super
-      else
-        switch do
-          if Flipflop.enabled?(:import_mode)
-            [current_account.name, 'import', super].join(ActiveJob::Base.queue_name_delimiter)
-          else
-            super
-          end
-        end
+      return super if non_tenant_job?
+      switch do
+        return super unless Flipflop.enabled?(:import_mode)
+        [current_account.name, 'import', super].join(ActiveJob::Base.queue_name_delimiter)
       end
     end
   end
