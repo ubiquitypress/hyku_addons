@@ -25,15 +25,19 @@ class AutofillWorkForm {
   }
 
   registerListeners() {
+    // We don't want to use the default alert error messages
+    $(this.buttonSelector).off("ajax:error")
+
     $(this.buttonSelector).on("click", (event) => { $(`.${this.logClass}`).remove() })
     $("body").on("ajax:success", this.buttonSelector, this.onSuccess.bind(this))
+    $("body").on("ajax:error", this.buttonSelector, this.onFailure.bind(this))
   }
 
   onSuccess(event, response) {
     this.response = response
 
-    if (!this.response.data) {
-      return false;
+    if ($.isEmptyObject(this.response.data)) {
+      return this.logFailure();
     }
 
     // Switch to the description tab automatically
@@ -44,6 +48,13 @@ class AutofillWorkForm {
     })
 
     this.logSuccess()
+  }
+
+  onFailure(event, xhr, status, message) {
+    let titleMessage = $("<p/>", { text: "An error occured, the DOI might not be valid" })
+    let wrapper = $("<div/>", { class: `${this.logClass} bg-danger` }).append(titleMessage)
+
+    wrapper.prependTo(this.form)
   }
 
   processField(field, value, index = 0) {
@@ -106,8 +117,15 @@ class AutofillWorkForm {
     this.updatedFields = []
 
     let titleMessage = $("<p/>", { text: "The following fields were auto-populated:" })
-    let fieldsMessage = $("<p/>", { text: fields, class: "no-margin" })
+    let fieldsMessage = $("<p/>", { text: fields })
     let wrapper = $("<div/>", { class: `${this.logClass} bg-success` }).append(titleMessage).append(fieldsMessage)
+
+    wrapper.prependTo(this.form)
+  }
+
+  logFailure() {
+    let titleMessage = $("<p/>", { text: "The DOI entered did not return any data" })
+    let wrapper = $("<div/>", { class: `${this.logClass} bg-danger` }).append(titleMessage)
 
     wrapper.prependTo(this.form)
   }
