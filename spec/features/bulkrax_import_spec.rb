@@ -6,7 +6,6 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
   let(:user) { create(:user, email: 'test@example.com') }
   # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
   let!(:depositor) { create(:user, email: 'batchuser@example.com') }
-  let(:account) { create(:account) }
   let(:importer) do
     create(:bulkrax_importer_csv,
            user: user,
@@ -25,8 +24,6 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
   # end
 
   before do
-    account
-
     # Make sure default admin set exists
     AdminSet.find_or_create_default_admin_set_id
   end
