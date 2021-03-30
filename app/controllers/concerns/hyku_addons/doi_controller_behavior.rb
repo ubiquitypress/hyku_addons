@@ -8,14 +8,11 @@ module HykuAddons
     included do
       def autofill
         respond_to do |format|
-          # TODO: Use JSON response NOT JS
-          format.js { render json: json_response, status: :ok }
+          # http://repo.lvh.me:3000/doi/autofill.json?curation_concern=generic_work&doi=10.7554/elife.63646
+          format.json { render json: json_response, status: :ok }
 
           # Allow easier debugging of DOIs in production
           if current_user&.has_role?(:admin)
-            # http://repo.lvh.me:3000/doi/autofill.json?curation_concern=generic_work&doi=10.7554/elife.63646
-            format.json { render json: json_response, status: :ok }
-
             # NOTE: Use this to see the raw XML returned, useful for creating fixtures for specs,
             # copy the raw sauce, NOT the html rendered output or you will see errors:
             #
@@ -26,7 +23,7 @@ module HykuAddons
 
       rescue ::Hyrax::DOI::NotFoundError => e
         respond_to do |format|
-          format.js { render plain: e.message, status: :internal_server_error }
+          format.json { render plain: e.message, status: :internal_server_error }
         end
       end
 

@@ -5,18 +5,35 @@ class AutofillWorkForm {
     this.form = $(this.buttonSelector).closest("form")
     this.arrayValuesLength = 0
     this.updatedFields = []
+    this.logClass = "autofill-message"
+
+    this.alterRequestFormat()
     this.registerListeners()
   }
 
-  registerListeners(){
+  // If we do not provide a JSON request, then we receive console errors returning JSON from the response.
+  // Ideally, this would be done inside the button path generation, but it relies on a url_helper inside a gem.
+  alterRequestFormat() {
+    let button = $(this.buttonSelector)
+    let href = button.attr("href")
+
+    if (href.includes(".")) {
+      return
+    }
+
+    button.attr("href", href + ".json")
+  }
+
+  registerListeners() {
+    $(this.buttonSelector).on("click", (event) => { $(`.${this.logClass}`).remove() })
     $("body").on("ajax:success", this.buttonSelector, this.onSuccess.bind(this))
   }
 
   onSuccess(event, response) {
-    this.response = JSON.parse(response)
+    this.response = response
 
     if (!this.response.data) {
-      return false
+      return false;
     }
 
     // Switch to the description tab automatically
@@ -26,7 +43,7 @@ class AutofillWorkForm {
       this.processField(field, value)
     })
 
-    this.logUpdated()
+    this.logSuccess()
   }
 
   processField(field, value, index = 0) {
@@ -78,15 +95,18 @@ class AutofillWorkForm {
     }
   }
 
-  logUpdated() {
-    let fields = "The following fields were auto-populated: <br><br>"
-
-    fields += this.updatedFields.map((field) => {
+  logSuccess() {
+    let fields = this.updatedFields.map((field) => {
       return field.split("_").map((str) => { return str.charAt(0).toUpperCase() + str.slice(1) }).join(" ")
     }).join(", ")
 
-    let wrapper = $("<div/>", { class: "updated-fields text-danger" })
-    wrapper.prependTo(this.form).html(fields)
+    this.updatedFields = []
+
+    let titleMessage = $("<p/>", { text: "The following fields were auto-populated:" })
+    let fieldsMessage = $("<p/>", { text: fields, class: "no-margin" })
+    let wrapper = $("<div/>", { class: `${this.logClass} bg-success` }).append(titleMessage).append(fieldsMessage)
+
+    wrapper.prependTo(this.form)
   }
 
   setUpdated(field) {
