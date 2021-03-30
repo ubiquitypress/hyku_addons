@@ -80,8 +80,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["date_published"].first["date_published_month"]).to be 1 }
       it { expect(result["date_published"].first["date_published_day"]).to be 1 }
 
-      it { expect(result["contributor"]).to be_an(Array) }
-      it { expect(result["contributor"].size).to eq 0 }
+      it { expect(result["contributor"]).to be_nil }
 
       it { expect(result["creator"]).to be_an(Array) }
       it { expect(result["creator"].size).to eq 12 }
@@ -125,8 +124,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["date_published"].first["date_published_month"]).to be 1 }
       it { expect(result["date_published"].first["date_published_day"]).to be 1 }
 
-      it { expect(result["contributor"]).to be_an(Array) }
-      it { expect(result["contributor"].size).to eq 0 }
+      it { expect(result["contributor"]).to be_nil }
 
       it { expect(result["creator"]).to be_an(Array) }
       it { expect(result["creator"].size).to eq 1 }
@@ -177,8 +175,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["date_published"].first["date_published_month"]).to be 1 }
       it { expect(result["date_published"].first["date_published_day"]).to be 1 }
 
-      it { expect(result["contributor"]).to be_an(Array) }
-      it { expect(result["contributor"].size).to eq 0 }
+      it { expect(result["contributor"]).to be_nil }
 
       it { expect(result["creator"]).to be_an(Array) }
       it { expect(result["creator"].size).to eq 1 }
@@ -202,8 +199,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["date_published"].first["date_published_month"]).to be 1 }
       it { expect(result["date_published"].first["date_published_day"]).to be 1 }
 
-      it { expect(result["contributor"]).to be_an(Array) }
-      it { expect(result["contributor"].size).to eq 0 }
+      it { expect(result["contributor"]).to be_nil }
 
       it { expect(result["creator"]).to be_an(Array) }
       it { expect(result["creator"].size).to eq 1 }
@@ -227,8 +223,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["date_published"].first["date_published_month"]).to be 1 }
       it { expect(result["date_published"].first["date_published_day"]).to be 1 }
 
-      it { expect(result["contributor"]).to be_an(Array) }
-      it { expect(result["contributor"].size).to eq 0 }
+      it { expect(result["contributor"]).to be_nil }
 
       it { expect(result["creator"]).to be_an(Array) }
       it { expect(result["creator"].size).to eq 1 }
