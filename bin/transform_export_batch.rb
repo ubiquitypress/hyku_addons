@@ -3,6 +3,7 @@
 require 'csv'
 require 'optparse'
 require 'json'
+require 'securerandom'
 
 JSON_FIELDS = ["creator", "contributor", "editor", "funder"].freeze
 DOI_REGEX = /10\.\d{4,}(\.\d+)*\/[-._;():\/A-Za-z\d]+/
@@ -31,6 +32,10 @@ options_parser = OptionParser.new do |opts|
     options[:rows] = rows.to_i
   end
 
+  opts.on('--[no-]new-ids', "Create new ids for all rows and collections") do |new_ids|
+    options[:new_ids] = new_ids
+  end
+
   opts.on("-h", "--help", "Prints this help") do
     puts opts
     exit
@@ -46,6 +51,7 @@ end
 
 # Setup default values
 options[:include_files] = true if options[:include_files].nil?
+options[:new_ids] = false if options[:new_ids].nil?
 options[:json_fields] ||= JSON_FIELDS
 
 csv = CSV.read(options[:input])
@@ -87,7 +93,7 @@ field_mappings.each do |old_name, new_name|
   @fields[new_name] = @fields.delete(old_name)
 end
 
-def gather_values(field, row)
+def gather_values(field, row, options)
   field_values = row.values_at(*@fields[field][:old_indexes])
   if field == 'resource_type'
     model_name = row.values_at(*@fields["model"][:old_indexes]).first
@@ -107,6 +113,10 @@ def gather_values(field, row)
     field_values.map do |v|
       JSON.parse(v).join('|') rescue nil
     end
+  elsif field == 'source_identifier'
+    options[:new_ids] ? [SecureRandom.uuid] : field_values
+  elsif field == 'collection'
+    options[:new_ids] ? [SecureRandom.uuid] : field_values
   else
     field_values
   end
@@ -116,7 +126,7 @@ end
 CSV.open(options[:output], "wb") do |write_csv|
   write_csv << new_headers
   csv.slice(1..options[:rows]).each do |row|
-    new_row = new_headers.collect { |field| gather_values(field, row).select { |value| !value.nil? && value != '' }.join("|") }
+    new_row = new_headers.collect { |field| gather_values(field, row, options).select { |value| !value.nil? && value != '' }.join("|") }
     write_csv << new_row
   end
 end
