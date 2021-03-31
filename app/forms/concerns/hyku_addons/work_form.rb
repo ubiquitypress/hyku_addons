@@ -47,7 +47,7 @@ module HykuAddons
       def hyrax_terms
         %i[visibility files visibility_during_embargo embargo_release_date visibility_after_embargo
            visibility_during_lease lease_expiration_date visibility_after_lease admin_set_id member_of_collection_ids
-           ordered_member_ids in_works_ids rendering_ids]
+           ordered_member_ids in_works_ids rendering_ids representative_id thumbnail_id]
       end
 
       def common_fields
@@ -55,7 +55,7 @@ module HykuAddons
            related_url language license rights_statement rights_holder doi refereed keywords dewey
            library_of_congress_classification add_info issn isbn eissn version_number series_name book_title pagination
            publisher place_of_publication journal_title alternative_journal_title volume edition issue article_num
-           qualification_name qualification_level]
+           qualification_name qualification_level representative_id thumbnail_id]
       end
 
       def date_accepted_fields
