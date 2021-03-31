@@ -29,7 +29,10 @@ module Bolognese
           "abstract" => write_descriptions,
           "keyword" => subjects&.pluck("subject"),
           "official_link" => Array(url),
-          "language" => Array(language)
+          "language" => Array(language),
+          "license" => rights_list&.pluck("rights")&.uniq,
+          "volume" => container.dig("volume"),
+          "issn" => container.dig("indentifierType") == "ISSN" ? container.dig("indentifier") : nil
         }.compact.reject { |_key, value| value.blank? }
       end
 

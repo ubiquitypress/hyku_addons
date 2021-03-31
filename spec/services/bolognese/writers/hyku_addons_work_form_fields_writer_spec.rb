@@ -383,18 +383,12 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       title = "RIM is essential for stimulated but not spontaneous somatodendritic dopamine release in the midbrain"
       it { expect(result["title"]).to eq [title] }
 
-      it { expect(result["abstract"]).to include("Action potentials trigger neurotransmitter") }
-      it { expect(result["volume"]).to eq ["8"] }
-      it { expect(result["official_link"]).to eq "http://dx.doi.org/10.7554/elife.47972" }
+      it { expect(result["abstract"].first).to include("Action potentials trigger neurotransmitter") }
+      it { expect(result["volume"]).to eq "8" }
+      it { expect(result["official_link"]).to eq ["https://elifesciences.org/articles/47972"] }
       it { expect(result["issn"]).to eq ["2050-084X"] }
 
-      keywords = [
-        "General Biochemistry, Genetics and Molecular Biology",
-        "General Immunology and Microbiology",
-        "General Neuroscience",
-        "General Medicine"
-      ]
-      it { expect(result["keyword"]).to eq keywords }
+      it { expect(result["keyword"]).to be_nil }
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2019 }
@@ -465,7 +459,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
 
       it { expect(result["license"]).to be_an(Array) }
       it { expect(result["license"].count).to be 1 }
-      it { expect(result["license"]).to eq ["http://creativecommons.org/licenses/by/4.0/"] }
+      it { expect(result["license"]).to eq ["Creative Commons Attribution 4.0 International"] }
     end
   end
 end
