@@ -44,6 +44,8 @@ module HykuAddons
           fcrepo_endpoint.switch!
           redis_endpoint.switch!
           datacite_endpoint.switch!
+          Rails.application.routes.default_url_options[:host] = cname
+          Hyrax::Engine.routes.default_url_options[:host] = cname
         end
 
         def reset!
@@ -51,6 +53,8 @@ module HykuAddons
           FcrepoEndpoint.reset!
           RedisEndpoint.reset!
           DataCiteEndpoint.reset!
+          Rails.application.routes.default_url_options[:host] = nil
+          Hyrax::Engine.routes.default_url_options[:host] = nil
         end
       end
 
