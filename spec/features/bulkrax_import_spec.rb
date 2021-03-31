@@ -53,6 +53,11 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
     context 'with files' do
       let(:import_batch_file) { 'spec/fixtures/csv/pacific_articles.csv' }
 
+      it 'is valid' do
+        expect(importer.valid_import?).to eq true
+        expect(importer.parser.file_paths).to include 'spec/fixtures/csv/files/nypl-hydra-of-lerna.jpg'
+      end
+
       it 'imports files' do
         # For some reason this has to be explictly set here and the meta tag in the top-most describe isn't sticking
         ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
@@ -74,6 +79,11 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
 
         after do
           FileUtils.rm_rf path_to_files
+        end
+
+        it 'is valid' do
+          expect(importer.valid_import?).to eq true
+          expect(importer.parser.file_paths).to include File.join(path_to_files, "nypl-hydra-of-lerna.jpg")
         end
 
         it 'imports files' do

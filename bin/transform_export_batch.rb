@@ -106,9 +106,6 @@ def gather_values(field, row, options)
     field_values.map do |v|
       v&.match(DOI_REGEX)&.to_s
     end
-  elsif field == 'file'
-    # Placeholder file for now
-    ['nypl-hydra-of-lerna.jpg']
   elsif field.match?(/_role/)
     field_values.map do |v|
       JSON.parse(v).join('|') rescue nil
