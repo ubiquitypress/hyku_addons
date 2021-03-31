@@ -243,6 +243,8 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["doi"]).to eq ["10.7925/drs1.duchas_5019334"] }
       it { expect(result["abstract"].first).to include("Story collected by William Morris") }
       it { expect(result["keyword"]).to eq ["diviners", "Soothsayers", "Lucht feasa"] }
+      it { expect(result["official_link"]).to eq ["http://digital.ucd.ie/view/duchas:5019334"] }
+      it { expect(result["language"]).to eq ["en"] }
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2017 }
