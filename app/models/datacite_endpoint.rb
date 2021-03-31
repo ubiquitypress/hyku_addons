@@ -8,7 +8,6 @@ class DataCiteEndpoint < ::Endpoint
     Hyrax::DOI::DataCiteRegistrar.prefix = prefix
     Hyrax::DOI::DataCiteRegistrar.username = username
     Hyrax::DOI::DataCiteRegistrar.password = password
-    Rails.application.routes.default_url_options[:host] = account.cname
   end
 
   # No special handling just destroy this record
@@ -21,7 +20,6 @@ class DataCiteEndpoint < ::Endpoint
     Hyrax::DOI::DataCiteRegistrar.prefix = nil
     Hyrax::DOI::DataCiteRegistrar.username = nil
     Hyrax::DOI::DataCiteRegistrar.password = nil
-    Rails.application.routes.default_url_options[:host] = nil
   end
 
   def ping
