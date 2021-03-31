@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crossref_result version="3.0" schemaLocation="http://www.crossref.org/qrschema/3.0 http://www.crossref.org/schemas/crossref_query_output3.0.xsd">
+  <query_result>
+    <head>
+      <doi_batch_id>none</doi_batch_id>
+    </head>
+    <body>
+      <query status="resolved">
+        <doi type="journal_article">10.7554/eLife.47972</doi>
+        <crm-item name="publisher-name" type="string">eLife Sciences Publications, Ltd</crm-item>
+        <crm-item name="prefix-name" type="string">eLife Sciences Publications, Ltd.</crm-item>
+        <crm-item name="member-id" type="number">4374</crm-item>
+        <crm-item name="citation-id" type="number">109606718</crm-item>
+        <crm-item name="journal-id" type="number">189365</crm-item>
+        <crm-item name="deposit-timestamp" type="number">20190920160009</crm-item>
+        <crm-item name="owner-prefix" type="string">10.7554</crm-item>
+        <crm-item name="last-update" type="date">2019-09-23T14:42:48Z</crm-item>
+        <crm-item name="created" type="date">2019-09-05T12:00:22Z</crm-item>
+        <crm-item name="citedby-count" type="number">4</crm-item>
+        <crm-item name="relation" type="doi" claim="isReviewOf">10.7554/eLife.47972.012</crm-item>
+        <crm-item name="relation" type="doi" claim="isReviewOf">10.7554/eLife.47972.011</crm-item>
+        <doi_record>
+          <crossref schemaLocation="http://www.crossref.org/xschema/1.1 http://doi.crossref.org/schemas/unixref1.1.xsd">
+            <journal>
+              <journal_metadata language="en">
+                <full_title>eLife</full_title>
+                <issn media_type="electronic">2050-084X</issn>
+              </journal_metadata>
+              <journal_issue>
+                <publication_date media_type="online">
+                  <month>09</month>
+                  <day>05</day>
+                  <year>2019</year>
+                </publication_date>
+                <journal_volume>
+                  <volume>8</volume>
+                </journal_volume>
+              </journal_issue>
+              <journal_article publication_type="full_text" reference_distribution_opts="any">
+                <titles>
+                  <title>RIM is essential for stimulated but not spontaneous somatodendritic dopamine release in the midbrain</title>
+                </titles>
+                <contributors>
+                  <person_name contributor_role="author" sequence="first">
+                    <given_name>Brooks G</given_name>
+                    <surname>Robinson</surname>
+                    <affiliation>The Vollum Institute, Oregon Health &amp; Science University, Portland, United States</affiliation>
+                    <ORCID authenticated="true">https://orcid.org/0000-0001-5020-531X</ORCID>
+                  </person_name>
+                  <person_name contributor_role="author" sequence="additional">
+                    <given_name>Xintong</given_name>
+                    <surname>Cai</surname>
+                    <affiliation>Department of Neurobiology, Harvard Medical School, Boston, United States</affiliation>
+                  </person_name>
+                  <person_name contributor_role="author" sequence="additional">
+                    <given_name>Jiexin</given_name>
+                    <surname>Wang</surname>
+                    <affiliation>Department of Neurobiology, Harvard Medical School, Boston, United States</affiliation>
+                  </person_name>
+                  <person_name contributor_role="author" sequence="additional">
+                    <given_name>James R</given_name>
+                    <surname>Bunzow</surname>
+                    <affiliation>The Vollum Institute, Oregon Health &amp; Science University, Portland, United States</affiliation>
+                  </person_name>
+                  <person_name contributor_role="author" sequence="additional">
+                    <given_name>John T</given_name>
+                    <surname>Williams</surname>
+                    <affiliation>The Vollum Institute, Oregon Health &amp; Science University, Portland, United States</affiliation>
+                    <ORCID authenticated="true">http://orcid.org/0000-0002-0647-6144</ORCID>
+                  </person_name>
+                  <person_name contributor_role="author" sequence="additional">
+                    <given_name>Pascal S</given_name>
+                    <surname>Kaeser</surname>
+                    <affiliation>Department of Neurobiology, Harvard Medical School, Boston, United States</affiliation>
+                    <ORCID authenticated="true">https://orcid.org/0000-0002-1558-1958</ORCID>
+                  </person_name>
+                </contributors>
+                <abstract>
+                  <p>Action potentials trigger neurotransmitter release at active zones, specialized release sites in axons. Many neurons also secrete neurotransmitters or neuromodulators from their somata and dendrites. However, it is unclear whether somatodendritic release employs specialized sites for release, and the molecular machinery for somatodendritic release is not understood. Here, we identify an essential role for the active zone protein RIM in stimulated somatodendritic dopamine release in the midbrain. In mice in which RIMs are selectively removed from dopamine neurons, action potentials failed to evoke significant somatodendritic release detected via D2 receptor-mediated currents. Compellingly, spontaneous dopamine release was normal upon RIM knockout. Dopamine neuron morphology, excitability, and dopamine release evoked by amphetamine, which reverses dopamine transporters, were also unaffected. We conclude that somatodendritic release employs molecular scaffolds to establish secretory sites for rapid dopamine signaling during firing. In contrast, basal release that is independent of action potential firing does not require RIM.</p>
+                </abstract>
+                <publication_date media_type="online">
+                  <month>09</month>
+                  <day>05</day>
+                  <year>2019</year>
+                </publication_date>
+                <publisher_item>
+                  <item_number item_number_type="article_number">e47972</item_number>
+                  <identifier id_type="doi">10.7554/eLife.47972</identifier>
+                </publisher_item>
+                <archive_locations>
+                  <archive name="CLOCKSS"/>
+                </archive_locations>
+                <program name="fundref">
+                  <assertion name="fundgroup">
+                    <assertion name="funder_name">
+                      National Institute of Neurological Disorders and Stroke
+                      <assertion name="funder_identifier">http://dx.doi.org/10.13039/100000065</assertion>
+                    </assertion>
+                    <assertion name="award_number">R01NS083898</assertion>
+                  </assertion>
+                  <assertion name="fundgroup">
+                    <assertion name="funder_name">
+                      National Institute on Drug Abuse
+                      <assertion name="funder_identifier">http://dx.doi.org/10.13039/100000026</assertion>
+                    </assertion>
+                    <assertion name="award_number">R01DA04523</assertion>
+                  </assertion>
+                  <assertion name="fundgroup">
+                    <assertion name="funder_name">
+                      National Institute of Neurological Disorders and Stroke
+                      <assertion name="funder_identifier">http://dx.doi.org/10.13039/100000065</assertion>
+                    </assertion>
+                    <assertion name="award_number">R01NS103484</assertion>
+                  </assertion>
+                  <assertion name="fundgroup">
+                    <assertion name="funder_name">
+                      National Institute on Drug Abuse
+                      <assertion name="funder_identifier">http://dx.doi.org/10.13039/100000026</assertion>
+                    </assertion>
+                    <assertion name="award_number">K99DA044287</assertion>
+                  </assertion>
+                  <assertion name="fundgroup">
+                    <assertion name="funder_name">
+                      Harvard Medical School
+                      <assertion name="funder_identifier">http://dx.doi.org/10.13039/100006691</assertion>
+                    </assertion>
+                  </assertion>
+                </program>
+                <program name="AccessIndicators">
+                  <license_ref applies_to="vor">http://creativecommons.org/licenses/by/4.0/</license_ref>
+                  <license_ref applies_to="am">http://creativecommons.org/licenses/by/4.0/</license_ref>
+                  <license_ref applies_to="tdm">http://creativecommons.org/licenses/by/4.0/</license_ref>
+                </program>
+                <doi_data>
+                  <doi>10.7554/eLife.47972</doi>
+                  <resource>https://elifesciences.org/articles/47972</resource>
+                  <collection property="text-mining">
+                    <item>
+                      <resource mime_type="application/pdf">https://cdn.elifesciences.org/articles/47972/elife-47972-v2.pdf</resource>
+                    </item>
+                    <item>
+                      <resource mime_type="application/xml">https://cdn.elifesciences.org/articles/47972/elife-47972-v2.xml</resource>
+                    </item>
+                  </collection>
+                </doi_data>
+                <citation_list>
+                  <citation key="bib1">
+                    <journal_title>Journal of Neuroscience</journal_title>
+                    <author>Alvarez-Baron</author>
+                    <volume>33</volume>
+                    <first_page>824</first_page>
+                    <cYear>2013</cYear>
+                    <article_title>RIM3γ and RIM4γ are key regulators of neuronal arborization</article_title>
+                    <doi>10.1523/JNEUROSCI.2229-12.2013</doi>
+                  </citation>
+                  <citation key="bib2">
+                    <journal_title>Genesis</journal_title>
+                    <author>Bäckman</author>
+                    <volume>44</volume>
+                    <first_page>383</first_page>
+                    <cYear>2006</cYear>
+                    <article_title>Characterization of a mouse strain expressing cre recombinase from the 3' untranslated region of the dopamine transporter locus</article_title>
+                    <doi>10.1002/dvg.20228</doi>
+                  </citation>
+                  <citation key="bib3">
+                    <journal_title>Neuron</journal_title>
+                    <author>Beckstead</author>
+                    <volume>42</volume>
+                    <first_page>939</first_page>
+                    <cYear>2004</cYear>
+                    <article_title>Vesicular dopamine release elicits an inhibitory postsynaptic current in midbrain dopamine neurons</article_title>
+                    <doi>10.1016/j.neuron.2004.05.019</doi>
+                  </citation>
+                  <citation key="bib4">
+                    <journal_title>European Journal of Neuroscience</journal_title>
+                    <author>Beckstead</author>
+                    <volume>26</volume>
+                    <first_page>1479</first_page>
+                    <cYear>2007</cYear>
+                    <article_title>Presynaptic regulation of dendrodendritic dopamine transmission</article_title>
+                    <doi>10.1111/j.1460-9568.2007.05775.x</doi>
+                  </citation>
+                  <citation key="bib5">
+                    <journal_title>Brain Research</journal_title>
+                    <author>Bergquist</author>
+                    <volume>950</volume>
+                    <first_page>245</first_page>
+                    <cYear>2002</cYear>
+                    <article_title>Evidence for different exocytosis pathways in dendritic and terminal dopamine release in vivo</article_title>
+                    <doi>10.1016/S0006-8993(02)03047-0</doi>
+                  </citation>
+                  <citation key="bib6">
+                    <journal_title>The Journal of Pharmacology and Experimental Therapeutics</journal_title>
+                    <author>Bjijou</author>
+                    <volume>277</volume>
+                    <first_page>1177</first_page>
+                    <cYear>1996</cYear>
+                    <article_title>Evidence for selective involvement of dopamine D1 receptors of the ventral tegmental area in the behavioral sensitization induced by intra-ventral tegmental area injections of D-amphetamine</article_title>
+                  </citation>
+                  <citation key="bib7">
+                    <journal_title>Frontiers in Systems Neuroscience</journal_title>
+                    <author>Chen</author>
+                    <volume>5</volume>
+                    <cYear>2011</cYear>
+                    <article_title>Differential calcium dependence of axonal versus somatodendritic dopamine release, with characteristics of both in the ventral tegmental area</article_title>
+                    <doi>10.3389/fnsys.2011.00039</doi>
+                    <elocation_id>39</elocation_id>
+                  </citation>
+                  <citation key="bib8">
+                    <journal_title>Journal of Neuroscience</journal_title>
+                    <author>Courtney</author>
+                    <volume>34</volume>
+                    <first_page>7645</first_page>
+                    <cYear>2014</cYear>
+                    <article_title>The timing of dopamine- and noradrenaline-mediated transmission reflects underlying differences in the extent of spillover and pooling</article_title>
+                    <doi>10.1523/JNEUROSCI.0166-14.2014</doi>
+                  </citation>
+                  <citation key="bib9">
+                    <journal_title>Reviews in the Neurosciences</journal_title>
+                    <author>Crocker</author>
+                    <volume>8</volume>
+                    <first_page>55</first_page>
+                    <cYear>1997</cYear>
+                    <article_title>The regulation of motor control: an evaluation of the role of dopamine receptors in the substantia nigra</article_title>
+                    <doi>10.1515/REVNEURO.1997.8.1.55</doi>
+                  </citation>
+                  <citation key="bib10">
+                    <journal_title>Nature</journal_title>
+                    <author>da Silva</author>
+                    <volume>554</volume>
+                    <first_page>244</first_page>
+                    <cYear>2018</cYear>
+                    <article_title>Dopamine neuron activity before action initiation gates and invigorates future movements</article_title>
+                    <doi>10.1038/nature25457</doi>
+                  </citation>
+                  <citation key="bib11">
+                    <journal_title>Neuron</journal_title>
+                    <author>de Jong</author>
+                    <volume>98</volume>
+                    <first_page>335</first_page>
+                    <cYear>2018</cYear>
+                    <article_title>RIM C2B Domains Target Presynaptic Active Zone Functions to PIP2-Containing Membranes</article_title>
+                    <doi>10.1016/j.neuron.2018.03.011</doi>
+                  </citation>
+                  <citation key="bib12">
+                    <journal_title>Neuron</journal_title>
+                    <author>Deng</author>
+                    <volume>69</volume>
+                    <first_page>317</first_page>
+                    <cYear>2011</cYear>
+                    <article_title>RIM proteins activate vesicle priming by reversing autoinhibitory homodimerization of Munc13</article_title>
+                    <doi>10.1016/j.neuron.2011.01.005</doi>
+                  </citation>
+                  <citation key="bib13">
+                    <journal_title>Nature</journal_title>
+                    <author>Di Paolo</author>
+                    <volume>431</volume>
+                    <first_page>415</first_page>
+                    <cYear>2004</cYear>
+                    <article_title>Impaired PtdIns(4,5)P2 synthesis in nerve terminals produces defects in synaptic vesicle trafficking</article_title>
+                    <doi>10.1038/nature02896</doi>
+                  </citation>
+                  <citation key="bib14">
+                    <journal_title>Journal of Neuroscience</journal_title>
+                    <author>Ford</author>
+                    <volume>29</volume>
+                    <first_page>13344</first_page>
+                    <cYear>2009</cYear>
+                    <article_title>The time course of dopamine transmission in the ventral tegmental area</article_title>
+                    <doi>10.1523/JNEUROSCI.3546-09.2009</doi>
+                  </citation>
+                  <citation key="bib15">
+                    <journal_title>Neuroscience</journal_title>
+                    <author>Ford</author>
+                    <volume>282</volume>
+                    <first_page>13</first_page>
+                    <cYear>2014</cYear>
+                    <article_title>The role of D2-autoreceptors in regulating dopamine neuron activity and transmission</article_title>
+                    <doi>10.1016/j.neuroscience.2014.01.025</doi>
+                  </citation>
+                  <citation key="bib16">
+                    <journal_title>Journal of Neurochemistry</journal_title>
+                    <author>Fortin</author>
+                    <volume>96</volume>
+                    <first_page>1740</first_page>
+                    <cYear>2006</cYear>
+                    <article_title>Basal somatodendritic dopamine release requires snare proteins</article_title>
+                    <doi>10.1111/j.1471-4159.2006.03699.x</doi>
+                  </citation>
+                  <citation key="bib17">
+                    <journal_title>Neuron</journal_title>
+                    <author>Gantz</author>
+                    <volume>78</volume>
+                    <first_page>807</first_page>
+                    <cYear>2013</cYear>
+                    <article_title>Spontaneous inhibitory synaptic currents mediated by a G protein-coupled receptor</article_title>
+                    <doi>10.1016/j.neuron.2013.04.013</doi>
+                  </citation>
+                  <citation key="bib18">
+                    <journal_title>Cell Reports</journal_title>
+                    <author>Gantz</author>
+                    <volume>12</volume>
+                    <first_page>944</first_page>
+                    <cYear>2015</cYear>
+                    <article_title>Depression of serotonin synaptic transmission by the dopamine precursor L-DOPA</article_title>
+                    <doi>10.1016/j.celrep.2015.07.005</doi>
+                  </citation>
+                  <citation key="bib19">
+                    <journal_title>Neuron</journal_title>
+                    <author>Han</author>
+                    <volume>69</volume>
+                    <first_page>304</first_page>
+                    <cYear>2011</cYear>
+                    <article_title>RIM determines Ca²+ channel density and vesicle docking at the presynaptic active zone</article_title>
+                    <doi>10.1016/j.neuron.2010.12.014</doi>
+                  </citation>
+                  <citation key="bib20">
+                    <journal_title>Nature</journal_title>
+                    <author>Howe</author>
+                    <volume>535</volume>
+                    <first_page>505</first_page>
+                    <cYear>2016</cYear>
+                    <article_title>Rapid signalling in distinct dopaminergic axons during locomotion and reward</article_title>
+                    <doi>10.1038/nature18942</doi>
+                  </citation>
+                  <citation key="bib21">
+                    <journal_title>Journal of Neuroscience</journal_title>
+                    <author>Kaeser</author>
+                    <volume>28</volume>
+                    <first_page>13435</first_page>
+                    <cYear>2008</cYear>
+                    <article_title>RIM1alpha and RIM1beta are synthesized from distinct promoters of the RIM1 gene to mediate differential but overlapping synaptic functions</article_title>
+                    <doi>10.1523/JNEUROSCI.3235-08.2008</doi>
+                  </citation>
+                  <citation key="bib22">
+                    <journal_title>Cell</journal_title>
+                    <author>Kaeser</author>
+                    <volume>144</volume>
+                    <first_page>282</first_page>
+                    <cYear>2011</cYear>
+                    <article_title>RIM proteins tether Ca2+ channels to presynaptic active zones via a direct PDZ-domain interaction</article_title>
+                    <doi>10.1016/j.cell.2010.12.029</doi>
+                  </citation>
+                  <citation key="bib23">
+                    <journal_title>Nature Neuroscience</journal_title>
+                    <author>Koushika</author>
+                    <volume>4</volume>
+                    <first_page>997</first_page>
+                    <cYear>2001</cYear>
+                    <article_title>A post-docking role for active zone protein rim</article_title>
+                    <doi>10.1038/nn732</doi>
+                  </citation>
+                  <citation key="bib24">
+                    <journal_title>Cell</journal_title>
+                    <author>Liu</author>
+                    <volume>172</volume>
+                    <first_page>706</first_page>
+                    <cYear>2018</cYear>
+                    <article_title>Dopamine secretion is mediated by sparse active Zone-like release sites</article_title>
+                    <doi>10.1016/j.cell.2018.01.008</doi>
+                  </citation>
+                  <citation key="bib25">
+                    <volume_title>Dendritic Release of Neurotransmitters</volume_title>
+                    <author>Ludwig</author>
+                    <first_page>235</first_page>
+                    <cYear>2016</cYear>
+                  </citation>
+                  <citation key="bib26">
+                    <journal_title>Journal of Biological Chemistry</journal_title>
+                    <author>Mendez</author>
+                    <volume>286</volume>
+                    <first_page>23928</first_page>
+                    <cYear>2011</cYear>
+                    <article_title>Somatodendritic dopamine release requires synaptotagmin 4 and 7 and the participation of voltage-gated calcium channels</article_title>
+                    <doi>10.1074/jbc.M111.218032</doi>
+                  </citation>
+                  <citation key="bib27">
+                    <journal_title>Nature Neuroscience</journal_title>
+                    <author>Menegas</author>
+                    <volume>21</volume>
+                    <first_page>1421</first_page>
+                    <cYear>2018</cYear>
+                    <article_title>Dopamine neurons projecting to the posterior striatum reinforce avoidance of threatening stimuli</article_title>
+                    <doi>10.1038/s41593-018-0222-1</doi>
+                  </citation>
+                  <citation key="bib28">
+                    <journal_title>Journal of Neuroscience</journal_title>
+                    <author>Milosevic</author>
+                    <volume>25</volume>
+                    <first_page>2557</first_page>
+                    <cYear>2005</cYear>
+                    <article_title>Plasmalemmal phosphatidylinositol-4,5-bisphosphate level regulates the releasable vesicle pool size in chromaffin cells</article_title>
+                    <doi>10.1523/JNEUROSCI.3761-04.2005</doi>
+                  </citation>
+                  <citation key="bib29">
+                    <journal_title>Journal of Neuroscience</journal_title>
+                    <author>Müller</author>
+                    <volume>32</volume>
+                    <first_page>16574</first_page>
+                    <cYear>2012</cYear>
+                    <article_title>RIM controls homeostatic plasticity through modulation of the readily-releasable vesicle pool</article_title>
+                    <doi>10.1523/JNEUROSCI.0981-12.2012</doi>
+                  </citation>
+                  <citation key="bib30">
+                    <journal_title>Nature Neuroscience</journal_title>
+                    <author>Pereira</author>
+                    <volume>19</volume>
+                    <first_page>578</first_page>
+                    <cYear>2016</cYear>
+                    <article_title>Fluorescent false neurotransmitter reveals functionally silent dopamine vesicle clusters in the striatum</article_title>
+                    <doi>10.1038/nn.4252</doi>
+                  </citation>
+                  <citation key="bib31">
+                    <journal_title>Nature</journal_title>
+                    <author>Tang</author>
+                    <volume>536</volume>
+                    <first_page>210</first_page>
+                    <cYear>2016</cYear>
+                    <article_title>A trans-synaptic nanocolumn aligns neurotransmitter release to receptors</article_title>
+                    <doi>10.1038/nature19058</doi>
+                  </citation>
+                  <citation key="bib32">
+                    <journal_title>The Journal of Neuroscience</journal_title>
+                    <author>Vezina</author>
+                    <volume>16</volume>
+                    <first_page>2411</first_page>
+                    <cYear>1996</cYear>
+                    <article_title>D1 dopamine receptor activation is necessary for the induction of sensitization by amphetamine in the ventral tegmental area</article_title>
+                    <doi>10.1523/JNEUROSCI.16-07-02411.1996</doi>
+                  </citation>
+                  <citation key="bib33">
+                    <journal_title>Nature</journal_title>
+                    <author>Wang</author>
+                    <volume>388</volume>
+                    <first_page>593</first_page>
+                    <cYear>1997</cYear>
+                    <article_title>Rim is a putative Rab3 effector in regulating synaptic-vesicle fusion</article_title>
+                    <doi>10.1038/41580</doi>
+                  </citation>
+                  <citation key="bib34">
+                    <journal_title>Neuron</journal_title>
+                    <author>Wang</author>
+                    <volume>91</volume>
+                    <first_page>777</first_page>
+                    <cYear>2016</cYear>
+                    <article_title>Fusion competent synaptic vesicles persist upon active zone disruption and loss of vesicle docking</article_title>
+                    <doi>10.1016/j.neuron.2016.07.005</doi>
+                  </citation>
+                  <citation key="bib35">
+                    <journal_title>Nature Communications</journal_title>
+                    <author>Wang</author>
+                    <volume>9</volume>
+                    <cYear>2018</cYear>
+                    <article_title>Postsynaptic RIM1 modulates synaptic function by facilitating membrane delivery of recycling NMDARs in hippocampal neurons</article_title>
+                    <doi>10.1038/s41467-018-04672-0</doi>
+                    <elocation_id>2267</elocation_id>
+                  </citation>
+                  <citation key="bib36">
+                    <journal_title>Neuroscience</journal_title>
+                    <author>Witkovsky</author>
+                    <volume>164</volume>
+                    <first_page>488</first_page>
+                    <cYear>2009</cYear>
+                    <article_title>Immunocytochemical identification of proteins involved in dopamine release from the somatodendritic compartment of nigral dopaminergic neurons</article_title>
+                    <doi>10.1016/j.neuroscience.2009.08.017</doi>
+                  </citation>
+                  <citation key="bib37">
+                    <journal_title>Science</journal_title>
+                    <author>Yagishita</author>
+                    <volume>345</volume>
+                    <first_page>1616</first_page>
+                    <cYear>2014</cYear>
+                    <article_title>A critical time window for dopamine actions on the structural plasticity of dendritic spines</article_title>
+                    <doi>10.1126/science.1255514</doi>
+                  </citation>
+                </citation_list>
+                <component_list>
+                  <component parent_relation="isPartOf">
+                    <titles>
+                      <title>Abstract</title>
+                    </titles>
+                    <format mime_type="text/plain"/>
+                    <doi_data>
+                      <doi>10.7554/eLife.47972.001</doi>
+                      <resource>https://elifesciences.org/articles/47972#abstract</resource>
+                    </doi_data>
+                  </component>
+                  <component parent_relation="isPartOf">
+                    <titles>
+                      <title>Figure 1. RIM is essential for stimulated somatodendritic dopamine release.</title>
+                      <subtitle>Somatodendritic release was characterized in substantia nigra dopamine neurons. Release was induced using a monopolar electrode and measured by recording D2 receptor IPSCs in control mice (RIM control) and in mice with conditional knockout of RIM specifically in dopamine neurons (RIM cKODA). (A, B) Example traces (A) and quantification (B) of IPSCs in RIM control and RIM cKODA mice with vs. without the presence of the D2 receptor antagonist sulpiride, n = 23 cells/6 mice in RIM control, and n = 23/6 in RIM cKODA, significance was calculated by two-way ANOVA and is reported in panel B (RIM control vs. RIM cKODA: F(1) = 57.63, p &lt; 0.001; stimulated response vs. + sulpiride: F(1) = 60.71, p &lt; 0.001), and was followed by Bonferroni post-hoc analysis (RIM control stimulated response vs. RIM control + sulpiride t = 9.70, p &lt; 0.05; RIM cKODA stimulated response vs. RIM cKODA + sulpiride: t = 1.33, p &gt; 0.05; RIM control stimulated response vs. RIM cKODA stimulated response: t = 9.62, p &lt; 0.05). (C, D) Example traces (top) and quantification (bottom) of IPSCs stimulated in RIM control slices (C) or RIM cKODA slices (D) before and after treatment with L-DOPA (10 µM) and subsequent application of sumatriptan (1 µM, to inhibit dopamine release from serotonin terminals), n = 6 cells/6 mice in each group, significance was calculated by repeated measures ANOVA and is reported in panels C and D, (C: F = 10.44, p = 0.01 D: F = 22.75, p &lt; 0.005), and was followed by Tukey’s multiple comparison test (C: baseline vs. L-DOPA p &lt; 0.05, L-DOPA vs. sumatriptan p &lt; 0.05; D: baseline vs. L-DOPA p &lt; 0.05, L-DOPA vs. sumatriptan p &lt; 0.05). Data in B-D are shown as mean ± standard error of mean (SEM) and small circles represent individual cells.</subtitle>
+                    </titles>
+                    <format mime_type="image/tiff"/>
+                    <doi_data>
+                      <doi>10.7554/eLife.47972.002</doi>
+                      <resource>https://elifesciences.org/articles/47972#fig1</resource>
+                    </doi_data>
+                  </component>
+                  <component parent_relation="isPartOf">
+                    <titles>
+                      <title>Figure 1—figure supplement 1. Comparison of dopamine neuron properties in RIM control and RIM cKODA mice.</title>
+                      <subtitle>(A) Cell capacitance measured in RIM control and RIM cKODA slices (Student’s t-test, p = 0.85, RIM control n = 73 cells/12 mice, RIM cKODA n = 68/12). (B) Cell resistance measured in RIM control and RIM cKODA slices (Student’s t-test, p = 0.42, RIM control n = 73/12 and RIM cKODA n = 67/12). (C) The spontaneous firing rates recorded in cell-attached mode from RIM control and RIM cKODA neurons (Student’s t-test, p = 0.17, RIM control n = 67/12 and RIM cKODA n = 59/12). (D) Currents measured upon break-in to whole cell recording mode in dopamine neurons in RIM control and RIM cKODA slices (Student’s t-test, p = 0.12, RIM control n = 71/12 and RIM cKODA n = 67/12). (E) Ih currents of dopamine neurons from RIM control and RIM cKODA mice (Student’s t-test, p = 0.45, RIM control n = 55/12 and RIM cKODA n = 37/9). Data in A-E are shown as mean ± SEM and small circles represent individual cells.</subtitle>
+                    </titles>
+                    <format mime_type="image/tiff"/>
+                    <doi_data>
+                      <doi>10.7554/eLife.47972.003</doi>
+                      <resource>https://elifesciences.org/articles/47972/figures#fig1s1</resource>
+                    </doi_data>
+                  </component>
+                  <component parent_relation="isPartOf">
+                    <titles>
+                      <title>Figure 1—figure supplement 2. Cocaine enhances the IPSC amplitude and prolongs the IPSC decay.</title>
+                      <subtitle>A characteristic feature of D2-IPSCs is the termination of the signal by uptake of dopamine through the dopamine transporter rather than through diffusion of dopamine. (A) In slices from RIM control animals, the bath application of 300 nM cocaine causes increases in IPSC amplitude and IPSC half-width. A higher concentration of cocaine (10 µM) augments these effects with a larger impact on IPSC half-width. (B, C) Quantification of IPSC amplitude (B) and half width (C) upon application of cocaine. RIM control n = 5 cells/5 mice for 300 nM cocaine and n = 4/4 for 10 µM cocaine. 300 nM cocaine increased the IPSC amplitude to 141% of baseline (indicated by the dotted line, Student’s t-test 300 nM cocaine vs. baseline: t = 2.77, p = 0.05) while in 10 µM cocaine this increase was 192% (Student’s t-test 10 µM cocaine vs baseline: t = 3.94, p &lt; 0.05). The width at half peak amplitude was increased to 147% of baseline in 300 nM cocaine (Student’s t-test 300 nM cocaine vs. baseline: t = 5.31, p &lt; 0.01) and 337% in 10 µM cocaine (Student’s t-test 10 µM cocaine vs. baseline: t = 7.01, p &lt; 0.01). Data in B and C are shown as mean ± SEM and small circles represent individual cells.</subtitle>
+                    </titles>
+                    <format mime_type="image/tiff"/>
+                    <doi_data>
+                      <doi>10.7554/eLife.47972.004</doi>
+                      <resource>https://elifesciences.org/articles/47972/figures#fig1s2</resource>
+                    </doi_data>
+                  </component>
+                  <component parent_relation="isPartOf">
+                    <titles>
+                      <title>Figure 1—figure supplement 3. Sensitivity of D2 receptors is not altered by RIM removal.</title>
+                      <subtitle>(A, B) Example traces (A) and quantification (B) of the D2 receptor current densities induced by the bath application of 1 µM and 100 µM dopamine from RIM control (n = 6 cells/6 mice) and RIM cKODA (n = 6/4) mice, analyzed using two-way repeated measures ANOVA (1 µM vs. 100 µM F(1, 10) = 99.08, p &lt; 0.0001; RIM control vs. RIM cKODA F(1, 10) = 1.295, p = 0.28) and followed by Sidak’s multiple comparison test (RIM control 1 µM vs. 100 µM t = 7.16, p &lt; 0.001; RIM cKODA 1 µM vs. 100 µM t = 6.92, p &lt; 0.001). Data in B are shown as mean ± SEM and small circles represent individual cells.</subtitle>
+                    </titles>
+                    <format mime_type="image/tiff"/>
+                    <doi_data>
+                      <doi>10.7554/eLife.47972.005</doi>
+                      <resource>https://elifesciences.org/articles/47972/figures#fig1s3</resource>
+                    </doi_data>
+                  </component>
+                  <component parent_relation="isPartOf">
+                    <titles>
+                      <title>Figure 2. Dopamine neuron shape, excitability and amphetamine induced dopamine release are unaffected by RIM knockout.</title>
+                      <subtitle>(A, B) Example images (A) and Sholl analysis (B) of individual neurobiotin-filled dopamine neurons in RIM control (n = 21 cells/6 animals) and RIM cKODA (n = 24/6) slices. RIM control and RIM cKODA neurons in B were compared using two-way ANOVA (F (1, 43) = 0.53, p = 0.47). (C, D) Neuron excitability was tested by hyperpolarizing cells to − 70 mV and applying progressively larger 500 ms long positive current steps. Example traces (C) and quantification (D) of action potential firing recorded in current clamp are shown. The number of action potentials during each step was quantified in RIM control (n = 27/6) and RIM cKODA (n = 27/6), and then compared using two-way ANOVA (current step size effect F(4, 240) = 71.50, p &lt; 0.0001; RIM control vs. RIM cKODA F(1, 240) = 0.85, p = 0.36). (E, F) Example traces (E) and quantification of current density (F) from RIM control and RIM cKODA mice of D2 receptor currents produced by bath application of amphetamine (10 or 30 µM, which causes the reverse transport of dopamine into the extracellular space); n = 5/5 in RIM control, 4/4 in RIM cKODA, compared by Student’s t-test (t = 1.12, p = 0.30). Data in B, D and F are shown as mean ± SEM and small circles in F represent individual cells.</subtitle>
+                    </titles>
+                    <format mime_type="image/tiff"/>
+                    <doi_data>
+                      <doi>10.7554/eLife.47972.006</doi>
+                      <resource>https://elifesciences.org/articles/47972#fig2</resource>
+                    </doi_data>
+                  </component>
+                  <component parent_relation="isPartOf">
+                    <titles>
+                      <title>Figure 2—figure supplement 1. The amphetamine response is not saturated.</title>
+                      <subtitle>(A, B) Example trace (A) and quantification (B) of the ratio between D2 receptor currents induced by the bath application of amphetamine and subsequent application of quinpirole in RIM control (n = 6 cells/4 mice) and RIM cKODA (n = 5/5) mice compared by Student’s t-test (t = 0.82, p = 0.44). Data in B are shown as mean ± SEM and small circles represent individual cells.</subtitle>
+                    </titles>
+                    <format mime_type="image/tiff"/>
+                    <doi_data>
+                      <doi>10.7554/eLife.47972.007</doi>
+                      <resource>https://elifesciences.org/articles/47972/figures#fig2s1</resource>
+                    </doi_data>
+                  </component>
+                  <component parent_relation="isPartOf">
+                    <titles>
+                      <title>Figure 3. Spontaneous dopamine release is unaffected by RIM knockout.</title>
+                      <subtitle>(A, B) Recording of spontaneous D2 receptor IPSCs (sIPSC) in RIM control and RIM cKODA mice. Example traces (A) and aligned events (B, averages in bold) of D2 receptor IPSCs produced by spontaneous dopamine release from RIM control and RIM cKODA slices in the presence of cocaine (300 nM) and forskolin (1 µM) followed by addition of the D2 receptor antagonist sulpiride (RIM control n = 161 events/16 cells/6 mice, RIM cKODA n = 185/16/6). (C) The frequency of spontaneous IPSCs was quantified per cell in RIM control (n = 16 cells/6 mice) and RIM cKODA (n = 16/6) slices, and the groups were compared by Student’s t-test (t = 1.79, p = 0.09). (D, E) The amplitude (D) and 20% peak width (E) of the spontaneous IPSCs were analyzed and compared between all events of RIM control and RIM cKODA mice using Student’s t-test (n as in B; amplitude: t = 1.32, p = 0.19; half peak width: t = 1.46, p = 0.14). Data in C-E are shown as mean ± SEM and small circles in C represent individual cells.</subtitle>
+                    </titles>
+                    <format mime_type="image/tiff"/>
+                    <doi_data>
+                      <doi>10.7554/eLife.47972.008</doi>
+                      <resource>https://elifesciences.org/articles/47972#fig3</resource>
+                    </doi_data>
+                  </component>
+                  <component parent_relation="isPartOf">
+                    <titles>
+                      <title>Transparent reporting form</title>
+                    </titles>
+                    <format mime_type="application/pdf"/>
+                    <doi_data>
+                      <doi>10.7554/eLife.47972.009</doi>
+                      <resource>https://elifesciences.org/articles/47972/figures#transrepform</resource>
+                    </doi_data>
+                  </component>
+                  <component parent_relation="isPartOf">
+                    <titles>
+                      <title>Decision letter</title>
+                    </titles>
+                    <format mime_type="text/plain"/>
+                    <doi_data>
+                      <doi>10.7554/eLife.47972.011</doi>
+                      <resource>https://elifesciences.org/articles/47972#SA1</resource>
+                    </doi_data>
+                  </component>
+                  <component parent_relation="isPartOf">
+                    <titles>
+                      <title>Author response</title>
+                    </titles>
+                    <format mime_type="text/plain"/>
+                    <doi_data>
+                      <doi>10.7554/eLife.47972.012</doi>
+                      <resource>https://elifesciences.org/articles/47972#SA2</resource>
+                    </doi_data>
+                  </component>
+                </component_list>
+              </journal_article>
+            </journal>
+          </crossref>
+        </doi_record>
+      </query>
+    </body>
+  </query_result>
+</crossref_result>

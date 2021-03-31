@@ -69,7 +69,7 @@ module Bolognese
         end
 
         def write_funders
-          funding_references&.map do |funder|
+          grouped_funders&.map do |funder|
             funder.transform_keys!(&:underscore)
 
             # TODO: Need to get the award name from the number here
@@ -152,6 +152,19 @@ module Bolognese
           return unless date_string.present?
 
           Date.edtf(date_string)
+        end
+
+        # Group the funders by their name, as we might not have a unique DOI for them.
+        # This is a big of a sledge hammer approach, but I believe it'll work for now.
+        def grouped_funders
+          return unless funding_references.present?
+
+          funding_references.group_by { |funder| funder["funderName"] }.map do |name, group|
+            funder = group.first
+            funder["awardNumber"] = group.pluck("awardNumber").compact
+
+            funder
+          end
         end
     end
   end

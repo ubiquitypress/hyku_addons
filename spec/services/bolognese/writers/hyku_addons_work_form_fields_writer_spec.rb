@@ -32,6 +32,13 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
   end
 
   context "Hyku Addons Writer" do
+    let(:faraday_headers) do
+      {
+        'Accept'=>'*/*',
+        'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+        'User-Agent'=>'Faraday v0.17.4'
+      }
+    end
     let(:meta) { Bolognese::Metadata.new(input: fixture) }
     let(:result) { meta.hyku_addons_work_form_fields }
 
@@ -345,6 +352,120 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["funder"][0]["funder_wikidata"]).to eq "Q4801497" }
       it { expect(result["funder"][0]["funder_grid"]).to eq "grid.426413.6" }
       it { expect(result["funder"][0]["funder_ror"]).to eq "https://ror.org/0505m1554" }
+    end
+
+    describe "a Journal Article" do
+      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.7554-elife.47972.xml") }
+      let(:json_100000065) { File.read Rails.root.join("..", "fixtures", "ror", "100000065.json") }
+      let(:json_100000026) { File.read Rails.root.join("..", "fixtures", "ror", "100000026.json") }
+      let(:json_100006691) { File.read Rails.root.join("..", "fixtures", "ror", "100006691.json") }
+
+      before do
+        stub_request(:get, "https://api.ror.org/organizations?query=100000026").
+          with(headers: faraday_headers).
+          to_return(status: 200, body: json_100000026, headers: {})
+
+        stub_request(:get, "https://api.ror.org/organizations?query=100000065").
+          with(headers: faraday_headers).
+          to_return(status: 200, body: json_100000065, headers: {})
+
+        stub_request(:get, "https://api.ror.org/organizations?query=100006691").
+          with(headers: faraday_headers).
+          to_return(status: 200, body: json_100006691, headers: {})
+      end
+
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+
+      it { expect(result["publisher"]).to eq ["eLife Sciences Publications, Ltd"] }
+      it { expect(result["doi"]).to include("10.7554/elife.47972") }
+
+      title = "RIM is essential for stimulated but not spontaneous somatodendritic dopamine release in the midbrain"
+      it { expect(result["title"]).to eq [title] }
+
+      it { expect(result["abstract"]).to include("Action potentials trigger neurotransmitter") }
+      it { expect(result["volume"]).to eq ["8"] }
+      it { expect(result["official_link"]).to eq "http://dx.doi.org/10.7554/elife.47972" }
+      it { expect(result["issn"]).to eq ["2050-084X"] }
+
+      keywords = [
+        "General Biochemistry, Genetics and Molecular Biology",
+        "General Immunology and Microbiology",
+        "General Neuroscience",
+        "General Medicine"
+      ]
+      it { expect(result["keyword"]).to eq keywords }
+
+      it { expect(result["date_published"]).to be_an(Array) }
+      it { expect(result["date_published"].first["date_published_year"]).to be 2019 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 9 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 5 }
+
+      it { expect(result["contributor"]).to be_nil }
+
+      it { expect(result["creator"]).to be_an(Array) }
+      it { expect(result["creator"].size).to eq 6 }
+
+      it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][0]["creator_given_name"]).to eq "Brooks G" }
+      it { expect(result["creator"][0]["creator_family_name"]).to eq "Robinson" }
+      it { expect(result["creator"][0]["creator_orcid"]).to eq "https://orcid.org/0000-0001-5020-531X" }
+
+      it { expect(result["creator"][1]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][1]["creator_given_name"]).to eq "Xintong" }
+      it { expect(result["creator"][1]["creator_family_name"]).to eq "Cai" }
+      it { expect(result["creator"][1]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][2]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][2]["creator_given_name"]).to eq "Jiexin" }
+      it { expect(result["creator"][2]["creator_family_name"]).to eq "Wang" }
+      it { expect(result["creator"][1]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][3]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][3]["creator_given_name"]).to eq "James R" }
+      it { expect(result["creator"][3]["creator_family_name"]).to eq "Bunzow" }
+      it { expect(result["creator"][1]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][4]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][4]["creator_given_name"]).to eq "John T" }
+      it { expect(result["creator"][4]["creator_family_name"]).to eq "Williams" }
+      it { expect(result["creator"][4]["creator_orcid"]).to eq "https://orcid.org/0000-0002-0647-6144" }
+
+      it { expect(result["creator"][5]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][5]["creator_given_name"]).to eq "Pascal S" }
+      it { expect(result["creator"][5]["creator_family_name"]).to eq "Kaeser" }
+      it { expect(result["creator"][5]["creator_orcid"]).to eq "https://orcid.org/0000-0002-1558-1958" }
+
+      it { expect(result["funder"]).to be_an(Array) }
+      it { expect(result["funder"].size).to eq 3 }
+
+      it { expect(result["funder"][0]["funder_name"]).to eq "National Institute of Neurological Disorders and Stroke" }
+      it { expect(result["funder"][0]["funder_doi"]).to eq "10.13039/100000065" }
+      it { expect(result["funder"][0]["funder_award"]).to eq ["R01NS083898", "R01NS103484"] }
+      it { expect(result["funder"][0]["funder_isni"]).to eq "0000 0001 2177 357X" }
+      it { expect(result["funder"][0]["funder_fundref"]).to eq "100000065" }
+      it { expect(result["funder"][0]["funder_grid"]).to eq "grid.416870.c" }
+      it { expect(result["funder"][0]["funder_ror"]).to eq "https://ror.org/01s5ya894" }
+
+      it { expect(result["funder"][1]["funder_name"]).to eq "National Institute on Drug Abuse" }
+      it { expect(result["funder"][1]["funder_doi"]).to eq "10.13039/100000026" }
+      it { expect(result["funder"][1]["funder_award"]).to eq ["R01DA04523", "K99DA044287"] }
+      it { expect(result["funder"][1]["funder_isni"]).to eq "0000 0004 0533 7147" }
+      it { expect(result["funder"][1]["funder_fundref"]).to eq "100000026" }
+      it { expect(result["funder"][1]["funder_grid"]).to eq "grid.420090.f" }
+      it { expect(result["funder"][1]["funder_ror"]).to eq "https://ror.org/00fq5cm18" }
+
+      it { expect(result["funder"][2]["funder_name"]).to eq "Harvard Medical School" }
+      it { expect(result["funder"][2]["funder_doi"]).to eq "10.13039/100006691" }
+      it { expect(result["funder"][2]["funder_award"]).to eq [] }
+      it { expect(result["funder"][2]["funder_isni"]).to eq "000000041936754X" }
+      it { expect(result["funder"][2]["funder_fundref"]).to eq "100007229" }
+      it { expect(result["funder"][2]["funder_grid"]).to eq "grid.38142.3c" }
+      it { expect(result["funder"][2]["funder_ror"]).to eq "https://ror.org/03vek6s52" }
+
+      it { expect(result["license"]).to be_an(Array) }
+      it { expect(result["license"].count).to be 1 }
+      it { expect(result["license"]).to eq ["http://creativecommons.org/licenses/by/4.0/"] }
     end
   end
 end
