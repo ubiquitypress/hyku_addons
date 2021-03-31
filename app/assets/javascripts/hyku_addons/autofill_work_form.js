@@ -15,12 +15,12 @@ class AutofillWorkForm {
   // Ideally, this would be done inside the button path generation, but it relies on a url_helper inside a gem.
   alterRequestFormat() {
     let button = $(this.buttonSelector)
-    let href = button.attr("href")
 
-    if (href.includes(".")) {
+    if (button.length === 0) {
       return
     }
 
+    let href = button.attr("href") || ""
     button.attr("href", href + ".json")
   }
 
@@ -107,7 +107,8 @@ class AutofillWorkForm {
   }
 
   logSuccess() {
-    let fields = this.updatedFields
+    let uniqueFields = $.unique(this.updatedFields)
+    let fields = uniqueFields
       .map((field) => {
         return field.split("_").map((str) => { return str.charAt(0).toUpperCase() + str.slice(1) }).join(" ")
       })
