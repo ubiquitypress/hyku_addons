@@ -29,7 +29,7 @@ module Bolognese
           "abstract" => write_descriptions,
           "keyword" => subjects&.pluck("subject"),
           "official_link" => Array(url),
-          "language" => Array(language),
+          "language" => Array(language)
         }.compact.reject { |_key, value| value.blank? }
       end
 
