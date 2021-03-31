@@ -1164,10 +1164,9 @@ DEPENDENCIES
   fcrepo_wrapper (~> 0.4)
   flipflop (~> 2.3)
   flutie
-  honeybadger (~> 3.0)
   hyku-api!
   hyku_addons!
-  hyrax (~> 2.9)
+  hyrax (~> 2.9, >= 2.9.1)
   hyrax-doi!
   i18n-debug
   i18n-tasks
