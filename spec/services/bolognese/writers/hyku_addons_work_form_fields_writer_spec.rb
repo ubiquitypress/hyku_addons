@@ -51,6 +51,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["publisher"]).to eq ["Ubiquity Press, Ltd."] }
       it { expect(result["title"].first).to include "As Paisagens Sonora, Olfactiva e Culinária em Alice’s" }
       it { expect(result["doi"]).to eq ["10.5334/as.1"] }
+      it { expect(result["license"]).to eq ["https://creativecommons.org/licenses/by/4.0/"] }
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2020 }
@@ -78,6 +79,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["publisher"]).to eq ["eLife Sciences Publications, Ltd"] }
       it { expect(result["title"]).to eq ["SARS-CoV-2 S protein:ACE2 interaction reveals novel allosteric targets"] }
       it { expect(result["doi"]).to eq ["10.7554/elife.63646"] }
+      it { expect(result["license"]).to eq ["https://creativecommons.org/licenses/by/4.0/"] }
 
       it { expect(result["abstract"].first).to include("The spike (S) protein is the main handle for SARS-CoV-2") }
       it { expect(result["keyword"]).to be_nil }
@@ -125,6 +127,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["publisher"]).to eq ["Bloomsbury Academic"] }
       it { expect(result["title"]).to eq ["Introduction: Britain, Britain, Little Britain..."] }
       it { expect(result["doi"]).to eq ["10.5040/9780755697397.0006"] }
+      it { expect(result["license"]).to be_nil }
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2010 }
@@ -149,6 +152,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["publisher"]).to eq ["Bloomsbury Academic"] }
       it { expect(result["title"]).to eq ["Reading Little Britain"] }
       it { expect(result["doi"]).to eq ["10.5040/9780755697397"] }
+      it { expect(result["license"]).to be_nil }
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2010 }
@@ -176,6 +180,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["publisher"]).to eq ["Institute for Fiscal Studies"] }
       it { expect(result["title"]).to eq ["Is middle Britain middle-income Britain?"] }
       it { expect(result["doi"]).to eq ["10.1920/bn.ifs.2003.0038"] }
+      it { expect(result["license"]).to be_nil }
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2003 }
@@ -200,6 +205,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["publisher"]).to eq ["University of Southern Mississippi"] }
       it { expect(result["title"]).to eq ["Great Britain Parliament"] }
       it { expect(result["doi"]).to eq ["10.18785/fa.m165"] }
+      it { expect(result["license"]).to be_nil }
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2017 }
@@ -224,6 +230,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["publisher"]).to eq ["Informa UK Limited"] }
       it { expect(result["title"]).to eq ["Cinema, Colour and the Festival of Britain, 1951"] }
       it { expect(result["doi"]).to eq ["10.1080/14714787.2012.641791"] }
+      it { expect(result["license"]).to be_nil }
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2012 }
@@ -252,6 +259,9 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["keyword"]).to eq ["diviners", "Soothsayers", "Lucht feasa"] }
       it { expect(result["official_link"]).to eq ["https//doi.org/10.7925/drs1.duchas_5019334"] }
       it { expect(result["language"]).to eq ["en"] }
+
+      it { expect(result["license"].count).to eq 3 }
+      it { expect(result["license"]).to include("https://creativecommons.org/licenses/by-nc/4.0/") }
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2017 }
@@ -309,6 +319,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["title"]).to eq ["Catalogue records of photographs (1850-1950)"] }
       it { expect(result["doi"]).to eq ["10.23636/1345"] }
       it { expect(result["keyword"]).to eq ["photographs", "datasets", "metadata", "catalogues"] }
+      it { expect(result["license"]).to eq ["https://creativecommons.org/publicdomain/zero/1.0/"] }
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2021 }
@@ -459,7 +470,49 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
 
       it { expect(result["license"]).to be_an(Array) }
       it { expect(result["license"].count).to be 1 }
-      it { expect(result["license"]).to eq ["Creative Commons Attribution 4.0 International"] }
+      it { expect(result["license"]).to eq ["https://creativecommons.org/licenses/by/4.0/"] }
+    end
+
+    describe "a book with an isbn" do
+      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.11647-obp.0232.xml") }
+
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+
+      # it { expect(result["publisher"]).to eq ["eLife Sciences Publications, Ltd"] }
+      it { expect(result["doi"]).to include("10.11647/obp.0232") }
+
+      it { expect(result["title"]).to eq ["Romanticism and Time"] }
+
+      it { expect(result["abstract"]).to be_nil }
+      it { expect(result["volume"]).to be_nil }
+      it { expect(result["official_link"]).to eq ["https://www.openbookpublishers.com/product/1254"] }
+      it { expect(result["issn"]).to be_nil }
+      it { expect(result["isbn"]).to eq ["978-1-80064-071-9"] }
+      it { expect(result["keyword"]).to be_nil }
+
+      it { expect(result["date_published"]).to be_an(Array) }
+      it { expect(result["date_published"].first["date_published_year"]).to be 2021 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 3 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 1 }
+
+      it { expect(result["contributor"]).to be_an(Array) }
+      it { expect(result["contributor"].size).to eq 2 }
+
+      it { expect(result["contributor"][0]["contributor_name_type"]).to eq "Personal" }
+      it { expect(result["contributor"][0]["contributor_given_name"]).to eq "Sophie" }
+      it { expect(result["contributor"][0]["contributor_family_name"]).to eq "Laniel-Musitelli" }
+      it { expect(result["contributor"][0]["contributor_orcid"]).to eq "https://orcid.org/0000-0001-6622-9455" }
+      it { expect(result["contributor"][0]["contributor_contributor_type"]).to eq "Editor" }
+
+      it { expect(result["contributor"][1]["contributor_name_type"]).to eq "Personal" }
+      it { expect(result["contributor"][1]["contributor_given_name"]).to eq "Céline" }
+      it { expect(result["contributor"][1]["contributor_family_name"]).to eq "Sabiron" }
+      it { expect(result["contributor"][1]["contributor_orcid"]).to be_nil }
+      it { expect(result["contributor"][1]["contributor_contributor_type"]).to eq "Editor" }
+
+      it { expect(result["creator"]).to eq [{"creator_name"=>":(unav)", "creator_name_type"=>"Organizational"}] }
+
     end
   end
 end
