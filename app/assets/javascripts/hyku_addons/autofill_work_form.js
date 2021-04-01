@@ -8,6 +8,7 @@ class AutofillWorkForm {
     this.logClass = "autofill-message"
     this.successMessage = "The following fields were auto-populated:"
     this.failureMessage = "The DOI entered did not return any data"
+    this.errorMessage = "An error occured, the DOI might not be valid"
     this.fieldLabelAcronyms = { doi: "DOI", issn: "ISSN", eissn: "eISSN" }
 
     this.alterRequestFormat()
@@ -31,12 +32,12 @@ class AutofillWorkForm {
     // We don't want to use the default alert error messages
     $(this.buttonSelector).off("ajax:error")
 
-    $(this.buttonSelector).on("click", (event) => { $(`.${this.logClass}`).remove() })
+    $(this.buttonSelector).on("click", (_e) => { $(`.${this.logClass}`).remove() })
     $("body").on("ajax:success", this.buttonSelector, this.onSuccess.bind(this))
-    $("body").on("ajax:error", this.buttonSelector, this.onFailure.bind(this))
+    $("body").on("ajax:error", this.buttonSelector, this.onError.bind(this))
   }
 
-  onSuccess(event, response) {
+  onSuccess(_e, response) {
     this.response = response
 
     if ($.isEmptyObject(this.response.data)) {
@@ -53,13 +54,20 @@ class AutofillWorkForm {
     this.logSuccess()
   }
 
-  onFailure(event, xhr, status, message) {
-    let $titleMessage = $("<p/>", { text: "An error occured, the DOI might not be valid" })
+  onError() {
+    let $titleMessage = $("<p/>", { text: this.errorMessage })
     let $wrapper = $("<div/>", { class: `${this.logClass} bg-danger` }).append($titleMessage)
 
     $wrapper.prependTo(this.$form)
   }
 
+  // This method performs most of the heavy lifting. It accepts a field name, a value and the index for the element.
+  // It will then try and workout the correct field to place the value within.
+  //
+  // Value could be:
+  // an array of objects, each of which contains multiple subfields and their value,
+  // an object of subfields and their values
+  // a string / int value
   processField(field, value, index = 0) {
     if (this.isBlank(value)) {
       return false;
