@@ -34,10 +34,10 @@ module Bolognese
           "language" => Array(language),
           "volume" => write_volume,
           "date_published" => write_date_published,
+          "issn" => write_issn,
 
           # FIXME
-          "license" => rights_list&.pluck("rights")&.uniq,
-          "issn" => write_issn
+          "license" => rights_list&.pluck("rights")&.uniq
         }.compact.reject { |_key, value| value.blank? }
       end
       # rubocop:enable Metrics/MethodLength
@@ -92,9 +92,9 @@ module Bolognese
         end
 
         def write_issn
-          return unless container.present?
+          return unless container.present? || container&.dig("identifierType") != "ISSN"
 
-          container.dig("indentifierType") == "ISSN" ? container.dig("indentifier") : nil
+          [container.dig("identifier")]
         end
 
         def write_funders
