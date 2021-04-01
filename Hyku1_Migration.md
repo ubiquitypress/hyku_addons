@@ -41,4 +41,6 @@
 ## Post-import steps
 ### Collection metadata
 ### File visibility
+## Migration Validation
+## Update Migration 
 
