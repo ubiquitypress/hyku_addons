@@ -511,8 +511,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["contributor"][1]["contributor_orcid"]).to be_nil }
       it { expect(result["contributor"][1]["contributor_contributor_type"]).to eq "Editor" }
 
-      it { expect(result["creator"]).to eq [{"creator_name"=>":(unav)", "creator_name_type"=>"Organizational"}] }
-
+      it { expect(result["creator"]).to eq [{ "creator_name" => ":(unav)", "creator_name_type" => "Organizational" }] }
     end
   end
 end

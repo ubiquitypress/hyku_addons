@@ -37,7 +37,7 @@ module Bolognese
           "issn" => [identifier_by_type(:container, "ISSN")].compact,
           "isbn" => [identifier_by_type(:identifiers, "ISBN")].compact,
           "journal_title" => writer_journal_title,
-          "license" => write_license,
+          "license" => write_license
         }.compact.reject { |_key, value| value.blank? }
       end
       # rubocop:enable Metrics/MethodLength
@@ -78,7 +78,7 @@ module Bolognese
         end
 
         def write_license
-          urls = rights_list&.pluck("rightsUri")&.uniq.compact
+          urls = rights_list&.pluck("rightsUri")&.uniq&.compact
 
           return if urls.blank?
 
