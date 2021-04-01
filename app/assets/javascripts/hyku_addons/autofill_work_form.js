@@ -2,10 +2,13 @@ class AutofillWorkForm {
   constructor(){
     this.targetInputSelector = "select, input, textarea, checkbox, radio"
     this.buttonSelector = "#doi-autofill-btn"
-    this.form = $(this.buttonSelector).closest("form")
+    this.$form = $(this.buttonSelector).closest("form")
     this.arrayValuesLength = 0
     this.updatedFields = []
     this.logClass = "autofill-message"
+    this.successMessage = "The following fields were auto-populated:"
+    this.failureMessage = "The DOI entered did not return any data"
+    this.fieldLabelAcronyms = { doi: "DOI", issn: "ISSN", eissn: "eISSN" }
 
     this.alterRequestFormat()
     this.registerListeners()
@@ -14,14 +17,14 @@ class AutofillWorkForm {
   // If we do not provide a JSON request, then we receive console errors returning JSON from the response.
   // Ideally, this would be done inside the button path generation, but it relies on a url_helper inside a gem.
   alterRequestFormat() {
-    let button = $(this.buttonSelector)
+    let $button = $(this.buttonSelector)
 
-    if (button.length === 0) {
+    if ($button.length === 0) {
       return
     }
 
-    let href = button.attr("href") || ""
-    button.attr("href", href + ".json")
+    let href = $button.attr("href") || ""
+    $button.attr("href", href + ".json")
   }
 
   registerListeners() {
@@ -51,10 +54,10 @@ class AutofillWorkForm {
   }
 
   onFailure(event, xhr, status, message) {
-    let titleMessage = $("<p/>", { text: "An error occured, the DOI might not be valid" })
-    let wrapper = $("<div/>", { class: `${this.logClass} bg-danger` }).append(titleMessage)
+    let $titleMessage = $("<p/>", { text: "An error occured, the DOI might not be valid" })
+    let $wrapper = $("<div/>", { class: `${this.logClass} bg-danger` }).append($titleMessage)
 
-    wrapper.prependTo(this.form)
+    $wrapper.prependTo(this.$form)
   }
 
   processField(field, value, index = 0) {
@@ -76,16 +79,16 @@ class AutofillWorkForm {
       })
 
     } else if ($.type(value) == "object") {
-      var wrapper = this.wrapper(field, index)
+      var $wrapper = this.wrapper(field, index)
 
       // This isn't using the normal setValue method because of the requirement to autofill nested groups of fields
       Object.entries(value).forEach(([childField, childValue]) => {
-        $(wrapper.find($(this.inputSelector(childField))).find(this.targetInputSelector).get(0)).val(childValue)
+        $($wrapper.find($(this.inputSelector(childField))).find(this.targetInputSelector).get(0)).val(childValue)
       })
 
       // Don't create extra cloneable blocks unless we have more data to add
       if (index + 1 < this.arrayValuesLength) {
-        wrapper.find("[data-on-click=clone_parent], .add_funder").trigger("click")
+        $wrapper.find("[data-on-click=clone_parent], .add_funder").trigger("click")
       } else {
         this.setUpdated(field)
       }
@@ -110,25 +113,32 @@ class AutofillWorkForm {
     let uniqueFields = $.unique(this.updatedFields)
     let fields = uniqueFields
       .map((field) => {
-        return field.split("_").map((str) => { return str.charAt(0).toUpperCase() + str.slice(1) }).join(" ")
+        // If we have an acronym, then use the value from the object above
+        if (Object.keys(this.fieldLabelAcronyms).includes(field)) {
+          return this.fieldLabelAcronyms[field]
+
+        // Otherwise, simply Titleize it
+        } else {
+          return field.split("_").map((str) => { return str.charAt(0).toUpperCase() + str.slice(1) }).join(" ")
+        }
       })
       .join(", ")
       .replace(/,([^,]*)$/, " and" + '$1')
 
     this.updatedFields = []
 
-    let titleMessage = $("<p/>", { text: "The following fields were auto-populated:" })
-    let fieldsMessage = $("<p/>", { text: fields })
-    let wrapper = $("<div/>", { class: `${this.logClass} bg-success` }).append(titleMessage).append(fieldsMessage)
+    let $titleMessage = $("<p/>", { text: this.successMessage })
+    let $fieldsMessage = $("<p/>", { text: fields })
+    let $wrapper = $("<div/>", { class: `${this.logClass} bg-success` }).append($titleMessage).append($fieldsMessage)
 
-    wrapper.prependTo(this.form)
+    $wrapper.prependTo(this.$form)
   }
 
   logFailure() {
-    let titleMessage = $("<p/>", { text: "The DOI entered did not return any data" })
-    let wrapper = $("<div/>", { class: `${this.logClass} bg-danger` }).append(titleMessage)
+    let $titleMessage = $("<p/>", { text: this.failureMessage })
+    let $wrapper = $("<div/>", { class: `${this.logClass} bg-danger` }).append($titleMessage)
 
-    wrapper.prependTo(this.form)
+    $wrapper.prependTo(this.$form)
   }
 
   setUpdated(field) {

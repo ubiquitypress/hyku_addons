@@ -35,6 +35,7 @@ module Bolognese
           "volume" => write_volume,
           "date_published" => write_date_published,
           "issn" => write_issn,
+          "journal_title" => writer_journal_title,
 
           # FIXME
           "license" => rights_list&.pluck("rights")&.uniq
@@ -81,6 +82,12 @@ module Bolognese
         # Because of this they may be missing, so we should fallback to the DOI.
         def write_official_link
           Array(url || "https//doi.org/#{doi}")
+        end
+
+        def writer_journal_title
+          return unless container.present? && container.dig("type") == "Journal"
+
+          [container&.dig("title")]
         end
 
         def write_volume
