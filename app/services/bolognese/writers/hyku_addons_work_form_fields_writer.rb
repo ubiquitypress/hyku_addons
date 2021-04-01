@@ -4,11 +4,12 @@
 # Add new fields here that should be available to prefill the work forms.
 # You must also add the logic to the PrefillWorkFormViaDOI JS class.
 #
-# Raw output from this class can be accessed via - Copy the raw source, not the HTML output:
-# http://YOUR_TENANT.lvh.me:3000/doi/autofill?curation_concern=generic_work&doi=YOUR_DOI
+# The processed JSON can be access via a JSON request:
+# # http://YOUR_TENANT.lvh.me:3000/doi/autofill.xml?curation_concern=generic_work&doi=YOUR_DOI
 #
-# E.g
-# http://repo.lvh.me:3000/doi/autofill?curation_concern=generic_work&doi=10.7554/elife.63646
+# To create fixtures for specs, the the unprocessed XML can be accessed via an XML request.
+# NOTE: Copy the raw source, not the HTML output:
+# http://YOUR_TENANT.lvh.me:3000/doi/autofill.xml?curation_concern=generic_work&doi=YOUR_DOI
 
 # rubocop:disable Metrics/ModuleLength
 module Bolognese
@@ -21,7 +22,6 @@ module Bolognese
       # rubocop:disable Metrics/MethodLength
       def hyku_addons_work_form_fields
         {
-          "identifier" => write_identifier,
           "doi" => Array(doi),
           "title" => titles&.pluck("title"),
           "creator" => write_involved("creators"),
@@ -34,11 +34,10 @@ module Bolognese
           "language" => Array(language),
           "volume" => write_volume,
           "date_published" => write_date_published,
-          "issn" => write_issn,
+          "issn" => [identifier_by_type(:container, "ISSN")].compact,
+          "isbn" => [identifier_by_type(:identifiers, "ISBN")].compact,
           "journal_title" => writer_journal_title,
-
-          # FIXME
-          "license" => rights_list&.pluck("rights")&.uniq
+          "license" => write_license,
         }.compact.reject { |_key, value| value.blank? }
       end
       # rubocop:enable Metrics/MethodLength
@@ -78,6 +77,17 @@ module Bolognese
           "https://doi.org/10.13039/#{doi}"
         end
 
+        def write_license
+          urls = rights_list&.pluck("rightsUri")&.uniq.compact
+
+          return if urls.blank?
+
+          # Licences coming from the XML seem to have `legalcode` appended to them:
+          # I.e. https://creativecommons.org/licenses/by/4.0/legalcode
+          # This will not match any of the values in the select menu so this is a fix for now
+          urls.map { |url| url.gsub("legalcode", "") }
+        end
+
         # There will be differences in how the url's are structured within the data (10.7925/drs1.duchas_5019334).
         # Because of this they may be missing, so we should fallback to the DOI.
         def write_official_link
@@ -87,21 +97,11 @@ module Bolognese
         def writer_journal_title
           return unless container.present? && container.dig("type") == "Journal"
 
-          [container&.dig("title")]
+          [container&.dig("title")].compact
         end
 
         def write_volume
           container&.dig("volume")
-        end
-
-        def write_identifier
-          Array(identifiers).select { |id| id["identifierType"] != "DOI" }.pluck("identifier")
-        end
-
-        def write_issn
-          return unless container.present? || container&.dig("identifierType") != "ISSN"
-
-          [container.dig("identifier")]
         end
 
         def write_funders
@@ -170,7 +170,12 @@ module Bolognese
 
       private
 
-        #
+        # Dip into a data continer and check for a specific key, returning the value is present
+        # bucket would normally be `identifiers` or `container`
+        def identifier_by_type(bucket, type)
+          Array.wrap(send(bucket))&.find { |id| id["identifierType"] == type }&.dig("identifier")
+        end
+
         # Date values are formatted without number padding in the form
         def date_from_string(date_string)
           return unless date_string.present?
