@@ -34,9 +34,9 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
   context "Hyku Addons Writer" do
     let(:faraday_headers) do
       {
-        'Accept'=>'*/*',
-        'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-        'User-Agent'=>'Faraday v0.17.4'
+        'Accept' => '*/*',
+        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+        'User-Agent' => 'Faraday v0.17.4'
       }
     end
     let(:meta) { Bolognese::Metadata.new(input: fixture) }
@@ -54,8 +54,8 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2020 }
-      it { expect(result["date_published"].first["date_published_month"]).to be 1 }
-      it { expect(result["date_published"].first["date_published_day"]).to be 1 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 2 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 14 }
 
       it { expect(result["creator"]).to be_an(Array) }
       it { expect(result["creator"].first["creator_given_name"]).to eq "Rogério Miguel" }
@@ -84,8 +84,8 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2021 }
-      it { expect(result["date_published"].first["date_published_month"]).to be 1 }
-      it { expect(result["date_published"].first["date_published_day"]).to be 1 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 2 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 8 }
 
       it { expect(result["contributor"]).to be_nil }
 
@@ -179,7 +179,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2003 }
-      it { expect(result["date_published"].first["date_published_month"]).to be 1 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 9 }
       it { expect(result["date_published"].first["date_published_day"]).to be 1 }
 
       it { expect(result["contributor"]).to be_nil }
@@ -203,8 +203,8 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2017 }
-      it { expect(result["date_published"].first["date_published_month"]).to be 1 }
-      it { expect(result["date_published"].first["date_published_day"]).to be 1 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 4 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 17 }
 
       it { expect(result["contributor"]).to be_nil }
 
@@ -227,7 +227,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2012 }
-      it { expect(result["date_published"].first["date_published_month"]).to be 1 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 3 }
       it { expect(result["date_published"].first["date_published_day"]).to be 1 }
 
       it { expect(result["contributor"]).to be_nil }
@@ -250,7 +250,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["doi"]).to eq ["10.7925/drs1.duchas_5019334"] }
       it { expect(result["abstract"].first).to include("Story collected by William Morris") }
       it { expect(result["keyword"]).to eq ["diviners", "Soothsayers", "Lucht feasa"] }
-      it { expect(result["official_link"]).to eq ["http://digital.ucd.ie/view/duchas:5019334"] }
+      it { expect(result["official_link"]).to eq ["https//doi.org/10.7925/drs1.duchas_5019334"] }
       it { expect(result["language"]).to eq ["en"] }
 
       it { expect(result["date_published"]).to be_an(Array) }
@@ -361,17 +361,17 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       let(:json_100006691) { File.read Rails.root.join("..", "fixtures", "ror", "100006691.json") }
 
       before do
-        stub_request(:get, "https://api.ror.org/organizations?query=100000026").
-          with(headers: faraday_headers).
-          to_return(status: 200, body: json_100000026, headers: {})
+        stub_request(:get, "https://api.ror.org/organizations?query=100000026")
+          .with(headers: faraday_headers)
+          .to_return(status: 200, body: json_100000026, headers: {})
 
-        stub_request(:get, "https://api.ror.org/organizations?query=100000065").
-          with(headers: faraday_headers).
-          to_return(status: 200, body: json_100000065, headers: {})
+        stub_request(:get, "https://api.ror.org/organizations?query=100000065")
+          .with(headers: faraday_headers)
+          .to_return(status: 200, body: json_100000065, headers: {})
 
-        stub_request(:get, "https://api.ror.org/organizations?query=100006691").
-          with(headers: faraday_headers).
-          to_return(status: 200, body: json_100006691, headers: {})
+        stub_request(:get, "https://api.ror.org/organizations?query=100006691")
+          .with(headers: faraday_headers)
+          .to_return(status: 200, body: json_100006691, headers: {})
       end
 
       it { expect(meta.doi).to be_present }
@@ -413,12 +413,12 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["creator"][2]["creator_name_type"]).to eq "Personal" }
       it { expect(result["creator"][2]["creator_given_name"]).to eq "Jiexin" }
       it { expect(result["creator"][2]["creator_family_name"]).to eq "Wang" }
-      it { expect(result["creator"][1]["creator_orcid"]).to be_nil }
+      it { expect(result["creator"][2]["creator_orcid"]).to be_nil }
 
       it { expect(result["creator"][3]["creator_name_type"]).to eq "Personal" }
       it { expect(result["creator"][3]["creator_given_name"]).to eq "James R" }
       it { expect(result["creator"][3]["creator_family_name"]).to eq "Bunzow" }
-      it { expect(result["creator"][1]["creator_orcid"]).to be_nil }
+      it { expect(result["creator"][3]["creator_orcid"]).to be_nil }
 
       it { expect(result["creator"][4]["creator_name_type"]).to eq "Personal" }
       it { expect(result["creator"][4]["creator_given_name"]).to eq "John T" }

@@ -9,6 +9,8 @@
 #
 # E.g
 # http://repo.lvh.me:3000/doi/autofill?curation_concern=generic_work&doi=10.7554/elife.63646
+
+# rubocop:disable Metrics/ModuleLength
 module Bolognese
   module Writers
     module HykuAddonsWorkFormFieldsWriter
@@ -16,28 +18,32 @@ module Bolognese
       DOI_REGEX = /10.\d{4,9}\/[-._;()\/:A-Z0-9]+/
       ROR_QUERY_URL = "https://api.ror.org/organizations?query="
 
+      # rubocop:disable Metrics/MethodLength
       def hyku_addons_work_form_fields
         {
-          "identifier" => Array(identifiers).select { |id| id["identifierType"] != "DOI" }.pluck("identifier"),
+          "identifier" => write_identifier,
           "doi" => Array(doi),
           "title" => titles&.pluck("title"),
           "creator" => write_involved("creators"),
           "contributor" => write_involved("contributors"),
           "funder" => write_funders,
           "publisher" => Array(publisher),
-          "date_published" => write_date_published,
           "abstract" => write_descriptions,
           "keyword" => subjects&.pluck("subject"),
-          "official_link" => Array(url),
+          "official_link" => write_official_link,
           "language" => Array(language),
+          "volume" => write_volume,
+          "date_published" => write_date_published,
+
+          # FIXME
           "license" => rights_list&.pluck("rights")&.uniq,
-          "volume" => container.dig("volume"),
-          "issn" => container.dig("indentifierType") == "ISSN" ? container.dig("indentifier") : nil
+          "issn" => write_issn
         }.compact.reject { |_key, value| value.blank? }
       end
+      # rubocop:enable Metrics/MethodLength
 
       # NOTE:
-      # This is here until its fixed upstream
+      # This is here until its fixed upstream: https://github.com/datacite/bolognese/issues/109
       #
       # Some DOIs (10.7554/eLife.67932, 10.7554/eLife.65703) have namespaced funder keys, which causes
       # them not to be properly extracted inside of the crossref_reader:
@@ -57,7 +63,7 @@ module Bolognese
       protected
 
         # NOTE:
-        # This is here until its fixed upstream
+        # This is here until its fixed upstream: https://github.com/datacite/bolognese/issues/108
         #
         # The `(5.+)` seems to invalidate valid funder DOIs
         def validate_funder_doi(doi)
@@ -69,6 +75,26 @@ module Bolognese
           # remove non-printing whitespace and downcase
           doi.delete("\u200B").downcase
           "https://doi.org/10.13039/#{doi}"
+        end
+
+        # There will be differences in how the url's are structured within the data (10.7925/drs1.duchas_5019334).
+        # Because of this they may be missing, so we should fallback to the DOI.
+        def write_official_link
+          Array(url || "https//doi.org/#{doi}")
+        end
+
+        def write_volume
+          container&.dig("volume")
+        end
+
+        def write_identifier
+          Array(identifiers).select { |id| id["identifierType"] != "DOI" }.pluck("identifier")
+        end
+
+        def write_issn
+          return unless container.present?
+
+          container.dig("indentifierType") == "ISSN" ? container.dig("indentifier") : nil
         end
 
         def write_funders
@@ -119,17 +145,9 @@ module Bolognese
         end
 
         def write_date_published
-          write_date("date_published", Array(format_date(publication_year)))
-        end
+          publication_date = collect_date("Issued") || publication_year
 
-        def write_date(field, dates)
-          dates.map do |date|
-            {
-              "#{field}_year" => date.year,
-              "#{field}_month" => date.month,
-              "#{field}_day" => date.day
-            }
-          end
+          hash_from_date("date_published", Array(date_from_string(publication_date)))
         end
 
         # Always returns a hash
@@ -145,16 +163,28 @@ module Bolognese
 
       private
 
-        # `dates` is an array of hashes containing all date information
-        def collect_date(type)
-          Array(format_date(dates.find { |hash| hash["dateType"] == type }&.dig("date")))
-        end
-
+        #
         # Date values are formatted without number padding in the form
-        def format_date(date_string)
+        def date_from_string(date_string)
           return unless date_string.present?
 
           Date.edtf(date_string)
+        end
+
+        # Return a an array containing a date hash formatted as the work forms require
+        def hash_from_date(field, dates)
+          dates.map do |date|
+            {
+              "#{field}_year" => date.year,
+              "#{field}_month" => date.month,
+              "#{field}_day" => date.day
+            }
+          end
+        end
+
+        # `dates` is an array of hashes containing a string date and named dateType
+        def collect_date(type)
+          dates.find { |hash| hash["dateType"] == type }&.dig("date")
         end
 
         # Group the funders by their name, as we might not have a unique DOI for them.
@@ -162,7 +192,7 @@ module Bolognese
         def grouped_funders
           return unless funding_references.present?
 
-          funding_references.group_by { |funder| funder["funderName"] }.map do |name, group|
+          funding_references.group_by { |funder| funder["funderName"] }.map do |_name, group|
             funder = group.first
             funder["awardNumber"] = group.pluck("awardNumber").compact
 
@@ -172,3 +202,4 @@ module Bolognese
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength
