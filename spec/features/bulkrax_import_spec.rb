@@ -65,6 +65,7 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
         work = PacificArticle.find('c109b1ff-6d9a-4498-b86c-190e7dcbe2e0')
         expect(work.file_sets.size).to eq 1
         expect(work.file_sets.first.original_file.file_name).to eq ["nypl-hydra-of-lerna.jpg"]
+        expect(work.file_sets.first.visibility).to eq 'open'
       end
 
       context 'with an alternate file path location' do
@@ -93,6 +94,33 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
           work = PacificArticle.find('c109b1ff-6d9a-4498-b86c-190e7dcbe2e0')
           expect(work.file_sets.size).to eq 1
           expect(work.file_sets.first.original_file.file_name).to eq ["nypl-hydra-of-lerna.jpg"]
+        end
+      end
+
+      context 'file visibility' do
+        context 'import_mode' do
+          let(:account) { FactoryBot.build(:account, name: 'moominU') }
+
+          before do
+            allow(Apartment::Tenant).to receive(:current).and_return('x')
+            allow(Account).to receive(:find_by).with(tenant: 'x').and_return(account)
+            allow(Apartment::Tenant).to receive(:switch).with('x') do |&block|
+              block.call
+            end
+
+            allow(Flipflop).to receive(:enabled?).and_call_original
+            allow(Flipflop).to receive(:enabled?).with(:import_mode).and_return(true)
+          end
+
+          it 'imports files' do
+            # For some reason this has to be explictly set here and the meta tag in the top-most describe isn't sticking
+            ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
+            importer.import_works
+            work = PacificArticle.find('c109b1ff-6d9a-4498-b86c-190e7dcbe2e0')
+            expect(work.file_sets.size).to eq 1
+            expect(work.file_sets.first.original_file.file_name).to eq ["nypl-hydra-of-lerna.jpg"]
+            expect(work.file_sets.first.visibility).to eq 'restricted'
+          end
         end
       end
     end
