@@ -9,7 +9,7 @@ module Hyrax
     add_terms %i[title resource_type creator abstract license keyword contributor language
                  publisher date_published related_url funder add_info ]
     self.terms -= %i[rights_statement subject]
-    self.required_fields = %i[title creator resource_type abstract licence publisher]
+    self.required_fields = %i[title creator resource_type abstract license publisher]
 
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior

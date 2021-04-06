@@ -7,5 +7,12 @@ module HykuAddons
       array.insert(4, field_type: :text, field_slug: :creator_institution, field_args: { data: { required: true } })
       array
     end
+
+    def add_uva_creator_personal_fields(array)
+      array.delete_at(3) #removes institutional relationship from UVA worktype
+      array.insert(0, field_type: :text, field_slug: :creator_computing_id)
+      array.insert(4, field_type: :text, field_slug: :creator_institution)
+      array.insert(5, field_type: :text, field_slug: :creator_department)
+    end
   end
 end
