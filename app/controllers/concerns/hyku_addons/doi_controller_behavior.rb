@@ -42,6 +42,7 @@ module HykuAddons
         end
 
         def raw_response
+          # doi =  File.read Rails.root.join("..", "..", "spec", "fixtures", "doi", "10.7554-elife.47972.xml")
           Bolognese::Metadata.new(input: doi)
         end
 

@@ -2,7 +2,8 @@ class AutofillWorkForm {
   constructor(){
     this.targetInputSelector = "select, input, textarea, checkbox, radio"
     this.buttonSelector = "#doi-autofill-btn"
-    this.$form = $(this.buttonSelector).closest("form")
+    this.$button = $(this.buttonSelector)
+    this.$form = this.$button.closest("form")
     this.arrayValuesLength = 0
     this.updatedFields = []
     this.logClass = "autofill-message"
@@ -11,28 +12,31 @@ class AutofillWorkForm {
     this.errorMessage = "An error occured, the DOI might not be valid"
     this.fieldLabelAcronyms = { doi: "DOI", issn: "ISSN", eissn: "eISSN" }
 
+    if (this.$button.length === 0) {
+      return false
+    }
+
     this.alterRequestFormat()
     this.registerListeners()
+
+    // FIXME: Remove this
+    // $("#generic_work_doi").val("10.7554/elife.47972")
+    // this.$button.data("confirm", "")
+    // this.$button.trigger("click")
   }
 
   // If we do not provide a JSON request, then we receive console errors returning JSON from the response.
   // Ideally, this would be done inside the button path generation, but it relies on a url_helper inside a gem.
   alterRequestFormat() {
-    let $button = $(this.buttonSelector)
-
-    if ($button.length === 0) {
-      return
-    }
-
-    let href = $button.attr("href") || ""
-    $button.attr("href", href + ".json")
+    let href = this.$button.attr("href") || ""
+    this.$button.attr("href", href + ".json")
   }
 
   registerListeners() {
     // We don't want to use the default alert error messages
-    $(this.buttonSelector).off("ajax:error")
+    this.$button.off("ajax:error")
 
-    $(this.buttonSelector).on("click", (_e) => { $(`.${this.logClass}`).remove() })
+    this.$button.on("click", (_e) => { $(`.${this.logClass}`).remove() })
     $("body").on("ajax:success", this.buttonSelector, this.onSuccess.bind(this))
     $("body").on("ajax:error", this.buttonSelector, this.onError.bind(this))
   }
@@ -46,6 +50,7 @@ class AutofillWorkForm {
 
     // Switch to the description tab automatically
     $("[aria-controls='metadata']").click()
+    // $(".additional-fields").click()
 
     Object.entries(this.response.data).forEach(([field, value]) => {
       this.processField(field, value)
@@ -73,7 +78,11 @@ class AutofillWorkForm {
       return false;
     }
 
-    if ($.type(value) == "array") {
+    // Dealing with edgecases by checking for a specific method to process a field
+    if (this[`process_${field}`]) {
+      this[`process_${field}`](value, index)
+
+    } else if ($.type(value) == "array") {
       this.arrayValuesLength = value.length
 
       $(value).each((i, val) => {
@@ -96,13 +105,48 @@ class AutofillWorkForm {
 
       // Don't create extra cloneable blocks unless we have more data to add
       if (index + 1 < this.arrayValuesLength) {
-        $wrapper.find("[data-on-click=clone_parent], .add_funder").trigger("click")
+        $wrapper.find("[data-on-click=clone_parent]").trigger("click")
       } else {
         this.setUpdated(field)
       }
     } else {
       this.setValue(field, value)
     }
+  }
+
+  process_funder(funders) {
+    let arrayValuesLength = funders.length
+
+    if (arrayValuesLength === 0) {
+      return false
+    }
+
+    funders.forEach((funder, i) => {
+      // Set the parent fields container for each iteration
+      var $wrapper = this.wrapper("funder", i)
+
+      Object.entries(funder).forEach(function([childField, childValue]){
+        if ($.type(childValue) === "array") {
+          childValue.forEach(function(val, j) {
+            // We need to get this fresh each time as we are adding DOM elements
+            $($wrapper.find($(this.inputSelector(childField))).find(this.targetInputSelector).get(j)).val(val)
+
+            if (j+1 < childValue.length) {
+              this.wrapper(childField, i).find(".add-new").trigger("click")
+            }
+          }, this)
+
+        } else {
+          $($wrapper.find($(this.inputSelector(childField))).find(this.targetInputSelector)).val(childValue)
+        }
+      }, this)
+
+      if (i+1 < arrayValuesLength) {
+        $wrapper.find(".add_funder").trigger("click")
+      } else {
+        this.setUpdated("funder")
+      }
+    }, this)
   }
 
   setValue(field, value, index = 0) {
