@@ -65,12 +65,27 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
 
     describe "a journal doi with multiple complete creators" do
       let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", '10.7554-elife.63646.xml') }
-      let(:json_data) { File.read Rails.root.join("..", "fixtures", "ror", "501100001349.json") }
+      let(:json_501100001349) { File.read Rails.root.join("..", "fixtures", "ror", "501100001349.json") }
+      let(:json_501100001441) { File.read Rails.root.join("..", "fixtures", "ror", "501100001441.json") }
+      let(:json_501100001352) { File.read Rails.root.join("..", "fixtures", "ror", "501100001352.json") }
+      let(:json_501100001459) { File.read Rails.root.join("..", "fixtures", "ror", "501100001459.json") }
 
       before do
-        allow(Faraday).to receive(:get).and_return(
-          instance_double(Faraday::Response, status: 200, body: json_data, success?: true)
-        )
+        stub_request(:get,"https://api.ror.org/organizations?query=501100001349")
+          .with(headers: faraday_headers)
+          .to_return(status: 200, body: json_501100001349, headers: {})
+
+        stub_request(:get, "https://api.ror.org/organizations?query=501100001441")
+          .with(headers: faraday_headers)
+          .to_return(status: 200, body: json_501100001441, headers: {})
+
+        stub_request(:get, "https://api.ror.org/organizations?query=501100001352")
+          .with(headers: faraday_headers)
+          .to_return(status: 200, body: json_501100001352, headers: {})
+
+        stub_request(:get, "https://api.ror.org/organizations?query=501100001459")
+          .with(headers: faraday_headers)
+          .to_return(status: 200, body: json_501100001459, headers: {})
       end
 
       it { expect(meta.doi).to be_present }
@@ -94,7 +109,6 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["creator"]).to be_an(Array) }
       it { expect(result["creator"].size).to eq 12 }
 
-      # Just do the first couple as if they work, the rest are fine too as we have the size checked above
       it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
       it { expect(result["creator"][0]["creator_given_name"]).to eq "Palur V" }
       it { expect(result["creator"][0]["creator_family_name"]).to eq "Raghuvamsi" }
@@ -104,6 +118,56 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["creator"][1]["creator_given_name"]).to eq "Nikhil K" }
       it { expect(result["creator"][1]["creator_family_name"]).to eq "Tulsian" }
       it { expect(result["creator"][1]["creator_orcid"]).to eq "https://orcid.org/0000-0001-6577-6748" }
+
+      it { expect(result["creator"][2]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][2]["creator_given_name"]).to eq "Firdaus" }
+      it { expect(result["creator"][2]["creator_family_name"]).to eq "Samsudin" }
+      it { expect(result["creator"][2]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][3]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][3]["creator_given_name"]).to eq "Xinlei" }
+      it { expect(result["creator"][3]["creator_family_name"]).to eq "Qian" }
+      it { expect(result["creator"][3]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][4]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][4]["creator_given_name"]).to eq "Kiren" }
+      it { expect(result["creator"][4]["creator_family_name"]).to eq "Purushotorman" }
+      it { expect(result["creator"][4]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][5]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][5]["creator_given_name"]).to eq "Gu" }
+      it { expect(result["creator"][5]["creator_family_name"]).to eq "Yue" }
+      it { expect(result["creator"][5]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][6]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][6]["creator_given_name"]).to eq "Mary M" }
+      it { expect(result["creator"][6]["creator_family_name"]).to eq "Kozma" }
+      it { expect(result["creator"][6]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][7]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][7]["creator_given_name"]).to eq "Wong Y" }
+      it { expect(result["creator"][7]["creator_family_name"]).to eq "Hwa" }
+      it { expect(result["creator"][7]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][8]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][8]["creator_given_name"]).to eq "Julien" }
+      it { expect(result["creator"][8]["creator_family_name"]).to eq "Lescar" }
+      it { expect(result["creator"][8]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][9]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][9]["creator_given_name"]).to eq "Peter J" }
+      it { expect(result["creator"][9]["creator_family_name"]).to eq "Bond" }
+      it { expect(result["creator"][9]["creator_orcid"]).to eq "https://orcid.org/0000-0003-2900-098X" }
+
+      it { expect(result["creator"][10]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][10]["creator_given_name"]).to eq "Paul A" }
+      it { expect(result["creator"][10]["creator_family_name"]).to eq "MacAry" }
+      it { expect(result["creator"][10]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][11]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][11]["creator_given_name"]).to eq "Ganesh S" }
+      it { expect(result["creator"][11]["creator_family_name"]).to eq "Anand" }
+      it { expect(result["creator"][11]["creator_orcid"]).to eq "https://orcid.org/0000-0001-8995-3067" }
 
       # As there is only a single funder being mocked, just check that one and ignore the others
       it { expect(result["funder"]).to be_an(Array) }
