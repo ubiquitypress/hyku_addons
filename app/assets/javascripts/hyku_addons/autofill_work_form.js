@@ -10,7 +10,7 @@ class AutofillWorkForm {
     this.successMessage = "The following fields were auto-populated:"
     this.failureMessage = "The DOI entered did not return any data"
     this.errorMessage = "An error occured, the DOI might not be valid"
-    this.fieldLabelAcronyms = { doi: "DOI", issn: "ISSN", eissn: "eISSN" }
+    this.alternateFieldLabels = { doi: "DOI", issn: "ISSN", eissn: "eISSN", official_link: "Official URL" }
 
     if (this.$button.length === 0) {
       return false
@@ -20,7 +20,7 @@ class AutofillWorkForm {
     this.registerListeners()
   }
 
-  // If we do not provide a JSON request, then we receive console errors returning JSON from the response.
+  // If we do not provide a JSON request, then we receive console errors resulting from the JS response.
   // Ideally, this would be done inside the button path generation, but it relies on a url_helper inside a gem.
   alterRequestFormat() {
     let href = this.$button.attr("href") || ""
@@ -30,8 +30,7 @@ class AutofillWorkForm {
   registerListeners() {
     // We don't want to use the default alert error messages
     this.$button.off("ajax:error")
-
-    this.$button.on("click", (_e) => { $(`.${this.logClass}`).remove() })
+    this.$button.on("click", this.clearLog.bind(this))
     $("body").on("ajax:success", this.buttonSelector, this.onSuccess.bind(this))
     $("body").on("ajax:error", this.buttonSelector, this.onError.bind(this))
   }
@@ -54,10 +53,7 @@ class AutofillWorkForm {
   }
 
   onError() {
-    let $titleMessage = $("<p/>", { text: this.errorMessage })
-    let $wrapper = $("<div/>", { class: `${this.logClass} bg-danger` }).append($titleMessage)
-
-    $wrapper.prependTo(this.$form)
+    this.logMessage($("<p/>", { text: this.errorMessage }), "danger")
   }
 
   // This method performs most of the heavy lifting. It accepts a field name, a value and the index for the element.
@@ -92,9 +88,10 @@ class AutofillWorkForm {
     } else if ($.type(value) == "object") {
       var $wrapper = this.wrapper(field, index)
 
-      // This isn't using the normal setValue method because of the requirement to autofill nested groups of fields
+      // This isn't using the normal setValue method because of the requirement
+      // to autofill nested groups of fields from within a specific parent wrapper
       Object.entries(value).forEach(([childField, childValue]) => {
-        $($wrapper.find($(this.inputSelector(childField))).find(this.targetInputSelector).get(0)).val(childValue)
+        this.setNestedValue($wrapper, childField, childValue)
       })
 
       // Don't create extra cloneable blocks unless we have more data to add
@@ -108,7 +105,7 @@ class AutofillWorkForm {
     }
   }
 
-  // Funder has subfields that couldn't be affectly updated without tracking parent and child indexes
+  // Funder has subfields that couldn't be properly updated without tracking parent and child indexes
   process_funder(funders) {
     this.arrayValuesLength = funders.length
 
@@ -123,8 +120,7 @@ class AutofillWorkForm {
       Object.entries(funder).forEach(function([childField, childValue]){
         if ($.type(childValue) === "array") {
           childValue.forEach(function(val, j) {
-            // We need to get this fresh each time as we are adding DOM elements
-            $($wrapper.find($(this.inputSelector(childField))).find(this.targetInputSelector).get(j)).val(val)
+            this.setNestedValue($wrapper, childField, val, j)
 
             if (j+1 < childValue.length) {
               this.wrapper(childField, i).find(".add-new").trigger("click")
@@ -144,6 +140,22 @@ class AutofillWorkForm {
     }, this)
   }
 
+  // TODO:
+  // This is a slightly modified version of `setValue`. It would be best to use just one, but with the extra
+  // requirements to use a specific parent element context, its currently not possible
+  setNestedValue(parentElement, childElement, value, index = 0) {
+    if (this.isBlank(value)) {
+      return false
+    }
+
+    // Find the relevant element selector
+    var selector = this.inputSelector(childElement)
+    // From within the wrapper, find all matching elements and then filter only form fields
+    var input = parentElement.find(selector).find(this.targetInputSelector).get(index)
+
+    $(input).val(value)
+  }
+
   // TODO: Make it so that this method can be used by all of the other sections where we are currently specifying
   // the wrapper and setting the value within that.
   setValue(field, value, index = 0) {
@@ -159,12 +171,13 @@ class AutofillWorkForm {
   }
 
   logSuccess() {
-    let uniqueFields = $.unique(this.updatedFields)
+    let uniqueFields = $.unique(this.updatedFields).sort()
+
     let fields = uniqueFields
       .map((field) => {
         // If we have an acronym, then use the value from the object above
-        if (Object.keys(this.fieldLabelAcronyms).includes(field)) {
-          return this.fieldLabelAcronyms[field]
+        if (Object.keys(this.alternateFieldLabels).includes(field)) {
+          return this.alternateFieldLabels[field]
 
         // Otherwise, simply Titleize it
         } else {
@@ -176,18 +189,25 @@ class AutofillWorkForm {
 
     this.updatedFields = []
 
-    let $titleMessage = $("<p/>", { text: this.successMessage })
-    let $fieldsMessage = $("<p/>", { text: fields })
-    let $wrapper = $("<div/>", { class: `${this.logClass} bg-success` }).append($titleMessage).append($fieldsMessage)
+    let $titleMessage = $("<p/>", { text: this.successMessage }).add($("<p/>", { text: fields }))
+
+    this.logMessage($titleMessage)
+  }
+
+  logFailure() {
+    this.logMessage($("<p/>", { text: this.failureMessage }), "danger")
+  }
+
+  logMessage(messageHtml, wrapperClass = "success") {
+    this.clearLog()
+
+    let $wrapper = $("<div/>", { class: `${this.logClass} bg-${wrapperClass}` }).append(messageHtml)
 
     $wrapper.prependTo(this.$form)
   }
 
-  logFailure() {
-    let $titleMessage = $("<p/>", { text: this.failureMessage })
-    let $wrapper = $("<div/>", { class: `${this.logClass} bg-danger` }).append($titleMessage)
-
-    $wrapper.prependTo(this.$form)
+  clearLog() {
+    $(`.${this.logClass}`).remove()
   }
 
   setUpdated(field) {
