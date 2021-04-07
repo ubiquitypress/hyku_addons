@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Universal methods to work out the names and terms for a work form
 module HykuAddons
   module WorkFormNameable

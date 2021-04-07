@@ -71,7 +71,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       let(:json_501100001459) { File.read Rails.root.join("..", "fixtures", "ror", "501100001459.json") }
 
       before do
-        stub_request(:get,"https://api.ror.org/organizations?query=501100001349")
+        stub_request(:get, "https://api.ror.org/organizations?query=501100001349")
           .with(headers: faraday_headers)
           .to_return(status: 200, body: json_501100001349, headers: {})
 
