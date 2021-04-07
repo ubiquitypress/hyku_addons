@@ -144,6 +144,8 @@ class AutofillWorkForm {
     }, this)
   }
 
+  // TODO: Make it so that this method can be used by all of the other sections where we are currently specifying
+  // the wrapper and setting the value within that.
   setValue(field, value, index = 0) {
     if (this.isBlank(value)) {
       return false

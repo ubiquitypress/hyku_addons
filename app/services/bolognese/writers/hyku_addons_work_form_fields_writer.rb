@@ -25,11 +25,13 @@ module Bolognese
         @curation_concern = curation_concern
 
         # Work through each of the work types fields to create the data hash
-        work_type_terms.each_with_object({}) do |term, data|
+        form_data = work_type_terms.each_with_object({}) do |term, data|
           method_name = "write_#{term}"
 
           data[term.to_s] = respond_to?(method_name, true) ? send(method_name) : nil
-        end.compact.reject { |_key, value| value.blank? }
+        end
+
+        form_data.compact.reject { |_key, value| value.blank? }
       end
 
       # NOTE:
