@@ -18,11 +18,6 @@ class AutofillWorkForm {
 
     this.alterRequestFormat()
     this.registerListeners()
-
-    // FIXME: Remove this
-    // $("#generic_work_doi").val("10.7554/elife.47972")
-    // this.$button.data("confirm", "")
-    // this.$button.trigger("click")
   }
 
   // If we do not provide a JSON request, then we receive console errors returning JSON from the response.
@@ -50,7 +45,6 @@ class AutofillWorkForm {
 
     // Switch to the description tab automatically
     $("[aria-controls='metadata']").click()
-    $(".additional-fields").click()
 
     Object.entries(this.response.data).forEach(([field, value]) => {
       this.processField(field, value)
