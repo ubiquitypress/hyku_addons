@@ -3,6 +3,7 @@ en:
   simple_form:
     hints:
       defaults:
+        title: A name to aid in identifying a work.
         alt_title: Alternative title for the item, such as a translated or abbreviated form of the title.
         institution: The institution to which the item is affiliated.
         org_unit: The department, or unit, that the works sits within as per the organisational structure.
@@ -37,15 +38,15 @@ en:
         library_of_congress_classification: "The letter code corresponding to the LCC - eg 'QK' for 'Botany' - see: <a href='https://en.wikipedia.org/wiki/Library_of_Congress_Classification' target='_blank'>https://en.wikipedia.org/wiki/Library_of_Congress_Classification</a>"
         # Hyku - Addons
         media: 'Describe the material and/or media of the item.'
-        duration: 'State the length of time the output lasts and the unit of measurement.'   
-        funder_name: "Please start typing the funder's name, then select from the dropdown list" 
+        duration: 'State the length of time the output lasts and the unit of measurement.'
+        funder_name: "Please start typing the funder's name, then select from the dropdown list"
         funder_doi: Please enter the Funder DOI
         funder_isni: Please enter the Funder ISNI
         funder_ror: Please enter the Funder ROR
         funder_awards: Please enter the award number.
         event_title: The title of the conference, symposium or other event type.
-        event_location: 
-        event_date: 
+        event_location:
+        event_date:
         series_name: Please enter the series title.
         journal_title: Please enter the journal title.
         alternative_journal_title: Alternative title for the journal, such as a translated or abbreviated form of the title.
@@ -55,7 +56,7 @@ en:
         dewey: Please enter the Dewey classmark.
         alternate_identifier: May be used for local identifiers such as project codes. Please include a prefix so a reader can distinguish between multiple identifiers.
         alternate_identifier_type: State the type of alternate identifier.
-        
+
     labels:
       defaults:
         org_unit: Organisational Unit
@@ -75,7 +76,7 @@ en:
         media: 'e.g. drawing, sculpture, video'
         duration: 'e.g. 2 minutes'
         funder_name: 'e.g. Arts and Humanities Research Council'
-        funder_doi: 'eg: 10.1093/ajae/aaq063'    
+        funder_doi: 'eg: 10.1093/ajae/aaq063'
         funder_isni: 'e.g. 1234567899999799'
         funder_ror: 'e.g. 1234567899999799'
         funder_awards: 'e.g. 20201099'
@@ -83,4 +84,4 @@ en:
         journal_title: e.g. Journal of Eighteenth-Century Studies
         volume: e.g. 2, 76
         alternate_identifier: e.g. 'Project ID = XTE12'
-        alternate_identifier_type: 
+        alternate_identifier_type:
