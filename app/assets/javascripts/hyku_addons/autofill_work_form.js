@@ -116,9 +116,9 @@ class AutofillWorkForm {
 
   // Funder has subfields that couldn't be affectly updated without tracking parent and child indexes
   process_funder(funders) {
-    let arrayValuesLength = funders.length
+    this.arrayValuesLength = funders.length
 
-    if (arrayValuesLength === 0) {
+    if (this.arrayValuesLength === 0) {
       return false
     }
 
@@ -142,7 +142,7 @@ class AutofillWorkForm {
         }
       }, this)
 
-      if (i+1 < arrayValuesLength) {
+      if (i+1 < this.arrayValuesLength) {
         $wrapper.find(".add_funder").trigger("click")
       } else {
         this.setUpdated("funder")
