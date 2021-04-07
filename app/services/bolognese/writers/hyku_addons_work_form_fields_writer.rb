@@ -15,32 +15,52 @@
 module Bolognese
   module Writers
     module HykuAddonsWorkFormFieldsWriter
+      include HykuAddons::WorkFormNameable
+
       DATE_FORMAT = "%Y-%-m-%-d"
       DOI_REGEX = /10.\d{4,9}\/[-._;()\/:A-Z0-9]+/
       ROR_QUERY_URL = "https://api.ror.org/organizations?query="
 
-      # rubocop:disable Metrics/MethodLength
-      def hyku_addons_work_form_fields
-        {
-          "doi" => Array(doi),
-          "title" => titles&.pluck("title"),
-          "creator" => write_involved("creators"),
-          "contributor" => write_involved("contributors"),
-          "funder" => write_funders,
-          "publisher" => Array(publisher),
-          "abstract" => write_descriptions,
-          "keyword" => subjects&.pluck("subject"),
-          "official_link" => write_official_link,
-          "language" => Array(language),
-          "volume" => write_volume,
-          "date_published" => write_date_published,
-          "issn" => [identifier_by_type(:container, "ISSN")].compact,
-          "isbn" => [identifier_by_type(:identifiers, "ISBN")].compact,
-          "journal_title" => writer_journal_title,
-          "license" => write_license
-        }.compact.reject { |_key, value| value.blank? }
+      # Some attributes wont match those that are expected by bolognese. This is
+      # a hash map of hyku attributes to bolognese attributes, old => new
+      # def self.mismatched_attribute_map
+      #   {
+      #     "title" => "titles",
+      #     "creator" => "creators",
+      #     "contributor" => "contributors",
+      #     "abstract" => "descriptions",
+      #     "keyword" => "subjects"
+      #   }
+      # end
+
+      # -        {
+      # -          "doi" => Array(doi),
+      # -          "title" => titles&.pluck("title"),
+      # -          "creator" => write_involved("creators"),
+      # -          "contributor" => write_involved("contributors"),
+      # -          "funder" => write_funders,
+      # -          "publisher" => Array(publisher),
+      # -          "abstract" => write_descriptions,
+      # -          "keyword" => subjects&.pluck("subject"),
+      # -          "official_link" => write_official_link,
+      # -          "language" => Array(language),
+      # -          "volume" => write_volume,
+      # -          "date_published" => write_date_published,
+      # -          "issn" => [identifier_by_type(:container, "ISSN")].compact,
+      # -          "isbn" => [identifier_by_type(:identifiers, "ISBN")].compact,
+      # -          "journal_title" => writer_journal_title,
+      # -          "license" => write_license
+      # -        }.compact.reject { |_key, value| value.blank? }
+      def hyku_addons_work_form_fields(curation_concern: "generic_work")
+        @curation_concern = curation_concern
+
+        # Work through each of the work types fields to create the data hash
+        work_type_terms.each_with_object({}) do |term, data|
+          method_name = "write_#{term}"
+
+          data[term.to_s] = respond_to?(method_name, true) ? send(method_name) : nil
+        end.compact.reject { |_key, value| value.blank? }
       end
-      # rubocop:enable Metrics/MethodLength
 
       # NOTE:
       # This is here until its fixed upstream: https://github.com/datacite/bolognese/issues/109
@@ -77,6 +97,42 @@ module Bolognese
           "https://doi.org/10.13039/#{doi}"
         end
 
+        def write_doi
+          Array(doi)
+        end
+
+        def write_title
+          titles&.pluck("title")
+        end
+
+        def write_creator
+          write_involved("creators")
+        end
+
+        def write_contributor
+          write_involved("contributors")
+        end
+
+        def write_publisher
+          Array(publisher)
+        end
+
+        def write_keyword
+          subjects&.pluck("subject")
+        end
+
+        def write_language
+          Array(language)
+        end
+
+        def write_issn
+          [identifier_by_type(:container, "ISSN")].compact
+        end
+
+        def write_isbn
+          [identifier_by_type(:identifiers, "ISBN")].compact
+        end
+
         def write_license
           urls = rights_list&.pluck("rightsUri")&.uniq&.compact
 
@@ -104,7 +160,19 @@ module Bolognese
           container&.dig("volume")
         end
 
-        def write_funders
+        def write_abstract
+          return nil if descriptions.blank?
+
+          descriptions.pluck("description")&.map { |d| Array(d).join("\n") }
+        end
+
+        def write_date_published
+          publication_date = collect_date("Issued") || publication_year
+
+          hash_from_date("date_published", Array(date_from_string(publication_date)))
+        end
+
+        def write_funder
           grouped_funders&.map do |funder|
             funder.transform_keys!(&:underscore)
 
@@ -127,6 +195,8 @@ module Bolognese
           end
         end
 
+      private
+
         def write_involved(type)
           key = type.to_s.singularize
 
@@ -145,18 +215,6 @@ module Bolognese
           end
         end
 
-        def write_descriptions
-          return nil if descriptions.blank?
-
-          descriptions.pluck("description")&.map { |d| Array(d).join("\n") }
-        end
-
-        def write_date_published
-          publication_date = collect_date("Issued") || publication_year
-
-          hash_from_date("date_published", Array(date_from_string(publication_date)))
-        end
-
         # Always returns a hash
         def get_funder_ror(funder_doi)
           # doi should be similar to "10.13039/501100000267" however we only want the second segment
@@ -167,8 +225,6 @@ module Bolognese
           # `body.items` is an array of hashes - but we only need the first one
           JSON.parse(response.body)&.dig("items")&.first || {}
         end
-
-      private
 
         # Dip into a data continer and check for a specific key, returning the value is present
         # bucket would normally be `identifiers` or `container`
@@ -210,6 +266,11 @@ module Bolognese
 
             funder
           end
+        end
+
+        # Required for WorkFormNameable to function correctly
+        def meta_model
+          @curation_concern.classify
         end
     end
   end
