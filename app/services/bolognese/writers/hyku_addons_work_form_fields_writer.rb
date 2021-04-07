@@ -21,36 +21,6 @@ module Bolognese
       DOI_REGEX = /10.\d{4,9}\/[-._;()\/:A-Z0-9]+/
       ROR_QUERY_URL = "https://api.ror.org/organizations?query="
 
-      # Some attributes wont match those that are expected by bolognese. This is
-      # a hash map of hyku attributes to bolognese attributes, old => new
-      # def self.mismatched_attribute_map
-      #   {
-      #     "title" => "titles",
-      #     "creator" => "creators",
-      #     "contributor" => "contributors",
-      #     "abstract" => "descriptions",
-      #     "keyword" => "subjects"
-      #   }
-      # end
-
-      # -        {
-      # -          "doi" => Array(doi),
-      # -          "title" => titles&.pluck("title"),
-      # -          "creator" => write_involved("creators"),
-      # -          "contributor" => write_involved("contributors"),
-      # -          "funder" => write_funders,
-      # -          "publisher" => Array(publisher),
-      # -          "abstract" => write_descriptions,
-      # -          "keyword" => subjects&.pluck("subject"),
-      # -          "official_link" => write_official_link,
-      # -          "language" => Array(language),
-      # -          "volume" => write_volume,
-      # -          "date_published" => write_date_published,
-      # -          "issn" => [identifier_by_type(:container, "ISSN")].compact,
-      # -          "isbn" => [identifier_by_type(:identifiers, "ISBN")].compact,
-      # -          "journal_title" => writer_journal_title,
-      # -          "license" => write_license
-      # -        }.compact.reject { |_key, value| value.blank? }
       def hyku_addons_work_form_fields(curation_concern: "generic_work")
         @curation_concern = curation_concern
 

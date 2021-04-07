@@ -50,7 +50,7 @@ class AutofillWorkForm {
 
     // Switch to the description tab automatically
     $("[aria-controls='metadata']").click()
-    // $(".additional-fields").click()
+    $(".additional-fields").click()
 
     Object.entries(this.response.data).forEach(([field, value]) => {
       this.processField(field, value)
@@ -114,6 +114,7 @@ class AutofillWorkForm {
     }
   }
 
+  // Funder has subfields that couldn't be affectly updated without tracking parent and child indexes
   process_funder(funders) {
     let arrayValuesLength = funders.length
 
