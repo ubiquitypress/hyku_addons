@@ -4,6 +4,7 @@ require 'hyrax/doi/errors'
 module HykuAddons
   module DOIControllerBehavior
     extend ActiveSupport::Concern
+
     # rubocop:disable Metrics/BlockLength
     included do
       def autofill
@@ -38,7 +39,7 @@ module HykuAddons
 
           raise ::Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." unless meta&.string.present?
 
-          meta.hyku_addons_work_form_fields
+          meta.hyku_addons_work_form_fields(curation_concern: curation_concern)
         end
 
         def raw_response

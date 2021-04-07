@@ -1,4 +1,4 @@
-<div class="form-group <%= "#{field_slug}-group #{template}_#{field_slug}" %>">
+<div class="<%= local_assigns["group_class"] || "form-group #{field_slug}-group #{template}_#{field_slug}" %>">
 	<% options = { class: "control-label multi_value optional" } %>
 	<%= label_tag "#{template}_#{field_slug}", t("simple_form.#{field_group}.#{field_slug}.label"), options %>
 

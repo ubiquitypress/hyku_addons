@@ -9,6 +9,8 @@ require 'bolognese'
 module Bolognese
   module Readers
     class BaseWorkReader < Bolognese::Metadata
+      include HykuAddons::WorkFormNameable
+
       DEFAULT_RESOURCE_TYPE = "Work"
       DEFAULT_META_MODEL = "GenericWork"
 
@@ -223,18 +225,7 @@ module Bolognese
           self.class.after_actions.each { |action| send(action.to_sym) if respond_to?(action.to_sym, true) }
         end
 
-        def work_class
-          @_work_class ||= meta_model.constantize
-        end
-
-        def work_form_class
-          @_work_form_class ||= "Hyrax::#{meta_model}Form".constantize
-        end
-
-        def work_type_terms
-          @_work_type_terms ||= work_form_class.terms
-        end
-
+        # Required for WorkFormNameable
         def meta_model
           @meta["has_model"] || DEFAULT_META_MODEL
         end
