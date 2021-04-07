@@ -81,6 +81,12 @@ en:
       creator_institution:
         label: Creator Institution
         placeholder: " "
+      creator_computing_id:
+        label: Creator Computing ID
+        placeholder: " "
+      creator_department:
+        label: Creator Department
+        placeholder: " "
     contributor:
       contributor_name_type:
         label: Contributor name type
@@ -134,6 +140,12 @@ en:
         placeholder: " "
       contributor_institution:
         label: Contributor Institution
+        placeholder: " "
+      contributor_computing_id:
+        label: Contributor Computing ID
+        placeholder: " "
+      contributor_department:
+        label: Contributor Department
         placeholder: " "
     editor:
       editor_name_type:

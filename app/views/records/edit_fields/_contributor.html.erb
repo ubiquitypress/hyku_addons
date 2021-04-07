@@ -51,6 +51,7 @@
 				}
 			] %>
 			<% personal_fields = add_pacific_contributor_personal_fields(personal_fields) if template.include? "pacific" %>
+			<% personal_fields = add_uva_contributor_personal_fields(personal_fields) if template.include? "uva" %>
 			<% personal_fields.each do |field| %>
 				<% options = { field_group: :contributor, template: template, hash: hash }.merge(field) %>
 				<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
@@ -72,7 +73,7 @@
 			group_class: "form-group contributor_type-group #{template}_contributor_contributor_type",
 			field_args: { prompt: "Please Select...", class: "form-control #{template}_contributor_contributor_type" }
 		} %>
-		<%= render "records/edit_fields/attribution_partials/select_field", field_options unless template.include?("pacific") %>
+		<%= render "records/edit_fields/attribution_partials/select_field", field_options unless (template.include? "pacific") || (template.include? "uva") %>
 
 		<div class="form-group">
 			<a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_parent">

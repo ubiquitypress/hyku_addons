@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      uva_work:     'fa fa-file-text-o'
+    select_type:
+      uva_work:
+        description:        "Uva work Werke"
+        name:               "Uva Work"

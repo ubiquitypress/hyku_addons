@@ -1,0 +1,31 @@
+terms:
+  - id: Article
+    term: Article
+  - id: Audio
+    term: Audio
+  - id: Book
+    term: Book
+  - id: Conference proceeding
+    term: Conference proceeding
+  - id: Image
+    term: Image
+  - id: Journal
+    term: Journal
+  - id: Map or Cartographic material
+    term: Map or Cartographic material
+  - id: Part of book
+    term: Part of book
+  - id: Poster
+    term: Poster
+  - id: Presentation
+    term: Presentation
+  - id: Project
+    term: Project
+  - id: Report
+    term: Report
+  - id: Research Paper
+    term: Research Paper
+  - id: Video
+    term: Video
+  - id: Other
+    term: Other
