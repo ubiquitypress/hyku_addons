@@ -9,7 +9,7 @@ module HykuAddons
     end
 
     def add_uva_contributor_personal_fields(array)
-      array.delete_at(3) #removes institutional relationship from UVA worktype
+      array.delete_at(3) # removes institutional relationship from UVA worktype
       array.insert(0, field_type: :text, field_slug: :contributor_computing_id)
       array.insert(4, field_type: :text, field_slug: :contributor_institution)
       array.insert(5, field_type: :text, field_slug: :contributor_department)
