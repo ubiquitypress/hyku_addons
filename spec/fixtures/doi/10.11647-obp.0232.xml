@@ -1,0 +1,1100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crossref_result version="3.0" schemaLocation="http://www.crossref.org/qrschema/3.0 http://www.crossref.org/schemas/crossref_query_output3.0.xsd">
+	<query_result>
+		<head>
+			<doi_batch_id>none</doi_batch_id>
+		</head>
+		<body>
+			<query status="resolved">
+				<doi type="book_title">10.11647/obp.0232</doi>
+				<crm-item name="publisher-name" type="string">Open Book Publishers</crm-item>
+				<crm-item name="prefix-name" type="string">Open Book Publishers</crm-item>
+				<crm-item name="member-id" type="number">4923</crm-item>
+				<crm-item name="citation-id" type="number">123075517</crm-item>
+				<crm-item name="book-id" type="number">3699162</crm-item>
+				<crm-item name="deposit-timestamp" type="number">202103091600</crm-item>
+				<crm-item name="owner-prefix" type="string">10.11647</crm-item>
+				<crm-item name="last-update" type="date">2021-03-09T16:59:33Z</crm-item>
+				<crm-item name="created" type="date">2021-01-06T12:46:44Z</crm-item>
+				<crm-item name="citedby-count" type="number">0</crm-item>
+				<doi_record>
+					<crossref schemaLocation="http://www.crossref.org/xschema/1.1 http://doi.crossref.org/schemas/unixref1.1.xsd">
+						<book book_type="edited_book">
+							<book_metadata language="en">
+								<contributors>
+									<person_name sequence="first" contributor_role="editor">
+										<given_name>Sophie</given_name>
+										<surname>Laniel-Musitelli</surname>
+										<affiliation>Université de Lille 3</affiliation>
+										<ORCID authenticated="true">https://orcid.org/0000-0001-6622-9455</ORCID>
+									</person_name>
+									<person_name sequence="additional" contributor_role="editor">
+										<given_name>Céline</given_name>
+										<surname>Sabiron</surname>
+									</person_name>
+								</contributors>
+								<titles>
+									<title>Romanticism and Time</title>
+								</titles>
+								<publication_date>
+									<month>03</month>
+									<year>2021</year>
+								</publication_date>
+								<isbn media_type="print">978-1-80064-071-9</isbn>
+								<isbn media_type="print">978-1-80064-072-6</isbn>
+								<isbn media_type="electronic">978-1-80064-073-3</isbn>
+								<isbn media_type="electronic">978-1-80064-074-0</isbn>
+								<isbn media_type="electronic">978-1-80064-075-7</isbn>
+								<isbn media_type="electronic">978-1-80064-076-4</isbn>
+								<publisher>
+									<publisher_name>Open Book Publishers</publisher_name>
+								</publisher>
+								<program name="AccessIndicators">
+									<free_to_read/>
+									<license_ref>http://creativecommons.org/licenses/by/4.0</license_ref>
+								</program>
+								<doi_data>
+									<doi>10.11647/obp.0232</doi>
+									<resource>https://www.openbookpublishers.com/product/1254</resource>
+									<collection property="crawler-based">
+										<item crawler="iParadigms">
+											<resource mime_type="application/pdf">https://www.openbookpublishers.com/10.11647/obp.0232.pdf</resource>
+										</item>
+										<item crawler="google">
+											<resource mime_type="application/pdf">https://www.openbookpublishers.com/10.11647/obp.0232.pdf</resource>
+										</item>
+										<item crawler="msn">
+											<resource mime_type="application/pdf">https://www.openbookpublishers.com/10.11647/obp.0232.pdf</resource>
+										</item>
+										<item crawler="altavista">
+											<resource mime_type="application/pdf">https://www.openbookpublishers.com/10.11647/obp.0232.pdf</resource>
+										</item>
+										<item crawler="yahoo">
+											<resource mime_type="application/pdf">https://www.openbookpublishers.com/10.11647/obp.0232.pdf</resource>
+										</item>
+										<item crawler="scirus">
+											<resource mime_type="application/pdf">https://www.openbookpublishers.com/10.11647/obp.0232.pdf</resource>
+										</item>
+									</collection>
+									<collection property="text-mining">
+										<!--                        <item>
+														<resource mime_type="application/xml">https://www.openbookpublishers.com/10.11647/obp.0232.xml</resource>
+												</item>-->
+										<item>
+											<resource mime_type="application/pdf">https://www.openbookpublishers.com/10.11647/obp.0232.pdf</resource>
+										</item>
+									</collection>
+								</doi_data>
+								<citation_list>
+									<citation key="ref1">
+										<doi>10.1515/9781503600041-004</doi>
+									</citation>
+									<citation key="ref2">
+										<doi>10.7202/009264ar</doi>
+									</citation>
+									<citation key="ref3">
+										<doi>10.1017/cbo9780511519437</doi>
+									</citation>
+									<citation key="ref4">
+										<doi>10.1017/CBO9780511484100</doi>
+									</citation>
+									<citation key="ref5">
+										<doi>10.4324/9780203110096</doi>
+									</citation>
+									<citation key="ref6">
+										<doi>10.1017/ccol9780521862356.008</doi>
+									</citation>
+									<citation key="ref7">
+										<doi>10.4324/9780203713716</doi>
+									</citation>
+									<citation key="ref8">
+										<unstructured_citation>Didi-Huberman, Georges, Devant le temps: Histoire de l’art et anachronisme des images (Paris: Éditions de Minuit, 2000).</unstructured_citation>
+									</citation>
+									<citation key="ref9">
+										<unstructured_citation>Eldridge, Richard, The Persistence of Romanticism, Essays in Philosophy and Literature (Cambridge and New York: Cambridge University Press, 2001).</unstructured_citation>
+									</citation>
+									<citation key="ref10">
+										<unstructured_citation>Erdman, David, ed., The Complete Poetry &amp; Prose of William Blake (New York: Random House, 1988).</unstructured_citation>
+									</citation>
+									<citation key="ref11">
+										<doi>10.1007/s40656-018-0237-7</doi>
+									</citation>
+									<citation key="ref12">
+										<doi>10.1093/acprof:oso/9780199212415.001.0001</doi>
+									</citation>
+									<citation key="ref13">
+										<doi>10.1093/acprof:oso/9780199686179.001.0001</doi>
+									</citation>
+									<citation key="ref14">
+										<unstructured_citation>Lindop, Grevel, ed., Thomas De Quincey: Confessions of an English-Opium Eater and Other Writings (Oxford: Oxford University Press, 1996).</unstructured_citation>
+									</citation>
+									<citation key="ref15">
+										<unstructured_citation>McGann, Jerome, The Romantic Ideology: A Critical Investigation (Chicago and London: The University of Chicago Press, 1983).</unstructured_citation>
+									</citation>
+									<citation key="ref16">
+										<doi>10.1017/CBO9780511720031</doi>
+									</citation>
+									<citation key="ref17">
+										<doi>10.1093/acprof:oso/9780199299287.001.0001</doi>
+									</citation>
+									<citation key="ref18">
+										<doi>10.1093/acprof:oso/9780198122852.001.0001</doi>
+									</citation>
+									<citation key="ref19">
+										<unstructured_citation>Procházka, Martin and , eds, Romantismus a romantismy: Pojmy, proudy, kontexty (Romanticism and Romanticisms) (Nakladatel: , 2005).</unstructured_citation>
+									</citation>
+									<citation key="ref20">
+										<unstructured_citation>Rancière, Jacques, ‘Le concept d’anachronisme et la vérité de l’historien’, L’Inactuel, 6 (Fall 1996), 53–68.</unstructured_citation>
+									</citation>
+									<citation key="ref21">
+										<unstructured_citation>——, Les mots de l’histoire : Essai de poétique du savoir (Paris: Seuil, 1992).</unstructured_citation>
+									</citation>
+									<citation key="ref22">
+										<unstructured_citation>Reiman, Donald and Neil Fraistat, ed., Shelley’s Poetry and Prose, 2nd ed. (New York: Norton, 2002).</unstructured_citation>
+									</citation>
+									<citation key="ref23">
+										<unstructured_citation>Ricœur, Paul, Temps et récit, I. L’intrigue et le récit historique (Paris: Seuil, 1983).</unstructured_citation>
+									</citation>
+									<citation key="ref24">
+										<doi>10.2307/j.ctt175x2fs</doi>
+									</citation>
+									<citation key="ref25">
+										<doi>10.4324/9781315606958</doi>
+									</citation>
+									<citation key="ref26">
+										<doi>10.4324/9781315243917</doi>
+									</citation>
+									<citation key="ref27">
+										<doi>10.1002/9781118228104</doi>
+									</citation>
+									<citation key="ref28">
+										<unstructured_citation>Vendler, Helen, ‘Lionel Trilling and the Immortality Ode’, Salmagundi, 41 (Spring 1978), 65–85.</unstructured_citation>
+									</citation>
+									<citation key="ref29">
+										<unstructured_citation>Allard, Sébastien and Côme Fabre, Delacroix: L’art et la matière (Paris: Louvre éditions: Hazan, 2018).</unstructured_citation>
+									</citation>
+									<citation key="ref30">
+										<unstructured_citation>Allem, Maurice and Paul Courant, eds, Œuvres Complètes en Prose d’Alfred de Musset (Paris: Bibliothèque de la Pléiade, 1960).</unstructured_citation>
+									</citation>
+									<citation key="ref31">
+										<unstructured_citation>Badin, Donatella Abbat, Lady Morgan’s Italy: Anglo-Irish Sensitivities and Italian Realities (Bethseda: Academica Press, 2007).</unstructured_citation>
+									</citation>
+									<citation key="ref32">
+										<doi>10.5962/bhl.title.17594 </doi>
+									</citation>
+									<citation key="ref33">
+										<unstructured_citation>Keynes, Geoffrey, ed., William Blake Complete writings (London: Oxford University Press, 1969).</unstructured_citation>
+									</citation>
+									<citation key="ref34">
+										<doi>10.1093/notesj/33.2.248 </doi>
+									</citation>
+									<citation key="ref35">
+										<unstructured_citation>Godfrey, A.D., ed., The Poetical Works of Thomas Moore (London: Oxford University Press, 1910).</unstructured_citation>
+									</citation>
+									<citation key="ref36">
+										<unstructured_citation>Gogol, Nikolai, Dead Souls, trans. by David Magarshack (Harmondsworth: Penguin, 1961).</unstructured_citation>
+									</citation>
+									<citation key="ref37">
+										<unstructured_citation>Hazlitt, William, Political Essays (London: William Hone, 1819).</unstructured_citation>
+									</citation>
+									<citation key="ref38">
+										<doi>10.1017/cbo9781139137126.005</doi>
+									</citation>
+									<citation key="ref39">
+										<unstructured_citation>Koselleck, Reinhart, Futures Past: On the Semantics of Historical Time (Cambridge, MA: MIT Press, 1985).</unstructured_citation>
+									</citation>
+									<citation key="ref40">
+										<unstructured_citation>Leopardi, Giacomo, Discorso di un Italiano intorno alla poesia romantica, ed. by Rosita Copioli (Milano: Biblioteca Univerzale Rizzoli, 1997).</unstructured_citation>
+									</citation>
+									<citation key="ref41">
+										<doi>10.1093/actrade/9780198127574.book.1 </doi>
+									</citation>
+									<citation key="ref42">
+										<unstructured_citation>Marx, Karl, ‘The Eighteenth Brumaire of Louis Bonaparte’, in Surveys from Exile: Political Writings, ed. by David Fernbach, trans. by Ben Fowkes (Harmondsworth: Penguin, 1973).</unstructured_citation>
+									</citation>
+									<citation key="ref43">
+										<doi>10.4324/9781315834726</doi>
+									</citation>
+									<citation key="ref44">
+										<unstructured_citation>Moore, Thomas, The Fudge Family in Paris, Edited by Thomas Brown the Younger, Author of the Twopenny Post-bag, 4th ed. (London: Longman et al., 1818).</unstructured_citation>
+									</citation>
+									<citation key="ref45">
+										<unstructured_citation>Morgan, Lady [Sydney Owenson], Italy, 3rd ed., 3 vols. (London: Henry Colburn, 1821).</unstructured_citation>
+									</citation>
+									<citation key="ref46">
+										<unstructured_citation>——, France, 2 vols. (London: Henry Colburn, 1817).</unstructured_citation>
+									</citation>
+									<citation key="ref47">
+										<unstructured_citation>Nietzsche, Friedrich, The Will to Power, trans. Walter Kaufmann and R.J. Hollingdale (New York: Random House, 1968).</unstructured_citation>
+									</citation>
+									<citation key="ref48">
+										<unstructured_citation>Reiman, Donald H., and Sharon B. Powers, eds, Shelley’s Poetry and Prose (New York and London: Norton, 1977).</unstructured_citation>
+									</citation>
+									<citation key="ref49">
+										<unstructured_citation>Rogers, Samuel, Italy: A Poem (London: Longman et al., 1822).</unstructured_citation>
+									</citation>
+									<citation key="ref50">
+										<doi>10.1017/9781108669900</doi>
+									</citation>
+									<citation key="ref51">
+										<doi>10.3828/eir.2017.24.2.2</doi>
+									</citation>
+									<citation key="ref52">
+										<unstructured_citation>Schlegel, Friedrich, ‘Athenaeum Fragment’, no. 80, in Philosophical Fragments, trans. by Peter Firchow (Minnesota: University of Minnesota Press, 1991).</unstructured_citation>
+									</citation>
+									<citation key="ref53">
+										<unstructured_citation>Stevenson, W.H. and D. V. Erdman, eds, Blake:The Complete Poems (Hong Kong: Longman, 1972).</unstructured_citation>
+									</citation>
+									<citation key="ref54">
+										<doi>10.2307/3737958</doi>
+									</citation>
+									<citation key="ref55">
+										<unstructured_citation>Byron, Lord George Gordon, The Major Works, ed. by Jerome J. McGann (Oxford and New York: Oxford University Press, 2000).</unstructured_citation>
+									</citation>
+									<citation key="ref56">
+										<doi>10.1086/596640</doi>
+									</citation>
+									<citation key="ref57">
+										<unstructured_citation>Chandler, James, England in 1819: The Politics of Literary Culture and the Case of Romantic Historicism (Chicago and London: University of Chicago Press, 1998).</unstructured_citation>
+									</citation>
+									<citation key="ref58">
+										<doi>10.5749/minnesota/9780816692576.001.0001 </doi>
+									</citation>
+									<citation key="ref59">
+										<doi>10.1353/sub.2015.0008</doi>
+									</citation>
+									<citation key="ref60">
+										<doi>10.1353/elh.2014.0033</doi>
+									</citation>
+									<citation key="ref61">
+										<unstructured_citation>Gottlieb, Evan, Romantic Realities: Speculative Realism and British Romanticism (Edinburgh: Edinburgh University Press, 2016).</unstructured_citation>
+									</citation>
+									<citation key="ref62">
+										<doi>10.5040/9781472547279</doi>
+									</citation>
+									<citation key="ref63">
+										<unstructured_citation>Halmi, Nicholas, ed., Wordsworth’s Poetry and Prose (New York and London: Norton, 2014).</unstructured_citation>
+									</citation>
+									<citation key="ref64">
+										<unstructured_citation>Heringman, Noah, Romantic Rocks, Aesthetic Geology (Ithaca and London: Cornell University Press, 2004).</unstructured_citation>
+									</citation>
+									<citation key="ref65">
+										<doi>10.1007/978-3-319-67894-8 </doi>
+									</citation>
+									<citation key="ref66">
+										<doi>10.1002/9781118241912</doi>
+									</citation>
+									<citation key="ref67">
+										<doi>10.7208/chicago/9780226390680.001.0001 </doi>
+									</citation>
+									<citation key="ref68">
+										<unstructured_citation>Keats, John. The Works of John Keats (Ware, Hertfordshire: Wordsworth Editions, 1994).</unstructured_citation>
+									</citation>
+									<citation key="ref69">
+										<unstructured_citation>Knowles, Claire and Ingrid Horrocks, eds, Charlotte Smith: Major Poetic Works (Peterborough, ON: Broadview Press, 2017).</unstructured_citation>
+									</citation>
+									<citation key="ref70">
+										<unstructured_citation>Koselleck, Reinhart, ‘The Eighteenth Century as the Beginning of Modernity’, in The Practice of Conceptual History: Timing History, Spacing Concepts, trans. by Todd Samuel Presner and others (Stanford: Stanford University Press, 2002), pp. 154–69.</unstructured_citation>
+									</citation>
+									<citation key="ref71">
+										<unstructured_citation>Latour, Bruno, Facing Gaia: Eight Lectures on the New Climatic Regime, trans. by Catherine Porter (Cambridge: Polity Press, 2017).</unstructured_citation>
+									</citation>
+									<citation key="ref72">
+										<unstructured_citation>Lyell, Charles, Principles of Geology, ed. by James A. Secord (London and New York: Penguin, 1997).</unstructured_citation>
+									</citation>
+									<citation key="ref73">
+										<doi>10.1353/srm.2015.0012</doi>
+									</citation>
+									<citation key="ref74">
+										<unstructured_citation>Meillassoux, Quentin, After Finitude: An Essay on the Necessity of Contingency, trans. by Ray Brassier (London and New York: Continuum, 2008).</unstructured_citation>
+									</citation>
+									<citation key="ref75">
+										<unstructured_citation>Moynihan, Thomas, Spinal Catastrophism: A Secret History (Windsor Quarry, Falmouth: Urbanomic, 2019).</unstructured_citation>
+									</citation>
+									<citation key="ref76">
+										<unstructured_citation>Norris, Christopher, ‘Event’, in The Badiou Dictionary, ed. by Steve Corcoran (Edinburgh: Edinburgh University Press, 2015), pp. 115–20.</unstructured_citation>
+									</citation>
+									<citation key="ref77">
+										<unstructured_citation>Reiman Donald H. and Neil Fraistat, eds, Shelley’s Poetry and Prose, 2nd ed. (New York: Norton, 2002).</unstructured_citation>
+									</citation>
+									<citation key="ref78">
+										<doi>10.1353/elh.0.0022</doi>
+									</citation>
+									<citation key="ref79">
+										<doi>10.1017/9781108333115 </doi>
+									</citation>
+									<citation key="ref80">
+										<doi>10.5749/minnesota/9780816689248.001.0001 </doi>
+									</citation>
+									<citation key="ref81">
+										<doi>10.3138/9781487530310 </doi>
+									</citation>
+									<citation key="ref82">
+										<unstructured_citation>Webster, Austin. An Evental Romanticism, MA thesis, Oregon State University, 2019,</unstructured_citation>
+									</citation>
+									<citation key="ref83">
+										<doi>10.1515/9781400851409 </doi>
+									</citation>
+									<citation key="ref84">
+										<unstructured_citation>Woodard, Ben, ‘Inverted Astronomy: Ungrounded Ethics, Volcanic Copernicanism, and the Ecological Decentering of the Human’, Polygraph, 22 (2010), 79–93</unstructured_citation>
+									</citation>
+									<citation key="ref85">
+										<unstructured_citation>——, Schelling’s Naturalism: Motion, Space, and the Volition of Thought (Edinburgh: Edinburgh University Press, 2019).</unstructured_citation>
+									</citation>
+									<citation key="ref86">
+										<unstructured_citation>Beethoven, Ludwig van, Fidelio: Oper in Zwei Aufzugen (Bonn: Simroch, n. d. [1815]).</unstructured_citation>
+									</citation>
+									<citation key="ref87">
+										<unstructured_citation>——, Leonore, Oper in Drei Acten [1805 version] (Leipzig: Breitkopf and Härtel, 1905), p. 221.</unstructured_citation>
+									</citation>
+									<citation key="ref88">
+										<unstructured_citation>Bouilly, Jean-Nicolas, Léonore, ou L’Amour Conjugal, Fait Historique, en deux actes et en prose mêlée de chants. Paroles de J.N. Bouilly, Musique de P. Gaveaux (Paris: Barba, An Septième [1799]).</unstructured_citation>
+									</citation>
+									<citation key="ref89">
+										<unstructured_citation>——, Les Deux Journées, Comédie Lyrique en trois actes, paroles de J.N. Bouilly, membre de la Société Philotechnique, Musique du Citoyen Chérubini (Paris: André, [An Huitième], 1800).</unstructured_citation>
+									</citation>
+									<citation key="ref90">
+										<unstructured_citation>——, Mes Récapitulations (Paris, 1836–37).</unstructured_citation>
+									</citation>
+									<citation key="ref91">
+										<unstructured_citation>Bloch, Ernst, Essays on the Philosophy of Music (Cambridge: Cambridge University Press, 1985).</unstructured_citation>
+									</citation>
+									<citation key="ref92">
+										<unstructured_citation>Charlton, David, ‘The French Theatrical Origins of Fidelio’, in Fidelio: Cambridge Opera Handbooks, ed. by Paul Robinson (Cambridge: Cambridge University Press, 1996), pp. 51–67.</unstructured_citation>
+									</citation>
+									<citation key="ref93">
+										<unstructured_citation>Cherubini, Luigi, Lodoïska, Comédie Héroïque, en trois actes (Paris: Naderman, 1791).</unstructured_citation>
+									</citation>
+									<citation key="ref94">
+										<doi>10.1017/cbo9781107786165</doi>
+									</citation>
+									<citation key="ref95">
+										<unstructured_citation>Dean, Winton, ‘Beethoven and Opera’, in Fidelio: Cambridge Opera Handbooks, ed. by Paul Robinson (Cambridge: Cambridge University Press, 1996), pp. 22–50.</unstructured_citation>
+									</citation>
+									<citation key="ref96">
+										<unstructured_citation>Genest, John, Some Account of the English Stage, 10 vols. (London and Bath: 1832).</unstructured_citation>
+									</citation>
+									<citation key="ref97">
+										<unstructured_citation>Heuss, Alfred, ‘Die Humanitätsmelodie im “Fidelio”’, Neue Zeitung fur Musik, 91 (1924), 545–52.</unstructured_citation>
+									</citation>
+									<citation key="ref98">
+										<unstructured_citation>Gill, Stephen, ed., William Wordsworth: 21st Century Oxford Authors (Oxford: Oxford University Press, 2010).</unstructured_citation>
+									</citation>
+									<citation key="ref99">
+										<doi>10.13110/criticism.55.4.0547</doi>
+									</citation>
+									<citation key="ref100">
+										<doi provider="crossref">10.1093/mq/VII.2.226</doi>
+										<unstructured_citation>Istel, Edgar and Theodore Baker, ‘Beethoven’s “Leonore” and “Fidelio”’, Musical Quarterly, 7.2 (April 1921), 226–51.</unstructured_citation>
+									</citation>
+									<citation key="ref101">
+										<unstructured_citation>Kerman, Joseph, ‘Augenblicke in Fidelio’, in Fidelio: Cambridge Opera Handbooks, ed. by Paul Robinson (Cambridge: Cambridge University Press, 1996), pp. 132–44.</unstructured_citation>
+									</citation>
+									<citation key="ref102">
+										<doi>10.1162/002219506774929827</doi>
+									</citation>
+									<citation key="ref103">
+										<doi>10.1017/cbo9780511794483</doi>
+									</citation>
+									<citation key="ref104">
+										<doi>10.1093/musqtl/gds025</doi>
+									</citation>
+									<citation key="ref105">
+										<unstructured_citation>Singer, Irving, Mozart and Beethoven: The Concept of Love in their Operas (Cambridge, MA: MIT Press, 2010).</unstructured_citation>
+									</citation>
+									<citation key="ref106">
+										<unstructured_citation>Robinson, Paul, ‘Fidelio and the French Revolution’, in Fidelio: Cambridge Opera Handbooks, ed. by Paul Robinson (Cambridge: Cambridge University Press, 1996), pp. 68–100.</unstructured_citation>
+									</citation>
+									<citation key="ref107">
+										<unstructured_citation>Abrams, M.H., ‘Structure and Style in the Greater Romantic Lyric’, in From Sensibility to Romanticism: Essays Presented to Frederick W. Pottle, ed. by Frederick W. Hilles and Harold Bloom (New Haven: Yale University Press, 1965), pp. 527–60.</unstructured_citation>
+									</citation>
+									<citation key="ref108">
+										<unstructured_citation>Anderson, Benedict, Imagined Communities: Reflections on the Origins and Spread of Nationalism (London and New York: Verso, 1991).</unstructured_citation>
+									</citation>
+									<citation key="ref109">
+										<unstructured_citation>Arnold, Matthew, ‘Memorial Verses’, in Norton Anthology of English Literature, 8th edition, ed. by Stephen Greenblatt et al. (New York: Norton, 2006), p. 63.</unstructured_citation>
+									</citation>
+									<citation key="ref110">
+										<unstructured_citation>Benjamin, Walter, Illuminations, trans. by Harry Zohn, ed. by Hannah Arendt (New York: Schocken, 1969), pp. 253–64.</unstructured_citation>
+									</citation>
+									<citation key="ref111">
+										<doi>10.4324/9781315830254</doi>
+									</citation>
+									<citation key="ref112">
+										<doi>10.1017/CCOL9780521862356.008</doi>
+									</citation>
+									<citation key="ref113">
+										<unstructured_citation>De Selincourt, Ernest and Helen Darbishire, eds, William Wordsworth,The Poetical Works (Oxford: Clarendon Press, 1963–66).</unstructured_citation>
+									</citation>
+									<citation key="ref114">
+										<doi>10.4324/9780203968000</doi>
+									</citation>
+									<citation key="ref115">
+										<unstructured_citation>Haekel, Ralf, The Soul in British Romanticism: Negotiating Human Nature in Philosophy, Science and Poetry (Trier: WVT, 2014).</unstructured_citation>
+									</citation>
+									<citation key="ref116">
+										<doi>10.1093/res/os-vi.22.129</doi>
+									</citation>
+									<citation key="ref117">
+										<doi>10.1093/actrade/9780198127543.book.1</doi>
+									</citation>
+									<citation key="ref118">
+										<unstructured_citation>McGann, Jerome J., The Romantic Ideology: A Critical Investigation (Chicago: University of Chicago Press, 1983).</unstructured_citation>
+									</citation>
+									<citation key="ref119">
+										<doi>10.1093/acprof:oso/9780198122852.001.0001</doi>
+									</citation>
+									<citation key="ref120">
+										<doi>10.4159/dlcl.plato_philosopher-phaedo.1914</doi>
+									</citation>
+									<citation key="ref121">
+										<unstructured_citation>Reiman Donald H. and Neil Fraistat eds, Shelley’s Poetry and Prose (New York and London: Norton, 2002).</unstructured_citation>
+									</citation>
+									<citation key="ref122">
+										<doi>10.24894/hwph.1554</doi>
+									</citation>
+									<citation key="ref123">
+										<doi>10.35360/njes.174</doi>
+									</citation>
+									<citation key="ref124">
+										<doi>10.1017/ccol0521470935.009</doi>
+									</citation>
+									<citation key="ref125">
+										<unstructured_citation>Vendler, Helen, ‘Lionel Trilling and the Immortality Ode’, in Salmagundi, 41 (Spring 1978), pp. 65–85.</unstructured_citation>
+									</citation>
+									<citation key="ref126">
+										<doi>10.4324/9780203106877</doi>
+									</citation>
+									<citation key="ref127">
+										<doi>10.1002/9781405165396.ch16</doi>
+									</citation>
+									<citation key="ref128">
+										<doi>10.4324/9780203413876</doi>
+									</citation>
+									<citation key="ref129">
+										<doi>10.1093/oso/9780198857891.001.0001</doi>
+									</citation>
+									<citation key="ref130">
+										<doi>10.4000/etudesecossaises.542</doi>
+									</citation>
+									<citation key="ref131">
+										<unstructured_citation>Crinquand, Sylvie, ‘“An English poet in Scotland”: John Keats’s Letter to his Brother Tom’, Annals of the University of Craiova, Year VI, n°1 (2005), 54–67.</unstructured_citation>
+									</citation>
+									<citation key="ref132">
+										<doi>10.4000/erea.527</doi>
+									</citation>
+									<citation key="ref133">
+										<unstructured_citation>——, Wordsworth et la marche: parcours poétique et esthétique (Grenoble: ELLUG, 2007).</unstructured_citation>
+									</citation>
+									<citation key="ref134">
+										<unstructured_citation>Gros, Frédéric, A Philosophy of Walking (London: Verso, 2014).</unstructured_citation>
+									</citation>
+									<citation key="ref135">
+										<doi>10.1057/9780230371361</doi>
+									</citation>
+									<citation key="ref136">
+										<doi>10.1093/oso/9780198850021.001.0001</doi>
+									</citation>
+									<citation key="ref137">
+										<unstructured_citation>Rejack, Brian, ‘Keats Lives in the eye’, The Keats Letter Project (2018),</unstructured_citation>
+									</citation>
+									<citation key="ref138">
+										<unstructured_citation>Rollins, Hyder Edward, ed., The Letters of John Keats, 2 vols. (London: Cambridge University Press, 1958).</unstructured_citation>
+									</citation>
+									<citation key="ref139">
+										<doi>10.2307/j.ctt1ww3v9z</doi>
+									</citation>
+									<citation key="ref140">
+										<unstructured_citation>Stillinger, Jack, ed., Keats: Complete Poems (Cambridge: The Belknap Press, 1982).</unstructured_citation>
+									</citation>
+									<citation key="ref141">
+										<doi>10.4324/9780203366127</doi>
+									</citation>
+									<citation key="ref142">
+										<doi>10.1093/acprof:oso/9780198183280.001.0001</doi>
+									</citation>
+									<citation key="ref143">
+										<unstructured_citation>Walker, Carol Kyros, Walking North with Keats (New Haven and London: Yale University Press, 1992).</unstructured_citation>
+									</citation>
+									<citation key="ref144">
+										<unstructured_citation>Adams, Theresa, ‘Representing Rural Leisure: John Clare and the Politics of Popular Culture,’ Studies in Romanticism 47.3 (Fall, 2008), 371–92.</unstructured_citation>
+									</citation>
+									<citation key="ref145">
+										<unstructured_citation>Bate, Jonathan, John Clare: A Biography (London: Picador, 2003).</unstructured_citation>
+									</citation>
+									<citation key="ref146">
+										<unstructured_citation>Benjamin, Walter, ‘On the Concept of History’, in Walter Benjamin: Selected Writings, ed. by Howard Eiland and Michael W. Jennings, trans. by Harry Zohn (Cambridge, MA: Belknap Press, 2006), IV, pp. 389–400.</unstructured_citation>
+									</citation>
+									<citation key="ref147">
+										<unstructured_citation>Bergson, Henri, Time and Free Will, trans. by F.L. Pogson (Mineola, NY: Dover Publications, 2001).</unstructured_citation>
+									</citation>
+									<citation key="ref148">
+										<doi provider="crossref">10.1057/9780230375482_6</doi>
+										<unstructured_citation>Chirico, Paul, ‘Authority and Community: John Clare and John Taylor’, in Authorship, Commerce and the Public, ed. by E. J. Clery, Caroline Franklin and Peter Garside (Basingstoke: Palgrave Macmillan, 2002), pp. 84–99.</unstructured_citation>
+									</citation>
+									<citation key="ref149">
+										<unstructured_citation>——, John Clare and the Imagination of the Reader (Basingstoke: Palgrave Macmillan, 2007).</unstructured_citation>
+									</citation>
+									<citation key="ref150">
+										<unstructured_citation>Clare, John, The Shepherd’s Calendar, ed. by Tim Chilcott (Manchester: Carcanet, 2006).</unstructured_citation>
+									</citation>
+									<citation key="ref151">
+										<unstructured_citation>——, By Himself, ed. by Eric Robinson and David Powell (Manchester: Carcanet, 2013).</unstructured_citation>
+									</citation>
+									<citation key="ref152">
+										<unstructured_citation>Clare, Johanne, John Clare and the Bounds of Circumstance (Kingston: McGill-Queen’s University Press, 1987).</unstructured_citation>
+									</citation>
+									<citation key="ref153">
+										<doi>10.4159/9780674425781</doi>
+									</citation>
+									<citation key="ref154">
+										<unstructured_citation>François, Anne-Lise, ‘Ungiving Time’, in Anthropocene Reading, ed. by Tobias Menely and Jesse Oak Taylor (Pennsylvania, PA: Pennsylvania State University Press, 2017), pp. 239–58.</unstructured_citation>
+									</citation>
+									<citation key="ref155">
+										<doi provider="crossref">10.1017/CBO9781139047197</doi>
+										<unstructured_citation>Goodridge, John, John Clare and Community (Cambridge: Cambridge University Press, 2013).</unstructured_citation>
+									</citation>
+									<citation key="ref156">
+										<doi provider="crossref">10.5949/UPO9781846315381</doi>
+										<unstructured_citation>Gorji, Mina, John Clare and the Place of Poetry (Liverpool: Liverpool University Press, 2008).</unstructured_citation>
+									</citation>
+									<citation key="ref157">
+										<unstructured_citation>Grainger, Margaret, ed., Natural History Prose Writings (Oxford: Clarendon Press, 1983).</unstructured_citation>
+									</citation>
+									<citation key="ref158">
+										<unstructured_citation>Herbert, Ian, ‘Poetic justice: villagers defeat phone mast threat by quoting their local bard’, Independent, 14 December 2004,</unstructured_citation>
+									</citation>
+									<citation key="ref159">
+										<unstructured_citation>Homer, The Odyssey, trans. by Emily Wilson (New York: W. W. Norton &amp; Company, 2017).</unstructured_citation>
+									</citation>
+									<citation key="ref160">
+										<doi>10.4324/9781315578675</doi>
+									</citation>
+									<citation key="ref161">
+										<unstructured_citation>Marx, Karl, The Poverty of Philosophy in Marx &amp; Engels Collected Works, trans. by Frida Knight (Electronic Book: Lawrence &amp; Wishart, 2010), VI, pp. 105–212.</unstructured_citation>
+									</citation>
+									<citation key="ref162">
+										<doi provider="crossref">10.2307/25601059</doi>
+										<unstructured_citation>McKusick, James C., ‘John Clare and the Tyranny of Grammar’, Studies in Romanticism 33.2 (Summer, 1994), 255–77.</unstructured_citation>
+									</citation>
+									<citation key="ref163">
+										<unstructured_citation>Milton, John, ‘Lycidas’, in Complete Shorter Poems, ed. by Stella P. Revard (Chichester: Wiley-Blackwell, 2009), pp. 74–80.</unstructured_citation>
+									</citation>
+									<citation key="ref164">
+										<unstructured_citation>Moretti, Franco, Graphs, Maps, Trees (London: Verso, 2007).</unstructured_citation>
+									</citation>
+									<citation key="ref165">
+										<doi provider="crossref">10.1017/CBO9780511570926</doi>
+										<unstructured_citation>Postone, Moishe, Time, Labor and Social Domination: A Reinterpretation of Marx’s Critical Theory (Cambridge: Cambridge University Press, 1993; 2003).</unstructured_citation>
+									</citation>
+									<citation key="ref166">
+										<unstructured_citation>Powell, David, Catalogue of the John Clare Collection in the Northampton Public Library (County Borough of Northampton: Public Libraries Museums and Art Galleries Committee, 1964).</unstructured_citation>
+									</citation>
+									<citation key="ref167">
+										<doi provider="crossref">10.1093/res/XIV.56.359</doi>
+										<unstructured_citation>Robinson, Eric and Geoffrey Summerfield, ‘John Taylor’s Editing of Clare’s The Shepherd’s Calendar’, Review of English Studies 14.56 (1963), 359–69.</unstructured_citation>
+									</citation>
+									<citation key="ref168">
+										<unstructured_citation>Robinson, Eric, Geoffrey Summerfield and David Powell eds, The Shepherd’s Calendar (Oxford: Oxford University Press, 1964; 2014).</unstructured_citation>
+									</citation>
+									<citation key="ref169">
+										<unstructured_citation>Robinson, Eric and David Powell eds, Child Harold in The Later Poems of John Clare, 1837–1864 (Oxford: Clarendon Press, 1984), I, p. 58.</unstructured_citation>
+									</citation>
+									<citation key="ref170">
+										<unstructured_citation>——, ‘The Chiming Bells’, in The Later Poems of John Clare, 1837–1864 (Oxford: Clarendon Press, 1984), II, p. 1036.</unstructured_citation>
+									</citation>
+									<citation key="ref171">
+										<unstructured_citation>Robinson, Eric, David Powell and P.M.S Dawson eds, ‘Childhood’, in Poems of the Middle Period (Oxford: Clarendon Press, 1998), III, pp. 229–52.</unstructured_citation>
+									</citation>
+									<citation key="ref172">
+										<unstructured_citation>——, ‘Glinton Spire’, in Poems of the Middle Period, 1822–1837 (Oxford: Clarendon Press, 1998), IV, pp. 252–53.</unstructured_citation>
+									</citation>
+									<citation key="ref173">
+										<unstructured_citation>Sebald, Winfried Georg, Austerlitz, trans. by Anthea Bell (London: Penguin, 2011).</unstructured_citation>
+									</citation>
+									<citation key="ref174">
+										<unstructured_citation>Shaw, Matthew, Time and the French Revolution (Woodbridge: The Boydell Press, 2011).</unstructured_citation>
+									</citation>
+									<citation key="ref175">
+										<unstructured_citation>Shelley, Mary, History of a Six Week’s Tour (London: T. Hookham, Jun., 1817).</unstructured_citation>
+									</citation>
+									<citation key="ref176">
+										<unstructured_citation>Storey, Mark, ed., The Letters of John Clare (Oxford: Oxford University Press, 1985).</unstructured_citation>
+									</citation>
+									<citation key="ref177">
+										<unstructured_citation>Thompson, Edward Palmer, Customs in Common (London: Merlin Press, 1991).</unstructured_citation>
+									</citation>
+									<citation key="ref178">
+										<doi>10.1177%2F1440783308092883</doi>
+									</citation>
+									<citation key="ref179">
+										<unstructured_citation>Vulliamy, B. L., Some Considerations on the Subject of Public Clocks Particularly Church Clocks: with Hints for their Improvement (London: McMillan, Bow Street, 1828).</unstructured_citation>
+									</citation>
+									<citation key="ref180">
+										<unstructured_citation>Ainger, Alfred, ed., The Letters of Charles Lamb, vol. I (London: Macmillan and Co., 1888).</unstructured_citation>
+									</citation>
+									<citation key="ref181">
+										<doi>10.1111/1467-9655.12091</doi>
+									</citation>
+									<citation key="ref182">
+										<doi>10.1353/nlh.2015.0025</doi>
+									</citation>
+									<citation key="ref183">
+										<doi>10.1086/twc24045754</doi>
+									</citation>
+									<citation key="ref184">
+										<unstructured_citation>Gill, Stephen ed., William Wordsworth:The Major Works (New York: Oxford University Press, 2000).</unstructured_citation>
+									</citation>
+									<citation key="ref185">
+										<unstructured_citation>Hazlitt, William, The Spirit of the Age (Oxford: Woodstock Books, 1989).</unstructured_citation>
+									</citation>
+									<citation key="ref186">
+										<unstructured_citation>Holquist, Michael, ed., ‘Forms of Time and the Chronotope of the Novel’, in The Dialogic Imagination: Four Essays by Mikhail Bakhtin, trans. by Caryl Emerson and Michael Holquist (Austin: University of Texas Press, 1981).</unstructured_citation>
+									</citation>
+									<citation key="ref187">
+										<doi>10.4324/9781315653310</doi>
+									</citation>
+									<citation key="ref188">
+										<unstructured_citation>Irving, Washington, The Sketch-Book of Geoffrey Crayon, Gent., ed. by Susan Manning (New York: Oxford University Press, 1996).</unstructured_citation>
+									</citation>
+									<citation key="ref189">
+										<unstructured_citation>Lamb, Charles, The Last Essays of Elia (London: Edward Moxon, 1833).</unstructured_citation>
+									</citation>
+									<citation key="ref190">
+										<unstructured_citation>Lucas, Edward Verrall, The Life of Charles Lamb (London: G. P. Putnam’s Sons, 1905).</unstructured_citation>
+									</citation>
+									<citation key="ref191">
+										<doi>10.1353/sel.2016.0035</doi>
+									</citation>
+									<citation key="ref192">
+										<unstructured_citation>Manning, Susan, ed., The Sketch-Book of Geoffrey Crayon, Gent. by Washington Irving (New York: Oxford University Press, 1996).</unstructured_citation>
+									</citation>
+									<citation key="ref193">
+										<doi>10.1632/pmla.2018.133.5.1259</doi>
+									</citation>
+									<citation key="ref194">
+										<unstructured_citation>Shelston, Alan, ed., Selected Writings by Thomas Carlyle (New York: Penguin, 1986).</unstructured_citation>
+									</citation>
+									<citation key="ref195">
+										<unstructured_citation>Bennett, Betty T., ed., The Letters of Mary Wollstonecraft Shelley, 3 vols. (Baltimore: Johns Hopkins University Press, 1980).</unstructured_citation>
+									</citation>
+									<citation key="ref196">
+										<doi provider="crossref">10.1086/TWC24039234</doi>
+										<unstructured_citation>Buchen, Irving H., ‘Frankenstein and the Alchemy of Creation and Evolution’, The Wordsworth Circle, 8 (Spring 1977), 103–12.</unstructured_citation>
+									</citation>
+									<citation key="ref197">
+										<unstructured_citation>Genette, Gérard, Figures III (Paris: Seuil, 1971).</unstructured_citation>
+									</citation>
+									<citation key="ref198">
+										<unstructured_citation>Hogle, Jerrold E., ‘An Introduction’, in Frankenstein’s Dream, A Romantic Circles Praxis Volume, ed. by Jerrold E. Hogle (June 2003),</unstructured_citation>
+									</citation>
+									<citation key="ref199">
+										<unstructured_citation>Ketterer, David, ‘The Corrected Frankenstein: Twelve Preferred Readings in the Last Draft’, English Language Notes, 33.1 (Sept. 1995), 23–35.</unstructured_citation>
+									</citation>
+									<citation key="ref200">
+										<unstructured_citation>——, ‘Frankenstein’s “Conversion” from Natural Magic to Modern Science—and a Shifted (and Converted) Last Draft Insert’, Science-Fiction Studies, 24.1 (March 1997), 57–78.</unstructured_citation>
+									</citation>
+									<citation key="ref201">
+										<doi provider="crossref">10.3917/puf.lecer.1988.01</doi>
+										<unstructured_citation>Lecercle, Jean-Jacques, Frankenstein, Mythe et Philosophie (Paris: Presses Universitaires de France, 1988).</unstructured_citation>
+									</citation>
+									<citation key="ref202">
+										<doi>10.2307/25601660</doi>
+									</citation>
+									<citation key="ref203">
+										<unstructured_citation>Rancière, Jacques, ‘The Concept of Anachronism and the Historian’s Truth’ [1996], trans. by Noel Fitzpatrick and Tim Stott, InPrint, 3.1 (2015), 21–48.</unstructured_citation>
+									</citation>
+									<citation key="ref204">
+										<unstructured_citation>Shelley, Mary, Frankenstein, the 1818 Text, ed. by Marilyn Butler (Oxford: Oxford University Press, 2008).</unstructured_citation>
+									</citation>
+									<citation key="ref205">
+										<unstructured_citation>——, Frankenstein, or, The Modern Prometheus (1831), ed. by Maurice Hindle (London: Penguin, 1988).</unstructured_citation>
+									</citation>
+									<citation key="ref206">
+										<unstructured_citation>——, Frankenstein, ou le Prométhée Moderne, trans. by Jules Saladin (Paris: Corréard, 1821).</unstructured_citation>
+									</citation>
+									<citation key="ref207">
+										<unstructured_citation>——, Collected Tales and Stories, ed. by Charles E. Robinson (Baltimore and London: The Johns Hopkins University Press, 1990 [1976]).</unstructured_citation>
+									</citation>
+									<citation key="ref208">
+										<doi>10.1017/CBO9781316091203.007</doi>
+									</citation>
+									<citation key="ref209">
+										<unstructured_citation>Ackerley, C.J. and S.E. Gontarski, eds, The Grove Companion to Samuel Beckett: A Reader’s Guide to His Works, Life and Thought (New York: Grove, 2004).</unstructured_citation>
+									</citation>
+									<citation key="ref210">
+										<unstructured_citation>Bate, Walter Jackson, ed., Samuel Johnson: Essays from the Rambler, Adventurer and Idler (New Haven: Yale University Press, 1968).</unstructured_citation>
+									</citation>
+									<citation key="ref211">
+										<unstructured_citation>Beckett, Samuel, Collected Shorter Plays (New York: Grove, 1984).</unstructured_citation>
+									</citation>
+									<citation key="ref212">
+										<unstructured_citation>——, Happy Days (New York: Grove, 1961).</unstructured_citation>
+									</citation>
+									<citation key="ref213">
+										<unstructured_citation>——, Waiting for Godot: A Tragicomedy in Two Acts (New York: Grove, 1970).</unstructured_citation>
+									</citation>
+									<citation key="ref214">
+										<unstructured_citation>Bloom, Harold, ‘Shelley and His Precursors’, in Poetry and Repression (New Haven: Yale University Press, 1976), pp. 83–111.</unstructured_citation>
+									</citation>
+									<citation key="ref215">
+										<doi>10.7228/manchester/9780719071560.001.0001</doi>
+									</citation>
+									<citation key="ref216">
+										<unstructured_citation>Coleridge, Samuel Taylor, Coleridge’s Poetry and Prose, ed. by Nicholas Halmi, Paul Magnuson and Raimonda Modiano (New York: Norton, 2004).</unstructured_citation>
+									</citation>
+									<citation key="ref217">
+										<unstructured_citation>de Man, Paul, ‘Shelley Disfigured’, in The Rhetoric of Romanticism (New York: Columbia University Press, 1984), pp. 93–124.</unstructured_citation>
+									</citation>
+									<citation key="ref218">
+										<unstructured_citation>Falflak, Joel, ed., ‘The Futures of Shelley’s Triumph,’ Romantic Circles Praxis Series, October 2019,</unstructured_citation>
+									</citation>
+									<citation key="ref219">
+										<doi provider="crossref">10.1093/actrade/9780199212859.book.1</doi>
+										<unstructured_citation>Herrick, Robert, The Complete Poetry of Robert Herrick, ed. by Tom Cain and Ruth Connolly, 2 vols. (New York: Oxford University Press, 2013).</unstructured_citation>
+									</citation>
+									<citation key="ref220">
+										<unstructured_citation>Hogle, Jerrold, Shelley’s Process: Radical Transference and the Development of His Major Works (Oxford: Oxford University Press, 1988).</unstructured_citation>
+									</citation>
+									<citation key="ref221">
+										<doi>10.7208/chicago/9780226458588.001.0001</doi>
+									</citation>
+									<citation key="ref222">
+										<unstructured_citation>Kafka, Franz, ‘The Next Village’, in The Basic Kafka, ed. by Eric Heller (New York: Simon and Schuster, 1979).</unstructured_citation>
+									</citation>
+									<citation key="ref223">
+										<unstructured_citation>Keach, William, Shelley’s Style (New York: Methuen, 1984).</unstructured_citation>
+									</citation>
+									<citation key="ref224">
+										<unstructured_citation>Merwin, W.S., The Collected Poems: 1996–2011, ed. by J.D. McClatchy (New York: Library of America, 2013).</unstructured_citation>
+									</citation>
+									<citation key="ref225">
+										<doi>10.7771/1481-4374.1683</doi>
+									</citation>
+									<citation key="ref226">
+										<doi provider="crossref">10.7591/9781501723148</doi>
+										<unstructured_citation>Rajan, Tilottama, The Supplement of Reading: Figures of Understanding in Romantic Theory and Practice (Cornell: Cornell University Press, 1990).</unstructured_citation>
+									</citation>
+									<citation key="ref227">
+										<unstructured_citation>Shakespeare, William, The Norton Shakespeare, ed. by Stephen Greenblatt (New York: Norton, 2008).</unstructured_citation>
+									</citation>
+									<citation key="ref228">
+										<unstructured_citation>Shelley, Percy, The Major Works, ed. by Zachary Leader and Michael O’Neill (New York: Oxford University Press, 2003).</unstructured_citation>
+									</citation>
+									<citation key="ref229">
+										<unstructured_citation>——, Shelley’s Poetry and Prose, ed. by Donald H. Reiman and Neil Fraistat, 2nd ed. (New York: Norton, 2002).</unstructured_citation>
+									</citation>
+									<citation key="ref230">
+										<unstructured_citation>Vassalo, Peter, ‘From Petrarch to Dante: The Discourse of Disenchantment in Shelley’s The Triumph of Life’, Journal of Anglo-Italian Studies 1 (1991), 102–10.</unstructured_citation>
+									</citation>
+									<citation key="ref231">
+										<doi>10.2307/2873459</doi>
+									</citation>
+									<citation key="ref232">
+										<unstructured_citation>Wordsworth, William, Wordsworth’s Poetry and Prose, ed. by Nicholas Halmi (New York: Norton, 2014).</unstructured_citation>
+									</citation>
+									<citation key="ref233">
+										<unstructured_citation>Calvino, Italo, Invisible Cities, ed. and trans. by William Weaver (London: Vintage, 1997).</unstructured_citation>
+									</citation>
+									<citation key="ref234">
+										<unstructured_citation>Cate, Curtis, Friedrich Nietzsche: A Biography (London: Pimlico, 2003).</unstructured_citation>
+									</citation>
+									<citation key="ref235">
+										<unstructured_citation>Davison, Peter, The Last of the Light: About Twilight (London: Reakton, 2015).</unstructured_citation>
+									</citation>
+									<citation key="ref236">
+										<unstructured_citation>Gill, Stephen, ed., William Wordsworth: The Major Works (Oxford: Oxford University Press, 2000).</unstructured_citation>
+									</citation>
+									<citation key="ref237">
+										<unstructured_citation>Kaufmann, Walter, ed. and trans., ‘On Truth and Lie in an Extra-Moral Sense’, in The Portable Nietzsche (Harmondsworth: Penguin, 1976), pp. 42–47.</unstructured_citation>
+									</citation>
+									<citation key="ref238">
+										<unstructured_citation>Luchte, James, ed., The Peacock and the Buffalo: The Poetry of Friedrich Nietzsche (London: Continuum, 2010).</unstructured_citation>
+									</citation>
+									<citation key="ref239">
+										<unstructured_citation>McGann, Jerome J., ed., Lord Byron: The Major Works (Oxford: Oxford University Press, 2000).</unstructured_citation>
+									</citation>
+									<citation key="ref240">
+										<doi>10.5840/schoolman197047333</doi>
+									</citation>
+									<citation key="ref241">
+										<doi>10.1017/cbo9780511720031</doi>
+									</citation>
+									<citation key="ref242">
+										<doi>10.3200/expl.67.3.221-224</doi>
+									</citation>
+									<citation key="ref243">
+										<unstructured_citation>Page, Frederick and John Jump, eds, Byron: Poetical Works (Oxford: Oxford University Press, 1991).</unstructured_citation>
+									</citation>
+									<citation key="ref244">
+										<doi>10.2307/431798</doi>
+									</citation>
+									<citation key="ref245">
+										<unstructured_citation>Reiman, Donald H. and Neil Fraistat, eds, Shelley’s Poetry and Prose (New York: Norton, 2002).</unstructured_citation>
+									</citation>
+									<citation key="ref246">
+										<doi>10.1163/9789004400061_004</doi>
+									</citation>
+									<citation key="ref247">
+										<doi>10.3366/rom.2016.0287</doi>
+									</citation>
+									<citation key="ref248">
+										<doi>10.4324/9781315576077</doi>
+									</citation>
+									<citation key="ref249">
+										<doi>10.1093/oxfordhb/9780199558360.001.0001</doi>
+									</citation>
+									<citation key="ref250">
+										<doi>10.4324/9781315655611</doi>
+									</citation>
+									<citation key="ref251">
+										<unstructured_citation>Shakespeare, William, Anthony and Cleopatra, ed. by Emrys Jones (Harmondsworth: Penguin, 1977; repr. 1988).</unstructured_citation>
+									</citation>
+									<citation key="ref252">
+										<doi>10.1093/acprof:oso/9780199590247.001.0001</doi>
+									</citation>
+									<citation key="ref253">
+										<unstructured_citation>Tanner, Tony, Venice Desired (Oxford: Blackwell, 1992).</unstructured_citation>
+									</citation>
+									<citation key="ref254">
+										<doi>10.1007/978-1-349-21649-9</doi>
+									</citation>
+									<citation key="ref255">
+										<unstructured_citation>Anderson, Benedict, Imagined Communities (London: Verso, 1991).</unstructured_citation>
+									</citation>
+									<citation key="ref256">
+										<unstructured_citation>Appadurai, Arjun, Modernity at Large: Cultural Dimensions of Globalization (Minneapolis: University of Minnesota Press, 1996).</unstructured_citation>
+									</citation>
+									<citation key="ref257">
+										<unstructured_citation>Apter, Emily S., Against World Literature: On the Politics of Untranslatability (London: Verso, 2013).</unstructured_citation>
+									</citation>
+									<citation key="ref258">
+										<unstructured_citation>Badiou, Alain, Le Siècle (Paris: Seuil, 2005).</unstructured_citation>
+									</citation>
+									<citation key="ref259">
+										<unstructured_citation>——, ‘Le XXIesiècle n’a pas encore commencé’, interview with Elie During, Art Press, 310 (March 2005).</unstructured_citation>
+									</citation>
+									<citation key="ref260">
+										<unstructured_citation>Bakhtin, M.M., The Dialogic Imagination: Four Essays, ed. by Michael Holquist, trans. by Caryl Emerson and Michael Holquist (Austin: University of Texas Press, 1982).</unstructured_citation>
+									</citation>
+									<citation key="ref261">
+										<unstructured_citation>——, Speech Genres and Other Late Essays, ed. by Caryl Emerson and Michael Holquist, trans. by Vern W. McGee (Austin: University of Texas Press, 1986).</unstructured_citation>
+									</citation>
+									<citation key="ref262">
+										<unstructured_citation>Barnes, Jonathan, ed., The Complete Works of Aristotle: The Revised Oxford Translation: One Volume Digital Edition, Bollingen Series LXXI.2 (Princeton, NJ: Princeton University Press, 1984).</unstructured_citation>
+									</citation>
+									<citation key="ref263">
+										<unstructured_citation>Benjamin, Walter, ‘On the Concept of History’, in Illuminations, ed. by Hannah Arendt, trans. by Harry Zohn (New York: Schocken Books, 1969).</unstructured_citation>
+									</citation>
+									<citation key="ref264">
+										<doi>10.1017/CBO9780511484100</doi>
+									</citation>
+									<citation key="ref265">
+										<doi>10.1017/CHOL9780521301060</doi>
+									</citation>
+									<citation key="ref266">
+										<doi>10.1093/oso/9780190209209.001.0001</doi>
+									</citation>
+									<citation key="ref267">
+										<unstructured_citation>Bloom, Harold, The Anxiety of Influence (New York: Oxford University Press, 1973).</unstructured_citation>
+									</citation>
+									<citation key="ref268">
+										<unstructured_citation>Blumenberg, Hans, Die Legitimität der Neuzeit, 3rd ed. (Frankfurt: Suhrkamp, 1988).</unstructured_citation>
+									</citation>
+									<citation key="ref269">
+										<doi provider="crossref">10.1215/00267929-62-4-309</doi>
+										<unstructured_citation>Brown, Marshall, ‘Periods and Resistances’, Modern Language Quarterly, 62 (2001), 309–16.</unstructured_citation>
+									</citation>
+									<citation key="ref270">
+										<unstructured_citation>——, Preromanticism (Stanford: Stanford University Press, 1991).</unstructured_citation>
+									</citation>
+									<citation key="ref271">
+										<unstructured_citation>Burke, Edmund, Reflections on the Revolution in France, ed. by L.G. Mitchell (Oxford: Oxford University Press, 1993).</unstructured_citation>
+									</citation>
+									<citation key="ref272">
+										<unstructured_citation>Butler, Marilyn, Romantics, Rebels and Reactionaries: English Literature and Its Background 1760–1830 (Oxford: Oxford University Press, 1980).</unstructured_citation>
+									</citation>
+									<citation key="ref273">
+										<unstructured_citation>Casanova, Pascale, The World Republic of Letters, trans. by M. B. DeBevoise (Cambridge, MA: Harvard University Press, 2004).</unstructured_citation>
+									</citation>
+									<citation key="ref274">
+										<unstructured_citation>Chambers, Robert, ed., A Cyclopedia of English Literature, 2 vols. (Edinburgh: William and Robert Chambers, 1843).</unstructured_citation>
+									</citation>
+									<citation key="ref275">
+										<unstructured_citation>Chandler, James, England in 1819: The Politics of Literary Culture and the Case of Romantic Historicism (Chicago: University of Chicago Press, 1998).</unstructured_citation>
+									</citation>
+									<citation key="ref276">
+										<doi>10.1017/S0021121400001292</doi>
+									</citation>
+									<citation key="ref277">
+										<unstructured_citation>Curtius, Ernst Robert, European Literature and the Latin Middle Ages, trans. by Willard Trask (London: Routledge, 1953).</unstructured_citation>
+									</citation>
+									<citation key="ref278">
+										<unstructured_citation>Deane, Seamus, ed., TheField Day Anthology of Irish Writing (Derry: Field Day, 1991).</unstructured_citation>
+									</citation>
+									<citation key="ref279">
+										<unstructured_citation>Deleuze, Gilles and Félix Guattari, Anti-Oedipus: Capitalism and Schizophrenia, trans. by Robert Hurley, Mark Seem and Helen Lane (Minneapolis: University of Minnesota Press, 1983).</unstructured_citation>
+									</citation>
+									<citation key="ref280">
+										<unstructured_citation>Derrida, Jacques, The Gift of Death, trans. by David Wills (Chicago: University of Chicago Press, 1995).</unstructured_citation>
+									</citation>
+									<citation key="ref281">
+										<unstructured_citation>——, ‘Speech and Phenomena’, in Speech and Phenomena and Other Essays on Husserl’s Theory of Signs, trans. by David B. Allison (Evanston: Northwestern University Press, 1973).</unstructured_citation>
+									</citation>
+									<citation key="ref282">
+										<unstructured_citation>de Staël, Germaine, De la Littérature, considérée dans ses rapports avec les institutions sociales, in Œuvres Complètes, 8 vols. (Paris, 1820).</unstructured_citation>
+									</citation>
+									<citation key="ref283">
+										<doi provider="crossref">10.1093/acprof:oso/9780199572748.001.0001</doi>
+										<unstructured_citation>Duff, David, Romanticism and the Uses of Genre (Oxford: Oxford University Press, 2009).</unstructured_citation>
+									</citation>
+									<citation key="ref284">
+										<unstructured_citation>——, ed., The Oxford Handbook of British Romanticism (Oxford: Oxford University Press, 2018).</unstructured_citation>
+									</citation>
+									<citation key="ref285">
+										<doi>10.1017/9781316160879</doi>
+									</citation>
+									<citation key="ref286">
+										<unstructured_citation>Herder, Johann Gottfried, Briefe zur Beförderung der Humanität (1793–97), in Werke in zehn Bänden, vol. 7, ed. by H. D. Irmscher (Frankfurt: Deutscher Klassiker Verlag, 1991).</unstructured_citation>
+									</citation>
+									<citation key="ref287">
+										<unstructured_citation>Hunt, Leigh, The Feast of the Poets (London: James Cawthorn, 1814).</unstructured_citation>
+									</citation>
+									<citation key="ref288">
+										<doi>10.1007/978-94-007-1730-5_22</doi>
+									</citation>
+									<citation key="ref289">
+										<doi>10.1057/9780230297623</doi>
+									</citation>
+									<citation key="ref290">
+										<unstructured_citation>Lovejoy, Arthur O., ‘On the Discrimination of Romanticisms’, PMLA, 39 (1924), 229–53.</unstructured_citation>
+									</citation>
+									<citation key="ref291">
+										<doi provider="crossref">10.1093/oseo/instance.00220934</doi>
+										<unstructured_citation>Macpherson, James, The Poems of Ossian, ed. by Howard Gaskill (Edinburgh: Edinburgh University Press, 1996).</unstructured_citation>
+									</citation>
+									<citation key="ref292">
+										<unstructured_citation>Matthiessen, F.O., American Renaissance: Art and Expression in the Age of Emerson and Whitman (New York: Oxford University Press, 1941).</unstructured_citation>
+									</citation>
+									<citation key="ref293">
+										<unstructured_citation>McGann, Jerome, The Romantic Ideology (Chicago: University of Chicago Press, 1983)</unstructured_citation>
+									</citation>
+									<citation key="ref294">
+										<unstructured_citation>——, The Beauty of Inflections: Literary Investigations in Historical Method and Theory (Oxford: Clarendon Press, 1985).</unstructured_citation>
+									</citation>
+									<citation key="ref295">
+										<unstructured_citation>——, ed., The New Oxford Book of Romantic Period Verse (Oxford: Oxford University Press, 1993).</unstructured_citation>
+									</citation>
+									<citation key="ref296">
+										<unstructured_citation>McKeon, Michael, The Origins of the English Novel, 1600–1740 (Baltimore: Johns Hopkins University Press, 1988).</unstructured_citation>
+									</citation>
+									<citation key="ref297">
+										<unstructured_citation>Melville, Herman, Pierre, or, The Ambiguities, ed. by Robert S. Forsythe (New York: Knopf, 1930).</unstructured_citation>
+									</citation>
+									<citation key="ref298">
+										<unstructured_citation>Miller, Charles A., Jefferson and Nature: An Interpretation (Baltimore: Johns Hopkins University Press, 1988).</unstructured_citation>
+									</citation>
+									<citation key="ref299">
+										<doi>10.1215/00166928-1507029</doi>
+									</citation>
+									<citation key="ref300">
+										<doi provider="crossref">10.1093/acprof:oso/9780198201045.001.0001</doi>
+										<unstructured_citation>Mitchell, L.G., Charles James Fox (Oxford: Oxford University Press, 1992).</unstructured_citation>
+									</citation>
+									<citation key="ref301">
+										<unstructured_citation>Newlyn, Lucy, Reading, Writing and Romanticism: The Anxiety of Reception (Oxford: Oxford University Press, 2000).</unstructured_citation>
+									</citation>
+									<citation key="ref302">
+										<doi>10.1515/9783110631531</doi>
+									</citation>
+									<citation key="ref303">
+										<unstructured_citation>Ozouf, Mona, ‘Revolutionary Calendar’, in A Critical Dictionary of the French Revolution, ed. by Ozouf and François Furet, trans. by Arthur Goldhammer (Cambridge, MA: Harvard University Press, 1989), pp. 538–47.</unstructured_citation>
+									</citation>
+									<citation key="ref304">
+										<doi>10.1093/acprof:oso/9780199232796.001.0001</doi>
+									</citation>
+									<citation key="ref305">
+										<unstructured_citation>Pospíšil, Ivo and Miloš Zelenka, René Wellek a meziválečné Československo (Ke kořenům strukturální estetiky) (René Wellek and Czechoslovakia between the Two Wars: Towards the Roots of Structural Aesthetics) (Brno: Masarykova Univerzita, 1996).</unstructured_citation>
+									</citation>
+									<citation key="ref306">
+										<unstructured_citation>Prendergast, Christopher, ‘Negotiating World Literature’, New Left Review, 8 (2001), 100–21.</unstructured_citation>
+									</citation>
+									<citation key="ref307">
+										<unstructured_citation>Procházka, Martin,‘Walt Whitman’, Lectures on American Literature, 2nd ed., ed. by Justin Quinn (Prague: Charles University Press, 2011).</unstructured_citation>
+									</citation>
+									<citation key="ref308">
+										<unstructured_citation>——, ‘A Spectre or an Unacknowledged Visionary? Coleridge in Czech Culture’, in The Reception of S.T. Coleridge in Europe, ed. by Elinor Shaffer and Edoardo Zuccato (London: Continuum, 2007), pp. 254–74.</unstructured_citation>
+									</citation>
+									<citation key="ref309">
+										<unstructured_citation>Reiman, Donald H. and Neil Fraistat, eds, Shelley’s Poetry and Prose, 2nd ed. (New York: Norton, 2002).</unstructured_citation>
+									</citation>
+									<citation key="ref310">
+										<unstructured_citation>Rosen, Charles and Henri Zerner, Romanticism and Realism: The Mythology of Nineteenth Century Art (London: Faber, 1984).</unstructured_citation>
+									</citation>
+									<citation key="ref311">
+										<unstructured_citation>Saint-Just, Œuvres complètes, ed. by Michèle Duval (Paris: Gérard Lebovici, 1984).</unstructured_citation>
+									</citation>
+									<citation key="ref312">
+										<unstructured_citation>Settis, Salvatore, ‘Continuità, distanza, conoscenza: tre usi dell’antico’, in Memoria dell’antico nell’arte italiana, vol. 3: Dalla tradizione all’archeologia, ed. by Settis (Turin: Einaudi, 1996), pp. 375–486.</unstructured_citation>
+									</citation>
+									<citation key="ref313">
+										<unstructured_citation>Southey, Robert, Letters from England (London, 1807).</unstructured_citation>
+									</citation>
+									<citation key="ref314">
+										<doi>10.1017/9781108632218</doi>
+									</citation>
+									<citation key="ref315">
+										<unstructured_citation>——, ‘Romantic Macpherson’, in The Edinburgh Companion to Scottish Romanticism, ed. by Murray Pittock (Edinburgh: Edinburgh University Press, 2011), pp. 27–38.</unstructured_citation>
+									</citation>
+									<citation key="ref316">
+										<unstructured_citation>St John, Henry, Lord Viscount Bolingbroke, Letters on the Study and Use of History (London: A. Millar, 1752).</unstructured_citation>
+									</citation>
+									<citation key="ref317">
+										<unstructured_citation>Turner, Frederick Jackson, ‘The Significance of the Frontier in American History’, in The Frontier in American History (New York: Henry Holt, 1921), pp. 1–38.</unstructured_citation>
+									</citation>
+									<citation key="ref318">
+										<unstructured_citation>Veyne, Paul, Comment on écrit l’histoire, 2nd ed. (Paris: Seuil, 1978).</unstructured_citation>
+									</citation>
+									<citation key="ref319">
+										<unstructured_citation>——, Writing History: Essay on Epistemology, trans. by M. Moore-Rinvolucri (Manchester: Manchester University Press, 1984).</unstructured_citation>
+									</citation>
+									<citation key="ref320">
+										<unstructured_citation>Vodička, Felix, Struktura vývoje (The Structure of Development, 1969), 2nd enlarged ed. (Prague: Dauphin, 1998).</unstructured_citation>
+									</citation>
+									<citation key="ref321">
+										<unstructured_citation>Wellek, René, ‘Romanticism Re-examined’, in Concepts of Criticism (New Haven: Yale University Press, 1963), pp. 199–221.</unstructured_citation>
+									</citation>
+									<citation key="ref322">
+										<doi provider="crossref">10.2307/1768325</doi>
+										<unstructured_citation>——, ‘The Concept of Romanticism in Literary History’, Comparative Literature, 1 (1949), 1–23, 147–72.</unstructured_citation>
+									</citation>
+									<citation key="ref323">
+										<unstructured_citation>—— and Austin Warren, Theory of Literature, 3rd ed. (Harmondsworth: Penguin Books, 1966).</unstructured_citation>
+									</citation>
+									<citation key="ref324">
+										<unstructured_citation>Williams, Helen Maria, Letters Containing a Sketch of the Politics of France (London: G. G. and J. Robinson, 1795).</unstructured_citation>
+									</citation>
+									<citation key="ref325">
+										<unstructured_citation>Wölfflin, Heinrich, Kunstgeschlichtliche Grundebegriffe: Das Problem der Stilentwicklung in der neueren Kunst (Munich: Bruckmann, 1915).</unstructured_citation>
+									</citation>
+								</citation_list>
+							</book_metadata>
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+						</book>
+					</crossref>
+				</doi_record>
+			</query>
+		</body>
+	</query_result>
+</crossref_result>

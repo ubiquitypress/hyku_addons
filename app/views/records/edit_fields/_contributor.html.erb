@@ -61,13 +61,17 @@
 		<% field_options = { field_slug: :contributor_isni, field_group: :contributor, template: template, hash: hash } %>
 		<%= render "records/edit_fields/attribution_partials/text_field", field_options %>
 
+		<% model = f.object.model.class %>
+		<% opts = HykuAddons::ContributorGroupService.new(model: model).select_active_options.flatten.uniq! %>
 		<% field_options = {
 			field_slug: :contributor_type,
 			field_group: :contributor,
 			template: template,
 			hash: hash,
-			select_options: HykuAddons::ContributorGroupService.new(model: f.object.model.class).select_active_options.flatten.uniq!,
-			field_args: { prompt: "Please Select..." }
+			select_options: opts,
+			# The class here is a fix to sort out the variation in the contributor field names
+			group_class: "form-group contributor_type-group #{template}_contributor_contributor_type",
+			field_args: { prompt: "Please Select...", class: "form-control #{template}_contributor_contributor_type" }
 		} %>
 		<%= render "records/edit_fields/attribution_partials/select_field", field_options unless (template.include? "pacific") || (template.include? "uva") %>
 

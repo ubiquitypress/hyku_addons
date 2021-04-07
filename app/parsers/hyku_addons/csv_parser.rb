@@ -63,5 +63,9 @@ module HykuAddons
     def collections_total
       collections.size + admin_sets.size
     end
+
+    def path_to_files
+      ENV['BULKRAX_FILE_PATH'].presence || super
+    end
   end
 end

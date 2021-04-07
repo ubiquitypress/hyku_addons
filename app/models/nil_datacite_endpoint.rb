@@ -5,7 +5,6 @@ class NilDataCiteEndpoint < NilEndpoint
     Hyrax::DOI::DataCiteRegistrar.prefix = nil
     Hyrax::DOI::DataCiteRegistrar.username = nil
     Hyrax::DOI::DataCiteRegistrar.password = nil
-    Rails.application.routes.default_url_options[:host] = nil
   end
 
   def mode
