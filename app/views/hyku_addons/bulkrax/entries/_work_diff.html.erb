@@ -1,0 +1,27 @@
+<div class="accordion-container">
+  <div class="accordion-heading" role="tab" id="work-diff-heading">
+    <a class="accordion-title" role="button" data-toggle="collapse" data-target="#work-diff-show" aria-expanded="true" aria-controls="work-diff-show">
+      Solr Metadata:
+    </a>
+    <a role="button" data-toggle="collapse" data-target="#work-diff-show" aria-expanded="true" aria-controls="work-diff-show">
+      <div class="accordion-icon glyphicon glyphicon-remove-circle" aria-hidden="true"></div>
+    </a>
+  </div>
+  <div id="work-diff-show" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="work-diff-show">
+    <div class="accordion-body">
+      <%  diff_renderer = Hyrax::Renderers::WorkMetadataDiffRenderer.new(@entry, self) %>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Source</h3>
+          <%= diff_renderer.render_source_metadata %>
+        </div>
+        <div class="col-md-6">
+          <h3>Destination</h3>
+          <%= diff_renderer.render_destination_metadata %>
+        </div>
+      </div>
+      <h3>Differences: </h3>
+      <%= diff_renderer.render_diff %>
+    </div>
+  </div>
+</div>

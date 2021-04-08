@@ -1,0 +1,17 @@
+<div class="accordion-container">
+  <div class="accordion-heading" role="tab" id="original-metadata-heading">
+    <a class="accordion-title" role="button" data-toggle="collapse" data-target="#original-metadata-show" aria-expanded="true" aria-controls="original-metadata-show">
+      Original metadata:
+    </a>
+    <a role="button" data-toggle="collapse" data-target="#original-metadata-show" aria-expanded="true" aria-controls="original-metadata-show">
+      <div class="accordion-icon glyphicon glyphicon-remove-circle" aria-hidden="true"></div>
+    </a>
+  </div>
+  <div id="original-metadata-show" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="original-metadata-show">
+    <div class="accordion-body">
+      <% HykuAddons::BlacklightWorkJsonService.new(current_account, @entry.identifier).fetch.each do |k, v| %>
+        <strong><%= k %>:</strong> <%= v %><br>
+      <% end %>
+    </div>
+  </div>
+</div>
