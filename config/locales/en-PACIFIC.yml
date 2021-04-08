@@ -12,6 +12,9 @@ en-PACIFIC:
         label: Creator Role
         placeholder:
         help_text: The role of the creator
+      creator_institution:
+        label: Institution
+        placeholder: " "
     contributor:
       contributor_family_name:
         label: Last Name
