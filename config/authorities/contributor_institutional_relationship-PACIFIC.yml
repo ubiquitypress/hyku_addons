@@ -2,7 +2,7 @@ terms:
   - term: Advisor
     id:  Advisor
     active: true
-  - term: Partner Organisation
+  - term: Partner Organization
     id: Partner Organisation
     active: true
   - term: Contributor

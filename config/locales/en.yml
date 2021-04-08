@@ -35,11 +35,11 @@ en:
       creator_name_type:
         label: Creator name type
         placeholder:
-        help_text: The person or group responsible for the work. Usually this is the author of the content.
+        help_text: The person or group responsible for the work. Usually this is the author of the content
       creator_organization_name:
         label: Creator organisation name
         placeholder: The British Library
-        help_text: Please enter the organisation's name.
+        help_text: Please enter the organisation's name
       creator_ror:
         label: Creator organisation ROR
         placeholder: e.g. 05gknh003
@@ -55,11 +55,11 @@ en:
       creator_family_name:
         label: Creator family name
         placeholder: e.g. Einstein
-        help_text: Please enter the creator's last name/family name.
+        help_text: Please enter the creator's last name/family name
       creator_given_name:
         label: Creator given name
         placeholder: e.g. Albert
-        help_text: Please enter the creator's first name/given name.
+        help_text: Please enter the creator's first name/given name
       creator_orcid:
         label: Creator ORCID
         placeholder: e.g. 0000-1234-5678-9101.
@@ -67,7 +67,7 @@ en:
       creator_institutional_relationship:
         label: Creator institutional relationship
         placeholder:
-        help_text: The relationship of the creator within the institution.
+        help_text: The relationship of the creator within the institution
       creator_isni:
         label: Creator ISNI
         placeholder: e.g. 0000 1234 5678 9101.
@@ -91,10 +91,10 @@ en:
       contributor_name_type:
         label: Contributor name type
         placeholder:
-        help_text: A person or group you want to recognise for playing a role in the creation of the work, but not the primary role.
+        help_text: A person or group you want to recognise for playing a role in the creation of the work, but not the primary role
       contributor_organization_name:
         label: Contributor organisation name
-        placeholder: Please enter the organisation's name.
+        placeholder: Please enter the organisation's name
         help_text:
       contributor_ror:
         label: Contributor organisation ROR
@@ -111,11 +111,11 @@ en:
       contributor_family_name:
         label: Contributor family name
         placeholder: e.g. Einstein
-        help_text: Please enter the contributor's last name/family name.
+        help_text: Please enter the contributor's last name/family name
       contributor_given_name:
         label: Contributor given name
         placeholder: e.g. Albert
-        help_text: Please enter the contributor's first name/given name.
+        help_text: Please enter the contributor's first name/given name
       contributor_orcid:
         label: Contributor ORCID
         placeholder: e.g. 0000-1234-5678-9101.
@@ -131,7 +131,7 @@ en:
       contributor_type:
         label: Contributor role
         placeholder:
-        help_text: The relationship of the contributor within the instittion.
+        help_text: The relationship of the contributor within the instittion
       contributor_middle_name:
         label: Middle Name
         placeholder: Please enter a middle name
@@ -151,23 +151,23 @@ en:
       editor_name_type:
         label: Editor name type
         placeholder:
-        help_text: The editors that produced this item, in priority order. To add multiple editors, repeat this property.
+        help_text: The editors that produced this item, in priority order. To add multiple editors, repeat this property
       editor_organization_name:
         label: Editor organisation name
         placeholder:
-        help_text: Please enter the organisation's name.
+        help_text: Please enter the organisation's name
       editor_family_name:
         label: Editor family name
         placeholder: e.g. Einstein
-        help_text: Please enter the editor's last name/family name.
+        help_text: Please enter the editor's last name/family name
       editor_given_name:
         label: Editor given name
         placeholder: e.g. Albert
-        help_text: Please enter the editor's first name/given name.
+        help_text: Please enter the editor's first name/given name
       editor_orcid:
         label: Editor ORCID
         placeholder: e.g. 0000-1234-5678-9101
-        help_text: Please enter the editor's ORCID.
+        help_text: Please enter the editor's ORCID
       editor_institutional_relationship:
         label: Editor institutional relationship
         placeholder:
@@ -175,7 +175,7 @@ en:
       editor_isni:
         label: Editor ISNI
         placeholder: e.g. 0000 1234 5678 9101
-        help_text: Please enter the editor's ISNI.
+        help_text: Please enter the editor's ISNI
 
   settings:
     helptexts:

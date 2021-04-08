@@ -12,6 +12,9 @@ en-PACIFIC:
         label: Creator Role
         placeholder:
         help_text: The role of the creator
+      creator_institution:
+        label: Institution
+        placeholder: " "
     contributor:
       contributor_family_name:
         label: Last Name
@@ -20,11 +23,14 @@ en-PACIFIC:
       contributor_type:
         label: Contributor role
         placeholder:
-        help_text: The relationship of the contributor within the instittion.
+        help_text: The relationship of the contributor within the instittion
       contributor_isni:
-        label: Contributor Organisation Isni
+        label: Contributor ISNI
       contributor_institutional_relationship:
         label: Contributor Role
+      contributor_institution:
+        label: Institution
+        placeholder: " "
     labels:
       defaults:
         org_unit: Department

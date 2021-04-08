@@ -1,0 +1,9 @@
+en-PACIFIC:
+  # GenericWork help text and form labels
+  simple_form:
+    hints:
+      defaults:
+        title: " "
+    labels:
+      defaults:
+        alt_title: Alternative Title
