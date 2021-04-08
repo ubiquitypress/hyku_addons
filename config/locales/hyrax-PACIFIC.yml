@@ -4,3 +4,6 @@ en-PACIFIC:
     hints:
       defaults:
         title: " "
+    labels:
+      defaults:
+        alt_title: Alternative Title
