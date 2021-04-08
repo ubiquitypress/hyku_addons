@@ -3,59 +3,59 @@ en:
   simple_form:
     hints:
       defaults:
-        title: A name to aid in identifying a work.
-        alt_title: Alternative title for the item, such as a translated or abbreviated form of the title.
-        institution: The institution to which the item is affiliated.
-        org_unit: The department, or unit, that the works sits within as per the organisational structure.
-        refereed: Please select if the item was peer-reviewed.
+        title: A name to aid in identifying a work
+        alt_title: Alternative title for the item, such as a translated or abbreviated form of the title
+        institution: The institution to which the item is affiliated
+        org_unit: The department, or unit, that the works sits within as per the organisational structure
+        refereed: Please select if the item was peer-reviewed
         funder: Use full name e.g. Arts and Humanities Research Council
-        fndr_project_ref: This may be the grant number as allocated by the funding body.
-        add_info: Please enter any additional information here that has not been entered. The information added in this field will be visible to everyone in the public view.
-        date_published: The date the item was published and made publicly available. Provide just the year or a more specific date. If you are minting a DOI for this item, this field is mandatory.
-        date_accepted: The date the item was accepted for publication. For example, this may be when receiving an acceptance letter from a publisher or when the final text has been copyedited and approved. You can provide just the year or a more specific date if you have this available.
+        fndr_project_ref: This may be the grant number as allocated by the funding body
+        add_info: Please enter any additional information here that has not been entered. The information added in this field will be visible to everyone in the public view
+        date_published: The date the item was published and made publicly available. Provide just the year or a more specific date. If you are minting a DOI for this item, this field is mandatory
+        date_accepted: The date the item was accepted for publication. For example, this may be when receiving an acceptance letter from a publisher or when the final text has been copyedited and approved. You can provide just the year or a more specific date if you have this available
         date_submitted: The date the item was submitted for review to the publisher.  You can provide just the year or a more specific date if you have this available.
-        issue: Specify the issue number, where available.
-        volume: Please enter the number. Leave blank if there are no volumes.
-        pagination: For a contribution or article, this can be the range of pages e.g. 1-13, for an entire volume it can be the total number of pages.
+        issue: Specify the issue number, where available
+        volume: Please enter the number. Leave blank if there are no volumes
+        pagination: For a contribution or article, this can be the range of pages e.g. 1-13, for an entire volume it can be the total number of pages
         article_num: If there is an article number, e.g. e0183455 (usually found in online-only journals)
-        related_exhibition_venue: The venue(s) that hosted the related exhibition.
-        rights_holder: Please identify the rights holder if different from the creator.
+        related_exhibition_venue: The venue(s) that hosted the related exhibition
+        rights_holder: Please identify the rights holder if different from the creator
         project_name: The name of the project the work relates to, where relevant
-        doi: A persistent digital object identifier, if your item already has one then enter this here in the following model e.g. 10.21250/tcq.
-        qualification_name: The name of the qualification.
-        qualification_level: Select one.
-        isbn: ISBN for this item, if available.
-        issn: ISSN for this item, if available.
-        eissn: eISSN for this item, if available.
-        current_he_institution_name: The current name of the HE institution responsible for the thesis. Select one.
-        official_link: Please enter the official URL, e.g. the publisher's link to the item.
+        doi: A persistent digital object identifier, if your item already has one then enter this here in the following model e.g. 10.21250/tcq
+        qualification_name: The name of the qualification
+        qualification_level: Select one
+        isbn: ISBN for this item, if available
+        issn: ISSN for this item, if available
+        eissn: eISSN for this item, if available
+        current_he_institution_name: The current name of the HE institution responsible for the thesis. Select one
+        official_link: Please enter the official URL, e.g. the publisher's link to the item
         place_of_publication: Enter the town/city and country, or country only, e.g. London, UK or UK
-        abstract: Please provide a short abstract or description of the item.
-        resource_type: Select the specific resource type that best describes the work.
-        publisher: The name of the organisation making the work available.
-        keyword: Words or phrases you select to describe what the work is about. These are used to search for content.
-        rights_statement: Please select the most appropriate rights statement for the item.
+        abstract: Please provide a short abstract or description of the item
+        resource_type: Select the specific resource type that best describes the work
+        publisher: The name of the organisation making the work available
+        keyword: Words or phrases you select to describe what the work is about. These are used to search for content
+        rights_statement: Please select the most appropriate rights statement for the item
         library_of_congress_classification: "The letter code corresponding to the LCC - eg 'QK' for 'Botany' - see: <a href='https://en.wikipedia.org/wiki/Library_of_Congress_Classification' target='_blank'>https://en.wikipedia.org/wiki/Library_of_Congress_Classification</a>"
         # Hyku - Addons
-        media: 'Describe the material and/or media of the item.'
-        duration: 'State the length of time the output lasts and the unit of measurement.'
+        media: 'Describe the material and/or media of the item'
+        duration: 'State the length of time the output lasts and the unit of measurement'
         funder_name: "Please start typing the funder's name, then select from the dropdown list"
         funder_doi: Please enter the Funder DOI
         funder_isni: Please enter the Funder ISNI
         funder_ror: Please enter the Funder ROR
-        funder_awards: Please enter the award number.
-        event_title: The title of the conference, symposium or other event type.
+        funder_awards: Please enter the award number
+        event_title: The title of the conference, symposium or other event type
         event_location:
         event_date:
-        series_name: Please enter the series title.
-        journal_title: Please enter the journal title.
-        alternative_journal_title: Alternative title for the journal, such as a translated or abbreviated form of the title.
-        version_number: The version number of the resource. If there are major changes then you must mint a new identifier like the DOI.
-        edition: For journals, specify the issue number (if available). For books/reports, if this is not the first edition, please specify in the format e.g. 2nd.
-        related_exhibition: If the work relates to an exhibition, please enter it here.
-        dewey: Please enter the Dewey classmark.
-        alternate_identifier: May be used for local identifiers such as project codes. Please include a prefix so a reader can distinguish between multiple identifiers.
-        alternate_identifier_type: State the type of alternate identifier.
+        series_name: Please enter the series title
+        journal_title: Please enter the journal title
+        alternative_journal_title: Alternative title for the journal, such as a translated or abbreviated form of the title
+        version_number: The version number of the resource. If there are major changes then you must mint a new identifier like the DOI
+        edition: For journals, specify the issue number (if available). For books/reports, if this is not the first edition, please specify in the format e.g. 2nd
+        related_exhibition: If the work relates to an exhibition, please enter it here
+        dewey: Please enter the Dewey classmark
+        alternate_identifier: May be used for local identifiers such as project codes. Please include a prefix so a reader can distinguish between multiple identifiers
+        alternate_identifier_type: State the type of alternate identifier
 
     labels:
       defaults:
