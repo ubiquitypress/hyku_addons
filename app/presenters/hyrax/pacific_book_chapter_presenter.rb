@@ -8,8 +8,8 @@ module Hyrax
 
     def self.delegated_methods
       %i[title alt_title resource_type creator institution contributor abstract
-       date_published book_title pagination is_included_in volume publisher isbn issn additional_links rights_holder
-       license org_unit doi subject keyword refereed add_info].freeze
+         date_published book_title pagination is_included_in volume publisher isbn issn additional_links rights_holder
+         license org_unit doi subject keyword refereed add_info].freeze
     end
   end
 end

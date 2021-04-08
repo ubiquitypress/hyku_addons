@@ -8,7 +8,7 @@ module Hyrax
 
     def self.delegated_methods
       %i[title resource_type creator abstract license keyword contributor language
-      publisher date_published related_url funder add_info].freeze
+         publisher date_published related_url funder add_info].freeze
     end
   end
 end
