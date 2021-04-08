@@ -25,7 +25,7 @@ en-PACIFIC:
         placeholder:
         help_text: The relationship of the contributor within the instittion.
       contributor_isni:
-        label: Contributor Organisation Isni
+        label: Contributor ISNI
       contributor_institutional_relationship:
         label: Contributor Role
       contributor_institution:
