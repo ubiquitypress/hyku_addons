@@ -45,6 +45,10 @@ class PacificBook < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
+  property :page_display_order_number, predicate: ::RDF::Vocab::SCHEMA.orderNumber, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
   self.indexer = PacificBookIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
