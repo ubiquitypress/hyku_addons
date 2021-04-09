@@ -24,8 +24,9 @@ module HykuAddons
           # TODO:
           # Save the returned object to the users profile
 
-          headers = { authorization: "Bearer #{body['access_token']}", "Content-Type": "application/orcid+json" }
-          response = Faraday.get(helpers.orcid_api_uri(body["orcid"], :record), nil, headers)
+          UserOrcidAuthorization.new(body.except("name").merge(user_id: current_user.id))
+          # headers = { authorization: "Bearer #{body['access_token']}", "Content-Type": "application/orcid+json" }
+          # response = Faraday.get(helpers.orcid_api_uri(body["orcid"], :record), nil, headers)
 
           render json: response.body, status: 200
         else
