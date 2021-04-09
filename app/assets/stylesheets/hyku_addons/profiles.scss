@@ -1,0 +1,18 @@
+.list-group {
+  &:last-child {
+    padding-right: 0;
+  }
+}
+
+.btn {
+  &.btn-orcid {
+    border: 3px solid #d2e69c;
+    color: #333;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+
+    &:hover, &:focus, &:active {
+      background-color: #d2e69c;
+    }
+  }
+}

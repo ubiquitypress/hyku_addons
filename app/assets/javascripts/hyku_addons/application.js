@@ -35,6 +35,10 @@ const onLoad = function() {
 
   new AutofillWorkForm()
 
+  $("a.popup").each(function() {
+    new PopupWindow($(this))
+  });
+
   $("[data-behavior=hyku_addons-select-work]").each(function() {
     new SelectWorkType($(this))
   });
