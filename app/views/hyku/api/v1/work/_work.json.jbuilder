@@ -96,7 +96,7 @@ else
 end
 json.title work.title.first
 json.type "work"
-json.version work.try(:version)
+json.version work.try(:version_number)
 json.visibility work.solr_document.visibility
 json.volume work.try(:volume)
 json.work_type work.model.model_name.to_s
