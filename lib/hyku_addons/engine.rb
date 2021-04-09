@@ -465,6 +465,7 @@ module HykuAddons
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
       ::ActiveJob::Base.include HykuAddons::ImportMode
       Hyrax::Dashboard::ProfilesController.prepend HykuAddons::Dashboard::ProfilesControllerBehavior
+      User.include HykuAddons::UserBehavior
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
