@@ -57,15 +57,15 @@ class PacificUncategorized < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
-  property :refereed, predicate: ::RDF::Vocab::BIBO.term("status/peerReviewed"), multiple: false do |index|
-    index.as :stored_searchable
-  end
-
   property :irb_status, predicate: ::RDF::Vocab::BF2.Status, multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
 
   property :irb_number, predicate: ::RDF::Vocab::BIBO.identifier, multiple: false do |index|
+    index.as :stored_searchable, :facetable
+  end
+
+  property :location, predicate: ::RDF::Vocab::BF2.physicalLocation, multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
 

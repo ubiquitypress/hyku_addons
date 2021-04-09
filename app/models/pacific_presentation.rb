@@ -33,6 +33,10 @@ class PacificPresentation < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  property :location, predicate: ::RDF::Vocab::BF2.physicalLocation, multiple: false do |index|
+    index.as :stored_searchable, :facetable
+  end
+
   self.indexer = PacificPresentationIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []

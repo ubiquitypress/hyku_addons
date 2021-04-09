@@ -11,6 +11,6 @@ module Hyrax
 
     DELEGATED_METHODS = %i[title alt_title resource_type creator contributor abstract
                            date_published pagination is_included_in volume publisher issn source additional_links rights_holder license
-                           org_unit doi subject keyword refereed add_info].freeze
+                           location org_unit doi subject keyword refereed add_info].freeze
   end
 end
