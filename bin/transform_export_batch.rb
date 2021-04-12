@@ -101,7 +101,7 @@ def gather_values(field, row, options)
   field_values = row.values_at(*@fields[field][:old_indexes])
   if field == 'resource_type'
     model_name = row.values_at(*@fields["model"][:old_indexes]).first
-    field_values.map { |v| v.delete_prefix(model_name + " ").delete_prefix('default ').delete_prefix('Default ') }
+    field_values.map { |v| v.delete_prefix(model_name + " ").delete_prefix('default ').delete_prefix('Default ').titleize }
   elsif field == 'model'
     # FIXME: make this model mapping configurable
     field_values.map do |v|
