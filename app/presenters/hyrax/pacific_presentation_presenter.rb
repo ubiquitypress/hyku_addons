@@ -11,5 +11,6 @@ module Hyrax
          date_published pagination is_included_in volume publisher issn additional_links rights_holder license
          org_unit doi subject keyword refereed add_info].freeze
     end
+    include ::HykuAddons::PresenterDelegatable
   end
 end

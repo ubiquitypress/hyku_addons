@@ -12,5 +12,6 @@ module Hyrax
          issn additional_links rights_holder license location doi degree org_unit subject keyword refereed irb_status
          irb_number add_info].freeze
     end
+    include ::HykuAddons::PresenterDelegatable
   end
 end

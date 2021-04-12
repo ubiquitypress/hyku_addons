@@ -16,5 +16,6 @@ module Hyrax
        :title, :date_created, :description, :related_exhibition, :related_exhibition_venue,
        :place_of_publication].freeze
     end
+    include ::HykuAddons::PresenterDelegatable
   end
 end

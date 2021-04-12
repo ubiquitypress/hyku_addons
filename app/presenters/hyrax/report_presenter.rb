@@ -14,5 +14,6 @@ module Hyrax
          alternate_identifier related_identifier refereed keyword dewey
          library_of_congress_classification add_info pagination].freeze
     end
+    include ::HykuAddons::PresenterDelegatable
   end
 end

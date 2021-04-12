@@ -12,5 +12,6 @@ module Hyrax
          publisher additional_links rights_holder rights_holder license location
          org_unit official_link subject keyword refereed add_info].freeze
     end
+    include ::HykuAddons::PresenterDelegatable
   end
 end

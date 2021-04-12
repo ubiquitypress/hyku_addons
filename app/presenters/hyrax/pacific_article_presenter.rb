@@ -12,5 +12,6 @@ module Hyrax
          isbn buy_book location official_link rights_holder license org_unit doi subject keyword refereed irb_status
          irb_number add_info].freeze
     end
+    include ::HykuAddons::PresenterDelegatable
   end
 end

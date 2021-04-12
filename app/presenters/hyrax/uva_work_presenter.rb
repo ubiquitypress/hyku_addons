@@ -10,5 +10,6 @@ module Hyrax
       %i[title resource_type creator abstract license keyword contributor language
          publisher date_published related_url funder add_info].freeze
     end
+    include ::HykuAddons::PresenterDelegatable
   end
 end

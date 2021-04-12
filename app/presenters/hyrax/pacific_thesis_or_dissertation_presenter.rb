@@ -14,5 +14,6 @@ module Hyrax
        :library_of_congress_classification, :alt_title, :dewey, :location, :page_display_order_number,
        :title, :date_created, :description, :additional_links, :pagination, :degree].freeze
     end
+    include ::HykuAddons::PresenterDelegatable
   end
 end

@@ -14,5 +14,6 @@ module Hyrax
          license rights_statement rights_holder doi alternate_identifier related_identifier refereed keyword
          dewey library_of_congress_classification add_info].freeze
     end
+    include ::HykuAddons::PresenterDelegatable
   end
 end

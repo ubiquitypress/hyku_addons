@@ -17,8 +17,7 @@ module HykuAddons
          :library_of_congress_classification, :alt_title, :dewey,
          :title, :date_created, :description, :export_as_ris].freeze
       end
-
-      delegate(*delegated_methods, to: :solr_document)
+      include HykuAddons::PresenterDelegatable
 
       alias_method :isbns, :isbn
     end

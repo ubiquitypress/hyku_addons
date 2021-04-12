@@ -12,5 +12,6 @@ module Hyrax
          photo_caption photo_description pagination is_included_in additional_links
          page_display_order_number rights_holder license doi subject keyword add_info].freeze
     end
+    include ::HykuAddons::PresenterDelegatable
   end
 end
