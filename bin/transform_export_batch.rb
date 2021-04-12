@@ -92,6 +92,7 @@ field_mappings = {
 }
 
 field_mappings.each do |old_name, new_name|
+  next unless new_headers.index(old_name)
   new_headers[new_headers.index(old_name)] = new_name
   @fields[new_name] = @fields.delete(old_name)
 end
@@ -100,10 +101,12 @@ def gather_values(field, row, options)
   field_values = row.values_at(*@fields[field][:old_indexes])
   if field == 'resource_type'
     model_name = row.values_at(*@fields["model"][:old_indexes]).first
-    field_values.map { |v| v.delete_prefix(model_name + " ").delete_prefix('default ') }
+    field_values.map { |v| v.delete_prefix(model_name + " ").delete_prefix('default ').delete_prefix('Default ').titleize }
   elsif field == 'model'
     # FIXME: make this model mapping configurable
-    field_values.map { |v| "Pacific" + v.delete_suffix("Work") }
+    field_values.map do |v|
+      "Pacific" + (v == "TextWork" ? v : v.delete_suffix("Work"))
+    end
   elsif field == 'doi'
     # Extract DOI from DOI url
     field_values.map do |v|
