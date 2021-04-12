@@ -1,10 +1,15 @@
 # frozen_string_literal: true
-# Generated via
-#  `rails generate hyrax:work PacificBook`
+
 require 'rails_helper'
 
 RSpec.describe Hyrax::PacificBookPresenter do
-  it "has tests" do
-    skip "Add your tests here"
+  let(:presenter) { described_class.new(solrdoc, nil, nil) }
+  let(:work) { PacificBook.new }
+  let(:solrdoc) { SolrDocument.new(work.to_solr, nil) }
+
+  describe 'accessors' do
+    it 'defines accessors' do
+      described_class.delegated_methods.each { |property| expect(presenter).to respond_to(property) }
+    end
   end
 end
