@@ -101,7 +101,15 @@ def gather_values(field, row, options)
   field_values = row.values_at(*@fields[field][:old_indexes])
   if field == 'resource_type'
     model_name = row.values_at(*@fields["model"][:old_indexes]).first
-    field_values.map { |v| v.delete_prefix(model_name + " ").delete_prefix('default ').delete_prefix('Default ').titleize }
+    values = field_values.map { |v| v.delete_prefix(model_name + " ").delete_prefix('default ').delete_prefix('Default ').titleize }
+    values.map do |v|
+      if HykuAddons::ResourceTypesService.new(model: "Pacific#{model_name}".delete_suffix("Work").safe_constantize).authority.find(v).blank?
+        puts "Invalid resource type found for #{model_name}, #{v}, #{row[0]}...Defaulting to \"#{model_name}\""
+        model_name
+      else
+        v
+      end
+    end
   elsif field == 'model'
     # FIXME: make this model mapping configurable
     field_values.map do |v|
