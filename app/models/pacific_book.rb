@@ -33,11 +33,19 @@ class PacificBook < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :buy_book, predicate: ::RDF::Vocab::SCHEMA.BuyAction, multiple: true do |index|
+  property :buy_book, predicate: ::RDF::Vocab::SCHEMA.BuyAction, multiple: false do |index|
     index.as :stored_searchable
   end
 
   property :isbn, predicate: ::RDF::Vocab::BIBO.isbn, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :location, predicate: ::RDF::Vocab::BF2.physicalLocation, multiple: false do |index|
+    index.as :stored_searchable, :facetable
+  end
+
+  property :page_display_order_number, predicate: ::RDF::Vocab::SCHEMA.orderNumber, multiple: false do |index|
     index.as :stored_searchable
   end
 

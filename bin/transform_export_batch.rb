@@ -85,7 +85,10 @@ field_mappings = {
   'work_type' => 'model',
   'additional_information' => 'add_info',
   'alternative_title' => 'alt_title',
-  'organisational_unit' => 'org_unit'
+  'organisational_unit' => 'org_unit',
+  'doi' => 'official_link',
+  'version' => 'version_number',
+  'locations' => 'location'
 }
 
 field_mappings.each do |old_name, new_name|
