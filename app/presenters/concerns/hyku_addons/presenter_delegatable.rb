@@ -9,7 +9,7 @@ module HykuAddons
     end
 
     included do
-      delegate(*self.delegated_methods, to: :solr_document)
+      delegate(*delegated_methods, to: :solr_document)
     end
   end
 end
