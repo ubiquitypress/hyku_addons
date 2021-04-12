@@ -4,12 +4,7 @@ module HykuAddons
   module GenericWorkPresenterBehavior
     extend ActiveSupport::Concern
 
-    include HykuAddons::PersonOrOrganizationPresenterBehavior
-
     included do
-      include Hyrax::DOI::DOIPresenterBehavior
-      include Hyrax::DOI::DataCiteDOIPresenterBehavior
-
       def self.delegated_methods
         [:volume, :pagination, :issn, :eissn, :contributor_display, :official_link, :series_name, :edition,
          :event_title, :event_date, :event_location, :book_title, :journal_title,
@@ -26,10 +21,6 @@ module HykuAddons
       delegate(*delegated_methods, to: :solr_document)
 
       alias_method :isbns, :isbn
-    end
-
-    def editor_list
-      @editor_list ||= person_or_organization_list(:editor)
     end
   end
 end

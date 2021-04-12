@@ -4,7 +4,7 @@ module Hyrax
   class DatasetPresenter < Hyrax::WorkShowPresenter
     include Hyrax::DOI::DOIPresenterBehavior
     include Hyrax::DOI::DataCiteDOIPresenterBehavior
-    include ::HykuAddons::GenericWorkPresenterBehavior
+    include ::HykuAddons::WorkPresenterBehavior
 
     def self.delegated_methods
       [:institution, :org_unit, :refereed, :funder, :fndr_project_ref, :add_info, :date_published,

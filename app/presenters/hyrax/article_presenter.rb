@@ -3,7 +3,7 @@ module Hyrax
   class ArticlePresenter < Hyrax::WorkShowPresenter
     include Hyrax::DOI::DOIPresenterBehavior
     include Hyrax::DOI::DataCiteDOIPresenterBehavior
-    include ::HykuAddons::GenericWorkPresenterBehavior
+    include ::HykuAddons::WorkPresenterBehavior
 
     def self.delegated_methods
       [:volume, :pagination, :issn, :eissn, :contributor_display, :publisher, :official_link,

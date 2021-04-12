@@ -4,7 +4,7 @@ module Hyrax
   class UvaWorkPresenter < Hyrax::WorkShowPresenter
     include Hyrax::DOI::DOIPresenterBehavior
     include Hyrax::DOI::DataCiteDOIPresenterBehavior
-    include ::HykuAddons::GenericWorkPresenterBehavior
+    include ::HykuAddons::WorkPresenterBehavior
 
     def self.delegated_methods
       %i[title resource_type creator abstract license keyword contributor language

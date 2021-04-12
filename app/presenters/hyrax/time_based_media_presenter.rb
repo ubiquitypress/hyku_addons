@@ -4,7 +4,7 @@ module Hyrax
   class TimeBasedMediaPresenter < Hyrax::WorkShowPresenter
     include Hyrax::DOI::DOIPresenterBehavior
     include Hyrax::DOI::DataCiteDOIPresenterBehavior
-    include ::HykuAddons::GenericWorkPresenterBehavior
+    include ::HykuAddons::WorkPresenterBehavior
 
     def self.delegated_methods
       %i[title resource_type creator alt_title contributor rendering_ids abstract date_published media
