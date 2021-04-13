@@ -1,16 +1,14 @@
 # frozen_string_literal: true
-# Generated via
-#  `rails generate hyrax:work PacificBook`
+
 module Hyrax
   class PacificBookPresenter < Hyrax::WorkShowPresenter
-    # Adds behaviors for hyrax-doi plugin.
-    include Hyrax::DOI::DOIPresenterBehavior
-    # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
-    include Hyrax::DOI::DataCiteDOIPresenterBehavior
-    include ::HykuAddons::GenericWorkPresenterBehavior
+    include ::HykuAddons::WorkPresenterBehavior
 
-    DELEGATED_METHODS = %i[title alt_title resource_type creator contributor abstract institution date_published official_link
-                           pagination is_included_in volume buy_book publisher isbn issn additional_links page_display_order_number
-                           location rights_holder license org_unit doi subject keyword refereed add_info].freeze
+    def self.delegated_methods
+      %i[title alt_title resource_type creator contributor abstract institution date_published official_link
+         pagination is_included_in volume buy_book publisher isbn issn additional_links page_display_order_number
+         location rights_holder license org_unit doi subject keyword refereed add_info].freeze
+    end
+    include ::HykuAddons::PresenterDelegatable
   end
 end

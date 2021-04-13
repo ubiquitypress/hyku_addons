@@ -11,7 +11,7 @@
 <%= presenter.attribute_to_html(:institution, html_dl: true) %>
 <%= presenter.attribute_to_html(:org_unit, label: "Organisational unit", html_dl: true) %>
 <%= presenter.attribute_to_html(:project_name, html_dl: true) %>
-<%= render "hyku_addons/funder/show", presenter: presenter %>
+<%= render "hyku_addons/funder/show", presenter: presenter if presenter.respond_to?(:funder) %>
 <%= presenter.attribute_to_html(:fndr_project_ref, label: "Funder project reference", html_dl: true) %>
 <%= presenter.attribute_to_html(:event_title, html_dl: true) %>
 <%= presenter.attribute_to_html(:event_location, html_dl: true) %>
@@ -35,7 +35,7 @@
 <%= presenter.attribute_to_html(:isbn, label: "ISBN", html_dl: true) %>
 <%= presenter.attribute_to_html(:issn, label: "ISSN", html_dl: true) %>
 <%= presenter.attribute_to_html(:eissn, label: "eISSN", html_dl: true) %>
-<%= render "hyku_addons/current_he_institution/show", presenter: presenter %>
+<%= render "hyku_addons/current_he_institution/show", presenter: presenter if presenter.respond_to?(:current_he_institution) %>
 <%= presenter.attribute_to_html(:date_accepted, html_dl: true) %>
 <%= presenter.attribute_to_html(:official_link, render_as: :external_link, html_dl: true) %>
 <%= presenter.attribute_to_html(:related_url, render_as: :external_link, label: "Related URL", html_dl: true) %>
@@ -53,8 +53,8 @@
 <%= presenter.attribute_to_html(:doi, label: "DOI", render_as: :external_link, html_dl: true) %>
 <%= presenter.attribute_to_html(:qualification_name, html_dl: true) %>
 <%= presenter.attribute_to_html(:qualification_level, html_dl: true) %>
-<%= render "hyku_addons/alternate_identifier/show", presenter: @presenter %>
-<%= render "hyku_addons/related_identifier/show", presenter: @presenter %>
+<%= render "hyku_addons/alternate_identifier/show", presenter: presenter if presenter.respond_to?(:alternate_identifier) %>
+<%= render "hyku_addons/related_identifier/show", presenter: presenter if presenter.respond_to?(:related_identifier) %>
 <%= presenter.attribute_to_html(:keyword, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:dewey, html_dl: true) %>
 <%= presenter.attribute_to_html(:library_of_congress_classification, render_as: :faceted, label: "Library of Congress Classification", html_dl: true) %>
