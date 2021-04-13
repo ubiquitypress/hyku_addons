@@ -38,6 +38,7 @@ Metrics/BlockLength:
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/models/pacific_article.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
+    - 'bin/transform_export_batch.rb'
     - 'hyku_addons.gemspec'
     - 'lib/hyku_addons/engine.rb'
     - 'lib/tasks/*.rake'
