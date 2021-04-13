@@ -5,6 +5,7 @@
 3. Click "Export CSV for whole database"
 4. Go to "Download CSV" tab and wait until download link appears
 5. Download when available
+6. Repeat above steps to export NewsClippings and TextWork models since they don't appear in the whole database export
 ## Preparing for import
 ### Create tenant
 1. Run helm task for creating the new tenant
@@ -18,6 +19,8 @@
 1. Run transformation script:
    ```
    bundle exec ruby bin/transform_export_batch.rb -i ~/Downloads/all_database.csv -o all_database.mod.csv
+   bundle exec ruby bin/transform_export_batch.rb -i ~/Downloads/news_clipping.csv -o news_clipping.mod.csv
+   bundle exec ruby bin/transform_export_batch.rb -i ~/Downloads/text_work.csv -o text_work.mod.csv
    ```
 ### Creating admin sets
 1. Run admin set creation script:

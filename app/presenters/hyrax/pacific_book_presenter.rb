@@ -2,7 +2,6 @@
 
 module Hyrax
   class PacificBookPresenter < Hyrax::WorkShowPresenter
-    include ::HykuAddons::WorkPresenterBehavior
 
     def self.delegated_methods
       %i[title alt_title resource_type creator contributor abstract institution date_published official_link
