@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module HykuAddons
   module PersonOrOrganizationFormBehavior
     extend ActiveSupport::Concern
@@ -23,18 +24,22 @@ module HykuAddons
 
       def creator_fields
         {
-          creator: [:creator_organization_name, :creator_given_name, :creator_middle_name, :creator_family_name, :creator_name_type,
-                    :creator_orcid, :creator_isni, :creator_ror, :creator_grid, :creator_wikidata, :creator_suffix, :creator_institution,
-                    creator_institutional_relationship: []]
+          creator: [
+            :creator_organization_name, :creator_given_name, :creator_middle_name, :creator_family_name,
+            :creator_name_type, :creator_orcid, :creator_isni, :creator_ror, :creator_grid, :creator_wikidata,
+            :creator_suffix, :creator_institution, creator_institutional_relationship: []
+          ]
         }
       end
 
       def contributor_fields
         {
-          contributor: [:contributor_organization_name, :contributor_given_name, :contributor_middle_name, :contributor_family_name,
-                        :contributor_name_type, :contributor_orcid, :contributor_isni, :contributor_ror,
-                        :contributor_grid, :contributor_wikidata, :creator_suffix, :creator_institution, :contributor_type,
-                        contributor_institutional_relationship: []]
+          contributor: [
+            :contributor_organization_name, :contributor_given_name, :contributor_middle_name,
+            :contributor_family_name, :contributor_name_type, :contributor_orcid, :contributor_isni, :contributor_ror,
+            :contributor_grid, :contributor_wikidata, :creator_suffix, :creator_institution, :contributor_type,
+            contributor_institutional_relationship: []
+          ]
         }
       end
     end

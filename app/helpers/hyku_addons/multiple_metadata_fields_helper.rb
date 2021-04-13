@@ -28,6 +28,9 @@ module HykuAddons
       false
     end
 
+    # TODO:
+    # This seems like a terrible way of determining which models should be using this presenter when
+    # we have a static list on each presenter
     def check_has_editor_fields?(presenter)
       ["Book", "BookContribution", "ConferenceItem", "Report", "GenericWork"].include? presenter
     end

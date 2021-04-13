@@ -2,8 +2,6 @@
 
 module Hyrax
   class ConferenceItemPresenter < Hyrax::WorkShowPresenter
-    include Hyrax::DOI::DOIPresenterBehavior
-    include Hyrax::DOI::DataCiteDOIPresenterBehavior
     include ::HykuAddons::WorkPresenterBehavior
 
     def self.delegated_methods
@@ -13,8 +11,11 @@ module Hyrax
        :date_accepted, :date_submitted, :project_name, :rights_holder, :place_of_publication,
        :abstract, :alternate_identifier, :related_identifier, :creator_display,
        :library_of_congress_classification, :alt_title, :dewey,
-       :title, :date_created, :description].freeze
+       :title, :date_created, :description, :editor].freeze
     end
     include ::HykuAddons::PresenterDelegatable
+
+    # Must be included after delegated_methods
+    include ::HykuAddons::EditorListable
   end
 end

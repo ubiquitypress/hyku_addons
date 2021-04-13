@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 module Hyrax
   class ArticlePresenter < Hyrax::WorkShowPresenter
-    include Hyrax::DOI::DOIPresenterBehavior
-    include Hyrax::DOI::DataCiteDOIPresenterBehavior
     include ::HykuAddons::WorkPresenterBehavior
 
     def self.delegated_methods

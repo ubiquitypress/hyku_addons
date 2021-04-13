@@ -7,9 +7,14 @@ RSpec.describe Hyrax::BookPresenter do
   let(:work) { Book.new }
   let(:solrdoc) { SolrDocument.new(work.to_solr, nil) }
 
-  describe 'accessors' do
-    it 'defines accessors' do
+  describe "accessors" do
+    it "delegates methods to the presenter" do
       described_class.delegated_methods.each { |property| expect(presenter).to respond_to(property) }
+    end
+
+    it "doesn't respond to generic work delegated methods" do
+      difference = Hyrax::GenericWorkPresenter.delegated_methods - presenter.class.delegated_methods
+      difference.each { |property| expect(presenter).not_to respond_to(property) }
     end
   end
 end

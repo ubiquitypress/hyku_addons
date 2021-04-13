@@ -11,10 +11,5 @@ module HykuAddons
       include Hyrax::DOI::DOIPresenterBehavior
       include Hyrax::DOI::DataCiteDOIPresenterBehavior
     end
-
-    def editor_list
-      @editor_list ||= person_or_organization_list(:editor)
-    end
   end
 end
-

@@ -9,7 +9,12 @@ module HykuAddons
     end
 
     included do
-      delegate(*self.delegated_methods, to: :solr_document)
+      delegate(*delegated_methods, to: :solr_document)
+
+      # NOTE:
+      # I hate this being here, and wonder if it wouldn't be better to just include it on every
+      # presenter than needs to delegate isbn?
+      alias_method :isbns, :isbn if respond_to?(:delegated_methods) && delegated_methods.include?(:isbn)
     end
   end
 end
