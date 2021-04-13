@@ -1,6 +1,5 @@
 # frozen_string_literal: true
-# Generated via
-#  `rails generate hyrax:work PacificNewsClipping`
+
 module Hyrax
   class PacificNewsClippingPresenter < Hyrax::WorkShowPresenter
     include ::HykuAddons::WorkPresenterBehavior

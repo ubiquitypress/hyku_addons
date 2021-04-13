@@ -4,7 +4,7 @@ module HykuAddons
   module GenericWorkPresenterBehavior
     extend ActiveSupport::Concern
 
-    include WorkPresenterBehavior
+    include HykuAddons::WorkPresenterBehavior
 
     included do
       def self.delegated_methods
@@ -22,7 +22,7 @@ module HykuAddons
       include HykuAddons::PresenterDelegatable
 
       # Must be included after delegated_methods
-      include ::HykuAddons::EditorListable
+      include HykuAddons::EditorListable
     end
   end
 end
