@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Hyrax::ArticlePresenter do
   let(:presenter) { described_class.new(solrdoc, nil, nil) }
-  let(:work) { BookContribution.new }
+  let(:work) { Article.new }
   let(:solrdoc) { SolrDocument.new(work.to_solr, nil) }
 
   describe 'accessors' do
