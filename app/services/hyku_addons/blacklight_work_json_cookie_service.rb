@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
 module HykuAddons
-  class BlacklightWorkJsonService
+  class BlacklightWorkJsonCookieService
     attr_reader :work
 
     ##
     # @param [Work]
-    def initialize(service_base_path, username, password)
+    def initialize(service_base_path, cookie)
       @service_base_path = service_base_path
-      @username = username
-      @password = password
+      @cookie = cookie
     end
 
     # @return [Hash] work json info
@@ -18,9 +17,9 @@ module HykuAddons
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true if uri.instance_of? URI::HTTPS
       req = Net::HTTP::Get.new(uri)
-      req.basic_auth(@username, @password)
+      req["Cookie"] = @cookie
       res = http.request(req)
-      Rails.logger.debug "BlacklightWorkJsonService for #{uri} -> #{res}"
+      Rails.logger.debug "BlacklightWorkJsonCookieService for #{uri} -> #{res}"
       res.is_a?(Net::HTTPSuccess) ? JSON.parse(res.body) : {}
     end
   end

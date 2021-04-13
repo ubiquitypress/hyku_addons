@@ -13,6 +13,7 @@ Metrics/ClassLength:
   Exclude:
     - 'app/services/bolognese/readers/base_work_reader.rb'
     - 'lib/hyku_addons/engine.rb'
+    - 'app/services/hyku_addons/entry_validation_service.rb'
 
 Metrics/LineLength:
   Exclude:
@@ -62,12 +63,14 @@ Metrics/CyclomaticComplexity:
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
     - 'bin/transform_export_batch.rb'
     - 'lib/hyku_addons/engine.rb'
+    - 'app/services/hyku_addons/entry_validation_service.rb'
 
 Metrics/PerceivedComplexity:
   Exclude:
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
     - 'bin/transform_export_batch.rb'
     - 'lib/hyku_addons/engine.rb'
+    - 'app/services/hyku_addons/entry_validation_service.rb'
 
 Metrics/AbcSize:
   Exclude:
@@ -135,3 +138,7 @@ Naming/AccessorMethodName:
 RSpec/LetSetup:
   Exclude:
     - 'spec/features/bulkrax_import_spec.rb'
+
+Performance/RedundantSortBy:
+  Exclude:
+    - 'app/renderers/hyrax/renderers/work_metadata_diff_renderer.rb'
