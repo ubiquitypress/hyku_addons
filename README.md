@@ -64,6 +64,14 @@ sql = "insert into schema_migrations (version) values ('20210409153318')"
 ActiveRecord::Base.connection.execute(sql)
 ``
 
+To manually connect to the postgres container, first connect to the `web` container and then:
+
+```
+psql --host db --port 5432 --user postgres --dbname hyku
+```
+
+Then enter the password from the `docker-compose.yml` POSTGRES_PASSWORD.
+
 ### Initializers
 Initializers that should be run within Hyku can be added to `config/initializers` like in a Rails application.  They can also be added as `initializer` blocks within the `Engine` class, but that should be reserved for code needed to configure the engine infrastructure instead of setup, configuration, and override code that would normally go in `config/initializers` in a Hyku application.  There are additional hooks for different stages of the initialization process available within the `Engine` as described by https://edgeguides.rubyonrails.org/engines.html#available-configuration-hooks.
 
