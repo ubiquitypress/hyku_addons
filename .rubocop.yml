@@ -53,6 +53,7 @@ Metrics/MethodLength:
     - 'app/parsers/hyku_addons/csv_parser.rb'
     - 'app/services/bolognese/readers/base_work_reader.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
+    - 'app/services/hyku_addons/entry_validation_service.rb'
     - 'bin/transform_export_batch.rb'
     - 'lib/hyku_addons/engine.rb'
     - 'lib/tasks/account.rake'

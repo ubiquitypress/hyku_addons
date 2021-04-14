@@ -16,10 +16,18 @@ module HykuAddons
       password: ENV['BULKRAX_DESTINATION_PASSWORD']
     }.freeze
 
-    EXCLUDED_FIELDS = %i[_version_ timestamp edit_access_person_ssim thumbnail_path_ss date_modified_dtsi date_uploaded_dtsi system_create_dtsi system_modified_dtsi].freeze
+    EXCLUDED_FIELDS = %i[
+      _version_ timestamp thumbnail_path_ss date_modified_dtsi system_create_dtsi system_modified_dtsi
+      accessControl_ssim abstract_oai_tesim account_cname_tesim actionable_workflow_roles_ssim disable_draft_doi_tesim
+      nesting_collection__deepest_nested_depth_isi nesting_collection__pathnames_ssim official_link_tesim doi_oai_tesim
+      draft_doi_tesim file_availability_tesim work_tenant_url_tesim edit_access_person_ssim
+    ].freeze
+
     RENAMED_FIELDS = {
       creator_search_tesim: "creator_display_ssim",
-      contributor_list_tesim: "contributor_display_ssim"
+      contributor_list_tesim: "contributor_display_ssim",
+      date_uploaded_dtsi: 'date_uploaded_ssi',
+      version_tesim: 'version_number_tesim'
     }.with_indifferent_access.freeze
 
     def initialize(account, entry, source_service_options = {}, destination_service_options = {})
@@ -39,7 +47,15 @@ module HykuAddons
 
     def validate
       @errors = left_join_differences + right_join_differences + common_fields_differences
-      @errors.empty?
+      return true if @errors.empty?
+
+      @entry.statuses.create!(
+        status_message: 'Validation Error',
+        runnable: @entry.last_run,
+        error_message: 'Metadata validation failed',
+        error_backtrace: @errors
+      )
+      false
     end
 
     def source_metadata
@@ -64,7 +80,7 @@ module HykuAddons
     end
 
     def left_join_differences
-      left_differences = source_metadata_after_transforms.keep_if { |k, _v| !destination_metadata_after_transforms.key?(k) }
+      left_differences = source_metadata_after_transforms.keep_if { |k, v| v.present? && !destination_metadata_after_transforms.key?(k) }
       diff_list_for(left_differences, :remove)
     end
 
@@ -119,11 +135,15 @@ module HykuAddons
         metadata
       end
 
+      COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS = %w[
+        organization_name given_name middle_name family_name name_type orcid isni ror grid wikidata suffix institution
+      ].freeze
+
       def reevaluate_creator_tesim(old_value)
         returning_value = []
         old_value.each do |creator_tesim|
           creator_tesim = JSON.parse(creator_tesim)[0]
-          %w[organisation_name given_name middle_name family_name name_type orcid isni ror grid wikidata suffix institution].each do |field|
+          COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS.each do |field|
             creator_tesim["creator_#{field}"] ||= ""
           end
           creator_tesim["creator_role"] = Array.wrap(creator_tesim["creator_role"])
@@ -139,7 +159,7 @@ module HykuAddons
         returning_value = []
         old_value.each do |contributor_tesim|
           contributor_tesim = JSON.parse(contributor_tesim)[0]
-          %w[organisation_name given_name middle_name family_name name_type orcid isni ror grid wikidata suffix institution].each do |field|
+          COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS.each do |field|
             contributor_tesim["contributor_#{field}"] ||= ""
           end
           contributor_tesim["contributor_position"] ||= "0"
@@ -153,6 +173,44 @@ module HykuAddons
         [Date.parse(old_value[0]).strftime("%Y-%-m-%-d")]
       rescue
         old_value
+      end
+
+      def reevaluate_has_model_ssim(old_value)
+        ["Pacific#{gross_work_type_name(old_value)}"]
+      end
+
+      def reevaluate_human_readable_type_tesim(old_value)
+        ["Pacific #{gross_work_type_name(old_value)}"]
+      end
+
+      def reevaluate_resource_type_tesim(old_value)
+        initial_value = Array.wrap(old_value).first
+        case initial_value
+        when "ImageWork Image"
+          "Image"
+        when "ArticleWork Default Article"
+          "Article"
+        when "Media default Media"
+          "Media"
+        when "TextWork default Text"
+          "Text"
+        when "BookWork Book"
+          "Book"
+        when "BookChapter default Book chapter"
+          "Book Chapter"
+        when "ThesisOrDissertationWork default Thesis"
+          "Thesis"
+        when "Presentation default Presentation"
+          "Presentation"
+        when "Uncategorized default Uncategorized"
+          "Uncategorized"
+        else
+          initial_value
+        end
+      end
+
+      def gross_work_type_name(alt_name)
+        alt_name.first.gsub(/Pacific|Work|\s*/, '')
       end
   end
 end
