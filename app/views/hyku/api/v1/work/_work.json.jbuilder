@@ -52,7 +52,21 @@ json.journal_title work.try(:journal_title)
 json.keywords work.keyword
 json.language work.language
 #                                         "library_of_congress_classification" => nil,
-json.license work.try(:license)
+license = work.try(:license)
+license_hash = Hyrax::LicenseService.new.select_all_options.to_h
+if license.present?
+  json.license do
+    json.array! license do |item|
+      if license_hash.values.include?(item)
+        json.name  license_hash.key(item)
+        json.link  item
+      end
+    end
+  end
+else
+  json.license   nil
+end
+
 json.location work.try(:location)
 #                                         "material_media" => nil,
 #                                         "migration_id" => nil,
