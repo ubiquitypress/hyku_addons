@@ -95,6 +95,7 @@ module HykuAddons
       attribute :participant, SolrDocument::Solr::Array, solr_name('participant')
       attribute :photo_caption, SolrDocument::Solr::Array, solr_name('photo_caption')
       attribute :photo_description, SolrDocument::Solr::Array, solr_name('photo_description')
+      attribute :buy_book, SolrDocument::Solr::Array, solr_name('buy_book')
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(
