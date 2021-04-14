@@ -12,12 +12,12 @@ module HykuAddons
     end
 
     def self.set(options)
-      I18n.locale = locale_for(options)
+      ::I18n.locale = locale_for(options)
     end
 
     # Execute block in the desired locale and retore
     def self.with_locale(options)
-      I18n.with_locale(locale_for(options)) { yield }
+      ::I18n.with_locale(locale_for(options)) { yield }
     end
 
     # Calculate the locale for the current request and return a string

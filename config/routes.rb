@@ -10,5 +10,7 @@ HykuAddons::Engine.routes.draw do
   get "/api/v1/tenant/:tenant_id/files/:id/work", to: "/hyku/api/v1/files#work"
   get "/api/v1/tenant/:tenant_id/files/:id/download", to: "/hyku/api/v1/files#download"
 
-  get "/dashboard/orcid_authorization/new", to: "/hyku_addons/dashboard/orcid_authorizations#new"
+  scope :dashboard do
+    resources :user_orcid_identity, only: :new, controller: "/hyrax/user_orcid_identities"
+  end
 end

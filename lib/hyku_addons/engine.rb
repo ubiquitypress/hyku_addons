@@ -461,11 +461,11 @@ module HykuAddons
       Bolognese::Metadata.prepend Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
       Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
-      ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
+      ::ApplicationController.include ::HykuAddons::MultitenantLocaleControllerBehavior # ::HykuAddons... is required
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
       ::ActiveJob::Base.include HykuAddons::ImportMode
       Hyrax::Dashboard::ProfilesController.prepend HykuAddons::Dashboard::ProfilesControllerBehavior
-      User.include HykuAddons::UserBehavior
+      User.include Hyrax::UserBehavior
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once

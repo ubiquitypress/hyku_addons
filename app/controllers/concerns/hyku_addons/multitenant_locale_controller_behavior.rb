@@ -23,11 +23,11 @@ module HykuAddons
       # See `I18n.fallbacks` for the registered fallback locales
       # @override
       def set_locale
-        I18nMultitenant.set(locale: requested_locale, tenant: current_locale_name)
+        ::HykuAddons::I18nMultitenant.set(locale: requested_locale, tenant: current_locale_name)
       end
 
       def requested_locale
-        params[:locale] || I18n.default_locale
+        params[:locale] || ::I18n.default_locale
       end
 
       # NOTE: The settings value can be "" or nil, so use `presence` if checking present?
