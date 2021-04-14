@@ -32,6 +32,10 @@ options_parser = OptionParser.new do |opts|
     options[:rows] = rows.to_i
   end
 
+  opts.on("-s", "--start START", "Number of starting row") do |start|
+    options[:start_row] = start.to_i
+  end
+
   opts.on('--[no-]new-ids', "Create new ids for all rows and collections") do |new_ids|
     options[:new_ids] = new_ids
   end
@@ -53,8 +57,10 @@ end
 options[:include_files] = true if options[:include_files].nil?
 options[:new_ids] = false if options[:new_ids].nil?
 options[:json_fields] ||= JSON_FIELDS
+options[:start_row] ||= 1
 
 csv = CSV.read(options[:input])
+options[:rows] ||= csv.size
 headers = csv[0]
 
 @fields = {}
@@ -136,7 +142,7 @@ end
 # transform csv by folding multiple versions of a field into single field with values separated by a pipe |
 CSV.open(options[:output], "wb") do |write_csv|
   write_csv << new_headers
-  csv.slice(1..options[:rows]).each do |row|
+  csv.slice(options[:start_row]..(options[:start_row] + options[:rows] - 1)).each do |row|
     new_row = new_headers.collect { |field| gather_values(field, row, options).select { |value| !value.nil? && value != '' }.join("|") }
     write_csv << new_row
   end

@@ -3,22 +3,18 @@
 require 'rails_helper'
 
 RSpec.describe Hyrax::BookPresenter do
-  let(:presenter) { described_class.new(work, nil, nil) }
-  let(:work) { build(:generic_work) }
+  let(:presenter) { described_class.new(solrdoc, nil, nil) }
+  let(:work) { Book.new }
+  let(:solrdoc) { SolrDocument.new(work.to_solr, nil) }
 
-  let(:additional_properties) do
-    [:volume, :pagination, :issn, :eissn, :official_link,
-     :issue, :article_num, :alternative_journal_title,
-     :institution, :org_unit, :refereed, :funder, :fndr_project_ref, :add_info, :date_published,
-     :date_accepted, :date_submitted, :project_name, :rights_holder, :place_of_publication,
-     :abstract, :alternate_identifier, :related_identifier, :creator_display,
-     :library_of_congress_classification, :alt_title, :dewey,
-     :title, :date_created, :description]
-  end
+  describe "accessors" do
+    it "delegates methods to the presenter" do
+      described_class.delegated_methods.each { |property| expect(presenter).to respond_to(property) }
+    end
 
-  describe 'accessors' do
-    it 'defines accessors' do
-      additional_properties.each { |property| expect(presenter).to respond_to(property) }
+    it "doesn't respond to generic work delegated methods" do
+      difference = Hyrax::GenericWorkPresenter.delegated_methods - presenter.class.delegated_methods
+      difference.each { |property| expect(presenter).not_to respond_to(property) }
     end
   end
 end

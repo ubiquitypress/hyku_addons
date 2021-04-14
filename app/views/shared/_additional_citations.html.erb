@@ -1,0 +1,12 @@
+<% content_for(:gscholar_meta) do %>
+	<% if @presenter.doi.present? %>
+		<meta name="citation_doi" content="<%= @presenter.doi %>"/>
+	<% end %>
+
+	<% if @presenter.respond_to?(:isbns) && @presenter.isbns.present? %>
+		<% @presenter.isbns.each do |isbn| %>
+			<meta name="citation_isbn" content="<%= isbn %>"/>
+		<% end %>
+	<% end %>
+<% end %>
+
