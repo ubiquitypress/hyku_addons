@@ -5,7 +5,7 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     included do
-      has_one :orcid_authorization, class_name: "UserOrcidAuthorization"
+      has_one :user_orcid_identity
     end
   end
 end

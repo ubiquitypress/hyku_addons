@@ -41,9 +41,17 @@ If you need to reference a Hyku route using a route helper then you can access i
 ```
 
 ### Database Migrations
-Migrations for database changes introduced by this engine are defined in `db/migrate` like any Rails application.  These get copied into Hyku during installation when `bundle exec rails app:hyku_addons:install:migrations` is run.  These files are suffixed by the engine name for easy identification (e.g. `20200103172822_add_contact_email_to_sites.hyku_additions.rb`).  This command is safe to rerun and will only copy over missing migrations.  See https://edgeguides.rubyonrails.org/engines.html#engine-setup for more details.
+Migrations for database changes introduced by this engine are defined in `db/migrate` like any Rails application.  These get copied into Hyku during installation when the following in run:
 
-To perform the migration you will need to scope the command as follows: `bundle exec rails db:migrate SCOPE=hyku_addons`.
+```bundle exec rails app:hyku_addons:install:migrations```
+
+These files are suffixed by the engine name for easy identification (e.g. `20200103172822_add_contact_email_to_sites.hyku_additions.rb`).  This command is safe to rerun and will only copy over missing migrations.  See https://edgeguides.rubyonrails.org/engines.html#engine-setup for more details.
+
+To perform the migration you will need to scope the command as follows:
+
+``
+bundle exec rails db:migrate SCOPE=hyku_addons
+```
 
 If you get errors when performing the migration it might be because your schema is out of date. This means you wil need to manually add the version numbers to the `schema_migration` table inside the database.
 
