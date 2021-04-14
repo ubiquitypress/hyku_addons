@@ -58,13 +58,13 @@ if license.present?
   json.license do
     json.array! license do |item|
       if license_hash.values.include?(item)
-        json.name  license_hash.key(item)
-        json.link  item
+        json.name license_hash.key(item)
+        json.link item
       end
     end
   end
 else
-  json.license   nil
+  json.license nil
 end
 
 json.location work.try(:location)
