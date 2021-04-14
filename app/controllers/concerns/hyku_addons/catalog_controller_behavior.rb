@@ -12,7 +12,7 @@ module HykuAddons
         config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 5
         config.add_facet_field "creator_display_ssim", label: "Creator", limit: 5
         config.add_facet_field solr_name("keyword", :facetable), limit: 5
-        config.add_facet_field solr_name('member_of_collections', :symbol), limit: 5, label: 'Collections'
+        config.add_facet_field 'member_of_collections_ssim', limit: 5, label: 'Collections'
         config.add_facet_field solr_name("institution", :facetable), limit: 5, label: 'Institution'
         config.add_facet_field solr_name("language", :facetable), limit: 5, label: 'Language'
         config.add_facet_field 'file_availability', query: {
