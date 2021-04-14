@@ -64,7 +64,7 @@ if license.present?
     end
   end
 else
-  json.license nil
+  json.license []
 end
 
 json.location work.try(:location)
