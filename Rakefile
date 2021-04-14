@@ -19,5 +19,6 @@ APP_RAKEFILE = File.expand_path("spec/internal_test_hyku/Rakefile", __dir__)
 load 'rails/tasks/engine.rake'
 
 load 'rails/tasks/statistics.rake'
-
+# Required for tenant migrations
+load 'tasks/apartment.rake'
 require 'bundler/gem_tasks'
