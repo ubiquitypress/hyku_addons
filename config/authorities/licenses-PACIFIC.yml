@@ -43,4 +43,4 @@ terms:
     active: true
   - id: https://commons.pacificu.edu/rights
     term: Default
-    active: true
+    active: false

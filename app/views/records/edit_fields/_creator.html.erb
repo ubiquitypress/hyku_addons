@@ -27,33 +27,11 @@
 		} %>
 		<%= render "records/edit_fields/attribution_partials/select_field", field_options %>
 
-		<div data-toggleable-group="Organisational">
-			<% # TODO: workout why setting the name fields as required causes the deposit form to not register the meta data was entered %>
-			<% [
-				{ f: f, field_type: :text, field_slug: :creator_organization_name, field_args: { data: { required: f.object.required?(:creator) } } },
-				{ f: f, field_type: :text, field_slug: :creator_ror },
-				{ f: f, field_type: :text, field_slug: :creator_grid },
-				{ f: f, field_type: :text, field_slug: :creator_wikidata }
-			].each do |field| %>
-				<% options = { field_group: :creator, template: template, hash: hash }.merge(field) %>
-				<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
-			<% end %>
-		</div>
-
-		<div data-toggleable-group="Personal">
-			<% creator_inst_rel_options = HykuAddons::InstitutionalRelationshipService.new(model: f.object.model.class).select_active_options %>
-			<% personal_fields = [
-				{ field_type: :text, field_slug: :creator_family_name, field_args: { data: { required: f.object.required?(:creator), required_group: :creator_name, on_blur: :toggle_required_group } } },
-				{ field_type: :text, field_slug: :creator_given_name, field_args: { data: { required: f.object.required?(:creator), required_group: :creator_name, on_blur: :toggle_required_group } } },
-				{ field_type: :text, field_slug: :creator_orcid },
-				{ field_type: :select, field_slug: :creator_institutional_relationship, select_options: creator_inst_rel_options, field_args: { multiple: true } }] %>
-			<% personal_fields = add_pacific_creator_personal_fields(personal_fields) if template.include? "pacific" %>
-			<% personal_fields = add_uva_creator_personal_fields(personal_fields) if template.include? "uva" %>
-			<% personal_fields.each do |field| %>
-				<% options = { field_group: :creator, template: template, hash: hash }.merge(field) %>
-				<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
-			<% end %>
-		</div>
+		<% # FIXME: This needs to be resolved as its not a long term or translatable solution %>
+		<% # Because we have no unique ID to use, we need to hack at getting the correct partial in place %>
+		<% types.each do |type| %>
+			<%= render "records/edit_fields/creator_#{type.downcase}", f: f, type: type, template: template, hash: hash %>
+		<% end %>
 
 		<% field_options = { field_slug: :creator_isni, required: false, field_group: :creator, template: template, hash: hash } %>
 		<%= render "records/edit_fields/attribution_partials/text_field", field_options %>
