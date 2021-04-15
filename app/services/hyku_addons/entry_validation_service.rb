@@ -46,27 +46,30 @@ module HykuAddons
     end
 
     def validate
+      Rails.logger.info "Validating entry #{@entry.id}"
       @errors = left_join_differences + right_join_differences + common_fields_differences
       return true if @errors.empty?
+
+      @errors.each do |error|
+        Rails.logger.info "\t#{error}"
+      end
 
       @entry.statuses.create!(
         status_message: 'Validation Error',
         runnable: @entry.last_run,
         error_message: 'Metadata validation failed',
+        error_class: 'HykuAddons::EntryValidationService',
         error_backtrace: @errors
       )
       false
     end
 
     def source_metadata
-      # @_source_metadata ||= HykuAddons::BlacklightWorkJsonService.new(@source_base_url, @source_username, @source_password).fetch(@entry)
-      @_source_metadata ||= HykuAddons::BlacklightWorkJsonCookieService.new(@source_base_url, ENV["BULKRAX_SOURCE_COOKIE"]).fetch(@entry)
+      @_source_metadata ||= HykuAddons::BlacklightWorkJsonService.new(@source_base_url, @source_username, @source_password).fetch(@entry)
     end
 
     def destination_metadata
-      # @_destination_metadata ||= @account.solr_endpoint.connection.get( 'select', :params => {:q => "id:#{@entry.identifier}", fl: '*'})['response']['docs'][0]
       @_destination_metadata ||= ActiveFedora::SolrService.get("id:#{@entry.identifier}").dig('response', 'docs')&.first || {}
-      # @_destination_metadata ||= HykuAddons::BlacklightWorkJsonService.new(@destination_base_url, @destination_username, @destination_password).fetch(@entry)
     end
 
     def source_metadata_after_transforms
@@ -129,7 +132,6 @@ module HykuAddons
           next unless methods.include?(reeval_method_name.to_sym) && v.try(:any?)
 
           new_value = send(reeval_method_name, v)
-          Rails.logger.info "Reeval #{k}\n\t#{v}\n\t#{new_value}"
           metadata[k] = new_value
         end
         metadata

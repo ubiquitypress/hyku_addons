@@ -17,14 +17,10 @@
       <strong>Type:</strong>
       <%= @entry.factory_class || 'Unknown' %>
     </p>
-    <%#= render partial: 'hyku_addons/bulkrax/entries/original_metadata'%>
 
     <%= render partial: 'raw_metadata'%>
-
     <%= render partial: 'parsed_metadata'%>
-
-    <%= render partial: 'hyku_addons/bulkrax/entries/work_diff'%>
-
+    <%#= render partial: 'hyku_addons/bulkrax/entries/original_metadata'%>
     <%= render partial: 'bulkrax/shared/bulkrax_errors', locals: {item: @entry} %>
 
     <p class="bulkrax-p-align">

@@ -9,9 +9,18 @@
   </div>
   <div id="original-metadata-show" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="original-metadata-show">
     <div class="accordion-body">
-      <% HykuAddons::BlacklightWorkJsonService.new(current_account, @entry.identifier).fetch.each do |k, v| %>
-        <strong><%= k %>:</strong> <%= v %><br>
-      <% end %>
+      <%  diff_renderer = Hyrax::Renderers::WorkMetadataDiffRenderer.new(@entry, self) %>
+      <div class="row">
+        <div class="col-md-6 overflow-wrap-break">
+          <h3>Source</h3>
+          <%= diff_renderer.render_source_metadata %>
+        </div>
+        <div class="col-md-6 overflow-wrap-break">
+          <h3>Destination</h3>
+          <%= diff_renderer.render_destination_metadata %>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
