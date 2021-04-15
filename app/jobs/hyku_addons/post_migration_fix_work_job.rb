@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module HykuAddons
-  class PostMigrationFixWorkJob < ActiveJob::Base
+  class PostMigrationFixWorkJob < ApplicationJob
     def perform(work_id, values, work_visibility)
       work = ActiveFedora::Base.find(work_id)
       thumbnail_id = nil
