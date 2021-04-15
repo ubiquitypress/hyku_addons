@@ -1,0 +1,19 @@
+<div data-toggleable-group="<%= type %>">
+	<% personal_fields = [
+		{ field_type: :text, field_slug: :contributor_family_name },
+		{ field_type: :text, field_slug: :contributor_given_name },
+		{ field_type: :text, field_slug: :contributor_orcid },
+		{
+			field_type: :select,
+			field_slug: :contributor_institutional_relationship,
+			select_options: HykuAddons::ContributorInstitutionalRelationshipService.new(model: f.object.model.class).select_active_options.flatten.uniq!,
+			field_args: { multiple: true }
+		}
+	] %>
+	<% personal_fields = add_pacific_contributor_personal_fields(personal_fields) if template.include? "pacific" %>
+	<% personal_fields = add_uva_contributor_personal_fields(personal_fields) if template.include? "uva" %>
+	<% personal_fields.each do |field| %>
+		<% options = { field_group: :contributor, template: template, hash: hash }.merge(field) %>
+		<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
+	<% end %>
+</div>
