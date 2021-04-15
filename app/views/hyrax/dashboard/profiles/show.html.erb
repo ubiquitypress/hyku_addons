@@ -25,24 +25,5 @@
 			<% end %>
 		</div>
 
-		<div class="list-group col-lg-7 col-md-6 col-sm-12">
-			<div class="list-group-item">
-				ORCID Sync
-			</div>
-
-			<div class="list-group-item">
-				<p>
-					Syncing your Hyku repository profile with ORCID allows you to import all the data in your ORCID profile to your repository profile and makes it easier for works deposited in this repository to be synced to ORCID.
-				</p>
-
-				<p>
-					<b>What is ORCID?</b>
-				</p>
-
-				<a href="<%= orcid_authorize_uri %>" title="Connect to ORCID" class="btn btn-orcid popup" data-popup-width="515" data-popup-height="670">
-					<%= image_tag 'orcid.png', alt: t('hyrax.user_profile.orcid.alt'), class: "profile" %>
-					Connect to ORCID
-				</a>
-			</div>
-		</div>
+		<%= render "hyrax/dashboard/shared/orcid_panel" if Flipflop.enabled?(:orcid_authorization) %>
 	</div>

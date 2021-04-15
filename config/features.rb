@@ -19,4 +19,8 @@ Flipflop.configure do
   feature :import_mode,
           default: false,
           description: "Import mode - Background jobs are run on specially named queues"
+
+  feature :orcid_authorization,
+          default: false,
+          description: "Allow users to link their profile to ORCID"
 end
