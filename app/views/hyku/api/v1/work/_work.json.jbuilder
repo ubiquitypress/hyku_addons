@@ -53,7 +53,7 @@ json.keywords work.keyword
 json.language work.language
 #                                         "library_of_congress_classification" => nil,
 license = work.try(:license)
-license_hash = Hyrax::LicenseService.new.select_all_options.to_h
+license_hash = HykuAddons::LicenseService.new.select_all_options.to_h
 if license.present?
   json.license do
     json.array! license do |item|
