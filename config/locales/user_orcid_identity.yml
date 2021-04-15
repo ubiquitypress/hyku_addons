@@ -1,0 +1,6 @@
+en:
+  user_orcid_identity:
+    sync:
+      title: Currently synced with ORCID user %{link}
+      intro: |
+        Works in this repository are being synced to your ORCID. Your repository profile page will import the following fields from your ORCID profile.

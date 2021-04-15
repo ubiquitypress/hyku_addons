@@ -4,6 +4,10 @@ module HykuAddons
   module OrcidHelper
     ORCID_API_VERSION = "v3.0"
 
+    def orcid_profile_uri(profile_id)
+      "https://#{orcid_domain}/#{profile_id}"
+    end
+
     def orcid_authorize_uri
       params = {
         client_id: ENV["ORCID_CLIENT_ID"],

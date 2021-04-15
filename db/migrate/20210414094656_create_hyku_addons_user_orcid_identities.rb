@@ -4,6 +4,7 @@ class CreateHykuAddonsUserOrcidIdentities < ActiveRecord::Migration[5.2]
   def change
     create_table :user_orcid_identities do |t|
       t.belongs_to :user
+      t.string :name
       t.string :access_token, index: true
       t.string :token_type
       t.string :refresh_token
