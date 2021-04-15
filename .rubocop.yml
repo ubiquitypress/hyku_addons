@@ -5,6 +5,7 @@ AllCops:
   TargetRubyVersion: 2.4
   DisplayCopNames: true
   Exclude:
+    - 'app/jobs/hyku_addons/post_migration_fix_work_job.rb'
     - 'db/migrate/*.hyrax.rb'
     - 'spec/internal_test_hyku/**/*'
     - 'vendor/**/*'
