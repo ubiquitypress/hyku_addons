@@ -6,7 +6,7 @@
 # response = Faraday.get(helpers.orcid_api_uri(body["orcid"], :record), nil, headers)
 
 module Hyrax
-  class UserOrcidIdentitiesController < ApplicationController
+  class OrcidIdentitiesController < ApplicationController
     with_themed_layout 'dashboard'
     before_action :authenticate_user!
 

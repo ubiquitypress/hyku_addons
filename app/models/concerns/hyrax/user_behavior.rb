@@ -5,7 +5,7 @@ module Hyrax
     extend ActiveSupport::Concern
 
     included do
-      has_one :orcid_identity, class_name: "UserOrcidIdentity"
+      has_one :orcid_identity
     end
 
     def orcid_identity_from_authorization(params)

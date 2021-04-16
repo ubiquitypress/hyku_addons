@@ -43,7 +43,9 @@ If you need to reference a Hyku route using a route helper then you can access i
 ### Database Migrations
 Migrations for database changes introduced by this engine are defined in `db/migrate` like any Rails application.  These get copied into Hyku during installation when the following in run:
 
-```bundle exec rails app:hyku_addons:install:migrations```
+```
+bundle exec rails app:hyku_addons:install:migrations
+```
 
 These files are suffixed by the engine name for easy identification (e.g. `20200103172822_add_contact_email_to_sites.hyku_additions.rb`).  This command is safe to rerun and will only copy over missing migrations.  See https://edgeguides.rubyonrails.org/engines.html#engine-setup for more details.
 

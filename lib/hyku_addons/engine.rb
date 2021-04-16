@@ -467,7 +467,7 @@ module HykuAddons
       Hyrax::Dashboard::ProfilesController.prepend HykuAddons::Dashboard::ProfilesControllerBehavior
 
       User.include Hyrax::UserBehavior
-      Hyrax::CurationConcern.actor_factory.use Hyrax::Actors::UserOrcidActor
+      Hyrax::CurationConcern.actor_factory.use Hyrax::Actors::OrcidActor
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once

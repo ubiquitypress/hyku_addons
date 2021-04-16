@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class CreateHykuAddonsUserOrcidIdentities < ActiveRecord::Migration[5.2]
+class CreateOrcidIdentities < ActiveRecord::Migration[5.2]
   def change
-    create_table :user_orcid_identities do |t|
+    create_table :orcid_identities do |t|
       t.belongs_to :user
       t.string :name
       t.string :access_token, index: true

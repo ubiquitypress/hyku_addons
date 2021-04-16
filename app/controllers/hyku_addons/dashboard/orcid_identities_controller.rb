@@ -5,7 +5,7 @@
 =end
 
 module HykuAddons
-  class UserOrcidIdentitiesController < ApplicationController
+  class OrcidIdentitiesController < ApplicationController
     with_themed_layout 'dashboard'
     before_action :authenticate_user!
 
@@ -23,7 +23,7 @@ module HykuAddons
       if response.success?
         # TODO:
         # Save the returned object to the users profile
-        UserOrcidIdentity.new(body.except("name").merge(user_id: current_user.id))
+        OrcidIdentity.new(body.except("name").merge(user_id: current_user.id))
         # headers = { authorization: "Bearer #{body['access_token']}", "Content-Type": "application/orcid+json" }
         # response = Faraday.get(helpers.orcid_api_uri(body["orcid"], :record), nil, headers)
 

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe UserOrcidIdentity, type: :model do
+RSpec.describe OrcidIdentity, type: :model do
   it { is_expected.to validate_presence_of(:access_token) }
   it { is_expected.to validate_presence_of(:token_type) }
   it { is_expected.to validate_presence_of(:refresh_token) }
