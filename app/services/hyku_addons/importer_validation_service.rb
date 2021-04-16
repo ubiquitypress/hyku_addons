@@ -12,6 +12,7 @@ module HykuAddons
 
       raise ArgumentError, "You must pass a valid Account" unless @account.present?
       raise ArgumentError, "You must pass a valid HykuAddons::Importer" unless @importer.present?
+      raise ArgumentError, "Validation can only be made against successfully imported items" unless @importer.status == "Complete"
       valid_endpoint_params?
     end
 

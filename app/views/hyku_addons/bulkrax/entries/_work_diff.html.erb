@@ -1,0 +1,21 @@
+<% if show_validation_report?(@entry, current_account) %>
+  <div class="accordion-container">
+    <div class="accordion-heading" role="tab" id="work-diff-heading">
+      <a class="accordion-title" role="button" data-toggle="collapse" data-target="#work-diff-show" aria-expanded="true" aria-controls="work-diff-show">
+        Validation Issues:
+      </a>
+      <a role="button" data-toggle="collapse" data-target="#work-diff-show" aria-expanded="true" aria-controls="work-diff-show">
+        <div class="accordion-icon glyphicon glyphicon-remove-circle" aria-hidden="true"></div>
+      </a>
+    </div>
+    <div id="work-diff-show" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="work-diff-show">
+      <div class="accordion-body ">
+        <%  diff_renderer = Hyrax::Renderers::WorkMetadataDiffRenderer.new(@entry, self) %>
+        <h3>Differences: </h3>
+        <div class="overflow-wrap-break">
+          <%= diff_renderer.render_diff_from_local_status %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

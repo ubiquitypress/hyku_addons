@@ -4,8 +4,6 @@ module HykuAddons
   class BlacklightWorkJsonCookieService
     attr_reader :work
 
-    ##
-    # @param [Work]
     def initialize(service_base_path, cookie)
       @service_base_path = service_base_path
       @cookie = cookie

@@ -16,5 +16,9 @@ module Bulkrax
         coderay(v, wrap: :page, css: :class, tab_width: 200, break_lines: true)
       end
     end
+
+    def show_validation_report?(entry, account)
+      account.settings['bulkrax_validations'] == 'true' && entry.last_error.blank? && entry.current_status.error_backtrace.any?
+    end
   end
 end

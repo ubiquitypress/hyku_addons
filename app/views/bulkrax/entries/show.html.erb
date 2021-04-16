@@ -22,6 +22,7 @@
     <%= render partial: 'parsed_metadata'%>
     <%#= render partial: 'hyku_addons/bulkrax/entries/original_metadata'%>
     <%= render partial: 'bulkrax/shared/bulkrax_errors', locals: {item: @entry} %>
+    <%= render partial: 'hyku_addons/bulkrax/entries/work_diff'%>
 
     <p class="bulkrax-p-align">
       <% if @importer.present? %>

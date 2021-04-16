@@ -42,6 +42,7 @@ module HykuAddons
       @destination_password = destination_service_options[:password] || DESTINATION_SERVICE_OPTIONS[:password]
 
       raise ArgumentError, "You must pass a valid HykuAddons::CsvEntry" unless @entry.present?
+      raise ArgumentError, "Validation can only be made against successfully imported items" unless @entry.status == "Complete"
       raise ArgumentError, "Source and destination service params must be present" unless valid_endpoint_params?
     end
 
@@ -54,11 +55,11 @@ module HykuAddons
         Rails.logger.info "\t#{error}"
       end
 
-      @entry.statuses.create!(
-        status_message: 'Validation Error',
-        runnable: @entry.last_run,
-        error_message: 'Metadata validation failed',
-        error_class: 'HykuAddons::EntryValidationService',
+      @entry.current_status.update(
+        # status_message: 'Validation Error',
+        # runnable: @entry.last_run,
+        # error_message: 'Metadata validation failed',
+        # error_class: 'HykuAddons::EntryValidationService',
         error_backtrace: @errors
       )
       false

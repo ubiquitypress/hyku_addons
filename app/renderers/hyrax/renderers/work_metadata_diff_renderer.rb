@@ -23,12 +23,12 @@ module Hyrax
       end
 
       def render_diff_from_local_status
-        validation_errors = @entry.statuses.where(error_class: 'HykuAddons::EntryValidationService').last
+        validation_errors = @entry.current_status.error_backtrace
         if validation_errors.blank?
           @view_context.content_tag :p, "No validation issues detected"
         else
           @view_context.content_tag :ul do
-            validation_errors.error_backtrace.sort_by { |error| error[:path] }.map do |diff_entry|
+            validation_errors.sort_by { |error| error[:path] }.map do |diff_entry|
               diff_entry_html(diff_entry.with_indifferent_access)
             end.join.html_safe
           end
