@@ -30,7 +30,10 @@ namespace :hyku do
         password: args[:destination_auth].split(':')[1]
       }
 
-      HykuAddons::ImporterValidationService.new(account, importer, source_auth_options, destination_auth_options).validate
+      importer.entries.find_each.map do |entry|
+        next unless entry.is_a?(HykuAddons::CsvEntry)
+        HykuAddons::ValidateImporterEntryJob.perform_later(account, entry, source_auth_options, destination_auth_options)
+      end
     end
   end
 end

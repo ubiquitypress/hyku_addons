@@ -41,8 +41,8 @@ module HykuAddons
       @destination_username = destination_service_options[:username] || DESTINATION_SERVICE_OPTIONS[:username]
       @destination_password = destination_service_options[:password] || DESTINATION_SERVICE_OPTIONS[:password]
 
-      raise ArgumentError, "You must pass a valid HykuAddons::CsvEntry" unless @entry.present?
-      raise ArgumentError, "Validation can only be made against successfully imported items" unless @entry.status == "Complete"
+      raise ArgumentError, "You must pass a valid Account" unless @account.present?
+      raise ArgumentError, "You must pass a valid HykuAddons::CsvEntry with  successfully imported items" unless @entry&.status == "Complete"
       raise ArgumentError, "Source and destination service params must be present" unless valid_endpoint_params?
     end
 

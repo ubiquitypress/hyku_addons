@@ -18,7 +18,7 @@ module HykuAddons
 
     def validate
       @importer.entries.find_each.map do |entry|
-        next if entry.is_a?(HykuAddons::CsvAdminSetEntry)
+        next unless entry.is_a?(HykuAddons::CsvEntry)
 
         s = EntryValidationService.new(@account, entry, @source_service_options, @destination_service_options)
         s.validate
