@@ -7,8 +7,8 @@
 		<div class="list-group-item">
 			<% name = "#{current_user.orcid_identity.name} (#{current_user.orcid_identity.orcid_id})" %>
 			<% link = link_to(name, orcid_profile_uri(current_user.orcid_identity.orcid_id)) %>
-			<p><%== t("user_orcid_identity.sync.title", link: link) %></p>
-			<p><%= t("user_orcid_identity.sync.intro") %></p>
+			<p><%== t("orcid_identity.sync.title", link: link) %></p>
+			<p><%= t("orcid_identity.sync.intro") %></p>
 
 			Employment
 			Funding

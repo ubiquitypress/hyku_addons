@@ -5,7 +5,7 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     included do
-      has_one :user_orcid_identity
+      has_one :orcid_identity
     end
   end
 end

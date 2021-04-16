@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :user_orcid_identity do
+  factory :orcid_identity do
     name { "John Smith" }
     access_token { SecureRandom.uuid }
     token_type { "bearer" }

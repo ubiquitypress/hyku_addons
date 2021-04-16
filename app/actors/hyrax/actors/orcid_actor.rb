@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# https://github.com/samvera-labs/hyrax-doi/blob/main/app/actors/hyrax/actors/doi_actor.rb#L18
 module Hyrax
   module Actors
     class OrcidActor < AbstractActor
@@ -19,16 +18,22 @@ module Hyrax
       protected
 
         def process_work(env)
+          return unless Flipflop.enabled?(:orcid_identities)
+
           @curation_concern = env.curation_concern
 
-          (TARGET_TERMS & work_type_terms).each do |term|
-            data = JSON.parse(@curation_concern.send(term).first)
+          (TARGET_TERMS & work_type_terms).each { |term| process_term(term) }
+        end
 
-            Array.wrap(data).each do |contributor|
-              next unless (orcid = contributor.dig("#{term}_orcid"))
+        def process_term(term)
+          data = @curation_concern.send(term).first
 
-              byebug
-            end
+          return unless data.present?
+
+          JSON.parse(data).each do |participant|
+            next unless (orcid_id = participant.dig("#{term}_orcid")).present?
+
+            Hyrax::Orcid::ProcessWorkJob.perform_later(orcid_id, @curation_concern)
           end
         end
 
