@@ -7,7 +7,7 @@ end
 
 FactoryBot.modify do
   factory :account do
-    sequence(:cname) { |_n| srand }
+    sequence(:cname) { |_n| "dashboard.#{srand}" }
     solr_endpoint
     redis_endpoint
     fcrepo_endpoint
