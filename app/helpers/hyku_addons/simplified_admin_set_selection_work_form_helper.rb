@@ -16,7 +16,7 @@ module HykuAddons
       # Restrict available_admin_sets to only those current user can desposit to.
       @available_admin_sets ||= sources_for_deposit.map do |admin_set_id|
         [AdminSet.find(admin_set_id).title.first, admin_set_id]
-      end
+      end.sort_by(&:first)
     end
 
     protected
