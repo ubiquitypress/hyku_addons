@@ -78,4 +78,3 @@ def load_account(tenant)
   AccountElevator.switch!(account.cname)
   account
 end
-

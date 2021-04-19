@@ -44,8 +44,6 @@ module HykuAddons
       @destination_password = destination_service_options[:password] || DESTINATION_SERVICE_OPTIONS[:password]
       @destination_cookie   = destination_service_options[:cookie]
 
-      Rails.logger.debug source_service_options
-      Rails.logger.debug destination_service_options
       raise ArgumentError, "You must pass a valid Account" unless @account.present?
       raise ArgumentError, "You must pass a valid HykuAddons::CsvEntry with  successfully imported items" unless @entry&.status == "Complete"
       raise ArgumentError, "Source and destination service params must be present" unless valid_endpoint_params?
@@ -121,7 +119,6 @@ module HykuAddons
     protected
 
       def valid_endpoint_params?
-
         @source_base_url && ((@source_username && @source_password) || @source_cookie) &&
           @destination_base_url && ((@destination_username && @destination_password) || @destination_cookie)
       end
