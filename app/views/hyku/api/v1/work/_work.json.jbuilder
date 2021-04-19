@@ -9,7 +9,7 @@ json.admin_set_name work.admin_set.first
 #                                         "alternative_journal_title" => nil,
 json.alternative_title work.try(:alt_title)
 #                                         "article_number" => nil,
-#                                         "book_title" => nil,
+json.book_title work.try(:book_title)
 json.buy_book work.try(:buy_book)
 json.challenged work.try(:challenged)
 json.cname @account.cname
