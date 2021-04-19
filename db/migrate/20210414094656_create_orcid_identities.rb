@@ -5,12 +5,13 @@ class CreateOrcidIdentities < ActiveRecord::Migration[5.2]
     create_table :orcid_identities do |t|
       t.belongs_to :user
       t.string :name
+      t.string :orcid_id, index: true
       t.string :access_token, index: true
       t.string :token_type
       t.string :refresh_token
       t.integer :expires_in
       t.string :scope
-      t.string :orcid_id, index: true
+      t.column :sync_preferences, :json, default: {}
 
       t.timestamps
     end

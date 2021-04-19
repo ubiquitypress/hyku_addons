@@ -18,7 +18,17 @@ module Hyrax
       render json: authorization_body, status: @authorization_response.status
     end
 
+    def update
+      current_user.orcid_identity.update(permitted_preference_params)
+
+      redirect_back fallback_location: dashboard_profile_path(current_user)
+    end
+
     protected
+
+      def permitted_preference_params
+        params.require(:orcid_identity).permit(sync_preferences: {})
+      end
 
       def request_authorization
         data = {

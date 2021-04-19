@@ -1,0 +1,15 @@
+en:
+  orcid_identity:
+    sync:
+      title: Currently synced with ORCID user %{link}
+      intro: |
+        Works in this repository are being synced to your ORCID. Your repository profile page will import the following fields from your ORCID profile.
+      preferences:
+        employment: Employment
+        funding: Funding
+        education: Education and Qualifications
+        works: Works
+        distinctions: Invited Positions and Distinctions
+        websites: Websites and Social Links
+        memberships: Membership and Service
+        other: Other IDs
