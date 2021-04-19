@@ -33,13 +33,16 @@ module HykuAddons
     def initialize(account, entry, source_service_options = {}, destination_service_options = {})
       @account = account
       @entry = entry
+
       @source_base_url = source_service_options[:base_url] || SOURCE_SERVICE_OPTIONS[:base_url]
       @source_username = source_service_options[:username] || SOURCE_SERVICE_OPTIONS[:username]
       @source_password = source_service_options[:password] || SOURCE_SERVICE_OPTIONS[:password]
+      @source_cookie   = source_service_options[:cookie]
 
       @destination_base_url = destination_service_options[:base_url] || DESTINATION_SERVICE_OPTIONS[:base_url]
       @destination_username = destination_service_options[:username] || DESTINATION_SERVICE_OPTIONS[:username]
       @destination_password = destination_service_options[:password] || DESTINATION_SERVICE_OPTIONS[:password]
+      @destination_cookie   = destination_service_options[:cookie]
 
       raise ArgumentError, "You must pass a valid Account" unless @account.present?
       raise ArgumentError, "You must pass a valid HykuAddons::CsvEntry with  successfully imported items" unless @entry&.status == "Complete"
@@ -66,7 +69,14 @@ module HykuAddons
     end
 
     def source_metadata
-      @_source_metadata ||= HykuAddons::BlacklightWorkJsonService.new(@source_base_url, @source_username, @source_password).fetch(@entry)
+      @_source_metadata ||=
+        begin
+          if @source_cookie.present?
+            HykuAddons::BlacklightWorkJsonCookieService.new(@source_base_url, @source_cookie).fetch(@entry)
+          else
+            HykuAddons::BlacklightWorkJsonService.new(@source_base_url, @source_username, @source_password).fetch(@entry)
+          end
+        end
     end
 
     def destination_metadata
@@ -109,7 +119,8 @@ module HykuAddons
     protected
 
       def valid_endpoint_params?
-        @source_base_url && @source_username && @source_password && @destination_base_url && @destination_username && @destination_password
+        @source_base_url && ((@source_username && @source_password) || @source_cookie) &&
+          @destination_base_url && ((@destination_username && @destination_password) || @destination_cookie)
       end
 
       def diff_list_for(issues, operation)

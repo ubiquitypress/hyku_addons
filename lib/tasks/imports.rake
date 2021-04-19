@@ -35,6 +35,37 @@ namespace :hyku do
         HykuAddons::ValidateImporterEntryJob.perform_later(account, entry, source_auth_options, destination_auth_options)
       end
     end
+
+    task :validate_with_cookies, [:tenant, :importer, :source_path, :source_cookie, :destination_path, :destination_cookie] => [:environment] do |_t, args|
+      account = load_account(args[:tenant])
+      importer = Bulkrax::Importer.find(args[:importer])
+
+      %w[source destination].each do |location|
+        unless args["#{location}_path"].present?
+          puts "You need to pass a metadata path at #{location}_path"
+          exit(1)
+        end
+
+        unless args["#{location}_cookie"].present?
+          puts "You need to pass a cookie as cookie_name=xxx at #{location}_auth"
+          exit(1)
+        end
+      end
+
+      source_auth_options = {
+        base_url: args[:source_path],
+        cookie: args[:source_cookie]
+      }
+      destination_auth_options = {
+        base_url: args[:destination_path],
+        cookie: args[:destination_cookie]
+      }
+
+      importer.entries.find_each.map do |entry|
+        next unless entry.is_a?(HykuAddons::CsvEntry)
+        HykuAddons::ValidateImporterEntryJob.perform_later(account, entry, source_auth_options, destination_auth_options)
+      end
+    end
   end
 end
 
