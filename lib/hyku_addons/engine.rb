@@ -456,6 +456,10 @@ module HykuAddons
       CatalogController.include HykuAddons::CatalogControllerBehavior
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
+
+      actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
+      Hyrax::CurationConcern.actor_factory.insert_before(*actors)
+
       User.include HykuAddons::UserEmailFormat
       Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
       Bolognese::Metadata.prepend Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
