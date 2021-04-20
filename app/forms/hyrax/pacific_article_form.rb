@@ -12,7 +12,7 @@ module Hyrax
                  rights_holder license org_unit official_link subject keyword refereed
                  irb_status irb_number add_info]
     self.terms -= %i[language rights_statement]
-    self.required_fields = %i[title creator resource_type org_unit]
+    self.required_fields = %i[title creator resource_type abstract org_unit]
 
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
