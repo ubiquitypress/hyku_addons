@@ -10,9 +10,7 @@ module HykuAddons
       end
 
       # We shouldn't be doing anything on update as the collection will be assigned on create
-      def update(env)
-        next_actor.update(env)
-      end
+      delegate :update, to: :next_actor
 
       protected
 
