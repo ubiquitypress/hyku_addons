@@ -6,16 +6,15 @@ module Hyrax
       def initialize(entry, view_context)
         @entry = entry
         @view_context = view_context
-        @service = HykuAddons::EntryValidationService.new(view_context.current_account, @entry)
       end
 
       # Draw the list with the diffs
       def render_diff
-        if @service.validate
+        if service.validate
           @view_context.content_tag :p, "No validation issues detected"
         else
           @view_context.content_tag :ul do
-            Array.wrap(@service.errors).sort_by { |error| error[:path] }.map do |diff_entry|
+            Array.wrap(service.errors).sort_by { |error| error[:path] }.map do |diff_entry|
               diff_entry_html(diff_entry.with_indifferent_access)
             end.join.html_safe
           end
@@ -36,22 +35,26 @@ module Hyrax
       end
 
       def render_source_metadata
-        key_value_list_for(@service.source_metadata)
+        key_value_list_for(service.source_metadata)
       end
 
       def render_destination_metadata
-        key_value_list_for(@service.destination_metadata)
+        key_value_list_for(service.destination_metadata)
       end
 
       def render_source_metadata_after_transform
-        key_value_list_for(@service.source_metadata_after_transforms)
+        key_value_list_for(service.source_metadata_after_transforms)
       end
 
       def render_destination_metadata_after_transform
-        key_value_list_for(@service.destination_metadata_after_transforms)
+        key_value_list_for(service.destination_metadata_after_transforms)
       end
 
       protected
+
+        def service
+          @_service ||= HykuAddons::EntryValidationService.new(@view_context.current_account, @entry)
+        end
 
         def key_value_list_for(a_hash)
           a_hash.sort_by { |key| key }.to_h.map do |k, v|
