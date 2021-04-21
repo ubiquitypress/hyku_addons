@@ -21,7 +21,7 @@ module HykuAddons
 
           title = AdminSet.find(admin_set_id).title.first
           collection = Collection.where(title: title)
-          env.curation_concern.member_of_collections << collection
+          env.curation_concern.member_of_collections = collection
         end
 
       private
