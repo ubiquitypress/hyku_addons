@@ -51,7 +51,7 @@ module HykuAddons
 
     def validate
       Rails.logger.info "Validating entry #{@entry.id}"
-      @errors = left_join_differences + right_join_differences + common_fields_differences
+      @errors = left_differences + right_differences + merged_fields_differences
       return true if @errors.empty?
 
       @errors.each do |error|
@@ -93,18 +93,18 @@ module HykuAddons
       reevaluate_fields(filter_out_excluded_fields(destination_metadata))
     end
 
-    def left_join_differences
-      left_differences = source_metadata_after_transforms.keep_if { |k, v| v.present? && !destination_metadata_after_transforms.key?(k) }
-      diff_list_for(left_differences, :remove)
+    def left_differences
+      differences = source_metadata_after_transforms.keep_if { |k, v| v.present? && !destination_metadata_after_transforms.key?(k) }
+      diff_list_for(differences, :remove)
     end
 
-    def right_join_differences
-      right_differences = destination_metadata_after_transforms.keep_if { |k, _v| !source_metadata_after_transforms.key?(k) }
-      diff_list_for(right_differences, :add)
+    def right_differences
+      differences = destination_metadata_after_transforms.keep_if { |k, _v| !source_metadata_after_transforms.key?(k) }
+      diff_list_for(differences, :add)
     end
 
-    def common_fields_differences
-      common_differences = destination_metadata_after_transforms.keep_if do |k, v|
+    def merged_fields_differences
+      differences = destination_metadata_after_transforms.keep_if do |k, v|
         if source_metadata_after_transforms[k].present?
           begin
             Array.wrap(JSON.parse(source_metadata_after_transforms[k][0])).to_set != Array.wrap(JSON.parse(v[0])).to_set
@@ -113,7 +113,7 @@ module HykuAddons
           end
         end
       end
-      diff_list_for(common_differences, :change)
+      diff_list_for(differences, :change)
     end
 
     protected
@@ -162,7 +162,6 @@ module HykuAddons
           end
           creator_tesim["creator_role"] = Array.wrap(creator_tesim["creator_role"])
           creator_tesim["creator_institutional_relationship"] = Array.wrap(creator_tesim["creator_institutional_relationship"])
-          creator_tesim["creator_suffix"] ||= ""
           creator_tesim["creator_position"] ||= "0"
           returning_value.push([creator_tesim].to_json)
         end

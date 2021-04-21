@@ -98,6 +98,7 @@ RSpec/ExampleLength:
     - 'spec/features/**/*'
     - 'spec/requests/api_v1_work_spec.rb'
     - 'spec/services/bolognese/readers/generic_work_reader_spec.rb'
+    - 'spec/services/hyku_addons/entry_validation_service_spec.rb'
 
 RSpec/InstanceVariable:
   Exclude:
