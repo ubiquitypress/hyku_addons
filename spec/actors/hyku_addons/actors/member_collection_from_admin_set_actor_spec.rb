@@ -93,19 +93,18 @@ RSpec.describe HykuAddons::Actors::MemberCollectionFromAdminSetActor do
       before do
         # TODO: Workout how to get upstream hyku factories so this isn't required and we can use `build(:admin)`
         user.add_role(:admin)
+
+        allow(terminator).to receive(:create)
+        allow(middleware).to receive(:ensure_collection!)
       end
 
-      it "calls the termintor" do
-        allow(terminator).to receive(:create)
-
+      it "calls the terminator" do
         middleware.create(env)
 
         expect(terminator).to have_received(:create).with(env_class)
       end
 
       it "doesn't call ensure_collection!" do
-        allow(middleware).to receive(:ensure_collection!)
-
         middleware.create(env)
 
         expect(middleware).not_to have_received(:ensure_collection!)
@@ -115,19 +114,18 @@ RSpec.describe HykuAddons::Actors::MemberCollectionFromAdminSetActor do
     context "when the flipflop is disabled" do
       before do
         allow(Flipflop).to receive(:enabled?).with(flipflop_name).and_return(false)
+
+        allow(terminator).to receive(:create)
+        allow(middleware).to receive(:ensure_collection!)
       end
 
       it "calls the termintor" do
-        allow(terminator).to receive(:create)
-
         middleware.create(env)
 
         expect(terminator).to have_received(:create).with(env_class)
       end
 
       it "doesn't call ensure_collection!" do
-        allow(middleware).to receive(:ensure_collection!)
-
         middleware.create(env)
 
         expect(middleware).not_to have_received(:ensure_collection!)
@@ -139,9 +137,13 @@ RSpec.describe HykuAddons::Actors::MemberCollectionFromAdminSetActor do
     context "when the flipflop is enabled" do
       let(:attributes) { { admin_set_id: admin_set.id } }
 
-      it "called the terminator" do
-        allow(terminator).to receive(:create).with(env_class)
+      before do
+        allow(Flipflop).to receive(:enabled?).with(flipflop_name).and_return(false)
 
+        allow(terminator).to receive(:create).with(env_class)
+      end
+
+      it "called the terminator" do
         middleware.create(env)
 
         expect(terminator).to have_received(:create).with(env_class)
@@ -151,11 +153,11 @@ RSpec.describe HykuAddons::Actors::MemberCollectionFromAdminSetActor do
     context "when the flipflop is disabled" do
       before do
         allow(Flipflop).to receive(:enabled?).with(flipflop_name).and_return(false)
+
+        allow(terminator).to receive(:create).with(env_class)
       end
 
       it "called the terminator" do
-        allow(terminator).to receive(:create).with(env_class)
-
         middleware.create(env)
 
         expect(terminator).to have_received(:create).with(env_class)
