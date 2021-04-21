@@ -26,7 +26,7 @@ module HykuAddons
         primary_terms = super - %i[license]
 
         if Flipflop.enabled?(:simplified_admin_set_selection)
-          primary_terms + %i[admin_set_id member_of_collection_id]
+          primary_terms + %i[admin_set_id]
         else
           primary_terms
         end
