@@ -24,6 +24,7 @@ RSpec.describe HykuAddons::Actors::MemberCollectionFromAdminSetActor do
   #
   # let(:actor) { described_class.new(terminator) }
 
+  # This lets us use the middleware chain, rather than assuming its running and using the `create` method on the actor
   let(:middleware) do
     stack = ActionDispatch::MiddlewareStack.new.tap do |middleware|
       middleware.use described_class
@@ -37,52 +38,127 @@ RSpec.describe HykuAddons::Actors::MemberCollectionFromAdminSetActor do
     allow(Flipflop).to receive(:enabled?).with(flipflop_name).and_return(true)
   end
 
-  context "when the flipflop is enabled" do
-    let(:attributes) { { admin_set_id: admin_set.id } }
+  describe "#create" do
+    context "when the flipflop is enabled" do
+      let(:attributes) { { admin_set_id: admin_set.id } }
 
-    describe "#create" do
       it "called the terminator" do
-        expect(terminator).to receive(:create).with(env_class)
+        allow(terminator).to receive(:create).with(env_class)
 
         middleware.create(env)
+
+        expect(terminator).to have_received(:create).with(env_class)
       end
 
-      context "" do
+      context "when a collection exists" do
         let(:rand) { SecureRandom.uuid }
 
-        # Create these two at the same time and ensure their titles match
+        # Create these two at the same time and ensure their titles match by using the same `rand`
         before do
           collection
           admin_set
         end
 
-        it "adds the work to the collection" do
+        it "adds the correct work to the collection" do
           expect(work.member_of_collections).to be_empty
+
           middleware.create(env)
+
           expect(work.member_of_collections).not_to be_empty
           expect(work.member_of_collections).to include(collection)
+          expect(work.member_of_collections.first.title.first).to eq admin_set.title.first
         end
       end
 
-    end
-  end
+      context "when no collection exists with a matching title" do
+        let(:rand) { SecureRandom.uuid }
 
-  context "when the flipflop is disabled" do
-    before do
-      allow(Flipflop).to receive(:enabled?).with(flipflop_name).and_return(false)
+        before do
+          admin_set
+        end
+
+        it "adds the correct work to the collection" do
+          expect(work.member_of_collections).to be_empty
+
+          middleware.create(env)
+
+          expect(work.member_of_collections).to be_empty
+        end
+      end
     end
 
-    describe "create" do
+    context "when the user is an admin" do
+      let(:attributes) { { admin_set_id: admin_set.id } }
+
+      before do
+        # TODO: Workout how to get upstream hyku factories so this isn't required and we can use `build(:admin)`
+        user.add_role(:admin)
+      end
+
       it "calls the termintor" do
         allow(terminator).to receive(:create)
+
         middleware.create(env)
+
         expect(terminator).to have_received(:create).with(env_class)
       end
 
       it "doesn't call ensure_collection!" do
         allow(middleware).to receive(:ensure_collection!)
+
         middleware.create(env)
+
         expect(middleware).not_to have_received(:ensure_collection!)
+      end
+    end
+
+    context "when the flipflop is disabled" do
+      before do
+        allow(Flipflop).to receive(:enabled?).with(flipflop_name).and_return(false)
+      end
+
+      it "calls the termintor" do
+        allow(terminator).to receive(:create)
+
+        middleware.create(env)
+
+        expect(terminator).to have_received(:create).with(env_class)
+      end
+
+      it "doesn't call ensure_collection!" do
+        allow(middleware).to receive(:ensure_collection!)
+
+        middleware.create(env)
+
+        expect(middleware).not_to have_received(:ensure_collection!)
+      end
+    end
+  end
+
+  describe "#update" do
+    context "when the flipflop is enabled" do
+      let(:attributes) { { admin_set_id: admin_set.id } }
+
+      it "called the terminator" do
+        allow(terminator).to receive(:create).with(env_class)
+
+        middleware.create(env)
+
+        expect(terminator).to have_received(:create).with(env_class)
+      end
+    end
+
+    context "when the flipflop is disabled" do
+      before do
+        allow(Flipflop).to receive(:enabled?).with(flipflop_name).and_return(false)
+      end
+
+      it "called the terminator" do
+        allow(terminator).to receive(:create).with(env_class)
+
+        middleware.create(env)
+
+        expect(terminator).to have_received(:create).with(env_class)
       end
     end
   end
