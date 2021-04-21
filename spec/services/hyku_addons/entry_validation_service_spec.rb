@@ -65,7 +65,7 @@ RSpec.describe HykuAddons::EntryValidationService do
     context 'with no validation errors' do
       before do
         [:left_differences, :right_differences, :merged_fields_differences].each do |validation_method|
-          expect(service).to receive(validation_method).and_return([])
+          allow(service).to receive(validation_method).and_return([])
         end
       end
 
@@ -84,7 +84,7 @@ RSpec.describe HykuAddons::EntryValidationService do
 
       before do
         [:left_differences, :right_differences, :merged_fields_differences].each do |validation_method|
-          expect(service).to receive(validation_method).and_return([{ foo: :bar }])
+          allow(service).to receive(validation_method).and_return([{ foo: :bar }])
         end
       end
 
@@ -95,12 +95,12 @@ RSpec.describe HykuAddons::EntryValidationService do
       it "returns errors" do
         service.validate
         expect(service.errors.count).to eq 3
-        expect(service.errors.first).to eq({ foo: :bar })
+        expect(service.errors.first).to eq(foo: :bar)
       end
 
       it 'updates the current status' do
         service.validate
-        expect(entry.current_status).to have_received(:update).with({ error_backtrace: service.errors })
+        expect(entry.current_status).to have_received(:update).with(error_backtrace: service.errors)
       end
     end
   end
@@ -132,11 +132,16 @@ RSpec.describe HykuAddons::EntryValidationService do
 
   describe "source_metadata" do
     context 'using HTTP Basic Auth' do
+      before do
+        allow(HykuAddons::BlacklightWorkJsonService).to receive(:new)
+          .and_return(instance_double(HykuAddons::BlacklightWorkJsonService, fetch: {}))
+      end
+
       it 'uses a BlacklightWorkJsonService' do
-        expect(HykuAddons::BlacklightWorkJsonService).to receive(:new).
-          with(valid_service_attrs[:base_url], valid_service_attrs[:username], valid_service_attrs[:password]).
-          and_return(double(HykuAddons::BlacklightWorkJsonService, fetch: {}))
         service.source_metadata
+        expect(HykuAddons::BlacklightWorkJsonService).to have_received(:new).with(
+          valid_service_attrs[:base_url], valid_service_attrs[:username], valid_service_attrs[:password]
+        )
       end
     end
 
@@ -148,40 +153,48 @@ RSpec.describe HykuAddons::EntryValidationService do
         }.with_indifferent_access
       end
 
+      before do
+        allow(HykuAddons::BlacklightWorkJsonCookieService).to receive(:new)
+          .and_return(instance_double(HykuAddons::BlacklightWorkJsonCookieService, fetch: {}))
+      end
+
       it 'uses a BlacklightWorkJsonCookieService' do
-        expect(HykuAddons::BlacklightWorkJsonCookieService).to receive(:new).
-          with(valid_service_attrs[:base_url], valid_service_attrs[:cookie]).
-          and_return(double(HykuAddons::BlacklightWorkJsonCookieService, fetch: {}))
         service.source_metadata
+        expect(HykuAddons::BlacklightWorkJsonCookieService).to have_received(:new)
+          .with(valid_service_attrs[:base_url], valid_service_attrs[:cookie])
       end
     end
   end
 
   describe 'source_metadata_after_transforms' do
     before do
-      allow(service).to receive(:source_metadata).and_return(source_metadata)
+      allow(service).to receive(:source_metadata).and_return(data: :something)
+      allow(service).to receive(:filter_out_excluded_fields).and_call_original
+      allow(service).to receive(:rename_fields).and_call_original
+      allow(service).to receive(:reevaluate_fields).and_call_original
     end
 
     it "delegates the transformation tree" do
-      data = :something
-      expect(service).to receive(:filter_out_excluded_fields).with(source_metadata).and_return(data)
-      expect(service).to receive(:rename_fields).with(data).and_return(data)
-      expect(service).to receive(:reevaluate_fields).with(data).and_return(data)
       service.source_metadata_after_transforms
+      expect(service).to have_received(:filter_out_excluded_fields).with(data: :something)
+      expect(service).to have_received(:rename_fields)
+      expect(service).to have_received(:reevaluate_fields)
     end
   end
 
   describe 'destination_metadata_after_transforms' do
     before do
-      allow(service).to receive(:destination_metadata).and_return(destination_metadata)
+      allow(service).to receive(:destination_metadata).and_return(data: :something)
+      allow(service).to receive(:filter_out_excluded_fields).and_call_original
+      allow(service).to receive(:rename_fields).and_call_original
+      allow(service).to receive(:reevaluate_fields).and_call_original
     end
 
     it "delegates the transformation tree" do
-      data = :something
-      expect(service).to receive(:filter_out_excluded_fields).with(destination_metadata).and_return(data)
-      expect(service).to receive(:reevaluate_fields).with(data).and_return(data)
-      expect(service).not_to receive(:rename_fields)
       service.destination_metadata_after_transforms
+      expect(service).to have_received(:filter_out_excluded_fields).with(data: :something)
+      expect(service).to have_received(:reevaluate_fields)
+      expect(service).not_to have_received(:rename_fields)
     end
   end
 
