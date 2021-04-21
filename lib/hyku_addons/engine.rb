@@ -458,7 +458,7 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
 
       actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
-      Hyrax::CurationConcern.actor_factory.insert_before(*actors)
+      Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
       User.include HykuAddons::UserEmailFormat
       Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
