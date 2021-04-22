@@ -9,7 +9,7 @@ module Hyrax
                  is_included_in publisher additional_links
                  rights_holder license org_unit official_link subject keyword add_info]
     self.terms -= %i[language rights_statement]
-    self.required_fields = %i[title creator resource_type org_unit]
+    self.required_fields = %i[title creator resource_type abstract org_unit]
 
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
