@@ -472,6 +472,7 @@ module HykuAddons
 
       User.include Hyrax::UserBehavior
       Hyrax::CurationConcern.actor_factory.use Hyrax::Actors::OrcidActor
+      Bolognese::Metadata.prepend Bolognese::Writers::OrcidXmlWriter
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once

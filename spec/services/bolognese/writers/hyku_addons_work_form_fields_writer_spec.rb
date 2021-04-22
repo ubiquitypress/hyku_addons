@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
-  describe "#hyku_addons_work" do
+  describe "#hyku_addons_work_form_fields" do
     it "responds to the method" do
       expect(Bolognese::Metadata.new).to respond_to(:hyku_addons_work_form_fields)
     end
