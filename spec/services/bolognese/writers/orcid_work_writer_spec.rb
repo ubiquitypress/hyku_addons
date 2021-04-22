@@ -97,6 +97,8 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
     expect(Bolognese::Metadata.new).to respond_to(:orcid_xml)
   end
 
+  it { result }
+
   describe "the schema" do
     # NOTE: If updating the schema files, you'll need to manuall update the remove `schemaLocation` references
     let(:schema_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1", "work-2.1.xsd") }
