@@ -10,6 +10,5 @@ class OrcidIdentity < ApplicationRecord
     %i[employment funding education works distinctions websites memberships other].freeze
   end
 
-  def sync_work(work)
-  end
+  def sync_work(work); end
 end

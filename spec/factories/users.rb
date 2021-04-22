@@ -7,4 +7,3 @@ FactoryBot.modify do
     end
   end
 end
-

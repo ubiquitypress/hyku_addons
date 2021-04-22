@@ -11,8 +11,4 @@ RSpec.describe OrcidIdentity, type: :model do
   it { is_expected.to validate_presence_of(:orcid_id) }
 
   it { is_expected.to belong_to(:user).class_name("User") }
-
-  it "has a sync_preferences column" do
-    expect(subject.sync_preferences).to eq({})
-  end
 end
