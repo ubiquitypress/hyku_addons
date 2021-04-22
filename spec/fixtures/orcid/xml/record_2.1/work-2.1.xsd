@@ -33,7 +33,7 @@
 		</xs:appinfo>
 	</xs:annotation>
 	<xs:import namespace="http://www.orcid.org/ns/common"
-		schemaLocation="../common_2.1/common-2.1.xsd" />
+		schemaLocation="common-2.1.xsd" />
 
 	<xs:import namespace="http://www.orcid.org/ns/error"
  		schemaLocation="error-2.1.xsd" />

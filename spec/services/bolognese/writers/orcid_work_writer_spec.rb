@@ -91,25 +91,30 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
   let(:work) { model_class.new(attributes) }
   let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
   let(:reader) { Bolognese::Readers::GenericWorkReader.new(input: input, from: "work") }
+  let(:result) { reader.orcid_xml }
 
   it "includes the module into the Metadata class" do
     expect(Bolognese::Metadata.new).to respond_to(:orcid_xml)
   end
 
-  describe "the schema 2.1" do
+  describe "the schema" do
+    # NOTE: If updating the schema files, you'll need to manuall update the remove `schemaLocation` references
     let(:schema_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1", "work-2.1.xsd") }
-    let(:schema_file) { File.read(schema_path) }
+    let(:schema_validator) { Nokogiri::XML::Schema(schema_path.open) }
+    let(:sample_xml_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1", "example-simple-2.1.xml") }
 
     it "returns an XML document that matches the schema" do
-      schema = Nokogiri::XML::Schema(schema_file)
-      doc = Nokogiri::XML(result)
-      expect { schema.validate(doc) }.not_to raise_error
+      # Validate a sample file to enure we can trust the schema - a valid result returns an empty array
+      sample = Nokogiri::XML(sample_xml_path.open)
+      expect(schema_validator.validate(sample)).to be_empty
+
+      # Validate our XML result
+      xml_result = Nokogiri::XML(result)
+      expect(schema_validator.validate(xml_result)).to be_empty
     end
   end
 
   describe "#orcid_xml" do
-    let(:result) { reader.orcid_xml }
-
     it "returns a nonempty XML document" do
       doc = Nokogiri::XML::Document.parse(result)
       nodes = doc.xpath
