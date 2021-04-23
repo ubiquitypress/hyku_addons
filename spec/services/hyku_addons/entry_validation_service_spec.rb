@@ -127,6 +127,17 @@ RSpec.describe HykuAddons::EntryValidationService do
       it "returns :change items for the items appearing on both lists" do
         expect(service.merged_fields_differences).to eq([{ op: :change, path: :common, value: false }])
       end
+
+      context 'with non stripped metadata' do
+        before do
+          source_metadata[:stripped] = " stripped"
+          destination_metadata[:stripped] = "stripped "
+        end
+
+        it "returns :change items for the items appearing on both lists" do
+          expect(service.merged_fields_differences).not_to include(op: :change, path: :stripped, value: 'stripped')
+        end
+      end
     end
   end
 
@@ -169,14 +180,14 @@ RSpec.describe HykuAddons::EntryValidationService do
   describe 'source_metadata_after_transforms' do
     before do
       allow(service).to receive(:source_metadata).and_return(data: :something)
-      allow(service).to receive(:filter_out_excluded_fields).and_call_original
+      allow(service).to receive(:processable_fields).and_call_original
       allow(service).to receive(:rename_fields).and_call_original
       allow(service).to receive(:reevaluate_fields).and_call_original
     end
 
     it "delegates the transformation tree" do
       service.source_metadata_after_transforms
-      expect(service).to have_received(:filter_out_excluded_fields).with(data: :something)
+      expect(service).to have_received(:processable_fields).with(data: :something)
       expect(service).to have_received(:rename_fields)
       expect(service).to have_received(:reevaluate_fields)
     end
@@ -185,31 +196,36 @@ RSpec.describe HykuAddons::EntryValidationService do
   describe 'destination_metadata_after_transforms' do
     before do
       allow(service).to receive(:destination_metadata).and_return(data: :something)
-      allow(service).to receive(:filter_out_excluded_fields).and_call_original
+      allow(service).to receive(:processable_fields).and_call_original
       allow(service).to receive(:rename_fields).and_call_original
       allow(service).to receive(:reevaluate_fields).and_call_original
     end
 
     it "delegates the transformation tree" do
       service.destination_metadata_after_transforms
-      expect(service).to have_received(:filter_out_excluded_fields).with(data: :something)
+      expect(service).to have_received(:processable_fields).with(data: :something)
       expect(service).to have_received(:reevaluate_fields)
       expect(service).not_to have_received(:rename_fields)
     end
   end
 
   describe 'filter_out_excluded_fields' do
-    let(:metadata) { { foo: :bar, bar: :baz } }
+    let(:metadata) { { foo: :bar, bar: :baz, empty_string: "", empty_string_array: [""] } }
     let(:excluded_fields) { [:bar] }
+    let(:result) { service.send(:processable_fields, metadata) }
 
     before do
       stub_const("HykuAddons::EntryValidationService::EXCLUDED_FIELDS", excluded_fields)
     end
 
     it 'removes the excluded fields from the hash param' do
-      result = service.send(:filter_out_excluded_fields, metadata)
       expect(result.keys).to include(:foo)
       expect(result.keys).not_to include(:bar)
+    end
+
+    it 'removes empty fields and empty strings' do
+      expect(result.keys).not_to include(:empty_string)
+      expect(result.keys).not_to include(:empty_string_array)
     end
   end
 
