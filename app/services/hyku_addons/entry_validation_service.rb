@@ -20,9 +20,10 @@ module HykuAddons
       _version_ timestamp thumbnail_path_ss date_modified_dtsi system_create_dtsi system_modified_dtsi
       accessControl_ssim abstract_oai_tesim account_cname_tesim actionable_workflow_roles_ssim disable_draft_doi_tesim
       nesting_collection__deepest_nested_depth_isi nesting_collection__pathnames_ssim official_link_tesim doi_oai_tesim
-      draft_doi_tesim file_availability_tesim work_tenant_url_tesim edit_access_person_ssim nesting_collection__ancestors_ssim
-      nesting_collection__parent_ids_ssim hasEmbargo_ssim hasLease_ssim migration_id_tesim buy_book_tesim irb_number_tesim
-      irb_status_tesim hasRelatedImage_ssim hasRelatedMediaFragment_ssim file_set_ids_ssim member_ids_ssim
+      draft_doi_tesim file_availability_tesim work_tenant_url_tesim edit_access_person_ssim
+      nesting_collection__ancestors_ssim nesting_collection__parent_ids_ssim hasEmbargo_ssim hasLease_ssim
+      migration_id_tesim buy_book_tesim irb_number_tesim irb_status_tesim hasRelatedImage_ssim
+      hasRelatedMediaFragment_ssim file_set_ids_ssim member_ids_ssim
     ].freeze
     #
 
@@ -177,7 +178,8 @@ module HykuAddons
             creator_tesim["creator_#{field}"] ||= ""
           end
           creator_tesim["creator_role"] = Array.wrap(creator_tesim["creator_role"])
-          creator_tesim["creator_institutional_relationship"] = Array.wrap(creator_tesim["creator_institutional_relationship"])
+          creator_tesim["creator_institutional_relationship"] =
+            Array.wrap(creator_tesim["creator_institutional_relationship"])
           creator_tesim["creator_position"] ||= "0"
           returning_value.push([creator_tesim].to_json)
         end
@@ -192,7 +194,8 @@ module HykuAddons
             contributor_tesim["contributor_#{field}"] ||= ""
           end
           contributor_tesim["contributor_position"] ||= "0"
-          contributor_tesim["contributor_institutional_relationship"] = Array.wrap(contributor_tesim["contributor_institutional_relationship"])
+          contributor_tesim["contributor_institutional_relationship"] =
+            Array.wrap(contributor_tesim["contributor_institutional_relationship"])
           returning_value.push([contributor_tesim].to_json)
         end
         returning_value
