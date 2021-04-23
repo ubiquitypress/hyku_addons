@@ -122,7 +122,7 @@ module Bolognese
           Array(url || "https//doi.org/#{doi}")
         end
 
-        def writer_journal_title
+        def write_journal_title
           return unless container.present? && container.dig("type") == "Journal"
 
           [container&.dig("title")].compact
