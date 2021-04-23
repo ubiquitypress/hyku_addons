@@ -105,14 +105,22 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
     let(:schema_validator) { Nokogiri::XML::Schema(schema_path.open) }
     let(:sample_xml_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1", "example-simple-2.1.xml") }
 
-    it "returns an XML document that matches the schema" do
+    context "returns an XML document that matches the schema" do
       # Validate a sample file to enure we can trust the schema - a valid result returns an empty array
-      sample = Nokogiri::XML(sample_xml_path.open)
-      expect(schema_validator.validate(sample)).to be_empty
+      # sample = Nokogiri::XML(sample_xml_path.open)
+      # expect(schema_validator.validate(sample)).to be_empty
+      types = ['artistic-performance', 'book-chapter', 'book-review', 'book', 'conference-abstract', 'conference-paper', 'conference-poster', 'data-set', 'dictionary-entry', 'disclosure', 'dissertation', 'edited-book', 'encyclopedia-entry', 'invention', 'journal-article', 'journal-issue', 'lecture-speech', 'license', 'magazine-article', 'manual', 'newsletter-article', 'newspaper-article', 'online-resource', 'other', 'patent', 'registered-copyright', 'report', 'research-technique', 'research-tool', 'spin-off-company', 'standards-and-policy', 'supervised-student-publication', 'technical-standard', 'test', 'translation', 'trademark', 'website', 'working-paper']
 
-      # Validate our XML result
-      xml_result = Nokogiri::XML(result)
-      expect(schema_validator.validate(xml_result)).to be_empty
+      types.each do |type|
+        it  "type: #{type}" do
+        test_result = reader.orcid_xml(type)
+        xml_result = Nokogiri::XML(test_result)
+        validator = schema_validator.validate(xml_result)
+
+        expect(validator).to be_empty
+        end
+      end
+
     end
   end
 
