@@ -97,6 +97,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["license"]).to eq ["https://creativecommons.org/licenses/by/4.0/"] }
 
       it { expect(result["abstract"].first).to include("The spike (S) protein is the main handle for SARS-CoV-2") }
+      it { expect(result["journal_title"]).to eq ["eLife"] }
       it { expect(result["keyword"]).to be_nil }
 
       it { expect(result["date_published"]).to be_an(Array) }
@@ -462,6 +463,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["volume"]).to eq "8" }
       it { expect(result["official_link"]).to eq ["https://elifesciences.org/articles/47972"] }
       it { expect(result["issn"]).to eq ["2050-084X"] }
+      it { expect(result["journal_title"]).to eq ["eLife"] }
 
       it { expect(result["keyword"]).to be_nil }
 
@@ -543,17 +545,16 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(meta.doi).to be_present }
       it { expect(result).to be_a Hash }
 
-      # it { expect(result["publisher"]).to eq ["eLife Sciences Publications, Ltd"] }
       it { expect(result["doi"]).to include("10.11647/obp.0232") }
-
       it { expect(result["title"]).to eq ["Romanticism and Time"] }
-
+      it { expect(result["publisher"]).to eq ["Open Book Publishers"] }
       it { expect(result["abstract"]).to be_nil }
       it { expect(result["volume"]).to be_nil }
       it { expect(result["official_link"]).to eq ["https://www.openbookpublishers.com/product/1254"] }
       it { expect(result["issn"]).to be_nil }
       it { expect(result["isbn"]).to eq ["978-1-80064-071-9"] }
       it { expect(result["keyword"]).to be_nil }
+      it { expect(result["journal_title"]).to be_nil }
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2021 }
