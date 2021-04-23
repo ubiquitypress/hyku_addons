@@ -578,5 +578,51 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
 
       it { expect(result["creator"]).to eq [{ "creator_name" => ":(unav)", "creator_name_type" => "Organizational" }] }
     end
+
+    describe "a book chapter" do
+      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.5334-bbc.b.xml") }
+
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+
+      it { expect(result["doi"]).to include("10.5334/bbc.b") }
+      it { expect(result["title"]).to eq ["A Brief History of Open Educational Resources"] }
+
+      book_title = "Open: The Philosophy and Practices that are Revolutionizing Education and Science"
+      it { expect(result["book_title"]).to eq [book_title] }
+      it { expect(result["publisher"]).to eq ["Ubiquity Press, Ltd."] }
+      it { expect(result["abstract"]).to be_nil }
+      it { expect(result["volume"]).to be_nil }
+      it { expect(result["official_link"]).to eq ["http://www.ubiquitypress.com/site/chapters/10.5334/bbc.b/"] }
+      it { expect(result["issn"]).to be_nil }
+      it { expect(result["isbn"]).to eq ["9781911529002"] }
+      it { expect(result["keyword"]).to be_nil }
+      it { expect(result["journal_title"]).to be_nil }
+      it { expect(result["pagination"]).to eq ["9-27"] }
+
+      it { expect(result["date_published"]).to be_an(Array) }
+      it { expect(result["date_published"].first["date_published_year"]).to be 2017 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 3 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 27 }
+
+      it { expect(result["creator"]).to be_an(Array) }
+      it { expect(result["creator"].size).to eq 4 }
+
+      it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][0]["creator_given_name"]).to eq "T.J." }
+      it { expect(result["creator"][0]["creator_family_name"]).to eq "Bliss" }
+      it { expect(result["creator"][0]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][1]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][1]["creator_given_name"]).to eq "M." }
+      it { expect(result["creator"][1]["creator_family_name"]).to eq "Smith" }
+      it { expect(result["creator"][1]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][2]["creator_name_type"]).to eq "Organizational" }
+      it { expect(result["creator"][2]["creator_name"]).to eq "Hewlett Foundation" }
+
+      it { expect(result["creator"][3]["creator_name_type"]).to eq "Organizational" }
+      it { expect(result["creator"][3]["creator_name"]).to eq "Hewlett Foundation" }
+    end
   end
 end
