@@ -20,14 +20,19 @@ module HykuAddons
       _version_ timestamp thumbnail_path_ss date_modified_dtsi system_create_dtsi system_modified_dtsi
       accessControl_ssim abstract_oai_tesim account_cname_tesim actionable_workflow_roles_ssim disable_draft_doi_tesim
       nesting_collection__deepest_nested_depth_isi nesting_collection__pathnames_ssim official_link_tesim doi_oai_tesim
-      draft_doi_tesim file_availability_tesim work_tenant_url_tesim edit_access_person_ssim
+      draft_doi_tesim file_availability_tesim work_tenant_url_tesim edit_access_person_ssim nesting_collection__ancestors_ssim
+      nesting_collection__parent_ids_ssim hasEmbargo_ssim hasLease_ssim migration_id_tesim buy_book_tesim irb_number_tesim
+      irb_status_tesim hasRelatedImage_ssim hasRelatedMediaFragment_ssim file_set_ids_ssim member_ids_ssim
     ].freeze
+    #
 
     RENAMED_FIELDS = {
       creator_search_tesim: "creator_display_ssim",
       contributor_list_tesim: "contributor_display_ssim",
       date_uploaded_dtsi: 'date_uploaded_ssi',
-      version_tesim: 'version_number_tesim'
+      version_tesim: 'version_number_tesim',
+      collection_id_tesim: 'member_of_collection_ids_ssim',
+      collection_names_tesim: 'member_of_collections_ssim'
     }.with_indifferent_access.freeze
 
     def initialize(account, entry, source_service_options = {}, destination_service_options = {})
@@ -58,13 +63,7 @@ module HykuAddons
         Rails.logger.info "\t#{error}"
       end
 
-      @entry.current_status.update(
-        # status_message: 'Validation Error',
-        # runnable: @entry.last_run,
-        # error_message: 'Metadata validation failed',
-        # error_class: 'HykuAddons::EntryValidationService',
-        error_backtrace: @errors
-      )
+      @entry.current_status.update(error_backtrace: @errors)
       false
     end
 
@@ -84,13 +83,13 @@ module HykuAddons
     end
 
     def source_metadata_after_transforms
-      filtered = filter_out_excluded_fields(source_metadata)
+      filtered = processable_fields(source_metadata)
       filtered_and_renamed = rename_fields(filtered)
       reevaluate_fields(filtered_and_renamed)
     end
 
     def destination_metadata_after_transforms
-      reevaluate_fields(filter_out_excluded_fields(destination_metadata))
+      reevaluate_fields(processable_fields(destination_metadata))
     end
 
     def left_differences
@@ -105,11 +104,12 @@ module HykuAddons
 
     def merged_fields_differences
       differences = destination_metadata_after_transforms.keep_if do |k, v|
-        if source_metadata_after_transforms[k].present?
+        value_at_source = source_metadata_after_transforms[k]
+        if value_at_source.present?
           begin
-            Array.wrap(JSON.parse(source_metadata_after_transforms[k][0])).to_set != Array.wrap(JSON.parse(v[0])).to_set
+            semantic_comparison(JSON.parse(value_at_source[0]), JSON.parse(v[0]))
           rescue
-            source_metadata_after_transforms[k].present? && Array.wrap(source_metadata_after_transforms[k]).to_set != Array.wrap(v).to_set
+            value_at_source.present? && semantic_comparison(value_at_source, v)
           end
         end
       end
@@ -127,8 +127,16 @@ module HykuAddons
         issues.map { |k, v| { path: k, op: operation, value: v } }
       end
 
-      def filter_out_excluded_fields(metadata)
-        metadata.select { |k, _v| !EXCLUDED_FIELDS.include?(k.to_sym) }
+      def processable_fields(metadata)
+        metadata.select { |k, v| !excluded_field?(k) && non_empty_list_of_values?(v) }
+      end
+
+      def excluded_field?(k)
+        EXCLUDED_FIELDS.include?(k.to_sym)
+      end
+
+      def non_empty_list_of_values?(v)
+        Array.wrap(v).any?(&:present?)
       end
 
       def rename_fields(metadata)
@@ -136,6 +144,14 @@ module HykuAddons
           metadata[v] = metadata.delete(k)
         end
         metadata
+      end
+
+      def semantic_comparison(a, b)
+        non_blank_stripped_sets(a) != non_blank_stripped_sets(b)
+      end
+
+      def non_blank_stripped_sets(item)
+        Array.wrap(item).select(&:present?).map { |i| i.try(:strip) || i }.to_set
       end
 
       def reevaluate_fields(metadata)
