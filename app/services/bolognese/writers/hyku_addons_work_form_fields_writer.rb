@@ -38,17 +38,18 @@ module Bolognese
 
         # NOTE:
         # This is here until its fixed upstream: https://github.com/datacite/bolognese/issues/108
+        # PR: https://github.com/datacite/bolognese/pull/114
         #
         # The `(5.+)` seems to invalidate valid funder DOIs
         def validate_funder_doi(doi)
-          regex = /\A(?:(http|https):\/(\/)?(dx\.)?(doi.org|handle.test.datacite.org)\/)?(doi:)?(10\.13039\/)?(.+)\z/
-          doi = Array(regex.match(doi)).last
-
-          return unless doi.present?
-
+          regex = /\A(?:(http|https):\/(\/)?(dx\.)?(doi.org|handle.test.datacite.org)\/)?(doi:)?(10\.13039\/?(.+)|5[\d]{11})\z/.match(doi)
+          # Compact to ensure nil is not returned for valid DOI's without a funder prefix, i.e 501100001711
+          doi = Array(regex).compact.last
           # remove non-printing whitespace and downcase
-          doi.delete("\u200B").downcase
-          "https://doi.org/10.13039/#{doi}"
+          if doi.present?
+            doi.delete("\u200B").downcase
+            "https://doi.org/10.13039/#{doi}"
+          end
         end
 
         def write_doi
