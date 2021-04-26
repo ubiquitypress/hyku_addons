@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crossref_result xmlns="http://www.crossref.org/qrschema/3.0" version="3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.crossref.org/qrschema/3.0 http://www.crossref.org/schemas/crossref_query_output3.0.xsd">
+  <query_result>
+    <head>
+      <doi_batch_id>none</doi_batch_id>
+    </head>
+    <body>
+      <query status="resolved">
+        <doi type="journal_article">10.7554/eLife.65703</doi>
+        <crm-item name="publisher-name" type="string">eLife Sciences Publications, Ltd</crm-item>
+        <crm-item name="prefix-name" type="string">eLife Sciences Publications, Ltd.</crm-item>
+        <crm-item name="member-id" type="number">4374</crm-item>
+        <crm-item name="citation-id" type="number">125106719</crm-item>
+        <crm-item name="journal-id" type="number">189365</crm-item>
+        <crm-item name="deposit-timestamp" type="number">20210407110012</crm-item>
+        <crm-item name="owner-prefix" type="string">10.7554</crm-item>
+        <crm-item name="last-update" type="date">2021-04-07T11:00:32Z</crm-item>
+        <crm-item name="created" type="date">2021-03-10T13:00:23Z</crm-item>
+        <crm-item name="citedby-count" type="number">0</crm-item>
+        <crm-item name="relation" type="doi" claim="isReviewOf">10.7554/eLife.65703.sa2</crm-item>
+        <crm-item name="relation" type="doi" claim="isReviewOf">10.7554/eLife.65703.sa1</crm-item>
+        <doi_record>
+          <crossref xmlns="http://www.crossref.org/xschema/1.1" xsi:schemaLocation="http://www.crossref.org/xschema/1.1 http://doi.crossref.org/schemas/unixref1.1.xsd">
+            <journal>
+              <journal_metadata language="en">
+                <full_title>eLife</full_title>
+                <issn media_type="electronic">2050-084X</issn>
+              </journal_metadata>
+              <journal_issue>
+                <publication_date media_type="online">
+                  <month>03</month>
+                  <day>10</day>
+                  <year>2021</year>
+                </publication_date>
+                <journal_volume>
+                  <volume>10</volume>
+                </journal_volume>
+              </journal_issue>
+              <journal_article publication_type="full_text" reference_distribution_opts="any">
+                <titles>
+                  <title>eIF2B conformation and assembly state regulate the integrated stress response</title>
+                </titles>
+                <contributors>
+                  <person_name contributor_role="author" sequence="first">
+                    <given_name>Michael</given_name>
+                    <surname>Schoof</surname>
+                    <affiliation>Howard Hughes Medical Institute, University of California at San Francisco, San Francisco, United States</affiliation>
+                    <affiliation>Department of Biochemistry and Biophysics, University of California at San Francisco, San Francisco, United States</affiliation>
+                    <ORCID authenticated="true">https://orcid.org/0000-0003-3531-5232</ORCID>
+                  </person_name>
+                  <person_name contributor_role="author" sequence="additional">
+                    <given_name>Morgane</given_name>
+                    <surname>Boone</surname>
+                    <affiliation>Howard Hughes Medical Institute, University of California at San Francisco, San Francisco, United States</affiliation>
+                    <affiliation>Department of Biochemistry and Biophysics, University of California at San Francisco, San Francisco, United States</affiliation>
+                    <ORCID authenticated="true">https://orcid.org/0000-0002-7807-5542</ORCID>
+                  </person_name>
+                  <person_name contributor_role="author" sequence="additional">
+                    <given_name>Lan</given_name>
+                    <surname>Wang</surname>
+                    <affiliation>Howard Hughes Medical Institute, University of California at San Francisco, San Francisco, United States</affiliation>
+                    <affiliation>Department of Biochemistry and Biophysics, University of California at San Francisco, San Francisco, United States</affiliation>
+                    <ORCID authenticated="true">http://orcid.org/0000-0002-8931-7201</ORCID>
+                  </person_name>
+                  <person_name contributor_role="author" sequence="additional">
+                    <given_name>Rosalie</given_name>
+                    <surname>Lawrence</surname>
+                    <affiliation>Howard Hughes Medical Institute, University of California at San Francisco, San Francisco, United States</affiliation>
+                    <affiliation>Department of Biochemistry and Biophysics, University of California at San Francisco, San Francisco, United States</affiliation>
+                  </person_name>
+                  <person_name contributor_role="author" sequence="additional">
+                    <given_name>Adam</given_name>
+                    <surname>Frost</surname>
+                    <affiliation>Department of Biochemistry and Biophysics, University of California at San Francisco, San Francisco, United States</affiliation>
+                    <affiliation>Chan Zuckerberg Biohub, San Francisco, United States</affiliation>
+                    <ORCID authenticated="true">https://orcid.org/0000-0003-2231-2577</ORCID>
+                  </person_name>
+                  <person_name contributor_role="author" sequence="additional">
+                    <given_name>Peter</given_name>
+                    <surname>Walter</surname>
+                    <affiliation>Howard Hughes Medical Institute, University of California at San Francisco, San Francisco, United States</affiliation>
+                    <affiliation>Department of Biochemistry and Biophysics, University of California at San Francisco, San Francisco, United States</affiliation>
+                    <ORCID authenticated="true">https://orcid.org/0000-0002-6849-708X</ORCID>
+                  </person_name>
+                </contributors>
+                <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+                  <jats:p>The integrated stress response (ISR) is activated by phosphorylation of the translation initiation factor eIF2 in response to various stress conditions. Phosphorylated eIF2 (eIF2-P) inhibits eIF2’s nucleotide exchange factor eIF2B, a twofold symmetric heterodecamer assembled from subcomplexes. Here, we monitor and manipulate eIF2B assembly in vitro and in vivo. In the absence of eIF2B’s α-subunit, the ISR is induced because unassembled eIF2B tetramer subcomplexes accumulate in cells. Upon addition of the small-molecule ISR inhibitor ISRIB, eIF2B tetramers assemble into active octamers. Surprisingly, ISRIB inhibits the ISR even in the context of fully assembled eIF2B decamers, revealing allosteric communication between the physically distant eIF2, eIF2-P, and ISRIB binding sites. Cryo-electron microscopy structures suggest a rocking motion in eIF2B that couples these binding sites. eIF2-P binding converts eIF2B decamers into ‘conjoined tetramers’ with diminished substrate binding and enzymatic activity. Canonical eIF2-P-driven ISR activation thus arises due to this change in eIF2B’s conformational state.</jats:p>
+                </jats:abstract>
+                <publication_date media_type="online">
+                  <month>03</month>
+                  <day>10</day>
+                  <year>2021</year>
+                </publication_date>
+                <publisher_item>
+                  <item_number item_number_type="article_number">e65703</item_number>
+                  <identifier id_type="doi">10.7554/eLife.65703</identifier>
+                </publisher_item>
+                <crossmark>
+                  <crossmark_policy>10.7554/eLife.65703</crossmark_policy>
+                  <crossmark_domains>
+                    <crossmark_domain>
+                      <domain>elifesciences.org</domain>
+                    </crossmark_domain>
+                  </crossmark_domains>
+                  <crossmark_domain_exclusive>false</crossmark_domain_exclusive>
+                  <custom_metadata>
+                    <fr:program xmlns:fr="http://www.crossref.org/fundref.xsd" name="fundref">
+                      <fr:assertion name="fundgroup">
+                        <fr:assertion name="funder_name">
+                          Howard Hughes Medical Institute
+                          <fr:assertion name="funder_identifier">http://dx.doi.org/10.13039/100000011</fr:assertion>
+                        </fr:assertion>
+                        <fr:assertion name="award_number">Investigator Grant</fr:assertion>
+                      </fr:assertion>
+                      <fr:assertion name="fundgroup">
+                        <fr:assertion name="funder_name">
+                          Howard Hughes Medical Institute
+                          <fr:assertion name="funder_identifier">http://dx.doi.org/10.13039/100000011</fr:assertion>
+                        </fr:assertion>
+                        <fr:assertion name="award_number">HHMI Faculty Scholar Grant</fr:assertion>
+                      </fr:assertion>
+                      <fr:assertion name="fundgroup">
+                        <fr:assertion name="funder_name">Calico Life Sciences LLC</fr:assertion>
+                      </fr:assertion>
+                      <fr:assertion name="fundgroup">
+                        <fr:assertion name="funder_name">The George and Judy Marcus Family Foundation</fr:assertion>
+                      </fr:assertion>
+                      <fr:assertion name="fundgroup">
+                        <fr:assertion name="funder_name">
+                          Damon Runyon Cancer Research Foundation
+                          <fr:assertion name="funder_identifier">http://dx.doi.org/10.13039/100001021</fr:assertion>
+                        </fr:assertion>
+                        <fr:assertion name="award_number">Postdoctoral Fellowship</fr:assertion>
+                      </fr:assertion>
+                      <fr:assertion name="fundgroup">
+                        <fr:assertion name="funder_name">
+                          Jane Coffin Childs Memorial Fund for Medical Research
+                          <fr:assertion name="funder_identifier">http://dx.doi.org/10.13039/100001033</fr:assertion>
+                        </fr:assertion>
+                        <fr:assertion name="award_number">Postdoctoral Fellowship</fr:assertion>
+                      </fr:assertion>
+                      <fr:assertion name="fundgroup">
+                        <fr:assertion name="funder_name">
+                          Belgian American Educational Foundation
+                          <fr:assertion name="funder_identifier">http://dx.doi.org/10.13039/100001491</fr:assertion>
+                        </fr:assertion>
+                        <fr:assertion name="award_number">Postdoctoral Fellowship</fr:assertion>
+                      </fr:assertion>
+                      <fr:assertion name="fundgroup">
+                        <fr:assertion name="funder_name">
+                          Chan Zuckerberg Initiative
+                          <fr:assertion name="funder_identifier" provider="crossref">http://dx.doi.org/10.13039/100014989</fr:assertion>
+                        </fr:assertion>
+                        <fr:assertion name="award_number">Investigator Grant</fr:assertion>
+                      </fr:assertion>
+                    </fr:program>
+                    <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+                      <ai:license_ref applies_to="vor">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+                      <ai:license_ref applies_to="am">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+                      <ai:license_ref applies_to="tdm">http://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+                    </ai:program>
+                  </custom_metadata>
+                </crossmark>
+                <archive_locations>
+                  <archive name="CLOCKSS" />
+                </archive_locations>
+                <doi_data>
+                  <doi>10.7554/eLife.65703</doi>
+                  <resource>https://elifesciences.org/articles/65703</resource>
+                  <collection property="text-mining">
+                    <item>
+                      <resource mime_type="application/pdf">https://cdn.elifesciences.org/articles/65703/elife-65703-v3.pdf</resource>
+                    </item>
+                    <item>
+                      <resource mime_type="application/xml">https://cdn.elifesciences.org/articles/65703/elife-65703-v3.xml</resource>
+                    </item>
+                  </collection>
+                </doi_data>
+                <citation_list>
+                  <citation key="bib1">
+                    <journal_title>Acta Crystallographica Section D Biological Crystallography</journal_title>
+                    <author>Adams</author>
+                    <volume>66</volume>
+                    <first_page>213</first_page>
+                    <cYear>2010</cYear>
+                    <article_title>PHENIX: a comprehensive Python-based system for macromolecular structure solution</article_title>
+                    <doi>10.1107/S0907444909052925</doi>
+                  </citation>
+                  <citation key="bib2">
+                    <journal_title>Nature Communications</journal_title>
+                    <author>Adomavicius</author>
+                    <volume>10</volume>
+                    <cYear>2019</cYear>
+                    <article_title>The structural basis of translational control by eIF2 phosphorylation</article_title>
+                    <doi>10.1038/s41467-019-10167-3</doi>
+                    <elocation_id>2136</elocation_id>
+                  </citation>
+                  <citation key="bib3">
+                    <journal_title>Molecular Cell</journal_title>
+                    <author>Algire</author>
+                    <volume>20</volume>
+                    <first_page>251</first_page>
+                    <cYear>2005</cYear>
+                    <article_title>Pi release from eIF2, not GTP hydrolysis, is the step controlled by start-site selection during eukaryotic translation initiation</article_title>
+                    <doi>10.1016/j.molcel.2005.09.008</doi>
+                  </citation>
+                  <citation key="bib4">
+                    <journal_title>Neurobiology of Disease</journal_title>
+                    <author>Atkin</author>
+                    <volume>30</volume>
+                    <first_page>400</first_page>
+                    <cYear>2008</cYear>
+                    <article_title>Endoplasmic reticulum stress and induction of the unfolded protein response in human sporadic amyotrophic lateral sclerosis</article_title>
+                    <doi>10.1016/j.nbd.2008.02.009</doi>
+                  </citation>
+                  <citation key="bib5">
+                    <journal_title>Nucleic Acids Research</journal_title>
+                    <author>Bogorad</author>
+                    <volume>45</volume>
+                    <first_page>11962</first_page>
+                    <cYear>2017</cYear>
+                    <article_title>Novel mechanisms of eIF2B action and regulation by eIF2α phosphorylation</article_title>
+                    <doi>10.1093/nar/gkx845</doi>
+                  </citation>
+                  <citation key="bib6">
+                    <journal_title>Acta Crystallographica Section D Biological Crystallography</journal_title>
+                    <author>Chen</author>
+                    <volume>66</volume>
+                    <first_page>12</first_page>
+                    <cYear>2010</cYear>
+                    <article_title>MolProbity: all-atom structure validation for macromolecular crystallography</article_title>
+                    <doi>10.1107/S0907444909042073</doi>
+                  </citation>
+                  <citation key="bib7">
+                    <journal_title>PNAS</journal_title>
+                    <author>Chou</author>
+                    <volume>114</volume>
+                    <first_page>E6420</first_page>
+                    <cYear>2017</cYear>
+                    <article_title>Inhibition of the integrated stress response reverses cognitive deficits after traumatic brain injury</article_title>
+                    <doi>10.1073/pnas.1707661114</doi>
+                  </citation>
+                  <citation key="bib8">
+                    <journal_title>Science</journal_title>
+                    <author>Costa-Mattioli</author>
+                    <volume>368</volume>
+                    <cYear>2020</cYear>
+                    <article_title>The integrated stress response: from mechanism to disease</article_title>
+                    <doi>10.1126/science.aat5314</doi>
+                    <elocation_id>eaat5314</elocation_id>
+                  </citation>
+                  <citation key="bib9">
+                    <journal_title>Biochemical and Biophysical Research Communications</journal_title>
+                    <author>Craddock</author>
+                    <volume>220</volume>
+                    <first_page>843</first_page>
+                    <cYear>1996</cYear>
+                    <article_title>The alpha-subunit of the mammalian guanine nucleotide-exchange factor eIF-2B is essential for catalytic activity in vitro</article_title>
+                    <doi>10.1006/bbrc.1996.0495</doi>
+                  </citation>
+                  <citation key="bib10">
+                    <journal_title>Acta Crystallographica Section D Structural Biology</journal_title>
+                    <author>Croll</author>
+                    <volume>74</volume>
+                    <first_page>519</first_page>
+                    <cYear>2018</cYear>
+                    <article_title>ISOLDE : a physically realistic environment for model building into low-resolution electron-density maps</article_title>
+                    <doi>10.1107/S2059798318002425</doi>
+                  </citation>
+                  <citation key="bib11">
+                    <journal_title>PLOS ONE</journal_title>
+                    <author>de Almeida</author>
+                    <volume>8</volume>
+                    <cYear>2013</cYear>
+                    <article_title>A yeast purification system for human translation initiation factors eIF2 and eIF2Bε and their use in the diagnosis of CACH/VWM disease</article_title>
+                    <doi>10.1371/journal.pone.0053958</doi>
+                    <elocation_id>e53958</elocation_id>
+                  </citation>
+                  <citation key="bib12">
+                    <journal_title>Cell</journal_title>
+                    <author>Dey</author>
+                    <volume>122</volume>
+                    <first_page>901</first_page>
+                    <cYear>2005</cYear>
+                    <article_title>Mechanistic link between PKR dimerization, autophosphorylation, and eIF2alpha substrate recognition</article_title>
+                    <doi>10.1016/j.cell.2005.06.041</doi>
+                  </citation>
+                  <citation key="bib13">
+                    <journal_title>Journal of Virology</journal_title>
+                    <author>Elsby</author>
+                    <volume>85</volume>
+                    <first_page>9716</first_page>
+                    <cYear>2011</cYear>
+                    <article_title>The alpha subunit of eukaryotic initiation factor 2B (eIF2B) is required for eIF2-mediated translational suppression of vesicular stomatitis virus</article_title>
+                    <doi>10.1128/JVI.05146-11</doi>
+                  </citation>
+                  <citation key="bib14">
+                    <journal_title>Acta Crystallographica. Section D, Biological Crystallography</journal_title>
+                    <author>Emsley</author>
+                    <volume>60</volume>
+                    <first_page>2126</first_page>
+                    <cYear>2004</cYear>
+                    <article_title>Coot: model-building tools for molecular graphics</article_title>
+                    <doi>10.1107/S0907444904019158</doi>
+                  </citation>
+                  <citation key="bib15">
+                    <journal_title>Journal of Biological Chemistry</journal_title>
+                    <author>Esser</author>
+                    <volume>292</volume>
+                    <first_page>446</first_page>
+                    <cYear>2017</cYear>
+                    <article_title>Structures of the multidrug transporter P-glycoprotein reveal asymmetric ATP binding and the mechanism of polyspecificity</article_title>
+                    <doi>10.1074/jbc.M116.755884</doi>
+                  </citation>
+                  <citation key="bib16">
+                    <journal_title>Cell</journal_title>
+                    <author>Gilbert</author>
+                    <volume>159</volume>
+                    <first_page>647</first_page>
+                    <cYear>2014</cYear>
+                    <article_title>Genome-Scale CRISPR-Mediated control of gene repression and activation</article_title>
+                    <doi>10.1016/j.cell.2014.09.029</doi>
+                  </citation>
+                  <citation key="bib17">
+                    <journal_title>Nature Communications</journal_title>
+                    <author>Gordiyenko</author>
+                    <volume>10</volume>
+                    <cYear>2019</cYear>
+                    <article_title>Structural basis for the inhibition of translation through eIF2α phosphorylation</article_title>
+                    <doi>10.1038/s41467-019-10606-1</doi>
+                    <elocation_id>2640</elocation_id>
+                  </citation>
+                  <citation key="bib18">
+                    <journal_title>Nature</journal_title>
+                    <author>Guo</author>
+                    <volume>579</volume>
+                    <first_page>427</first_page>
+                    <cYear>2020</cYear>
+                    <article_title>Mitochondrial stress is relayed to the cytosol by an OMA1-DELE1-HRI pathway</article_title>
+                    <doi>10.1038/s41586-020-2078-2</doi>
+                  </citation>
+                  <citation key="bib19">
+                    <journal_title>Molecular and Cellular Biology</journal_title>
+                    <author>Hannig</author>
+                    <volume>8</volume>
+                    <first_page>4808</first_page>
+                    <cYear>1988</cYear>
+                    <article_title>Molecular analysis of GCN3, a translational activator of GCN4: evidence for posttranslational control of GCN3 regulatory function</article_title>
+                    <doi>10.1128/MCB.8.11.4808</doi>
+                  </citation>
+                  <citation key="bib20">
+                    <journal_title>Molecular Cell</journal_title>
+                    <author>Harding</author>
+                    <volume>6</volume>
+                    <first_page>1099</first_page>
+                    <cYear>2000</cYear>
+                    <article_title>Regulated translation initiation controls stress-induced gene expression in mammalian cells</article_title>
+                    <doi>10.1016/S1097-2765(00)00108-8</doi>
+                  </citation>
+                  <citation key="bib21">
+                    <journal_title>Molecular Cell</journal_title>
+                    <author>Harding</author>
+                    <volume>11</volume>
+                    <first_page>619</first_page>
+                    <cYear>2003</cYear>
+                    <article_title>An integrated stress response regulates amino acid metabolism and resistance to oxidative stress</article_title>
+                    <doi>10.1016/S1097-2765(03)00105-9</doi>
+                  </citation>
+                  <citation key="bib22">
+                    <journal_title>Annual Review of Microbiology</journal_title>
+                    <author>Hinnebusch</author>
+                    <volume>59</volume>
+                    <first_page>407</first_page>
+                    <cYear>2005</cYear>
+                    <article_title>Translational regulation of GCN4 and the general amino acid control of yeast</article_title>
+                    <doi>10.1146/annurev.micro.59.031805.133833</doi>
+                  </citation>
+                  <citation key="bib23">
+                    <journal_title>Science</journal_title>
+                    <author>Hinnebusch</author>
+                    <volume>352</volume>
+                    <first_page>1413</first_page>
+                    <cYear>2016</cYear>
+                    <article_title>Translational control by 5'-untranslated regions of eukaryotic mRNAs</article_title>
+                    <doi>10.1126/science.aad9868</doi>
+                  </citation>
+                  <citation key="bib24">
+                    <journal_title>Structure</journal_title>
+                    <author>Ito</author>
+                    <volume>12</volume>
+                    <first_page>1693</first_page>
+                    <cYear>2004</cYear>
+                    <article_title>Solution structure of human initiation factor eIF2α reveals homology to the elongation factor eEF1B</article_title>
+                    <doi>10.1016/j.str.2004.07.010</doi>
+                  </citation>
+                  <citation key="bib25">
+                    <journal_title>Chemistry &amp; Biology</journal_title>
+                    <author>Iwamoto</author>
+                    <volume>17</volume>
+                    <first_page>981</first_page>
+                    <cYear>2010</cYear>
+                    <article_title>A general chemical method to regulate protein stability in the mammalian central nervous system</article_title>
+                    <doi>10.1016/j.chembiol.2010.07.009</doi>
+                  </citation>
+                  <citation key="bib26">
+                    <journal_title>Nature</journal_title>
+                    <author>Kashiwagi</author>
+                    <volume>531</volume>
+                    <first_page>122</first_page>
+                    <cYear>2016</cYear>
+                    <article_title>Crystal structure of eukaryotic translation initiation factor 2B</article_title>
+                    <doi>10.1038/nature16991</doi>
+                  </citation>
+                  <citation key="bib27">
+                    <journal_title>Science</journal_title>
+                    <author>Kashiwagi</author>
+                    <volume>364</volume>
+                    <first_page>495</first_page>
+                    <cYear>2019</cYear>
+                    <article_title>Structural basis for eIF2B inhibition in integrated stress response</article_title>
+                    <doi>10.1126/science.aaw4104</doi>
+                  </citation>
+                  <citation key="bib28">
+                    <journal_title>Science</journal_title>
+                    <author>Kenner</author>
+                    <volume>364</volume>
+                    <first_page>491</first_page>
+                    <cYear>2019</cYear>
+                    <article_title>eIF2B-catalyzed nucleotide exchange and phosphoregulation by the integrated stress response</article_title>
+                    <doi>10.1126/science.aaw2922</doi>
+                  </citation>
+                  <citation key="bib29">
+                    <journal_title>eLife</journal_title>
+                    <author>Krukowski</author>
+                    <volume>9</volume>
+                    <cYear>2020</cYear>
+                    <article_title>Small molecule cognitive enhancer reverses age-related memory decline in mice</article_title>
+                    <doi>10.7554/eLife.62048</doi>
+                    <elocation_id>e62048</elocation_id>
+                  </citation>
+                  <citation key="bib30">
+                    <journal_title>Nucleic Acids Research</journal_title>
+                    <author>Kuhle</author>
+                    <volume>17</volume>
+                    <first_page>9994</first_page>
+                    <cYear>2015</cYear>
+                    <article_title>Architecture of the eIF2B regulatory subcomplex and its implications for the regulation of guanine nucleotide exchange on eIF2</article_title>
+                    <doi>10.1093/nar/gkv930</doi>
+                  </citation>
+                  <citation key="bib31">
+                    <journal_title>Nature Genetics</journal_title>
+                    <author>Leegwater</author>
+                    <volume>29</volume>
+                    <first_page>383</first_page>
+                    <cYear>2001</cYear>
+                    <article_title>Subunits of the translation initiation factor eIF2B are mutant in leukoencephalopathy with vanishing white matter</article_title>
+                    <doi>10.1038/ng764</doi>
+                  </citation>
+                  <citation key="bib32">
+                    <journal_title>PNAS</journal_title>
+                    <author>Leonetti</author>
+                    <volume>113</volume>
+                    <first_page>E3501</first_page>
+                    <cYear>2016</cYear>
+                    <article_title>A scalable strategy for high-throughput GFP tagging of endogenous human proteins</article_title>
+                    <doi>10.1073/pnas.1606731113</doi>
+                  </citation>
+                  <citation key="bib33">
+                    <journal_title>Nature Neuroscience</journal_title>
+                    <author>Ma</author>
+                    <volume>16</volume>
+                    <first_page>1299</first_page>
+                    <cYear>2013</cYear>
+                    <article_title>Suppression of eIF2α kinases alleviates Alzheimer's disease-related plasticity and memory deficits</article_title>
+                    <doi>10.1038/nn.3486</doi>
+                  </citation>
+                  <citation key="bib34">
+                    <journal_title>Nature Chemical Biology</journal_title>
+                    <author>Nabet</author>
+                    <volume>14</volume>
+                    <first_page>431</first_page>
+                    <cYear>2018</cYear>
+                    <article_title>The dTAG system for immediate and target-specific protein degradation</article_title>
+                    <doi>10.1038/s41589-018-0021-8</doi>
+                  </citation>
+                  <citation key="bib35">
+                    <journal_title>Science Translational Medicine</journal_title>
+                    <author>Nguyen</author>
+                    <volume>10</volume>
+                    <cYear>2018</cYear>
+                    <article_title>Development of a stress response therapy targeting aggressive prostate Cancer</article_title>
+                    <doi>10.1126/scitranslmed.aar2036</doi>
+                    <elocation_id>eaar2036</elocation_id>
+                  </citation>
+                  <citation key="bib36">
+                    <journal_title>Journal of Biological Chemistry</journal_title>
+                    <author>Nonato</author>
+                    <volume>277</volume>
+                    <first_page>17057</first_page>
+                    <cYear>2002</cYear>
+                    <article_title>Crystal structure of the N-terminal segment of human eukaryotic translation initiation factor 2alpha</article_title>
+                    <doi>10.1074/jbc.M111804200</doi>
+                  </citation>
+                  <citation key="bib37">
+                    <journal_title>Molecular and Cellular Biology</journal_title>
+                    <author>Pavitt</author>
+                    <volume>17</volume>
+                    <first_page>1298</first_page>
+                    <cYear>1997</cYear>
+                    <article_title>Homologous segments in three subunits of the guanine nucleotide exchange factor eIF2B mediate translational regulation by phosphorylation of eIF2</article_title>
+                    <doi>10.1128/MCB.17.3.1298</doi>
+                  </citation>
+                  <citation key="bib38">
+                    <journal_title>Journal of Computational Chemistry</journal_title>
+                    <author>Pettersen</author>
+                    <volume>25</volume>
+                    <first_page>1605</first_page>
+                    <cYear>2004</cYear>
+                    <article_title>UCSF chimera--a visualization system for exploratory research and analysis</article_title>
+                    <doi>10.1002/jcc.20084</doi>
+                  </citation>
+                  <citation key="bib39">
+                    <journal_title>Nature Methods</journal_title>
+                    <author>Punjani</author>
+                    <volume>14</volume>
+                    <first_page>290</first_page>
+                    <cYear>2017</cYear>
+                    <article_title>cryoSPARC: algorithms for rapid unsupervised cryo-EM structure determination</article_title>
+                    <doi>10.1038/nmeth.4169</doi>
+                  </citation>
+                  <citation key="bib40">
+                    <journal_title>Nature Microbiology</journal_title>
+                    <author>Rabouw</author>
+                    <volume>5</volume>
+                    <first_page>1361</first_page>
+                    <cYear>2020</cYear>
+                    <article_title>Inhibition of the integrated stress response by viral proteins that block p-eIF2-eIF2B association</article_title>
+                    <doi>10.1038/s41564-020-0759-0</doi>
+                  </citation>
+                  <citation key="bib41">
+                    <journal_title>Journal of Structural Biology</journal_title>
+                    <author>Scheres</author>
+                    <volume>180</volume>
+                    <first_page>519</first_page>
+                    <cYear>2012</cYear>
+                    <article_title>RELION: implementation of a bayesian approach to cryo-EM structure determination</article_title>
+                    <doi>10.1016/j.jsb.2012.09.006</doi>
+                  </citation>
+                  <citation key="bib42">
+                    <journal_title>Science</journal_title>
+                    <author>Sekine</author>
+                    <volume>348</volume>
+                    <first_page>1027</first_page>
+                    <cYear>2015</cYear>
+                    <article_title>Stress responses. Mutations in a translation initiation factor identify the target of a memory-enhancing compound</article_title>
+                    <doi>10.1126/science.aaa6986</doi>
+                  </citation>
+                  <citation key="bib43">
+                    <journal_title>The Journal of Neuroscience</journal_title>
+                    <author>Sen</author>
+                    <volume>37</volume>
+                    <first_page>5900</first_page>
+                    <cYear>2017</cYear>
+                    <article_title>Activation of PERK elicits memory impairment through inactivation of CREB and downregulation of PSD95 after traumatic brain injury</article_title>
+                    <doi>10.1523/JNEUROSCI.2343-16.2017</doi>
+                  </citation>
+                  <citation key="bib44">
+                    <journal_title>The Journal of Neuroscience</journal_title>
+                    <author>Sharma</author>
+                    <volume>38</volume>
+                    <first_page>648</first_page>
+                    <cYear>2018</cYear>
+                    <article_title>Local inhibition of PERK enhances memory and reverses Age-Related deterioration of cognitive and neuronal properties</article_title>
+                    <doi>10.1523/JNEUROSCI.0628-17.2017</doi>
+                  </citation>
+                  <citation key="bib45">
+                    <journal_title>Molecular and Cellular Biology</journal_title>
+                    <author>Shi</author>
+                    <volume>18</volume>
+                    <first_page>7499</first_page>
+                    <cYear>1998</cYear>
+                    <article_title>Identification and characterization of pancreatic eukaryotic initiation factor 2 alpha-subunit kinase, PEK, involved in translational control</article_title>
+                    <doi>10.1128/MCB.18.12.7499</doi>
+                  </citation>
+                  <citation key="bib46">
+                    <journal_title>eLife</journal_title>
+                    <author>Sidrauski</author>
+                    <volume>2</volume>
+                    <cYear>2013</cYear>
+                    <article_title>Pharmacological brake-release of mRNA translation enhances cognitive memory</article_title>
+                    <doi>10.7554/eLife.00498</doi>
+                    <elocation_id>e00498</elocation_id>
+                  </citation>
+                  <citation key="bib47">
+                    <journal_title>eLife</journal_title>
+                    <author>Sidrauski</author>
+                    <volume>4</volume>
+                    <cYear>2015</cYear>
+                    <article_title>Pharmacological dimerization and activation of the exchange factor eIF2B antagonizes the integrated stress response</article_title>
+                    <doi>10.7554/eLife.07314</doi>
+                    <elocation_id>e07314</elocation_id>
+                  </citation>
+                  <citation key="bib48">
+                    <journal_title>Science</journal_title>
+                    <author>Tsai</author>
+                    <volume>359</volume>
+                    <cYear>2018</cYear>
+                    <article_title>Structure of the nucleotide exchange factor eIF2B reveals mechanism of memory-enhancing molecule</article_title>
+                    <doi>10.1126/science.aaq0939</doi>
+                    <elocation_id>eaaq0939</elocation_id>
+                  </citation>
+                  <citation key="bib49">
+                    <journal_title>Annals of Neurology</journal_title>
+                    <author>van der Knaap</author>
+                    <volume>51</volume>
+                    <first_page>264</first_page>
+                    <cYear>2002</cYear>
+                    <article_title>Mutations in each of the five subunits of translation initiation factor eIF2B can cause leukoencephalopathy with vanishing white matter</article_title>
+                    <doi>10.1002/ana.10112</doi>
+                  </citation>
+                  <citation key="bib50">
+                    <journal_title>Protein &amp; Cell</journal_title>
+                    <author>Wei</author>
+                    <volume>1</volume>
+                    <first_page>595</first_page>
+                    <cYear>2010</cYear>
+                    <article_title>Crystal structure of the C-terminal domain of the ɛ subunit of human translation initiation factor eIF2B</article_title>
+                    <doi>10.1007/s13238-010-0070-6</doi>
+                  </citation>
+                  <citation key="bib51">
+                    <journal_title>eLife</journal_title>
+                    <author>Wong</author>
+                    <volume>7</volume>
+                    <cYear>2018</cYear>
+                    <article_title>The small molecule ISRIB rescues the stability and activity of vanishing white matter disease eIF2B mutant complexes</article_title>
+                    <doi>10.7554/eLife.32733</doi>
+                    <elocation_id>e32733</elocation_id>
+                  </citation>
+                  <citation key="bib52">
+                    <journal_title>The FASEB Journal</journal_title>
+                    <author>Wortham</author>
+                    <volume>28</volume>
+                    <first_page>2225</first_page>
+                    <cYear>2014</cYear>
+                    <article_title>Analysis of the subunit organization of the eIF2B complex reveals new insights into its structure and regulation</article_title>
+                    <doi>10.1096/fj.13-243329</doi>
+                  </citation>
+                  <citation key="bib53">
+                    <journal_title>Journal of Structural Biology</journal_title>
+                    <author>Zhang</author>
+                    <volume>193</volume>
+                    <first_page>1</first_page>
+                    <cYear>2016</cYear>
+                    <article_title>Gctf: real-time CTF determination and correction</article_title>
+                    <doi>10.1016/j.jsb.2015.11.003</doi>
+                  </citation>
+                  <citation key="bib54">
+                    <journal_title>Nature Methods</journal_title>
+                    <author>Zheng</author>
+                    <volume>14</volume>
+                    <first_page>331</first_page>
+                    <cYear>2017</cYear>
+                    <article_title>MotionCor2: anisotropic correction of beam-induced motion for improved cryo-electron microscopy</article_title>
+                    <doi>10.1038/nmeth.4193</doi>
+                  </citation>
+                  <citation key="bib55">
+                    <journal_title>Science</journal_title>
+                    <author>Zhu</author>
+                    <volume>366</volume>
+                    <first_page>843</first_page>
+                    <cYear>2019</cYear>
+                    <article_title>Activation of the ISR mediates the behavioral and neurophysiological abnormalities in down syndrome</article_title>
+                    <doi>10.1126/science.aaw5185</doi>
+                  </citation>
+                  <citation key="bib56">
+                    <journal_title>Science</journal_title>
+                    <author>Zyryanova</author>
+                    <volume>359</volume>
+                    <first_page>1533</first_page>
+                    <cYear>2018</cYear>
+                    <article_title>Binding of ISRIB reveals a regulatory site in the nucleotide exchange factor eIF2B</article_title>
+                    <doi>10.1126/science.aar5129</doi>
+                  </citation>
+                  <citation key="bib57">
+                    <journal_title>Molecular Cell</journal_title>
+                    <author>Zyryanova</author>
+                    <volume>81</volume>
+                    <first_page>88</first_page>
+                    <cYear>2021</cYear>
+                    <article_title>ISRIB blunts the integrated stress response by allosterically antagonising the inhibitory effect of phosphorylated eIF2 on eIF2B</article_title>
+                    <doi>10.1016/j.molcel.2020.10.031</doi>
+                  </citation>
+                </citation_list>
+                <component_list />
+              </journal_article>
+            </journal>
+          </crossref>
+        </doi_record>
+      </query>
+    </body>
+  </query_result>
+</crossref_result>
+
