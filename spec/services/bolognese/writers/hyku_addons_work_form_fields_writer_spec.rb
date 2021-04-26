@@ -20,6 +20,10 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       expect(meta.send(:validate_funder_doi, "501100001711")).to eq "https://doi.org/10.13039/501100001711"
     end
 
+    it "is false for non-funder DOIs" do
+      expect(meta.send(:validate_funder_doi, "10.5061/dryad.8515")).to be_nil
+    end
+
     context "when the DOI is an eLife DOI" do
       it "validates a new DOI" do
         expect(meta.send(:validate_funder_doi, "10.13039/100000050")).to eq "https://doi.org/10.13039/100000050"
