@@ -13,6 +13,13 @@ class RequiredGroupFieldListener {
 
   registerListeners(){
     $("body").on(this.eventName, this.onEvent.bind(this))
+
+    // When the page events have finished being registered, listen and perform an after action
+    $("body").on("after-register-events", this.afterRegisterEvents.bind(this))
+  }
+
+  afterRegisterEvents(){
+    $(`[${this.groupAttributeName}]`).trigger("blur")
   }
 
   onEvent(event, target){
