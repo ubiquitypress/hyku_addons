@@ -8,13 +8,13 @@ module HykuAddons
       base_url: ENV['BULKRAX_SOURCE_BASE_URL'],
       username: ENV['BULKRAX_SOURCE_USERNAME'],
       password: ENV['BULKRAX_SOURCE_PASSWORD']
-    }.freeze
+    }.with_indifferent_access.freeze
 
     DESTINATION_SERVICE_OPTIONS = {
       base_url: ENV['BULKRAX_DESTINATION_BASE_URL'],
       username: ENV['BULKRAX_DESTINATION_USERNAME'],
       password: ENV['BULKRAX_DESTINATION_PASSWORD']
-    }.freeze
+    }.with_indifferent_access.freeze
 
     EXCLUDED_FIELDS = %i[
       _version_ timestamp thumbnail_path_ss date_modified_dtsi system_create_dtsi system_modified_dtsi
@@ -34,6 +34,10 @@ module HykuAddons
       version_tesim: 'version_number_tesim',
       collection_id_tesim: 'member_of_collection_ids_ssim',
       collection_names_tesim: 'member_of_collections_ssim'
+    }.with_indifferent_access.freeze
+
+    EXCLUDED_FIELDS_WITH_VALUES = {
+      edit_access_group_ssim: ["admin"]
     }.with_indifferent_access.freeze
 
     def initialize(account, entry, source_service_options = {}, destination_service_options = {})
@@ -129,11 +133,17 @@ module HykuAddons
       end
 
       def processable_fields(metadata)
-        metadata.select { |k, v| !excluded_field?(k) && non_empty_list_of_values?(v) }
+        metadata.select do |k, v|
+          !excluded_field?(k) && !excluded_field_with_value?(k, v) && non_empty_list_of_values?(v)
+        end
       end
 
       def excluded_field?(k)
         EXCLUDED_FIELDS.include?(k.to_sym)
+      end
+
+      def excluded_field_with_value?(k, v)
+        Array(EXCLUDED_FIELDS_WITH_VALUES[k]) == Array(v)
       end
 
       def non_empty_list_of_values?(v)
@@ -152,7 +162,7 @@ module HykuAddons
       end
 
       def non_blank_stripped_sets(item)
-        Array.wrap(item).select(&:present?).map { |i| i.try(:strip) || i }.to_set
+        Array.wrap(item).select(&:present?).map { |i| i.try(:strip)&.downcase || i }.to_set
       end
 
       def reevaluate_fields(metadata)
@@ -177,9 +187,9 @@ module HykuAddons
           COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS.each do |field|
             creator_tesim["creator_#{field}"] ||= ""
           end
-          creator_tesim["creator_role"] = Array.wrap(creator_tesim["creator_role"])
+          creator_tesim["creator_role"] = Array.wrap(creator_tesim["creator_role"].presence)
           creator_tesim["creator_institutional_relationship"] =
-            Array.wrap(creator_tesim["creator_institutional_relationship"])
+            Array.wrap(creator_tesim["creator_institutional_relationship"].presence)
           creator_tesim["creator_position"] ||= "0"
           returning_value.push([creator_tesim].to_json)
         end
@@ -193,9 +203,10 @@ module HykuAddons
           COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS.each do |field|
             contributor_tesim["contributor_#{field}"] ||= ""
           end
+          contributor_tesim["contributor_role"] = Array.wrap(contributor_tesim["contributor_role"].presence)
           contributor_tesim["contributor_position"] ||= "0"
           contributor_tesim["contributor_institutional_relationship"] =
-            Array.wrap(contributor_tesim["contributor_institutional_relationship"])
+            Array.wrap(contributor_tesim["contributor_institutional_relationship"].presence)
           returning_value.push([contributor_tesim].to_json)
         end
         returning_value

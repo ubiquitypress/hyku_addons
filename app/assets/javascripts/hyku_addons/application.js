@@ -30,9 +30,10 @@ const onLoad = function() {
   // or it might try and trigger an event not being listened to
   new ChangeToggleableListener()
 
-  // Register our Events
+  // Register our events and after event actions
   new Eventable()
 
+  // Enable DOI autocompletion.
   new AutofillWorkForm()
 
   $("[data-behavior=hyku_addons-select-work]").each(function() {

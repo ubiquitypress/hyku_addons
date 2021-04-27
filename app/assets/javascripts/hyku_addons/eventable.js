@@ -5,6 +5,7 @@
 class Eventable {
   constructor(){
     this.registerEvents()
+    this.afterRegisterEvents()
   }
 
   registerEvents(){
@@ -25,5 +26,10 @@ class Eventable {
       let eventName = $(this).data("on-blur")
       $("body").trigger(eventName, [$(this)])
     })
+  }
+
+  // So that our listeners know when all events have been
+  afterRegisterEvents(){
+    $("body").trigger("after-register-events")
   }
 }
