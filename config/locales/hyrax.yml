@@ -56,6 +56,7 @@ en:
         dewey: Please enter the Dewey classmark
         alternate_identifier: May be used for local identifiers such as project codes. Please include a prefix so a reader can distinguish between multiple identifiers
         alternate_identifier_type: State the type of alternate identifier
+        subject: Headings or index terms describing what the collection is about; these do need to conform to an existing vocabulary
 
     labels:
       defaults:
