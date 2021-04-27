@@ -210,17 +210,36 @@ RSpec.describe HykuAddons::EntryValidationService do
   end
 
   describe 'filter_out_excluded_fields' do
-    let(:metadata) { { foo: :bar, bar: :baz, empty_string: "", empty_string_array: [""] } }
+    let(:metadata) do
+      {
+        foo: :bar,
+        bar: :baz,
+        empty_string: "",
+        empty_string_array: [""],
+        exclude: 'true',
+        include: 'true'
+      }
+    end
     let(:excluded_fields) { [:bar] }
+    let(:excluded_fields_with_values) { { exclude: 'true', include: 'false' } }
     let(:result) { service.send(:processable_fields, metadata) }
 
     before do
       stub_const("HykuAddons::EntryValidationService::EXCLUDED_FIELDS", excluded_fields)
+      stub_const("HykuAddons::EntryValidationService::EXCLUDED_FIELDS_WITH_VALUES", excluded_fields_with_values)
     end
 
-    it 'removes the excluded fields from the hash param' do
+    it 'removes the excluded fields from the hash param based on EXCLUDED_FIELDS' do
       expect(result.keys).to include(:foo)
       expect(result.keys).not_to include(:bar)
+    end
+
+    it 'removes the excluded fields from the hash param based on EXCLUDED_FIELDS_WITH_VALUES' do
+      expect(result.keys).not_to include(:exclude)
+    end
+
+    it "keeps the fields that don't match the value on EXCLUDED_FIELDS_WITH_VALUES" do
+      expect(result.keys).to include(:include)
     end
 
     it 'removes empty fields and empty strings' do
@@ -307,6 +326,7 @@ RSpec.describe HykuAddons::EntryValidationService do
               contributor_suffix: '',
               contributor_institutional_relationship: ['Relationship'],
               contributor_position: '0',
+              contributor_role: [],
               contributor_institution: ''
             }.with_indifferent_access
           ]
