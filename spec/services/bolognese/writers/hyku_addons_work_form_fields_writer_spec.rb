@@ -20,15 +20,21 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       expect(meta.send(:validate_funder_doi, "501100001711")).to eq "https://doi.org/10.13039/501100001711"
     end
 
-    context "when the DOI is an eLife DOI" do
-      it "validates a new DOI" do
-        expect(meta.send(:validate_funder_doi, "10.13039/100000050")).to eq "https://doi.org/10.13039/100000050"
-      end
-
-      it "validates another new DOI" do
-        expect(meta.send(:validate_funder_doi, "10.13039/100006492")).to eq "https://doi.org/10.13039/100006492"
-      end
+    it "is false for non-funder DOIs" do
+      expect(meta.send(:validate_funder_doi, "10.5061/dryad.8515")).to be_nil
     end
+
+    it { expect(meta.send(:validate_funder_doi, "10.13039/100000050")).to eq "https://doi.org/10.13039/100000050" }
+    it { expect(meta.send(:validate_funder_doi, "10.13039/100006492")).to eq "https://doi.org/10.13039/100006492" }
+    it { expect(meta.send(:validate_funder_doi, 'http://handle.test.datacite.org/10.13039/100000080')).to eq "https://doi.org/10.13039/100000080" }
+    it { expect(meta.send(:validate_funder_doi, 'https://doi.org/10.13039/100000001')).to eq "https://doi.org/10.13039/100000001" }
+    it { expect(meta.send(:validate_funder_doi, 'http://doi.org/10.13039/501100001711')).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, 'https://dx.doi.org/10.13039/501100001711')).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, 'doi:10.13039/501100001711')).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, '10.13039/501100001711')).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, '501100001711')).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, "https://doi.org/10.13039/5monkeymonkey")).to be_nil }
+    it { expect(meta.send(:validate_funder_doi, '10.13039/5monkeymonkey')).to be_nil }
   end
 
   context "Hyku Addons Writer" do
