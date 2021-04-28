@@ -466,6 +466,7 @@ module HykuAddons
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
       Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
+      ::ApplicationController.include HykuAddons::MultitenantCookieControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
       ::ActiveJob::Base.include HykuAddons::ImportMode
     end
