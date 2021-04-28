@@ -280,6 +280,7 @@ RSpec.describe HykuAddons::EntryValidationService do
           [
             {
               creator_organization_name: '',
+              creator_organisation_name: '',
               creator_given_name: '',
               creator_middle_name: '',
               creator_family_name: '',
@@ -314,6 +315,7 @@ RSpec.describe HykuAddons::EntryValidationService do
           [
             {
               contributor_organization_name: '',
+              contributor_organisation_name: '',
               contributor_given_name: '',
               contributor_middle_name: '',
               contributor_family_name: '',
@@ -347,6 +349,24 @@ RSpec.describe HykuAddons::EntryValidationService do
 
       it "makes the reevaluation" do
         expect(reevaluation_result).to eq(has_model_ssim: ['PacificBook'])
+      end
+    end
+
+    describe 'reevaluate_admin_set_tesim' do
+      context 'with mappable values' do
+        let(:metadata) { { admin_set_tesim: ['Default Admin Set'] } }
+
+        it "makes the reevaluation" do
+          expect(reevaluation_result).to eq(admin_set_tesim: ['Default'])
+        end
+      end
+
+      context 'with other admin sets' do
+        let(:metadata) { { admin_set_tesim: ['Foo'] } }
+
+        it "changes nothing" do
+          expect(reevaluation_result).to eq(admin_set_tesim: ['Foo'])
+        end
       end
     end
 

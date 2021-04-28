@@ -177,39 +177,31 @@ module HykuAddons
       end
 
       COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS = %w[
-        organization_name given_name middle_name family_name name_type orcid isni ror grid wikidata suffix institution
+        organization_name organisation_name given_name middle_name family_name name_type orcid isni ror grid wikidata suffix institution
       ].freeze
 
-      def reevaluate_creator_tesim(old_value)
+      def creator_contributor_reevaluation(prefix, old_value)
         returning_value = []
-        old_value.each do |creator_tesim|
-          creator_tesim = JSON.parse(creator_tesim)[0]
+        old_value.each do |tesim|
+          tesim = JSON.parse(tesim)[0]
           COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS.each do |field|
-            creator_tesim["creator_#{field}"] ||= ""
+            tesim["#{prefix}_#{field}"] ||= ""
           end
-          creator_tesim["creator_role"] = Array.wrap(creator_tesim["creator_role"].presence)
-          creator_tesim["creator_institutional_relationship"] =
-            Array.wrap(creator_tesim["creator_institutional_relationship"].presence)
-          creator_tesim["creator_position"] ||= "0"
-          returning_value.push([creator_tesim].to_json)
+          tesim["#{prefix}_role"] = Array(tesim["#{prefix}_role"].presence)
+          tesim["#{prefix}_position"] ||= "0"
+          tesim["#{prefix}_institutional_relationship"] =
+            Array(tesim["#{prefix}_institutional_relationship"].presence)
+          returning_value.push([tesim].to_json)
         end
         returning_value
       end
 
+      def reevaluate_creator_tesim(old_value)
+        creator_contributor_reevaluation(:creator, old_value)
+      end
+
       def reevaluate_contributor_tesim(old_value)
-        returning_value = []
-        old_value.each do |contributor_tesim|
-          contributor_tesim = JSON.parse(contributor_tesim)[0]
-          COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS.each do |field|
-            contributor_tesim["contributor_#{field}"] ||= ""
-          end
-          contributor_tesim["contributor_role"] = Array.wrap(contributor_tesim["contributor_role"].presence)
-          contributor_tesim["contributor_position"] ||= "0"
-          contributor_tesim["contributor_institutional_relationship"] =
-            Array.wrap(contributor_tesim["contributor_institutional_relationship"].presence)
-          returning_value.push([contributor_tesim].to_json)
-        end
-        returning_value
+        creator_contributor_reevaluation(:contributor, old_value)
       end
 
       def reevaluate_date_published_tesim(old_value)
@@ -224,6 +216,10 @@ module HykuAddons
 
       def reevaluate_human_readable_type_tesim(old_value)
         ["Pacific #{gross_work_type_name(old_value)}"]
+      end
+
+      def reevaluate_admin_set_tesim(old_value)
+        Array.wrap(old_value).first == "Default Admin Set" ? ['Default'] : old_value
       end
 
       def reevaluate_resource_type_tesim(old_value)
