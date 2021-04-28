@@ -167,10 +167,10 @@ module HykuAddons
 
       def reevaluate_fields(metadata)
         metadata.clone.each do |k, v|
-          reevalmethod_prefix = "reevaluate_#{k}"
-          next unless methods.include?(reevalmethod_prefix.to_sym) && v.try(:any?)
+          reevalprefix = "reevaluate_#{k}"
+          next unless methods.include?(reevalprefix.to_sym) && v.try(:any?)
 
-          new_value = send(reevalmethod_prefix, v)
+          new_value = send(reevalprefix, v)
           metadata[k] = new_value
         end
         metadata
@@ -180,22 +180,28 @@ module HykuAddons
         organization_name organisation_name given_name middle_name family_name name_type orcid isni ror grid wikidata suffix institution
       ].freeze
 
-      %w[creator contributor].each do |method_prefix|
-        define_method "reevaluate_#{method_prefix}_tesim" do |old_value|
-          returning_value = []
-          old_value.each do |tesim|
-            tesim = JSON.parse(tesim)[0]
-            COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS.each do |field|
-              tesim["#{method_prefix}_#{field}"] ||= ""
-            end
-            tesim["#{method_prefix}_role"] = Array.wrap(tesim["#{method_prefix}_role"].presence)
-            tesim["#{method_prefix}_position"] ||= "0"
-            tesim["#{method_prefix}_institutional_relationship"] =
-              Array.wrap(tesim["#{method_prefix}_institutional_relationship"].presence)
-            returning_value.push([tesim].to_json)
+      def creator_contributor_reevaluation(prefix, old_value)
+        returning_value = []
+        old_value.each do |tesim|
+          tesim = JSON.parse(tesim)[0]
+          COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS.each do |field|
+            tesim["#{prefix}_#{field}"] ||= ""
           end
-          returning_value
+          tesim["#{prefix}_role"] = Array(tesim["#{prefix}_role"].presence)
+          tesim["#{prefix}_position"] ||= "0"
+          tesim["#{prefix}_institutional_relationship"] =
+            Array(tesim["#{prefix}_institutional_relationship"].presence)
+          returning_value.push([tesim].to_json)
         end
+        returning_value
+      end
+
+      def reevaluate_creator_tesim(old_value)
+        creator_contributor_reevaluation(:creator, old_value)
+      end
+
+      def reevaluate_contributor_tesim(old_value)
+        creator_contributor_reevaluation(:contributor, old_value)
       end
 
       def reevaluate_date_published_tesim(old_value)
