@@ -177,7 +177,7 @@ module HykuAddons
       end
 
       COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS = %w[
-        organization_name given_name middle_name family_name name_type orcid isni ror grid wikidata suffix institution
+        organization_name organisation_name given_name middle_name family_name name_type orcid isni ror grid wikidata suffix institution
       ].freeze
 
       def reevaluate_creator_tesim(old_value)
@@ -188,9 +188,9 @@ module HykuAddons
             creator_tesim["creator_#{field}"] ||= ""
           end
           creator_tesim["creator_role"] = Array.wrap(creator_tesim["creator_role"].presence)
+          creator_tesim["creator_position"] ||= "0"
           creator_tesim["creator_institutional_relationship"] =
             Array.wrap(creator_tesim["creator_institutional_relationship"].presence)
-          creator_tesim["creator_position"] ||= "0"
           returning_value.push([creator_tesim].to_json)
         end
         returning_value
@@ -224,6 +224,10 @@ module HykuAddons
 
       def reevaluate_human_readable_type_tesim(old_value)
         ["Pacific #{gross_work_type_name(old_value)}"]
+      end
+
+      def reevaluate_admin_set_tesim(old_value)
+        Array.wrap(old_value).first == "Default Admin Set" ? ['Default'] : old_value
       end
 
       def reevaluate_resource_type_tesim(old_value)
