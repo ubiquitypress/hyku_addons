@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Overrides Hyrax methods to handle multitenant overrides of I18n locale
+# Handle switching cookie domains
 module HykuAddons
   module MultitenantCookieControllerBehavior
     extend ActiveSupport::Concern
