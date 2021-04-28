@@ -167,10 +167,10 @@ module HykuAddons
 
       def reevaluate_fields(metadata)
         metadata.clone.each do |k, v|
-          reevalprefix = "reevaluate_#{k}"
-          next unless methods.include?(reevalprefix.to_sym) && v.try(:any?)
+          reeval_method_name = "reevaluate_#{k}"
+          next unless methods.include?(reeval_method_name.to_sym) && v.try(:any?)
 
-          new_value = send(reevalprefix, v)
+          new_value = send(reeval_method_name, v)
           metadata[k] = new_value
         end
         metadata
