@@ -23,7 +23,7 @@ RSpec.describe HykuAddons::WorkFactory do
           "canonical": true
         },
         {
-          "uri": "https://#{account.cname}/work/ns/#{work.id}"
+          "uri": "https://#{account.frontend_url}/work/ns/#{work.id}"
         },
         {
           "uri": "urn:uuid:#{work.id}"
