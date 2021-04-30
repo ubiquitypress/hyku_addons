@@ -1,10 +1,14 @@
 # frozen_string_literal: true
-RSpec.describe Hyrax::Hirmeos::WorkFactory do
+require 'hyku_addons/work_factory'
+require 'rails_helper'
+
+RSpec.describe HykuAddons::WorkFactory do
   WebMock.allow_net_connect!
   let(:work) { create(:work) }
   let(:account) { build(:account) }
 
   before do
+    Rails.application.routes.default_url_options[:host] = 'localhost:3000'
     allow(Site).to receive(:account).and_return(account)
   end
 
@@ -15,11 +19,11 @@ RSpec.describe Hyrax::Hirmeos::WorkFactory do
       ],
       "uri": [
         {
-          "uri": "http://lvh.me:3000/concern/generic_works/#{work.id}",
+          "uri": "http://localhost:3000/concern/generic_works/#{work.id}",
           "canonical": true
         },
         {
-          "uri": "https://#{account.frontend_url}/work/ns/#{work.id}"
+          "uri": "https://#{account.cname}/work/ns/#{work.id}"
         },
         {
           "uri": "urn:uuid:#{work.id}"
