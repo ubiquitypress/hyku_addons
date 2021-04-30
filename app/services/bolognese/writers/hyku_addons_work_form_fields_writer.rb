@@ -20,37 +20,27 @@ module Bolognese
       DATE_FORMAT = "%Y-%-m-%-d"
       DOI_REGEX = /10.\d{4,9}\/[-._;()\/:A-Z0-9]+/
       ROR_QUERY_URL = "https://api.ror.org/organizations?query="
+      AFTER_ACTIONS = %i[ensure_creator_from_editor!].freeze
 
       def hyku_addons_work_form_fields(curation_concern: "generic_work")
         @curation_concern = curation_concern
 
-        # byebug
         # Work through each of the work types fields to create the data hash
-        form_data = work_type_terms.each_with_object({}) do |term, data|
-          method_name = "write_#{term}"
+        @form_data = process_work_type_terms.compact.reject { |_key, value| value.blank? }
 
-          data[term.to_s] = respond_to?(method_name, true) ? send(method_name) : nil
-        end
+        AFTER_ACTIONS.map { |action| send(action) }
 
-        form_data.compact.reject { |_key, value| value.blank? }
+        @form_data
       end
 
-      # NOTE:
-      # This is here until its fixed upstream: https://github.com/datacite/bolognese/issues/109
-      #
-      # Some DOIs (10.7554/eLife.67932, 10.7554/eLife.65703) have namespaced funder keys, which causes
-      # them not to be properly extracted inside of the crossref_reader:
-      # https://github.com/datacite/bolognese/blob/master/lib/bolognese/readers/crossref_reader.rb#L66
-      #
-      # I've tried to overwrite as little as possible and use `super` instead of including the whole method
-      def get_crossref(id: nil, **options)
-        return { "string" => nil, "state" => "not_found" } unless id.present?
+      # If we have no creator, but we do have editors, then we need to transform the editor contributors to creators
+      def ensure_creator_from_editor!
+        return unless @form_data.dig("creator").first&.dig("creator_name") == ":(unav)"
+        return unless @form_data.dig("editor").present?
 
-        string = super.dig("string")
-
-        string = Nokogiri::XML(string, nil, 'UTF-8', &:noblanks).remove_namespaces!.to_s if string.present?
-
-        { "string" => string }
+        @form_data["creator"] = @form_data.delete("editor").map! do |cont|
+          cont.transform_keys! { |key| key.gsub("contributor", "creator") }
+        end
       end
 
       # rubocop:disable Metrics/PerceivedComplexity
@@ -91,6 +81,11 @@ module Bolognese
           book_set_metadata = meta.dig("crossref", "book", "book_set_metadata")
           bibliographic_metadata = meta.dig("crossref", "book", "content_item") || book_metadata || book_series_metadata || book_set_metadata
           resource_type = bibliographic_metadata.fetch("component_type", nil) ? "book-" + bibliographic_metadata.fetch("component_type") : "book"
+          # publisher = if book_metadata.present?
+          #               book_metadata.dig("publisher", "publisher_name")
+          #             elsif book_series_metadata.present?
+          #               book_series_metadata.dig("publisher", "publisher_name")
+          #             end
         when "conference"
           event_metadata = meta.dig("crossref", "conference", "event_metadata") || {}
           bibliographic_metadata = meta.dig("crossref", "conference", "conference_paper").to_h
@@ -101,11 +96,11 @@ module Bolognese
           bibliographic_metadata = journal_article.presence || journal_issue.presence || journal_metadata
           program_metadata = bibliographic_metadata.dig("crossmark", "custom_metadata", "program") || bibliographic_metadata.dig("program")
           resource_type = if journal_article.present?
-                            "journal_article"
-                          elsif journal_issue.present?
-                            "journal_issue"
-                          else
-                            "journal"
+                              "journal_article"
+                            elsif journal_issue.present?
+                              "journal_issue"
+                            else
+                              "journal"
                             end
         when "posted_content"
           bibliographic_metadata = meta.dig("crossref", "posted_content").to_h
@@ -191,14 +186,14 @@ module Bolognese
 
                     # By using book_metadata, we can account for where resource_type is `BookChapter` and not assume its a whole book
                     elsif book_metadata.present?
-                      # ISBN is always found within the identifiers
-                      identifiers = crossref_alternate_identifiers(book_metadata).first
+                      identifiers = crossref_alternate_identifiers(book_metadata)
 
                       {
                         "type" => "Book",
-                        "title" =>  book_metadata.dig("titles", "title"),
+                        "title" => book_metadata.dig("titles", "title"),
                         "firstPage" => bibliographic_metadata.dig("pages", "first_page"),
-                        "lastPage" => bibliographic_metadata.dig("pages", "last_page")
+                        "lastPage" => bibliographic_metadata.dig("pages", "last_page"),
+                        "identifiers" => identifiers,
                       }.compact
 
                     elsif book_series_metadata.to_h.fetch("series_metadata", nil).present?
@@ -240,7 +235,8 @@ module Bolognese
           "sizes" => nil,
           "schema_version" => nil,
           "state" => state,
-          "date_registered" => date_registered }.merge(read_options)
+          "date_registered" => date_registered
+        }.merge(read_options)
       end
       # rubocop:enable Metrics/PerceivedComplexity
       # rubocop:enable Metrics/MethodLength
@@ -280,6 +276,10 @@ module Bolognese
 
         def write_contributor
           write_involved("contributors")
+        end
+
+        def write_editor
+          write_involved("contributors").select { |cont| cont["contributor_contributor_type"] == "Editor" }
         end
 
         def write_publisher
@@ -366,7 +366,7 @@ module Bolognese
 
         # Book chapters have a distinct Book Title field for their parent books title
         def write_book_title
-          [container.dig("title")].compact
+          [container&.dig("title")].compact
         end
 
         # The following is required for when first and last pages are entered/missing
@@ -382,6 +382,8 @@ module Bolognese
         # l: 27
         # res: 27
         def write_pagination
+          return unless container.present?
+
           pagination = [container.dig("firstPage"), "-", container.dig("lastPage")].compact
 
           if pagination.size == 3
@@ -395,21 +397,32 @@ module Bolognese
 
       private
 
+        def process_work_type_terms
+          work_type_terms.each_with_object({}) do |term, data|
+            method_name = "write_#{term}"
+
+            data[term.to_s] = respond_to?(method_name, true) ? send(method_name) : nil
+          end
+        end
+
         def write_involved(type)
           key = type.to_s.singularize
 
           meta.dig(type)&.map do |item|
-            item.transform_keys! { |k| "#{key}_#{k.underscore}" }
+            # transform but don't change original or each time method is run it prepends the key
+            transformed = item.transform_keys { |k| "#{key}_#{k.underscore}" }
 
             # Individual name identifiers will require specific tranformations as required
-            item["#{key}_name_identifiers"]&.each_with_object(item) do |hash, identifier|
+            transformed["#{key}_name_identifiers"]&.each_with_object(transformed) do |hash, identifier|
               identifier["#{key}_#{hash['nameIdentifierScheme'].downcase}"] = hash["nameIdentifier"]
             end
 
             # Incase edge cases don't provide a full set of name values, but should have: 10.7925/drs1.duchas_5019334
-            item["#{key}_family_name"], item["#{key}_given_name"] = item["#{key}_name"].split(", ") if item["#{key}_name"]&.match?(/,/) && item["#{key}_given_name"].blank?
+            if transformed["#{key}_name"]&.match?(/,/) && transformed["#{key}_given_name"].blank?
+              transformed["#{key}_family_name"], transformed["#{key}_given_name"] = transformed["#{key}_name"].split(", ")
+            end
 
-            item
+            transformed
           end
         end
 
