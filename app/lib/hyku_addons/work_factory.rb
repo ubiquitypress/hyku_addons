@@ -22,11 +22,11 @@ module HykuAddons
     end
 
     def self.build_scholarly_link(work)
-      "https://#{current_account.cname}/work/sc/#{work.id}"
+      "https://#{current_account.frontend_url}/work/sc/#{work.id}"
     end
 
     def self.build_non_scholarly_link(work)
-      "https://#{current_account.cname}/work/ns/#{work.id}"
+      "https://#{current_account.frontend_url}/work/ns/#{work.id}"
     end
 
     def self.current_account
