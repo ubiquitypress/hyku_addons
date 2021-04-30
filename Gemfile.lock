@@ -55,7 +55,7 @@ GIT
 
 GIT
   remote: https://github.com/ubiquitypress/hyrax-hirmeos
-  revision: 8f3cab9ec6109f08bfcbfe88ce9700d65c956597
+  revision: 06bcd697ffa5b696a33242b6c6100f9ece910c74
   branch: main
   specs:
     hyrax-hirmeos (0.1.0)
@@ -1175,7 +1175,7 @@ DEPENDENCIES
   flutie
   hyku-api!
   hyku_addons!
-  hyrax (~> 2.9)
+  hyrax (~> 2.9, >= 2.9.1)
   hyrax-doi!
   hyrax-hirmeos!
   i18n-debug
