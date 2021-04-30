@@ -22,20 +22,9 @@ RSpec.describe HykuAddons::MultitenantCookieControllerBehavior, type: :request, 
       host! account.cname
     end
 
-    it "sets the cookie domain to the frontend_url" do
+    it "sets the cookie domain to the cname" do
       get main_app.root_path
-      expect(cookie_details.domain).to eq ".#{account.frontend_url}"
-    end
-
-    context 'with no frontend_url' do
-      before do
-        account.update frontend_url: nil
-      end
-
-      it "sets the cookie domain to the cname" do
-        get main_app.root_path
-        expect(cookie_details.domain).to eq ".#{account.cname}"
-      end
+      expect(cookie_details.domain).to eq account.cname
     end
   end
 end

@@ -7,6 +7,7 @@ module HykuAddons
 
     included do
       before_action :set_tenant_cookie_options
+      after_action :log_tenant_cookie_options
     end
 
     private
@@ -17,6 +18,10 @@ module HykuAddons
         tenant_host = current_account&.frontend_url&.presence || current_account&.cname&.presence
         request.env['rack.session.options'][:domain] = ".#{tenant_host}" if tenant_host.present?
         true
+      end
+
+      def log_tenant_cookie_options
+        Rails.logger.info "Cookie domain: #{request.env['rack.session.options'][:domain]}"
       end
   end
 end
