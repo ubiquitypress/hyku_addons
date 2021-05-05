@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module HykuAddons
   class BaseQuery
     attr_reader :relation
@@ -12,4 +13,3 @@ module HykuAddons
     end
   end
 end
-

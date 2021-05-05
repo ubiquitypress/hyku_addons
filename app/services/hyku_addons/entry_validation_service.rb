@@ -33,7 +33,8 @@ module HykuAddons
       date_uploaded_dtsi: 'date_uploaded_ssi',
       version_tesim: 'version_number_tesim',
       collection_id_tesim: 'member_of_collection_ids_ssim',
-      collection_names_tesim: 'member_of_collections_ssim'
+      collection_names_tesim: 'member_of_collections_ssim',
+      doi_tesim: 'official_link'
     }.with_indifferent_access.freeze
 
     EXCLUDED_FIELDS_WITH_VALUES = {
