@@ -11,11 +11,13 @@ module HykuAddons
     def perform
       statuses_with_issues = HykuAddons::StatusValidationIssuesQuery.new(@statuses).call(@field)
       CSV.generate do |csv|
-        csv << %w[import_id import_name entry_id work_id issue path operation value]
+        csv << %i[import_id import_name entry_id work_id attribute operation source_value destination_value
+                  transformed_source_value transformed_dest_value]
         statuses_with_issues.each do |status|
           entry = status.statusable
           status.error_backtrace.each do |issue|
-            csv << [@importer.id, @importer.name, entry.id, entry.identifier, issue[:path], issue[:op], issue[:value]]
+            csv << [@importer.id, @importer.name, entry.id, entry.identifier, issue[:path], issue[:op],
+                    issue[:source_v], issue[:dest_v], issue[:t_source_v], issue[:t_dest_v]]
           end
         end
       end

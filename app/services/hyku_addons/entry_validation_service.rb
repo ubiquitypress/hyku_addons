@@ -129,8 +129,25 @@ module HykuAddons
           @destination_base_url && ((@destination_username && @destination_password) || @destination_cookie)
       end
 
+      # Returns a Hash that represents a validation issue in a similar way of the Diff format:
+      # Fields:
+      # - path: name of the attribute having a difference
+      # - op: type of difference (add, remove or change)
+      # - source_v: Value of metadata on source
+      # - dest_v: Value of metadata on destination
+      # - t_source_v: Value of metadata on source after transforms
+      # - t_dest_v: Value of metadata on destination after transforms
       def diff_list_for(issues, operation)
-        issues.map { |k, v| { path: k, op: operation, value: v } }
+        issues.map do |k, _v|
+          {
+            path: k,
+            op: operation,
+            source_v: source_metadata[k],
+            dest_v: destination_metadata[k],
+            t_source_v: source_metadata_after_transforms[k],
+            t_dest_v: destination_metadata_after_transforms[k]
+          }
+        end
       end
 
       def processable_fields(metadata)
