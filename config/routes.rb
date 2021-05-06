@@ -9,4 +9,6 @@ HykuAddons::Engine.routes.draw do
 
   get "/api/v1/tenant/:tenant_id/files/:id/work", to: "/hyku/api/v1/files#work"
   get "/api/v1/tenant/:tenant_id/files/:id/download", to: "/hyku/api/v1/files#download"
+
+  get "/importers/:id/validation", to: "/hyku_addons/importer_validations#show", as: :importer_validation
 end

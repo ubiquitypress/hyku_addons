@@ -461,6 +461,7 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
       User.include HykuAddons::UserEmailFormat
+      Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
       Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
       Bolognese::Metadata.prepend Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
