@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 5.2.4", ">= 5.2.4.3"
 
   spec.add_dependency 'blacklight_oai_provider', '~> 6.1'
+  spec.add_dependency 'config', '>= 3.0'
   # TODO: make the gcloud dependency optional?
   spec.add_dependency 'google-cloud-storage', '~> 1.31'
   spec.add_dependency 'hyrax', '~> 2.8'
