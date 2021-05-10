@@ -43,6 +43,8 @@ module Bolognese
       # rubocop:disable Metrics/MethodLength
       # rubocop:disable Metrics/CyclomaticComplexity
       # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Lint/UselessAssignment
+      # rubocop:disable Lint/EndAlignment
       def read_crossref(string: nil, **options)
         read_options = ActiveSupport::HashWithIndifferentAccess.new(options.except(:doi, :id, :url, :sandbox, :validate, :ra))
 
@@ -92,11 +94,11 @@ module Bolognese
           bibliographic_metadata = journal_article.presence || journal_issue.presence || journal_metadata
           program_metadata = bibliographic_metadata.dig("crossmark", "custom_metadata", "program") || bibliographic_metadata.dig("program")
           resource_type = if journal_article.present?
-                              "journal_article"
-                            elsif journal_issue.present?
-                              "journal_issue"
-                            else
-                              "journal"
+                            "journal_article"
+                          elsif journal_issue.present?
+                            "journal_issue"
+                          else
+                            "journal"
                             end
         when "posted_content"
           bibliographic_metadata = meta.dig("crossref", "posted_content").to_h
@@ -189,7 +191,7 @@ module Bolognese
                         "title" => book_metadata.dig("titles", "title"),
                         "firstPage" => bibliographic_metadata.dig("pages", "first_page"),
                         "lastPage" => bibliographic_metadata.dig("pages", "last_page"),
-                        "identifiers" => identifiers,
+                        "identifiers" => identifiers
                       }.compact
 
                     elsif book_series_metadata.to_h.fetch("series_metadata", nil).present?
@@ -231,13 +233,14 @@ module Bolognese
           "sizes" => nil,
           "schema_version" => nil,
           "state" => state,
-          "date_registered" => date_registered
-        }.merge(read_options)
+          "date_registered" => date_registered }.merge(read_options)
       end
       # rubocop:enable Metrics/PerceivedComplexity
       # rubocop:enable Metrics/MethodLength
       # rubocop:enable Metrics/CyclomaticComplexity
       # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Lint/UselessAssignment
+      # rubocop:enable Lint/EndAlignment
 
       protected
 
