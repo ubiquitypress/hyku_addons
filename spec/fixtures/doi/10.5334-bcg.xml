@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crossref_result xmlns="http://www.crossref.org/qrschema/3.0" version="3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.crossref.org/qrschema/3.0 http://www.crossref.org/schemas/crossref_query_output3.0.xsd">
+  <query_result>
+    <head>
+      <doi_batch_id>none</doi_batch_id>
+    </head>
+    <body>
+      <query status="resolved">
+        <doi type="book_title">10.5334/bcg</doi>
+        <crm-item name="publisher-name" type="string">Ubiquity Press, Ltd.</crm-item>
+        <crm-item name="prefix-name" type="string">Ubiquity Press, Ltd.</crm-item>
+        <crm-item name="member-id" type="number">3285</crm-item>
+        <crm-item name="citation-id" type="number">112360905</crm-item>
+        <crm-item name="book-id" type="number">3467345</crm-item>
+        <crm-item name="deposit-timestamp" type="number">201912181629</crm-item>
+        <crm-item name="owner-prefix" type="string">10.5334</crm-item>
+        <crm-item name="last-update" type="date">2019-12-18T21:29:57Z</crm-item>
+        <crm-item name="created" type="date">2019-12-18T21:29:56Z</crm-item>
+        <crm-item name="citedby-count" type="number">0</crm-item>
+        <doi_record>
+          <crossref xmlns="http://www.crossref.org/xschema/1.1" xsi:schemaLocation="http://www.crossref.org/xschema/1.1 http://doi.crossref.org/schemas/unixref1.1.xsd">
+            <book book_type="edited_book">
+              <book_metadata>
+                <contributors>
+                  <person_name sequence="first" contributor_role="editor">
+                    <given_name>Rebecca</given_name>
+                    <surname>Ferguson</surname>
+                    <ORCID>https://orcid.org/0000-0002-8566-8231</ORCID>
+                  </person_name>
+                  <person_name sequence="additional" contributor_role="editor">
+                    <given_name>Ann</given_name>
+                    <surname>Jones</surname>
+                    <ORCID>https://orcid.org/0000-0003-0853-8545</ORCID>
+                  </person_name>
+                  <person_name sequence="additional" contributor_role="editor">
+                    <given_name>Eileen</given_name>
+                    <surname>Scanlon</surname>
+                    <ORCID>https://orcid.org/0000-0003-1180-682X</ORCID>
+                  </person_name>
+                </contributors>
+                <titles>
+                  <title>Educational visions: The lessons from 40 years of innovation</title>
+                </titles>
+                <publication_date media_type="print">
+                  <month>12</month>
+                  <day>18</day>
+                  <year>2019</year>
+                </publication_date>
+                <publication_date media_type="online">
+                  <month>12</month>
+                  <day>18</day>
+                  <year>2019</year>
+                </publication_date>
+                <isbn>9781911529804</isbn>
+                <publisher>
+                  <publisher_name>Ubiquity Press</publisher_name>
+                </publisher>
+                <doi_data>
+                  <doi>10.5334/bcg</doi>
+                  <resource>https://www.ubiquitypress.com/site/books/10.5334/bcg/</resource>
+                  <collection property="crawler-based">
+                    <item crawler="iParadigms">
+                      <resource>https://www.ubiquitypress.com/site/books/10.5334/bcg/download/3039/</resource>
+                    </item>
+                  </collection>
+                </doi_data>
+              </book_metadata>
+              <!-- ============== -->
+              <!-- ============== -->
+              <!-- ============== -->
+              <!-- ============== -->
+              <!-- ============== -->
+              <!-- ============== -->
+              <!-- ============== -->
+              <!-- ============== -->
+              <!-- ============== -->
+              <!-- ============== -->
+              <!-- ============== -->
+            </book>
+          </crossref>
+        </doi_record>
+      </query>
+    </body>
+  </query_result>
+</crossref_result>
