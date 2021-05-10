@@ -28,7 +28,7 @@ module HykuAddons
 
         # Admins do not need us to find their collections as they still have the admin interface
         def correct_permissions?(env)
-          !env.current_ability.current_user.has_role?(:admin)
+          !env.current_ability.current_user.has_role?(:admin, Site.instance)
         end
 
         def enabled?
