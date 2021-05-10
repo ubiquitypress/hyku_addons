@@ -34,6 +34,11 @@ module Bolognese
         @form_data.compact.reject { |_key, value| value.blank? }
       end
 
+      # This overrides the default `read_crossref` as they do not deal with book chapters very well, and are super
+      # unresponsive on Github issues/pr's. Remove this method if/when PR merged into master.
+      #
+      # PR: https://github.com/datacite/bolognese/pull/115
+      #
       # rubocop:disable Metrics/PerceivedComplexity
       # rubocop:disable Metrics/MethodLength
       # rubocop:disable Metrics/CyclomaticComplexity
