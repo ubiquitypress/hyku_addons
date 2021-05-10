@@ -34,23 +34,6 @@ module Bolognese
         @form_data.compact.reject { |_key, value| value.blank? }
       end
 
-      # If we have editors, then they are formed from contributor data, which can be removed to avoid duplication
-      def process_editor_contributors!
-        return unless @form_data["editor"].present?
-
-        @form_data["contributor"].reject! { |cont| cont["contributor_contributor_type"] == "Editor" }
-      end
-
-      # If we have no creator, but we do have editors, then we need to transform the editor contributors to creators
-      def ensure_creator_from_editor!
-        return unless @form_data.dig("creator").first&.dig("creator_name") == UNAVAILABLE_LABEL
-        return unless @form_data.dig("editor").present?
-
-        @form_data["creator"] = @form_data.delete("editor").map! do |cont|
-          cont.transform_keys! { |key| key.gsub("contributor", "creator") }
-        end
-      end
-
       # rubocop:disable Metrics/PerceivedComplexity
       # rubocop:disable Metrics/MethodLength
       # rubocop:disable Metrics/CyclomaticComplexity
@@ -490,6 +473,23 @@ module Bolognese
         # Required for WorkFormNameable to function correctly
         def meta_model
           @curation_concern.classify
+        end
+
+        # If we have editors, then they are formed from contributor data, which can be removed to avoid duplication
+        def process_editor_contributors!
+          return unless @form_data["editor"].present?
+
+          @form_data["contributor"].reject! { |cont| cont["contributor_contributor_type"] == "Editor" }
+        end
+
+        # If we have no creator, but we do have editors, then we need to transform the editor contributors to creators
+        def ensure_creator_from_editor!
+          return unless @form_data.dig("creator").first&.dig("creator_name") == UNAVAILABLE_LABEL
+          return unless @form_data.dig("editor").present?
+
+          @form_data["creator"] = @form_data.delete("editor").map! do |cont|
+            cont.transform_keys! { |key| key.gsub("contributor", "creator") }
+          end
         end
     end
   end
