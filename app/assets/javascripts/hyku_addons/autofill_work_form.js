@@ -52,7 +52,6 @@ class AutofillWorkForm {
 
     // Switch to the description tab automatically
     $("[aria-controls='metadata']").click()
-    $('.additional-fields').click().remove()
 
     Object.entries(this.response.data).forEach(([field, value]) => {
       this.processField(field, value)
