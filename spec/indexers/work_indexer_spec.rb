@@ -24,4 +24,18 @@ RSpec.describe WorkIndexer do
     expect(solr_document.fetch('contributor_display_ssim')).to eq ["Jones, James Earl"]
     expect(solr_document.fetch('editor_display_ssim')).to eq ["University of Cambridge"]
   end
+
+  context 'with extra blankspace' do
+    let(:contributor) do
+      [
+        { contributor_family_name: 'Jones ', contributor_given_name: 'James Earl ', contributor_organization_name: '' }
+      ].to_json
+    end
+
+    it "indexes the correct fields" do
+      expect(solr_document.fetch('creator_display_ssim')).to eq ["Hawking, Stephen"]
+      expect(solr_document.fetch('contributor_display_ssim')).to eq ["Jones, James Earl"]
+      expect(solr_document.fetch('editor_display_ssim')).to eq ["University of Cambridge"]
+    end
+  end
 end

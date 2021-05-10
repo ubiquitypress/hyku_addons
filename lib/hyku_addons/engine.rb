@@ -115,7 +115,7 @@ module HykuAddons
     ## In engine development mode (ENGINE_ROOT defined) handle specific generators as app-only by setting destintation_root appropriately
     initializer 'hyku_addons.app_generators' do
       if defined?(ENGINE_ROOT)
-        APP_GENERATORS = ['HykuAddons::InstallGenerator', 'Hyrax::DOI::InstallGenerator', 'Hyrax::DOI::AddToWorkTypeGenerator'].freeze
+        APP_GENERATORS = ['HykuAddons::InstallGenerator', 'Hyrax::DOI::InstallGenerator', 'Hyrax::DOI::AddToWorkTypeGenerator', 'Hyrax::Hirmeos::InstallGenerator'].freeze
 
         Rails::Generators::Base.class_eval do
           def initialize(args, options, config)
@@ -461,6 +461,7 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
       User.include HykuAddons::UserEmailFormat
+      Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
       Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
       Bolognese::Metadata.prepend Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior

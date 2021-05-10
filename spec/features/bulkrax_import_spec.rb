@@ -26,6 +26,7 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
   before do
     # Make sure default admin set exists
     AdminSet.find_or_create_default_admin_set_id
+    stub_request(:get, Addressable::Template.new("#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}")).to_return(status: 200)
   end
 
   describe 'import works' do

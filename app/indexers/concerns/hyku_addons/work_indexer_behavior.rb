@@ -22,7 +22,7 @@ module HykuAddons
       def format_names(field)
         return nil unless object&.send(field)&.first.present?
         JSON.parse(object.send(field).first).collect do |hash|
-          hash.slice(*FIELD_ORDERS[field]).values.map(&:presence).compact.join(', ')
+          hash.slice(*FIELD_ORDERS[field]).values.map(&:presence).compact.map(&:strip).join(', ')
         end
       end
   end

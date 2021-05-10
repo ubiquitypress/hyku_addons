@@ -33,7 +33,8 @@ module HykuAddons
       date_uploaded_dtsi: 'date_uploaded_ssi',
       version_tesim: 'version_number_tesim',
       collection_id_tesim: 'member_of_collection_ids_ssim',
-      collection_names_tesim: 'member_of_collections_ssim'
+      collection_names_tesim: 'member_of_collections_ssim',
+      doi_tesim: 'official_link'
     }.with_indifferent_access.freeze
 
     EXCLUDED_FIELDS_WITH_VALUES = {
@@ -128,8 +129,25 @@ module HykuAddons
           @destination_base_url && ((@destination_username && @destination_password) || @destination_cookie)
       end
 
+      # Returns a Hash that represents a validation issue in a similar way of the Diff format:
+      # Fields:
+      # - path: name of the attribute having a difference
+      # - op: type of difference (add, remove or change)
+      # - source_v: Value of metadata on source
+      # - dest_v: Value of metadata on destination
+      # - t_source_v: Value of metadata on source after transforms
+      # - t_dest_v: Value of metadata on destination after transforms
       def diff_list_for(issues, operation)
-        issues.map { |k, v| { path: k, op: operation, value: v } }
+        issues.map do |k, _v|
+          {
+            path: k,
+            op: operation,
+            source_v: source_metadata[k],
+            dest_v: destination_metadata[k],
+            t_source_v: source_metadata_after_transforms[k],
+            t_dest_v: destination_metadata_after_transforms[k]
+          }
+        end
       end
 
       def processable_fields(metadata)
@@ -177,39 +195,31 @@ module HykuAddons
       end
 
       COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS = %w[
-        organization_name given_name middle_name family_name name_type orcid isni ror grid wikidata suffix institution
+        organization_name organisation_name given_name middle_name family_name name_type orcid isni ror grid wikidata suffix institution
       ].freeze
 
-      def reevaluate_creator_tesim(old_value)
+      def creator_contributor_reevaluation(prefix, old_value)
         returning_value = []
-        old_value.each do |creator_tesim|
-          creator_tesim = JSON.parse(creator_tesim)[0]
+        old_value.each do |tesim|
+          tesim = JSON.parse(tesim)[0]
           COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS.each do |field|
-            creator_tesim["creator_#{field}"] ||= ""
+            tesim["#{prefix}_#{field}"] ||= ""
           end
-          creator_tesim["creator_role"] = Array.wrap(creator_tesim["creator_role"].presence)
-          creator_tesim["creator_institutional_relationship"] =
-            Array.wrap(creator_tesim["creator_institutional_relationship"].presence)
-          creator_tesim["creator_position"] ||= "0"
-          returning_value.push([creator_tesim].to_json)
+          tesim["#{prefix}_role"] = Array(tesim["#{prefix}_role"].presence)
+          tesim["#{prefix}_position"] ||= "0"
+          tesim["#{prefix}_institutional_relationship"] =
+            Array(tesim["#{prefix}_institutional_relationship"].presence)
+          returning_value.push([tesim].to_json)
         end
         returning_value
       end
 
+      def reevaluate_creator_tesim(old_value)
+        creator_contributor_reevaluation(:creator, old_value)
+      end
+
       def reevaluate_contributor_tesim(old_value)
-        returning_value = []
-        old_value.each do |contributor_tesim|
-          contributor_tesim = JSON.parse(contributor_tesim)[0]
-          COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS.each do |field|
-            contributor_tesim["contributor_#{field}"] ||= ""
-          end
-          contributor_tesim["contributor_role"] = Array.wrap(contributor_tesim["contributor_role"].presence)
-          contributor_tesim["contributor_position"] ||= "0"
-          contributor_tesim["contributor_institutional_relationship"] =
-            Array.wrap(contributor_tesim["contributor_institutional_relationship"].presence)
-          returning_value.push([contributor_tesim].to_json)
-        end
-        returning_value
+        creator_contributor_reevaluation(:contributor, old_value)
       end
 
       def reevaluate_date_published_tesim(old_value)
@@ -224,6 +234,10 @@ module HykuAddons
 
       def reevaluate_human_readable_type_tesim(old_value)
         ["Pacific #{gross_work_type_name(old_value)}"]
+      end
+
+      def reevaluate_admin_set_tesim(old_value)
+        Array.wrap(old_value).first == "Default Admin Set" ? ['Default'] : old_value
       end
 
       def reevaluate_resource_type_tesim(old_value)
