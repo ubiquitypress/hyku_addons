@@ -17,25 +17,33 @@ module Bolognese
     module HykuAddonsWorkFormFieldsWriter
       include HykuAddons::WorkFormNameable
 
+      UNAVAILABLE_LABEL = ":(unav)"
       DATE_FORMAT = "%Y-%-m-%-d"
       DOI_REGEX = /10.\d{4,9}\/[-._;()\/:A-Z0-9]+/
       ROR_QUERY_URL = "https://api.ror.org/organizations?query="
-      AFTER_ACTIONS = %i[ensure_creator_from_editor!].freeze
+      AFTER_ACTIONS = %i[process_editor_contributors! ensure_creator_from_editor!].freeze
 
       def hyku_addons_work_form_fields(curation_concern: "generic_work")
         @curation_concern = curation_concern
 
-        # Work through each of the work types fields to create the data hash
-        @form_data = process_work_type_terms.compact.reject { |_key, value| value.blank? }
+        @form_data = process_work_type_terms
 
         AFTER_ACTIONS.map { |action| send(action) }
 
-        @form_data
+        # Work through each of the work types fields to create the data hash
+        @form_data.compact.reject { |_key, value| value.blank? }
+      end
+
+      # If we have editors, then they are formed from contributor data, which can be removed to avoid duplication
+      def process_editor_contributors!
+        return unless @form_data["editor"].present?
+
+        @form_data["contributor"].reject! { |cont| cont["contributor_contributor_type"] == "Editor" }
       end
 
       # If we have no creator, but we do have editors, then we need to transform the editor contributors to creators
       def ensure_creator_from_editor!
-        return unless @form_data.dig("creator").first&.dig("creator_name") == ":(unav)"
+        return unless @form_data.dig("creator").first&.dig("creator_name") == UNAVAILABLE_LABEL
         return unless @form_data.dig("editor").present?
 
         @form_data["creator"] = @form_data.delete("editor").map! do |cont|

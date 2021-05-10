@@ -230,11 +230,8 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["date_published"].first["date_published_month"]).to be 1 }
       it { expect(result["date_published"].first["date_published_day"]).to be 1 }
 
-      it { expect(result["contributor"]).to be_an(Array) }
-      it { expect(result["contributor"].size).to eq 1 }
-      it { expect(result["contributor"][0]["contributor_name_type"]).to eq "Personal" }
-      it { expect(result["contributor"][0]["contributor_given_name"]).to eq "Sharon" }
-      it { expect(result["contributor"][0]["contributor_family_name"]).to eq "Lockyer" }
+      it { expect(result["contributor"]).to be_nil }
+      it { expect(result["editor"]).to be_nil }
 
       it { expect(result["creator"]).to be_an(Array) }
       it { expect(result["creator"].size).to eq 1 }
@@ -719,20 +716,8 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["date_published"].first["date_published_month"]).to be 3 }
       it { expect(result["date_published"].first["date_published_day"]).to be 1 }
 
-      it { expect(result["contributor"]).to be_an(Array) }
-      it { expect(result["contributor"].size).to eq 2 }
-
-      it { expect(result["contributor"][0]["contributor_name_type"]).to eq "Personal" }
-      it { expect(result["contributor"][0]["contributor_given_name"]).to eq "Sophie" }
-      it { expect(result["contributor"][0]["contributor_family_name"]).to eq "Laniel-Musitelli" }
-      it { expect(result["contributor"][0]["contributor_orcid"]).to eq "https://orcid.org/0000-0001-6622-9455" }
-      it { expect(result["contributor"][0]["contributor_contributor_type"]).to eq "Editor" }
-
-      it { expect(result["contributor"][1]["contributor_name_type"]).to eq "Personal" }
-      it { expect(result["contributor"][1]["contributor_given_name"]).to eq "Céline" }
-      it { expect(result["contributor"][1]["contributor_family_name"]).to eq "Sabiron" }
-      it { expect(result["contributor"][1]["contributor_orcid"]).to be_nil }
-      it { expect(result["contributor"][1]["contributor_contributor_type"]).to eq "Editor" }
+      it { expect(result["contributor"]).to be_nil }
+      it { expect(result["editor"]).to be_nil }
 
       it { expect(result["creator"]).to be_an(Array) }
       it { expect(result["creator"].size).to eq 2 }
@@ -793,8 +778,60 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["creator"][3]["creator_name"]).to eq "Hewlett Foundation" }
     end
 
+    describe "a book with editors and no creators" do
+      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.5334-bbc.xml") }
+
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+
+      it { expect(result["doi"]).to include("10.5334/bbc") }
+      it { expect(result["title"]).to eq ["Open: The Philosophy and Practices that are Revolutionizing Education and Science"] }
+
+      it { expect(result["publisher"]).to eq ["Ubiquity Press, Ltd."] }
+      it { expect(result["abstract"]).to be_nil }
+      it { expect(result["volume"]).to be_nil }
+      it { expect(result["official_link"]).to eq ["http://www.ubiquitypress.com/site/books/10.5334/bbc/"] }
+      it { expect(result["issn"]).to be_nil }
+      it { expect(result["isbn"]).to eq ["9781911529002"] }
+      it { expect(result["keyword"]).to be_nil }
+      it { expect(result["journal_title"]).to be_nil }
+      it { expect(result["pagination"]).to be_nil }
+
+      it { expect(result["date_published"]).to be_an(Array) }
+      it { expect(result["date_published"].first["date_published_year"]).to be 2017 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 3 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 27 }
+
+      it { expect(result["editor"]).to be_nil }
+
+      it { expect(result["creator"]).to be_an(Array) }
+      it { expect(result["creator"].size).to eq 2 }
+
+      it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][0]["creator_given_name"]).to eq "Rajiv S." }
+      it { expect(result["creator"][0]["creator_family_name"]).to eq "Jhangiani" }
+      it { expect(result["creator"][0]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][1]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][1]["creator_given_name"]).to eq "Robert" }
+      it { expect(result["creator"][1]["creator_family_name"]).to eq "Biswas-Diener" }
+      it { expect(result["creator"][1]["creator_orcid"]).to be_nil }
+
+      it { expect(result["contributor"]).to be_an(Array) }
+      it { expect(result["contributor"].size).to eq 2 }
+
+      it { expect(result["contributor"][0]["contributor_name_type"]).to eq "Organizational" }
+      it { expect(result["contributor"][0]["contributor_name"]).to eq "Kwantlen Polytechnic University, CA" }
+      it { expect(result["contributor"][0]["contributor_orcid"]).to be_nil }
+
+      it { expect(result["contributor"][1]["contributor_name_type"]).to eq "Organizational" }
+      it { expect(result["contributor"][1]["contributor_name"]).to eq "Noba Project" }
+      it { expect(result["contributor"][1]["contributor_orcid"]).to be_nil }
+    end
+
     describe "a book with only an editor" do
       let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.5334-bcg.xml") }
+
       it { expect(meta.doi).to be_present }
       it { expect(result).to be_a Hash }
 
@@ -815,6 +852,8 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["date_published"].first["date_published_year"]).to be 2019 }
       it { expect(result["date_published"].first["date_published_month"]).to be 12 }
       it { expect(result["date_published"].first["date_published_day"]).to be 18 }
+
+      it { expect(result["contributor"]).to be_nil }
 
       it { expect(result["creator"]).to be_an(Array) }
       it { expect(result["creator"].size).to eq 3 }
