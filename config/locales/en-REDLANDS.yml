@@ -1,0 +1,53 @@
+en:
+  simple_form:
+    creator:
+      creator_name_type:
+        label: Name Type
+      creator_family_name:
+        label: Last Name
+        placeholder: e.g. Vaughan
+        help_text: Please enter the creator's last name/family name
+      creator_given_name:
+        label: First Name
+        placeholder: e.g. Dorothy
+        help_text: Please enter the creator's first name/given name
+      creator_orcid:
+        label: ORCiD ID
+        placeholder: e.g. 0000-1234-5678-9101.
+        help_text: Please enter the creator's ORCID
+      creator_middle_name:
+        label: Middle Name
+        placeholder: e.g. Johnson
+        help_text: Please enter the creator's middle name(s)
+      creator_suffix:
+        label: Suffix
+        placeholder: " "
+      creator_institution:
+        label: Institution
+        placeholder: " "
+      creator_role:
+        label: Role
+        placeholder: " "
+    labels:
+      defaults:
+        resource_type: Document Type
+        org_unit: Department
+        alt_email: Alternative Email
+        license: Distribution License
+        subject: Discipline
+        version_number: Document Version
+        date_published: Publication Date
+        journal_title: Publication Title
+        volume: Volume Number
+        pagination: Page Numbers
+        official_link: Link to Full Text
+        related_identifier: PMID
+        location: Geolocate
+    placeholders:
+      defaults:
+        alt_email: downloadreports@tellme.org
+        related_identifier: 33613019
+    hints:
+      defaults:
+        alt_email: To facilitate communication past your tenure at Redlands. Will not be used for non-repository purposes.
+        related_identifier: PubMed Identifier

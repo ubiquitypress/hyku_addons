@@ -1,0 +1,22 @@
+terms:
+  - id: English
+    term: English
+    active: true
+  - id: Arabic
+    term: Arabic
+    active: true
+  - id: Chinese
+    term: Chinese
+    active: true
+  - id: French
+    term: French
+    active: true
+  - id: Russian
+    term: Russian
+    active: true
+  - id: Spanish
+    term: Spanish
+    active: true
+  - id: Other
+    term: Other
+    active: true

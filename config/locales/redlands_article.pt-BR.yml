@@ -1,0 +1,8 @@
+pt-BR:
+  hyrax:
+    icons:
+      redlands_article:     'fa fa-file-text-o'
+    select_type:
+      redlands_article:
+        description:        "Redlands article trabalhos"
+        name:               "Redlands Article"
