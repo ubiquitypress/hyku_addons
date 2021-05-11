@@ -154,7 +154,7 @@ en:
         help_text: The editors that produced this item, in priority order. To add multiple editors, repeat this property
       editor_organization_name:
         label: Editor organisation name
-        placeholder:
+        placeholder: e.g. The British Library
         help_text: Please enter the organisation's name
       editor_family_name:
         label: Editor family name
