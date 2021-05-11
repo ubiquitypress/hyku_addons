@@ -414,7 +414,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["creator"].size).to eq 2 }
 
       it { expect(result["creator"][0]["creator_name_type"]).to eq "Organizational" }
-      it { expect(result["creator"][0]["creator_name"]).to eq "British Library" }
+      it { expect(result["creator"][0]["creator_organization_name"]).to eq "British Library" }
       it { expect(result["creator"][0]["creator_isni"]).to eq "http://isni.org/isni/0000000123081542" }
 
       it { expect(result["creator"][1]["creator_name_type"]).to eq "Personal" }
@@ -772,10 +772,10 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["creator"][1]["creator_orcid"]).to be_nil }
 
       it { expect(result["creator"][2]["creator_name_type"]).to eq "Organizational" }
-      it { expect(result["creator"][2]["creator_name"]).to eq "Hewlett Foundation" }
+      it { expect(result["creator"][2]["creator_organization_name"]).to eq "Hewlett Foundation" }
 
       it { expect(result["creator"][3]["creator_name_type"]).to eq "Organizational" }
-      it { expect(result["creator"][3]["creator_name"]).to eq "Hewlett Foundation" }
+      it { expect(result["creator"][3]["creator_organization_name"]).to eq "Hewlett Foundation" }
     end
 
     describe "a book with editors and no creators" do
@@ -821,11 +821,11 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["contributor"].size).to eq 2 }
 
       it { expect(result["contributor"][0]["contributor_name_type"]).to eq "Organizational" }
-      it { expect(result["contributor"][0]["contributor_organizational_name"]).to eq "Kwantlen Polytechnic University, CA" }
+      it { expect(result["contributor"][0]["contributor_organization_name"]).to eq "Kwantlen Polytechnic University, CA" }
       it { expect(result["contributor"][0]["contributor_orcid"]).to be_nil }
 
       it { expect(result["contributor"][1]["contributor_name_type"]).to eq "Organizational" }
-      it { expect(result["contributor"][1]["contributor_organizational_name"]).to eq "Noba Project" }
+      it { expect(result["contributor"][1]["contributor_organization_name"]).to eq "Noba Project" }
       it { expect(result["contributor"][1]["contributor_orcid"]).to be_nil }
     end
 
