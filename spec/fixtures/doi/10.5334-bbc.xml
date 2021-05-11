@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crossref_result xmlns="http://www.crossref.org/qrschema/3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.crossref.org/qrschema/3.0 http://www.crossref.org/schemas/crossref_query_output3.0.xsd">
+	<query_result>
+		<head>
+			<doi_batch_id>none</doi_batch_id>
+		</head>
+		<body>
+			<query status="resolved">
+				<doi type="book_title">10.5334/bbc</doi>
+				<crm-item name="publisher-name" type="string">Ubiquity Press, Ltd.</crm-item>
+				<crm-item name="prefix-name" type="string">Ubiquity Press, Ltd.</crm-item>
+				<crm-item name="member-id" type="number">3285</crm-item>
+				<crm-item name="citation-id" type="number">89099877</crm-item>
+				<crm-item name="book-id" type="number">2311958</crm-item>
+				<crm-item name="deposit-timestamp" type="number">201703270959</crm-item>
+				<crm-item name="owner-prefix" type="string">10.5334</crm-item>
+				<crm-item name="last-update" type="date">2017-03-27T14:00:27Z</crm-item>
+				<crm-item name="created" type="date">2017-03-27T14:00:26Z</crm-item>
+				<crm-item name="citedby-count" type="number">9</crm-item>
+				<doi_record>
+					<crossref xmlns="http://www.crossref.org/xschema/1.1" xsi:schemaLocation="http://www.crossref.org/xschema/1.1 http://doi.crossref.org/schemas/unixref1.1.xsd">
+						<book book_type="edited_book">
+							<book_metadata>
+								<contributors>
+									<organization sequence="first" contributor_role="editor">Kwantlen Polytechnic University, CA</organization>
+									<person_name sequence="first" contributor_role="editor">
+										<given_name>Rajiv S.</given_name>
+										<surname>Jhangiani</surname>
+									</person_name>
+									<person_name sequence="additional" contributor_role="editor">
+										<given_name>Robert</given_name>
+										<surname>Biswas-Diener</surname>
+									</person_name>
+									<organization sequence="additional" contributor_role="editor">Noba Project</organization>
+								</contributors>
+								<titles>
+									<title>Open: The Philosophy and Practices that are Revolutionizing Education and Science</title>
+								</titles>
+								<publication_date media_type="print">
+									<month>03</month>
+									<day>27</day>
+									<year>2017</year>
+								</publication_date>
+								<publication_date media_type="online">
+									<month>03</month>
+									<day>27</day>
+									<year>2017</year>
+								</publication_date>
+								<isbn>9781911529002</isbn>
+								<publisher>
+									<publisher_name>Ubiquity Press</publisher_name>
+								</publisher>
+								<doi_data>
+									<doi>10.5334/bbc</doi>
+									<resource>http://www.ubiquitypress.com/site/books/10.5334/bbc/</resource>
+									<collection property="crawler-based">
+										<item crawler="iParadigms">
+											<resource>http://www.ubiquitypress.com/site/books/10.5334/bbc/download/1451/</resource>
+										</item>
+									</collection>
+								</doi_data>
+							</book_metadata>
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+							<!-- ============== -->
+						</book>
+					</crossref>
+				</doi_record>
+			</query>
+		</body>
+	</query_result>
+</crossref_result>
+

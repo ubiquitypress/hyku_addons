@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe HykuAddons::EntryValidationService do
-  let(:entry)   { instance_double(HykuAddons::CsvEntry, status: 'Complete', id: 1) }
+  let(:entry)   { instance_double(HykuAddons::CsvEntry, status: 'Complete', id: 1, identifier: '123') }
   let(:account) { create(:account, name: 'tenant', cname: 'example.com') }
 
   let(:valid_service_attrs) do
@@ -80,7 +80,9 @@ RSpec.describe HykuAddons::EntryValidationService do
     end
 
     context 'with validation errors' do
-      let(:entry) { instance_double(HykuAddons::CsvEntry, status: 'Complete', id: 1, current_status: instance_double(Bulkrax::Status, update: true)) }
+      let(:entry) do
+        instance_double(HykuAddons::CsvEntry, status: 'Complete', id: 1, current_status: instance_double(Bulkrax::Status, update: true))
+      end
 
       before do
         [:left_differences, :right_differences, :merged_fields_differences].each do |validation_method|
@@ -107,25 +109,44 @@ RSpec.describe HykuAddons::EntryValidationService do
 
   describe 'difference matchers' do
     before do
+      allow(service).to receive(:source_metadata).and_return(source_metadata)
       allow(service).to receive(:source_metadata_after_transforms).and_return(source_metadata)
+      allow(service).to receive(:destination_metadata).and_return(destination_metadata)
       allow(service).to receive(:destination_metadata_after_transforms).and_return(destination_metadata)
     end
 
-    describe 'left_differences' do
+    describe 'left' do
       it "returns :remove diffs for items on the left only" do
-        expect(service.left_differences).to eq([{ op: :remove, path: :left_only, value: true }])
+        expect(service.left_differences).to eq(
+          [{ dest_v: nil, op: :remove, path: :left_only, source_v: true, t_dest_v: nil, t_source_v: true }]
+        )
       end
     end
 
-    describe 'right_differences' do
+    describe 'right' do
       it "returns :add items for the items on the right only" do
-        expect(service.right_differences).to eq([{ op: :add, path: :right_only, value: true }])
+        expect(service.right_differences).to eq(
+          [{ dest_v: true, op: :add, path: :right_only, source_v: nil, t_dest_v: true, t_source_v: nil }]
+        )
       end
     end
 
-    describe 'merged_fields_differences' do
+    describe 'merged_fields' do
       it "returns :change items for the items appearing on both lists" do
-        expect(service.merged_fields_differences).to eq([{ op: :change, path: :common, value: false }])
+        expect(service.merged_fields_differences).to eq(
+          [{ dest_v: false, op: :change, path: :common, source_v: true, t_dest_v: false, t_source_v: true }]
+        )
+      end
+
+      context 'with non stripped metadata' do
+        before do
+          source_metadata[:stripped] = " stripped"
+          destination_metadata[:stripped] = "stripped "
+        end
+
+        it "returns :change items for the items appearing on both lists" do
+          expect(service.merged_fields_differences).not_to include(op: :change, path: :stripped, value: 'stripped')
+        end
       end
     end
   end
@@ -169,14 +190,14 @@ RSpec.describe HykuAddons::EntryValidationService do
   describe 'source_metadata_after_transforms' do
     before do
       allow(service).to receive(:source_metadata).and_return(data: :something)
-      allow(service).to receive(:filter_out_excluded_fields).and_call_original
+      allow(service).to receive(:processable_fields).and_call_original
       allow(service).to receive(:rename_fields).and_call_original
       allow(service).to receive(:reevaluate_fields).and_call_original
     end
 
     it "delegates the transformation tree" do
       service.source_metadata_after_transforms
-      expect(service).to have_received(:filter_out_excluded_fields).with(data: :something)
+      expect(service).to have_received(:processable_fields).with(data: :something)
       expect(service).to have_received(:rename_fields)
       expect(service).to have_received(:reevaluate_fields)
     end
@@ -185,31 +206,55 @@ RSpec.describe HykuAddons::EntryValidationService do
   describe 'destination_metadata_after_transforms' do
     before do
       allow(service).to receive(:destination_metadata).and_return(data: :something)
-      allow(service).to receive(:filter_out_excluded_fields).and_call_original
+      allow(service).to receive(:processable_fields).and_call_original
       allow(service).to receive(:rename_fields).and_call_original
       allow(service).to receive(:reevaluate_fields).and_call_original
     end
 
     it "delegates the transformation tree" do
       service.destination_metadata_after_transforms
-      expect(service).to have_received(:filter_out_excluded_fields).with(data: :something)
+      expect(service).to have_received(:processable_fields).with(data: :something)
       expect(service).to have_received(:reevaluate_fields)
       expect(service).not_to have_received(:rename_fields)
     end
   end
 
   describe 'filter_out_excluded_fields' do
-    let(:metadata) { { foo: :bar, bar: :baz } }
+    let(:metadata) do
+      {
+        foo: :bar,
+        bar: :baz,
+        empty_string: "",
+        empty_string_array: [""],
+        exclude: 'true',
+        include: 'true'
+      }
+    end
     let(:excluded_fields) { [:bar] }
+    let(:excluded_fields_with_values) { { exclude: 'true', include: 'false' } }
+    let(:result) { service.send(:processable_fields, metadata) }
 
     before do
       stub_const("HykuAddons::EntryValidationService::EXCLUDED_FIELDS", excluded_fields)
+      stub_const("HykuAddons::EntryValidationService::EXCLUDED_FIELDS_WITH_VALUES", excluded_fields_with_values)
     end
 
-    it 'removes the excluded fields from the hash param' do
-      result = service.send(:filter_out_excluded_fields, metadata)
+    it 'removes the excluded fields from the hash param based on EXCLUDED_FIELDS' do
       expect(result.keys).to include(:foo)
       expect(result.keys).not_to include(:bar)
+    end
+
+    it 'removes the excluded fields from the hash param based on EXCLUDED_FIELDS_WITH_VALUES' do
+      expect(result.keys).not_to include(:exclude)
+    end
+
+    it "keeps the fields that don't match the value on EXCLUDED_FIELDS_WITH_VALUES" do
+      expect(result.keys).to include(:include)
+    end
+
+    it 'removes empty fields and empty strings' do
+      expect(result.keys).not_to include(:empty_string)
+      expect(result.keys).not_to include(:empty_string_array)
     end
   end
 
@@ -245,6 +290,7 @@ RSpec.describe HykuAddons::EntryValidationService do
           [
             {
               creator_organization_name: '',
+              creator_organisation_name: '',
               creator_given_name: '',
               creator_middle_name: '',
               creator_family_name: '',
@@ -279,6 +325,7 @@ RSpec.describe HykuAddons::EntryValidationService do
           [
             {
               contributor_organization_name: '',
+              contributor_organisation_name: '',
               contributor_given_name: '',
               contributor_middle_name: '',
               contributor_family_name: '',
@@ -291,6 +338,7 @@ RSpec.describe HykuAddons::EntryValidationService do
               contributor_suffix: '',
               contributor_institutional_relationship: ['Relationship'],
               contributor_position: '0',
+              contributor_role: [],
               contributor_institution: ''
             }.with_indifferent_access
           ]
@@ -311,6 +359,24 @@ RSpec.describe HykuAddons::EntryValidationService do
 
       it "makes the reevaluation" do
         expect(reevaluation_result).to eq(has_model_ssim: ['PacificBook'])
+      end
+    end
+
+    describe 'reevaluate_admin_set_tesim' do
+      context 'with mappable values' do
+        let(:metadata) { { admin_set_tesim: ['Default Admin Set'] } }
+
+        it "makes the reevaluation" do
+          expect(reevaluation_result).to eq(admin_set_tesim: ['Default'])
+        end
+      end
+
+      context 'with other admin sets' do
+        let(:metadata) { { admin_set_tesim: ['Foo'] } }
+
+        it "changes nothing" do
+          expect(reevaluation_result).to eq(admin_set_tesim: ['Foo'])
+        end
       end
     end
 

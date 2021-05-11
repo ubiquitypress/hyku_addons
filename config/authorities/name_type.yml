@@ -2,6 +2,6 @@ terms:
 - id: Personal
   term: Personal
   active: true
-- id: Organisational
+- id: Organizational
   term: Organisational
   active: true

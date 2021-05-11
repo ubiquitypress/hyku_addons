@@ -1,5 +1,5 @@
 <% template = f.object.model.class.to_s.underscore %>
-<% types = HykuAddons::NameTypeService.new.select_active_options.flatten.uniq! %>
+<% types = HykuAddons::NameTypeService.new.active_elements %>
 
 <% f.object.editor_list.each do |hash| %>
 	<div
@@ -10,7 +10,7 @@
 	>
 		<% field_options = {
 			field_slug: :editor_name_type,
-			select_options: types,
+			select_options: types.map { |t| t.slice("label", "id").values },
 			field_args: {
 				class: 'form-control',
 				data: {
@@ -25,24 +25,9 @@
 		} %>
 		<%= render "records/edit_fields/attribution_partials/select_field", field_options %>
 
-		<div data-toggleable-group="Organisational">
-			<% [{ field_type: :text, field_slug: :editor_organization_name }].each do |field| %>
-				<% options = { field_group: :editor, template: template, hash: hash }.merge(field) %>
-				<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
-			<% end %>
-		</div>
-
-		<div data-toggleable-group="Personal">
-			<% [
-				{ field_type: :text, field_slug: :editor_family_name },
-				{ field_type: :text, field_slug: :editor_given_name },
-				{ field_type: :text, field_slug: :editor_orcid },
-				{ field_type: :select, field_slug: :editor_institutional_relationship, select_options: ['Staff member', 'Research associate'], field_args: { multiple: true } }
-			].each do |field| %>
-				<% options = { field_group: :editor, template: template, hash: hash }.merge(field) %>
-				<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
-			<% end %>
-		</div>
+		<% types.each do |type| %>
+			<%= render "records/edit_fields/editor_#{type["id"].downcase}", f: f, type: type["id"], template: template, hash: hash %>
+		<% end %>
 
 		<% field_options = { field_slug: :editor_isni, field_group: :editor, template: template, hash: hash } %>
 		<%= render "records/edit_fields/attribution_partials/text_field", field_options %>

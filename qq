@@ -1,0 +1,1599 @@
+* [31m2fc8d8d[m -[33m (HEAD -> Hotfix/RemoveExcessFixedCode)[m Add spec for 10.7554/eLife.65703 which had previously caused issues with funder information [32m(47 seconds ago) [1;34m<Paul Danelli>[m
+*   [31m3db04fc[m -[33m (origin/main, origin/HEAD, main)[m Merge pull request #249 from ubiquitypress/Hotfix/DOIAutopopulation [32m(3 days ago) [1;34m<Paul Danelli>[m
+[32m|[m[33m\[m  
+[32m|[m * [31mda85e6c[m -[33m (origin/Hotfix/DOIAutopopulation, Hotfix/DOIAutopopulation)[m Fix bug with miss spelt method name [32m(3 days ago) [1;34m<Paul Danelli>[m
+* [33m|[m [31m1fb9226[m -[33m[m REPO-1007: Fine tune import validations with more intelligent field comparisson (#248) [32m(3 days ago) [1;34m<Eneko Taberna>[m
+[33m|[m[33m/[m  
+*   [31m3aaa799[m -[33m[m Merge pull request #247 from ubiquitypress/Hotfix/MemberCollectionActorError [32m(5 days ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m  
+[34m|[m * [31m8e4ccef[m -[33m (origin/Hotfix/MemberCollectionActorError)[m Check for errors [32m(5 days ago) [1;34m<Paul Danelli>[m
+[34m|[m * [31m351d181[m -[33m[m Assign contents of array [32m(5 days ago) [1;34m<Paul Danelli>[m
+[34m|[m[34m/[m  
+*   [31mdf79edf[m -[33m[m Merge pull request #244 from ubiquitypress/Hotfix/MemberCollectionActor [32m(5 days ago) [1;34m<Paul Danelli>[m
+[36m|[m[1;31m\[m  
+[36m|[m * [31m8995acb[m -[33m (origin/Hotfix/MemberCollectionActor)[m Move allow to before spec [32m(5 days ago) [1;34m<Paul Danelli>[m
+[36m|[m * [31md6dd508[m -[33m[m Use insert_after to ensure there should always be an adminset [32m(5 days ago) [1;34m<Paul Danelli>[m
+[36m|[m * [31m6fdfebe[m -[33m[m Delegation shortcut [32m(5 days ago) [1;34m<Paul Danelli>[m
+[36m|[m * [31mf5f1823[m -[33m[m Remove old code and add specs for admins [32m(5 days ago) [1;34m<Paul Danelli>[m
+[36m|[m * [31m0fdf7fb[m -[33m[m Specing out the functionality [32m(6 days ago) [1;34m<Paul Danelli>[m
+[36m|[m * [31mcb2ce1a[m -[33m[m Setup and initial spec [32m(6 days ago) [1;34m<Paul Danelli>[m
+* [1;31m|[m [31m48759fd[m -[33m[m REPO-1007: Improves import validation renderer and test coverage (#246) [32m(5 days ago) [1;34m<Eneko Taberna>[m
+* [1;31m|[m [31maf00d99[m -[33m[m Makes Abstract a required field (#163) [32m(6 days ago) [1;34m<Bertie Wooles>[m
+* [1;31m|[m [31m791cd96[m -[33m[m Removes Export and reports links (#245) [32m(6 days ago) [1;34m<Bertie Wooles>[m
+[1;31m|[m[1;31m/[m  
+*   [31m85a3e6d[m -[33m[m Merge pull request #243 from ubiquitypress/Hotfix/SortAdminSetAlphabeticall [32m(7 days ago) [1;34m<Paul Danelli>[m
+[1;32m|[m[1;33m\[m  
+[1;32m|[m * [31mc33e12f[m -[33m (origin/Hotfix/SortAdminSetAlphabeticall)[m Sort admin sets by title [32m(7 days ago) [1;34m<Paul Danelli>[m
+[1;32m|[m[1;32m/[m  
+* [31md92445a[m -[33m[m REPO-1007 Allow rake task to use cookies to get Blacklight metadata (#242) [32m(7 days ago) [1;34m<Eneko Taberna>[m
+* [31m2d59021[m -[33m[m Fixes missing fields from API (#241) [32m(7 days ago) [1;34m<Bertie Wooles>[m
+*   [31m6de9093[m -[33m[m Merge pull request #240 from ubiquitypress/api_update [32m(10 days ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m  
+[1;34m|[m * [31m9d503c6[m -[33m[m Update hyku-api [32m(10 days ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;34m/[m  
+*   [31mdf83725[m -[33m[m Merge pull request #219 from ubiquitypress/features/repo-1007/import_validations [32m(10 days ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m  
+[1;36m|[m * [31me489626[m -[33m[m Make the validation rake task spawn a job per validation worker [32m(10 days ago) [1;34m<Eneko Taberna>[m
+[1;36m|[m * [31m5271e6f[m -[33m[m Moves validation reports under settings switch [32m(10 days ago) [1;34m<Eneko Taberna>[m
+[1;36m|[m * [31m40a8516[m -[33m[m Adds background jobs and importer validation service [32m(11 days ago) [1;34m<Eneko Taberna>[m
+[1;36m|[m * [31m3ab5d99[m -[33m (origin/features/repo-1007/import_validations)[m Adds rake task for import validations. Integrate validation error with exisitng UI infrastructure [32m(11 days ago) [1;34m<Eneko Taberna>[m
+[1;36m|[m * [31md68ed80[m -[33m[m Improves import validation script [32m(12 days ago) [1;34m<Eneko Taberna>[m
+[1;36m|[m * [31m2954e5c[m -[33m[m Get rid of Gemfile changes [32m(13 days ago) [1;34m<Eneko Taberna>[m
+[1;36m|[m * [31me23e093[m -[33m[m Use our own diff detector in import validations. Improves validation script [32m(13 days ago) [1;34m<Eneko Taberna>[m
+[1;36m|[m * [31mfa51b06[m -[33m[m REPO-1007: Adds validation script to compare original and imported work metadata.WIP [32m(3 weeks ago) [1;34m<Eneko Taberna>[m
+* [31m|[m [31md23f282[m -[33m[m Adds version number to uncategorised presenter (#238) [32m(11 days ago) [1;34m<Bertie Wooles>[m
+* [31m|[m   [31m28297a2[m -[33m[m Merge pull request #235 from ubiquitypress/deactivate_default_licence_pacific [32m(11 days ago) [1;34m<Chris Colvard>[m
+[32m|[m[33m\[m [31m\[m  
+[32m|[m * [31m|[m [31m3a290f1[m -[33m (origin/deactivate_default_licence_pacific)[m Sets default licence to false [32m(11 days ago) [1;34m<BertZZ>[m
+* [33m|[m [31m|[m   [31mfaf301f[m -[33m[m Merge pull request #237 from ubiquitypress/bulkrax [32m(11 days ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [33m\[m [31m\[m  
+[34m|[m * [33m|[m [31m|[m [31m8f21a00[m -[33m[m Add dead simple work reindex job [32m(11 days ago) [1;34m<Chris Colvard>[m
+[34m|[m[34m/[m [33m/[m [31m/[m  
+* [33m|[m [31m|[m   [31m02af7fc[m -[33m[m Merge pull request #236 from ubiquitypress/Hotfix/CreatorContributorOrganisationalPartialFix [32m(11 days ago) [1;34m<Paul Danelli>[m
+[36m|[m[1;31m\[m [33m\[m [31m\[m  
+[36m|[m * [33m|[m [31m|[m [31mb8b3a24[m -[33m (origin/Hotfix/CreatorContributorOrganisationalPartialFix)[m Add tempory fix for cloneable tabs not being able to use an ID from NameType authority [32m(11 days ago) [1;34m<Paul Danelli>[m
+[36m|[m[36m/[m [33m/[m [31m/[m  
+* [33m/[m [31m/[m [31m0ded1ae[m -[33m[m Calls Hyku Addons Licence service (#234) [32m(11 days ago) [1;34m<Bertie Wooles>[m
+[33m|[m[33m/[m [31m/[m  
+* [31m|[m   [31ma09e02c[m -[33m[m Merge pull request #233 from ubiquitypress/bulkrax [32m(11 days ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;33m\[m [31m\[m  
+[1;32m|[m * [31m|[m [31m7d77034[m -[33m[m Add job to handle cleaning things up not handled by bulkrax [32m(11 days ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;32m/[m [31m/[m  
+* [31m|[m   [31m2fe911e[m -[33m[m Merge pull request #232 from ubiquitypress/REPO-1011/licence_api_response [32m(12 days ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m [31m\[m  
+[1;34m|[m * [31m|[m [31m666ba2a[m -[33m[m Return empty array instead of nil [32m(12 days ago) [1;34m<Chris Colvard>[m
+[1;34m|[m * [31m|[m [31m2262010[m -[33m[m Appease rubocop [32m(12 days ago) [1;34m<Chris Colvard>[m
+[1;34m|[m * [31m|[m [31m6dfd55e[m -[33m (origin/REPO-1011/licence_api_response)[m Copies licence method from Hyku1 codebase [32m(12 days ago) [1;34m<BertZZ>[m
+* [1;35m|[m [31m|[m   [31m307ed5f[m -[33m[m Merge pull request #230 from ubiquitypress/removes_duplicate_organization [32m(12 days ago) [1;34m<Paul Danelli>[m
+[1;36m|[m[31m\[m [1;35m\[m [31m\[m  
+[1;36m|[m * [1;35m|[m [31m|[m [31mc4b27ae[m -[33m (origin/removes_duplicate_organization)[m Americanises ID and term to remove duplicates [32m(12 days ago) [1;34m<BertZZ>[m
+* [31m|[m [1;35m|[m [31m|[m   [31m300ab83[m -[33m[m Merge pull request #231 from ubiquitypress/Hotfix/AttemptToFixPacificArticle500 [32m(12 days ago) [1;34m<Paul Danelli>[m
+[1;35m|[m[33m\[m [31m\[m [1;35m\[m [31m\[m  
+[1;35m|[m [33m|[m[1;35m_[m[31m|[m[1;35m/[m [31m/[m  
+[1;35m|[m[1;35m/[m[33m|[m [31m|[m [31m|[m   
+[1;35m|[m * [31m|[m [31m|[m [31m4979ed6[m -[33m (origin/Hotfix/AttemptToFixPacificArticle500)[m Try to resolve 500 error with PacificArticle [32m(12 days ago) [1;34m<Paul Danelli>[m
+[1;35m|[m[1;35m/[m [31m/[m [31m/[m  
+* [31m|[m [31m|[m   [31ma6c3910[m -[33m[m Merge pull request #228 from ubiquitypress/bulkrax [32m(13 days ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [31m\[m [31m\[m  
+[34m|[m * [31m|[m [31m|[m [31mf3967aa[m -[33m[m Allow setting start row outputted by import transform script [32m(13 days ago) [1;34m<Chris Colvard>[m
+[34m|[m [31m|[m[31m/[m [31m/[m  
+* [31m|[m [31m|[m   [31m2ca4ab0[m -[33m[m Merge pull request #225 from ubiquitypress/Hotfix/DelegationIssues [32m(13 days ago) [1;34m<Chris Colvard>[m
+[31m|[m[1;31m\[m [31m\[m [31m\[m  
+[31m|[m [1;31m|[m[31m/[m [31m/[m  
+[31m|[m[31m/[m[1;31m|[m [31m|[m   
+[31m|[m * [31m|[m [31m9cdf90b[m -[33m (origin/Hotfix/DelegationIssues)[m Override partial that isn't checking responds_to [32m(13 days ago) [1;34m<Paul Danelli>[m
+[31m|[m * [31m|[m [31m5faf0d4[m -[33m[m Add missing fields and remove pacific generic work comparison [32m(13 days ago) [1;34m<Paul Danelli>[m
+[31m|[m * [31m|[m [31me5aaa84[m -[33m[m Fix type in class name [32m(13 days ago) [1;34m<Paul Danelli>[m
+[31m|[m * [31m|[m [31m0205d94[m -[33m[m Add namespace for documentation rather than necessity [32m(13 days ago) [1;34m<Paul Danelli>[m
+[31m|[m * [31m|[m   [31mc12a53b[m -[33m[m Merge branch 'main' into Hotfix/DelegationIssues [32m(13 days ago) [1;34m<Paul Danelli>[m
+[31m|[m [1;32m|[m[31m\[m [31m\[m  
+[31m|[m [1;32m|[m[31m/[m [31m/[m  
+[31m|[m[31m/[m[1;32m|[m [31m|[m   
+* [1;32m|[m [31m|[m   [31m0aa28fa[m -[33m (Feature/DOIAffiliation)[m Merge pull request #227 from ubiquitypress/bulkrax [32m(2 weeks ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m [1;32m\[m [31m\[m  
+[1;34m|[m * [1;32m|[m [31m|[m [31m6ae508f[m -[33m[m Replace invalid resource types with the model name...really only for Uncategorized [32m(2 weeks ago) [1;34m<Chris Colvard>[m
+* [1;35m|[m [1;32m|[m [31m|[m [31m1b8f3d8[m -[33m[m Merge pull request #226 from ubiquitypress/bulkrax [32m(2 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[1;35m\[m[1;35m|[m [1;32m|[m [31m|[m 
+[1;36m|[m * [1;32m|[m [31m|[m [31m6a32b03[m -[33m[m Consistently capitalize resource types [32m(2 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;32m|[m [31m|[m [31m77fd955[m -[33m[m Fix type in naming of authority yml file [32m(2 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;32m|[m [31m|[m [31meba6033[m -[33m[m Small fixes based upon real data [32m(2 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[1;36m/[m [1;32m/[m [31m/[m  
+* [1;32m|[m [31m|[m [31mf07c422[m -[33m[m Update Hyku1_Migration.md [32m(2 weeks ago) [1;34m<Chris Colvard>[m
+* [1;32m|[m [31m|[m   [31m4b4b0f1[m -[33m[m Merge pull request #224 from ubiquitypress/revert-218-Hotfix/SupressDelegatedMethodsConstantDefinedWarnings [32m(2 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m[33m\[m [1;32m\[m [31m\[m  
+[32m|[m * [1;32m|[m [31m|[m [31m4974b28[m -[33m[m Revert "Change constant to class method to avoid warning logs" [32m(2 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m[32m/[m [1;32m/[m [31m/[m  
+[32m|[m * [31m|[m [31m566af54[m -[33m[m Remove concerns and field [32m(13 days ago) [1;34m<Paul Danelli>[m
+[32m|[m * [31m|[m [31m65b5543[m -[33m[m Rubocop!!! [32m(13 days ago) [1;34m<Paul Danelli>[m
+[32m|[m * [31m|[m   [31m0ac653b[m -[33m[m Merge branch 'Hotfix/DelegationIssues' of github.com:ubiquitypress/hyku_addons into Hotfix/DelegationIssues [32m(13 days ago) [1;34m<Paul Danelli>[m
+[32m|[m [34m|[m[35m\[m [31m\[m  
+[32m|[m [34m|[m * [31m|[m [31md5ef79c[m -[33m[m Appease the rubocop [32m(2 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m * [35m|[m [31m|[m [31ma6db1fd[m -[33m[m Get all specs passing and add specs to ensure that not all generic fields are being delegated to each presenter [32m(13 days ago) [1;34m<Paul Danelli>[m
+[32m|[m [35m|[m[35m/[m [31m/[m  
+[32m|[m * [31m|[m [31m6ea9661[m -[33m[m Fix specs to they test the presenter they say they do [32m(2 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m * [31m|[m [31mb5aa455[m -[33m[m fixup! Split WorkPresenter from GenericWorkPresenter as that is a class with its own functionality [32m(2 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m * [31m|[m [31m1366d3f[m -[33m[m Create generic delegatable concern [32m(2 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m * [31m|[m [31m800ac47[m -[33m[m Split WorkPresenter from GenericWorkPresenter as that is a class with its own functionality [32m(2 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m[32m/[m [31m/[m  
+* [31m|[m   [31med66add[m -[33m[m Merge pull request #218 from ubiquitypress/Hotfix/SupressDelegatedMethodsConstantDefinedWarnings [32m(2 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m[1;31m\[m [31m\[m  
+[36m|[m * [31m|[m [31m82a9ace[m -[33m[m Rubocop [32m(2 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [31m|[m   [31mdcefa08[m -[33m[m Merge branch 'main' into Hotfix/SupressDelegatedMethodsConstantDefinedWarnings [32m(2 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [1;32m|[m[36m\[m [31m\[m  
+[36m|[m [1;32m|[m[36m/[m [31m/[m  
+[36m|[m[36m/[m[1;32m|[m [31m|[m   
+* [1;32m|[m [31m|[m   [31m13e3efc[m -[33m[m Merge pull request #223 from ubiquitypress/Hotfix/ChangeProductionLogLevel [32m(2 weeks ago) [1;34m<Paul Danelli>[m
+[1;34m|[m[1;35m\[m [1;32m\[m [31m\[m  
+[1;34m|[m * [1;32m|[m [31m|[m [31m565fcbe[m -[33m (origin/Hotfix/ChangeProductionLogLevel)[m Rubocop [32m(2 weeks ago) [1;34m<Paul Danelli>[m
+[1;34m|[m * [1;32m|[m [31m|[m [31m7e13be1[m -[33m[m Add explicit log level to development/production [32m(2 weeks ago) [1;34m<Paul Danelli>[m
+[1;34m|[m[1;34m/[m [1;32m/[m [31m/[m  
+* [1;32m|[m [31m|[m   [31m2be2ff3[m -[33m[m Merge pull request #222 from ubiquitypress/bulkrax [32m(2 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m [1;32m\[m [31m\[m  
+[1;36m|[m * [1;32m|[m [31m|[m [31mb2c7cbc[m -[33m[m Make sure official_link comes through the API for all pacific models [32m(2 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;32m|[m [31m|[m [31m03dbda3[m -[33m[m Add page_display_order_number to models and presenters but not to forms [32m(2 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;32m|[m [31m|[m [31mae13c44[m -[33m[m Add isbn, location, and buy_book fields to models and presenters necessary for migration but not added to the deposit form. [32m(2 weeks ago) [1;34m<Chris Colvard>[m
+* [31m|[m [1;32m|[m [31m|[m   [31m5d5445d[m -[33m[m Merge pull request #221 from ubiquitypress/pacific_api_fixes [32m(2 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m[33m\[m [31m\[m [1;32m\[m [31m\[m  
+[31m|[m [33m|[m[31m/[m [1;32m/[m [31m/[m  
+[31m|[m[31m/[m[33m|[m [1;32m|[m [31m|[m   
+[31m|[m * [1;32m|[m [31m|[m [31m7c8ca57[m -[33m[m Changes api to look for version number instead of version [32m(2 weeks ago) [1;34m<BertZZ>[m
+[31m|[m[31m/[m [1;32m/[m [31m/[m  
+[31m|[m * [31m|[m [31md9d340b[m -[33m[m Rubocop [32m(3 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [31m|[m [31m06bc303[m -[33m[m Change constant to class method to avoid warning logs [32m(3 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m[31m/[m [31m/[m  
+* [31m|[m [31m201c146[m -[33m[m Repo-990/deposit form edits (#217) [32m(3 weeks ago) [1;34m<Bertie Wooles>[m
+* [31m|[m   [31m35c6ebc[m -[33m[m Merge pull request #216 from ubiquitypress/api_update [32m(3 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [31m\[m  
+[34m|[m * [31m|[m [31m79e370c[m -[33m[m Bump hyku api [32m(3 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m[34m/[m [31m/[m  
+* [31m|[m   [31ma9483b0[m -[33m[m Merge pull request #215 from ubiquitypress/AH-291/add_uva_worktype [32m(3 weeks ago) [1;34m<Bertie Wooles>[m
+[36m|[m[1;31m\[m [31m\[m  
+[36m|[m * [31m\[m   [31mdea3426[m -[33m[m Merge branch 'main' into AH-291/add_uva_worktype [32m(3 weeks ago) [1;34m<Bertie Wooles>[m
+[36m|[m [1;32m|[m[36m\[m [31m\[m  
+[36m|[m [1;32m|[m[36m/[m [31m/[m  
+[36m|[m[36m/[m[1;32m|[m [31m|[m   
+* [1;32m|[m [31m|[m   [31m2fa80cd[m -[33m[m Merge pull request #213 from ubiquitypress/Feature/AdditionalDoiAutocompleteFields [32m(3 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m[1;35m\[m [1;32m\[m [31m\[m  
+[31m|[m [1;35m|[m[31m_[m[1;32m|[m[31m/[m  
+[31m|[m[31m/[m[1;35m|[m [1;32m|[m   
+[31m|[m * [1;32m|[m [31mf9b78a5[m -[33m (origin/Feature/AdditionalDoiAutocompleteFields)[m Tidy up repeated JS [32m(3 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m9386056[m -[33m[m Rubocop [32m(3 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m9f93935[m -[33m[m Remove testing code [32m(3 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m1d9c09d[m -[33m[m Rubocop [32m(3 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m49f76b3[m -[33m[m Use instance variable [32m(3 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m319832d[m -[33m[m Remove comments [32m(3 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m9c4f187[m -[33m[m Refactor to make the writer fields dynmic based on the work form fields [32m(3 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m8ab2d9d[m -[33m[m Extract the processing of funder data into its own method as it was getting gnarly [32m(3 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m7fd4a99[m -[33m[m Remove instance double and stub requests properly [32m(3 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m4db491f[m -[33m[m Rubocop [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m9f0a106[m -[33m[m Remove file [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m   [31m0d8ba73[m -[33m[m Merge branch 'Feature/AdditionalDoiAutocompleteFields' of github.com:ubiquitypress/hyku_addons into Feature/AdditionalDoiAutocompleteFields [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m [1;36m|[m[31m\[m [1;32m\[m  
+[31m|[m [1;36m|[m * [1;32m|[m [31m35295dc[m -[33m[m Add licences/ISBN, fix contributor role [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [31m|[m [1;32m|[m [31mf6f4bdd[m -[33m[m Add licences/ISBN, fix contributor role [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m [31m|[m[31m/[m [1;32m/[m  
+[31m|[m * [1;32m|[m [31mca95610[m -[33m[m Add comments and tidy up JS [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m81b3613[m -[33m[m Add journal title and use dollar for jQuery objects [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m8198bd2[m -[33m[m Add ISSN [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m9273098[m -[33m[m Get date published to include day/month if found [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m34b7dc9[m -[33m[m Add fields [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [1;32m|[m [31m017f58c[m -[33m[m Replce multiple funder entries for awards to single entry with array of awards [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+* [31m|[m [1;32m|[m   [31m0dfb278[m -[33m[m Merge pull request #214 from ubiquitypress/bulkrax [32m(3 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m[33m\[m [31m\[m [1;32m\[m  
+[32m|[m * [31m|[m [1;32m|[m [31m6a492ef[m -[33m[m Make file sets private by default when in import mode [32m(3 weeks ago) [1;34m<Chris Colvard>[m
+* [33m|[m [31m|[m [1;32m|[m [31m86ef5a0[m -[33m[m Update Hyku1_Migration.md [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+* [33m|[m [31m|[m [1;32m|[m [31m67a4ce4[m -[33m[m Merge pull request #212 from ubiquitypress/bulkrax [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m[33m\[m[33m|[m [31m|[m [1;32m|[m 
+[34m|[m * [31m|[m [1;32m|[m [31mbc252fb[m -[33m[m Upgrade hydra-access-controls [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+* [35m|[m [31m|[m [1;32m|[m [31m6ed7008[m -[33m[m Merge pull request #211 from ubiquitypress/bulkrax [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m[35m\[m[35m|[m [31m|[m [1;32m|[m 
+[31m|[m [35m|[m[31m/[m [1;32m/[m  
+[31m|[m[31m/[m[35m|[m [1;32m|[m   
+[31m|[m * [1;32m|[m [31m00474e8[m -[33m[m Override path_to_files so valid_import? passes [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m * [1;32m|[m [31m20ea30b[m -[33m (origin/bulkrax)[m Start of migration instructions, create admin set script, and improvements for import csv transform script [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m * [1;32m|[m [31m8f7cd45[m -[33m[m Removed unused account [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+* [1;31m|[m [1;32m|[m   [31m2a7fdf9[m -[33m[m Merge pull request #210 from ubiquitypress/default_url_options [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;33m\[m [1;31m\[m [1;32m\[m  
+[1;32m|[m * [1;31m|[m [1;32m|[m [31m824ab69[m -[33m[m Move default_url_options host setting into account and set for Hyrax::Engine.routes as well [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+* [1;33m|[m [1;31m|[m [1;32m|[m   [31mdf32022[m -[33m[m Merge pull request #209 from ubiquitypress/features/repo-984/bump_api_version [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[1;33m|[m[1;35m\[m [1;33m\[m [1;31m\[m [1;32m\[m  
+[1;33m|[m [1;35m|[m[1;33m/[m [1;31m/[m [1;32m/[m  
+[1;33m|[m[1;33m/[m[1;35m|[m [1;31m|[m [1;32m|[m   
+[1;33m|[m * [1;31m|[m [1;32m|[m [31m6c97156[m -[33m[m Removes honeybadge entry at Gemfile.lock [32m(4 weeks ago) [1;34m<Eneko Taberna>[m
+[1;33m|[m * [1;31m|[m [1;32m|[m [31m56439ed[m -[33m[m Remove honeybadger and be more specific with hyrax dependency [32m(4 weeks ago) [1;34m<Eneko Taberna>[m
+[1;33m|[m * [1;31m|[m [1;32m|[m [31mbe8380b[m -[33m[m Allow bundler to go all in and bump the rails version too [32m(4 weeks ago) [1;34m<Eneko Taberna>[m
+[1;33m|[m * [1;31m|[m [1;32m|[m [31m929b03e[m -[33m[m Bumps API version [32m(4 weeks ago) [1;34m<Eneko Taberna>[m
+[1;33m|[m[1;33m/[m [1;31m/[m [1;32m/[m  
+[1;33m|[m [1;31m|[m * [31mcc72fdc[m -[33m[m Add test for creating uva work and appeases rubocop [32m(3 weeks ago) [1;34m<BertZZ>[m
+[1;33m|[m [1;31m|[m * [31mba5e4fc[m -[33m[m Customisations for UVA worktype [32m(3 weeks ago) [1;34m<BertZZ>[m
+[1;33m|[m [1;31m|[m * [31m0aa8e61[m -[33m[m Initial work for UVA worktype [32m(4 weeks ago) [1;34m<BertZZ>[m
+[1;33m|[m [1;31m|[m[1;33m/[m  
+[1;33m|[m[1;33m/[m[1;31m|[m   
+* [1;31m|[m   [31mbaccc15[m -[33m[m Merge pull request #208 from ubiquitypress/Hotfix/ImproveDOIImportedData [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;36m|[m[31m\[m [1;31m\[m  
+[1;36m|[m * [1;31m|[m [31me53b3dd[m -[33m[m Rubocop [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;36m|[m * [1;31m|[m   [31m2dbf372[m -[33m[m Merge branch 'main' of github.com:ubiquitypress/hyku_addons into Hotfix/ImproveDOIImportedData [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;36m|[m [32m|[m[1;36m\[m [1;31m\[m  
+[1;36m|[m [32m|[m[1;36m/[m [1;31m/[m  
+[1;36m|[m[1;36m/[m[32m|[m [1;31m|[m   
+* [32m|[m [1;31m|[m   [31m5575e87[m -[33m[m Merge pull request #207 from ubiquitypress/doi-improv [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [32m\[m [1;31m\[m  
+[34m|[m * [32m|[m [1;31m|[m [31m18855a6[m -[33m[m Fix specs [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m * [32m|[m [1;31m|[m [31m8471661[m -[33m[m Remove date specs as they aren't required anymore [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m * [32m|[m [1;31m|[m [31m0c892d6[m -[33m[m Deregister the default alert errors [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m * [32m|[m [1;31m|[m [31me800cc9[m -[33m[m Replace last comma with `and` [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m * [32m|[m [1;31m|[m [31m6ab5cf4[m -[33m[m Improve success message and change to JSON request [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m * [32m|[m [1;31m|[m [31m3976b69[m -[33m[m Rename class and add updated fields [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m * [32m|[m [1;31m|[m [31m3b5528c[m -[33m[m Override default hyrax-doi text [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m[34m/[m [32m/[m [1;31m/[m  
+* [32m|[m [1;31m|[m   [31me857af4[m -[33m[m Merge pull request #205 from ubiquitypress/bugs/repo-982/work_thumbnails [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[36m|[m[1;31m\[m [32m\[m [1;31m\[m  
+[36m|[m * [32m|[m [1;31m|[m [31maf8718f[m -[33m (origin/bugs/repo-982/work_thumbnails)[m Fix typo [32m(4 weeks ago) [1;34m<Eneko Taberna>[m
+[36m|[m * [32m|[m [1;31m|[m [31mfc70bdc[m -[33m[m Fix deposit form thumbnail_id and representative_id permitted_params. [32m(4 weeks ago) [1;34m<Eneko Taberna>[m
+* [1;31m|[m [32m|[m [1;31m|[m   [31mbcdc1e7[m -[33m[m Merge pull request #206 from ubiquitypress/Hotfix/SimplifyCurrentLocaleName [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[1;31m|[m[1;33m\[m [1;31m\[m [32m\[m [1;31m\[m  
+[1;31m|[m [1;33m|[m[1;31m/[m [32m/[m [1;31m/[m  
+[1;31m|[m[1;31m/[m[1;33m|[m [32m|[m [1;31m|[m   
+[1;31m|[m * [32m|[m [1;31m|[m   [31md39a736[m -[33m (origin/Hotfix/SimplifyCurrentLocaleName)[m Merge branch 'Hotfix/SimplifyCurrentLocaleName' of github.com:ubiquitypress/hyku_addons into Hotfix/SimplifyCurrentLocaleName [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [1;34m|[m[1;35m\[m [32m\[m [1;31m\[m  
+[1;31m|[m [1;34m|[m * [32m\[m [1;31m\[m   [31mc2b833c[m -[33m[m Merge branch 'main' into Hotfix/SimplifyCurrentLocaleName [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [1;34m|[m [1;36m|[m[31m\[m [32m\[m [1;31m\[m  
+[1;31m|[m [1;34m|[m * [31m|[m [32m|[m [1;31m|[m [31mdc41555[m -[33m[m Add spec to ensure locale is appended to the current language [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [1;34m|[m * [31m|[m [32m|[m [1;31m|[m [31mcf491cc[m -[33m[m Spec setup [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [1;34m|[m * [31m|[m [32m|[m [1;31m|[m [31mf84df49[m -[33m[m Add global scope to JWT class [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [1;34m|[m * [31m|[m [32m|[m [1;31m|[m [31mb92d394[m -[33m[m Simplify the logic in deciding the locale name, using just the setting or falling back to nil [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m * [31m|[m [31m|[m [32m|[m [1;31m|[m [31m66ffb29[m -[33m[m Add spec to ensure locale is appended to the current language [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m * [31m|[m [31m|[m [32m|[m [1;31m|[m [31m27a3cf8[m -[33m[m Spec setup [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m * [31m|[m [31m|[m [32m|[m [1;31m|[m [31m0003d6a[m -[33m[m Simplify the logic in deciding the locale name, using just the setting or falling back to nil [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m[1;31m/[m [31m/[m [31m/[m [32m/[m [1;31m/[m  
+[1;31m|[m [31m|[m [31m|[m * [1;31m|[m [31ma39a7f4[m -[33m[m Add langauge and link [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m * [1;31m|[m [31m5dd60b6[m -[33m[m Fix issue with looking for  button on the wrong page [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m * [1;31m|[m [31mc524654[m -[33m[m Fix specs [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m * [1;31m|[m   [31m83cfb2b[m -[33m[m Merge branch 'Hotfix/ImproveDOIImportedData' of github.com:ubiquitypress/hyku_addons into Hotfix/ImproveDOIImportedData [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m [32m|[m[33m\[m [1;31m\[m  
+[1;31m|[m [31m|[m [31m|[m [32m|[m * [1;31m|[m [31mb766a95[m -[33m[m Deregister the default alert errors [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m [32m|[m * [1;31m|[m [31m0beaf4d[m -[33m[m Replace last comma with `and` [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m [32m|[m * [1;31m|[m [31me9c11ec[m -[33m[m Improve success message and change to JSON request [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m [32m|[m * [1;31m|[m   [31m20e9e71[m -[33m[m Merge branch 'Hotfix/ImproveDOIImportedData' of github.com:ubiquitypress/hyku_addons into Hotfix/ImproveDOIImportedData [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m [32m|[m [34m|[m[35m\[m [1;31m\[m  
+[1;31m|[m [31m|[m [31m|[m [32m|[m [34m|[m * [1;31m|[m [31me88d6c9[m -[33m[m Rename class and add updated fields [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m [32m|[m [34m|[m * [1;31m|[m [31m656cb4d[m -[33m[m Override default hyrax-doi text [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m [32m|[m * [35m|[m [1;31m|[m [31md9c03c5[m -[33m[m Rename class and add updated fields [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m [32m|[m * [35m|[m [1;31m|[m [31m9aadce3[m -[33m[m Override default hyrax-doi text [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m * [35m|[m [35m|[m [1;31m|[m [31m929dea1[m -[33m[m Remove date specs as they aren't required anymore [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m * [35m|[m [35m|[m [1;31m|[m [31m6a560f3[m -[33m[m Deregister the default alert errors [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m * [35m|[m [35m|[m [1;31m|[m [31m0baedd3[m -[33m[m Replace last comma with `and` [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m * [35m|[m [35m|[m [1;31m|[m [31me9ceaeb[m -[33m[m Improve success message and change to JSON request [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m * [35m|[m [35m|[m [1;31m|[m [31m79bf484[m -[33m[m Rename class and add updated fields [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [31m|[m * [35m|[m [35m|[m [1;31m|[m [31mf67a971[m -[33m[m Override default hyrax-doi text [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m[1;31m_[m[31m|[m[1;31m/[m [35m/[m [35m/[m [1;31m/[m  
+[1;31m|[m[1;31m/[m[31m|[m [31m|[m [35m|[m [35m|[m [1;31m|[m   
+* [31m|[m [31m|[m [35m|[m [35m|[m [1;31m|[m   [31mcde005f[m -[33m[m Merge pull request #203 from ubiquitypress/bulkrax [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[36m|[m[1;31m\[m [31m\[m [31m\[m [35m\[m [35m\[m [1;31m\[m  
+[36m|[m [1;31m|[m [31m|[m[1;31m_[m[31m|[m[1;31m_[m[35m|[m[1;31m_[m[35m|[m[1;31m/[m  
+[36m|[m [1;31m|[m[1;31m/[m[31m|[m [31m|[m [35m|[m [35m|[m   
+[36m|[m * [31m|[m [31m|[m [35m|[m [35m|[m [31m6112ed6[m -[33m[m Use rspec mocks instead of flipflop test mode [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+* [1;31m|[m [31m|[m [31m|[m [35m|[m [35m|[m [31md47b97d[m -[33m[m Merge pull request #202 from ubiquitypress/bulkrax [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m[1;31m\[m[1;31m|[m [31m|[m [31m|[m [35m|[m [35m|[m 
+[1;32m|[m * [31m|[m [31m|[m [35m|[m [35m|[m [31m2aa06bc[m -[33m[m Less nesting [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[1;32m|[m * [31m|[m [31m|[m [35m|[m [35m|[m [31m047242b[m -[33m[m Import mode for running all background jobs on special tenant_import_queue queues [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;32m/[m [31m/[m [31m/[m [35m/[m [35m/[m  
+* [31m|[m [31m|[m [35m|[m [35m|[m   [31m99a4972[m -[33m[m Merge pull request #201 from ubiquitypress/doi_update [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[35m|[m[1;35m\[m [31m\[m [31m\[m [35m\[m [35m\[m  
+[35m|[m [1;35m|[m[35m_[m[31m|[m[35m_[m[31m|[m[35m/[m [35m/[m  
+[35m|[m[35m/[m[1;35m|[m [31m|[m [31m|[m [35m|[m   
+[35m|[m * [31m|[m [31m|[m [35m|[m [31mbb834cf[m -[33m[m Bump version of hyrax-doi [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[35m|[m[35m/[m [31m/[m [31m/[m [35m/[m  
+* [31m|[m [31m|[m [35m|[m   [31m0363d41[m -[33m[m Merge pull request #199 from ubiquitypress/REPO-978/add_doi_field [32m(4 weeks ago) [1;34m<Bertie Wooles>[m
+[1;36m|[m[31m\[m [31m\[m [31m\[m [35m\[m  
+[1;36m|[m * [31m|[m [31m|[m [35m|[m [31m2d0db92[m -[33m[m Adds fallback label for Official Link [32m(4 weeks ago) [1;34m<BertZZ>[m
+[1;36m|[m * [31m|[m [31m|[m [35m|[m [31m616e271[m -[33m[m Adds official link as DOI and ensures correct order of fields on deposit form [32m(4 weeks ago) [1;34m<BertZZ>[m
+* [31m|[m [31m|[m [31m|[m [35m|[m   [31m85d903c[m -[33m[m Merge pull request #198 from ubiquitypress/Hotfix/ImproveDOIImportedData [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m[35m\[m [31m\[m [31m\[m [31m\[m [35m\[m  
+[31m|[m [35m|[m[31m/[m [31m/[m [31m/[m [35m/[m  
+[31m|[m[31m/[m[35m|[m [31m|[m [31m|[m [35m/[m   
+[31m|[m [35m|[m [31m|[m[35m_[m[31m|[m[35m/[m    
+[31m|[m [35m|[m[35m/[m[31m|[m [31m|[m     
+[31m|[m * [31m|[m [31m|[m [31m2f4a749[m -[33m[m Forgot I need the datavariable [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [31m|[m [31m|[m [31m0bb1e18[m -[33m[m Move some of the logic to appease rubucop [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [31m|[m [31m|[m   [31m1d46e8b[m -[33m[m Merge branch 'main' into Hotfix/ImproveDOIImportedData [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m [34m|[m[31m\[m [31m\[m [31m\[m  
+[31m|[m [34m|[m[31m/[m [31m/[m [31m/[m  
+[31m|[m[31m/[m[34m|[m [31m|[m [31m|[m   
+* [34m|[m [31m|[m [31m|[m   [31m0ff6c5e[m -[33m[m Merge pull request #197 from ubiquitypress/bulkrax [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[36m|[m[1;31m\[m [34m\[m [31m\[m [31m\[m  
+[36m|[m * [34m|[m [31m|[m [31m|[m [31m4db730f[m -[33m[m Allow alternate file location through BULKRAX_FILE_PATH environment variable [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+* [1;31m|[m [34m|[m [31m|[m [31m|[m [31m70d495d[m -[33m[m REPO-907: DOI Autocomplete Improvements (#192) [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m[1;31m/[m [34m/[m [31m/[m [31m/[m  
+[1;31m|[m * [31m|[m [31m|[m [31m9197ed4[m -[33m[m Correct issue with downloading funder DOI data for some DOIs [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m * [31m|[m [31m|[m [31m6de10f8[m -[33m[m Quick fix for the required tags [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m * [31m|[m [31m|[m   [31m89a5a2a[m -[33m[m Merge branch 'main' of github.com:ubiquitypress/hyku_addons into Hotfix/ImproveDOIImportedData [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [1;32m|[m[1;31m\[m [31m\[m [31m\[m  
+[1;31m|[m [1;32m|[m[1;31m/[m [31m/[m [31m/[m  
+[1;31m|[m[1;31m/[m[1;32m|[m [31m|[m [31m|[m   
+* [1;32m|[m [31m|[m [31m|[m   [31m7768638[m -[33m[m Merge pull request #195 from ubiquitypress/REPO-968/hide_import_export_links [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m [1;32m\[m [31m\[m [31m\[m  
+[1;34m|[m * [1;32m|[m [31m|[m [31m|[m [31me7baf00[m -[33m[m Uses factory bot for user creation and adds admin test contexts [32m(4 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;32m|[m [31m|[m [31m|[m [31me31b122[m -[33m[m Endure user is not an admin for single test [32m(4 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;32m|[m [31m|[m [31m|[m [31mc173856[m -[33m[m Fixes indentation, appeases Rubocop [32m(4 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;32m|[m [31m|[m [31m|[m [31m8fbfd22[m -[33m[m Removes admin switches in tests [32m(4 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;32m|[m [31m|[m [31m|[m [31m5d06c21[m -[33m[m Update config/features.rb [32m(4 weeks ago) [1;34m<Bertie Wooles>[m
+[1;34m|[m * [1;32m|[m [31m|[m [31m|[m [31m54f043f[m -[33m[m Appease Rubocop [32m(5 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;32m|[m [31m|[m [31m|[m [31m5614d40[m -[33m[m Hides import and export links for non admin users [32m(5 weeks ago) [1;34m<BertZZ>[m
+* [1;35m|[m [1;32m|[m [31m|[m [31m|[m   [31m578901d[m -[33m[m Merge pull request #196 from ubiquitypress/mimemagic [32m(4 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m [1;35m\[m [1;32m\[m [31m\[m [31m\[m  
+[1;36m|[m * [1;35m|[m [1;32m|[m [31m|[m [31m|[m [31mc536eb6[m -[33m[m Remove mimemagic pin now that MIT licensed version has been released [32m(5 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m [1;35m|[m[1;35m/[m [1;32m/[m [31m/[m [31m/[m  
+* [1;35m|[m [1;32m|[m [31m|[m [31m|[m   [31m44c1d0c[m -[33m[m Merge pull request #194 from ubiquitypress/cjcolvar-patch-2 [32m(4 weeks ago) [1;34m<Eneko Taberna>[m
+[1;35m|[m[33m\[m [1;35m\[m [1;32m\[m [31m\[m [31m\[m  
+[1;35m|[m [33m|[m[1;35m/[m [1;32m/[m [31m/[m [31m/[m  
+[1;35m|[m[1;35m/[m[33m|[m [1;32m|[m [31m|[m [31m|[m   
+[1;35m|[m * [1;32m|[m [31m|[m [31m|[m [31md7b7501[m -[33m[m REPO-962 Fix license field parsing [32m(4 weeks ago) [1;34m<Eneko Taberna>[m
+[1;35m|[m * [1;32m|[m [31m|[m [31m|[m [31md482642[m -[33m[m Attempt to fix failing test [32m(5 weeks ago) [1;34m<Chris Colvard>[m
+[1;35m|[m * [1;32m|[m [31m|[m [31m|[m [31mc76ce78[m -[33m[m Cleanup licenses Use our license service for per-tenant overrides Don't error when license value present and valid uri but not in license service's list of terms Add id uris to license authority [32m(5 weeks ago) [1;34m<Chris Colvard>[m
+[1;35m|[m * [1;32m|[m [31m|[m [31m|[m [31mb58b51c[m -[33m[m Add missing license [32m(5 weeks ago) [1;34m<Chris Colvard>[m
+[1;35m|[m[1;35m/[m [1;32m/[m [31m/[m [31m/[m  
+* [1;32m|[m [31m|[m [31m|[m   [31m732a6a5[m -[33m[m Merge pull request #188 from ubiquitypress/bulkrax [32m(5 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [1;32m\[m [31m\[m [31m\[m  
+[34m|[m * [1;32m|[m [31m|[m [31m|[m [31mb3c21c9[m -[33m[m Strip blank entries from json fields [32m(5 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m * [1;32m|[m [31m|[m [31m|[m [31mbc9c348[m -[33m[m Appease rubocop [32m(5 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m * [1;32m|[m [31m|[m [31m|[m [31m7a561f3[m -[33m[m Fix for role fields and DOIs [32m(5 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m * [1;32m|[m [31m|[m [31m|[m [31m3312ae5[m -[33m[m Small improvements based upon feedback [32m(5 weeks ago) [1;34m<Chris Colvard>[m
+* [35m|[m [1;32m|[m [31m|[m [31m|[m   [31m6f54182[m -[33m[m Merge pull request #193 from ubiquitypress/Hotfix/SubmoduleUpdate [32m(5 weeks ago) [1;34m<Chris Colvard>[m
+[36m|[m[1;31m\[m [35m\[m [1;32m\[m [31m\[m [31m\[m  
+[36m|[m * [35m|[m [1;32m|[m [31m|[m [31m|[m [31m6a69c69[m -[33m (origin/Hotfix/SubmoduleUpdate)[m Update readme for submodule update [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m[36m/[m [35m/[m [1;32m/[m [31m/[m [31m/[m  
+[36m|[m [35m|[m * [31m|[m [31m|[m [31me5dae2b[m -[33m[m Rubocop [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [31m|[m [31m|[m [31md6161ff[m -[33m[m Fix issues with upstream Gems parsing/handling of namespaced XML tags and validation of funder DOI's [32m(4 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [31m|[m [31m|[m [31m656773b[m -[33m[m Fix multiple funders not importing [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [31m|[m [31m|[m [31m0fdc4a0[m -[33m[m Add spec for ror [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [31m|[m [31m|[m [31m112f0d2[m -[33m[m Add funder ror id [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [31m|[m [31m|[m   [31m5372afc[m -[33m[m Merge branch 'Hotfix/ImproveDOIImportedData' of github.com:ubiquitypress/hyku_addons into Hotfix/ImproveDOIImportedData [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m [1;32m|[m[1;33m\[m [31m\[m [31m\[m  
+[36m|[m [35m|[m [1;32m|[m * [31m|[m [31m|[m [31m87fa9b9[m -[33m[m Remove extra format [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m [1;32m|[m * [31m|[m [31m|[m [31md556bcc[m -[33m[m Add structure for saving funder information and mock [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m [1;32m|[m * [31m|[m [31m|[m [31m4f1b841[m -[33m[m Different DOI specs [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m [1;32m|[m * [31m|[m [31m|[m [31m0121b76[m -[33m[m Adding regression specs for different DOIs [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m [1;32m|[m * [31m|[m [31m|[m [31m01cc8e2[m -[33m[m Fix missing abstract [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m [1;32m|[m * [31m|[m [31m|[m [31mdd1c6f6[m -[33m[m Spec result output including new creator orcid [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m [1;32m|[m * [31m|[m [31m|[m [31m3dcccae[m -[33m[m Setup DOI xml specs and comment for easier addition of new ones [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m [1;32m|[m * [31m|[m [31m|[m [31mf344547[m -[33m[m Setup development debugging endpoint for json and xml output [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m [1;32m|[m * [31m|[m [31m|[m [31m807c8a5[m -[33m[m Add support for user orcid id [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m [1;32m|[m * [31m|[m [31m|[m [31m40d8c23[m -[33m[m Fix date auto population which was just broken [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m [1;32m|[m * [31m|[m [31m|[m [31m6fa04f6[m -[33m[m Fix issue with multiple cloneable blocks not being imported [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [1;33m|[m [31m|[m [31m|[m [31mfa80359[m -[33m[m Funding autocompletion [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [1;33m|[m [31m|[m [31m|[m [31mecc27ee[m -[33m[m Remove extra format [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [1;33m|[m [31m|[m [31m|[m [31m07c6b3f[m -[33m[m Add structure for saving funder information and mock [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [1;33m|[m [31m|[m [31m|[m [31m56706d9[m -[33m[m Different DOI specs [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [1;33m|[m [31m|[m [31m|[m [31m26fbc65[m -[33m[m Adding regression specs for different DOIs [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [1;33m|[m [31m|[m [31m|[m [31m2086b4b[m -[33m[m Fix missing abstract [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [1;33m|[m [31m|[m [31m|[m [31mafc4118[m -[33m[m Spec result output including new creator orcid [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [1;33m|[m [31m|[m [31m|[m [31mb1b74e6[m -[33m[m Setup DOI xml specs and comment for easier addition of new ones [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [1;33m|[m [31m|[m [31m|[m [31ma6491f0[m -[33m[m Setup development debugging endpoint for json and xml output [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [1;33m|[m [31m|[m [31m|[m [31m3e4e94d[m -[33m[m Add support for user orcid id [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [1;33m|[m [31m|[m [31m|[m [31m88ee684[m -[33m[m Fix date auto population which was just broken [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m * [1;33m|[m [31m|[m [31m|[m [31mb585cb6[m -[33m[m Fix issue with multiple cloneable blocks not being imported [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [35m|[m[36m/[m [1;33m/[m [31m/[m [31m/[m  
+[36m|[m[36m/[m[35m|[m [1;33m|[m [31m|[m [31m|[m   
+* [35m|[m [1;33m|[m [31m|[m [31m|[m   [31ma632433[m -[33m[m Merge pull request #191 from ubiquitypress/api_update [32m(5 weeks ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m [35m\[m [1;33m\[m [31m\[m [31m\[m  
+[1;34m|[m * [35m|[m [1;33m|[m [31m|[m [31m|[m [31m0178917[m -[33m[m Update mimemagic since old versions got yanked [32m(5 weeks ago) [1;34m<Chris Colvard>[m
+[1;34m|[m * [35m|[m [1;33m|[m [31m|[m [31m|[m [31me09ceeb[m -[33m[m Bump api version for improved pagination of approval workflow comments [32m(5 weeks ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;34m/[m [35m/[m [1;33m/[m [31m/[m [31m/[m  
+* [35m|[m [1;33m|[m [31m|[m [31m|[m   [31mc2b4ffc[m -[33m[m Merge pull request #189 from ubiquitypress/REPO-960/msiing_fields [32m(5 weeks ago) [1;34m<Bertie Wooles>[m
+[1;36m|[m[31m\[m [35m\[m [1;33m\[m [31m\[m [31m\[m  
+[1;36m|[m * [35m|[m [1;33m|[m [31m|[m [31m|[m [31m8f418ee[m -[33m[m Adds missing fields to deposit forms [32m(5 weeks ago) [1;34m<BertZZ>[m
+[1;36m|[m [35m|[m[35m/[m [1;33m/[m [31m/[m [31m/[m  
+* [35m/[m [1;33m/[m [31m/[m [31m/[m [31m5d1802a[m -[33m[m Bumps API version, allows commenting on every mediated workflow step (#186) [32m(5 weeks ago) [1;34m<Eneko Taberna>[m
+[35m|[m[35m/[m [1;33m/[m [31m/[m [31m/[m  
+* [1;33m/[m [31m/[m [31m/[m [31m8c129b4[m -[33m[m Adds collections information to work endpoint (#185) [32m(5 weeks ago) [1;34m<Bertie Wooles>[m
+[1;33m|[m[1;33m/[m [31m/[m [31m/[m  
+* [31m|[m [31m|[m   [31m1cd4e20[m -[33m[m Merge pull request #184 from ubiquitypress/REPO-907/FixDOIImportIssues [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m[33m\[m [31m\[m [31m\[m  
+[32m|[m * [31m|[m [31m|[m [31med65379[m -[33m (origin/REPO-907/FixDOIImportIssues)[m Use find instead of filter [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m[32m/[m [31m/[m [31m/[m  
+* [31m|[m [31m|[m   [31mb632536[m -[33m[m Merge pull request #180 from ubiquitypress/REPO-934/ShowDepositFormRelationshipTabToAdmins [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m[35m\[m [31m\[m [31m\[m  
+[34m|[m * [31m|[m [31m|[m [31m6886099[m -[33m (origin/REPO-934/ShowDepositFormRelationshipTabToAdmins)[m Subpress nil object errors [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m * [31m|[m [31m|[m [31mab3632e[m -[33m[m Show relationship tab to admin users [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m [31m|[m[31m/[m [31m/[m  
+* [31m|[m [31m|[m   [31me551db2[m -[33m[m Merge pull request #183 from ubiquitypress/Hotfix/RequireJWT [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m[1;31m\[m [31m\[m [31m\[m  
+[31m|[m [1;31m|[m[31m_[m[31m|[m[31m/[m  
+[31m|[m[31m/[m[1;31m|[m [31m|[m   
+[31m|[m * [31m|[m [31m25c4609[m -[33m[m Require JWT service and ensure specs can make requests without error [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m[31m/[m [31m/[m  
+* [31m|[m   [31m2ed53f0[m -[33m[m Merge pull request #182 from ubiquitypress/Hotfix/JWTGlobalScope [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m[1;33m\[m [31m\[m  
+[31m|[m [1;33m|[m[31m/[m  
+[31m|[m[31m/[m[1;33m|[m   
+[31m|[m * [31m72108a1[m -[33m (origin/Hotfix/JWTGlobalScope)[m Add global scope to JWT class [32m(5 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m[31m/[m  
+*   [31m52b6b89[m -[33m[m Merge pull request #179 from ubiquitypress/api_update [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m  
+[1;34m|[m * [31me4125a8[m -[33m[m Bump api - file availability facet [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;34m/[m  
+*   [31m7969e4f[m -[33m[m Merge pull request #177 from ubiquitypress/REPO-916/deposit_cleanup [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m  
+[1;36m|[m * [31mb96e960[m -[33m[m Removes full stops and sigularises image [32m(6 weeks ago) [1;34m<BertZZ>[m
+[1;36m|[m * [31m5fc262a[m -[33m[m Converts version to version number an allows appearance on form [32m(6 weeks ago) [1;34m<BertZZ>[m
+[1;36m|[m * [31mbd387e5[m -[33m[m Removes Admin Set from modal title [32m(6 weeks ago) [1;34m<BertZZ>[m
+* [31m|[m   [31m51c43dd[m -[33m[m Merge pull request #178 from ubiquitypress/bugs/repo-890/sync_login_from_backend [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m[33m\[m [31m\[m  
+[32m|[m * [31m|[m [31mf9af24d[m -[33m[m Add guard method to JWT cookies manager [32m(6 weeks ago) [1;34m<Eneko Taberna>[m
+[32m|[m * [31m|[m [31m4722055[m -[33m[m Sync frontend login from the backend [32m(6 weeks ago) [1;34m<Eneko Taberna>[m
+[32m|[m [31m|[m[31m/[m  
+* [31m|[m   [31m76a1c43[m -[33m[m Merge pull request #176 from ubiquitypress/Hotfix/FixNilFileSizeInApi [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [31m\[m  
+[34m|[m * [31m|[m [31m1ed9b6e[m -[33m (origin/Hotfix/FixNilFileSizeInApi)[m Add new solr attribute to resolve missing filesize [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+* [35m|[m [31m|[m   [31m5b95599[m -[33m[m Merge pull request #175 from ubiquitypress/api_update [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[35m|[m[1;31m\[m [35m\[m [31m\[m  
+[35m|[m [1;31m|[m[35m/[m [31m/[m  
+[35m|[m[35m/[m[1;31m|[m [31m|[m   
+[35m|[m * [31m|[m [31maddd8ac[m -[33m[m Bump api version [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[35m|[m[35m/[m [31m/[m  
+* [31m|[m   [31m74db02d[m -[33m[m Merge pull request #174 from ubiquitypress/Feature/ReorderNotificationsOrder [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m[1;33m\[m [31m\[m  
+[31m|[m [1;33m|[m[31m/[m  
+[31m|[m[31m/[m[1;33m|[m   
+[31m|[m * [31m2ec38dc[m -[33m (origin/Feature/ReorderNotificationsOrder)[m Remove each loop used for testing [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [31m9bce6d0[m -[33m[m Reorder notifications onload [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+* [1;33m|[m   [31me17b151[m -[33m[m Merge pull request #165 from ubiquitypress/AH-254/hide_collection_link [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;33m|[m[1;35m\[m [1;33m\[m  
+[1;33m|[m [1;35m|[m[1;33m/[m  
+[1;33m|[m[1;33m/[m[1;35m|[m   
+[1;33m|[m * [31m5919460[m -[33m[m Uses base from Hyku and removes partial [32m(6 weeks ago) [1;34m<BertZZ>[m
+[1;33m|[m * [31ma315b1d[m -[33m[m defaults to true [32m(6 weeks ago) [1;34m<BertZZ>[m
+[1;33m|[m * [31m442f78b[m -[33m[m Fixes tests, adds tests and changes conditional [32m(6 weeks ago) [1;34m<BertZZ>[m
+[1;33m|[m *   [31m9d79a2f[m -[33m (origin/AH-254/hide_collection_link)[m Merge branch 'main' into AH-254/hide_collection_link [32m(6 weeks ago) [1;34m<Bertie Wooles>[m
+[1;33m|[m [1;36m|[m[31m\[m  
+[1;33m|[m * [31m|[m [31m8a81d5a[m -[33m[m Adds feature flipper to hide collection link on sidebar [32m(6 weeks ago) [1;34m<BertZZ>[m
+[1;33m|[m * [31m|[m [31m3ebf524[m -[33m[m Overides partial and visibility of link unless admin [32m(6 weeks ago) [1;34m<BertZZ>[m
+* [31m|[m [31m|[m   [31ma1ac5e5[m -[33m[m Merge pull request #173 from ubiquitypress/availability_facet [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m[33m\[m [31m\[m [31m\[m  
+[32m|[m * [31m|[m [31m|[m [31m3493166[m -[33m[m Fix file availability facet Switch test to use PacificArticle work type because GenericWork work type was mysteriously failing for me locally. [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m [31m|[m [31m|[m[31m/[m  
+[32m|[m [31m|[m[31m/[m[31m|[m   
+* [31m|[m [31m|[m   [31md14e401[m -[33m[m Merge pull request #172 from ubiquitypress/Hotfix/SupressNoMatchingCollectionFoundErrorOnSave [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m[35m\[m [31m\[m [31m\[m  
+[31m|[m [35m|[m[31m/[m [31m/[m  
+[31m|[m[31m/[m[35m|[m [31m|[m   
+[31m|[m * [31m|[m [31m313fa4e[m -[33m (origin/Hotfix/SupressNoMatchingCollectionFoundErrorOnSave)[m Fix an error when a work is saved and there is no matching collection for the simpligied adminset work flow [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m[31m/[m [31m/[m  
+* [31m|[m   [31md0a2f01[m -[33m[m Merge pull request #171 from ubiquitypress/Hotfix/BrokenJavaScriptOnAdminEdit [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m[1;31m\[m [31m\[m  
+[36m|[m * [31m|[m [31mc37137e[m -[33m (origin/Hotfix/BrokenJavaScriptOnAdminEdit)[m Styling tweak [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [31m|[m [31mabdb07c[m -[33m[m Ensure Turbolinks page loads also load JS [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+* [1;31m|[m [31m|[m   [31m56bae02[m -[33m[m Merge pull request #170 from ubiquitypress/features/repo-842/bump_api_version [32m(6 weeks ago) [1;34m<Eneko Taberna>[m
+[1;32m|[m[1;33m\[m [1;31m\[m [31m\[m  
+[1;32m|[m * [1;31m|[m [31m|[m [31meaed5e0[m -[33m[m REPO-842: Bumps API version [32m(6 weeks ago) [1;34m<Eneko Taberna>[m
+* [1;33m|[m [1;31m|[m [31m|[m   [31m2e9716d[m -[33m[m Merge pull request #161 from ubiquitypress/cjcolvar-patch-2 [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;33m|[m[1;35m\[m [1;33m\[m [1;31m\[m [31m\[m  
+[1;33m|[m [1;35m|[m[1;33m/[m [1;31m/[m [31m/[m  
+[1;33m|[m[1;33m/[m[1;35m|[m [1;31m|[m [31m|[m   
+[1;33m|[m * [1;31m|[m [31m|[m [31m92c471e[m -[33m[m Remove whitespace [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;33m|[m * [1;31m|[m [31m|[m [31m5a81792[m -[33m[m Temporarily mark GenericWork feature tests as optional [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;33m|[m [31m|[m [1;31m|[m[31m/[m  
+[1;33m|[m [31m|[m[31m/[m[1;31m|[m   
+* [31m|[m [1;31m|[m   [31m627125b[m -[33m[m Merge pull request #169 from ubiquitypress/HAC_update [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m [31m\[m [1;31m\[m  
+[1;36m|[m * [31m|[m [1;31m|[m [31m5e404ab[m -[33m[m Update hydra-head for deprecation warning fix [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[1;36m/[m [31m/[m [1;31m/[m  
+* [31m|[m [1;31m|[m   [31m268e875[m -[33m[m Merge pull request #168 from ubiquitypress/REPO-832/FlipflopHideDOITab [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;31m|[m[33m\[m [31m\[m [1;31m\[m  
+[1;31m|[m [33m|[m[1;31m_[m[31m|[m[1;31m/[m  
+[1;31m|[m[1;31m/[m[33m|[m [31m|[m   
+[1;31m|[m * [31m|[m [31mb250dc7[m -[33m (origin/REPO-832/FlipflopHideDOITab)[m Simplify check and remove for all users if toggle enabled [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m[1;31m/[m [31m/[m  
+* [31m|[m   [31m4c9be24[m -[33m[m Merge pull request #167 from ubiquitypress/Hotfix/SupressNoMatchingCollectionFoundError [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m[35m\[m [31m\[m  
+[34m|[m * [31m|[m [31mef5d747[m -[33m (origin/Hotfix/SupressNoMatchingCollectionFoundError)[m Supress error when no collection can be found to match the Admin set [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m[34m/[m [31m/[m  
+* [31m|[m   [31m0443a06[m -[33m[m Merge pull request #164 from ubiquitypress/REPO-832/FlipflopHideDOITab [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[36m|[m[1;31m\[m [31m\[m  
+[36m|[m * [31m|[m [31m2819cab[m -[33m[m Rubocop [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [31m|[m [31m6abc2cd[m -[33m[m Update method nameto make it make more sense [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [31m|[m [31m019b699[m -[33m[m Update readme because I ALWAYS forget [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [31m|[m [31m3011ecf[m -[33m[m Change the installer to assume hyrax-doi is always present [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [31m|[m [31m6c2efc4[m -[33m[m Setup feature [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m [31m|[m[31m/[m  
+* [31m|[m   [31m7483439[m -[33m[m Merge pull request #162 from ubiquitypress/Feature/WorkUUIDFromFileSetUUID [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;33m\[m [31m\[m  
+[1;32m|[m * [31m\[m   [31m032afdf[m -[33m (origin/Feature/WorkUUIDFromFileSetUUID)[m Merge branch 'main' into Feature/WorkUUIDFromFileSetUUID [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;34m|[m[1;32m\[m [31m\[m  
+[1;32m|[m [1;34m|[m[1;32m/[m [31m/[m  
+[1;32m|[m[1;32m/[m[1;34m|[m [31m|[m   
+* [1;34m|[m [31m|[m   [31mdd40d8b[m -[33m[m Merge pull request #116 from ubiquitypress/deposit_form_pacific [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m [1;34m\[m [31m\[m  
+[1;36m|[m * [1;34m\[m [31m\[m   [31md5d3ed3[m -[33m[m Merge branch 'deposit_form_pacific' of github.com:ubiquitypress/hyku_addons into deposit_form_pacific [32m(6 weeks ago) [1;34m<BertZZ>[m
+[1;36m|[m [32m|[m[33m\[m [1;34m\[m [31m\[m  
+[1;36m|[m [32m|[m * [1;34m|[m [31m|[m [31m3439cf0[m -[33m[m Removes blank line from title [32m(6 weeks ago) [1;34m<BertZZ>[m
+[1;36m|[m * [33m|[m [1;34m|[m [31m|[m [31m43048cc[m -[33m[m Refactors volume using same partern as title [32m(6 weeks ago) [1;34m<BertZZ>[m
+[1;36m|[m [33m|[m[33m/[m [1;34m/[m [31m/[m  
+[1;36m|[m * [1;34m|[m [31m|[m   [31m53d600e[m -[33m[m Merge branch 'main' into deposit_form_pacific [32m(6 weeks ago) [1;34m<Bertie Wooles>[m
+[1;36m|[m [34m|[m[1;36m\[m [1;34m\[m [31m\[m  
+[1;36m|[m [34m|[m[1;36m/[m [1;34m/[m [31m/[m  
+[1;36m|[m[1;36m/[m[34m|[m [1;34m|[m [31m|[m   
+* [34m|[m [1;34m|[m [31m|[m   [31ma9a8790[m -[33m[m Merge pull request #158 from ubiquitypress/Feature/FileSetDownloadAPIRoute [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m[1;31m\[m [34m\[m [1;34m\[m [31m\[m  
+[31m|[m [1;31m|[m[31m_[m[34m|[m[31m_[m[1;34m|[m[31m/[m  
+[31m|[m[31m/[m[1;31m|[m [34m|[m [1;34m|[m   
+[31m|[m * [34m|[m [1;34m|[m [31m23e6529[m -[33m (origin/Feature/FileSetDownloadAPIRoute)[m Rubocop [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [34m|[m [1;34m|[m [31m2a15dba[m -[33m[m Finish up specs [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [34m|[m [1;34m|[m [31m2abb3cb[m -[33m[m Mock Google Cloud [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [34m|[m [1;34m|[m [31mb4516ac[m -[33m[m Setup spec structure [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [34m|[m [1;34m|[m [31mb809238[m -[33m[m Rubocop [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [34m|[m [1;34m|[m [31m7829c60[m -[33m[m Rename class to reflect new injection point [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [34m|[m [1;34m|[m [31m44868a4[m -[33m[m Refactor to inject into Hyrax::FileSetsController [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m * [34m|[m [1;34m|[m [31m59ed004[m -[33m[m Add file set download route, which returns JSON for frontend [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+* [1;31m|[m [34m|[m [1;34m|[m   [31m823618b[m -[33m[m Merge pull request #160 from ubiquitypress/cjcolvar-patch-2 [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;33m\[m [1;31m\[m [34m\[m [1;34m\[m  
+[1;32m|[m * [1;31m|[m [34m|[m [1;34m|[m [31m8a86391[m -[33m[m Remove whitespace [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;32m|[m * [1;31m|[m [34m|[m [1;34m|[m [31m2895d56[m -[33m[m Allow metadata only works [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;32m/[m [1;31m/[m [34m/[m [1;34m/[m  
+[1;32m|[m [1;31m|[m * [1;34m|[m [31m3a2facb[m -[33m (origin/deposit_form_pacific)[m Revert "Refactors forms to use form helpers and forces title and volume to not be multiple values" [32m(6 weeks ago) [1;34m<BertZZ>[m
+[1;32m|[m [1;31m|[m * [1;34m|[m [31m2ee161e[m -[33m[m Refactors forms to use form helpers and forces title and volume to not be multiple values [32m(6 weeks ago) [1;34m<BertZZ>[m
+[1;32m|[m [1;31m|[m * [1;34m|[m   [31mc833d56[m -[33m[m Merge branch 'deposit_form_pacific' of github.com:ubiquitypress/hyku_addons into deposit_form_pacific [32m(9 weeks ago) [1;34m<BertZZ>[m
+[1;32m|[m [1;31m|[m [1;34m|[m[1;35m\[m [1;34m\[m  
+[1;32m|[m [1;31m|[m [1;34m|[m * [1;34m|[m [31m1af0362[m -[33m[m Update en-PACIFIC.yml [32m(9 weeks ago) [1;34m<Bertie Wooles>[m
+[1;32m|[m [1;31m|[m [1;34m|[m * [1;34m|[m [31m193ae87[m -[33m[m Corrects YAML file [32m(9 weeks ago) [1;34m<BertZZ>[m
+[1;32m|[m [1;31m|[m * [1;35m|[m [1;34m|[m [31mecdac3a[m -[33m[m Corrects YAML file [32m(9 weeks ago) [1;34m<BertZZ>[m
+[1;32m|[m [1;31m|[m [1;35m|[m[1;35m/[m [1;34m/[m  
+[1;32m|[m [1;31m|[m * [1;34m|[m [31m857fbe1[m -[33m[m Overides Title and Volume to make them singular fields and adds further customisations to deposit form labels [32m(9 weeks ago) [1;34m<BertZZ>[m
+[1;32m|[m [1;31m|[m [1;35m|[m * [31mb2dd471[m -[33m[m Update app/controllers/concerns/hyku_addons/files_controller_behavior.rb [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;31m|[m [1;35m|[m * [31m7075d1b[m -[33m[m Rubocop [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;31m|[m [1;35m|[m * [31m22df478[m -[33m[m Add example URL to API method [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;31m|[m [1;35m|[m * [31meedf123[m -[33m[m Add spec [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;31m|[m [1;35m|[m * [31m5f41a06[m -[33m[m Add route to get work UUID from file_set UUID [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;31m|[m[1;32m_[m[1;35m|[m[1;32m/[m  
+[1;32m|[m[1;32m/[m[1;31m|[m [1;35m|[m   
+* [1;31m|[m [1;35m|[m   [31me5cde3d[m -[33m[m Merge pull request #159 from ubiquitypress/features/ah-235/automatic_login [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m [1;31m\[m [1;35m\[m  
+[1;36m|[m * [1;31m|[m [1;35m|[m [31m9e30039[m -[33m[m Updates the API version, sets the session cookie to be Lax [32m(6 weeks ago) [1;34m<Eneko Taberna>[m
+[1;36m|[m[1;36m/[m [1;31m/[m [1;35m/[m  
+* [1;31m|[m [1;35m|[m   [31mf8a1e0a[m -[33m[m Merge pull request #157 from ubiquitypress/Feature/PropriatorLocaleName [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m[33m\[m [1;31m\[m [1;35m\[m  
+[32m|[m * [1;31m|[m [1;35m|[m [31m43fae54[m -[33m (origin/Feature/PropriatorLocaleName)[m Update authority logic [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m * [1;31m|[m [1;35m|[m [31m934f3db[m -[33m[m Use setting inplace of tenant name for setting tenant admin locale [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m * [1;31m|[m [1;35m|[m [31mdd5e6f3[m -[33m[m Add new setting for tenant locale name [32m(6 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m [1;31m|[m[1;31m/[m [1;35m/[m  
+* [1;31m|[m [1;35m|[m   [31m0d633ec[m -[33m[m Merge pull request #156 from ubiquitypress/pacific_thesis_tweak [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [1;31m\[m [1;35m\[m  
+[34m|[m * [1;31m|[m [1;35m|[m [31m0c4edca[m -[33m[m Removes Institution from pacific thesis form [32m(6 weeks ago) [1;34m<BertZZ>[m
+* [35m|[m [1;31m|[m [1;35m|[m   [31m914477f[m -[33m[m Merge pull request #155 from ubiquitypress/cjcolvar-patch-2 [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;31m|[m[1;31m\[m [35m\[m [1;31m\[m [1;35m\[m  
+[1;31m|[m [1;31m|[m[1;31m_[m[35m|[m[1;31m/[m [1;35m/[m  
+[1;31m|[m[1;31m/[m[1;31m|[m [35m|[m [1;35m|[m   
+[1;31m|[m * [35m|[m [1;35m|[m [31m679a7a2[m -[33m[m Fix injection of behavior into indexer classes. [32m(6 weeks ago) [1;34m<Chris Colvard>[m
+[1;31m|[m[1;31m/[m [35m/[m [1;35m/[m  
+* [35m|[m [1;35m|[m   [31mf92fa5b[m -[33m[m Merge pull request #154 from ubiquitypress/bugs/ah-165/frontend_url_task_fails [32m(6 weeks ago) [1;34m<Eneko Taberna>[m
+[35m|[m[1;33m\[m [35m\[m [1;35m\[m  
+[35m|[m [1;33m|[m[35m/[m [1;35m/[m  
+[35m|[m[35m/[m[1;33m|[m [1;35m|[m   
+[35m|[m * [1;35m|[m [31mc2e1871[m -[33m[m Fixes regression bug on frontend_url rake task [32m(6 weeks ago) [1;34m<Eneko Taberna>[m
+* [1;33m|[m [1;35m|[m [31md36e72d[m -[33m[m Fix Research Paper typo [32m(6 weeks ago) [1;34m<BertZZ>[m
+* [1;33m|[m [1;35m|[m   [31m2daba75[m -[33m[m Merge pull request #153 from ubiquitypress/bugs/ah-246/new-api-release [32m(6 weeks ago) [1;34m<Eneko Taberna>[m
+[1;33m|[m[1;35m\[m [1;33m\[m [1;35m\[m  
+[1;33m|[m [1;35m|[m[1;33m/[m [1;35m/[m  
+[1;33m|[m[1;33m/[m[1;35m|[m [1;35m|[m   
+[1;33m|[m * [1;35m|[m [31m4d2ff0a[m -[33m[m New API release [32m(6 weeks ago) [1;34m<Eneko Taberna>[m
+[1;33m|[m[1;33m/[m [1;35m/[m  
+* [1;35m|[m   [31m43284c5[m -[33m[m Merge pull request #152 from ubiquitypress/api_update [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m [1;35m\[m  
+[1;36m|[m * [1;35m|[m [31m6d01221[m -[33m[m Bump version of hyku-api [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[1;36m/[m [1;35m/[m  
+* [1;35m|[m   [31m6be23a4[m -[33m[m Merge pull request #148 from ubiquitypress/bulkrax [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m[33m\[m [1;35m\[m  
+[32m|[m * [1;35m|[m [31m7201daa[m -[33m[m Fix resource_type and test parsing of multiple fields [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m * [1;35m|[m [31m9f4fd36[m -[33m[m WIP: Fixes failing tests [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m * [1;35m|[m [31m25c72f1[m -[33m[m Bump version of bulkrax with improvements for created collections [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m * [1;35m|[m [31m0cb1654[m -[33m[m WIP: field mapping [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m * [1;35m|[m [31m0780cd1[m -[33m[m Cleanup fields [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+* [33m|[m [1;35m|[m   [31md7af097[m -[33m[m Merge pull request #151 from ubiquitypress/Hotfix/AdminDoubleModalRequestError [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m[35m\[m [33m\[m [1;35m\[m  
+[34m|[m * [33m|[m [1;35m|[m [31ma465d6a[m -[33m (origin/Hotfix/AdminDoubleModalRequestError)[m Fix admin double redirect by replacing the index [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+* [35m|[m [33m|[m [1;35m|[m   [31m27ccb5a[m -[33m[m Merge pull request #150 from ubiquitypress/gemspec [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[35m|[m[1;31m\[m [35m\[m [33m\[m [1;35m\[m  
+[35m|[m [1;31m|[m[35m/[m [33m/[m [1;35m/[m  
+[35m|[m[35m/[m[1;31m|[m [33m|[m [1;35m|[m   
+[35m|[m * [33m|[m [1;35m|[m [31m8ff3845[m -[33m[m Move gcloud dependency into gemspec [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[35m|[m[35m/[m [33m/[m [1;35m/[m  
+* [33m|[m [1;35m|[m   [31me42e42a[m -[33m[m Merge pull request #143 from ubiquitypress/Feature/GoogleCloudSignedUrls [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;33m\[m [33m\[m [1;35m\[m  
+[1;32m|[m * [33m|[m [1;35m|[m [31mc2a280d[m -[33m[m Rename variable [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [33m|[m [1;35m|[m [31mc508c5f[m -[33m[m Update comment [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [33m|[m [1;35m|[m [31m6fcf285[m -[33m[m Refactor again to focus on the File [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [33m|[m [1;35m|[m [31mecb6475[m -[33m[m Rubocop [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [33m|[m [1;35m|[m [31mcedf04c[m -[33m[m Remove spec for now [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [33m|[m [1;35m|[m [31ma967394[m -[33m[m Refactor to focus on file_sets [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [33m|[m [1;35m|[m [31m5e21970[m -[33m[m Remove memoize [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [33m|[m [1;35m|[m   [31md217d5a[m -[33m[m Merge branch 'main' of github.com:ubiquitypress/hyku_addons into Feature/GoogleCloudSignedUrls [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;34m|[m[1;35m\[m [33m\[m [1;35m\[m  
+[1;32m|[m * [1;35m|[m [33m|[m [1;35m|[m [31m544b6cd[m -[33m[m Add spec layout [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;35m|[m [33m|[m [1;35m|[m [31mc0d43f0[m -[33m[m Add instructional help and fix error with string ENV varible [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;35m|[m [33m|[m [1;35m|[m [31m8a812b0[m -[33m[m Add comment for working example [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;35m|[m [33m|[m [1;35m|[m   [31m43ba11c[m -[33m[m Merge branch 'Feature/GoogleCloudSignedUrls' of github.com:ubiquitypress/hyku_addons into Feature/GoogleCloudSignedUrls [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;36m|[m[31m\[m [1;35m\[m [33m\[m [1;35m\[m  
+[1;32m|[m [1;36m|[m * [1;35m|[m [33m|[m [1;35m|[m [31m378027b[m -[33m[m Update class with working code and remove Google Cloud gem bundle [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;36m|[m * [1;35m|[m [33m|[m [1;35m|[m [31me81f7c7[m -[33m[m Rubocop [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;36m|[m * [1;35m|[m [33m|[m [1;35m|[m [31m7c8d960[m -[33m[m Setup basic class structure [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [31m|[m [1;35m|[m [33m|[m [1;35m|[m [31m641e6ce[m -[33m[m Update class with working code and remove Google Cloud gem bundle [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [31m|[m [1;35m|[m [33m|[m [1;35m|[m [31m44ba4cb[m -[33m[m Rubocop [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [31m|[m [1;35m|[m [33m|[m [1;35m|[m [31mb6f7141[m -[33m[m Setup basic class structure [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+* [31m|[m [31m|[m [1;35m|[m [33m|[m [1;35m|[m   [31meec53ba[m -[33m[m Merge pull request #149 from ubiquitypress/bugs/ah-214/api_facets [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[1;35m|[m[33m\[m [31m\[m [31m\[m [1;35m\[m [33m\[m [1;35m\[m  
+[1;35m|[m [33m|[m[1;35m_[m[31m|[m[1;35m_[m[31m|[m[1;35m/[m [33m/[m [1;35m/[m  
+[1;35m|[m[1;35m/[m[33m|[m [31m|[m [31m|[m [33m|[m [1;35m|[m   
+[1;35m|[m * [31m|[m [31m|[m [33m|[m [1;35m|[m [31m7d816f4[m -[33m[m Fixes API search controller wrong missing facets [32m(7 weeks ago) [1;34m<Eneko Taberna>[m
+[1;35m|[m[1;35m/[m [31m/[m [31m/[m [33m/[m [1;35m/[m  
+* [31m|[m [31m|[m [33m|[m [1;35m|[m   [31m8c7e492[m -[33m[m Merge pull request #133 from ubiquitypress/Json_fixes [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [31m\[m [31m\[m [33m\[m [1;35m\[m  
+[34m|[m * [31m|[m [31m|[m [33m|[m [1;35m|[m [31m9905e37[m -[33m (origin/Json_fixes)[m Creates a Creator presenter for the review submissions page [32m(7 weeks ago) [1;34m<BertZZ>[m
+[34m|[m * [31m|[m [31m|[m [33m|[m [1;35m|[m [31mbde880a[m -[33m[m Overides collections show and removes the created by [32m(8 weeks ago) [1;34m<BertZZ>[m
+* [35m|[m [31m|[m [31m|[m [33m|[m [1;35m|[m   [31m5213504[m -[33m[m Merge pull request #147 from ubiquitypress/worktype_labels [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[33m|[m[1;31m\[m [35m\[m [31m\[m [31m\[m [33m\[m [1;35m\[m  
+[33m|[m [1;31m|[m[33m_[m[35m|[m[33m_[m[31m|[m[33m_[m[31m|[m[33m/[m [1;35m/[m  
+[33m|[m[33m/[m[1;31m|[m [35m|[m [31m|[m [31m|[m [1;35m|[m   
+[33m|[m * [35m|[m [31m|[m [31m|[m [1;35m|[m [31m28bf520[m -[33m[m Gets name and discription the right way round [32m(7 weeks ago) [1;34m<BertZZ>[m
+[33m|[m * [35m|[m [31m|[m [31m|[m [1;35m|[m [31m4b8fd37[m -[33m[m Fixes tests and adds Pacific descriptions [32m(7 weeks ago) [1;34m<BertZZ>[m
+[33m|[m * [35m|[m [31m|[m [31m|[m [1;35m|[m [31mfcb9ee4[m -[33m[m Removes Pacific from labels [32m(7 weeks ago) [1;34m<BertZZ>[m
+* [1;31m|[m [35m|[m [31m|[m [31m|[m [1;35m|[m   [31m96a9127[m -[33m[m Merge pull request #145 from ubiquitypress/api_update [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m[1;33m\[m [1;31m\[m [35m\[m [31m\[m [31m\[m [1;35m\[m  
+[31m|[m [1;33m|[m[31m_[m[1;31m|[m[31m_[m[35m|[m[31m/[m [31m/[m [1;35m/[m  
+[31m|[m[31m/[m[1;33m|[m [1;31m|[m [35m|[m [31m|[m [1;35m|[m   
+[31m|[m * [1;31m|[m [35m|[m [31m|[m [1;35m|[m [31m48a8c82[m -[33m (origin/api_update)[m Reapply changes in override [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m * [1;31m|[m [35m|[m [31m|[m [1;35m|[m [31mf68a286[m -[33m[m Bump hyku-api version for file visibility [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m [1;31m|[m[1;31m/[m [35m/[m [31m/[m [1;35m/[m  
+* [1;31m|[m [35m|[m [31m|[m [1;35m|[m   [31m81acdd6[m -[33m[m Merge pull request #146 from ubiquitypress/Hotfix/AdminWorkRedirect [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m[1;35m\[m [1;31m\[m [35m\[m [31m\[m [1;35m\[m  
+[1;31m|[m [1;35m|[m[1;31m/[m [35m/[m [31m/[m [1;35m/[m  
+[1;31m|[m[1;31m/[m[1;35m|[m [35m|[m [31m|[m [1;35m|[m   
+[1;31m|[m * [35m|[m [31m|[m [1;35m|[m [31me8fbcba[m -[33m (origin/Hotfix/AdminWorkRedirect)[m Trying to fix an issue where by the works selection isn't redirecting to the create form [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [31m|[m [35m|[m[31m/[m [1;35m/[m  
+[1;31m|[m [31m|[m[31m/[m[35m|[m [1;35m|[m   
+* [31m|[m [35m|[m [1;35m|[m   [31mb342f47[m -[33m[m Merge pull request #144 from ubiquitypress/api_update_2 [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m[31m\[m [31m\[m [35m\[m [1;35m\[m  
+[31m|[m [31m|[m[31m/[m [35m/[m [1;35m/[m  
+[31m|[m[31m/[m[31m|[m [35m|[m [1;35m|[m   
+[31m|[m * [35m|[m [1;35m|[m [31mb15ff51[m -[33m[m Update override with thumbnail code [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m * [35m|[m [1;35m|[m [31m91821f1[m -[33m[m Bump hyku-api version [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m[31m/[m [35m/[m [1;35m/[m  
+* [35m|[m [1;35m|[m   [31m5610069[m -[33m[m Merge pull request #142 from ubiquitypress/api_update_2 [32m(7 weeks ago) [1;34m<Eneko Taberna>[m
+[32m|[m[33m\[m [35m\[m [1;35m\[m  
+[32m|[m * [35m|[m [1;35m|[m [31m4ec4c96[m -[33m (origin/api_update_2)[m Bump api plugin version [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m[32m/[m [35m/[m [1;35m/[m  
+* [35m|[m [1;35m|[m   [31md41d266[m -[33m[m Merge pull request #139 from ubiquitypress/Hotfix/FixAdminSetPermissionError [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [35m\[m [1;35m\[m  
+[34m|[m * [35m|[m [1;35m|[m [31m5af69d5[m -[33m (origin/Hotfix/FixAdminSetPermissionError)[m Remove byebug [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m * [35m|[m [1;35m|[m [31m5eff1d3[m -[33m[m Fix specs [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m * [35m|[m [1;35m|[m [31m4856f10[m -[33m[m Rubocop [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m * [35m|[m [1;35m|[m [31m9687b19[m -[33m[m Fix issue where by a user creating a work would see an error [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+* [35m|[m [35m|[m [1;35m|[m   [31m972f396[m -[33m[m Merge pull request #140 from ubiquitypress/Hotfix/ReadmeTweaks [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[35m|[m[1;31m\[m [35m\[m [35m\[m [1;35m\[m  
+[35m|[m [1;31m|[m[35m/[m [35m/[m [1;35m/[m  
+[35m|[m[35m/[m[1;31m|[m [35m|[m [1;35m|[m   
+[35m|[m * [35m|[m [1;35m|[m [31m3f1a831[m -[33m (origin/Hotfix/ReadmeTweaks)[m Update installtion instructions [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[35m|[m[35m/[m [35m/[m [1;35m/[m  
+* [35m|[m [1;35m|[m   [31mc2ac91f[m -[33m[m Merge pull request #137 from ubiquitypress/Hotfix/PreventCrashWhenNoTenantExists [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m[1;33m\[m [35m\[m [1;35m\[m  
+[1;32m|[m * [35m|[m [1;35m|[m [31m53c581b[m -[33m (origin/Hotfix/PreventCrashWhenNoTenantExists)[m Prevent an error when no tenant exists [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+* [1;33m|[m [35m|[m [1;35m|[m   [31m2f3f994[m -[33m[m Merge pull request #138 from ubiquitypress/bugs/ah-214/new_api_release [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[1;33m|[m[1;35m\[m [1;33m\[m [35m\[m [1;35m\[m  
+[1;33m|[m [1;35m|[m[1;33m/[m [35m/[m [1;35m/[m  
+[1;33m|[m[1;33m/[m[1;35m|[m [35m|[m [1;35m|[m   
+[1;33m|[m * [35m|[m [1;35m|[m [31m38f8bbc[m -[33m[m New API release [32m(7 weeks ago) [1;34m<Eneko Taberna>[m
+[1;33m|[m[1;33m/[m [35m/[m [1;35m/[m  
+* [35m|[m [1;35m|[m   [31m629e799[m -[33m[m Merge pull request #136 from ubiquitypress/Hotfix/AssetIssues [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m [35m\[m [1;35m\[m  
+[1;36m|[m * [35m|[m [1;35m|[m [31m6d57ddc[m -[33m (origin/Hotfix/AssetIssues)[m Trying to see what affects the JS [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;36m|[m[1;36m/[m [35m/[m [1;35m/[m  
+* [35m|[m [1;35m|[m   [31m0a2e829[m -[33m[m Merge pull request #135 from ubiquitypress/Feature/SingularCollectionTitle [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m[33m\[m [35m\[m [1;35m\[m  
+[32m|[m * [35m|[m [1;35m|[m [31mb14f002[m -[33m (origin/Feature/SingularCollectionTitle)[m Making title singular [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m[32m/[m [35m/[m [1;35m/[m  
+* [35m|[m [1;35m|[m   [31mab30bfb[m -[33m[m Merge pull request #131 from ubiquitypress/Feature/MatchCollectionToAdminSet [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [35m\[m [1;35m\[m  
+[34m|[m * [35m|[m [1;35m|[m [31mac6fd7f[m -[33m (origin/Feature/MatchCollectionToAdminSet)[m Trying to fix inconsistent js loading [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m * [35m|[m [1;35m|[m [31m6d71a4b[m -[33m[m Match Collection to AdminSet [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+* [35m|[m [35m|[m [1;35m|[m   [31m8f6bb69[m -[33m[m Merge pull request #132 from ubiquitypress/bugs/ah-220/new_api_release [32m(7 weeks ago) [1;34m<Chris Colvard>[m
+[36m|[m[1;31m\[m [35m\[m [35m\[m [1;35m\[m  
+[36m|[m * [35m|[m [35m|[m [1;35m|[m [31m1db597c[m -[33m[m AH-220: Updates the API version [32m(7 weeks ago) [1;34m<Eneko Taberna>[m
+[36m|[m[36m/[m [35m/[m [35m/[m [1;35m/[m  
+* [35m|[m [35m|[m [1;35m|[m   [31mf4fc2b6[m -[33m[m Merge pull request #130 from ubiquitypress/bugs/ah-209/new_api_version [32m(7 weeks ago) [1;34m<Eneko Taberna>[m
+[1;32m|[m[1;33m\[m [35m\[m [35m\[m [1;35m\[m  
+[1;32m|[m * [35m|[m [35m|[m [1;35m|[m [31m1ea84cf[m -[33m[m AH-209 Update the API version [32m(7 weeks ago) [1;34m<Eneko Taberna>[m
+[1;32m|[m[1;32m/[m [35m/[m [35m/[m [1;35m/[m  
+* [35m|[m [35m|[m [1;35m|[m   [31mf0906d9[m -[33m[m Merge pull request #129 from ubiquitypress/Hotfix/TranslationChange [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;34m|[m[1;35m\[m [35m\[m [35m\[m [1;35m\[m  
+[1;34m|[m * [35m|[m [35m|[m [1;35m|[m [31me6dfc57[m -[33m (origin/Hotfix/TranslationChange)[m Update email format description [32m(7 weeks ago) [1;34m<Paul Danelli>[m
+[1;34m|[m[1;34m/[m [35m/[m [35m/[m [1;35m/[m  
+* [35m/[m [35m/[m [1;35m/[m [31m54748e8[m -[33m[m AH-152: DOI Form filling (#83) [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[35m|[m[35m/[m [35m/[m [1;35m/[m  
+* [35m|[m [1;35m|[m   [31m71f417b[m -[33m[m Merge pull request #128 from ubiquitypress/Hotfix/RemoveRedirectOnSetting [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[1;36m|[m[31m\[m [35m\[m [1;35m\[m  
+[1;36m|[m * [35m|[m [1;35m|[m [31m0f75ee0[m -[33m (origin/Hotfix/RemoveRedirectOnSetting)[m Remove redirect_on settings [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+* [31m|[m [35m|[m [1;35m|[m [31m4c56d8a[m -[33m[m AH-172: Toggle Relationship Tab for admin set (#122) [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m[31m/[m [35m/[m [1;35m/[m  
+* [35m|[m [1;35m|[m   [31mc5929aa[m -[33m[m Merge pull request #127 from ubiquitypress/Hotfix/FixEmptyGoogleScholarWorkTypes [32m(8 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m[33m\[m [35m\[m [1;35m\[m  
+[32m|[m * [35m|[m [1;35m|[m [31ma63bab5[m -[33m (origin/Hotfix/FixEmptyGoogleScholarWorkTypes)[m Fix indentation [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m * [35m|[m [1;35m|[m [31m0028b44[m -[33m[m Suppress the error [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+* [33m|[m [35m|[m [1;35m|[m   [31mf8b1914[m -[33m[m Merge pull request #126 from ubiquitypress/features/ah-215/new_api_version [32m(8 weeks ago) [1;34m<Chris Colvard>[m
+[33m|[m[35m\[m [33m\[m [35m\[m [1;35m\[m  
+[33m|[m [35m|[m[33m/[m [35m/[m [1;35m/[m  
+[33m|[m[33m/[m[35m|[m [35m|[m [1;35m|[m   
+[33m|[m * [35m|[m [1;35m|[m [31m7669a03[m -[33m (origin/features/ah-215/new_api_version)[m Updates the API version [32m(8 weeks ago) [1;34m<Eneko Taberna>[m
+[33m|[m[33m/[m [35m/[m [1;35m/[m  
+* [35m|[m [1;35m|[m [31m371a8d7[m -[33m[m AH-176: Fix Contributor Role for pacific work types (#124) [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+* [35m|[m [1;35m|[m   [31me1af641[m -[33m[m Merge pull request #125 from ubiquitypress/features/AH-208/api_frontend_url [32m(8 weeks ago) [1;34m<Eneko Taberna>[m
+[35m|[m[1;31m\[m [35m\[m [1;35m\[m  
+[35m|[m [1;31m|[m[35m/[m [1;35m/[m  
+[35m|[m[35m/[m[1;31m|[m [1;35m|[m   
+[35m|[m * [1;35m|[m [31m1ae22c7[m -[33m[m AH-208 New API release [32m(8 weeks ago) [1;34m<Eneko Taberna>[m
+[35m|[m[35m/[m [1;35m/[m  
+* [1;35m|[m   [31m9a21708[m -[33m[m Merge pull request #119 from ubiquitypress/Feature/AddSettingsToTenantAPIEndpoint [32m(8 weeks ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;33m\[m [1;35m\[m  
+[1;32m|[m * [1;35m|[m [31mbaefcc1[m -[33m (origin/Feature/AddSettingsToTenantAPIEndpoint)[m Rubocop [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;35m|[m [31m4566fe1[m -[33m[m Rubcop [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;35m|[m [31mfbc0fb0[m -[33m[m Make specs more explicit [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;35m|[m [31mb2c5a50[m -[33m[m Add spec to ensure settings included in tenant payload [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;35m|[m   [31m5c6dbac[m -[33m[m Merge branch 'main' into Feature/AddSettingsToTenantAPIEndpoint [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;34m|[m[1;35m\[m [1;35m\[m  
+[1;32m|[m * [1;35m|[m [1;35m|[m [31me0f9714[m -[33m[m Indentation and remove redundant file [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;35m|[m [1;35m|[m [31m497b401[m -[33m[m Output settings to JSON [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;35m|[m [1;35m|[m [31m91af1e6[m -[33m[m Fix form by removing table and correcting html insanity [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;35m|[m [1;35m|[m [31m95d3bbe[m -[33m[m Get html/js form rendering [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;35m|[m [1;35m|[m [31m9d2ce14[m -[33m[m Trying to work out how to add a field [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;35m|[m [1;35m|[m [31m5071290[m -[33m[m Add account settings to tenant json [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+* [1;35m|[m [1;35m|[m [1;35m|[m   [31md9cf434[m -[33m[m Merge pull request #123 from ubiquitypress/bulkrax [32m(8 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m [1;35m\[m [1;35m\[m [1;35m\[m  
+[1;36m|[m * [1;35m|[m [1;35m|[m [1;35m|[m [31mbe531c7[m -[33m[m Small code cleanup [32m(8 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;35m|[m [1;35m|[m [1;35m|[m [31mab0a732[m -[33m[m Install FITS for bulkrax import file feature test [32m(8 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;35m|[m [1;35m|[m [1;35m|[m [31m963afb7[m -[33m[m Create/update admin sets and associate works with an admin set based upon admin set name (assumes they are unique) [32m(8 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;35m|[m [1;35m|[m [1;35m|[m [31m6464a8c[m -[33m[m Only include valid DOIs [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;35m|[m [1;35m|[m [1;35m|[m [31m48d06ca[m -[33m[m WIP [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;35m|[m [1;35m|[m [1;35m|[m [31ma2e9273[m -[33m[m Add comments and cleanup [32m(10 weeks ago) [1;34m<Chris Colvard>[m
+* [31m|[m [1;35m|[m [1;35m|[m [1;35m|[m   [31m58fac11[m -[33m[m Merge pull request #121 from ubiquitypress/features/add_cname_rake_accounts [32m(8 weeks ago) [1;34m<Chris Colvard>[m
+[1;35m|[m[33m\[m [31m\[m [1;35m\[m [1;35m\[m [1;35m\[m  
+[1;35m|[m [33m|[m[1;35m_[m[31m|[m[1;35m_[m[1;35m|[m[1;35m/[m [1;35m/[m  
+[1;35m|[m[1;35m/[m[33m|[m [31m|[m [1;35m|[m [1;35m|[m   
+[1;35m|[m * [31m|[m [1;35m|[m [1;35m|[m [31m4c4051b[m -[33m[m Adds cname to account creation task [32m(8 weeks ago) [1;34m<Eneko Taberna>[m
+[1;35m|[m[1;35m/[m [31m/[m [1;35m/[m [1;35m/[m  
+* [31m|[m [1;35m|[m [1;35m|[m   [31m40140de[m -[33m[m Merge pull request #120 from ubiquitypress/features/AH-203/new_api_version [32m(8 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [31m\[m [1;35m\[m [1;35m\[m  
+[34m|[m * [31m|[m [1;35m|[m [1;35m|[m [31m10e0e7f[m -[33m[m New API version [32m(8 weeks ago) [1;34m<Eneko Taberna>[m
+[34m|[m[34m/[m [31m/[m [1;35m/[m [1;35m/[m  
+* [31m|[m [1;35m/[m [1;35m/[m [31m821bd24[m -[33m[m Admin collection required fields (#118) [32m(8 weeks ago) [1;34m<Paul Danelli>[m
+[1;35m|[m [31m|[m[1;35m/[m [1;35m/[m  
+[1;35m|[m[1;35m/[m[31m|[m [1;35m|[m   
+* [31m|[m [1;35m|[m   [31m92c918e[m -[33m[m Merge pull request #117 from ubiquitypress/bugs/AH-201/rake_account_emails [32m(9 weeks ago) [1;34m<Eneko Taberna>[m
+[1;35m|[m[1;31m\[m [31m\[m [1;35m\[m  
+[1;35m|[m [1;31m|[m[1;35m_[m[31m|[m[1;35m/[m  
+[1;35m|[m[1;35m/[m[1;31m|[m [31m|[m   
+[1;35m|[m * [31m|[m [31m184d043[m -[33m[m AH-201: Fixes issue with admin_email params of account creation task not correctly parsed [32m(9 weeks ago) [1;34m<Eneko Taberna>[m
+[1;35m|[m[1;35m/[m [31m/[m  
+* [31m|[m   [31m2685850[m -[33m[m Merge pull request #113 from ubiquitypress/cjcolvar-patch-2 [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;33m\[m [31m\[m  
+[1;32m|[m * [31m|[m [31mbb4fcad[m -[33m[m Small tweak to add the detach command [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [31m|[m [31m82eb981[m -[33m[m Add instructions for using byebug in a dev rails server context [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+* [1;33m|[m [31m|[m   [31mdabbe93[m -[33m[m Merge pull request #114 from ubiquitypress/fix_admin_set_creation [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m [1;33m\[m [31m\[m  
+[1;34m|[m * [1;33m|[m [31m|[m [31md3fdbbb[m -[33m[m Fix admin set creation from UI The changes to fix the creation/editing of collections caused admin set creation/editing to fail due to the expectation that the json fields were present but they aren't when using the admin set controller. The admin set create service also automatically set the creating user's email address as the creator which fails because it isn't in the JSON format that the collection creator show field partial is expecting.  I worked around this by disabling this automatic setting because I don't believe the creator was ever rendered before.  This is a smell and should probably be dealt with at another time. [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[1;34m|[m [1;33m|[m[1;33m/[m [31m/[m  
+* [1;33m|[m [31m|[m   [31mf9cf344[m -[33m[m Merge pull request #115 from ubiquitypress/features/AH-201/rake_account_create_uuid [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m [1;33m\[m [31m\[m  
+[1;36m|[m * [1;33m|[m [31m|[m [31m7b68087[m -[33m[m AH-201: Adds UUID as argument to account creation task. Add UUID validation on Account model [32m(9 weeks ago) [1;34m<Eneko Taberna>[m
+[1;36m|[m[1;36m/[m [1;33m/[m [31m/[m  
+* [1;33m|[m [31m|[m   [31m3d30817[m -[33m[m Merge pull request #108 from ubiquitypress/hide_contributor_role [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[1;33m|[m[33m\[m [1;33m\[m [31m\[m  
+[1;33m|[m [33m|[m[1;33m/[m [31m/[m  
+[1;33m|[m[1;33m/[m[33m|[m [31m|[m   
+[1;33m|[m * [31m|[m [31ma7319ce[m -[33m[m hides to contributor role field for pacific work types [32m(9 weeks ago) [1;34m<BertZZ>[m
+* [33m|[m [31m|[m   [31m95e7bef[m -[33m[m Merge pull request #112 from ubiquitypress/features/api-update [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [33m\[m [31m\[m  
+[34m|[m * [33m|[m [31m|[m [31mb0f2460[m -[33m[m Update the API version [32m(9 weeks ago) [1;34m<Eneko Taberna>[m
+[34m|[m[34m/[m [33m/[m [31m/[m  
+* [33m|[m [31m|[m [31mb32b079[m -[33m[m Improves user feedback on account rake tasks (#110) [32m(9 weeks ago) [1;34m<Eneko Taberna>[m
+* [33m|[m [31m|[m [31m93bd9d9[m -[33m[m Adds code for GTM support (#34) [32m(9 weeks ago) [1;34m<Bertie Wooles>[m
+* [33m|[m [31m|[m   [31mb3c680d[m -[33m[m Merge pull request #109 from ubiquitypress/features/AH-198-rake-account-cname [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[36m|[m[1;31m\[m [33m\[m [31m\[m  
+[36m|[m * [33m|[m [31m|[m [31m1ef4d30[m -[33m[m Adds rake service+rake task to update the account cname [32m(9 weeks ago) [1;34m<Eneko Taberna>[m
+[36m|[m[36m/[m [33m/[m [31m/[m  
+* [33m|[m [31m|[m   [31me328fec[m -[33m[m Merge pull request #105 from ubiquitypress/Feature/ContributorRoleOptions [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m[1;33m\[m [33m\[m [31m\[m  
+[1;32m|[m * [33m\[m [31m\[m   [31m22248d3[m -[33m (origin/Feature/ContributorRoleOptions)[m Merge branch 'main' into Feature/ContributorRoleOptions [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;34m|[m[1;35m\[m [33m\[m [31m\[m  
+[1;32m|[m * [1;35m\[m [33m\[m [31m\[m   [31m754d724[m -[33m[m Merge branch 'main' into Feature/ContributorRoleOptions [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;36m|[m[31m\[m [1;35m\[m [33m\[m [31m\[m  
+[1;32m|[m * [31m|[m [1;35m|[m [33m|[m [31m|[m [31m034e2ac[m -[33m[m Add new roles to pacific specific service dictionary [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+* [31m|[m [31m|[m [1;35m|[m [33m|[m [31m|[m   [31m3a4f1e3[m -[33m[m Merge pull request #97 from ubiquitypress/Feature/MultitenantTranslations [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m[33m\[m [31m\[m [31m\[m [1;35m\[m [33m\[m [31m\[m  
+[32m|[m * [31m|[m [31m|[m [1;35m|[m [33m|[m [31m|[m [31m2dae512[m -[33m (origin/Feature/MultitenantTranslations)[m Tighten things up and add notes in README [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m * [31m|[m [31m|[m [1;35m|[m [33m|[m [31m|[m [31m6051cbe[m -[33m[m Remove test that failing rubocop rules [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m * [31m|[m [31m|[m [1;35m|[m [33m|[m [31m|[m [31m0c5eb57[m -[33m[m Rubcop [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m * [31m|[m [31m|[m [1;35m|[m [33m|[m [31m|[m   [31mf5c7374[m -[33m[m Merge branch 'main' into Feature/MultitenantTranslations [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m [34m|[m[35m\[m [31m\[m [31m\[m [1;35m\[m [33m\[m [31m\[m  
+[32m|[m * [35m|[m [31m|[m [31m|[m [1;35m|[m [33m|[m [31m|[m [31m88dc603[m -[33m[m Add example YML file [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m * [35m|[m [31m|[m [31m|[m [1;35m|[m [33m|[m [31m|[m [31m978ee14[m -[33m[m Remove testing locale [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m * [35m|[m [31m|[m [31m|[m [1;35m|[m [33m|[m [31m|[m [31m6ab1596[m -[33m[m Add specs and comments [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m * [35m|[m [31m|[m [31m|[m [1;35m|[m [33m|[m [31m|[m [31mc2240d0[m -[33m[m Trying to sort out edge cases [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m * [35m|[m [31m|[m [31m|[m [1;35m|[m [33m|[m [31m|[m [31m04d758b[m -[33m[m Use helper method [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m * [35m|[m [31m|[m [31m|[m [1;35m|[m [33m|[m [31m|[m [31m8e2c60c[m -[33m[m Get locale being added without stacking [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m * [35m|[m [31m|[m [31m|[m [1;35m|[m [33m|[m [31m|[m [31m5b230c4[m -[33m[m Set up multitenant confituration [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+* [35m|[m [35m|[m [31m|[m [31m|[m [1;35m|[m [33m|[m [31m|[m   [31m27ec4c2[m -[33m[m Merge pull request #107 from ubiquitypress/features/tenant_rake_tasks [32m(9 weeks ago) [1;34m<Eneko Taberna>[m
+[1;35m|[m[1;31m\[m [35m\[m [35m\[m [31m\[m [31m\[m [1;35m\[m [33m\[m [31m\[m  
+[1;35m|[m [1;31m|[m[1;35m_[m[35m|[m[1;35m_[m[35m|[m[1;35m_[m[31m|[m[1;35m_[m[31m|[m[1;35m/[m [33m/[m [31m/[m  
+[1;35m|[m[1;35m/[m[1;31m|[m [35m|[m [35m|[m [31m|[m [31m|[m [33m|[m [31m|[m   
+[1;35m|[m * [35m|[m [35m|[m [31m|[m [31m|[m [33m|[m [31m|[m [31m4c591d5[m -[33m (origin/features/tenant_rake_tasks)[m Adds rake tasks to delete tenants and allows tenant creation to pass array of admin emails [32m(9 weeks ago) [1;34m<Eneko Taberna>[m
+* [1;31m|[m [35m|[m [35m|[m [31m|[m [31m|[m [33m|[m [31m|[m   [31m18da4e9[m -[33m[m Merge pull request #103 from ubiquitypress/Feature/InstitutionalRelationship [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m[1;33m\[m [1;31m\[m [35m\[m [35m\[m [31m\[m [31m\[m [33m\[m [31m\[m  
+[1;32m|[m * [1;31m|[m [35m|[m [35m|[m [31m|[m [31m|[m [33m|[m [31m|[m [31me34ae6f[m -[33m (origin/Feature/InstitutionalRelationship)[m Update config/locales/en-PACIFIC.yml [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;31m|[m [35m|[m [35m|[m [31m|[m [31m|[m [33m|[m [31m|[m [31m0edef5d[m -[33m[m Revert "Add new roles to pacific specific service dictionary" [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;31m|[m [35m|[m [35m|[m [31m|[m [31m|[m [33m|[m [31m|[m [31m349efd8[m -[33m[m Add new roles to pacific specific service dictionary [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;31m|[m [35m|[m [35m|[m [31m|[m [31m|[m [33m|[m [31m|[m [31mc5cfce4[m -[33m[m Pass model to service [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;31m|[m [35m|[m [35m|[m [31m|[m [31m|[m [33m|[m [31m|[m [31m8da52fd[m -[33m[m Rubocop [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;31m|[m [35m|[m [35m|[m [31m|[m [31m|[m [33m|[m [31m|[m [31ma8acdb8[m -[33m[m Add new QA service and pacific tenant config [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [33m|[m [1;31m|[m[33m_[m[35m|[m[33m_[m[35m|[m[33m_[m[31m|[m[33m_[m[31m|[m[33m/[m [31m/[m  
+[1;32m|[m [33m|[m[33m/[m[1;31m|[m [35m|[m [35m|[m [31m|[m [31m|[m [31m|[m   
+* [33m|[m [1;31m|[m [35m|[m [35m|[m [31m|[m [31m|[m [31m|[m   [31m582d9de[m -[33m[m Merge pull request #106 from ubiquitypress/api_update [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m[1;35m\[m [33m\[m [1;31m\[m [35m\[m [35m\[m [31m\[m [31m\[m [31m\[m  
+[31m|[m [1;35m|[m[31m_[m[33m|[m[31m_[m[1;31m|[m[31m_[m[35m|[m[31m_[m[35m|[m[31m_[m[31m|[m[31m/[m [31m/[m  
+[31m|[m[31m/[m[1;35m|[m [33m|[m [1;31m|[m [35m|[m [35m|[m [31m|[m [31m|[m   
+[31m|[m * [33m|[m [1;31m|[m [35m|[m [35m|[m [31m|[m [31m|[m [31m30181a1[m -[33m[m Bump version of hyku-api because the version used here is the version that gets deployed [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m[31m/[m [33m/[m [1;31m/[m [35m/[m [35m/[m [31m/[m [31m/[m  
+* [33m|[m [1;31m|[m [35m|[m [35m|[m [31m|[m [31m|[m   [31m24f4c1b[m -[33m[m Merge pull request #104 from ubiquitypress/Hotfix/FixSelectTag [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[31m|[m[31m\[m [33m\[m [1;31m\[m [35m\[m [35m\[m [31m\[m [31m\[m  
+[31m|[m [31m|[m[31m_[m[33m|[m[31m_[m[1;31m|[m[31m_[m[35m|[m[31m_[m[35m|[m[31m/[m [31m/[m  
+[31m|[m[31m/[m[31m|[m [33m|[m [1;31m|[m [35m|[m [35m|[m [31m|[m   
+[31m|[m * [33m|[m [1;31m|[m [35m|[m [35m|[m [31m|[m [31m3b88d4e[m -[33m (origin/Hotfix/FixSelectTag)[m Add missing closing bracket [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[31m|[m[31m/[m [33m/[m [1;31m/[m [35m/[m [35m/[m [31m/[m  
+* [33m|[m [1;31m|[m [35m|[m [35m|[m [31m|[m   [31m2799f6b[m -[33m[m Merge pull request #101 from ubiquitypress/collection_creation [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[33m|[m[33m\[m [33m\[m [1;31m\[m [35m\[m [35m\[m [31m\[m  
+[33m|[m [33m|[m[33m/[m [1;31m/[m [35m/[m [35m/[m [31m/[m  
+[33m|[m[33m/[m[33m|[m [1;31m|[m [35m|[m [35m|[m [31m|[m   
+[33m|[m * [1;31m|[m [35m|[m [35m|[m [31m|[m [31m8157b6c[m -[33m (origin/collection_creation)[m Handle creator and contributor multi-part fields for collections [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[33m|[m [35m|[m [1;31m|[m[35m_[m[35m|[m[35m/[m [31m/[m  
+[33m|[m [35m|[m[35m/[m[1;31m|[m [35m|[m [31m|[m   
+* [35m|[m [1;31m|[m [35m|[m [31m|[m   [31m898577f[m -[33m[m Merge pull request #102 from ubiquitypress/Feature/CreateLicensAuthorityeService [32m(9 weeks ago) [1;34m<Bertie Wooles>[m
+[34m|[m[35m\[m [35m\[m [1;31m\[m [35m\[m [31m\[m  
+[34m|[m * [35m|[m [1;31m|[m [35m|[m [31m|[m [31m5b8ebc5[m -[33m (origin/Feature/CreateLicensAuthorityeService)[m Rubocop [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m * [35m|[m [1;31m|[m [35m|[m [31m|[m [31m9ca88b2[m -[33m[m Add new default licences [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m * [35m|[m [1;31m|[m [35m|[m [31m|[m [31m264aab5[m -[33m[m Create licences authority service and add pacific options [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[34m|[m[34m/[m [35m/[m [1;31m/[m [35m/[m [31m/[m  
+* [35m|[m [1;31m|[m [35m|[m [31m|[m   [31m8f9933b[m -[33m[m Merge pull request #100 from ubiquitypress/Hotfix/CompactAuthorityNames [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[35m|[m[1;31m\[m [35m\[m [1;31m\[m [35m\[m [31m\[m  
+[35m|[m [1;31m|[m[35m/[m [1;31m/[m [35m/[m [31m/[m  
+[35m|[m[35m/[m[1;31m|[m [1;31m|[m [35m|[m [31m|[m   
+[35m|[m * [1;31m|[m [35m|[m [31m|[m [31mad65bc3[m -[33m (origin/Hotfix/CompactAuthorityNames)[m Compact arrays [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[35m|[m[35m/[m [1;31m/[m [35m/[m [31m/[m  
+* [1;31m|[m [35m|[m [31m|[m [31md1b41d5[m -[33m[m Fix parans [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+* [1;31m|[m [35m|[m [31m|[m   [31m0da2974[m -[33m[m Merge pull request #98 from ubiquitypress/dockerfile [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;33m\[m [1;31m\[m [35m\[m [31m\[m  
+[1;32m|[m * [1;31m|[m [35m|[m [31m|[m [31mae86e68[m -[33m[m Upgrade to ruby 2.7.2 base image to suppress deprecation warnings [skip ci] [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;32m/[m [1;31m/[m [35m/[m [31m/[m  
+* [1;31m|[m [35m|[m [31m|[m   [31m5f97f33[m -[33m[m Merge pull request #90 from ubiquitypress/AH-110/pacific_worktypes_feedback [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m [1;31m\[m [35m\[m [31m\[m  
+[1;34m|[m * [1;31m|[m [35m|[m [31m|[m [31m87943ef[m -[33m[m Fix failing tests Fix indentation on resource types yml for pacific thesis or dissertation Add missing property definitions for pacific book chapter and pacific thesis or dissertation Change irb_status to select input instead of multi_value_select [32m(9 weeks ago) [1;34m<Chris Colvard>[m
+[1;34m|[m * [1;31m|[m [35m|[m [31m|[m [31me03117e[m -[33m[m appeases rubocop [32m(9 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;31m|[m [35m|[m [31m|[m [31m2092d84[m -[33m[m Removes institution from pacific work type forms [32m(9 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;31m|[m [35m|[m [31m|[m [31mf18c5d4[m -[33m[m irb status view called irb status [32m(9 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;31m|[m [35m|[m [31m|[m [31m12ef5ae[m -[33m[m Failing IRB status files [32m(9 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;31m|[m [35m|[m [31m|[m [31m4e5518c[m -[33m[m Adds contributor and creator fields to params and adds helper for contributor [32m(9 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;31m|[m [35m|[m [31m|[m [31m93f27eb[m -[33m[m Adds pacific creator fields [32m(9 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;31m|[m [35m|[m [31m|[m [31meeade21[m -[33m[m removes language and rights tatement from pacific forms [32m(10 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;31m|[m [35m|[m [31m|[m [31m499d674[m -[33m[m Adds files for Subject dropdown [32m(10 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;31m|[m [35m|[m [31m|[m [31m4457106[m -[33m (origin/AH-110/pacific_worktypes_feedback)[m removes puts statement [32m(10 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;31m|[m [35m|[m [31m|[m [31m734e00b[m -[33m[m Adds missing fields for pacific work type forms and controlled vocablary for subject [32m(10 weeks ago) [1;34m<BertZZ>[m
+[1;34m|[m * [1;31m|[m [35m|[m [31m|[m [31mb353660[m -[33m[m Adds files for pacific resource type controlled vocab [32m(2 months ago) [1;34m<BertZZ>[m
+* [1;35m|[m [1;31m|[m [35m|[m [31m|[m   [31macfb200[m -[33m[m Merge pull request #95 from ubiquitypress/Hotfix/TTYAccessToWebContainer [32m(9 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m[31m\[m [1;35m\[m [1;31m\[m [35m\[m [31m\[m  
+[1;31m|[m [31m|[m[1;31m_[m[1;35m|[m[1;31m/[m [35m/[m [31m/[m  
+[1;31m|[m[1;31m/[m[31m|[m [1;35m|[m [35m|[m [31m|[m   
+[1;31m|[m * [1;35m|[m [35m|[m [31m|[m [31m37cccbe[m -[33m (origin/Hotfix/TTYAccessToWebContainer)[m Ongoing attempt to get byebug access to the rails app [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[1;31m|[m [35m|[m [1;35m|[m[35m/[m [31m/[m  
+[1;31m|[m [35m|[m[35m/[m[1;35m|[m [31m|[m   
+* [35m|[m [1;35m|[m [31m|[m [31m89ea3bb[m -[33m[m Adds more tests for OAI endpoints (#96) [32m(10 weeks ago) [1;34m<Eneko Taberna>[m
+* [35m|[m [1;35m|[m [31m|[m   [31mfba9755[m -[33m[m Merge pull request #94 from ubiquitypress/Hotfix/HostAccessToPostgresContainerPort [32m(10 weeks ago) [1;34m<Chris Colvard>[m
+[32m|[m[33m\[m [35m\[m [1;35m\[m [31m\[m  
+[32m|[m * [35m|[m [1;35m|[m [31m|[m [31m3069220[m -[33m (origin/Hotfix/HostAccessToPostgresContainerPort)[m Allow access to postgres container via port [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[32m|[m [35m|[m[35m/[m [1;35m/[m [31m/[m  
+* [35m|[m [1;35m|[m [31m|[m   [31m8c66375[m -[33m[m Merge pull request #92 from ubiquitypress/features/frontend_url [32m(10 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [35m\[m [1;35m\[m [31m\[m  
+[34m|[m * [35m|[m [1;35m|[m [31m|[m [31m949d935[m -[33m[m Adds some feedback after UpdateAccountFronterndURL rake task [32m(10 weeks ago) [1;34m<Eneko Taberna>[m
+[34m|[m * [35m|[m [1;35m|[m [31m|[m [31md006b04[m -[33m[m Adds a rake task to update the frontend_url of accounts [32m(10 weeks ago) [1;34m<Eneko Taberna>[m
+* [35m|[m [35m|[m [1;35m|[m [31m|[m [31m9e409a5[m -[33m[m Adds ability to set some specs as optional in CI (#93) [32m(10 weeks ago) [1;34m<Eneko Taberna>[m
+[35m|[m[35m/[m [35m/[m [1;35m/[m [31m/[m  
+* [35m|[m [1;35m|[m [31m|[m   [31mfca8855[m -[33m[m Merge pull request #91 from ubiquitypress/Feature/Settings [32m(10 weeks ago) [1;34m<Chris Colvard>[m
+[35m|[m[1;31m\[m [35m\[m [1;35m\[m [31m\[m  
+[35m|[m [1;31m|[m[35m/[m [1;35m/[m [31m/[m  
+[35m|[m[35m/[m[1;31m|[m [1;35m|[m [31m|[m   
+[35m|[m * [1;35m|[m [31m|[m   [31me6a4190[m -[33m (origin/Feature/Settings)[m Merge branch 'main' into Feature/Settings [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[35m|[m [1;32m|[m[35m\[m [1;35m\[m [31m\[m  
+[35m|[m [1;32m|[m[35m/[m [1;35m/[m [31m/[m  
+[35m|[m[35m/[m[1;32m|[m [1;35m|[m [31m|[m   
+* [1;32m|[m [1;35m|[m [31m|[m   [31me9ff1c1[m -[33m[m Merge pull request #87 from ubiquitypress/Feature/Settings [32m(10 weeks ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m [1;32m\[m [1;35m\[m [31m\[m  
+* [1;35m\[m [1;32m\[m [1;35m\[m [31m\[m   [31macd75e9[m -[33m[m Merge pull request #67 from ubiquitypress/bulkrax [32m(10 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m [1;35m\[m [1;32m\[m [1;35m\[m [31m\[m  
+[1;36m|[m [31m|[m [1;35m|[m[31m_[m[1;32m|[m[31m_[m[1;35m|[m[31m/[m  
+[1;36m|[m [31m|[m[31m/[m[1;35m|[m [1;32m|[m [1;35m|[m   
+[1;36m|[m * [1;35m|[m [1;32m|[m [1;35m|[m [31m5a527cc[m -[33m[m Batch import using Bulkrax of UP Hyku 1 exports [32m(10 weeks ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[1;36m/[m [1;35m/[m [1;32m/[m [1;35m/[m  
+[1;36m|[m [1;35m|[m * [1;35m/[m [31m27f069e[m -[33m[m Use constants instead of arrays in the view [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[1;36m|[m [1;35m|[m[1;35m/[m [1;35m/[m  
+[1;36m|[m * [1;35m|[m   [31m416fd93[m -[33m[m Merge branch 'main' into Feature/Settings [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[1;36m|[m [32m|[m[1;36m\[m [1;35m\[m  
+[1;36m|[m [32m|[m[1;36m/[m [1;35m/[m  
+[1;36m|[m[1;36m/[m[32m|[m [1;35m|[m   
+* [32m|[m [1;35m|[m   [31mc9799fc[m -[33m[m Merge pull request #89 from ubiquitypress/contributor_api_fix [32m(10 weeks ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [32m\[m [1;35m\[m  
+[34m|[m * [32m|[m [1;35m|[m [31m05a8dd7[m -[33m[m Fixes contributor typo [32m(10 weeks ago) [1;34m<BertZZ>[m
+[34m|[m[34m/[m [32m/[m [1;35m/[m  
+* [32m|[m [1;35m|[m   [31mffd02aa[m -[33m[m Merge pull request #88 from ubiquitypress/Hotfix/AddExportConcernToControllers [32m(10 weeks ago) [1;34m<Chris Colvard>[m
+[36m|[m[1;31m\[m [32m\[m [1;35m\[m  
+[36m|[m * [32m|[m [1;35m|[m [31m3f3bb54[m -[33m (origin/Hotfix/AddExportConcernToControllers)[m remove local debugging files [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [32m|[m [1;35m|[m [31ma8c4b0b[m -[33m[m Add WorksControllerBehaviour to new controllers [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m[36m/[m [32m/[m [1;35m/[m  
+[36m|[m * [1;35m|[m [31me7f14aa[m -[33m[m Remove references to removed method [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31ma030d27[m -[33m[m Remove hide_form_relationship_tab field [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31m6e76d49[m -[33m[m Rubocop [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31m11b0acf[m -[33m[m Remove institutional_relationship field [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31mb3593f7[m -[33m[m Remove creator_roles / contributor_roles [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31mae76407[m -[33m[m Remove institutional_relationship_picklist field [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31mb1821da[m -[33m[m Remove metadata_labels field [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31m3177b78[m -[33m[m remove enabled_doi field - will be flipflop [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31m195d19d[m -[33m[m Remove add_collection_list_form_display field [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31m3225bf6[m -[33m[m Remove licence_list field [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31m7ef539e[m -[33m[m Remove work_unwanted_fields field [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31mc170995[m -[33m[m Remove help_texts field [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31m3539134[m -[33m[m Remove index_record_to_shared_search field [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31mceabf8d[m -[33m[m Remove html_required field [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31me6893d4[m -[33m[m Remove creator_fields and contributor_fields [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31m8feeda0[m -[33m[m Remove required_json_property field [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31mcfafd5e[m -[33m[m Remove enail_hint_text field [32m(10 weeks ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31m921ebd2[m -[33m[m Remove work_type_list setting [32m(2 months ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31mfe23a7c[m -[33m[m Remove 'turn_off_fedora_collection_work_association' setting [32m(2 months ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31ma2b8e66[m -[33m[m Tidy up HTML form [32m(2 months ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31m31bb71b[m -[33m[m Fix HTML styling issues, use partial for submit buttons, fix missing inputs [32m(2 months ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31m5e4a179[m -[33m[m Remove 'live' setting [32m(2 months ago) [1;34m<Paul Danelli>[m
+[36m|[m * [1;35m|[m [31mda28233[m -[33m[m Tidy up views and controller array [32m(2 months ago) [1;34m<Paul Danelli>[m
+[36m|[m[36m/[m [1;35m/[m  
+* [1;35m|[m   [31macdea7c[m -[33m[m Merge pull request #86 from ubiquitypress/create_superadmin [32m(2 months ago) [1;34m<Chris Colvard>[m
+[1;35m|[m[1;33m\[m [1;35m\[m  
+[1;35m|[m [1;33m|[m[1;35m/[m  
+[1;35m|[m[1;35m/[m[1;33m|[m   
+[1;35m|[m * [31m0c00611[m -[33m[m Improve hyku superadmin create rake task to allow passing arguments [32m(2 months ago) [1;34m<Chris Colvard>[m
+[1;35m|[m[1;35m/[m  
+*   [31m44f5e92[m -[33m[m Merge pull request #84 from ubiquitypress/creator_contributor_overide [32m(2 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m  
+[1;34m|[m * [31m9a57b25[m -[33m[m Returns blank array if no creator or contributor and fixes rubocop [32m(2 months ago) [1;34m<BertZZ>[m
+[1;34m|[m * [31m7363084[m -[33m[m Adds guards against nil and a test for creator format [32m(3 months ago) [1;34m<BertZZ>[m
+[1;34m|[m * [31m253d2d8[m -[33m[m parses the json blobs [32m(3 months ago) [1;34m<BertZZ>[m
+[1;34m|[m * [31m7534bfc[m -[33m[m Creator and contributor need to be added to the overide [32m(3 months ago) [1;34m<BertZZ>[m
+[1;34m|[m[1;34m/[m  
+*   [31m3648806[m -[33m[m Merge pull request #81 from ubiquitypress/AH-110/work_api_endpoint [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m  
+[1;36m|[m * [31m9d199cc[m -[33m[m Rewrites test to reflect api changes [32m(3 months ago) [1;34m<BertZZ>[m
+[1;36m|[m * [31md6d5aae[m -[33m[m Refactors into context per Chris' suggestion [32m(3 months ago) [1;34m<BertZZ>[m
+[1;36m|[m * [31m6f0cd11[m -[33m (origin/AH-110/work_api_endpoint)[m Adds API support for fields used in PacificNewsCliping and PacificMedia [32m(3 months ago) [1;34m<BertZZ>[m
+[1;36m|[m * [31mdbd5dc7[m -[33m[m removes try from abstract method [32m(3 months ago) [1;34m<BertZZ>[m
+[1;36m|[m * [31ma851212[m -[33m[m Adds failing test for api abstract field [32m(3 months ago) [1;34m<BertZZ>[m
+* [31m|[m   [31m55b465c[m -[33m[m Merge pull request #79 from ubiquitypress/Feature/AddRenderingsToWorkTypes [32m(3 months ago) [1;34m<Chris Colvard>[m
+[32m|[m[33m\[m [31m\[m  
+[32m|[m * [31m|[m [31m52f9765[m -[33m (origin/Feature/AddRenderingsToWorkTypes)[m Rubocop [32m(3 months ago) [1;34m<Paul Danelli>[m
+[32m|[m * [31m|[m [31m6019e3b[m -[33m[m Remove redundant classes [32m(3 months ago) [1;34m<Paul Danelli>[m
+[32m|[m * [31m|[m [31m7060b96[m -[33m[m Reset gitignore [32m(3 months ago) [1;34m<Paul Danelli>[m
+[32m|[m * [31m|[m [31m23ea3af[m -[33m[m Remove concern [32m(3 months ago) [1;34m<Paul Danelli>[m
+[32m|[m * [31m|[m [31mce6afae[m -[33m[m Get spec to pass [32m(3 months ago) [1;34m<Paul Danelli>[m
+[32m|[m * [31m|[m [31mca59a3a[m -[33m[m Remove source from field options [32m(3 months ago) [1;34m<Paul Danelli>[m
+[32m|[m * [31m|[m [31m1221948[m -[33m[m Put concerns below add_terms [32m(3 months ago) [1;34m<Paul Danelli>[m
+[32m|[m * [31m|[m   [31med1f3f7[m -[33m[m Merge branch 'main' into Feature/AddRenderingsToWorkTypes [32m(3 months ago) [1;34m<Paul Danelli>[m
+[32m|[m [34m|[m[32m\[m [31m\[m  
+[32m|[m [34m|[m[32m/[m [31m/[m  
+[32m|[m[32m/[m[34m|[m [31m|[m   
+* [34m|[m [31m|[m   [31m50d043f[m -[33m[m Merge pull request #82 from ubiquitypress/Hotfix/ResolveAvailableWorkTypeError [32m(3 months ago) [1;34m<Paul Danelli>[m
+[31m|[m[1;31m\[m [34m\[m [31m\[m  
+[31m|[m [1;31m|[m[31m_[m[34m|[m[31m/[m  
+[31m|[m[31m/[m[1;31m|[m [34m|[m   
+[31m|[m * [34m|[m [31m00fab8d[m -[33m (origin/Hotfix/ResolveAvailableWorkTypeError)[m Fix styling [32m(3 months ago) [1;34m<Paul Danelli>[m
+[31m|[m * [34m|[m [31m082050a[m -[33m[m Resolve issue where by development environments _could_ present an error when not all worktypes were selected in the admin [32m(3 months ago) [1;34m<Paul Danelli>[m
+[31m|[m[31m/[m [34m/[m  
+[31m|[m *   [31m80a119c[m -[33m[m Merge branch 'main' into Feature/AddRenderingsToWorkTypes [32m(3 months ago) [1;34m<Paul Danelli>[m
+[31m|[m [1;32m|[m[31m\[m  
+[31m|[m [1;32m|[m[31m/[m  
+[31m|[m[31m/[m[1;32m|[m   
+* [1;32m|[m   [31m112dd60[m -[33m[m Merge pull request #80 from ubiquitypress/Hotfix/FixRegistrationCrash [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m [1;32m\[m  
+[1;34m|[m * [1;32m|[m [31m5c2ec3f[m -[33m (origin/Hotfix/FixRegistrationCrash)[m Catch error causing 500 on root admin user registration [32m(3 months ago) [1;34m<Paul Danelli>[m
+* [1;35m|[m [1;32m|[m   [31mf60ece0[m -[33m[m Merge pull request #72 from ubiquitypress/more_pacific_worktypes [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m [1;35m\[m [1;32m\[m  
+[1;36m|[m * [1;35m\[m [1;32m\[m   [31m5248721[m -[33m[m Merge branch 'main' into more_pacific_worktypes [32m(3 months ago) [1;34m<Bertie Wooles>[m
+[1;36m|[m [32m|[m[1;36m\[m [1;35m\[m [1;32m\[m  
+[1;36m|[m [32m|[m[1;36m/[m [1;35m/[m [1;32m/[m  
+[1;36m|[m[1;36m/[m[32m|[m [1;35m|[m [1;32m|[m   
+* [32m|[m [1;35m|[m [1;32m|[m [31m989283d[m -[33m[m Add Custom RIS Data Fields (#77) [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;35m|[m [32m|[m[1;35m/[m [1;32m/[m  
+[1;35m|[m[1;35m/[m[32m|[m [1;32m|[m   
+[1;35m|[m * [1;32m|[m [31ma43e4f8[m -[33m[m Appease Rubocop [32m(3 months ago) [1;34m<BertZZ>[m
+[1;35m|[m * [1;32m|[m [31m9319f49[m -[33m[m Adds Magic Comment [32m(3 months ago) [1;34m<BertZZ>[m
+[1;35m|[m * [1;32m|[m [31m164cd4f[m -[33m[m Adds Pacific Uncategorized [32m(3 months ago) [1;34m<BertZZ>[m
+[1;35m|[m * [1;32m|[m [31m093a1c4[m -[33m[m Adds Pacific Text Work [32m(3 months ago) [1;34m<BertZZ>[m
+[1;35m|[m * [1;32m|[m [31mc0d6b35[m -[33m (origin/more_pacific_worktypes)[m Adds Pacific presentation [32m(3 months ago) [1;34m<BertZZ>[m
+[1;35m|[m * [1;32m|[m [31maa06fa8[m -[33m[m removes org_unit from news clipping required [32m(3 months ago) [1;34m<BertZZ>[m
+[1;35m|[m * [1;32m|[m [31m73bfe4e[m -[33m[m Adds News Clipping and permited params to previous worktypes [32m(3 months ago) [1;34m<BertZZ>[m
+[1;35m|[m * [1;32m|[m [31md45156d[m -[33m[m Adds Pacific Media and tightens up presenters [32m(3 months ago) [1;34m<BertZZ>[m
+[1;35m|[m * [1;32m|[m [31m9f710d5[m -[33m[m Removed buy book from book chapter. [32m(3 months ago) [1;34m<BertZZ>[m
+[1;35m|[m * [1;32m|[m [31me897e67[m -[33m[m Adds missing fields and requires to already completed work types [32m(3 months ago) [1;34m<BertZZ>[m
+[1;35m|[m * [1;32m|[m [31mbe43404[m -[33m[m Adds Pacific Book Chapter [32m(3 months ago) [1;34m<BertZZ>[m
+[1;35m|[m * [1;32m|[m [31m21e32be[m -[33m[m Adds Pacific or Dissertation work type [32m(3 months ago) [1;34m<BertZZ>[m
+[1;35m|[m [33m|[m *   [31maaae8db[m -[33m[m Merge branch 'main' into Feature/AddRenderingsToWorkTypes [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;35m|[m [33m|[m [34m|[m[1;35m\[m  
+[1;35m|[m [33m|[m[1;35m_[m[34m|[m[1;35m/[m  
+[1;35m|[m[1;35m/[m[33m|[m [34m|[m   
+* [33m|[m [34m|[m [31m1fe11ac[m -[33m[m Fix spelling of dissertation (#76) [32m(3 months ago) [1;34m<Chris Colvard>[m
+* [33m|[m [34m|[m [31m102ecc8[m -[33m[m Rename work type TimeBasedMediaArticle -> TimeBasedMedia (#74) [32m(3 months ago) [1;34m<Chris Colvard>[m
+[35m|[m [33m|[m * [31m43b35fe[m -[33m[m Add concern to model [32m(3 months ago) [1;34m<Paul Danelli>[m
+[35m|[m [33m|[m[35m/[m  
+[35m|[m[35m/[m[33m|[m   
+* [33m|[m   [31m67b313a[m -[33m[m Merge pull request #71 from ubiquitypress/Feature/AddMissingWorkTypeSpecs [32m(3 months ago) [1;34m<Paul Danelli>[m
+[36m|[m[1;31m\[m [33m\[m  
+[36m|[m * [33m|[m [31mafd448a[m -[33m (origin/Feature/AddMissingWorkTypeSpecs)[m Add missing ReportForm specs [32m(3 months ago) [1;34m<Paul Danelli>[m
+[36m|[m * [33m|[m [31m0acb879[m -[33m[m Add Image form specs [32m(3 months ago) [1;34m<Paul Danelli>[m
+[36m|[m[36m/[m [33m/[m  
+* [33m|[m [31mba6d73c[m -[33m[m Missing work types (#65) [32m(3 months ago) [1;34m<Paul Danelli>[m
+* [33m|[m   [31m2c32991[m -[33m[m Merge pull request #68 from ubiquitypress/resource_types [32m(3 months ago) [1;34m<Chris Colvard>[m
+[33m|[m[1;33m\[m [33m\[m  
+[33m|[m [1;33m|[m[33m/[m  
+[33m|[m[33m/[m[1;33m|[m   
+[33m|[m * [31m884c3c8[m -[33m (origin/resource_types)[m Allow resource types to be changed per work types and per tenant [32m(3 months ago) [1;34m<Chris Colvard>[m
+* [1;33m|[m   [31m0eaf4ab[m -[33m[m Merge pull request #66 from ubiquitypress/signups [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m [1;33m\[m  
+[1;34m|[m * [1;33m|[m [31me70d13a[m -[33m (origin/signups)[m Default to allowing signups [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m [1;33m|[m[1;33m/[m  
+* [1;33m|[m   [31m4d9f053[m -[33m[m Merge pull request #70 from ubiquitypress/api_fixes [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m [1;33m\[m  
+[1;36m|[m * [1;33m|[m [31m24afb89[m -[33m[m Test basic work api response [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;33m|[m [31md5418b5[m -[33m[m Adds guards to new Pacific fields to avoid api 500 errors [32m(3 months ago) [1;34m<BertZZ>[m
+[1;36m|[m[1;36m/[m [1;33m/[m  
+* [1;33m|[m   [31m303a63f[m -[33m[m Merge pull request #69 from ubiquitypress/work_endpoint_override [32m(3 months ago) [1;34m<Chris Colvard>[m
+[32m|[m[33m\[m [1;33m\[m  
+[32m|[m * [1;33m|[m [31m2be3c98[m -[33m[m Adds override of work API endpoint for Pacific Articles, Books and Images [32m(3 months ago) [1;34m<BertZZ>[m
+[32m|[m [1;33m|[m[1;33m/[m  
+* [1;33m|[m   [31mac028cb[m -[33m[m Merge pull request #59 from ubiquitypress/pacific_worktypes [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;33m|[m[35m\[m [1;33m\[m  
+[1;33m|[m [35m|[m[1;33m/[m  
+[1;33m|[m[1;33m/[m[35m|[m   
+[1;33m|[m *   [31m51d827b[m -[33m[m Merge branch 'main' into pacific_worktypes [32m(3 months ago) [1;34m<Bertie Wooles>[m
+[1;33m|[m [36m|[m[1;33m\[m  
+[1;33m|[m [36m|[m[1;33m/[m  
+[1;33m|[m[1;33m/[m[36m|[m   
+* [36m|[m   [31me5b4b18[m -[33m[m Merge pull request #49 from ubiquitypress/Feature/WorkTypeReaders [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;33m\[m [36m\[m  
+[1;32m|[m * [36m|[m [31m6565e65[m -[33m[m Refactor to have one works controller for all hyku_addons functionality Change works controllers to subclass for main application's application controller instead of hyku_addon's or hyrax's. [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m * [36m|[m [31m16c6816[m -[33m (origin/Feature/WorkTypeReaders)[m Add new engine controller include [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [36m|[m [31m82d96df[m -[33m[m Put stuff back so i can debug in CI [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [36m|[m [31m80b8e67[m -[33m[m Add empty text to appease rubocop! [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [36m|[m [31m29cb634[m -[33m[m Try and work out which test is causing the CI error [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [36m|[m [31me3ace60[m -[33m[m Add new test to make sure normal requests do not regress [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [36m|[m [31m8f70dd7[m -[33m[m Rubocop [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [36m|[m [31md4c0e74[m -[33m[m Fix model issue preventing http request from generating export [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [36m|[m [31m676a73c[m -[33m[m Correct indentation [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [36m|[m [31m9de7201[m -[33m[m Rubocop [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [36m|[m   [31m7864bd2[m -[33m[m Merge branch 'Feature/WorkTypeReaders' of github.com:ubiquitypress/hyku_addons into Feature/WorkTypeReaders [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;34m|[m[1;35m\[m [36m\[m  
+[1;32m|[m [1;34m|[m * [36m|[m [31m2f81c1e[m -[33m[m Update app/models/concerns/hyku_addons/solr_document_behavior.rb [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;35m|[m [36m|[m [31m46cc557[m -[33m[m Fix tests for datacite xml [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [1;35m|[m [36m|[m [31m10f3e3d[m -[33m[m Add fix for missing contributor [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;35m|[m[1;35m/[m [36m/[m  
+[1;32m|[m * [36m|[m   [31mb6d530d[m -[33m[m Merge branch 'Feature/WorkTypeReaders' of github.com:ubiquitypress/hyku_addons into Feature/WorkTypeReaders [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [1;36m|[m[31m\[m [36m\[m  
+[1;32m|[m [1;36m|[m * [36m|[m [31m348151f[m -[33m[m Appease rubocop [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m * [31m|[m [36m|[m [31mf2386a8[m -[33m[m Move methods to base reader to flatten hierarchy tree [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m * [31m|[m [36m|[m   [31mc67e094[m -[33m[m Merge branch 'main' into Feature/WorkTypeReaders [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;32m|[m [31m|[m[1;32m\[m [31m\[m [36m\[m  
+[1;32m|[m [31m|[m[1;32m/[m [31m/[m [36m/[m  
+[1;32m|[m[1;32m/[m[31m|[m [31m/[m [36m/[m   
+[1;32m|[m [31m|[m[31m/[m [36m/[m    
+* [31m|[m [36m|[m   [31m9d0747b[m -[33m[m Merge pull request #64 from ubiquitypress/features/126-oai-bigger-pagination [32m(3 months ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [31m\[m [36m\[m  
+[34m|[m * [31m|[m [36m|[m [31m4e1d7ad[m -[33m[m Sets bigger pagination of OAI items list [32m(3 months ago) [1;34m<Eneko Taberna>[m
+[34m|[m[34m/[m [31m/[m [36m/[m  
+* [31m|[m [36m|[m [31m717af90[m -[33m[m Features/127 oai prefix config (#63) [32m(3 months ago) [1;34m<Eneko Taberna>[m
+* [31m|[m [36m|[m   [31md704863[m -[33m[m Merge pull request #62 from ubiquitypress/search_results [32m(3 months ago) [1;34m<Chris Colvard>[m
+[36m|[m[1;31m\[m [31m\[m [36m\[m  
+[36m|[m * [31m|[m [36m|[m [31m6962c86[m -[33m[m File availability facet using a blacklight query facet See https://ubiquitypress.atlassian.net/browse/AH-37?atlOrigin=eyJpIjoiMTc4ZmYyMzllNzIzNDFjNGIzN2Y0MjNkMGUxOWViZDkiLCJwIjoiaiJ9 for the logic involved in this facet. [32m(3 months ago) [1;34m<Chris Colvard>[m
+* [1;31m|[m [31m|[m [36m|[m   [31m1b8b716[m -[33m[m Merge pull request #61 from ubiquitypress/bugs/105-license_gf [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;33m\[m [1;31m\[m [31m\[m [36m\[m  
+[1;32m|[m * [1;31m|[m [31m|[m [36m|[m [31m0e852f2[m -[33m[m #AH-105 Changes the way we filter out the license field on the generic works [32m(3 months ago) [1;34m<Eneko Taberna>[m
+[1;32m|[m * [1;31m|[m [31m|[m [36m|[m [31m1d8978c[m -[33m (origin/bugs/105-license_gf)[m Removes license from the required fields of the generic work [32m(3 months ago) [1;34m<Eneko Taberna>[m
+* [1;33m|[m [1;31m|[m [31m|[m [36m|[m   [31mbe96085[m -[33m[m Merge pull request #60 from ubiquitypress/bugs/107-fields_order [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m[1;35m\[m [1;33m\[m [1;31m\[m [31m\[m [36m\[m  
+[1;31m|[m [1;35m|[m[1;31m_[m[1;33m|[m[1;31m/[m [31m/[m [36m/[m  
+[1;31m|[m[1;31m/[m[1;35m|[m [1;33m|[m [31m|[m [36m|[m   
+[1;31m|[m * [1;33m|[m [31m|[m [36m|[m [31m1af77d5[m -[33m[m #AH-107 ensures correct orderin of all the fields of the deposit form [32m(3 months ago) [1;34m<Eneko Taberna>[m
+[1;31m|[m[1;31m/[m [1;33m/[m [31m/[m [36m/[m  
+[1;31m|[m [1;33m|[m * [36m|[m [31m5c8ce96[m -[33m[m Update class parent so it'll work at least [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;31m|[m [1;33m|[m * [36m|[m [31mde7b21f[m -[33m[m Add method comment [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;31m|[m [1;33m|[m * [36m|[m [31mfbdd406[m -[33m[m Typo [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;31m|[m [1;33m|[m * [36m|[m [31m4bd585a[m -[33m[m Tidy up and move work specific methods to the child class [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;31m|[m [1;33m|[m * [36m|[m [31m26df30f[m -[33m[m Move some methods around [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;31m|[m [1;33m|[m * [36m|[m [31m7f3a07a[m -[33m[m Typo [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;31m|[m [1;33m|[m * [36m|[m [31m649f971[m -[33m[m Attempt to reduce boilerplate methods [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;31m|[m [1;33m|[m * [36m|[m [31md2957b8[m -[33m[m Move methods to child class [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;31m|[m [1;33m|[m * [36m|[m [31me43c0ea[m -[33m[m Refactor to get test passing [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;31m|[m [1;33m|[m * [36m|[m [31mb9ec745[m -[33m[m Setup attempt at making readers dynamic [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;31m|[m [1;33m|[m * [36m|[m [31mbeeada1[m -[33m[m Add legacy resource types to RIS writer and ensure file key is added properly with spec [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;31m|[m [1;33m|[m * [36m|[m [31m3c7cbd6[m -[33m[m Update relatedIdentifier from schema docs [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;31m|[m [1;33m|[m * [36m|[m [31m1703583[m -[33m[m Install Gems from merged main [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;31m|[m [1;33m|[m * [36m|[m   [31m9220ac7[m -[33m[m Merge branch 'main' into Feature/WorkTypeReaders [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;31m|[m [1;33m|[m [1;36m|[m[1;31m\[m [36m\[m  
+[1;31m|[m [1;33m|[m[1;31m_[m[1;36m|[m[1;31m/[m [36m/[m  
+[1;31m|[m[1;31m/[m[1;33m|[m [1;36m|[m [36m|[m   
+* [1;33m|[m [1;36m|[m [36m|[m   [31m05f5046[m -[33m[m Merge pull request #56 from ubiquitypress/features/106-field_hints [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;33m|[m[33m\[m [1;33m\[m [1;36m\[m [36m\[m  
+[1;33m|[m [33m|[m[1;33m/[m [1;36m/[m [36m/[m  
+[1;33m|[m[1;33m/[m[33m|[m [1;36m|[m [36m|[m   
+[1;33m|[m * [1;36m|[m [36m|[m [31m6238709[m -[33m[m get rid of _duration view file at deposit form [32m(3 months ago) [1;34m<Eneko Taberna>[m
+[1;33m|[m * [1;36m|[m [36m|[m [31mab5e81a[m -[33m (origin/features/106-field_hints)[m Overwrite default view for fields to adopt placeholder format of SimpleForm [32m(3 months ago) [1;34m<Eneko Taberna>[m
+[1;33m|[m * [1;36m|[m [36m|[m [31md938704[m -[33m[m Change media field to multi_value [32m(3 months ago) [1;34m<Eneko Taberna>[m
+[1;33m|[m * [1;36m|[m [36m|[m [31ma360976[m -[33m[m #AH-106 Adds consistency on deposit forms hints and placeholders. [32m(3 months ago) [1;34m<Eneko Taberna>[m
+* [33m|[m [1;36m|[m [36m|[m   [31m4973178[m -[33m[m Merge pull request #58 from ubiquitypress/Hotfix/FixDevelopmentRailsServerPID [32m(3 months ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [33m\[m [1;36m\[m [36m\[m  
+[34m|[m * [33m|[m [1;36m|[m [36m|[m [31md1ef48a[m -[33m (origin/Hotfix/FixDevelopmentRailsServerPID)[m Fix issue where by the server pid is not removed sometimes when the web container starts [32m(3 months ago) [1;34m<Paul Whitehead>[m
+* [35m|[m [33m|[m [1;36m|[m [36m|[m   [31m19d983e[m -[33m[m Merge pull request #57 from ubiquitypress/Hotfix/ProductionJS [32m(3 months ago) [1;34m<Chris Colvard>[m
+[36m|[m[1;31m\[m [35m\[m [33m\[m [1;36m\[m [36m\[m  
+[36m|[m * [35m|[m [33m|[m [1;36m|[m [36m|[m [31m8c41f26[m -[33m (origin/Hotfix/ProductionJS)[m Revert "First attempt" [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[36m|[m * [35m|[m [33m|[m [1;36m|[m [36m|[m [31mf2d01bf[m -[33m[m Replace turbolinks load with on ready as it seems to break in production [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[36m|[m [35m|[m[35m/[m [33m/[m [1;36m/[m [36m/[m  
+* [35m|[m [33m|[m [1;36m|[m [36m|[m   [31m3055d1e[m -[33m[m Merge pull request #54 from ubiquitypress/bugfix/doi_minting [32m(3 months ago) [1;34m<Chris Colvard>[m
+[35m|[m[1;33m\[m [35m\[m [33m\[m [1;36m\[m [36m\[m  
+[35m|[m [1;33m|[m[35m/[m [33m/[m [1;36m/[m [36m/[m  
+[35m|[m[35m/[m[1;33m|[m [33m|[m [1;36m|[m [36m|[m   
+[35m|[m * [33m|[m [1;36m|[m [36m|[m [31mf1a8ead[m -[33m[m Test using shared specs form hyrax-doi Test registering a doi [32m(3 months ago) [1;34m<Chris Colvard>[m
+[35m|[m [33m|[m[33m/[m [1;36m/[m [36m/[m  
+* [33m|[m [1;36m|[m [36m|[m   [31mc5d7b2a[m -[33m[m Merge pull request #55 from ubiquitypress/Hotfix/ProductionJS [32m(3 months ago) [1;34m<Chris Colvard>[m
+[33m|[m[1;35m\[m [33m\[m [1;36m\[m [36m\[m  
+[33m|[m [1;35m|[m[33m/[m [1;36m/[m [36m/[m  
+[33m|[m[33m/[m[1;35m|[m [1;36m|[m [36m|[m   
+[33m|[m * [1;36m|[m [36m|[m [31m7127bd0[m -[33m[m First attempt [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m[33m/[m [1;36m/[m [36m/[m  
+[33m|[m * [36m|[m [31mdcd751f[m -[33m[m Looking at xml specs [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m * [36m|[m [31m30427b8[m -[33m[m Fix text I broke [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m * [36m|[m [31mfef5a99[m -[33m[m Get the specs for RIS content passing [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m * [36m|[m [31m322826a[m -[33m[m Remove unnecessary string to array conversion [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m * [36m|[m [31mc0a0122[m -[33m[m add datacite xml spec and fix published date issues [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m * [36m|[m [31m6a9f00e[m -[33m[m Fix issue where date wasn't being parsed properly [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m * [36m|[m [31m09a1f6b[m -[33m[m Appease the Rubocop Gods [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m * [36m|[m [31md19ede1[m -[33m[m Fix rubocop errors [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m * [36m|[m [31m0855fb0[m -[33m[m Update Black light gem [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m * [36m|[m   [31m89c9486[m -[33m[m Merge branch 'main' into Feature/WorkTypeReaders [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m [1;36m|[m[33m\[m [36m\[m  
+[33m|[m [1;36m|[m[33m/[m [36m/[m  
+[33m|[m[33m/[m[1;36m|[m [36m|[m   
+[33m|[m * [36m|[m [31m8261a9f[m -[33m[m Use helper method to determine env [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m * [36m|[m [31m5e63db3[m -[33m[m Refactor to allow readers to be specified at runtime [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m * [36m|[m   [31m6660411[m -[33m[m Merge branch 'Feature/WorkTypeReaders' of github.com:ubiquitypress/hyku_addons into Feature/WorkTypeReaders [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m [32m|[m[33m\[m [36m\[m  
+[33m|[m [32m|[m * [36m|[m [31m8e954ce[m -[33m[m Move text to translations [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m [32m|[m * [36m|[m [31m61b2ec1[m -[33m[m Tidy up a little [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m [32m|[m * [36m|[m [31m51729d3[m -[33m[m Remove Work Type Reader from engine and rename class/methods to remove ubiquity prefix [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m * [33m|[m [36m|[m [31m073b4bc[m -[33m[m Move text to translations [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m * [33m|[m [36m|[m [31ma04d5de[m -[33m[m Tidy up a little [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m * [33m|[m [36m|[m [31m95f6fba[m -[33m[m Remove Work Type Reader from engine and rename class/methods to remove ubiquity prefix [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[33m|[m [33m|[m [33m|[m * [31m2b7f70e[m -[33m[m removes included blocks that were causing errors [32m(3 months ago) [1;34m<BertZZ>[m
+[33m|[m [33m|[m [33m|[m * [31mbb97a91[m -[33m (origin/pacific_worktypes)[m Refactors Pacific Models [32m(3 months ago) [1;34m<BertZZ>[m
+[33m|[m [33m|[m [33m|[m * [31mb609e51[m -[33m[m Fixes tests and apeases rubocop [32m(3 months ago) [1;34m<BertZZ>[m
+[33m|[m [33m|[m [33m|[m * [31md5ec990[m -[33m[m Adds Pacific Image [32m(3 months ago) [1;34m<BertZZ>[m
+[33m|[m [33m|[m [33m|[m * [31mb20e532[m -[33m[m Adds Pacific books [32m(3 months ago) [1;34m<BertZZ>[m
+[33m|[m [33m|[m [33m|[m * [31m9f63a40[m -[33m[m Adds Pacific Articles [32m(3 months ago) [1;34m<BertZZ>[m
+[33m|[m [33m|[m[33m_[m[33m|[m[33m/[m  
+[33m|[m[33m/[m[33m|[m [33m|[m   
+* [33m|[m [33m|[m   [31mf5bc65a[m -[33m[m Merge pull request #51 from ubiquitypress/abstract_actor [32m(3 months ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m [33m\[m [33m\[m  
+[34m|[m * [33m|[m [33m|[m [31mc2214f8[m -[33m (origin/abstract_actor)[m Subclass AbstractActor instead of BaseActor because BaseActor is meant for the work type actor and does the saving [32m(3 months ago) [1;34m<Chris Colvard>[m
+[34m|[m [33m|[m[33m/[m [33m/[m  
+* [33m|[m [33m|[m   [31mdbd3c1d[m -[33m[m Merge pull request #50 from ubiquitypress/bl_oai [32m(3 months ago) [1;34m<Chris Colvard>[m
+[36m|[m[1;31m\[m [33m\[m [33m\[m  
+[36m|[m * [33m|[m [33m|[m [31m9b3aff9[m -[33m (origin/bl_oai)[m Use official release of blacklight_oai_provider [32m(3 months ago) [1;34m<Chris Colvard>[m
+[36m|[m [33m|[m[33m/[m [33m/[m  
+* [33m|[m [33m|[m   [31mfd25141[m -[33m[m Merge pull request #39 from ubiquitypress/toggle_registration [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;33m\[m [33m\[m [33m\[m  
+[1;32m|[m * [33m|[m [33m|[m [31mee26487[m -[33m[m Fixes further failing tests [32m(3 months ago) [1;34m<BertZZ>[m
+[1;32m|[m * [33m|[m [33m|[m   [31mdbf08a7[m -[33m[m Merge branch 'toggle_registration' of github.com:ubiquitypress/hyku_addons into toggle_registration [32m(3 months ago) [1;34m<BertZZ>[m
+[1;32m|[m [1;34m|[m[1;35m\[m [33m\[m [33m\[m  
+[1;32m|[m [1;34m|[m * [33m|[m [33m|[m [31m873bea0[m -[33m (origin/toggle_registration)[m Update spec/features/sign_up_settings_spec.rb [32m(3 months ago) [1;34m<Bertie Wooles>[m
+[1;32m|[m [1;34m|[m * [33m|[m [33m|[m [31mee77978[m -[33m[m Appease rubocop [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m * [1;35m|[m [33m|[m [33m|[m [31mcd7f5e6[m -[33m[m Fixes boolean test, box stays check if value is true and apeases rubocop [32m(3 months ago) [1;34m<BertZZ>[m
+[1;32m|[m [1;35m|[m[1;35m/[m [33m/[m [33m/[m  
+[1;32m|[m * [33m|[m [33m|[m [31m7820356[m -[33m[m Removes the unused sign up link setting [32m(3 months ago) [1;34m<BertZZ>[m
+[1;32m|[m * [33m|[m [33m|[m [31m1ee68fc[m -[33m[m Adds test for Email format [32m(3 months ago) [1;34m<BertZZ>[m
+[1;32m|[m * [33m|[m [33m|[m [31m120b521[m -[33m[m Refactors code to make it easier to pass tests [32m(3 months ago) [1;34m<BertZZ>[m
+[1;32m|[m * [33m|[m [33m|[m [31mc6508d8[m -[33m[m Safely handle fetching of email format configuration [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m * [33m|[m [33m|[m [31m063b8ab[m -[33m[m Registrations controller is overridden directly using class_eval [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m * [33m|[m [33m|[m [31m4cd7b99[m -[33m[m Appease rubocop [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m * [33m|[m [33m|[m [31mc86f557[m -[33m[m Implements Email format and Sign Up toggle [32m(3 months ago) [1;34m<BertZZ>[m
+[1;32m|[m * [33m|[m [33m|[m [31m77a7db4[m -[33m[m Feature works in browser but account signup diabled test fails still [32m(4 months ago) [1;34m<BertZZ>[m
+[1;32m|[m * [33m|[m [33m|[m [31me2357b3[m -[33m[m Hides sign up link based on setting [32m(4 months ago) [1;34m<BertZ>[m
+* [1;35m|[m [33m|[m [33m|[m [31m6cfb796[m -[33m[m Fixes visibility issue on Generic Work creation (#53) [32m(3 months ago) [1;34m<Eneko Taberna>[m
+[33m|[m [1;35m|[m[33m/[m [33m/[m  
+[33m|[m[33m/[m[1;35m|[m [33m|[m   
+* [1;35m|[m [33m|[m [31m59f5f28[m -[33m[m Fixes issue with deposit form visibility not being saved (#48) [32m(3 months ago) [1;34m<Eneko Taberna>[m
+[33m|[m [1;35m|[m[33m/[m  
+[33m|[m[33m/[m[1;35m|[m   
+* [1;35m|[m   [31ma0ab788[m -[33m[m Merge pull request #46 from ubiquitypress/Hotfix/DepositFormDateFields [32m(3 months ago) [1;34m<Paul Danelli>[m
+[1;36m|[m[31m\[m [1;35m\[m  
+[1;36m|[m * [1;35m|[m [31mbba7111[m -[33m (origin/Hotfix/DepositFormDateFields)[m Change abtract to be textarea [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m   [31m3976997[m -[33m[m Merge branch 'main' of github.com:ubiquitypress/hyku_addons into Hotfix/DepositFormDateFields [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m [32m|[m[1;36m\[m [1;35m\[m  
+[1;36m|[m [32m|[m[1;36m/[m [1;35m/[m  
+[1;36m|[m[1;36m/[m[32m|[m [1;35m|[m   
+* [32m|[m [1;35m|[m   [31mb1e2d3a[m -[33m[m Merge pull request #45 from ubiquitypress/precompile_js [32m(3 months ago) [1;34m<Paul Danelli>[m
+[34m|[m[35m\[m [32m\[m [1;35m\[m  
+[34m|[m * [32m|[m [1;35m|[m [31mebbd722[m -[33m (origin/precompile_js)[m Class fields are too new for Uglifier [32m(3 months ago) [1;34m<Chris Colvard>[m
+[34m|[m [35m|[m * [1;35m|[m   [31m5bb2e18[m -[33m[m Merge branch 'Hotfix/DepositFormDateFields' of github.com:ubiquitypress/hyku_addons into Hotfix/DepositFormDateFields [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[34m|[m [35m|[m [36m|[m[1;31m\[m [1;35m\[m  
+[34m|[m [35m|[m [36m|[m * [1;35m|[m [31m40c9a50[m -[33m[m Switch date partials to use cloneable and fix as many issues as possible [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[34m|[m [35m|[m [36m|[m * [1;35m|[m [31m6bc0031[m -[33m[m Suppress NilClass error and return array as default [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[34m|[m [35m|[m [36m|[m * [1;35m|[m [31m929cbe8[m -[33m[m Adjust method to conversion from db data to that used by the date method [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[34m|[m [35m|[m [36m|[m * [1;35m|[m [31mb46d541[m -[33m[m Start to get forms sorted [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[34m|[m [35m|[m [36m|[m[35m/[m [1;35m/[m  
+[34m|[m [35m|[m[35m/[m[36m|[m [1;35m|[m   
+[34m|[m [35m|[m * [1;35m|[m [31m44bb12b[m -[33m[m Switch date partials to use cloneable and fix as many issues as possible [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[34m|[m [35m|[m * [1;35m|[m [31m32e7dff[m -[33m[m Suppress NilClass error and return array as default [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[34m|[m [35m|[m * [1;35m|[m [31m69ddca6[m -[33m[m Adjust method to conversion from db data to that used by the date method [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[34m|[m [35m|[m * [1;35m|[m [31mbf5303d[m -[33m[m Start to get forms sorted [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[34m|[m [35m|[m[34m/[m [1;35m/[m  
+[34m|[m[34m/[m[35m|[m [1;35m|[m   
+* [35m|[m [1;35m|[m   [31m0dd59c1[m -[33m[m Merge pull request #47 from ubiquitypress/Hotfix/FormJSFixes [32m(3 months ago) [1;34m<Paul Danelli>[m
+[35m|[m[1;33m\[m [35m\[m [1;35m\[m  
+[35m|[m [1;33m|[m[35m/[m [1;35m/[m  
+[35m|[m[35m/[m[1;33m|[m [1;35m|[m   
+[35m|[m * [1;35m|[m [31m3ad0c37[m -[33m (origin/Hotfix/FormJSFixes)[m Fix issue with select option values not being cleared [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[35m|[m * [1;35m|[m [31m1d8aa61[m -[33m[m Fix issue with cloneable causing error when no after actions found [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[35m|[m[35m/[m [1;35m/[m  
+* [1;35m|[m   [31m408bed9[m -[33m[m Merge pull request #44 from ubiquitypress/institution_cv [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m [1;35m\[m  
+[1;34m|[m * [1;35m|[m [31ma9187ff[m -[33m[m Fixes failling tests [32m(3 months ago) [1;34m<Eneko Taberna>[m
+[1;34m|[m * [1;35m|[m [31m5d51335[m -[33m[m AH-63 Fixes failling test on generic work type [32m(3 months ago) [1;34m<Eneko Taberna>[m
+[1;34m|[m * [1;35m|[m [31mc930c1b[m -[33m[m AH-63 Fixes failling tests at work types [32m(3 months ago) [1;34m<Eneko Taberna>[m
+[1;34m|[m * [1;35m|[m [31m525c0ce[m -[33m (origin/institution_cv)[m Turn institution field into controlled vocabulary [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;34m/[m [1;35m/[m  
+* [1;35m|[m   [31m36f7547[m -[33m[m Merge pull request #40 from ubiquitypress/Feature/DepoitFormCustomJavaScriptRefactor [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m [1;35m\[m  
+[1;36m|[m * [1;35m|[m [31m9fed46e[m -[33m (origin/Feature/DepoitFormCustomJavaScriptRefactor)[m Revert "Gemfile.lock" [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31mb3eba8b[m -[33m[m Gemfile.lock [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31m87da5c2[m -[33m[m Add back in blank option for select [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31mec84a9e[m -[33m[m Rename file [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31m98171b8[m -[33m[m Rename class [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31m5e91199[m -[33m[m Rename data attribute [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m   [31m365eb95[m -[33m[m Merge branch 'Feature/DepoitFormCustomJavaScriptRefactor' of github.com:ubiquitypress/hyku_addons into Feature/DepoitFormCustomJavaScriptRefactor [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m [32m|[m[33m\[m [1;35m\[m  
+[1;36m|[m [32m|[m * [1;35m|[m [31m1a6d7a1[m -[33m[m Allow install generator to upgrade blacklight_oai_provider [32m(3 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [33m|[m [1;35m|[m [31mfc5626d[m -[33m[m Get the clearing of attributes on select toggle working [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [33m|[m [1;35m|[m [31mca8305c[m -[33m[m Add back in missed contritor role [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m [33m|[m[33m/[m [1;35m/[m  
+[1;36m|[m * [1;35m|[m [31m69ab6d8[m -[33m[m Update Comment [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31mced77ee[m -[33m[m Add editor partial, removing old js [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31ma804993[m -[33m[m Rename the events to remove `-event` [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31m8c9c3c2[m -[33m[m Required group working and refactor to trigger events on elements not groups [32m(3 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31maa9d27c[m -[33m[m Setup require multiple event and rename all listeners to be consistent [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31m84a64df[m -[33m[m Add start of multiple field required listener and rename to be more structured [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31m755ef69[m -[33m[m Finish setting minimum number of sibling elements for cloneable groups [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31m334980c[m -[33m[m Fix load order so that onload events can be consumed [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31m753ae8e[m -[33m[m Remove renamed file [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31mec2a57f[m -[33m[m Adding/removing of required tags on toggle required tag [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31mb88f40b[m -[33m[m Work out its best to manually trigger required actions from select toggle, clean up and remove consoles as mostly complete [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m [31mf830b63[m -[33m[m Rename class and events from duplicate to clone [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;35m|[m   [31m925951d[m -[33m[m Merge branch 'main' into Feature/DepoitFormCustomJavaScriptRefactor [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m [34m|[m[35m\[m [1;35m\[m  
+[1;36m|[m * [35m|[m [1;35m|[m [31m6165128[m -[33m[m Comment out old remove method [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [35m|[m [1;35m|[m [31mdab3f06[m -[33m[m Add duplicator remove listener [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [35m|[m [1;35m|[m [31m736622d[m -[33m[m Add quick comments [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [35m|[m [1;35m|[m [31m741613e[m -[33m[m Get Input clearing working and duplicating elements [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [35m|[m [1;35m|[m [31mbf3c662[m -[33m[m Add duplictor base and seperate into class files [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [35m|[m [1;35m|[m [31mbd97d3c[m -[33m[m Remove redundant classes and use data-attributes as markers [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [35m|[m [1;35m|[m [31ma45f93d[m -[33m[m Get toggle working on load [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [35m|[m [1;35m|[m   [31mf3d609e[m -[33m[m Merge branch 'Feature/DepoitFormCustomJavaScriptRefactor' of github.com:ubiquitypress/hyku_addons into Feature/DepoitFormCustomJavaScriptRefactor [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m [36m|[m[1;31m\[m [35m\[m [1;35m\[m  
+[1;36m|[m [36m|[m * [35m|[m [1;35m|[m [31m86a4ff0[m -[33m[m Add blur [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m [36m|[m * [35m|[m [1;35m|[m [31m29eefa9[m -[33m[m Structure of JS class [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m [36m|[m * [35m|[m [1;35m|[m [31mad7a247[m -[33m[m Add main dropdown as partial [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m [36m|[m * [35m|[m [1;35m|[m [31mff7e5bf[m -[33m[m Add ISNI and get the values out properly with to_s [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m [36m|[m * [35m|[m [1;35m|[m [31mbdb83aa[m -[33m[m Structure and organisation [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [35m|[m [1;35m|[m [31md62c4e9[m -[33m[m Setup basic event listeners [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [35m|[m [1;35m|[m [31mf4a5816[m -[33m[m Revert Gemfile.lock [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;31m|[m [35m|[m [1;35m|[m [31m9ed94b0[m -[33m[m Add blur [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [35m|[m [1;35m|[m [31m9b8f7cb[m -[33m[m Structure of JS class [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [35m|[m [1;35m|[m [31m9f85cf7[m -[33m[m Add main dropdown as partial [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [35m|[m [1;35m|[m [31mfd3aa40[m -[33m[m Add ISNI and get the values out properly with to_s [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [35m|[m [1;35m|[m [31m5c0ff25[m -[33m[m Structure and organisation [32m(4 months ago) [1;34m<Paul Whitehead>[m
+* [1;31m|[m [1;31m|[m [35m|[m [1;35m|[m   [31m2b4748c[m -[33m[m Merge pull request #43 from ubiquitypress/cjcolvar-patch-1 [32m(3 months ago) [1;34m<Chris Colvard>[m
+[35m|[m[1;33m\[m [1;31m\[m [1;31m\[m [35m\[m [1;35m\[m  
+[35m|[m [1;33m|[m[35m_[m[1;31m|[m[35m_[m[1;31m|[m[35m/[m [1;35m/[m  
+[35m|[m[35m/[m[1;33m|[m [1;31m|[m [1;31m|[m [1;35m|[m   
+[35m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m8d19344[m -[33m[m Don't try to get connection if not connected [32m(4 months ago) [1;34m<Chris Colvard>[m
+[35m|[m[35m/[m [1;31m/[m [1;31m/[m [1;35m/[m  
+* [1;31m|[m [1;31m|[m [1;35m|[m   [31mcf05def[m -[33m[m Merge pull request #42 from ubiquitypress/create_tenant_task [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m [1;31m\[m [1;31m\[m [1;35m\[m  
+[1;34m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m19f956e[m -[33m[m Simple rake task to create an account [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;34m/[m [1;31m/[m [1;31m/[m [1;35m/[m  
+* [1;31m|[m [1;31m|[m [1;35m|[m   [31m387a076[m -[33m[m Merge pull request #31 from ubiquitypress/more_work_types [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[31m\[m [1;31m\[m [1;31m\[m [1;35m\[m  
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m03857fd[m -[33m[m Editor can't be both person and organization at the same time [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m26b29a0[m -[33m[m Fix form tests [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m13377f8[m -[33m[m Fix some feature tests [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m0d21c2f[m -[33m[m AH-63 Adds ConferenceItem work type. Adds missing common fields to work types and tests [32m(4 months ago) [1;34m<Eneko Taberna>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m32b61ce[m -[33m[m AH-63 Applies work types refactoring pattern to all the existing work types. Fixes lots of rubocop issues [32m(4 months ago) [1;34m<Eneko Taberna>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m9c847ac[m -[33m[m WIP: Fix feature specs [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31mda8ef6e[m -[33m[m Remove collection_id and collection_names properties [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m9f86b4f[m -[33m[m Revert Gemfile.lock [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m320509a[m -[33m[m Refactor models to be additive instead of subtractive [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31mf8f2759[m -[33m[m Refactor form includes to be additive instead of subtractive [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m7882ad6[m -[33m[m AH-63 Improves test suite of work types Form objects and feature tests [32m(4 months ago) [1;34m<Eneko Taberna>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31mba29f18[m -[33m[m Get the specs passing [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m8d5cb05[m -[33m[m Switch . to # for instance methods [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m38569bc[m -[33m[m Remove hardcoded work type and change app name from `hyrax` to `hyku` [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31mccc2f38[m -[33m[m Correct indentation [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m23ff6e8[m -[33m[m Switch to helper scenarios, not working, need an assist [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m80f4f1f[m -[33m[m Remove raise [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31mf9648f5[m -[33m[m Remove fields/methods which seem not to be required [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m05498bb[m -[33m[m Add required terms for time based media type [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m043b180[m -[33m[m AH-63 Improves tests on work types [32m(4 months ago) [1;34m<Eneko Taberna>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m693048c[m -[33m[m Remove alt_title from delegated methods [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m75baeca[m -[33m[m Remove `link_to` and `image_tag` helpers for now as they require view context [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m5682a85[m -[33m[m Try and get it working by reseting to defaults [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31mb2dd9d1[m -[33m[m Remove duplicate file [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m2482632[m -[33m[m Making changes to get form working [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31mbe23ccf[m -[33m[m Add concern to list of available article types [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m5d3bd4e[m -[33m[m Add base templates [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m39d77a6[m -[33m[m Bump Gem versions to get around Blacklight bundle error [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m17950a2[m -[33m[m #AH-32 Adds Book Contribution work type [32m(4 months ago) [1;34m<Eneko Taberna>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m2746b17[m -[33m[m Add Article work type [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;31m|[m [1;31m|[m [1;35m|[m [31m2d54a2a[m -[33m[m Move _attribute_rows override to base as default for all work types [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[1;36m/[m [1;31m/[m [1;31m/[m [1;35m/[m  
+* [1;31m|[m [1;31m/[m [1;35m/[m [31m9bd6867[m -[33m[m Merge pull request #41 from ubiquitypress/reloading [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m[1;31m\[m[1;31m|[m [1;31m|[m [1;35m|[m 
+[1;31m|[m [1;31m|[m[1;31m/[m [1;35m/[m  
+[1;31m|[m[1;31m/[m[1;31m|[m [1;35m|[m   
+[1;31m|[m * [1;35m|[m [31md6e257b[m -[33m (origin/reloading)[m Use #to_prepare to allow for reloading of dynamic includes [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m[1;31m/[m [1;35m/[m  
+* [1;35m|[m   [31m1d83937[m -[33m[m Merge pull request #37 from ubiquitypress/Hotfix/DepositJavaScriptIssues [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;35m|[m[35m\[m [1;35m\[m  
+[1;35m|[m [35m|[m[1;35m/[m  
+[1;35m|[m[1;35m/[m[35m|[m   
+[1;35m|[m * [31m23b3904[m -[33m[m Remove console log [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;35m|[m * [31m0dcca79[m -[33m[m Fix indentation [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;35m|[m *   [31me7b31a8[m -[33m[m Merge branch 'Hotfix/DepositJavaScriptIssues' of github.com:ubiquitypress/hyku_addons into Hotfix/DepositJavaScriptIssues [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;35m|[m [36m|[m[1;31m\[m  
+[1;35m|[m [36m|[m * [31mc2965fc[m -[33m[m Split out groups into partials and reduce the JS duplication [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;35m|[m [36m|[m * [31mad4578f[m -[33m[m Tidy up JS, remove excess turblink checks [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;35m|[m [36m|[m * [31m1696dbd[m -[33m[m Sort out the template structure and issues [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;35m|[m * [1;31m|[m [31mf7b7a0a[m -[33m[m Split out groups into partials and reduce the JS duplication [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;35m|[m * [1;31m|[m [31m36558de[m -[33m[m Tidy up JS, remove excess turblink checks [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;35m|[m * [1;31m|[m [31m2457b2c[m -[33m[m Sort out the template structure and issues [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;35m|[m[1;35m/[m [1;31m/[m  
+* [1;31m|[m   [31m9e5d722[m -[33m[m Merge pull request #30 from ubiquitypress/Feature/RisDocumentType-chris [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;33m\[m [1;31m\[m  
+[1;32m|[m * [1;31m|[m [31md756dd2[m -[33m[m Pass presenter a solr_document instead of work [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m * [1;31m|[m [31mc4baa7b[m -[33m (origin/Feature/RisDocumentType-chris)[m Add has_model back [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m * [1;31m|[m [31m1d265c6[m -[33m[m Move export_as_ris to content degotiator and delegate [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m * [1;31m|[m [31m7f9978f[m -[33m[m Bundle update [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m * [1;31m|[m   [31m43cbf0c[m -[33m[m Merge branch 'Feature/RisDocumentType-chris' of github.com:ubiquitypress/hyku_addons into Feature/RisDocumentType-chris [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m [1;34m|[m[1;35m\[m [1;31m\[m  
+[1;32m|[m [1;34m|[m * [1;31m|[m [31m71185b9[m -[33m[m Appease rubocop [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m [1;34m|[m * [1;31m|[m [31m3e17691[m -[33m[m blacklight_oai_provider pin happens in install generator [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m * [1;35m|[m [1;31m|[m   [31m544b536[m -[33m[m Merge branch 'main' into Feature/RisDocumentType-chris [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m [1;35m|[m[1;31m\[m [1;35m\[m [1;31m\[m  
+[1;32m|[m [1;35m|[m [1;31m|[m[1;35m/[m [1;31m/[m  
+[1;32m|[m [1;35m|[m[1;35m/[m[1;31m|[m [1;31m/[m   
+[1;32m|[m [1;35m|[m [1;31m|[m[1;31m/[m    
+[1;32m|[m [1;35m|[m * [31mfcc3b5b[m -[33m[m Ignore fits.log [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m [1;35m|[m * [31m17875d3[m -[33m[m Bump Gem versions to get around Blacklight bundle error [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m [1;35m|[m[1;32m/[m  
+[1;32m|[m[1;32m/[m[1;35m|[m   
+[1;32m|[m * [31m12d59f0[m -[33m[m Add spec to ensure non-visible works are not downloadable [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m * [31m5da22b7[m -[33m[m Sort out the weird indentation - again [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m * [31m9306e27[m -[33m[m Sort out the weird indentation [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m * [31m4a77f72[m -[33m[m Update gems to get everything loading properly [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m * [31m7669737[m -[33m[m  Add specs for reader [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m * [31me262893[m -[33m[m Test presenter export method [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m * [31mfcf821b[m -[33m[m Use polymorphic path [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m * [31me9a9c9d[m -[33m[m Correct typo [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m * [31m72c86c0[m -[33m[m Add extra specs [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m * [31m350f631[m -[33m[m Start to add specs for request [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m * [31mb2c63c1[m -[33m[m Workaround load order issue with flipflop [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m * [31mbb85c5b[m -[33m[m Appease rubocop [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m * [31m173ba5b[m -[33m[m Use polymorphic path [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m * [31mf0f3731[m -[33m[m Add initializers for mime type [32m(4 months ago) [1;34m<Paul Whitehead>[m
+[1;32m|[m[1;32m/[m  
+*   [31m0fb211e[m -[33m[m Merge pull request #28 from ubiquitypress/catalog_controller [32m(4 months ago) [1;34m<Chris Colvard>[m
+[32m|[m[33m\[m  
+[32m|[m * [31mf8f3953[m -[33m (origin/catalog_controller)[m Quick refactor of creator, contributor, and editor edit view partials to DRY things up [32m(4 months ago) [1;34m<Chris Colvard>[m
+[32m|[m * [31mb2fc399[m -[33m[m Refactor creator, contributor, editor to use renderers [32m(4 months ago) [1;34m<Chris Colvard>[m
+[32m|[m * [31m17cbfcb[m -[33m[m Refactor creator, contributor, and editor show fields Setup Bolognese reader for GenericWork [32m(4 months ago) [1;34m<Chris Colvard>[m
+* [33m|[m [31m749a00b[m -[33m[m Merge pull request #22 from ubiquitypress/catalog_controller [32m(4 months ago) [1;34m<Chris Colvard>[m
+[34m|[m[33m\[m[33m|[m 
+[34m|[m * [31mf3f0502[m -[33m[m Index json fields in a display form Don't show institution facet in tenant search [32m(4 months ago) [1;34m<Chris Colvard>[m
+[34m|[m[34m/[m  
+* [31m49fe198[m -[33m[m Pin code climate test-reporter in other job [32m(4 months ago) [1;34m<Chris Colvard>[m
+* [31m7bf6484[m -[33m[m Pin code climate test-reporter as a temporary workaround [32m(4 months ago) [1;34m<Chris Colvard>[m
+*   [31m87560aa[m -[33m[m Merge pull request #18 from ubiquitypress/cjcolvar-patch-1 [32m(4 months ago) [1;34m<Chris Colvard>[m
+[36m|[m[1;31m\[m  
+[36m|[m * [31m17f8e4d[m -[33m[m Fix coverage uploading [32m(5 months ago) [1;34m<Chris Colvard>[m
+[36m|[m * [31m79455a5[m -[33m[m Run single container because spin up time is much greater than the time it takes to run rspec [32m(5 months ago) [1;34m<Chris Colvard>[m
+* [1;31m|[m   [31md854103[m -[33m[m Merge pull request #25 from ubiquitypress/super_admin_settings [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;33m\[m [1;31m\[m  
+[1;32m|[m * [1;31m|[m [31mc0d5d24[m -[33m[m Allow for persisting account settings through proprietor account edit page [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m * [1;31m|[m [31m937c2c7[m -[33m[m Commit for current progress [32m(4 months ago) [1;34m<BertZZ>[m
+[1;32m|[m * [1;31m|[m [31mfe1b76b[m -[33m[m Adds Hyku catalog controller with Account setting [32m(4 months ago) [1;34m<BertZZ>[m
+[1;32m|[m * [1;31m|[m [31m99a43a9[m -[33m[m Adds super admin settings and removes settings agreed to be removed [32m(4 months ago) [1;34m<BertZZ>[m
+* [1;33m|[m [1;31m|[m   [31mf468bf2[m -[33m[m Merge pull request #24 from ubiquitypress/sidebar [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m [1;33m\[m [1;31m\[m  
+[1;34m|[m * [1;33m|[m [1;31m|[m [31mdd7c3da[m -[33m[m Only override configuration sidebar panel for per tenant settings Commented out sidebar extension configuration would allow for avoiding overriding but hyku already overrides the configuration partial without the code seam that exists in hyrax.  I left this in the engine for future reference for when we want to expand the sidebar further. [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m [1;33m|[m[1;33m/[m [1;31m/[m  
+* [1;33m|[m [1;31m|[m   [31mfc67771[m -[33m[m Merge pull request #23 from ubiquitypress/no_license [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;33m|[m[31m\[m [1;33m\[m [1;31m\[m  
+[1;33m|[m [31m|[m[1;33m/[m [1;31m/[m  
+[1;33m|[m[1;33m/[m[31m|[m [1;31m|[m   
+[1;33m|[m * [1;31m|[m [31m16e05fb[m -[33m[m Avoid double rendering of license [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;33m|[m[1;33m/[m [1;31m/[m  
+* [1;31m|[m   [31m2506686[m -[33m[m Merge pull request #21 from ubiquitypress/features/oai-pmh-alignment [32m(4 months ago) [1;34m<Chris Colvard>[m
+[32m|[m[33m\[m [1;31m\[m  
+[32m|[m * [1;31m|[m [31m9589695[m -[33m[m Switch to bundle update in generator [32m(4 months ago) [1;34m<Chris Colvard>[m
+[32m|[m * [1;31m|[m [31ma54694b[m -[33m[m Appease rubocop [32m(4 months ago) [1;34m<Chris Colvard>[m
+[32m|[m * [1;31m|[m [31m1b02f51[m -[33m[m Pin blacklight_oai_provider for multi-tenancy fixes [32m(4 months ago) [1;34m<Chris Colvard>[m
+[32m|[m * [1;31m|[m [31m587c6fa[m -[33m[m Pin to branch on fork of blacklight_oai_provider [32m(4 months ago) [1;34m<Chris Colvard>[m
+[32m|[m * [1;31m|[m [31m08d1483[m -[33m[m Adds per tenant configuration for OAI endpoints [32m(4 months ago) [1;34m<Eneko Taberna>[m
+* [33m|[m [1;31m|[m   [31m8f4fcfd[m -[33m[m Merge pull request #20 from ubiquitypress/blank_complex_params [32m(4 months ago) [1;34m<Chris Colvard>[m
+[33m|[m[35m\[m [33m\[m [1;31m\[m  
+[33m|[m [35m|[m[33m/[m [1;31m/[m  
+[33m|[m[33m/[m[35m|[m [1;31m|[m   
+[33m|[m * [1;31m|[m [31me5fe1fb[m -[33m[m Remove blank json fields from posted params and remove _position fields [32m(4 months ago) [1;34m<Chris Colvard>[m
+[33m|[m[33m/[m [1;31m/[m  
+* [1;31m|[m   [31m45c549c[m -[33m[m Merge pull request #19 from ubiquitypress/cjcolvar-patch-2 [32m(4 months ago) [1;34m<Chris Colvard>[m
+[36m|[m[1;31m\[m [1;31m\[m  
+[36m|[m * [1;31m|[m [31m2f2da0d[m -[33m[m Add instructions for running tests within docker [32m(4 months ago) [1;34m<Chris Colvard>[m
+* [1;31m|[m [1;31m|[m   [31m0342ca2[m -[33m[m Merge pull request #17 from ubiquitypress/generic_work [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m[1;33m\[m [1;31m\[m [1;31m\[m  
+[1;31m|[m [1;33m|[m[1;31m/[m [1;31m/[m  
+[1;31m|[m[1;31m/[m[1;33m|[m [1;31m|[m   
+[1;31m|[m * [1;31m|[m [31m0b6889d[m -[33m[m Fix failing tests [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31md8f3f30[m -[33m[m Appease rubocop [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m8e29fad[m -[33m[m Port alternate identifier field [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m8ea43d2[m -[33m[m Port peer-reviewed/refereed field [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m101c5cf[m -[33m[m Port qualification name and level fields [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m78f95b5[m -[33m[m Port related exhibition date [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31me9bbc2b[m -[33m[m Port Current HE institution [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m5d8c3c7[m -[33m[m Port editor field [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m00d15d5[m -[33m[m Port date accepted and date submitted [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m42dbfd6[m -[33m[m Port event date [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31md4bfaab[m -[33m[m Implement funder and related identifier [32m(4 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m2cd1e86[m -[33m[m Port Date published [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31mef97e67[m -[33m[m Port contributor UI and handle json [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m4e9edeb[m -[33m[m Use an actor to JSON serialize multi-part fields. [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31mc9cb8fe[m -[33m[m appease rubocop [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m9b40451[m -[33m[m Change order of required fields to match BL deposit form [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m93835f8[m -[33m[m Directly copy creator view code from UP hyku and setup helpers that support those views [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m1d2868d[m -[33m[m Fix failing feature test by ensuring creator is filled in and using find().click insted of click_link and click_on [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m91d40b6[m -[33m[m Remove unneeded puts in test [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m0eccb00[m -[33m[m Appease rubocop [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31m8a47250[m -[33m[m Bring over creator field JS and new form handling [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31md08f8d4[m -[33m[m Setup Name type authority [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31mb7c94a1[m -[33m[m Install controlled vocabularies and javascript [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;31m|[m [31md9e8d6a[m -[33m[m Remove unused code [32m(5 months ago) [1;34m<Chris Colvard>[m
+* [1;33m|[m [1;31m|[m   [31mbb89782[m -[33m[m Merge pull request #16 from ubiquitypress/further_settings_work [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m[1;35m\[m [1;33m\[m [1;31m\[m  
+[1;31m|[m [1;35m|[m[1;31m_[m[1;33m|[m[1;31m/[m  
+[1;31m|[m[1;31m/[m[1;35m|[m [1;33m|[m   
+[1;31m|[m * [1;33m|[m [31m446d4d6[m -[33m[m Fix update_single [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;33m|[m [31ma86cf9d[m -[33m[m Make data munging part of before_action before account_params is called [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;31m|[m * [1;33m|[m [31m3429baa[m -[33m[m Fixes Rspec expectations [32m(5 months ago) [1;34m<BertZZ>[m
+[1;31m|[m * [1;33m|[m [31m9479633[m -[33m[m Fixes Rubocop issues [32m(5 months ago) [1;34m<BertZZ>[m
+[1;31m|[m * [1;33m|[m [31ma6ad926[m -[33m[m Removes GTM-Demo and refactors based on feedback [32m(5 months ago) [1;34m<BertZZ>[m
+[1;31m|[m * [1;33m|[m [31ma80fd92[m -[33m[m Fixes more Rspec Tests [32m(5 months ago) [1;34m<BertZZ>[m
+[1;31m|[m * [1;33m|[m [31m483ea54[m -[33m[m Fixes Rspec expectations [32m(5 months ago) [1;34m<BertZZ>[m
+[1;31m|[m * [1;33m|[m [31m7149766[m -[33m[m Fixes format of tests [32m(5 months ago) [1;34m<BertZZ>[m
+[1;31m|[m * [1;33m|[m [31m5b4bc2f[m -[33m[m Fixes GTM in account factory [32m(5 months ago) [1;34m<BertZZ>[m
+[1;31m|[m * [1;33m|[m [31mea94eb2[m -[33m[m Removes whitespace [32m(5 months ago) [1;34m<BertZZ>[m
+[1;31m|[m * [1;33m|[m [31m72ea464[m -[33m[m Spacing to keep Rubocop happy [32m(5 months ago) [1;34m<BertZZ>[m
+[1;31m|[m * [1;33m|[m [31m28f0be6[m -[33m[m Removes on: from before validation hook [32m(5 months ago) [1;34m<BertZZ>[m
+[1;31m|[m * [1;33m|[m [31mc8c6fad[m -[33m[m Adds validations for GTM, email addresses and email format [32m(5 months ago) [1;34m<BertZZ>[m
+[1;31m|[m * [1;33m|[m [31m9cb2974[m -[33m[m Adds helptexts to settings fields [32m(5 months ago) [1;34m<BertZZ>[m
+* [1;35m|[m [1;33m|[m   [31m643b6f7[m -[33m[m Merge pull request #15 from ubiquitypress/generic_work [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m[1;33m\[m [1;35m\[m [1;33m\[m  
+[1;36m|[m [1;33m|[m [1;35m|[m[1;33m/[m  
+[1;36m|[m [1;33m|[m[1;33m/[m[1;35m|[m   
+[1;36m|[m * [1;35m|[m [31mdaa7d01[m -[33m[m Override OAI-PMH mappings [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [1;35m|[m [31mce3c8af[m -[33m[m Override Blacklight configuration in CatalogController [32m(5 months ago) [1;34m<Chris Colvard>[m
+* [31m|[m [1;35m|[m [31m34bc4b6[m -[33m[m Merge pull request #14 from ubiquitypress/generic_work [32m(5 months ago) [1;34m<Chris Colvard>[m
+[32m|[m[31m\[m[31m|[m [1;35m|[m 
+[32m|[m * [1;35m|[m [31m527a2ab[m -[33m[m Configure capybara and chromedriver to fix failing test [32m(5 months ago) [1;34m<Chris Colvard>[m
+[32m|[m * [1;35m|[m [31mc7e2a14[m -[33m[m Override GenericWork by adding additional properties [32m(5 months ago) [1;34m<Chris Colvard>[m
+[32m|[m[32m/[m [1;35m/[m  
+* [1;35m|[m [31mce74690[m -[33m[m Reset to test environment instead of nil [32m(5 months ago) [1;34m<Chris Colvard>[m
+* [1;35m|[m [31m73f74b6[m -[33m[m Automount the engine routes for all environments [32m(5 months ago) [1;34m<Chris Colvard>[m
+[1;35m|[m[1;35m/[m  
+*   [31m668b78c[m -[33m[m Merge pull request #13 from ubiquitypress/ui-for-jsonb-hash-keys [32m(6 months ago) [1;34m<Chris Colvard>[m
+[34m|[m[35m\[m  
+[34m|[m * [31m6db9396[m -[33m[m UI for settings key that hold hash value [32m(6 months ago) [1;34m<edward>[m
+[34m|[m[34m/[m  
+*   [31mc918292[m -[33m[m Merge pull request #12 from ubiquitypress/move-env-settings [32m(6 months ago) [1;34m<mankind>[m
+[36m|[m[1;31m\[m  
+[36m|[m * [31m59bcafb[m -[33m[m fix rubocop errors [32m(6 months ago) [1;34m<edward>[m
+[36m|[m * [31m5d67606[m -[33m[m Moved per tenant settings from environment variables to jsonb in the database [32m(6 months ago) [1;34m<edward>[m
+[36m|[m * [31md36c4d1[m -[33m[m Moved per tenant settings from environment variables to the database [32m(6 months ago) [1;34m<edward>[m
+[36m|[m[36m/[m  
+*   [31m582b2e4[m -[33m[m Merge pull request #11 from ubiquitypress/configurable_admin_settings [32m(7 months ago) [1;34m<mankind>[m
+[1;32m|[m[1;33m\[m  
+[1;32m|[m * [31m8975523[m -[33m[m Updated rspec request test and added more rspec system test. Also deleted unused files [32m(7 months ago) [1;34m<edward>[m
+[1;32m|[m * [31m5f442b4[m -[33m[m Changed circleci config to not use rspec parralel test command form circleci orb but to instead run rspec for hyku_addon only  and exempt internal_hyku_app [32m(7 months ago) [1;34m<edward>[m
+[1;32m|[m * [31m4d61e44[m -[33m[m Ensure rspec exclude_pattern is pointing to the right path for internal hyku app in rails_hlepr.rb [32m(7 months ago) [1;34m<edward>[m
+[1;32m|[m * [31m3356b09[m -[33m[m Add exclude_pattern to exclude all test in internal hyku app to rails_hlepr.rb [32m(7 months ago) [1;34m<edward>[m
+[1;32m|[m * [31mffdba1c[m -[33m[m Add code to skip test for internal hyku app in rails_hlepr.rb [32m(7 months ago) [1;34m<edward>[m
+[1;32m|[m * [31m7bf8a9b[m -[33m[m Added space to a comment in  spec/rails_helper.rb [32m(7 months ago) [1;34m<edward>[m
+[1;32m|[m * [31mc4c9afb[m -[33m[m commented out rails route url helper from spec/rails_helper.rb to see if it allows circle CI to pass for the hyku test app [32m(7 months ago) [1;34m<edward>[m
+[1;32m|[m * [31mce52782[m -[33m[m removed     - 'spec/factories/**/*' .rubocop.yml [32m(7 months ago) [1;34m<edward>[m
+[1;32m|[m * [31m7ec2ff3[m -[33m[m adjust .rubocop.yml [32m(7 months ago) [1;34m<edward>[m
+[1;32m|[m * [31m5614054[m -[33m[m Changes to eliminate rubocop errors [32m(7 months ago) [1;34m<edward>[m
+[1;32m|[m * [31m8598722[m -[33m[m First additions of configurable settings to hyku_addons [32m(7 months ago) [1;34m<edward>[m
+[1;32m|[m[1;32m/[m  
+*   [31md2d2a12[m -[33m[m Merge pull request #10 from ubiquitypress/move-chris-docker-work [32m(7 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m  
+[1;34m|[m * [31mc6217d2[m -[33m[m Switch rails default url options with tenant [32m(7 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m * [31m9de1078[m -[33m[m Stop ignoring hyrax migrations; their presence is a problem [32m(7 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m * [31m22e1aa0[m -[33m[m Installing the migrations is unnecessary since they run from the parent engine without installation [32m(7 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m * [31m9104cc0[m -[33m[m Force eager_load in development environment to work around load order issues with the overrides necessary for DataCiteEndpoint. [32m(7 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m * [31m13a708a[m -[33m[m Add basic test for install generator [32m(7 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m * [31m01c06e1[m -[33m[m Create engine install generator that sets up hyrax-doi [32m(7 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m * [31md470ea4[m -[33m[m Turn class_eval overrides into an initializer of their own [32m(7 months ago) [1;34m<Chris Colvard>[m
+* [1;35m|[m [31m6a68110[m -[33m[m Merge pull request #9 from ubiquitypress/move-chris-docker-work [32m(7 months ago) [1;34m<mankind>[m
+[1;36m|[m[1;35m\[m[1;35m|[m 
+[1;36m|[m * [31m7bf1367[m -[33m[m Use lvh.me as hostname instead of hyku.docker with dory [32m(7 months ago) [1;34m<Chris Colvard>[m
+[1;36m|[m * [31m4139276[m -[33m[m add script content [32m(7 months ago) [1;34m<edward>[m
+[1;36m|[m * [31m16df8d3[m -[33m[m add sheel script to create db in docker [32m(7 months ago) [1;34m<edward>[m
+[1;36m|[m * [31m471762e[m -[33m[m removed string [32m(7 months ago) [1;34m<edward>[m
+[1;36m|[m * [31m4e4b4a5[m -[33m[m Moves Chris work to make docker work with rails engine [32m(7 months ago) [1;34m<edward>[m
+[1;36m|[m[1;36m/[m  
+*   [31m7572538[m -[33m[m Merge pull request #8 from ubiquitypress/hyrax-doi [32m(7 months ago) [1;34m<Chris Colvard>[m
+[32m|[m[33m\[m  
+[32m|[m * [31meb5693c[m -[33m[m Create DataCiteEndpoint when other endpoints are created (mostly) [32m(7 months ago) [1;34m<Chris Colvard>[m
+* [33m|[m [31mad73a22[m -[33m[m Merge pull request #5 from ubiquitypress/hyrax-doi [32m(7 months ago) [1;34m<Chris Colvard>[m
+[34m|[m[33m\[m[33m|[m 
+[34m|[m * [31m5cd3194[m -[33m[m Add test for remove! [32m(7 months ago) [1;34m<Chris Colvard>[m
+[34m|[m * [31m376e1bf[m -[33m[m Add tests [32m(7 months ago) [1;34m<Chris Colvard>[m
+[34m|[m * [31mb0aa1aa[m -[33m[m Add DataCiteEndpoint for per-tenant configuration and switching [32m(7 months ago) [1;34m<Chris Colvard>[m
+[34m|[m * [31mc632daa[m -[33m[m Switch internal hyku to ubiquity branch without user elevation [32m(7 months ago) [1;34m<Chris Colvard>[m
+[34m|[m[34m/[m  
+* [31ma38a2de[m -[33m[m Remove example route [32m(8 months ago) [1;34m<Chris Colvard>[m
+* [31m3c8459d[m -[33m[m Create examples branch and remove examples in preparation of starting work [32m(8 months ago) [1;34m<Chris Colvard>[m
+*   [31medef937[m -[33m (origin/examples)[m Merge pull request #3 from ubiquitypress/deps [32m(10 months ago) [1;34m<Chris Colvard>[m
+[36m|[m[1;31m\[m  
+[36m|[m * [31md66d18e[m -[33m[m Explicitly declare Hyrax dependency It is not possible to declare Hyku as a dependency because it is not a gem. [32m(10 months ago) [1;34m<Chris Colvard>[m
+[36m|[m[36m/[m  
+* [31mf0888cd[m -[33m[m Fix CircleCI badge [32m(10 months ago) [1;34m<Chris Colvard>[m
+*   [31mbc080da[m -[33m[m Merge pull request #2 from ubiquitypress/readme_updates [32m(10 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;33m\[m  
+[1;32m|[m * [31m0f2542b[m -[33m[m Update README and bring in modified Samvera guideline documents [32m(10 months ago) [1;34m<Chris Colvard>[m
+[1;32m|[m[1;32m/[m  
+*   [31maf27721[m -[33m[m Merge pull request #1 from ubiquitypress/codeclimate [32m(10 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;35m\[m  
+[1;34m|[m * [31m5fafa49[m -[33m[m Enable code climate for coverage status checks [32m(10 months ago) [1;34m<Chris Colvard>[m
+[1;34m|[m[1;34m/[m  
+* [31md9a094e[m -[33m[m Appease rubocop [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31m856ed75[m -[33m[m Minimally update rubocop rules based on those in Hyrax for added feature test [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31m1476d6b[m -[33m[m Override existing labels feature spec due to change in _logo.html.erb [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31m89aaf28[m -[33m[m Skip overridden tests and load internal test hyku's spec_helper The process (for now) for overriding tests should be copy the whole test file into the engine and modify tests that have had changed behavior.  Tests in the internal test hyku will be skipped based upon the prescence of test files with the same paths within the engine. Loading the internal test hyku's spec_helper ensures that webmock loads which fixes a few tests. [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31m3dcbf50[m -[33m[m Update to latest in hyrax-2.7 branch for fixes for hyku tests [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31me2fd5d7[m -[33m[m Install bixby, configure rubocop, and fix style issues Configured rubocop to only lint files in the engine Fixed styles by running `rubocop -a` and verified tests pass [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31m695e5a2[m -[33m[m Add CFLAGS environment variable needed to compile and install zookeeper [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31m3a41172[m -[33m[m Example customizations and tests [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31m1402d9a[m -[33m[m Ignore hyrax database migrations I'm not sure why the hyrax migrationsare being copied into this engine's db/migrations.  Until that can be tracked down just ignore them so they don't get committed by accident. [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31mae9653e[m -[33m[m Setup CircleCI based on Hyku config using Samvera orb [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31mc63b380[m -[33m[m Switch to hyrax-2.7 hyku branch for hyrax 2.8, rails 5.2, ruby 2.7 cd spec/internal_test_hyku && git checkout hyrax-2.7 [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31mbc2a538[m -[33m[m Fill in README and change license to Apache 2.0 [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31m982e123[m -[33m[m Prefer locale files from this engine [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31m7cd503d[m -[33m[m Prepend our view paths and automount this engine's routes All that should be needed is to add this engine to Hyku's Gemfile [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31md2aeb33[m -[33m[m Switch out dummy app for hyku via git submodule Git rm dummy app: git rm -r spec/internal_test_hyku Setup git submodule: git submodule add https://github.com/samvera/hyku.git spec/internal_test_hyku Changed it to point to PR branch: cd spec/internal_test_hyku; git checkout hyrax-2.7 bundle install Add internal_test_hyku gemfile to Gemfile and rerun bundle install Require internal test app's spec and rails helpers in engine's files At this point internal test app's tests run when bundle exec rspec is run (and most pass) [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31m9332c55[m -[33m[m Setup rspec Added rspec as dev dependency in gemspec bundle install rails g rspec:install modified config/environment path in rails_helper to point to internal_test_hyku Changed .rspec to autoload rails_helper (instead of spec_helper) [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31me77876c[m -[33m[m Fixed gemspec and ran bundle install [32m(10 months ago) [1;34m<Chris Colvard>[m
+* [31ma6becfe[m -[33m[m Initial commit Ran `rails _5.2.4.3_ plugin new hyku_addons --full --mountable --database=postgresql --skip-coffee --skip-test --dummy-path=spec/internal_test_hyku` [32m(10 months ago) [1;34m<Chris Colvard>[m

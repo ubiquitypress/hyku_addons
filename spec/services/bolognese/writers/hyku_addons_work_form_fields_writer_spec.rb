@@ -20,15 +20,21 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       expect(meta.send(:validate_funder_doi, "501100001711")).to eq "https://doi.org/10.13039/501100001711"
     end
 
-    context "when the DOI is an eLife DOI" do
-      it "validates a new DOI" do
-        expect(meta.send(:validate_funder_doi, "10.13039/100000050")).to eq "https://doi.org/10.13039/100000050"
-      end
-
-      it "validates another new DOI" do
-        expect(meta.send(:validate_funder_doi, "10.13039/100006492")).to eq "https://doi.org/10.13039/100006492"
-      end
+    it "is false for non-funder DOIs" do
+      expect(meta.send(:validate_funder_doi, "10.5061/dryad.8515")).to be_nil
     end
+
+    it { expect(meta.send(:validate_funder_doi, "10.13039/100000050")).to eq "https://doi.org/10.13039/100000050" }
+    it { expect(meta.send(:validate_funder_doi, "10.13039/100006492")).to eq "https://doi.org/10.13039/100006492" }
+    it { expect(meta.send(:validate_funder_doi, 'http://handle.test.datacite.org/10.13039/100000080')).to eq "https://doi.org/10.13039/100000080" }
+    it { expect(meta.send(:validate_funder_doi, 'https://doi.org/10.13039/100000001')).to eq "https://doi.org/10.13039/100000001" }
+    it { expect(meta.send(:validate_funder_doi, 'http://doi.org/10.13039/501100001711')).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, 'https://dx.doi.org/10.13039/501100001711')).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, 'doi:10.13039/501100001711')).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, '10.13039/501100001711')).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, '501100001711')).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, "https://doi.org/10.13039/5monkeymonkey")).to be_nil }
+    it { expect(meta.send(:validate_funder_doi, '10.13039/5monkeymonkey')).to be_nil }
   end
 
   context "Hyku Addons Writer" do
@@ -97,6 +103,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["license"]).to eq ["https://creativecommons.org/licenses/by/4.0/"] }
 
       it { expect(result["abstract"].first).to include("The spike (S) protein is the main handle for SARS-CoV-2") }
+      it { expect(result["journal_title"]).to eq ["eLife"] }
       it { expect(result["keyword"]).to be_nil }
 
       it { expect(result["date_published"]).to be_an(Array) }
@@ -223,16 +230,14 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["date_published"].first["date_published_month"]).to be 1 }
       it { expect(result["date_published"].first["date_published_day"]).to be 1 }
 
-      it { expect(result["contributor"]).to be_an(Array) }
-      it { expect(result["contributor"].size).to eq 1 }
-      it { expect(result["contributor"][0]["contributor_name_type"]).to eq "Personal" }
-      it { expect(result["contributor"][0]["contributor_given_name"]).to eq "Sharon" }
-      it { expect(result["contributor"][0]["contributor_family_name"]).to eq "Lockyer" }
+      it { expect(result["contributor"]).to be_nil }
+      it { expect(result["editor"]).to be_nil }
 
       it { expect(result["creator"]).to be_an(Array) }
       it { expect(result["creator"].size).to eq 1 }
-      it { expect(result["creator"][0]["creator_name_type"]).to eq "Organizational" }
-      it { expect(result["creator"][0]["creator_name"]).to eq ":(unav)" }
+      it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][0]["creator_given_name"]).to eq "Sharon" }
+      it { expect(result["creator"][0]["creator_family_name"]).to eq "Lockyer" }
     end
 
     describe "a report" do
@@ -368,12 +373,12 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
 
     describe "a data set with funder information" do
       let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.23636-1345.xml") }
-      let(:json_data) { File.read Rails.root.join("..", "fixtures", "ror", "501100000267.json") }
+      let(:json_response) { File.read Rails.root.join("..", "fixtures", "ror", "501100000267.json") }
 
       before do
-        allow(Faraday).to receive(:get).and_return(
-          instance_double(Faraday::Response, status: 200, body: json_data, success?: true)
-        )
+        stub_request(:get, "https://api.ror.org/organizations?query=501100000267")
+          .with(headers: faraday_headers)
+          .to_return(status: 200, body: json_response, headers: {})
       end
 
       it { expect(meta.doi).to be_present }
@@ -409,7 +414,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["creator"].size).to eq 2 }
 
       it { expect(result["creator"][0]["creator_name_type"]).to eq "Organizational" }
-      it { expect(result["creator"][0]["creator_name"]).to eq "British Library" }
+      it { expect(result["creator"][0]["creator_organization_name"]).to eq "British Library" }
       it { expect(result["creator"][0]["creator_isni"]).to eq "http://isni.org/isni/0000000123081542" }
 
       it { expect(result["creator"][1]["creator_name_type"]).to eq "Personal" }
@@ -462,6 +467,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["volume"]).to eq "8" }
       it { expect(result["official_link"]).to eq ["https://elifesciences.org/articles/47972"] }
       it { expect(result["issn"]).to eq ["2050-084X"] }
+      it { expect(result["journal_title"]).to eq ["eLife"] }
 
       it { expect(result["keyword"]).to be_nil }
 
@@ -537,45 +543,335 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["license"]).to eq ["https://creativecommons.org/licenses/by/4.0/"] }
     end
 
+    describe "a Journal Article with many funders that had previously caused issues with namespaced funders", vcr: true do
+      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.7554-elife.65703.xml") }
+      let(:json_100000011) { File.read Rails.root.join("..", "fixtures", "ror", "100000011.json") }
+      let(:json_100001021) { File.read Rails.root.join("..", "fixtures", "ror", "100001021.json") }
+      let(:json_100001033) { File.read Rails.root.join("..", "fixtures", "ror", "100001033.json") }
+      let(:json_100001491) { File.read Rails.root.join("..", "fixtures", "ror", "100001491.json") }
+      let(:json_100014989) { File.read Rails.root.join("..", "fixtures", "ror", "100014989.json") }
+
+      before do
+        stub_request(:get, "https://api.ror.org/organizations?query=100000011")
+          .with(headers: faraday_headers)
+          .to_return(status: 200, body: json_100000011, headers: {})
+
+        stub_request(:get, "https://api.ror.org/organizations?query=100001021")
+          .with(headers: faraday_headers)
+          .to_return(status: 200, body: json_100001021, headers: {})
+
+        stub_request(:get, "https://api.ror.org/organizations?query=100001033")
+          .with(headers: faraday_headers)
+          .to_return(status: 200, body: json_100001033, headers: {})
+
+        stub_request(:get, "https://api.ror.org/organizations?query=100001491")
+          .with(headers: faraday_headers)
+          .to_return(status: 200, body: json_100001491, headers: {})
+
+        stub_request(:get, "https://api.ror.org/organizations?query=100014989")
+          .with(headers: faraday_headers)
+          .to_return(status: 200, body: json_100014989, headers: {})
+      end
+
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+
+      it { expect(result["publisher"]).to eq ["eLife Sciences Publications, Ltd"] }
+      it { expect(result["doi"]).to eq ["10.7554/elife.65703"] }
+
+      title = "eIF2B conformation and assembly state regulate the integrated stress response"
+      it { expect(result["title"]).to eq [title] }
+
+      it { expect(result["abstract"].first).to include("The integrated stress response (ISR) is activated by") }
+      it { expect(result["volume"]).to eq "10" }
+      it { expect(result["official_link"]).to eq ["https://elifesciences.org/articles/65703"] }
+      it { expect(result["issn"]).to eq ["2050-084X"] }
+      it { expect(result["journal_title"]).to eq ["eLife"] }
+
+      it { expect(result["keyword"]).to be_nil }
+
+      it { expect(result["date_published"]).to be_an(Array) }
+      it { expect(result["date_published"].first["date_published_year"]).to be 2021 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 3 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 10 }
+
+      it { expect(result["contributor"]).to be_nil }
+
+      it { expect(result["creator"]).to be_an(Array) }
+      it { expect(result["creator"].size).to eq 6 }
+
+      it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][0]["creator_given_name"]).to eq "Michael" }
+      it { expect(result["creator"][0]["creator_family_name"]).to eq "Schoof" }
+      it { expect(result["creator"][0]["creator_orcid"]).to eq "https://orcid.org/0000-0003-3531-5232" }
+
+      it { expect(result["creator"][1]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][1]["creator_given_name"]).to eq "Morgane" }
+      it { expect(result["creator"][1]["creator_family_name"]).to eq "Boone" }
+      it { expect(result["creator"][1]["creator_orcid"]).to eq "https://orcid.org/0000-0002-7807-5542" }
+
+      it { expect(result["creator"][2]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][2]["creator_given_name"]).to eq "Lan" }
+      it { expect(result["creator"][2]["creator_family_name"]).to eq "Wang" }
+      it { expect(result["creator"][2]["creator_orcid"]).to eq "https://orcid.org/0000-0002-8931-7201" }
+
+      it { expect(result["creator"][3]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][3]["creator_given_name"]).to eq "Rosalie" }
+      it { expect(result["creator"][3]["creator_family_name"]).to eq "Lawrence" }
+      it { expect(result["creator"][3]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][4]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][4]["creator_given_name"]).to eq "Adam" }
+      it { expect(result["creator"][4]["creator_family_name"]).to eq "Frost" }
+      it { expect(result["creator"][4]["creator_orcid"]).to eq "https://orcid.org/0000-0003-2231-2577" }
+
+      it { expect(result["creator"][5]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][5]["creator_given_name"]).to eq "Peter" }
+      it { expect(result["creator"][5]["creator_family_name"]).to eq "Walter" }
+      it { expect(result["creator"][5]["creator_orcid"]).to eq "https://orcid.org/0000-0002-6849-708X" }
+
+      it { expect(result["funder"]).to be_an(Array) }
+      it { expect(result["funder"].size).to eq 7 }
+
+      it { expect(result["funder"][0]["funder_name"]).to eq "Howard Hughes Medical Institute" }
+      it { expect(result["funder"][0]["funder_doi"]).to eq "10.13039/100000011" }
+      it { expect(result["funder"][0]["funder_award"]).to eq ["Investigator Grant", "HHMI Faculty Scholar Grant"] }
+      it { expect(result["funder"][0]["funder_isni"]).to eq "0000 0001 2167 1581" }
+      it { expect(result["funder"][0]["funder_fundref"]).to eq "100000011" }
+      it { expect(result["funder"][0]["funder_grid"]).to eq "grid.413575.1" }
+      it { expect(result["funder"][0]["funder_ror"]).to eq "https://ror.org/006w34k90" }
+
+      it { expect(result["funder"][1]["funder_name"]).to eq "Calico Life Sciences LLC" }
+      it { expect(result["funder"][1]["funder_doi"]).to be_nil }
+      it { expect(result["funder"][1]["funder_award"]).to eq [] }
+      it { expect(result["funder"][1]["funder_isni"]).to be_nil }
+      it { expect(result["funder"][1]["funder_fundref"]).to be_nil }
+      it { expect(result["funder"][1]["funder_grid"]).to be_nil }
+      it { expect(result["funder"][1]["funder_ror"]).to be_nil }
+
+      it { expect(result["funder"][2]["funder_name"]).to eq "The George and Judy Marcus Family Foundation" }
+      it { expect(result["funder"][2]["funder_doi"]).to be_nil }
+      it { expect(result["funder"][2]["funder_award"]).to eq [] }
+      it { expect(result["funder"][2]["funder_isni"]).to be_nil }
+      it { expect(result["funder"][2]["funder_fundref"]).to be_nil }
+      it { expect(result["funder"][2]["funder_grid"]).to be_nil }
+      it { expect(result["funder"][2]["funder_ror"]).to be_nil }
+
+      it { expect(result["funder"][3]["funder_name"]).to eq "Damon Runyon Cancer Research Foundation" }
+      it { expect(result["funder"][3]["funder_doi"]).to eq "10.13039/100001021" }
+      it { expect(result["funder"][3]["funder_award"]).to eq ["Postdoctoral Fellowship"] }
+      it { expect(result["funder"][3]["funder_isni"]).to eq "0000 0004 0508 2172" }
+      it { expect(result["funder"][3]["funder_fundref"]).to eq "100001021" }
+      it { expect(result["funder"][3]["funder_grid"]).to eq "grid.453008.a" }
+      it { expect(result["funder"][3]["funder_ror"]).to eq "https://ror.org/01gd7b947" }
+
+      it { expect(result["funder"][4]["funder_name"]).to eq "Jane Coffin Childs Memorial Fund for Medical Research" }
+      it { expect(result["funder"][4]["funder_doi"]).to eq "10.13039/100001033" }
+      it { expect(result["funder"][4]["funder_award"]).to eq ["Postdoctoral Fellowship"] }
+      it { expect(result["funder"][4]["funder_isni"]).to eq "0000 0004 0423 1420" }
+      it { expect(result["funder"][4]["funder_fundref"]).to eq "100001033" }
+      it { expect(result["funder"][4]["funder_grid"]).to eq "grid.430738.b" }
+      it { expect(result["funder"][4]["funder_ror"]).to eq "https://ror.org/04yhme281" }
+
+      it { expect(result["funder"][5]["funder_name"]).to eq "Belgian American Educational Foundation" }
+      it { expect(result["funder"][5]["funder_doi"]).to eq "10.13039/100001491" }
+      it { expect(result["funder"][5]["funder_award"]).to eq ["Postdoctoral Fellowship"] }
+      it { expect(result["funder"][5]["funder_isni"]).to eq "0000 0000 8416 7422" }
+      it { expect(result["funder"][5]["funder_fundref"]).to eq "100001491" }
+      it { expect(result["funder"][5]["funder_grid"]).to eq "grid.453586.9" }
+      it { expect(result["funder"][5]["funder_ror"]).to eq "https://ror.org/014rsed66" }
+
+      it { expect(result["funder"][6]["funder_name"]).to eq "Chan Zuckerberg Initiative" }
+      it { expect(result["funder"][6]["funder_doi"]).to eq "10.13039/100014989" }
+      it { expect(result["funder"][6]["funder_award"]).to eq ["Investigator Grant"] }
+      it { expect(result["funder"][6]["funder_isni"]).to be_nil }
+      it { expect(result["funder"][6]["funder_fundref"]).to be_nil }
+      it { expect(result["funder"][6]["funder_grid"]).to be_nil }
+      it { expect(result["funder"][6]["funder_ror"]).to be_nil }
+
+      it { expect(result["license"]).to be_an(Array) }
+      it { expect(result["license"].count).to be 1 }
+      it { expect(result["license"]).to eq ["https://creativecommons.org/licenses/by/4.0/"] }
+    end
+
     describe "a book with an isbn" do
       let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.11647-obp.0232.xml") }
 
       it { expect(meta.doi).to be_present }
       it { expect(result).to be_a Hash }
 
-      # it { expect(result["publisher"]).to eq ["eLife Sciences Publications, Ltd"] }
       it { expect(result["doi"]).to include("10.11647/obp.0232") }
-
       it { expect(result["title"]).to eq ["Romanticism and Time"] }
-
+      it { expect(result["publisher"]).to eq ["Open Book Publishers"] }
       it { expect(result["abstract"]).to be_nil }
       it { expect(result["volume"]).to be_nil }
       it { expect(result["official_link"]).to eq ["https://www.openbookpublishers.com/product/1254"] }
       it { expect(result["issn"]).to be_nil }
       it { expect(result["isbn"]).to eq ["978-1-80064-071-9"] }
       it { expect(result["keyword"]).to be_nil }
+      it { expect(result["journal_title"]).to be_nil }
 
       it { expect(result["date_published"]).to be_an(Array) }
       it { expect(result["date_published"].first["date_published_year"]).to be 2021 }
       it { expect(result["date_published"].first["date_published_month"]).to be 3 }
       it { expect(result["date_published"].first["date_published_day"]).to be 1 }
 
+      it { expect(result["contributor"]).to be_nil }
+      it { expect(result["editor"]).to be_nil }
+
+      it { expect(result["creator"]).to be_an(Array) }
+      it { expect(result["creator"].size).to eq 2 }
+
+      it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][0]["creator_given_name"]).to eq "Sophie" }
+      it { expect(result["creator"][0]["creator_family_name"]).to eq "Laniel-Musitelli" }
+      it { expect(result["creator"][0]["creator_orcid"]).to eq "https://orcid.org/0000-0001-6622-9455" }
+
+      it { expect(result["creator"][1]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][1]["creator_given_name"]).to eq "Céline" }
+      it { expect(result["creator"][1]["creator_family_name"]).to eq "Sabiron" }
+      it { expect(result["creator"][1]["creator_orcid"]).to be_nil }
+    end
+
+    describe "a book chapter" do
+      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.5334-bbc.b.xml") }
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+
+      it { expect(result["doi"]).to include("10.5334/bbc.b") }
+      it { expect(result["title"]).to eq ["A Brief History of Open Educational Resources"] }
+
+      book_title = "Open: The Philosophy and Practices that are Revolutionizing Education and Science"
+      it { expect(result["book_title"]).to eq [book_title] }
+      it { expect(result["publisher"]).to eq ["Ubiquity Press, Ltd."] }
+      it { expect(result["abstract"]).to be_nil }
+      it { expect(result["volume"]).to be_nil }
+      it { expect(result["official_link"]).to eq ["http://www.ubiquitypress.com/site/chapters/10.5334/bbc.b/"] }
+      it { expect(result["issn"]).to be_nil }
+      it { expect(result["isbn"]).to eq ["9781911529002"] }
+      it { expect(result["keyword"]).to be_nil }
+      it { expect(result["journal_title"]).to be_nil }
+      it { expect(result["pagination"]).to eq ["9-27"] }
+
+      it { expect(result["date_published"]).to be_an(Array) }
+      it { expect(result["date_published"].first["date_published_year"]).to be 2017 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 3 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 27 }
+
+      it { expect(result["creator"]).to be_an(Array) }
+      it { expect(result["creator"].size).to eq 4 }
+
+      it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][0]["creator_given_name"]).to eq "T.J." }
+      it { expect(result["creator"][0]["creator_family_name"]).to eq "Bliss" }
+      it { expect(result["creator"][0]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][1]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][1]["creator_given_name"]).to eq "M." }
+      it { expect(result["creator"][1]["creator_family_name"]).to eq "Smith" }
+      it { expect(result["creator"][1]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][2]["creator_name_type"]).to eq "Organizational" }
+      it { expect(result["creator"][2]["creator_organization_name"]).to eq "Hewlett Foundation" }
+
+      it { expect(result["creator"][3]["creator_name_type"]).to eq "Organizational" }
+      it { expect(result["creator"][3]["creator_organization_name"]).to eq "Hewlett Foundation" }
+    end
+
+    describe "a book with editors and no creators" do
+      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.5334-bbc.xml") }
+
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+
+      it { expect(result["doi"]).to include("10.5334/bbc") }
+      it { expect(result["title"]).to eq ["Open: The Philosophy and Practices that are Revolutionizing Education and Science"] }
+
+      it { expect(result["publisher"]).to eq ["Ubiquity Press, Ltd."] }
+      it { expect(result["abstract"]).to be_nil }
+      it { expect(result["volume"]).to be_nil }
+      it { expect(result["official_link"]).to eq ["http://www.ubiquitypress.com/site/books/10.5334/bbc/"] }
+      it { expect(result["issn"]).to be_nil }
+      it { expect(result["isbn"]).to eq ["9781911529002"] }
+      it { expect(result["keyword"]).to be_nil }
+      it { expect(result["journal_title"]).to be_nil }
+      it { expect(result["pagination"]).to be_nil }
+
+      it { expect(result["date_published"]).to be_an(Array) }
+      it { expect(result["date_published"].first["date_published_year"]).to be 2017 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 3 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 27 }
+
+      it { expect(result["editor"]).to be_nil }
+
+      it { expect(result["creator"]).to be_an(Array) }
+      it { expect(result["creator"].size).to eq 2 }
+
+      it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][0]["creator_given_name"]).to eq "Rajiv S." }
+      it { expect(result["creator"][0]["creator_family_name"]).to eq "Jhangiani" }
+      it { expect(result["creator"][0]["creator_orcid"]).to be_nil }
+
+      it { expect(result["creator"][1]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][1]["creator_given_name"]).to eq "Robert" }
+      it { expect(result["creator"][1]["creator_family_name"]).to eq "Biswas-Diener" }
+      it { expect(result["creator"][1]["creator_orcid"]).to be_nil }
+
       it { expect(result["contributor"]).to be_an(Array) }
       it { expect(result["contributor"].size).to eq 2 }
 
-      it { expect(result["contributor"][0]["contributor_name_type"]).to eq "Personal" }
-      it { expect(result["contributor"][0]["contributor_given_name"]).to eq "Sophie" }
-      it { expect(result["contributor"][0]["contributor_family_name"]).to eq "Laniel-Musitelli" }
-      it { expect(result["contributor"][0]["contributor_orcid"]).to eq "https://orcid.org/0000-0001-6622-9455" }
-      it { expect(result["contributor"][0]["contributor_contributor_type"]).to eq "Editor" }
+      it { expect(result["contributor"][0]["contributor_name_type"]).to eq "Organizational" }
+      it { expect(result["contributor"][0]["contributor_organization_name"]).to eq "Kwantlen Polytechnic University, CA" }
+      it { expect(result["contributor"][0]["contributor_orcid"]).to be_nil }
 
-      it { expect(result["contributor"][1]["contributor_name_type"]).to eq "Personal" }
-      it { expect(result["contributor"][1]["contributor_given_name"]).to eq "Céline" }
-      it { expect(result["contributor"][1]["contributor_family_name"]).to eq "Sabiron" }
+      it { expect(result["contributor"][1]["contributor_name_type"]).to eq "Organizational" }
+      it { expect(result["contributor"][1]["contributor_organization_name"]).to eq "Noba Project" }
       it { expect(result["contributor"][1]["contributor_orcid"]).to be_nil }
-      it { expect(result["contributor"][1]["contributor_contributor_type"]).to eq "Editor" }
+    end
 
-      it { expect(result["creator"]).to eq [{ "creator_name" => ":(unav)", "creator_name_type" => "Organizational" }] }
+    describe "a book with only an editor" do
+      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.5334-bcg.xml") }
+
+      it { expect(meta.doi).to be_present }
+      it { expect(result).to be_a Hash }
+
+      it { expect(result["doi"]).to include("10.5334/bcg") }
+      it { expect(result["title"]).to eq ["Educational visions: The lessons from 40 years of innovation"] }
+
+      it { expect(result["publisher"]).to eq ["Ubiquity Press, Ltd."] }
+      it { expect(result["abstract"]).to be_nil }
+      it { expect(result["volume"]).to be_nil }
+      it { expect(result["official_link"]).to eq ["https://www.ubiquitypress.com/site/books/10.5334/bcg/"] }
+      it { expect(result["issn"]).to be_nil }
+      it { expect(result["isbn"]).to eq ["9781911529804"] }
+      it { expect(result["keyword"]).to be_nil }
+      it { expect(result["journal_title"]).to be_nil }
+      it { expect(result["pagination"]).to be_nil }
+
+      it { expect(result["date_published"]).to be_an(Array) }
+      it { expect(result["date_published"].first["date_published_year"]).to be 2019 }
+      it { expect(result["date_published"].first["date_published_month"]).to be 12 }
+      it { expect(result["date_published"].first["date_published_day"]).to be 18 }
+
+      it { expect(result["contributor"]).to be_nil }
+
+      it { expect(result["creator"]).to be_an(Array) }
+      it { expect(result["creator"].size).to eq 3 }
+
+      it { expect(result["creator"][0]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][0]["creator_given_name"]).to eq "Rebecca" }
+      it { expect(result["creator"][0]["creator_family_name"]).to eq "Ferguson" }
+      it { expect(result["creator"][0]["creator_orcid"]).to eq "https://orcid.org/0000-0002-8566-8231" }
+
+      it { expect(result["creator"][1]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][1]["creator_given_name"]).to eq "Ann" }
+      it { expect(result["creator"][1]["creator_family_name"]).to eq "Jones" }
+      it { expect(result["creator"][1]["creator_orcid"]).to eq "https://orcid.org/0000-0003-0853-8545" }
+
+      it { expect(result["creator"][2]["creator_name_type"]).to eq "Personal" }
+      it { expect(result["creator"][2]["creator_given_name"]).to eq "Eileen" }
+      it { expect(result["creator"][2]["creator_family_name"]).to eq "Scanlon" }
+      it { expect(result["creator"][2]["creator_orcid"]).to eq "https://orcid.org/0000-0003-1180-682X" }
     end
   end
 end

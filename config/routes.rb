@@ -13,4 +13,6 @@ HykuAddons::Engine.routes.draw do
   scope :dashboard do
     resources :orcid_identity, only: %i[new update], controller: "/hyrax/orcid_identities"
   end
+
+  get "/importers/:id/validation", to: "/hyku_addons/importer_validations#show", as: :importer_validation
 end

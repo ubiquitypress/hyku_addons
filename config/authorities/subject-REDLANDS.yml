@@ -1,0 +1,19 @@
+terms:
+ - id: Arts & Humanities
+   term: Arts & Humanities
+   active: true
+ - id: Business & Economics
+   term: Business & Economics
+   active: true
+ - id: Education
+   term: Education
+   active: true
+ - id: Health & Medicine
+   term: Health & Medicine
+   active: true
+ - id: Sciences, Technology & Mathematics
+   term: Sciences, Technology & Mathematics
+   active: true
+ - id: Social & Behavioral Sciences
+   term: Social & Behavioral Sciences
+   active: true

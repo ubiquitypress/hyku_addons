@@ -21,6 +21,8 @@ module HykuAddons
 
           title = AdminSet.find(admin_set_id)&.title&.first
           collection = Collection.where(title: title).first if title.present?
+          # Set reindexing to limited otherwise full nested reindexing runs which is really really expensive for large collections
+          collection.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX if collection.present?
           env.curation_concern.member_of_collections << collection if collection.present?
         end
 

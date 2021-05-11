@@ -1,0 +1,11 @@
+terms:
+  - id: Article
+    term: Article
+  - id: Book review
+    term: Book review
+  - id: Editorial
+    term: Editorial
+  - id: Poem
+    term: Poem
+  - id: Short Story
+    term: Short Story

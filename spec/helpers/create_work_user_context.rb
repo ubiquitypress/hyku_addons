@@ -55,7 +55,7 @@ RSpec.shared_context 'create work user context' do
 
   def add_metadata_to_work
     click_link "Descriptions" # switch tab
-    fill_in('Title', with: 'My Test Work')
+    fill_in("#{work_type}_title", with: 'My Test Work')
     fill_in('Keyword', with: 'testing')
     select('In Copyright', from: 'Rights statement')
     select('Organisational', from: "#{work_type}_creator__creator_name_type")

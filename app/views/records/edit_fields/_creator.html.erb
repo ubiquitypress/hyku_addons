@@ -1,5 +1,5 @@
 <% template = f.object.model.class.to_s.underscore %>
-<% types = HykuAddons::NameTypeService.new.select_active_options.flatten.uniq! %>
+<% types = HykuAddons::NameTypeService.new.active_elements %>
 
 <% f.object.creator_list.each do |hash| %>
 	<div
@@ -11,7 +11,7 @@
 	>
 		<% field_options = {
 			field_slug: :creator_name_type,
-			select_options: types,
+			select_options: types.map { |t| t.slice("label", "id").values },
 			required: template != "collection",
 			field_args: {
         class: 'form-control creator_name_type',
@@ -27,14 +27,12 @@
 		} %>
 		<%= render "records/edit_fields/attribution_partials/select_field", field_options %>
 
-		<% # FIXME: This needs to be resolved as its not a long term or translatable solution %>
-		<% # Because we have no unique ID to use, we need to hack at getting the correct partial in place %>
 		<% types.each do |type| %>
-			<%= render "records/edit_fields/creator_#{type.downcase}", f: f, type: type, template: template, hash: hash %>
+			<%= render "records/edit_fields/creator_#{type["id"].downcase}", f: f, type: type["id"], template: template, hash: hash %>
 		<% end %>
 
 		<% field_options = { field_slug: :creator_isni, required: false, field_group: :creator, template: template, hash: hash } %>
-		<%= render "records/edit_fields/attribution_partials/text_field", field_options %>
+		<%= render "records/edit_fields/attribution_partials/text_field", field_options unless template.include? "redlands" %>
 
 		<div class="form-group">
 			<a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_parent">

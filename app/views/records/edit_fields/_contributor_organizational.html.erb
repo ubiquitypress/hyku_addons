@@ -1,4 +1,12 @@
-<% # This is gross, but because the authorities have no unique ID, but instead an ID and title that are the same and %>
-<% # that change depending on the spelling, we need a way to ensure the partial is included and this is as good as I can think of. %>
-<% # The reason issue is that the ID of the authority needs to stay the same, even if the title changes %>
-<%= render "records/edit_fields/contributor_organisational", f: f, type: type, template: template, hash: hash %>
+<div data-toggleable-group="<%= type %>">
+	<% [
+		{ field_type: :text, field_slug: :contributor_organization_name },
+		{ field_type: :text, field_slug: :contributor_ror },
+		{ field_type: :text, field_slug: :contributor_grid },
+		{ field_type: :text, field_slug: :contributor_wikidata }
+	].each do |field| %>
+		<% options = { field_group: :contributor, template: template, hash: hash }.merge(field) %>
+		<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
+	<% end %>
+</div>
+
