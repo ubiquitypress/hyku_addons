@@ -821,11 +821,11 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       it { expect(result["contributor"].size).to eq 2 }
 
       it { expect(result["contributor"][0]["contributor_name_type"]).to eq "Organizational" }
-      it { expect(result["contributor"][0]["contributor_name"]).to eq "Kwantlen Polytechnic University, CA" }
+      it { expect(result["contributor"][0]["contributor_organizational_name"]).to eq "Kwantlen Polytechnic University, CA" }
       it { expect(result["contributor"][0]["contributor_orcid"]).to be_nil }
 
       it { expect(result["contributor"][1]["contributor_name_type"]).to eq "Organizational" }
-      it { expect(result["contributor"][1]["contributor_name"]).to eq "Noba Project" }
+      it { expect(result["contributor"][1]["contributor_organizational_name"]).to eq "Noba Project" }
       it { expect(result["contributor"][1]["contributor_orcid"]).to be_nil }
     end
 

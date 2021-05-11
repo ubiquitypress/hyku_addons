@@ -409,19 +409,23 @@ module Bolognese
 
           meta.dig(type)&.map do |item|
             # transform but don't change original or each time method is run it prepends the key
-            transformed = item.transform_keys { |k| "#{key}_#{k.underscore}" }
+            trans = item.transform_keys { |k| "#{key}_#{k.underscore}" }
 
             # Individual name identifiers will require specific tranformations as required
-            transformed["#{key}_name_identifiers"]&.each_with_object(transformed) do |hash, identifier|
+            trans["#{key}_name_identifiers"]&.each_with_object(trans) do |hash, identifier|
               identifier["#{key}_#{hash['nameIdentifierScheme'].downcase}"] = hash["nameIdentifier"]
             end
 
+            # We need to ensure that the field is named properly if we have an organisation if its not blank
+            if trans.dig("#{key}_name_type") == "Organizational" && trans["#{key}_name"] != UNAVAILABLE_LABEL
+              trans["#{key}_organization_name"] = trans.delete("#{key}_name")
+
             # Incase edge cases don't provide a full set of name values, but should have: 10.7925/drs1.duchas_5019334
-            if transformed["#{key}_name"]&.match?(/,/) && transformed["#{key}_given_name"].blank?
-              transformed["#{key}_family_name"], transformed["#{key}_given_name"] = transformed["#{key}_name"].split(", ")
+            elsif trans["#{key}_name"]&.match?(/,/) && trans["#{key}_given_name"].blank?
+              trans["#{key}_family_name"], trans["#{key}_given_name"] = trans["#{key}_name"].split(", ")
             end
 
-            transformed
+            trans
           end
         end
 
