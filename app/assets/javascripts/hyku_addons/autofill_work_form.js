@@ -161,7 +161,7 @@ class AutofillWorkForm {
     // From within the wrapper, find all matching elements and then filter only form fields
     var input = parentElement.find(selector).find(this.targetInputSelector).get(index)
 
-    // Updating the value doens't automaticaly trigger the onChange event
+    // Updating the value doesn't automaticaly trigger the onChange event
     $(input).val(value).trigger("change")
   }
 
