@@ -1,0 +1,25 @@
+terms:
+  - term: CC BY 4.0 Attribution
+    id: https://creativecommons.org/licenses/by/4.0/
+    active: true
+  - term: CC BY-NC 4.0 Attribution-NonCommercial
+    id: https://creativecommons.org/licenses/by-nc/4.0/
+    active: true
+  - term: CC BY-SA 4.0 Attribution ShareAlike
+    id: https://creativecommons.org/licenses/by-sa/4.0/
+    active: true
+  - term: CC BY-ND 4.0 Attribution NoDerivs
+    id: https://creativecommons.org/licenses/by-nd/4.0/
+    active: true
+  - term: CC BY-NC-SA 4.0 Attribution-NonCommercial-ShareAlike
+    id: https://creativecommons.org/licenses/by-nc-sa/4.0/
+    active: true
+  - term: CC BY-NC-ND 4.0 Attribution NonCommercial-NoDerivs
+    id: https://creativecommons.org/licenses/by-nc-nd/4.0/
+    active: true
+  - term: CC Public Domain Mark 1.0
+    id: https://creativecommons.org/publicdomain/mark/1.0/
+    active: true
+  - term: CC0 1.0 Universal Public Domain
+    id: http://creativecommons.org/publicdomain/zero/1.0
+    active: true

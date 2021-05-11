@@ -87,6 +87,9 @@ en:
       creator_department:
         label: Creator Department
         placeholder: " "
+      creator_role:
+        label: Role
+        placeholder: " "
     contributor:
       contributor_name_type:
         label: Contributor name type
