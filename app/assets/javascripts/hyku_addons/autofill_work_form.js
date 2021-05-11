@@ -162,6 +162,9 @@ class AutofillWorkForm {
     var input = parentElement.find(selector).find(this.targetInputSelector).get(index)
 
     $(input).val(value)
+
+    // Updating the value doens't automaticaly trigger the onChange event
+    $(input).trigger("change")
   }
 
   // TODO: Make it so that this method can be used by all of the other sections where we are currently specifying
