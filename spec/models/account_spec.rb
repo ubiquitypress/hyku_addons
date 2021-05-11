@@ -4,6 +4,11 @@ RSpec.describe Account, type: :model do
   describe 'Settings' do
     let!(:account) { described_class.create(name: 'example', tenant: 'example', cname: 'example.com') }
 
+    after do
+      # FIXME: move this out to a global before/after?
+      account.reset!
+    end
+
     it 'loads settings' do
       account.switch!
       expect(Settings.google_analytics_id).to eq nil
@@ -63,7 +68,6 @@ RSpec.describe Account, type: :model do
     context 'with DB settings' do
       before do
         account.settings['google_analytics_id'] = 'db-id'
-        account.locale_name = 'test'
         account.save
       end
 
@@ -77,6 +81,17 @@ RSpec.describe Account, type: :model do
       it 'returns a standardized filename' do
         account.switch!
         expect(account.tenant_settings_filename('test')).to eq Rails.root.join('config', 'settings', 'test-TEST.yml')
+      end
+    end
+
+    context 'Hyrax configuration' do
+      before do
+        account.settings['google_analytics_id'] = 'GA-TEST1234'
+        account.save
+      end
+
+      it 'dynamically loads google analytics id from Settings' do
+        expect { account.switch! }.to change { Hyrax.config.google_analytics_id }.to('GA-TEST1234')
       end
     end
   end

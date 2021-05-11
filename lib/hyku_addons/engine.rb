@@ -46,6 +46,7 @@ module HykuAddons
           datacite_endpoint.switch!
           switch_host!(cname)
           switch_settings!(name: locale_name, settings: settings)
+          reload_hyrax_config!
         end
 
         def reset!
@@ -55,6 +56,7 @@ module HykuAddons
           DataCiteEndpoint.reset!
           switch_host!(nil)
           switch_settings!
+          reload_hyrax_config!
         end
 
         def switch_host!(cname)
@@ -76,6 +78,19 @@ module HykuAddons
 
         def tenant_settings_filename(name)
           ::Rails.root.join('config', 'settings', "#{::Rails.env}-#{name.upcase}.yml")
+        end
+
+        # Reload all hyrax configuration that reads from Settings
+        # TODO: Figure out a better way to do this
+        def reload_hyrax_config!
+          Hyrax.config do |config|
+            config.contact_email = Settings.contact_email
+            config.analytics = Settings.google_analytics_id.present?
+            config.google_analytics_id = Settings.google_analytics_id
+            config.redis_namespace = Settings.redis.default_namespace
+            config.fits_path = Settings.fits_path
+            config.geonames_username = Settings.geonames_username
+          end
         end
       end
 
