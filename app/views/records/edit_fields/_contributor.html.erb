@@ -1,5 +1,5 @@
 <% template = f.object.model.class.to_s.underscore %>
-<% types = HykuAddons::NameTypeService.new.select_active_options.flatten.uniq! %>
+<% types = HykuAddons::NameTypeService.new.active_elements %>
 
 <% f.object.contributor_list.each do |hash| %>
 	<div
@@ -11,7 +11,7 @@
 	>
 		<% field_options = {
 			field_slug: :contributor_name_type,
-			select_options: types,
+			select_options: types.map { |t| t.slice("label", "id").values },
 			field_args: {
 				class: 'form-control',
 				data: {
@@ -27,7 +27,7 @@
 		<%= render "records/edit_fields/attribution_partials/select_field", field_options %>
 
 		<% types.each do |type| %>
-			<%= render "records/edit_fields/contributor_#{type.downcase}", f: f, type: type, template: template, hash: hash %>
+			<%= render "records/edit_fields/contributor_#{type["id"].downcase}", f: f, type: type["id"], template: template, hash: hash %>
 		<% end %>
 
 		<% field_options = { field_slug: :contributor_isni, field_group: :contributor, template: template, hash: hash } %>

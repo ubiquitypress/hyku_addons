@@ -1,0 +1,7 @@
+<div data-toggleable-group="<%= type %>">
+	<% [{ field_type: :text, field_slug: :editor_organization_name }].each do |field| %>
+		<% options = { field_group: :editor, template: template, hash: hash }.merge(field) %>
+		<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
+	<% end %>
+</div>
+
