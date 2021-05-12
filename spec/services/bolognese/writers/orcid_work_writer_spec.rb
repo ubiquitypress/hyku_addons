@@ -124,15 +124,18 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
     end
   end
 
-  # types = ['artistic-performance', 'book-chapter', 'book-review', 'book', 'conference-abstract', 'conference-paper', 'conference-poster', 'data-set', 'dictionary-entry', 'disclosure', 'dissertation', 'edited-book', 'encyclopedia-entry', 'invention', 'journal-article', 'journal-issue', 'lecture-speech', 'license', 'magazine-article', 'manual', 'newsletter-article', 'newspaper-article', 'online-resource', 'other', 'patent', 'registered-copyright', 'report', 'research-technique', 'research-tool', 'spin-off-company', 'standards-and-policy', 'supervised-student-publication', 'technical-standard', 'test', 'translation', 'trademark', 'website', 'working-paper']
   describe "#orcid_xml" do
+    it "outputs the XML" do
+      puts '==================================================================='
+      puts reader.orcid_xml("other")
+      puts '==================================================================='
+    end
+
     it "returns a nonempty XML document" do
       Dir.chdir(xml_path) do
         schema = Nokogiri::XML::Schema(IO.read(schema_file))
 
-        # Ensure we aren't getting false positive resultss above
         doc = Nokogiri::XML(reader.orcid_xml("other"))
-        # byebug
         expect(schema.validate(doc)).to be_empty
       end
     end

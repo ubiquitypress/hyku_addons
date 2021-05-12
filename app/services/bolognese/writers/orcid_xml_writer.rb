@@ -3,6 +3,7 @@
 module Bolognese
   module Writers
     module OrcidXmlWriter
+      PERMITTED_EXTERNAL_IDENTIFIERS = %w[issn isbn].freeze
 
       ROOT_ATTRIBUTES = {
         "xmlns:common" => "http://www.orcid.org/ns/common",
@@ -13,6 +14,7 @@ module Bolognese
 
       # rubocop:disable Metrics/MethodLength
       # rubocop:disable Metrics/BlockLength
+      # rubocop:disable Metrics/AbcSize
       def orcid_xml(type)
         builder = Nokogiri::XML::Builder.new(encoding: "UTF-8") do |xml|
           xml.work(ROOT_ATTRIBUTES) do
@@ -39,13 +41,10 @@ module Bolognese
               xml[:common].day "01"
             end
 
+            # Full list of external-id-type: https://pub.orcid.org/v3.0/identifiers
             xml[:common].send("external-ids") do
-              xml[:common].send("external-id") do
-                xml[:common].send("external-id-type", "doi")
-                xml[:common].send("external-id-value", "10.1087/20120404")
-                xml[:common].send("external-id-url", "https://doi.org/10.1087/20120404")
-                xml[:common].send("external-id-relationship", "self")
-              end
+              write_external_doi(xml)
+              write_external_identifiers(xml)
             end
 
             xml[:work].contributors do
@@ -70,6 +69,28 @@ module Bolognese
       end
       # rubocop:enable Metrics/MethodLength
       # rubocop:enable Metrics/BlockLength
-    end
+      # rubocop:enable Metrics/AbcSize
+
+      protected
+
+        def write_external_doi(xml)
+          xml[:common].send("external-id") do
+            xml[:common].send("external-id-type", "doi")
+            xml[:common].send("external-id-value", meta["doi"].gsub("https://doi.org/", ""))
+            xml[:common].send("external-id-url", meta["doi"])
+            xml[:common].send("external-id-relationship", "self")
+          end
+        end
+
+        def write_external_identifiers(xml)
+          PERMITTED_EXTERNAL_IDENTIFIERS.each do |item|
+            xml[:common].send("external-id") do
+              xml[:common].send("external-id-type", item)
+              xml[:common].send("external-id-value", meta.dig(item))
+              xml[:common].send("external-id-relationship", "self")
+            end
+          end
+        end
+      end
   end
 end
