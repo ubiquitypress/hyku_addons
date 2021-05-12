@@ -50,7 +50,8 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
   let(:version_number) { "3" }
   let(:volume) { 2 }
 
-  let(:attributes) do {
+  let(:attributes) do
+    {
       "abstract" => abstract,
       "add_info" => add_info,
       "alt_title" => [alt_title1, alt_title2, ""],
@@ -91,44 +92,49 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
   let(:work) { model_class.new(attributes) }
   let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
   let(:reader) { Bolognese::Readers::GenericWorkReader.new(input: input, from: "work") }
-  let(:result) { reader.orcid_xml }
+
+  # NOTE: If updating the schema files, you'll need to manually update the remove `schemaLocation` references
+  let(:xml_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1") }
+
+  let(:schema_file) { "work-2.1.xsd" }
+  let(:simple_sample_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1", "example-simple-2.1.xml") }
+  let(:complete_sample_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1", "example-simple-2.1.xml") }
+  let(:error_sample_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1", "example-error.xml") }
 
   it "includes the module into the Metadata class" do
     expect(Bolognese::Metadata.new).to respond_to(:orcid_xml)
   end
 
-  it { result }
-
   describe "the schema" do
-    # NOTE: If updating the schema files, you'll need to manuall update the remove `schemaLocation` references
-    let(:schema_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1", "work-2.1.xsd") }
-    let(:schema_validator) { Nokogiri::XML::Schema(schema_path.open) }
-    let(:sample_xml_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1", "example-simple-2.1.xml") }
+    it "validates against the test XML documents" do
+      # Because of the way the documents need to be altered to use relative schemaLocation's, Dir.chdir is required
+      Dir.chdir(xml_path) do
+        schema = Nokogiri::XML::Schema(IO.read(schema_file))
 
-    context "returns an XML document that matches the schema" do
-      # Validate a sample file to enure we can trust the schema - a valid result returns an empty array
-      # sample = Nokogiri::XML(sample_xml_path.open)
-      # expect(schema_validator.validate(sample)).to be_empty
-      types = ['artistic-performance', 'book-chapter', 'book-review', 'book', 'conference-abstract', 'conference-paper', 'conference-poster', 'data-set', 'dictionary-entry', 'disclosure', 'dissertation', 'edited-book', 'encyclopedia-entry', 'invention', 'journal-article', 'journal-issue', 'lecture-speech', 'license', 'magazine-article', 'manual', 'newsletter-article', 'newspaper-article', 'online-resource', 'other', 'patent', 'registered-copyright', 'report', 'research-technique', 'research-tool', 'spin-off-company', 'standards-and-policy', 'supervised-student-publication', 'technical-standard', 'test', 'translation', 'trademark', 'website', 'working-paper']
+        doc = Nokogiri::XML(IO.read(simple_sample_path))
+        expect(schema.validate(doc)).to be_empty
 
-      types.each do |type|
-        it  "type: #{type}" do
-        test_result = reader.orcid_xml(type)
-        xml_result = Nokogiri::XML(test_result)
-        validator = schema_validator.validate(xml_result)
+        doc = Nokogiri::XML(IO.read(complete_sample_path))
+        expect(schema.validate(doc)).to be_empty
 
-        expect(validator).to be_empty
-        end
+        # Ensure we aren't getting false positive resultss above
+        doc = Nokogiri::XML(IO.read(error_sample_path))
+        expect(schema.validate(doc)).not_to be_empty
       end
-
     end
   end
 
+  # types = ['artistic-performance', 'book-chapter', 'book-review', 'book', 'conference-abstract', 'conference-paper', 'conference-poster', 'data-set', 'dictionary-entry', 'disclosure', 'dissertation', 'edited-book', 'encyclopedia-entry', 'invention', 'journal-article', 'journal-issue', 'lecture-speech', 'license', 'magazine-article', 'manual', 'newsletter-article', 'newspaper-article', 'online-resource', 'other', 'patent', 'registered-copyright', 'report', 'research-technique', 'research-tool', 'spin-off-company', 'standards-and-policy', 'supervised-student-publication', 'technical-standard', 'test', 'translation', 'trademark', 'website', 'working-paper']
   describe "#orcid_xml" do
     it "returns a nonempty XML document" do
-      doc = Nokogiri::XML::Document.parse(result)
-      nodes = doc.xpath
-      expect(nodes.empty?).to be false
+      Dir.chdir(xml_path) do
+        schema = Nokogiri::XML::Schema(IO.read(schema_file))
+
+        # Ensure we aren't getting false positive resultss above
+        doc = Nokogiri::XML(reader.orcid_xml("other"))
+        # byebug
+        expect(schema.validate(doc)).to be_empty
+      end
     end
   end
 end

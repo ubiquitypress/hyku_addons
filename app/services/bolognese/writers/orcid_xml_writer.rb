@@ -25,21 +25,19 @@ module Bolognese
             end
 
             xml[:work].type type
-            # Only if valid for work-type
+
+            # These fields will cause multiple errors when included, no matter the work-type being used - even `other`
             # xml[:work].send("journal-title", "Work Journal Title")
             # xml[:work].send("short-description", "The short description for the work")
-            xml[:work].url "http://test-url.com"
-
-            xml[:common].country "US"
-
-            # Only if valid for work-type
+            # xml[:work].url "http://test-url.com"
+            # xml[:common].country "US"
             # xml[:common].send("language-code", "en")
 
-            # xml[:common].send("publication-date") do
-            #   xml[:common].year "2021"
-            #   xml[:common].month "10"
-            #   xml[:common].day "01"
-            # end
+            xml[:common].send("publication-date") do
+              xml[:common].year "2021"
+              xml[:common].month "10"
+              xml[:common].day "01"
+            end
 
             xml[:common].send("external-ids") do
               xml[:common].send("external-id") do
@@ -50,21 +48,21 @@ module Bolognese
               end
             end
 
-            # xml[:work].contributors do
-            #   xml[:work].contributor do
-            #     xml[:common].send("contributor-orcid") do
-            #       xml[:common].uri "https://orcid.org/0000-0001-5109-3700"
-            #       xml[:common].path "0000-0001-5109-3700"
-            #       xml[:common].host "orcid.org"
-            #     end
+            xml[:work].contributors do
+              xml[:work].contributor do
+                xml[:common].send("contributor-orcid") do
+                  xml[:common].uri "https://orcid.org/0000-0001-5109-3700"
+                  xml[:common].path "0000-0001-5109-3700"
+                  xml[:common].host "orcid.org"
+                end
 
-            #     xml[:work].send("credit-name", "John Smith")
-            #     xml[:work].send("contributor-attributes") do
-            #       xml[:work].send("contributor-sequence", "first")
-            #       xml[:work].send("contributor-role", "author")
-            #     end
-            #   end
-            # end
+                xml[:work].send("credit-name", "John Smith")
+                xml[:work].send("contributor-attributes") do
+                  xml[:work].send("contributor-sequence", "first")
+                  xml[:work].send("contributor-role", "author")
+                end
+              end
+            end
           end
         end
 
