@@ -2,7 +2,7 @@ inherit_gem:
   bixby: bixby_default.yml
 
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.5
   DisplayCopNames: true
   Exclude:
     - 'app/jobs/hyku_addons/post_migration_fix_work_job.rb'
@@ -12,9 +12,10 @@ AllCops:
 
 Metrics/ClassLength:
   Exclude:
+    - 'app/models/hyku_addons/csv_entry.rb'
     - 'app/services/bolognese/readers/base_work_reader.rb'
-    - 'lib/hyku_addons/engine.rb'
     - 'app/services/hyku_addons/entry_validation_service.rb'
+    - 'lib/hyku_addons/engine.rb'
 
 Metrics/LineLength:
   Exclude:
