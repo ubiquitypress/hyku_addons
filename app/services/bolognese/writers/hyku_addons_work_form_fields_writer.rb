@@ -487,21 +487,27 @@ module Bolognese
           @curation_concern.classify
         end
 
-        # If we have editors, then they are formed from contributor data, which can be removed to avoid duplication
-        def process_editor_contributors!
-          return unless @form_data["editor"].present?
-
-          @form_data["contributor"].reject! { |cont| cont["contributor_contributor_type"] == "Editor" }
-        end
-
         # If we have no creator, but we do have editors, then we need to transform the editor contributors to creators
         def ensure_creator_from_editor!
-          return unless @form_data.dig("creator").first&.dig("creator_name") == UNAVAILABLE_LABEL
-          return unless @form_data.dig("editor").present?
+          return unless @form_data["creator"].first&.dig("creator_name") == UNAVAILABLE_LABEL
+          return unless @form_data["editor"].present?
 
           @form_data["creator"] = @form_data.delete("editor").map! do |cont|
             cont.transform_keys! { |key| key.gsub("contributor", "creator") }
           end
+        end
+
+        def process_editor_contributors!
+          editors = Proc.new { |item| item["contributor_contributor_type"] == "Editor" }
+
+          # If we do not have editors, they might be missing from the fields for this work type.
+          # This is so that we can reliably use them later on in the callbacks chain
+          if @form_data["editor"].blank? && @form_data["contributor"].any?(&editors)
+            @form_data["editor"] = @form_data["contributor"].select(&editors)
+          end
+
+          # If we have editors, then they are formed from contributor data, which can be removed to avoid duplication
+          @form_data["contributor"].reject!(&editors)
         end
     end
   end
