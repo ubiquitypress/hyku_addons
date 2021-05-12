@@ -15,6 +15,9 @@
     <%= menu.nav_link(bulkrax.importers_path) do %>
       <span class="fa fa-cloud-upload" aria-hidden="true"></span> <span class="sidebar-action-text"><%= t('bulkrax.admin.sidebar.importers') %></span>
     <% end %>
-    <!-- REMOVED LINK TO EXPORT. Find the code here to reimplement: https://github.com/samvera/hyku/blob/97e392fd26196738f6bb846cf91167f961e48d4e/app/views/hyrax/dashboard/sidebar/_repository_content.html.erb#L19-->
+
+    <%= menu.nav_link(bulkrax.exporters_path) do %>
+      <span class="fa fa-cloud-download" aria-hidden="true"></span> <span class="sidebar-action-text"><%= t('bulkrax.admin.sidebar.exporters') %></span>
+    <% end %>
   <% end %>
 <% end %>

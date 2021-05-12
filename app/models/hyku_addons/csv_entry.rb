@@ -52,7 +52,7 @@ module HykuAddons
     # Override to use the value in prefer the named admin set provided in the admin_set column then fallback to previous behavior
     def add_admin_set_id
       parsed_metadata['admin_set_id'] = nil if parsed_metadata['admin_set_id'].blank?
-      parsed_metadata['admin_set_id'] ||= AdminSet.where(title: raw_metadata['admin_set']).first&.id || importerexporter.admin_set_id
+      parsed_metadata['admin_set_id'] ||= AdminSet.where(title: raw_metadata['admin_set']).first&.id || AdminSet.where(id: raw_metadata['admin_set']).first&.id || importerexporter.admin_set_id
     end
 
     # TODO: memoize factory class to avoid having to compute it each time
@@ -81,11 +81,9 @@ module HykuAddons
     def add_resource_type
       resource_type_service = HykuAddons::ResourceTypesService.new(model: parsed_metadata['model']&.safe_constantize)
       parsed_metadata['resource_type'] = parsed_metadata['resource_type'].map do |resource_type|
-        begin
-          resource_type_service.label(resource_type.strip.titleize)
-        rescue
-          nil
-        end
+        resource_type_service.label(resource_type.strip.titleize)
+      rescue
+        nil
       end.compact
     end
 
@@ -102,7 +100,7 @@ module HykuAddons
 
     def admin_set_created?
       return true if record["admin_set"].blank?
-      AdminSet.where(title: record["admin_set"]).first.present?
+      AdminSet.where(title: record["admin_set"]).first.present? || AdminSet.where(id: record["admin_set"]).first.present?
     end
 
     # If only filename is given, construct the path (/files/my_file)
@@ -114,6 +112,57 @@ module HykuAddons
       f = File.join(path, file)
       return f if File.exist?(f)
       raise "File #{f} does not exist"
+    end
+
+    ### Exporter overrides
+    def build_export_metadata
+      # Skip #make_round_trippable because it attempts to modify the original hyrax record
+      # which we don't need because we use the id of the hyrax record as the source_identifier
+      # make_round_trippable
+      self.parsed_metadata = {}
+      # We don't need a separate column for id because it is already in the source_identifer_field
+      # self.parsed_metadata['id'] = hyrax_record.id
+      parsed_metadata[self.class.source_identifier_field] = hyrax_record.id
+      parsed_metadata['model'] = hyrax_record.has_model.first
+      build_mapping_metadata
+      unless hyrax_record.is_a?(Collection)
+        parsed_metadata['file'] = hyrax_record.file_sets.map { |fs| filename(fs).to_s unless filename(fs).blank? }.compact.join('|')
+      end
+      build_json_metadata
+      parsed_metadata['visibility'] = hyrax_record.visibility
+      parsed_metadata['admin_set'] = hyrax_record.admin_set_id
+      parsed_metadata['collection'] = hyrax_record.member_of_collection_ids.join('|')
+      parsed_metadata
+    end
+
+    def build_mapping_metadata
+      export_mapping.each do |key, value|
+        method_name = value['from']&.first&.to_s || key.to_s
+        next unless hyrax_record.respond_to?(method_name)
+        data = hyrax_record.send(method_name)
+        if data.is_a?(ActiveTriples::Relation)
+          parsed_metadata[key] = data.map { |d| prepare_export_data(d) }.join('|').to_s unless value[:excluded]
+        else
+          parsed_metadata[key] = prepare_export_data(data)
+        end
+      end
+    end
+
+    def build_json_metadata
+      hyrax_record.class.json_fields.map(&:to_s).each do |field|
+        json_str = parsed_metadata.delete(field)
+        next unless json_str.present?
+        JSON.parse(json_str).each_with_index { |h, i| h.each { |k, v| parsed_metadata["#{k}_#{i + 1}"] = v } }
+      rescue JSON::ParseError
+        next
+      end
+    end
+
+    def export_mapping
+      # Add all fields from this model to the mapping unless explicitly excluded by already being in the mapping
+      map = mapping.reject { |k, _| k == 'model' || (Bulkrax.reserved_properties.include?(k) && !field_supported?(k)) }
+      hyrax_record.attributes.keys.map { |k| map[k] = { 'from' => [k] } unless map.key?(k) || Bulkrax.reserved_properties.include?(k) || !field_supported?(k) }
+      map
     end
   end
 end
