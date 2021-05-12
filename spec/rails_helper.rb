@@ -146,4 +146,34 @@ RSpec.configure do |config|
 
   # Add support for conditional execution of specs
   config.include OptionalExample
+
+  ## Override spec/internal_test_hyku/spec/support/multitenancy_metadata.rb by setting ENV
+  # because the mocking of Settings.multitenancy gets overwritten by the Settings reloading
+  # that happens in Account#switch!
+  #
+  # The before and after blocks must run instantaneously, because Capybara
+  # might not actually be used in all examples where it's included.
+  config.after do
+    example = RSpec.current_example
+    ENV.delete('SETTINGS__MULTITENANCY__ENABLED') if example.metadata[:multitenant] || example.metadata[:singletenant]
+  end
+
+  # There are 3 optional flags available to a test block.  Only ONE will be active
+  # at any given time.  They are (with areas of likely use):
+  #   :multitenant  - general case default, only needs to be explicit for types described below
+  #   :singletenant - For tests explicitly written for singletenancy, in particular routing
+  #   :faketenant   - Ignoring multitenancy, but pretending *some* tenant is always active
+  #
+  # Spec types:
+  #   :feature - Because multitenancy affects routing, all :feature tests default to :singletenant.
+  #              Similarly, :feature tests cannot use :faketenant (would fail anyway).
+  #   :controller - default to :faketenant, since most resource controllers can be tested
+  #                 without routing as long as they get some account.
+
+  config.before do
+    example = RSpec.current_example
+    ENV['SETTINGS__MULTITENANCY__ENABLED'] = 'true' if example.metadata[:multitenant] || example.metadata[:faketenant] || example.metadata[:type] == :controller
+    ENV['SETTINGS__MULTITENANCY__ENABLED'] = 'false' if example.metadata[:singletenant] || example.metadata[:type] == :feature
+  end
+  ## End override
 end
