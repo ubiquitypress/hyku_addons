@@ -431,6 +431,7 @@ module HykuAddons
         config.register_curation_concern :pacific_text_work
         config.register_curation_concern :pacific_uncategorized
         config.register_curation_concern :redlands_article
+        config.register_curation_concern :redlands_chapters_and_book_section
         config.register_curation_concern :uva_work
 
         config.license_service_class = HykuAddons::LicenseService

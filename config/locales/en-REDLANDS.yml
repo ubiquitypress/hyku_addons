@@ -43,6 +43,8 @@ en:
         official_link: Link to Full Text
         related_identifier: PMID
         location: Geolocate
+        alt_book_title: Alternative Book Title
+        edition: Book Edition
     placeholders:
       defaults:
         alt_email: downloadreports@tellme.org

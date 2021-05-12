@@ -99,6 +99,7 @@ module HykuAddons
       attribute :longitude, SolrDocument::Solr::Array, solr_name('longitude')
       attribute :latitude, SolrDocument::Solr::Array, solr_name('latitude')
       attribute :alt_email, SolrDocument::Solr::Array, solr_name('alt_email')
+      attribute :alt_book_title, SolrDocument::Solr::Array, solr_name('alt_email')
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(
