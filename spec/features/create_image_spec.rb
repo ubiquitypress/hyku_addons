@@ -9,10 +9,6 @@ include Warden::Test::Helpers
 
 # NOTE: If you generated more than one work, you have to set "js: true"
 RSpec.feature 'Create a Image', js: false do
-  before do
-    optional "fails randomnly on CI" if ENV["CI"]
-  end
-
   include_context 'create work user context' do
     let(:work_type) { "image" }
 
