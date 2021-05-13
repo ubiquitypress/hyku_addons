@@ -55,7 +55,6 @@ RSpec.describe Hyrax::DOI::HyraxDOIController, type: :request, multitenant: true
       let(:doi) { "10.12312312/23411451345" }
 
       it "returns the error message" do
-        get doi_url
         expect(response).not_to be_successful
       end
     end
@@ -64,7 +63,6 @@ RSpec.describe Hyrax::DOI::HyraxDOIController, type: :request, multitenant: true
       let(:doi) { "10.5334/bbc" }
 
       it "returns the JSON response" do
-        get doi_url
         expect(response).to be_successful
       end
     end
