@@ -466,6 +466,8 @@ module Bolognese
 
         # `dates` is an array of hashes containing a string date and named dateType
         def collect_date(type)
+          return unless dates.present?
+
           dates.find { |hash| hash["dateType"] == type }&.dig("date")
         end
 
@@ -498,13 +500,11 @@ module Bolognese
         end
 
         def process_editor_contributors!
-          editors = Proc.new { |item| item["contributor_contributor_type"] == "Editor" }
+          editors = proc { |item| item["contributor_contributor_type"] == "Editor" }
 
           # If we do not have editors, they might be missing from the fields for this work type.
           # This is so that we can reliably use them later on in the callbacks chain
-          if @form_data["editor"].blank? && @form_data["contributor"].any?(&editors)
-            @form_data["editor"] = @form_data["contributor"].select(&editors)
-          end
+          @form_data["editor"] = @form_data["contributor"].select(&editors) if @form_data["editor"].blank? && @form_data["contributor"].any?(&editors)
 
           # If we have editors, then they are formed from contributor data, which can be removed to avoid duplication
           @form_data["contributor"].reject!(&editors)

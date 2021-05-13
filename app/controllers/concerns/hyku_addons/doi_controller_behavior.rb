@@ -35,11 +35,13 @@ module HykuAddons
         end
 
         def formatted_work
-          meta = raw_response
+          response = raw_response
 
-          raise ::Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found." unless meta&.string.present?
-
-          meta.hyku_addons_work_form_fields(curation_concern: curation_concern)
+          if response.string.blank? || response.meta.blank?
+            raise ::Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found."
+          else
+            response.hyku_addons_work_form_fields(curation_concern: curation_concern)
+          end
         end
 
         def raw_response
