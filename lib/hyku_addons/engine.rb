@@ -44,8 +44,9 @@ module HykuAddons
           fcrepo_endpoint.switch!
           redis_endpoint.switch!
           datacite_endpoint.switch!
-          Rails.application.routes.default_url_options[:host] = cname
-          Hyrax::Engine.routes.default_url_options[:host] = cname
+          switch_host!(cname)
+          switch_settings!(name: locale_name, settings: settings)
+          reload_hyrax_config!
         end
 
         def reset!
@@ -53,8 +54,43 @@ module HykuAddons
           FcrepoEndpoint.reset!
           RedisEndpoint.reset!
           DataCiteEndpoint.reset!
-          Rails.application.routes.default_url_options[:host] = nil
-          Hyrax::Engine.routes.default_url_options[:host] = nil
+          switch_host!(nil)
+          switch_settings!
+          reload_hyrax_config!
+        end
+
+        def switch_host!(cname)
+          Rails.application.routes.default_url_options[:host] = cname
+          Hyrax::Engine.routes.default_url_options[:host] = cname
+        end
+
+        def switch_settings!(name: nil, settings: {})
+          if name
+            Settings.reload_from_files(Config.setting_files(::Rails.root.join('config'), ::Rails.env) + [tenant_settings_filename(name)])
+            Settings.add_source!(Config::Sources::EnvSource.new(ENV, prefix: ["SETTINGS", name.upcase].compact.join(Config.env_separator)))
+          else
+            Settings.reload_from_files(Config.setting_files(::Rails.root.join('config'), ::Rails.env))
+          end
+
+          Settings.add_source!(settings)
+          Settings.reload!
+        end
+
+        def tenant_settings_filename(name)
+          ::Rails.root.join('config', 'settings', "#{::Rails.env}-#{name.upcase}.yml")
+        end
+
+        # Reload all hyrax configuration that reads from Settings
+        # TODO: Figure out a better way to do this
+        def reload_hyrax_config!
+          Hyrax.config do |config|
+            config.contact_email = Settings.contact_email
+            config.analytics = Settings.google_analytics_id.present?
+            config.google_analytics_id = Settings.google_analytics_id
+            config.redis_namespace = Settings.redis.default_namespace
+            config.fits_path = Settings.fits_path
+            config.geonames_username = Settings.geonames_username
+          end
         end
       end
 
@@ -463,6 +499,7 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
       User.include HykuAddons::UserEmailFormat
+      Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
       Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
       Bolognese::Metadata.prepend Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior

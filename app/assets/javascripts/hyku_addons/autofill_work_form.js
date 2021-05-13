@@ -7,10 +7,18 @@ class AutofillWorkForm {
     this.arrayValuesLength = 0
     this.updatedFields = []
     this.logClass = "autofill-message"
+
+    // TODO: Move translations to site locale and add to admin header section
     this.successMessage = "The following fields were auto-populated:"
     this.failureMessage = "The DOI entered did not return any data"
     this.errorMessage = "An error occured, the DOI might not be valid"
-    this.alternateFieldLabels = { doi: "DOI", issn: "ISSN", eissn: "eISSN", official_link: "Official URL" }
+    this.alternateFieldLabels = {
+      doi: "DOI",
+      issn: "ISSN",
+      isbn: "ISBN",
+      eissn: "eISSN",
+      official_link: "Official URL"
+    }
 
     if (this.$button.length === 0) {
       return false
@@ -153,7 +161,8 @@ class AutofillWorkForm {
     // From within the wrapper, find all matching elements and then filter only form fields
     var input = parentElement.find(selector).find(this.targetInputSelector).get(index)
 
-    $(input).val(value)
+    // Updating the value doesn't automaticaly trigger the onChange event
+    $(input).val(value).trigger("change")
   }
 
   // TODO: Make it so that this method can be used by all of the other sections where we are currently specifying
