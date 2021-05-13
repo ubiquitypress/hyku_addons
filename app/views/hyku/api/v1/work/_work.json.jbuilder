@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # FIXME: many attributes here left nil so specs will pass
-json.cache! [@account, work.id, work.date_modified, work.member_of_collection_ids.sort] do
+json.cache! [@account, work.id, work.date_modified] do
   json.uuid work.id
   json.abstract work.try(:abstract)
   json.additional_info work.try(:add_info)
