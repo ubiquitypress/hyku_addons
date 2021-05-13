@@ -5,7 +5,6 @@ module HykuAddons
   module DOIControllerBehavior
     extend ActiveSupport::Concern
 
-    # rubocop:disable Metrics/BlockLength
     included do
       def autofill
         respond_to do |format|
@@ -27,35 +26,32 @@ module HykuAddons
           format.json { render plain: e.message, status: :internal_server_error }
         end
       end
-
-      protected
-
-        def json_response
-          { data: formatted_work, curation_concern: curation_concern }.to_json
-        end
-
-        def formatted_work
-          response = raw_response
-
-          if response.string.blank? || response.meta.blank?
-            raise ::Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found."
-          else
-            response.hyku_addons_work_form_fields(curation_concern: curation_concern)
-          end
-        end
-
-        def raw_response
-          Bolognese::Metadata.new(input: doi)
-        end
-
-        def curation_concern
-          params.require(:curation_concern)
-        end
-
-        def doi
-          params.require(:doi)
-        end
     end
-    # rubocop:enable Metrics/BlockLength
+
+    protected
+
+      def json_response
+        { data: formatted_work, curation_concern: curation_concern }.to_json
+      end
+
+      def formatted_work
+        raw_response.hyku_addons_work_form_fields(curation_concern: curation_concern)
+      end
+
+      def raw_response
+        response = Bolognese::Metadata.new(input: doi)
+
+        return response if response.string.present? && response.meta.present?
+
+        raise ::Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found."
+      end
+
+      def curation_concern
+        params.require(:curation_concern)
+      end
+
+      def doi
+        params.require(:doi)
+      end
   end
 end
