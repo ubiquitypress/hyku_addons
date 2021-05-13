@@ -22,7 +22,6 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.committee_member work.try(:committee_member)
   creator = work.creator.try(:first)
   json.creator creator.present? ? JSON.parse(creator) : []
-
   contributor = work.contributor.try(:first)
   json.contributor contributor.present? ? JSON.parse(contributor) : []
   #                                         "current_he_institution" => nil,
@@ -63,6 +62,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.journal_title work.try(:journal_title)
   json.journal_frequency work.try(:journal_frequency)
   json.keywords work.keyword
+  json.library_of_congress_classification work.try(:library_of_congress_classification)
   if work.language.present?
     language_service = HykuAddons::LanguageService.new
     languages = work.language.map do |id|
@@ -72,7 +72,6 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
     end
     json.language languages.compact
   end
-  json.library_of_congress_classification work.try(:library_of_congress_classification)
 
   license = work.try(:license)
   license_hash = HykuAddons::LicenseService.new.select_all_options.to_h
@@ -112,9 +111,9 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.qualification_grantor work.try(:qualification_grantor)
   json.qualification_level work.try(:qualification_level)
 
-  qualification_name_service = HykuAddons::QualificationNameService.new
-  id = work.try(:qualification_name)&.first
-  json.qualification_name qualification_name_service.label(id) if id.present?
+  if (work_id = Array(work.try(:qualification_name)).first.presence)
+    json.qualification_name HykuAddons::QualificationNameService.new.label(work_id)
+  end
 
   json.qualification_subject_text work.try(:qualification_subject_text)
   json.reading_level work.try(:reading_level)
@@ -123,6 +122,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.related_exhibition work.try(:related_exhibition)
   json.related_exhibition_date work.try(:related_exhibition_date)
   json.related_exhibition_venue work.try(:related_exhibition_venue)
+
   related_identifier = work.try(:related_identifier)&.first
   if related_identifier.present?
     related_identifier_array = begin
