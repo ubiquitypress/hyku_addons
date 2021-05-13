@@ -47,6 +47,7 @@ module HykuAddons
           switch_host!(cname)
           switch_settings!(name: locale_name, settings: settings)
           reload_hyrax_config!
+          setup_tenant_cache
         end
 
         def reset!
@@ -57,6 +58,7 @@ module HykuAddons
           switch_host!(nil)
           switch_settings!
           reload_hyrax_config!
+          disable_tenant_cache
         end
 
         def switch_host!(cname)
@@ -91,6 +93,18 @@ module HykuAddons
             config.fits_path = Settings.fits_path
             config.geonames_username = Settings.geonames_username
           end
+        end
+
+        def setup_tenant_cache
+          Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id }
+          Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
+          ActionController::Base.perform_caching = true
+        end
+
+        def disable_tenant_cache
+          Rails.application.config.action_controller.perform_caching = false
+          Rails.application.config.cache_store = :memory_store
+          ActionController::Base.perform_caching = false
         end
       end
 
