@@ -21,7 +21,7 @@ RSpec.describe Hyrax::DOI::HyraxDOIController, type: :request, multitenant: true
   let(:doi_url) { [path, params.to_query].join("?") }
 
   before do
-    # The following is required to set deposit permissions for the user
+    # Required to set deposit permissions for the user or the request will see a Not Authorized exception
     Sipity::WorkflowAction.create!(name: 'submit', workflow: workflow)
     Hyrax::PermissionTemplateAccess.create!(
       permission_template_id: permission_template.id,
