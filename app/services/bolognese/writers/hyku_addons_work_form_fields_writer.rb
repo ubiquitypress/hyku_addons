@@ -466,8 +466,6 @@ module Bolognese
 
         # `dates` is an array of hashes containing a string date and named dateType
         def collect_date(type)
-          return unless dates.present?
-
           dates.find { |hash| hash["dateType"] == type }&.dig("date")
         end
 
