@@ -1,0 +1,9 @@
+<% if  f.object.model.new_record?  %>
+  <%= render "redlands/related_identifier/new_form", f: f %>
+
+<% else %>
+  <% data = get_model(f.object.model.related_identifier, f.object.model.class,  'related_identifier') || [{}] %>
+  <%= render "redlands/related_identifier/edit_form", f: f, array_of_hash: data  %>
+<% end %>
+
+<%= render "redlands/related_identifier/related_identifier_js" %>
