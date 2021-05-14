@@ -491,10 +491,14 @@ module HykuAddons
       Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
       Hyrax::ImagePresenter.include HykuAddons::GenericWorkPresenterBehavior
       CatalogController.include HykuAddons::CatalogControllerBehavior
+
+      actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
+      Hyrax::CurationConcern.actor_factory.insert_after(*actors)
+
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
 
-      actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
+      actors = [HykuAddons::Actors::DateFieldsActor, HykuAddons::Actors::TaskMasterModelActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
       User.include HykuAddons::UserEmailFormat
