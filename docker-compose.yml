@@ -149,6 +149,8 @@ services:
   workers:
     <<: *app
     command: bundle exec sidekiq -r spec/internal_test_hyku/
+    stdin_open: true
+    tty: true
     depends_on:
       - db
       - solr
