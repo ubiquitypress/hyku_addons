@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # FIXME: many attributes here left nil so specs will pass
-json.cache! [@account, work.id, work.date_modified] do
+json.cache! [@account.tenant, work.id, work.date_modified, work.member_of_collection_ids & collection_docs.pluck('id')] do
   json.uuid work.id
   json.abstract work.try(:abstract)
   json.additional_info work.try(:add_info)
@@ -116,8 +116,7 @@ json.cache! [@account, work.id, work.date_modified] do
   json.volume work.try(:volume)
   json.work_type work.model.model_name.to_s
   json.workflow_status work.solr_document.workflow_state
+  collection_presenters = work.member_of_collection_presenters.reject { |coll| coll.is_a? Hyrax::AdminSetPresenter }
+  collections = collection_presenters.map { |collection| { uuid: collection.id, title: collection.title.first } }
+  json.collections collections
 end
-
-collection_presenters = work.member_of_collection_presenters.reject { |coll| coll.is_a? Hyrax::AdminSetPresenter }
-collections = collection_presenters.map { |collection| { uuid: collection.id, title: collection.title.first } }
-json.collections collections
