@@ -8,7 +8,7 @@ module HykuAddons
       array
     end
 
-    def add_redlands_contributor_personal_fields(array,service_options)
+    def add_redlands_contributor_personal_fields(array, service_options)
       array.delete_at(3) # removes institutional relationship from Redlands worktype
       array[1] = { field_type: :text, field_slug: :contributor_given_name }
       array.insert(2, field_type: :text, field_slug: :contributor_middle_name)
@@ -23,7 +23,6 @@ module HykuAddons
       array.delete_at(2) # removes grid from Redlands worktype
       array
     end
-
 
     def add_uva_contributor_personal_fields(array)
       array.delete_at(3) # removes institutional relationship from UVA worktype
