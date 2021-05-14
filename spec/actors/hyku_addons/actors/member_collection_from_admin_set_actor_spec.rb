@@ -42,9 +42,11 @@ RSpec.describe HykuAddons::Actors::MemberCollectionFromAdminSetActor do
     context "when the flipflop is enabled" do
       let(:attributes) { { admin_set_id: admin_set.id } }
 
-      it "called the terminator" do
+      before do
         allow(terminator).to receive(:create).with(env_class)
+      end
 
+      it "called the terminator" do
         middleware.create(env)
 
         expect(terminator).to have_received(:create).with(env_class)
