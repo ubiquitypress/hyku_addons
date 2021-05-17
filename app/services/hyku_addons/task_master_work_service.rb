@@ -29,7 +29,7 @@ module HykuAddons
 
     # repository--<type>-<action>: repository--work-create
     def topic_for(type)
-      return "repository--#{@options[:action]}-#{type}" if TOPICS.include?(@options[:action])
+      return "repository--#{type}-#{@options[:action]}" if TOPICS.include?(@options[:action])
 
       raise ArgumentError, "The action '#{@options[:action]}' could not be processed"
     end

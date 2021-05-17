@@ -15,19 +15,51 @@ RSpec.describe HykuAddons::TaskMasterWorkService do
   end
 
   describe "#perform" do
-    context "when the action is valid" do
-      it "raised an error" do
-        expect { service.perform }.not_to raise_error
+  end
+
+  describe "#topic_for" do
+    context "when the action is create" do
+      it "doesn't raise an error" do
+        expect { service.send(:topic_for, :work) }.not_to raise_error
       end
 
+      it "provides a formatted string" do
+        expect(service.send(:topic_for, :work)).to eq "repository--work-create"
+        expect(service.send(:topic_for, :file)).to eq "repository--file-create"
+      end
+    end
 
+    context "when the action is update" do
+      let(:options) { { action: "update" } }
+
+      it "doesn't raise an error" do
+        expect { service.send(:topic_for, :work) }.not_to raise_error
+      end
+
+      it "provides a formatted string" do
+        expect(service.send(:topic_for, :work)).to eq "repository--work-update"
+        expect(service.send(:topic_for, :file)).to eq "repository--file-update"
+      end
+    end
+
+    context "when the action is destroy" do
+      let(:options) { { action: "destroy" } }
+
+      it "doesn't raise an error" do
+        expect { service.send(:topic_for, :work) }.not_to raise_error
+      end
+
+      it "provides a formatted string" do
+        expect(service.send(:topic_for, :work)).to eq "repository--work-destroy"
+        expect(service.send(:topic_for, :file)).to eq "repository--file-destroy"
+      end
     end
 
     context "when the action is not valid" do
       let(:options) { { action: "foo" } }
 
       it "raised an error" do
-        expect { service.perform }.to raise_error(ArgumentError)
+        expect { service.send(:topic_for, :work) }.to raise_error(ArgumentError)
       end
     end
   end
