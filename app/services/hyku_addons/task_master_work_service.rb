@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "google/cloud/pubsub"
+
 module HykuAddons
   class TaskMasterWorkService
     KEY_FILE_CONTENT = ENV["PUBSUB_KEY"] # content of the service account key file
@@ -47,10 +49,6 @@ module HykuAddons
         name: fileset.label,
         metadata: { title: filset.title.first }.merge(file_set.attributes.except("title"))
       }.to_json
-    end
-
-    def files?
-      @work.file_sets.present?
     end
 
     def tenant
