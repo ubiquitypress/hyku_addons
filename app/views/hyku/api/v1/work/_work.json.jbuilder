@@ -100,10 +100,10 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   # json.thumbnail_base64_string nil
   if work.representative_presenter&.solr_document&.public?
     components = {
-        scheme: Rails.application.routes.default_url_options.fetch(:protocol, 'http'),
-        host: @account.cname,
-        path: work.solr_document.thumbnail_path.split('?')[0],
-        query: work.solr_document.thumbnail_path.split('?')[1]
+      scheme: Rails.application.routes.default_url_options.fetch(:protocol, 'http'),
+      host: @account.cname,
+      path: work.solr_document.thumbnail_path.split('?')[0],
+      query: work.solr_document.thumbnail_path.split('?')[1]
     }
     json.thumbnail_url URI::Generic.build(components).to_s
   else

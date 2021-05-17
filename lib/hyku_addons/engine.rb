@@ -100,7 +100,6 @@ module HykuAddons
           ActionController::Base.perform_caching = Rails.application.config.action_controller.perform_caching
           Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id }
           Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
-
         end
 
         def disable_tenant_cache
