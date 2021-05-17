@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-RSpec.describe HykuAddons::TaskMasterJob do
+RSpec.describe HykuAddons::TaskMasterWorkJob do
   let(:work) { create(:work) }
-  let(:service_class) { HykuAddons::TaskMasterService }
+  let(:service_class) { HykuAddons::TaskMasterWorkService }
   let(:service) { service_class.new(work.id) }
 
   describe ".perform_later" do

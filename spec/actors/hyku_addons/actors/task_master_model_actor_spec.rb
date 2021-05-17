@@ -47,7 +47,7 @@ RSpec.describe HykuAddons::Actors::TaskMasterModelActor do
 
       it "enqueues the job" do
         expect { middleware.create(env) }
-          .to have_enqueued_job(HykuAddons::TaskMasterJob)
+          .to have_enqueued_job(HykuAddons::TaskMasterWorkJob)
           .on_queue(Hyrax.config.ingest_queue_name)
           .with(work.id)
       end
@@ -67,7 +67,7 @@ RSpec.describe HykuAddons::Actors::TaskMasterModelActor do
       end
 
       it "does not enqueue the job" do
-        expect { middleware.create(env) }.not_to have_enqueued_job(HykuAddons::TaskMasterJob)
+        expect { middleware.create(env) }.not_to have_enqueued_job(HykuAddons::TaskMasterWorkJob)
       end
     end
   end
@@ -86,7 +86,7 @@ RSpec.describe HykuAddons::Actors::TaskMasterModelActor do
 
       it "enqueues the job" do
         expect { middleware.update(env) }
-          .to have_enqueued_job(HykuAddons::TaskMasterJob)
+          .to have_enqueued_job(HykuAddons::TaskMasterWorkJob)
           .on_queue(Hyrax.config.ingest_queue_name)
           .with(work.id)
       end
@@ -106,7 +106,7 @@ RSpec.describe HykuAddons::Actors::TaskMasterModelActor do
       end
 
       it "does not enqueue the job" do
-        expect { middleware.update(env) }.not_to have_enqueued_job(HykuAddons::TaskMasterJob)
+        expect { middleware.update(env) }.not_to have_enqueued_job(HykuAddons::TaskMasterWorkJob)
       end
     end
   end
@@ -125,7 +125,7 @@ RSpec.describe HykuAddons::Actors::TaskMasterModelActor do
 
       it "enqueues the job" do
         expect { middleware.destroy(env) }
-          .to have_enqueued_job(HykuAddons::TaskMasterJob)
+          .to have_enqueued_job(HykuAddons::TaskMasterWorkJob)
           .on_queue(Hyrax.config.ingest_queue_name)
           .with(work.id)
       end
@@ -145,7 +145,7 @@ RSpec.describe HykuAddons::Actors::TaskMasterModelActor do
       end
 
       it "does not enqueue the job" do
-        expect { middleware.destroy(env) }.not_to have_enqueued_job(HykuAddons::TaskMasterJob)
+        expect { middleware.destroy(env) }.not_to have_enqueued_job(HykuAddons::TaskMasterWorkJob)
       end
     end
   end

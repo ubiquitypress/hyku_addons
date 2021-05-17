@@ -30,7 +30,7 @@
 # print(f"Published {data} to {topic_path}: {message_id}")
 
 module HykuAddons
-  class TaskMasterService
+  class TaskMasterWorkService
     KEY_FILE_CONTENT = ENV["PUBSUB_KEY"] # content of the service account key file
     PROJECT_ID = "up-tools"
     # repository--<type>-<action>: repository--work-submission
@@ -40,6 +40,7 @@ module HykuAddons
       @work = ActiveFedora::Base.find(work_id)
     end
 
+    #
     def perform
       byebug
     end

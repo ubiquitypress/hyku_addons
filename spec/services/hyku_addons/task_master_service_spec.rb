@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe HykuAddons::TaskMasterService do
+RSpec.describe HykuAddons::TaskMasterWorkService do
   context "" do
     it "" do
     end

@@ -24,7 +24,7 @@ module HykuAddons
       protected
 
         def enqueue_job(env)
-          TaskMasterJob.perform_later(env.curation_concern.id)
+          TaskMasterWorkJob.perform_later(env.curation_concern.id)
         end
 
       private
