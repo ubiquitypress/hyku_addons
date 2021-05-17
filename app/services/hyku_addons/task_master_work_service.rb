@@ -11,34 +11,30 @@ module HykuAddons
       @work = ActiveFedora::Base.find(work_id)
     end
 
-    #
     def perform
-      byebug
     end
 
     protected
 
     def work_metadata
       {
-        'tenant': Site.instance.account.tenant,
-        'uuid': @work.id,
-        'metadata': {
-          'title': @work.title.first,
-          'etc': {}
-        }
+        tenant: tenant,
+        uuid: @work.id,
+        metadata: { title: @work.title.first }.merge(@work.attributes.except("title"))
       }.to_json
     end
 
     def file_metadata(fileset)
       {
-        'uuid': filset.id,
-        'work': @work.id,
-        'name': fileset.label,
-        'metadata': {
-          'title': filset.title.first,
-          'etc': {}
-        }
+        uuid: filset.id,
+        work: @work.id,
+        name: fileset.label,
+        metadata: { title: filset.title.first }.merge(file_set.attributes.except("title"))
       }
+    end
+
+    def tenant
+      @tenant ||= Site.instance.account.tenant
     end
   end
 end
