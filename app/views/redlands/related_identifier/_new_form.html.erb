@@ -17,14 +17,5 @@
         options_for_select(HykuAddons::RelationTypeService.new.select_active_options.uniq),
         {:class => 'form-control multi-text-field multi_value related_identifier_relation'} %>
   </div>
-
   <br>
-  <a href="#" style="color:red;" class="remove_related_identifier form-group" data-removeUbiquityrelatedIdentifier=".ubiquity-meta-related-identifier">
-    <span class="glyphicon glyphicon-remove"></span>
-    <span class="controls-remove-text">Remove</span>
-  </a>
-  |
-  <a href="#" class="add_related_identifier" data-addUbiquityrelatedIdentifier=".ubiquity-meta-related-identifier">Add
-    another </a>
-  <br><br>
 </div>
