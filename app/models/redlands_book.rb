@@ -1,7 +1,7 @@
-# frozen_string_literal: true
 # Generated via
-#  `rails generate hyrax:work RedlandsChaptersAndBookSection`
-class RedlandsChaptersAndBookSection < ActiveFedora::Base
+#  `rails generate hyrax:work RedlandsBook`
+class RedlandsBook < ActiveFedora::Base
+  include ::Hyrax::WorkBehavior
   include ::Hyrax::WorkBehavior
   # Adds behaviors for hyrax-doi plugin.
   include Hyrax::DOI::DOIBehavior
@@ -17,16 +17,12 @@ class RedlandsChaptersAndBookSection < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
-  property :book_title, predicate: ::RDF::Vocab::BIBO.term(:Proceedings), multiple: false do |index|
-    index.as :stored_searchable, :facetable
-  end
-
-  property :alt_book_title, predicate: ::RDF::Vocab::BIBO.term(:shortTitle), multiple: false do |index|
-    index.as :stored_searchable, :facetable
-  end
-
   property :place_of_publication, predicate: ::RDF::Vocab::BF2.term(:Place) do |index|
     index.as :stored_searchable, :facetable
+  end
+
+  property :table_of_contents, predicate: ::RDF::Vocab::Bibframe.term(:tableOfContents), multiple: false do |index|
+    index.as :stored_searchable
   end
 
   property :edition, predicate: ::RDF::Vocab::BF2.edition, multiple: false do |index|
@@ -57,7 +53,7 @@ class RedlandsChaptersAndBookSection < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  self.indexer = RedlandsChaptersAndBookSectionIndexer
+  self.indexer = RedlandsBookIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
