@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      redlands_book:     'fa fa-file-text-o'
+    select_type:
+      redlands_book:
+        # TODO: translate `human_name` into Chinese
+        description:        "Redlands book 作品"
+        name:               "Redlands Book"
+        # TODO: translate `human_name` into Chinese
