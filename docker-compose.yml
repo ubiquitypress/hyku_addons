@@ -109,6 +109,7 @@ services:
       SETTINGS__MULTITENANCY__DEFAULT_HOST: "%{tenant}.lvh.me"
       SETTINGS__MULTITENANCY__ROOT_HOST: lvh.me
       SETTINGS__MULTITENANCY__ENABLED: "true"
+      SETTINGS__CACHE_ENABLED: "true"
       # Comment out these 2 for multi tenancy / Uncomment for single
       # SETTINGS__MULTITENANCY__ROOT_HOST: hyku.docker
       # SETTINGS__MULTITENANCY__ENABLED: false
