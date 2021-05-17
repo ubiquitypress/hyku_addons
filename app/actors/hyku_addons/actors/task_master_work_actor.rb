@@ -4,19 +4,19 @@ module HykuAddons
   module Actors
     class TaskMasterWorkActor < Hyrax::Actors::AbstractActor
       def create(env)
-        enqueue_job(env, action: :create)
+        enqueue_job(env, action: "create")
 
         next_actor.create(env)
       end
 
       def update(env)
-        enqueue_job(env, action: :update)
+        enqueue_job(env, action: "update")
 
         next_actor.update(env)
       end
 
       def destroy(env)
-        enqueue_job(env, action: :destroy)
+        enqueue_job(env, action: "destroy")
 
         next_actor.destroy(env)
       end

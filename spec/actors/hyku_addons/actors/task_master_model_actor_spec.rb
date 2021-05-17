@@ -11,6 +11,7 @@ RSpec.describe HykuAddons::Actors::TaskMasterWorkActor do
   let(:env_class) { Hyrax::Actors::Environment }
   let(:env) { env_class.new(work, ability, attributes) }
   let(:terminator) { Hyrax::Actors::Terminator.new }
+  let(:options) { { action: "create" } }
 
   # This is an alternative to the subject(:middleware) below, but won't test the middleware chain.
   # Use it with: `actor.create(env)`
@@ -49,7 +50,7 @@ RSpec.describe HykuAddons::Actors::TaskMasterWorkActor do
         expect { middleware.create(env) }
           .to have_enqueued_job(HykuAddons::TaskMasterWorkJob)
           .on_queue(Hyrax.config.ingest_queue_name)
-          .with(work.id)
+          .with(work.id, options)
       end
     end
 
@@ -74,6 +75,8 @@ RSpec.describe HykuAddons::Actors::TaskMasterWorkActor do
 
   describe "#update" do
     context "when the flipflop is enabled" do
+      let(:options) { { action: "update" } }
+
       before do
         allow(terminator).to receive(:update).with(env_class)
       end
@@ -88,7 +91,7 @@ RSpec.describe HykuAddons::Actors::TaskMasterWorkActor do
         expect { middleware.update(env) }
           .to have_enqueued_job(HykuAddons::TaskMasterWorkJob)
           .on_queue(Hyrax.config.ingest_queue_name)
-          .with(work.id)
+          .with(work.id, options)
       end
     end
 
@@ -113,6 +116,8 @@ RSpec.describe HykuAddons::Actors::TaskMasterWorkActor do
 
   describe "#destroy" do
     context "when the flipflop is enabled" do
+      let(:options) { { action: "destroy" } }
+
       before do
         allow(terminator).to receive(:destroy).with(env_class)
       end
@@ -127,7 +132,7 @@ RSpec.describe HykuAddons::Actors::TaskMasterWorkActor do
         expect { middleware.destroy(env) }
           .to have_enqueued_job(HykuAddons::TaskMasterWorkJob)
           .on_queue(Hyrax.config.ingest_queue_name)
-          .with(work.id)
+          .with(work.id, options)
       end
     end
 

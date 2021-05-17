@@ -2,8 +2,8 @@
 
 module HykuAddons
   class TaskMasterWorkJob < ApplicationJob
-    def perform(work_id)
-      HykuAddons::TaskMasterWorkService.new(work_id).perform
+    def perform(work_id, options = {})
+      HykuAddons::TaskMasterWorkService.new(work_id, options).perform
     end
   end
 end

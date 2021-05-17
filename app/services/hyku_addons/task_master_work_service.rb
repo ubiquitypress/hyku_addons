@@ -5,9 +5,9 @@ module HykuAddons
     KEY_FILE_CONTENT = ENV["PUBSUB_KEY"] # content of the service account key file
     PROJECT_ID = "up-tools"
     # repository--<type>-<action>: repository--work-submission
-    TOPICS = %i[submission update destroy].freeze
+    TOPICS = %i[create update destroy].freeze
 
-    def initialize(work_id)
+    def initialize(work_id, options = {})
       @work = ActiveFedora::Base.find(work_id)
     end
 

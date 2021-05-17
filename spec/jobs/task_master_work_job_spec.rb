@@ -6,27 +6,28 @@ RSpec.describe HykuAddons::TaskMasterWorkJob do
   let(:work) { create(:work) }
   let(:service_class) { HykuAddons::TaskMasterWorkService }
   let(:service) { service_class.new(work.id) }
+  let(:options) { { action: "create" } }
 
   describe ".perform_later" do
     before { ActiveJob::Base.queue_adapter = :test }
 
     it "enqueues the job" do
-      expect { described_class.perform_later(work.id) }
+      expect { described_class.perform_later(work.id, options) }
         .to enqueue_job(described_class)
-        .with(work.id)
+        .with(work.id, options)
         .on_queue(Hyrax.config.ingest_queue_name)
     end
   end
 
   describe ".perform" do
     before do
-      allow(service_class).to receive(:new).with(work.id).and_return(service)
+      allow(service_class).to receive(:new).with(work.id, options).and_return(service)
     end
 
     it "calls the service" do
       allow(service).to receive(:perform)
 
-      described_class.perform_now(work.id)
+      described_class.perform_now(work.id, options)
 
       expect(service).to have_received(:perform).with(no_args)
     end
