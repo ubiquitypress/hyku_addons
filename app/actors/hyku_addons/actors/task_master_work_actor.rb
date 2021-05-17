@@ -2,29 +2,31 @@
 
 module HykuAddons
   module Actors
-    class TaskMasterModelActor < Hyrax::Actors::AbstractActor
+    class TaskMasterWorkActor < Hyrax::Actors::AbstractActor
       def create(env)
-        enqueue_job(env) if enabled?
+        enqueue_job(env, action: :create)
 
         next_actor.create(env)
       end
 
       def update(env)
-        enqueue_job(env) if enabled?
+        enqueue_job(env, action: :update)
 
         next_actor.update(env)
       end
 
       def destroy(env)
-        enqueue_job(env) if enabled?
+        enqueue_job(env, action: :destroy)
 
         next_actor.destroy(env)
       end
 
       protected
 
-        def enqueue_job(env)
-          TaskMasterWorkJob.perform_later(env.curation_concern.id)
+        def enqueue_job(env, options = {})
+          return unless enabled?
+
+          TaskMasterWorkJob.perform_later(env.curation_concern.id, options)
         end
 
       private
