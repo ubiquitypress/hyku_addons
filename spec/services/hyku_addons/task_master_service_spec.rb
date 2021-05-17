@@ -15,8 +15,20 @@ RSpec.describe HykuAddons::TaskMasterWorkService do
   end
 
   describe "#perform" do
-    it "" do
-      service.perform
+    context "when the action is valid" do
+      it "raised an error" do
+        expect { service.perform }.not_to raise_error
+      end
+
+
+    end
+
+    context "when the action is not valid" do
+      let(:options) { { action: "foo" } }
+
+      it "raised an error" do
+        expect { service.perform }.to raise_error(ArgumentError)
+      end
     end
   end
 end
