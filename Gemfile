@@ -7,6 +7,8 @@ gem 'hyku-api', git: 'https://github.com/ubiquitypress/hyku-api', ref: '3384c465
 gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi', branch: 'main'
 gem 'hyrax-hirmeos', git: 'https://github.com/ubiquitypress/hyrax-hirmeos', branch: 'main'
 
+gem 'google-cloud-pubsub'
+
 # Declare your gem's dependencies in hyku_addons.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
