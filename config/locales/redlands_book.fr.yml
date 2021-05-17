@@ -1,0 +1,8 @@
+fr:
+  hyrax:
+    icons:
+      redlands_book:     'fa fa-file-text-o'
+    select_type:
+      redlands_book:
+        description:        "Redlands book œuvres"
+        name:               "Redlands Book"
