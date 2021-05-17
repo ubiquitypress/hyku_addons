@@ -69,6 +69,7 @@ PATH
     hyku_addons (0.1.0)
       blacklight_oai_provider (~> 6.1)
       config (>= 3.0)
+      google-cloud-pubsub (~> 2.6.1)
       google-cloud-storage (~> 1.31)
       hyrax (~> 2.8)
       hyrax-doi
