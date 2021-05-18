@@ -6,10 +6,10 @@ module HykuAddons
     extend ActiveSupport::Concern
     include ActiveModel::Validations
 
-    ARRAY_SETTINGS = ['weekly_email_list', 'monthly_email_list', 'yearly_email_list', 'email_format'].freeze
-    BOOLEAN_SETTINGS = ['allow_signup', "shared_login", 'bulkrax_validations'].freeze
-    HASH_SETTINGS = [].freeze
-    TEXT_SETTINGS = ['contact_email', 'gtm_id', 'oai_admin_email', 'oai_prefix', 'oai_sample_identifier'].freeze
+    ARRAY_SETTINGS = %w[weekly_email_list monthly_email_list yearly_email_list email_format].freeze
+    BOOLEAN_SETTINGS = %w[allow_signup shared_login bulkrax_validations].freeze
+    HASH_SETTINGS = %w[].freeze
+    TEXT_SETTINGS = %w[contact_email gtm_id oai_admin_email oai_prefix oai_sample_identifier google_analytics_id].freeze
 
     included do
       belongs_to :datacite_endpoint, dependent: :delete
@@ -20,7 +20,7 @@ module HykuAddons
       store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
                      :google_scholarly_work_types, :gtm_id, :shared_login, :email_format,
                      :allow_signup, :oai_admin_email, :file_size_limit, :enable_oai_metadata, :oai_prefix,
-                     :oai_sample_identifier, :locale_name, :bulkrax_validations
+                     :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id
 
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
       after_initialize :set_jsonb_allow_signup_default
@@ -30,6 +30,9 @@ module HykuAddons
                 allow_blank: true
       validates :tenant, format: { with: /\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/ }
       validate :validate_email_format, :validate_contact_emails
+      validates :google_analytics_id,
+                format: { with: /(UA|YT|MO)-\d+-\d+/i },
+                allow_blank: true
     end
 
     def datacite_endpoint

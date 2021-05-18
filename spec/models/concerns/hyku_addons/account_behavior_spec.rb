@@ -90,17 +90,17 @@ RSpec.describe HykuAddons::AccountBehavior do
       end
 
       it "has key weekly_email_list" do
-        expect(account.settings['weekly_email_list']).to  eq ["aaa@aaa.com", "bbb@bl.uk"]
+        expect(account.settings['weekly_email_list']).to  eq ['aaa@aaa.com', 'bbb@bl.uk']
         expect(account.settings['weekly_email_list']).to be_an_instance_of(Array)
       end
 
       it "has non empty month_email_list" do
-        expect(account.settings['monthly_email_list']).to  eq ["aaa@aaa.com", "bbb@bl.uk"]
+        expect(account.settings['monthly_email_list']).to  eq ['aaa@aaa.com', 'bbb@bl.uk']
         expect(account.settings['monthly_email_list']).to be_an_instance_of(Array)
       end
 
       it "has non empty yearly_email_list" do
-        expect(account.settings['yearly_email_list']).to  eq ["aaa@aaa.com", "bbb@bl.uk"]
+        expect(account.settings['yearly_email_list']).to  eq ['aaa@aaa.com', 'bbb@bl.uk']
         expect(account.settings['yearly_email_list']).to be_an_instance_of(Array)
       end
 
@@ -114,16 +114,20 @@ RSpec.describe HykuAddons::AccountBehavior do
     context "settings from environment variable" do
       it "check all boolean truthy values" do
         ['allow_signup', "shared_login"].each do |key|
-          expect(account.settings[key]).to eq("true")
+          expect(account.settings[key]).to eq('true')
         end
       end
 
       it "contains gtm_id" do
-        expect(account.settings['gtm_id']).to eq "GTM-123456"
+        expect(account.settings['gtm_id']).to eq 'GTM-123456'
+      end
+
+      it "contains google_analytics_id" do
+        expect(account.settings['google_analytics_id']).to eq 'UA-123456-12'
       end
 
       it "contains email_format" do
-        expect(account.settings['email_format']).to include("@pacificu.edu")
+        expect(account.settings['email_format']).to include('@pacificu.edu')
       end
     end
 
