@@ -9,7 +9,7 @@ module Hyrax
     self.model_class = ::RedlandsBook
     add_terms %i[title alt_title resource_type creator alt_email abstract keyword subject
                  org_unit language license version_number table_of_contents publisher place_of_publication date_published
-                 edition isbn official_link series_name related_identifier contributor location longitude latitude add_info]
+                 edition isbn official_link series_name related_identifier contributor location longitude latitude add_info buy_book]
     self.terms -= %i[rights_statement publisher related_url]
     self.required_fields = %i[title creator alt_email resource_type abstract keywork subject
                               org_unit language license version_number publisher place_of_publication

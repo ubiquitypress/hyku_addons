@@ -54,6 +54,10 @@ class RedlandsBook < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  property :buy_book, predicate: ::RDF::Vocab::SCHEMA.BuyAction, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
   self.indexer = RedlandsBookIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
