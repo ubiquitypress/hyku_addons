@@ -9,6 +9,10 @@ class PacificPresentation < ActiveFedora::Base
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
 
+  property :alt_title, predicate: ::RDF::Vocab::DC.alternative, multiple: true do |index|
+    index.as :stored_searchable
+  end
+
   property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
     index.as :stored_searchable
   end

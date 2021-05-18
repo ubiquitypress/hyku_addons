@@ -9,6 +9,10 @@ class RedlandsChaptersAndBookSection < ActiveFedora::Base
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
 
+  property :alt_title, predicate: ::RDF::Vocab::DC.alternative, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
   property :alt_email, predicate: ::RDF::Vocab::SCHEMA.email do |index|
     index.as :stored_searchable
   end

@@ -10,6 +10,10 @@ class Article < ActiveFedora::Base
 
   validates :title, presence: { message: 'Your work must have a title.' }
 
+  property :alt_title, predicate: ::RDF::Vocab::DC.alternative, multiple: true do |index|
+    index.as :stored_searchable
+  end
+
   property :journal_title, predicate: ::RDF::Vocab::BIBO.Journal, multiple: false do |index|
     index.as :stored_searchable, :facetable
   end

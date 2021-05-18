@@ -6,6 +6,10 @@ class ConferenceItem < ActiveFedora::Base
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
 
+  property :alt_title, predicate: ::RDF::Vocab::DC.alternative, multiple: true do |index|
+    index.as :stored_searchable
+  end
+
   property :series_name, predicate: ::RDF::Vocab::BF2.subseriesOf do |index|
     index.as :stored_searchable, :facetable
   end

@@ -70,10 +70,6 @@ module HykuAddons
         index.as :stored_searchable, :facetable
       end
 
-      property :alt_title, predicate: ::RDF::Vocab::DC.alternative, multiple: true do |index|
-        index.as :stored_searchable
-      end
-
       property :dewey, predicate: ::RDF::Vocab::SCHEMA.CategoryCode, multiple: false do |index|
         index.as :stored_searchable
       end
