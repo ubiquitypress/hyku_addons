@@ -8,7 +8,7 @@ class PacificNewsClipping < ActiveFedora::Base
   # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
-
+  include ::HykuAddons::AltTitleMultiple
   property :reading_level, predicate: ::RDF::Vocab::SCHEMA.proficiencyLevel, multiple: false do |index|
     index.as :stored_searchable
   end
