@@ -8,7 +8,7 @@ class PacificThesisOrDissertation < ActiveFedora::Base
   # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
-  include ::HykuAddons::WorkWithMultipleAltTitle
+  include ::HykuAddons::AltTitleMultiple
 
   property :pagination, predicate: ::RDF::Vocab::BIBO.numPages, multiple: false do |index|
     index.as :stored_searchable
