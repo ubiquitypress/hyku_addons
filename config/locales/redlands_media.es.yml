@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      redlands_media:     'fa fa-file-text-o'
+    select_type:
+      redlands_media:
+        # TODO: translate `human_name` into Spanish
+        description:        "Redlands media trabajos"
+        name:               "Redlands Media"
+        # TODO: translate `human_name` into Spanish

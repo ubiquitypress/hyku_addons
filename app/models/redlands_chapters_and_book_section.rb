@@ -65,7 +65,6 @@ class RedlandsChaptersAndBookSection < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-
   self.indexer = RedlandsChaptersAndBookSectionIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []

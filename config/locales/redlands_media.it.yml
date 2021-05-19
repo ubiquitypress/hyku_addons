@@ -1,0 +1,8 @@
+it:
+  hyrax:
+    icons:
+      redlands_media:     'fa fa-file-text-o'
+    select_type:
+      redlands_media:
+        description:        "Redlands media opere"
+        name:               "Redlands Media"
