@@ -5,4 +5,4 @@ en:
     select_type:
       redlands_article:
         description:        "Redlands article works"
-        name:               "Redlands Article"
+        name:               "Article"

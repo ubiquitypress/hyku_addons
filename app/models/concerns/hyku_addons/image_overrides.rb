@@ -5,6 +5,7 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     include ::HykuAddons::WorkBase
+    include ::HykuAddons::AltTitleMultiple
 
     included do
       include Hyrax::DOI::DOIBehavior

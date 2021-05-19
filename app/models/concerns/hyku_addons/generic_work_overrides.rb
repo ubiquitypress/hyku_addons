@@ -5,6 +5,7 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     include ::HykuAddons::WorkBase
+    include ::HykuAddons::AltTitleMultiple
 
     # TODO: Review indexing and switch to mostly _ssim instead of _tesim
     included do

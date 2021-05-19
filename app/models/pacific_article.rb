@@ -8,7 +8,7 @@ class PacificArticle < ActiveFedora::Base
   # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
-
+  include ::HykuAddons::AltTitleMultiple
   property :journal_title, predicate: ::RDF::Vocab::BIBO.Journal, multiple: false do |index|
     index.as :stored_searchable, :facetable
   end

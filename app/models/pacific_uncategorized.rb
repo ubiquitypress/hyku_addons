@@ -8,7 +8,7 @@ class PacificUncategorized < ActiveFedora::Base
   # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
-
+  include ::HykuAddons::AltTitleMultiple
   property :additional_links, predicate: ::RDF::Vocab::SCHEMA.significantLinks, multiple: false do |index|
     index.as :stored_searchable
   end

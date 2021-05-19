@@ -5,4 +5,4 @@ en:
     select_type:
       redlands_book:
         description:        "Redlands book works"
-        name:               "Redlands Book"
+        name:               "Book"

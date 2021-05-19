@@ -5,6 +5,7 @@ class Book < ActiveFedora::Base
   include Hyrax::DOI::DOIBehavior
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
+  include ::HykuAddons::AltTitleMultiple
 
   property :series_name, predicate: ::RDF::Vocab::BF2.subseriesOf do |index|
     index.as :stored_searchable, :facetable

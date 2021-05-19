@@ -8,6 +8,7 @@ class PacificTextWork < ActiveFedora::Base
   # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
+  include ::HykuAddons::AltTitleMultiple
 
   property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
     index.as :stored_searchable
