@@ -44,7 +44,7 @@ RSpec.describe HykuAddons::TaskMaster::AccountBehavior do
         expect { model.save }
           .to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
           .on_queue(Hyrax.config.ingest_queue_name)
-          .with("tenant", "create", model.to_task_master)
+          .with("tenant", "create", model.to_task_master.to_json)
       end
     end
 
@@ -57,7 +57,7 @@ RSpec.describe HykuAddons::TaskMaster::AccountBehavior do
         expect { model.save }
           .to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
           .on_queue(Hyrax.config.ingest_queue_name)
-          .with("tenant", "update", model.to_task_master)
+          .with("tenant", "update", model.to_task_master.to_json)
       end
     end
 
@@ -70,7 +70,7 @@ RSpec.describe HykuAddons::TaskMaster::AccountBehavior do
         expect { model.destroy }
           .to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
           .on_queue(Hyrax.config.ingest_queue_name)
-          .with("tenant", "destroy", uuid: model.tenant)
+          .with("tenant", "destroy", { uuid: model.tenant }.to_json)
       end
     end
   end

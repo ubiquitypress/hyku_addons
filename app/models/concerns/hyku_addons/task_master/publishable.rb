@@ -38,7 +38,7 @@ module HykuAddons
       end
 
       def publish(type, action, data)
-        HykuAddons::TaskMaster::PublishJob.perform_later(type, action, data)
+        HykuAddons::TaskMaster::PublishJob.perform_later(type, action, data.to_json)
       end
     end
   end

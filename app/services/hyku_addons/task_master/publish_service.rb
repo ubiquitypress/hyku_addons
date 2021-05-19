@@ -15,13 +15,13 @@ module HykuAddons
 
       # @param [String] the type instance type
       # @param [String] the CRUD action being performed
-      # @param [Hash] the data to be published
+      # @param [JSON] the JSON string to be published
       #
       # @return [HykuAddons::TaskMaster::PublishService]
-      def initialize(type, action, data)
+      def initialize(type, action, json)
         @type = type
         @action = action
-        @data = data
+        @json = json
 
         validate_arguments!
       end
@@ -34,7 +34,7 @@ module HykuAddons
       # @return [Google::Cloud::PubSub::Message] or nil
       def perform
         topic = client.topic(topic_name)
-        topic.publish(@data.to_json)
+        topic.publish(@json)
       end
 
       protected
@@ -66,7 +66,7 @@ module HykuAddons
         def validate_arguments!
           raise ArgumentError, "Type '#{@type}' is invalid" unless ALLOWED_TYPES.include?(@type.to_s)
           raise ArgumentError, "Action '#{@action}' is invalid" unless ALLOWED_ACTIONS.include?(@action.to_s)
-          raise ArgumentError, "Data is required to be a hash" unless @data.is_a?(Hash)
+          raise ArgumentError, "A JSON string is required" unless @json.is_a?(String)
         end
     end
   end

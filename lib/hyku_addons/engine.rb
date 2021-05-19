@@ -494,6 +494,10 @@ module HykuAddons
       Hyrax::ImagePresenter.include HykuAddons::GenericWorkPresenterBehavior
       CatalogController.include HykuAddons::CatalogControllerBehavior
 
+      # TaskMaster
+      Account.include HykuAddons::TaskMaster::AccountBehavior
+      FileSet.include HykuAddons::TaskMaster::FileSetBehavior
+
       actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 

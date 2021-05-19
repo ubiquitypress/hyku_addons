@@ -5,8 +5,8 @@ module HykuAddons
     class PublishJob < ApplicationJob
       discard_on ArgumentError
 
-      def perform(type, action, data)
-        HykuAddons::TaskMaster::PublishService.new(type, action, data).perform
+      def perform(type, action, json)
+        HykuAddons::TaskMaster::PublishService.new(type, action, json).perform
       end
     end
   end
