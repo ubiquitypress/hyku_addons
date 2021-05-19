@@ -34,11 +34,19 @@ module HykuAddons
       end
 
       def publish_destroy
-        publish(task_master_type, "destroy", uuid: task_master_uuid)
+        publish(task_master_type, "destroy", to_task_master)
       end
 
       def publish(type, action, data)
+        return unless enabled?
+
         HykuAddons::TaskMaster::PublishJob.perform_later(type, action, data.to_json)
+      end
+
+      private
+
+      def enable?
+        Flipflop.enabled?(:task_master)
       end
     end
   end
