@@ -29,7 +29,7 @@ module Hyrax
         permitted_params << common_fields
         permitted_params << [:alt_title, :alt_email, :edition, :book_title, :org_unit, :subject, :keyword,
                              :language, :version_number, :issue, :pagination, :location, :longitude,
-                             :latitude, :license, :isbn]
+                             :latitude, :license, :isbn, :buy_book]
       end
     end
   end
