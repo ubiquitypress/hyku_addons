@@ -8,10 +8,7 @@ class PacificBookChapter < ActiveFedora::Base
   # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
-
-  property :alt_title, predicate: ::RDF::Vocab::DC.alternative, multiple: true do |index|
-    index.as :stored_searchable
-  end
+  include ::HykuAddons::WorkWithMultipleAltTitle
 
   property :book_title, predicate: ::RDF::Vocab::BIBO.term(:Proceedings), multiple: false do |index|
     index.as :stored_searchable, :facetable

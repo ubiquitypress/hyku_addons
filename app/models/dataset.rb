@@ -5,10 +5,7 @@ class Dataset < ActiveFedora::Base
   include Hyrax::DOI::DOIBehavior
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
-
-  property :alt_title, predicate: ::RDF::Vocab::DC.alternative, multiple: true do |index|
-    index.as :stored_searchable
-  end
+  include ::HykuAddons::WorkWithMultipleAltTitle
 
   property :version, predicate: ::RDF::Vocab::SCHEMA.version do |index|
     index.as :stored_searchable
