@@ -51,4 +51,23 @@ FactoryBot.define do
     creator { [''] }
     contributor { [''] }
   end
+
+  factory :task_master_work, parent: :work do
+    sequence(:title) { |n| ["Test Title #{n}"] }
+
+    transient do
+      user { create(:user) }
+      with_admin_set { false }
+    end
+
+    after(:build) do |work, evaluator|
+      work.apply_depositor_metadata(evaluator.user.user_key)
+    end
+
+    trait :with_one_file do
+      before(:create) do |work, evaluator|
+        work.ordered_members << create(:file_set, user: evaluator.user, title: ['A Contained PDF FileSet'], label: 'filename.pdf')
+      end
+    end
+  end
 end
