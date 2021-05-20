@@ -21,6 +21,6 @@ Flipflop.configure do
           description: "Import mode - Background jobs are run on specially named queues"
 
   feature :task_master,
-          default: false,
+          default: ENV["PUBSUB_SERVICEACCOUNT_KEY"].present?,
           description: "Send tenant repository stats to task master?"
 end
