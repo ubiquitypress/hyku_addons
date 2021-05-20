@@ -493,18 +493,16 @@ module HykuAddons
       Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
       Hyrax::ImagePresenter.include HykuAddons::GenericWorkPresenterBehavior
       CatalogController.include HykuAddons::CatalogControllerBehavior
+      Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
+      Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
+      actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
+      Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
       # TaskMaster
       Account.include HykuAddons::TaskMaster::AccountBehavior
       FileSet.include HykuAddons::TaskMaster::FileSetBehavior
       # Insert at the end of the actor chain
       Hyrax::CurationConcern.actor_factory.use HykuAddons::Actors::TaskMaster::WorkActor
-
-      actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
-      Hyrax::CurationConcern.actor_factory.insert_after(*actors)
-
-      Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
-      Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
 
       User.include HykuAddons::UserEmailFormat
       Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
