@@ -22,7 +22,7 @@ FROM        bundle as bundle-dev
 RUN         bundle config set without 'production'
 RUN         bundle config set with 'aws development test postgres'
 ENV         CFLAGS=-Wno-error=format-overflow
-RUN         bundle install
+RUN         bundle install --jobs=4 --retry=3
 
 
 # Base stage for building final images
@@ -78,7 +78,7 @@ RUN         dpkg -i /chrome.deb || apt-get install -yf
 
 # Build production gems
 FROM        bundle as bundle-prod
-RUN         bundle install --without development test --with aws production postgres
+RUN         bundle install --jobs=4 --retry=3 --without development test --with aws production postgres
 
 
 # Build production assets
