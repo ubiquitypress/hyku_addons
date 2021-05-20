@@ -45,7 +45,7 @@ module HykuAddons
 
       private
 
-      def enable?
+      def enabled?
         Flipflop.enabled?(:task_master)
       end
     end

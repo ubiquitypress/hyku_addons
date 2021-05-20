@@ -13,6 +13,15 @@ RSpec.describe HykuAddons::TaskMaster::AccountBehavior do
     end
     # rubocop:enable RSpec/DescribedClass
   end
+  let(:flipflop_name) { :task_master }
+  let(:flipflop_enabled) { true }
+
+  before do
+    ActiveJob::Base.queue_adapter = :test
+
+    allow(Flipflop).to receive(:enabled?).and_call_original
+    allow(Flipflop).to receive(:enabled?).with(flipflop_name).and_return(flipflop_enabled)
+  end
 
   describe "#to_task_master" do
     it "returns an object" do
@@ -35,42 +44,70 @@ RSpec.describe HykuAddons::TaskMaster::AccountBehavior do
   end
 
   describe "Callbacks" do
-    before do
-      ActiveJob::Base.queue_adapter = :test
-    end
+    context "when the feature is enabled" do
+      context "when the account is created" do
+        it "creates a job" do
+          expect { model.save }
+            .to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
+            .on_queue(Hyrax.config.ingest_queue_name)
+            .with("tenant", "create", model.to_task_master.to_json)
+        end
+      end
 
-    context "when the account is created" do
-      it "creates a job" do
-        expect { model.save }
-          .to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
-          .on_queue(Hyrax.config.ingest_queue_name)
-          .with("tenant", "create", model.to_task_master.to_json)
+      context "when the account is updated" do
+        before do
+          model.save
+        end
+
+        it "creates a job" do
+          expect { model.save }
+            .to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
+            .on_queue(Hyrax.config.ingest_queue_name)
+            .with("tenant", "update", model.to_task_master.to_json)
+        end
+      end
+
+      context "when the account is destroyed" do
+        before do
+          model.save
+        end
+
+        it "creates a job" do
+          expect { model.destroy }
+            .to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
+            .on_queue(Hyrax.config.ingest_queue_name)
+            .with("tenant", "destroy", model.to_task_master.to_json)
+        end
       end
     end
 
-    context "when the account is updated" do
-      before do
-        model.save
+    context "when the feature is not enabled" do
+      let(:flipflop_enabled) { false }
+
+      context "when the account is created" do
+        it "creates a job" do
+          expect { model.save }.not_to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
+        end
       end
 
-      it "creates a job" do
-        expect { model.save }
-          .to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
-          .on_queue(Hyrax.config.ingest_queue_name)
-          .with("tenant", "update", model.to_task_master.to_json)
-      end
-    end
+      context "when the account is updated" do
+        before do
+          model.save
+        end
 
-    context "when the account is destroyed" do
-      before do
-        model.save
+        it "creates a job" do
+          expect { model.save }.not_to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
+        end
       end
 
-      it "creates a job" do
-        expect { model.destroy }
-          .to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
-          .on_queue(Hyrax.config.ingest_queue_name)
-          .with("tenant", "destroy", { uuid: model.tenant }.to_json)
+      context "when the account is destroyed" do
+        before do
+          model.save
+        end
+
+        it "creates a job" do
+          expect { model.save }.not_to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
+        end
       end
     end
   end
