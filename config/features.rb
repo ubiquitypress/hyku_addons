@@ -23,4 +23,8 @@ Flipflop.configure do
   feature :cache_enabled,
           default: false,
           description: "TURBO MODE. Turns on cache for API endpoints. Experimental"
+  
+  feature :task_master,
+          default: ENV["PUBSUB_SERVICEACCOUNT_KEY"].present?,
+          description: "Send tenant repository stats to task master?"
 end
