@@ -504,7 +504,7 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
 
-      actors = [HykuAddons::Actors::DateFieldsActor, HykuAddons::Actors::TaskMasterWorkActor]
+      actors = [HykuAddons::Actors::DateFieldsActor, HykuAddons::Actors::TaskMaster::WorkActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
       User.include HykuAddons::UserEmailFormat
