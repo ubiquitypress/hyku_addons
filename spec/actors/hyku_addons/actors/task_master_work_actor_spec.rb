@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe HykuAddons::Actors::TaskMasterWorkActor do
+RSpec.describe HykuAddons::Actors::TaskMaster::WorkActor do
   let(:flipflop_name) { :task_master }
   let(:user) { build(:user) }
   let(:work) { create(:generic_work) }
