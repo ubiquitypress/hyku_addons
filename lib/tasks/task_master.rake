@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :task_master do
   desc "Generate Account Entries"
   task publish_accounts: :environment do

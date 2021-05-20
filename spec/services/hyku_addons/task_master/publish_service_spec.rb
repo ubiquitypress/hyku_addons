@@ -41,9 +41,6 @@ RSpec.describe HykuAddons::TaskMaster::PublishService do
     end
   end
 
-  describe "#perform" do
-  end
-
   describe "#topic_name" do
     context "when the action is create" do
       it "provides a formatted string" do

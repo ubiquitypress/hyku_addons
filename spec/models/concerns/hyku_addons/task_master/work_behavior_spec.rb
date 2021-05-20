@@ -13,22 +13,21 @@ RSpec.describe HykuAddons::TaskMaster::WorkBehavior do
 
   describe "#to_task_master" do
     it "returns an object" do
-      expect(subject.to_task_master).to be_a(Hash)
-      expect(subject.to_task_master[:uuid]).to eq work.id
-      expect(subject.to_task_master[:tenant]).to eq account.tenant
+      expect(work.to_task_master).to be_a(Hash)
+      expect(work.to_task_master[:uuid]).to eq work.id
+      expect(work.to_task_master[:tenant]).to eq account.tenant
     end
   end
 
   describe "#task_master_uuid" do
     it "is the work id" do
-      expect(subject.task_master_uuid).to eq work.id
+      expect(work.task_master_uuid).to eq work.id
     end
   end
 
   describe "#task_master_type" do
     it "is work" do
-      expect(subject.task_master_type).to eq "work"
+      expect(work.task_master_type).to eq "work"
     end
   end
 end
-

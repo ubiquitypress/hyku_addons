@@ -24,17 +24,17 @@ module HykuAddons
 
         protected
 
-        def enqueue_job(action, env)
-          work = env.curation_concern
+          def enqueue_job(action, env)
+            work = env.curation_concern
 
-          HykuAddons::TaskMaster::PublishJob.perform_later(work.task_master_type, action, work.to_task_master.to_json)
-        end
+            HykuAddons::TaskMaster::PublishJob.perform_later(work.task_master_type, action, work.to_task_master.to_json)
+          end
 
         private
 
-        def enabled?
-          Flipflop.enabled?(:task_master)
-        end
+          def enabled?
+            Flipflop.enabled?(:task_master)
+          end
       end
     end
   end

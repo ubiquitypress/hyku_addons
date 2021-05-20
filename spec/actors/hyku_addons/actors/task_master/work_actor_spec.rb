@@ -161,4 +161,3 @@ RSpec.describe HykuAddons::Actors::TaskMaster::WorkActor do
     end
   end
 end
-

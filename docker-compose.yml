@@ -116,6 +116,9 @@ services:
       SETTINGS__ZOOKEEPER__CONNECTION_STR: zookeeper_cluster:2181/configs
       SOLR_URL: http://solr:8983/solr/
       PASSENGER_APP_ENV: development
+      GCLOUD_ZONE: 1233465
+      GCLOUD_PROJECT_ID: ABCDEFG
+      PUBSUB_SERVICEACCOUNT_KEY:
     volumes:
       - app:/home/app/spec/internal_test_hyku/tmp/uploads
       - assets:/home/app/spec/internal_test_hyku/public/assets
