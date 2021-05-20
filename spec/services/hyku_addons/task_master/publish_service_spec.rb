@@ -3,16 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe HykuAddons::TaskMaster::PublishService do
-  subject(:service) { described_class.new(type, action, data) }
+  subject(:service) { described_class.new(type, action, json) }
   let(:options) { { action: "create" } }
   let(:type) { "tenant" }
   let(:action) { "create" }
-  let(:data) { {} }
+  let(:json) { "" }
 
   describe ".new" do
     context "when arguments are used" do
       it "doesn't raise" do
-        expect { described_class.new(type, action, data) }.not_to raise_error
+        expect { described_class.new(type, action, json) }.not_to raise_error
       end
     end
 
@@ -20,7 +20,7 @@ RSpec.describe HykuAddons::TaskMaster::PublishService do
       let(:type) { "foo" }
 
       it "raises" do
-        expect { described_class.new(type, action, data) }.to raise_error(ArgumentError)
+        expect { described_class.new(type, action, json) }.to raise_error(ArgumentError)
       end
     end
 
@@ -28,15 +28,15 @@ RSpec.describe HykuAddons::TaskMaster::PublishService do
       let(:action) { "foo" }
 
       it "raises" do
-        expect { described_class.new(type, action, data) }.to raise_error(ArgumentError)
+        expect { described_class.new(type, action, json) }.to raise_error(ArgumentError)
       end
     end
 
     context "when invalid data is used" do
-      let(:data) { "foo" }
+      let(:json) { {} }
 
       it "raises" do
-        expect { described_class.new(type, action, data) }.to raise_error(ArgumentError)
+        expect { described_class.new(type, action, json) }.to raise_error(ArgumentError)
       end
     end
   end
