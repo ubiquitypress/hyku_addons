@@ -5,19 +5,19 @@ module HykuAddons
     module TaskMaster
       class WorkActor < Hyrax::Actors::AbstractActor
         def create(env)
-          enqueue_job("upsert", env) if enabled? && env.curation_concern.publishable?
+          enqueue_job("upsert", env)
 
           next_actor.create(env)
         end
 
         def update(env)
-          enqueue_job("upsert", env) if enabled? && env.curation_concern.publishable?
+          enqueue_job("upsert", env)
 
           next_actor.update(env)
         end
 
         def destroy(env)
-          enqueue_job("destroy", env) if enabled? && env.curation_concern.publishable?
+          enqueue_job("destroy", env)
 
           next_actor.destroy(env)
         end
@@ -25,6 +25,8 @@ module HykuAddons
         protected
 
           def enqueue_job(action, env)
+            return unless enabled? && env.curation_concern.publishable?
+
             work = env.curation_concern
 
             HykuAddons::TaskMaster::PublishJob.perform_later(work.task_master_type, action, work.to_task_master.to_json)
