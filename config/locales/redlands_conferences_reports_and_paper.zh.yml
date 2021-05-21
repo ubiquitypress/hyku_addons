@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      redlands_conferences_reports_and_paper:     'fa fa-file-text-o'
+    select_type:
+      redlands_conferences_reports_and_paper:
+        # TODO: translate `human_name` into Chinese
+        description:        "Redlands conferences reports and paper 作品"
+        name:               "Redlands Conferences Reports And Paper"
+        # TODO: translate `human_name` into Chinese
