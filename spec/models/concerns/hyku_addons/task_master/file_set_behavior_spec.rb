@@ -12,6 +12,16 @@ RSpec.describe HykuAddons::TaskMaster::FileSetBehavior do
     work.save
   end
 
+  describe "#publishable?" do
+    it "is false for a new record" do
+      expect(build(:file_set).publishable?).to be_falsey
+    end
+
+    it "is true for saved records" do
+      expect(file_set.publishable?).to be_truthy
+    end
+  end
+
   describe "#to_task_master" do
     it "returns an object" do
       expect(file_set.to_task_master).to be_a(Hash)

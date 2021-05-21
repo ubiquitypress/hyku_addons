@@ -5,6 +5,10 @@ module HykuAddons
     module WorkBehavior
       extend ActiveSupport::Concern
 
+      def publishable?
+        task_master_uuid.present?
+      end
+
       def task_master_type
         "work"
       end

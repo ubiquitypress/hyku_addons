@@ -6,7 +6,7 @@ module HykuAddons
   module TaskMaster
     class PublishService
       ALLOWED_TYPES = %w[tenant file work].freeze
-      ALLOWED_ACTIONS = %w[create update destroy].freeze
+      ALLOWED_ACTIONS = %w[upsert destroy].freeze
 
       ##
       # @api public
@@ -39,7 +39,6 @@ module HykuAddons
 
       protected
 
-        # repository--<type>-<action>: repository--work-create
         def topic_name
           "repository--#{@type}-#{@action}"
         end

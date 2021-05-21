@@ -4,9 +4,8 @@ require 'rails_helper'
 
 RSpec.describe HykuAddons::TaskMaster::PublishService do
   subject(:service) { described_class.new(type, action, json) }
-  let(:options) { { action: "create" } }
   let(:type) { "tenant" }
-  let(:action) { "create" }
+  let(:action) { "upsert" }
   let(:json) { "" }
 
   describe ".new" do
@@ -42,17 +41,9 @@ RSpec.describe HykuAddons::TaskMaster::PublishService do
   end
 
   describe "#topic_name" do
-    context "when the action is create" do
+    context "when the action is upsert" do
       it "provides a formatted string" do
-        expect(service.send(:topic_name)).to eq "repository--tenant-create"
-      end
-    end
-
-    context "when the action is update" do
-      let(:action) { "update" }
-
-      it "provides a formatted string" do
-        expect(service.send(:topic_name)).to eq "repository--tenant-update"
+        expect(service.send(:topic_name)).to eq "repository--tenant-upsert"
       end
     end
 
@@ -68,7 +59,7 @@ RSpec.describe HykuAddons::TaskMaster::PublishService do
       let(:type) { "work" }
 
       it "provides a formatted string" do
-        expect(service.send(:topic_name)).to eq "repository--work-create"
+        expect(service.send(:topic_name)).to eq "repository--work-upsert"
       end
     end
 
