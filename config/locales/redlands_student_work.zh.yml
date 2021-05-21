@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      redlands_student_work:     'fa fa-file-text-o'
+    select_type:
+      redlands_student_work:
+        # TODO: translate `human_name` into Chinese
+        description:        "Redlands student work 作品"
+        name:               "Redlands Student Work"
+        # TODO: translate `human_name` into Chinese
