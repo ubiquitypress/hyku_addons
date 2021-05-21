@@ -24,7 +24,8 @@ Flipflop.configure do
           default: false,
           description: "TURBO MODE. Turns on cache for API endpoints. Experimental"
   
+  # If this is turned on by default inside the specs, it'll break a lot of them with the on-create callbacks
   feature :task_master,
-          default: ENV["PUBSUB_SERVICEACCOUNT_KEY"].present?,
+          default: ENV["PUBSUB_SERVICEACCOUNT_KEY"].present? && !Rails.env.test?,
           description: "Send tenant repository stats to task master?"
 end

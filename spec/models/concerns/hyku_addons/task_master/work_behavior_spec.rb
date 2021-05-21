@@ -8,7 +8,11 @@ RSpec.describe HykuAddons::TaskMaster::WorkBehavior do
   let(:site) { Site.new(account: account) }
 
   before do
+    ActiveJob::Base.queue_adapter = :test
+
     allow(Site).to receive(:instance).and_return(site)
+    allow(Flipflop).to receive(:enabled?).and_call_original
+    allow(Flipflop).to receive(:enabled?).with(:task_master).and_return(true)
   end
 
   describe "#upsertable?" do
