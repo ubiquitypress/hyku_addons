@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      redlands_student_work:     'fa fa-file-text-o'
+    select_type:
+      redlands_student_work:
+        description:        "Redlands student work Werke"
+        name:               "Redlands Student Work"
