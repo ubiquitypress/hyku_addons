@@ -408,6 +408,8 @@ module HykuAddons
             # NOTE: the work may not be valid, in which case this save doesn't do anything.
             work.save
             Hyrax.config.callback.run(:after_create_fileset, file_set, user)
+
+            # Perform TaskMaster related filset callback
             Hyrax.config.callback.run(:task_master_after_create_fileset, file_set, user)
           end
         end
@@ -497,12 +499,7 @@ module HykuAddons
         # FIXME: This setting is global and affects all tenants
         config.work_requires_files = false
 
-        config.callback.enable :after_create_concern, :after_create_fileset,
-                    :after_update_content, :after_revert_content,
-                    :after_update_metadata, :after_import_local_file_success,
-                    :after_import_local_file_failure, :after_fixity_check_failure,
-                    :after_destroy, :after_import_url_success,
-                    :after_import_url_failure, :task_master_after_create_fileset
+        config.callback.enable :task_master_after_create_fileset
 
         config.callback.set(:task_master_after_create_fileset) do |file_set, _user|
           HykuAddons::TaskMaster::PublishJob.perform_later(
