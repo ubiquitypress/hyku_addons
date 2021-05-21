@@ -33,7 +33,6 @@ RSpec.describe HykuAddons::TaskMaster::AccountBehavior do
     end
   end
 
-
   describe "#to_task_master" do
     it "returns an object" do
       expect(account.to_task_master).to be_a(Hash)

@@ -31,9 +31,9 @@ module HykuAddons
 
       protected
 
-      def work_id
-        member_of_works&.first&.id.present?
-      end
+        def work_id
+          member_of_works&.first&.id.present?
+        end
     end
   end
 end
