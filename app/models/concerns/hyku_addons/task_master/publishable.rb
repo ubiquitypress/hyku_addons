@@ -6,8 +6,7 @@ module HykuAddons
       extend ActiveSupport::Concern
 
       included do
-        after_create :publish_create
-        after_update :publish_update
+        after_save :publish_upsert
         after_destroy :publish_destroy
       end
 
@@ -23,22 +22,26 @@ module HykuAddons
         raise NotImplementedError
       end
 
+      def upsertable?
+        true
+      end
+
+      def destroyable?
+        true
+      end
+
       protected
 
-        def publish_create
-          publish(task_master_type, "create", to_task_master)
-        end
-
-        def publish_update
-          publish(task_master_type, "update", to_task_master)
+        def publish_upsert
+          publish(task_master_type, "upsert", to_task_master)
         end
 
         def publish_destroy
-          publish(task_master_type, "destroy", to_task_master)
+          publish(task_master_type, "destroy", uuid: task_master_uuid)
         end
 
         def publish(type, action, data)
-          return unless enabled?
+          return unless enabled? && send("#{action}able?")
 
           HykuAddons::TaskMaster::PublishJob.perform_later(type, action, data.to_json)
         end

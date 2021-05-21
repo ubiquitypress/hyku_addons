@@ -8,7 +8,7 @@ RSpec.describe HykuAddons::Actors::TaskMaster::WorkActor do
   let(:site) { Site.new(account: account) }
   let(:job_class) { HykuAddons::TaskMaster::PublishJob }
   let(:type) { "work" }
-  let(:action) { "create" }
+  let(:action) { "upsert" }
   let(:json) { work.to_task_master.to_json }
 
   let(:flipflop_name) { :task_master }
@@ -62,23 +62,22 @@ RSpec.describe HykuAddons::Actors::TaskMaster::WorkActor do
 
       before do
         allow(terminator).to receive(:create)
-        allow(middleware).to receive(:enqueue_job)
-
-        middleware.create(env)
       end
 
       it "calls the terminator" do
+        middleware.create(env)
+
         expect(terminator).to have_received(:create).with(env_class)
       end
 
       it "doesn't enqueue a job" do
-        expect(middleware).not_to have_received(:enqueue_job)
+        expect { middleware.create(env) }.not_to enqueue_job(job_class)
       end
     end
   end
 
   describe "#update" do
-    let(:action) { "update" }
+    let(:action) { "upsert" }
 
     context "when the feature is enabled" do
       before do
@@ -104,59 +103,16 @@ RSpec.describe HykuAddons::Actors::TaskMaster::WorkActor do
 
       before do
         allow(terminator).to receive(:update)
-        allow(middleware).to receive(:enqueue_job)
-
-        middleware.update(env)
       end
 
       it "calls the terminator" do
+        middleware.update(env)
+
         expect(terminator).to have_received(:update).with(env_class)
       end
 
       it "doesn't enqueue a job" do
-        expect(middleware).not_to have_received(:enqueue_job)
-      end
-    end
-  end
-
-  describe "#destroy" do
-    let(:action) { "destroy" }
-
-    context "when the feature is enabled" do
-      before do
-        allow(terminator).to receive(:destroy).with(env_class)
-      end
-
-      it "calls the terminator" do
-        middleware.destroy(env)
-
-        expect(terminator).to have_received(:destroy).with(env_class)
-      end
-
-      it "enqueues a job" do
-        expect { middleware.destroy(env) }
-          .to enqueue_job(job_class)
-          .on_queue(Hyrax.config.ingest_queue_name)
-          .with(type, action, json)
-      end
-    end
-
-    context "when the feature is not enabled" do
-      let(:flipflop_enabled) { false }
-
-      before do
-        allow(terminator).to receive(:destroy)
-        allow(middleware).to receive(:enqueue_job)
-
-        middleware.destroy(env)
-      end
-
-      it "calls the terminator" do
-        expect(terminator).to have_received(:destroy).with(env_class)
-      end
-
-      it "doesn't enqueue a job" do
-        expect(middleware).not_to have_received(:enqueue_job)
+        expect { middleware.update(env) }.not_to enqueue_job(job_class)
       end
     end
   end

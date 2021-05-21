@@ -6,7 +6,7 @@ module HykuAddons
   module TaskMaster
     class PublishService
       ALLOWED_TYPES = %w[tenant file work].freeze
-      ALLOWED_ACTIONS = %w[create update destroy].freeze
+      ALLOWED_ACTIONS = %w[upsert destroy].freeze
 
       ##
       # @api public
@@ -33,13 +33,15 @@ module HykuAddons
       #
       # @return [Google::Cloud::PubSub::Message] or nil
       def perform
+        # Without this check, a lot of specs will fail
+        return unless Flipflop.enabled?(:task_master)
+
         topic = client.topic(topic_name)
         topic.publish(@json)
       end
 
       protected
 
-        # repository--<type>-<action>: repository--work-create
         def topic_name
           "repository--#{@type}-#{@action}"
         end
