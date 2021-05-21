@@ -33,6 +33,9 @@ module HykuAddons
       #
       # @return [Google::Cloud::PubSub::Message] or nil
       def perform
+        # Without this check, a lot of specs will fail
+        return unless Flipflop.enabled?(:task_master)
+
         topic = client.topic(topic_name)
         topic.publish(@json)
       end

@@ -22,7 +22,11 @@ module HykuAddons
         raise NotImplementedError
       end
 
-      def publishable?
+      def upsertable?
+        true
+      end
+
+      def destroyable?
         true
       end
 
@@ -33,11 +37,11 @@ module HykuAddons
         end
 
         def publish_destroy
-          publish(task_master_type, "destroy", to_task_master)
+          publish(task_master_type, "destroy", uuid: task_master_uuid)
         end
 
         def publish(type, action, data)
-          return unless enabled? && publishable?
+          return unless enabled? && send("#{action}able?")
 
           HykuAddons::TaskMaster::PublishJob.perform_later(type, action, data.to_json)
         end

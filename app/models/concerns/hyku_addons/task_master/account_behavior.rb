@@ -7,7 +7,7 @@ module HykuAddons
 
       include HykuAddons::TaskMaster::Publishable
 
-      def publishable?
+      def upsertable?
         task_master_uuid.present?
       end
 

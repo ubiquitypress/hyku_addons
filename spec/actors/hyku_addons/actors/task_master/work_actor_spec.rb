@@ -116,45 +116,4 @@ RSpec.describe HykuAddons::Actors::TaskMaster::WorkActor do
       end
     end
   end
-
-  describe "#destroy" do
-    let(:action) { "destroy" }
-
-    context "when the feature is enabled" do
-      before do
-        allow(terminator).to receive(:destroy).with(env_class)
-      end
-
-      it "calls the terminator" do
-        middleware.destroy(env)
-
-        expect(terminator).to have_received(:destroy).with(env_class)
-      end
-
-      it "enqueues a job" do
-        expect { middleware.destroy(env) }
-          .to enqueue_job(job_class)
-          .on_queue(Hyrax.config.ingest_queue_name)
-          .with(type, action, json)
-      end
-    end
-
-    context "when the feature is not enabled" do
-      let(:flipflop_enabled) { false }
-
-      before do
-        allow(terminator).to receive(:destroy)
-      end
-
-      it "calls the terminator" do
-        middleware.destroy(env)
-
-        expect(terminator).to have_received(:destroy).with(env_class)
-      end
-
-      it "doesn't enqueue a job" do
-        expect { middleware.destroy(env) }.not_to enqueue_job(job_class)
-      end
-    end
-  end
 end

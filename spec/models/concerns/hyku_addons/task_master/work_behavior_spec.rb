@@ -11,13 +11,13 @@ RSpec.describe HykuAddons::TaskMaster::WorkBehavior do
     allow(Site).to receive(:instance).and_return(site)
   end
 
-  describe "#publishable?" do
+  describe "#upsertable?" do
     it "is false for a new record" do
-      expect(build(:task_master_work).publishable?).to be_falsey
+      expect(build(:task_master_work).upsertable?).to be_falsey
     end
 
     it "is true for saved records" do
-      expect(work.publishable?).to be_truthy
+      expect(work.upsertable?).to be_truthy
     end
   end
 
@@ -38,6 +38,17 @@ RSpec.describe HykuAddons::TaskMaster::WorkBehavior do
   describe "#task_master_type" do
     it "is work" do
       expect(work.task_master_type).to eq "work"
+    end
+  end
+
+  describe "Callbacks" do
+    context "when the work is destroyed" do
+      it "creates a job" do
+        expect { work.destroy }
+          .to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
+          .on_queue(Hyrax.config.ingest_queue_name)
+          .with("work", "destroy", { uuid: work.task_master_uuid }.to_json)
+      end
     end
   end
 end

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# NOTE: The actor stack does not get this far for destroy, so that action is performed on the WorkBehavor
 module HykuAddons
   module Actors
     module TaskMaster
@@ -16,16 +17,10 @@ module HykuAddons
           next_actor.update(env)
         end
 
-        def destroy(env)
-          enqueue_job("destroy", env)
-
-          next_actor.destroy(env)
-        end
-
         protected
 
           def enqueue_job(action, env)
-            return unless enabled? && env.curation_concern.publishable?
+            return unless enabled? && env.curation_concern.upsertable?
 
             work = env.curation_concern
 
