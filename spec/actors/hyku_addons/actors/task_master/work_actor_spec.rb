@@ -8,7 +8,7 @@ RSpec.describe HykuAddons::Actors::TaskMaster::WorkActor do
   let(:site) { Site.new(account: account) }
   let(:job_class) { HykuAddons::TaskMaster::PublishJob }
   let(:type) { "work" }
-  let(:action) { "create" }
+  let(:action) { "upsert" }
   let(:json) { work.to_task_master.to_json }
 
   let(:flipflop_name) { :task_master }
@@ -78,7 +78,7 @@ RSpec.describe HykuAddons::Actors::TaskMaster::WorkActor do
   end
 
   describe "#update" do
-    let(:action) { "update" }
+    let(:action) { "upsert" }
 
     context "when the feature is enabled" do
       before do

@@ -7,7 +7,7 @@ RSpec.describe HykuAddons::TaskMaster::PublishJob do
   let(:service_class) { HykuAddons::TaskMaster::PublishService }
   let(:service) { service_class.new(type, action, json) }
   let(:type) { "work" }
-  let(:action) { "create" }
+  let(:action) { "upsert" }
   let(:json) { work.to_task_master.to_json }
   let(:account) { create(:account) }
   let(:site) { Site.new(account: account) }

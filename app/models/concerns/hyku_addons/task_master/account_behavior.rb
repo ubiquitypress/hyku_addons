@@ -7,6 +7,10 @@ module HykuAddons
 
       include HykuAddons::TaskMaster::Publishable
 
+      def publishable?
+        task_master_uuid.present?
+      end
+
       def task_master_type
         "tenant"
       end

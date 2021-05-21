@@ -18,10 +18,21 @@ module HykuAddons
       def to_task_master
         {
           uuid: task_master_uuid,
-          work: member_of_works&.first&.id,
+          work: work_id,
           name: label,
           metadata: attributes
         }
+      end
+
+      # File entries will cause an error unless they have a valid work id
+      def publishable?
+        work_id.present?
+      end
+
+      protected
+
+      def work_id
+        member_of_works&.first&.id.present?
       end
     end
   end

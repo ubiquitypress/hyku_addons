@@ -11,6 +11,16 @@ RSpec.describe HykuAddons::TaskMaster::WorkBehavior do
     allow(Site).to receive(:instance).and_return(site)
   end
 
+  describe "#publishable?" do
+    it "is false for a new record" do
+      expect(build(:task_master_work).publishable?).to be_falsey
+    end
+
+    it "is true for saved records" do
+      expect(work.publishable?).to be_truthy
+    end
+  end
+
   describe "#to_task_master" do
     it "returns an object" do
       expect(work.to_task_master).to be_a(Hash)
