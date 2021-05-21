@@ -12,13 +12,13 @@ RSpec.describe HykuAddons::TaskMaster::FileSetBehavior do
     work.save
   end
 
-  describe "#publishable?" do
+  describe "#upsertable?" do
     it "is false for a new record" do
-      expect(build(:file_set).publishable?).to be_falsey
+      expect(build(:file_set).upsertable?).to be_falsey
     end
 
     it "is true for saved records" do
-      expect(file_set.publishable?).to be_truthy
+      expect(file_set.upsertable?).to be_truthy
     end
   end
 
@@ -39,6 +39,17 @@ RSpec.describe HykuAddons::TaskMaster::FileSetBehavior do
   describe "#task_master_type" do
     it "is file" do
       expect(file_set.task_master_type).to eq "file"
+    end
+  end
+
+  describe "Callbacks" do
+    context "when the file set is destroyed" do
+      it "creates a job" do
+        expect { file_set.destroy }
+          .to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
+          .on_queue(Hyrax.config.ingest_queue_name)
+          .with("file", "destroy", { uuid: file_set.task_master_uuid }.to_json)
+      end
     end
   end
 end

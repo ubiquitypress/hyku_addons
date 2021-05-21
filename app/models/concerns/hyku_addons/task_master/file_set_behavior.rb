@@ -25,7 +25,7 @@ module HykuAddons
       end
 
       # File entries will cause an error unless they have a valid work id
-      def publishable?
+      def upsertable?
         work_id.present?
       end
 

@@ -23,13 +23,13 @@ RSpec.describe HykuAddons::TaskMaster::AccountBehavior do
     allow(Flipflop).to receive(:enabled?).with(flipflop_name).and_return(flipflop_enabled)
   end
 
-  describe "#publishable?" do
+  describe "#upsertable?" do
     it "is false for a new record" do
-      expect(model_class.new.publishable?).to be_falsey
+      expect(model_class.new.upsertable?).to be_falsey
     end
 
     it "is true for records with a tenant uuid" do
-      expect(account.publishable?).to be_truthy
+      expect(account.upsertable?).to be_truthy
     end
   end
 
@@ -86,7 +86,7 @@ RSpec.describe HykuAddons::TaskMaster::AccountBehavior do
           expect { account.destroy }
             .to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
             .on_queue(Hyrax.config.ingest_queue_name)
-            .with("tenant", "destroy", account.to_task_master.to_json)
+            .with("tenant", "destroy", { uuid: account.task_master_uuid }.to_json)
         end
       end
     end
