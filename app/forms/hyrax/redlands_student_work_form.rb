@@ -1,3 +1,4 @@
+# frozen_string_literal: true.
 # Generated via
 #  `rails generate hyrax:work RedlandsStudentWork`
 module Hyrax
@@ -25,7 +26,7 @@ module Hyrax
       super.tap do |permitted_params|
         permitted_params << common_fields
         permitted_params << [:alt_title, :alt_email, :volume, :journal_title, :org_unit, :subject, :keyword,
-                             :language,:location, :longitude, :latitude, :license, :advisor, :qualification_name]
+                             :language, :location, :longitude, :latitude, :license, :advisor, :qualification_name]
       end
     end
   end

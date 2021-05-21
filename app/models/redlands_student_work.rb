@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Generated via
 #  `rails generate hyrax:work RedlandsStudentWork`
 class RedlandsStudentWork < ActiveFedora::Base
@@ -28,7 +29,7 @@ class RedlandsStudentWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :advisor,  predicate: ::RDF::Vocab::Bibframe.Person, multiple: false do |index|
+  property :advisor, predicate: ::RDF::Vocab::Bibframe.Person, multiple: false do |index|
     index.as :stored_searchable
   end
 

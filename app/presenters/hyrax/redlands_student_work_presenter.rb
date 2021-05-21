@@ -7,8 +7,8 @@ module Hyrax
 
     def self.delegated_methods
       %i[title alt_title resource_type creator alt_email abstract keyword subject
-        qualification_name org_unit language license publisher date_published contributor location
-        longitude latitude advisor add_info].freeze
+         qualification_name org_unit language license publisher date_published contributor location
+         longitude latitude advisor add_info].freeze
     end
     include ::HykuAddons::PresenterDelegatable
   end
