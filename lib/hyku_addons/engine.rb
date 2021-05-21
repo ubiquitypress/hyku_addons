@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'hyrax/doi/engine'
 require 'bolognese/metadata'
+require 'config'
 
 module HykuAddons
   class Engine < ::Rails::Engine
