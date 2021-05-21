@@ -19,7 +19,7 @@ module Hyrax
 
     def primary_terms
       %i[title alt_title resource_type creator alt_email abstract keyword subject
-         org_unit language license publisher date_published event_location]
+         org_unit language license publisher date_published event_location] | super
     end
 
     def self.build_permitted_params
