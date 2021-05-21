@@ -488,7 +488,7 @@ module HykuAddons
         config.callback.set(:task_master_after_create_fileset) do |file_set, _user|
           HykuAddons::TaskMaster::PublishJob.perform_later(
             file_set.task_master_type,
-            "create",
+            "upsert",
             file_set.to_task_master.to_json
           )
         end
