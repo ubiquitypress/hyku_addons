@@ -21,7 +21,7 @@ module Hyrax
 
     def primary_terms
       %i[title alt_title resource_type creator contributor alt_email abstract keyword subject
-         org_unit language license version_number publisher place_of_publication date_published book_title]
+         org_unit language license version_number publisher place_of_publication date_published book_title] | super
     end
 
     def self.build_permitted_params
