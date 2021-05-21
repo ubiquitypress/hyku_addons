@@ -6,8 +6,16 @@ RSpec.describe HykuAddons::TaskMaster::FileSetBehavior do
   subject(:file_set) { create(:file_set, user: user, title: ['A Contained PDF FileSet'], label: 'filename.pdf') }
   let(:user) { create(:user) }
   let(:work) { create(:task_master_work) }
+  let(:account) { create(:account) }
+  let(:site) { Site.new(account: account) }
 
   before do
+    ActiveJob::Base.queue_adapter = :test
+
+    allow(Site).to receive(:instance).and_return(site)
+    allow(Flipflop).to receive(:enabled?).and_call_original
+    allow(Flipflop).to receive(:enabled?).with(:task_master).and_return(true)
+
     work.ordered_members << file_set
     work.save
   end
