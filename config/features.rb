@@ -24,4 +24,8 @@ Flipflop.configure do
   feature :task_master,
           default: ENV["PUBSUB_SERVICEACCOUNT_KEY"].present? && !Rails.env.test?,
           description: "Send tenant repository stats to task master?"
+
+  feature :notes_tab_form,
+          default: false,
+          description: "Enables the Notes tab in the deposit form"
 end
