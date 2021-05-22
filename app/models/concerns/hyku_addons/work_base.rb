@@ -76,6 +76,10 @@ module HykuAddons
         index.as :stored_searchable
       end
 
+      property :note, predicate: ::RDF::Vocab::MODS.note, multiple: true do |index|
+        index.as :stored_searchable
+      end
+
       # property :file_availability, predicate: ::RDF::Vocab::SCHEMA.ItemAvailability do |index|
       #   index.as :stored_searchable, :facetable
       # end
