@@ -5,6 +5,7 @@ class Report < ActiveFedora::Base
   include Hyrax::DOI::DOIBehavior
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
+  include ::HykuAddons::AltTitleMultiple
 
   self.indexer = ReportIndexer
   validates :title, presence: { message: 'Your work must have a title.' }

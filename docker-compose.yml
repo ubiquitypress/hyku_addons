@@ -119,7 +119,9 @@ services:
       ORCID_CLIENT_ID: APP-IK56X6QNRRL9VNOM
       ORCID_CLIENT_SECRET: f5154480-039b-4ad5-aaf4-aa6eb272c670
       ORCID_AUTH_REDIRECT: https://developers.google.com/oauthplayground
-
+      GCLOUD_ZONE: 1233465
+      GCLOUD_PROJECT_ID: ABCDEFG
+      PUBSUB_SERVICEACCOUNT_KEY:
     volumes:
       - app:/home/app/spec/internal_test_hyku/tmp/uploads
       - assets:/home/app/spec/internal_test_hyku/public/assets
@@ -153,6 +155,8 @@ services:
   workers:
     <<: *app
     command: bundle exec sidekiq -r spec/internal_test_hyku/
+    stdin_open: true
+    tty: true
     depends_on:
       - db
       - solr

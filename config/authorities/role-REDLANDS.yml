@@ -20,12 +20,18 @@ terms:
  - id: Composer
    term: Composer
    active: true
+ - id: Conductor
+   term: Conductor
+   active: true
  - id: Contact Person
    term: Contact Person
    active: true
  - id: Contributor
    term: Contributor
    active: true
+ - id: Costume Designer
+   term: Costume Designer
+   acitve: true
  - id: Curator
    term: Curator
    active: true
@@ -62,6 +68,9 @@ terms:
  - id: Interviewer
    term: Interviewer
    active: true
+ - id: Lighting Designer
+   term: Lighting Designer
+   acitve: true
  - id: Narrator
    term: Narrator
    active: true
@@ -86,6 +95,9 @@ terms:
  - id: Publisher
    term: Publisher
    active: true
+ - id: Puppet Designer
+   term: Puppet Designer
+   acitve: true
  - id: Registration Agency
    term: Registration Agency
    active: true
@@ -107,6 +119,9 @@ terms:
  - id: Scientific Advisor
    term: Scientific Advisor
    active: true
+ - id: Set Designer
+   term: Set Designer
+   acitve: true
  - id: Sponsor
    term: Sponsor
    active: true

@@ -41,7 +41,8 @@ module HykuAddons
            language license rights_statement rights_holder doi qualification_name qualification_level draft_doi
            alternate_identifier related_identifier refereed keyword dewey library_of_congress_classification add_info
            page_display_order_number irb_number irb_status subject additional_links is_included_in buy_book challenged
-           location outcome participant reading_level photo_caption photo_description degree longitude latitude alt_email] + hyrax_terms
+           location outcome participant reading_level photo_caption photo_description degree longitude latitude alt_email
+           alt_book_title table_of_contents] + hyrax_terms
       end
 
       def hyrax_terms

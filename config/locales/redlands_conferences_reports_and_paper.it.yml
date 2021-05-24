@@ -1,0 +1,8 @@
+it:
+  hyrax:
+    icons:
+      redlands_conferences_reports_and_paper:     'fa fa-file-text-o'
+    select_type:
+      redlands_conferences_reports_and_paper:
+        description:        "Redlands conferences reports and paper opere"
+        name:               "Redlands Conferences Reports And Paper"

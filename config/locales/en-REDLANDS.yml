@@ -2,7 +2,7 @@ en-REDLANDS:
   simple_form:
     creator:
       creator_name_type:
-        label: Name Type
+        label: Creator Name Type
       creator_family_name:
         label: Last Name
         placeholder: e.g. Vaughan
@@ -28,6 +28,36 @@ en-REDLANDS:
       creator_role:
         label: Role
         placeholder: " "
+      creator_organization_name:
+        label: Organization Name
+        placeholder: " "
+      creator_ror:
+        label: ROR ID
+        placeholder: " "
+    contributor:
+      contributor_family_name:
+        label: Last Name
+        placeholder: e.g. Vaughan
+      contributor_given_name:
+        label: First Name
+        placeholder: e.g. Dorothy
+      contributor_middle_name:
+        label: Middle Name
+        placeholder: e.g. Johnson
+      contributor_institution:
+        label: Institution
+        placeholder: " "
+      contributor_role:
+        label: Role
+      contributor_suffix:
+        label: Suffix
+        placeholder: " "
+      contributor_institution:
+        label: Institution
+        placeholder: " "
+      contributor_orcid:
+        label: ORCiD ID
+        placeholder: " "
     labels:
       defaults:
         resource_type: Document Type
@@ -43,6 +73,8 @@ en-REDLANDS:
         official_link: Link to Full Text
         related_identifier: PMID
         location: Geolocate
+        alt_book_title: Alternative Book Title
+        edition: Book Edition
     placeholders:
       defaults:
         alt_email: downloadreports@tellme.org

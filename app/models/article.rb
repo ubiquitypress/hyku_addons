@@ -5,6 +5,7 @@ class Article < ActiveFedora::Base
   include Hyrax::DOI::DOIBehavior
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
+  include ::HykuAddons::AltTitleMultiple
 
   self.indexer = HykuAddons::ArticleIndexer
 

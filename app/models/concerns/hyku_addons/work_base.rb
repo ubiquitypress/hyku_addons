@@ -4,6 +4,8 @@ module HykuAddons
   module WorkBase
     extend ActiveSupport::Concern
 
+    include HykuAddons::TaskMaster::WorkBehavior
+
     # TODO: Review indexing and switch to mostly _ssim instead of _tesim
     included do
       # From SharedMetadata
@@ -68,10 +70,6 @@ module HykuAddons
 
       property :library_of_congress_classification, predicate: ::RDF::Vocab::BF2.term(:ClassificationLcc) do |index|
         index.as :stored_searchable, :facetable
-      end
-
-      property :alt_title, predicate: ::RDF::Vocab::DC.alternative, multiple: true do |index|
-        index.as :stored_searchable
       end
 
       property :dewey, predicate: ::RDF::Vocab::SCHEMA.CategoryCode, multiple: false do |index|

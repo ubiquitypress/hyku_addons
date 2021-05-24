@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      redlands_chapters_and_book_section:     'fa fa-file-text-o'
+    select_type:
+      redlands_chapters_and_book_section:
+        # TODO: translate `human_name` into Chinese
+        description:        "Redlands chapters and book section 作品"
+        name:               "Redlands Chapters And Book Section"
+        # TODO: translate `human_name` into Chinese

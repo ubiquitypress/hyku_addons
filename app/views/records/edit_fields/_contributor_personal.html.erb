@@ -1,4 +1,5 @@
 <div data-toggleable-group="<%= type %>">
+	<% contributor_role_options = HykuAddons::RoleService.new(model: f.object.model.class).select_active_options %>
 	<% personal_fields = [
 		{ field_type: :text, field_slug: :contributor_family_name },
 		{ field_type: :text, field_slug: :contributor_given_name },
@@ -12,6 +13,7 @@
 	] %>
 	<% personal_fields = add_pacific_contributor_personal_fields(personal_fields) if template.include? "pacific" %>
 	<% personal_fields = add_uva_contributor_personal_fields(personal_fields) if template.include? "uva" %>
+	<% personal_fields = add_redlands_contributor_personal_fields(personal_fields, contributor_role_options) if template.include? "redlands" %>
 	<% personal_fields.each do |field| %>
 		<% options = { field_group: :contributor, template: template, hash: hash }.merge(field) %>
 		<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>

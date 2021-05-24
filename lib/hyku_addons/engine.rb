@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'hyrax/doi/engine'
 require 'bolognese/metadata'
+require 'config'
 
 module HykuAddons
   class Engine < ::Rails::Engine
@@ -391,6 +392,9 @@ module HykuAddons
             # NOTE: the work may not be valid, in which case this save doesn't do anything.
             work.save
             Hyrax.config.callback.run(:after_create_fileset, file_set, user)
+
+            # Perform TaskMaster related filset callback
+            Hyrax.config.callback.run(:task_master_after_create_fileset, file_set, user)
           end
         end
       end
@@ -467,12 +471,27 @@ module HykuAddons
         config.register_curation_concern :pacific_text_work
         config.register_curation_concern :pacific_uncategorized
         config.register_curation_concern :redlands_article
+        config.register_curation_concern :redlands_book
+        config.register_curation_concern :redlands_chapters_and_book_section
+        config.register_curation_concern :redlands_conferences_reports_and_paper
+        config.register_curation_concern :redlands_media
+        config.register_curation_concern :redlands_student_work
         config.register_curation_concern :uva_work
 
         config.license_service_class = HykuAddons::LicenseService
 
         # FIXME: This setting is global and affects all tenants
         config.work_requires_files = false
+
+        config.callback.enable :task_master_after_create_fileset
+
+        config.callback.set(:task_master_after_create_fileset) do |file_set, _user|
+          HykuAddons::TaskMaster::PublishJob.perform_later(
+            file_set.task_master_type,
+            "upsert",
+            file_set.to_task_master.to_json
+          )
+        end
       end
     end
 
@@ -493,9 +512,14 @@ module HykuAddons
       CatalogController.include HykuAddons::CatalogControllerBehavior
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
-
       actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
+
+      # TaskMaster
+      Account.include HykuAddons::TaskMaster::AccountBehavior
+      FileSet.include HykuAddons::TaskMaster::FileSetBehavior
+      # Insert at the end of the actor chain
+      Hyrax::CurationConcern.actor_factory.use HykuAddons::Actors::TaskMaster::WorkActor
 
       User.include HykuAddons::UserEmailFormat
       Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior

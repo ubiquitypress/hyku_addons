@@ -31,7 +31,7 @@
 		<% end %>
 
 		<% field_options = { field_slug: :contributor_isni, field_group: :contributor, template: template, hash: hash } %>
-		<%= render "records/edit_fields/attribution_partials/text_field", field_options %>
+		<%= render "records/edit_fields/attribution_partials/text_field", field_options unless (template.include? "redlands") %>
 
 		<% model = f.object.model.class %>
 		<% opts = HykuAddons::ContributorGroupService.new(model: model).select_active_options.flatten.uniq! %>
@@ -45,7 +45,7 @@
 			group_class: "form-group contributor_type-group #{template}_contributor_contributor_type",
 			field_args: { prompt: "Please Select...", class: "form-control #{template}_contributor_contributor_type" }
 		} %>
-		<%= render "records/edit_fields/attribution_partials/select_field", field_options unless (template.include? "pacific") || (template.include? "uva") %>
+		<%= render "records/edit_fields/attribution_partials/select_field", field_options unless (template.include? "pacific") || (template.include? "uva") || (template.include? "redlands")%>
 
 		<div class="form-group">
 			<a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_parent">
