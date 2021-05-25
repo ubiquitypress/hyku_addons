@@ -8,7 +8,7 @@ FactoryBot.define do
     user { FactoryBot.build(:base_user) }
     export_type { "metadata" }
     export_from { "importer" }
-    export_source { '1' }
+    export_source { "1" }
     parser_klass { "Bulkrax::CsvParser" }
     limit { 0 }
     field_mapping { nil }
