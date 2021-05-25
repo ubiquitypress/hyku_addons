@@ -37,7 +37,8 @@ module Bolognese
       def self.nested_attributes
         {
           "container" => %w[volume issue firstPage lastPage pagination]
-        } end
+        }
+      end
 
       # An array of methods that should be called after the inital attributes have been collected.
       # These methods should modify the `@reader_attributes` variable directly
