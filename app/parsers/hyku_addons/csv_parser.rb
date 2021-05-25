@@ -71,7 +71,7 @@ module HykuAddons
     # All possible column names
     def export_headers
       # Trust that the entries' parsed metadata
-      importerexporter.entries.where(identifier: current_work_ids)[0..limit || total].collect { |e| e.parsed_metadata.keys }.flatten.uniq
+      importerexporter.entries.where(identifier: current_work_ids).limit(limit || total).map { |e| e.parsed_metadata.keys }.flatten.uniq
     end
 
     # See https://stackoverflow.com/questions/2650517/count-the-number-of-lines-in-a-file-without-reading-entire-file-into-memory
