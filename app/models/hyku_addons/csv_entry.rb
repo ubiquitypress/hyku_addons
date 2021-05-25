@@ -100,7 +100,8 @@ module HykuAddons
 
     def admin_set_created?
       return true if record["admin_set"].blank?
-      AdminSet.where(title: record["admin_set"]).first.present? || AdminSet.where(id: record["admin_set"]).first.present?
+      admin_set = AdminSet.find_by(title: record["admin_set"]) || AdminSet.where(id: record["admin_set"])
+      admin_set.present?
     end
 
     # If only filename is given, construct the path (/files/my_file)
