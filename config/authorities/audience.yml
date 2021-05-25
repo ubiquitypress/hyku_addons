@@ -1,0 +1,34 @@
+terms:
+ - id: Undergraduate -- General Education
+   term: Undergraduate -- General Education
+   active: true
+ - id: Undergraduate -- Lower Division
+   term: Undergraduate -- Lower Division
+   active: true
+ - id: Undergraduate -- Upper Division
+   term: Undergraduate -- Upper Division
+   active: true
+ - id: Graduate
+   term: Graduate
+   active: true
+ - id: Professional
+   term: Professional
+   active: true
+ - id: 000 Level
+   term: 000 Level
+   active: true
+ - id: 100 Level
+   term: 100 Level
+   active: true
+ - id: 200 Level
+   term: 200 Level
+   active: true
+ - id: 300 Level
+   term: 300 Level
+   active: true
+ - id: 400 Level
+   term: 400 Level
+   active: true
+ - id: Adult Education
+   term: Adult Education
+   active: true

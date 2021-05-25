@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      redlands_open_educational_resource:     'fa fa-file-text-o'
+    select_type:
+      redlands_open_educational_resource:
+        description:        "Redlands open educational resource works"
+        name:               "Open Educational Resource"
