@@ -45,7 +45,7 @@ class RedlandsOpenEducationalResource < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :audience, predicate: ::RDF::Vocab::BF2.IntendedAudience, multiple: true do |index|
+  property :audience, predicate: ::RDF::Vocab::BF2.IntendedAudience do |index|
     index.as :stored_searchable
   end
 
