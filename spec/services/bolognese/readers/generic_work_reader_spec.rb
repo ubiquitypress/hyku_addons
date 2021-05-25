@@ -9,8 +9,28 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:book_title) { "Book Title 1" }
   let(:contributor) { 'Elizabeth Portch' }
   let(:created_year) { "1945" }
-  let(:creator1) { 'Tove Jansson' }
-  let(:creator2) { 'Creator 2' }
+  let(:creator1_first_name) { "Sebastian" }
+  let(:creator1_last_name) { "Hageneuer" }
+  let(:creator2_first_name) { "Johnny" }
+  let(:creator2_last_name) { "Testing" }
+  let(:creator1) do
+    {
+      "nameType"=>"Personal",
+      "name"=>"#{creator1_last_name}, #{creator1_first_name}",
+      "givenName"=> creator1_first_name,
+      "familyName"=> creator1_last_name
+    }
+  end
+  let(:creator2) do
+    {
+      "name"=>"#{creator2_last_name}, #{creator2_first_name}",
+      "givenName"=> creator2_first_name,
+      "familyName"=> creator2_last_name,
+      "nameIdentifiers"=>[
+        {"nameIdentifier"=>"12345678890", "nameIdentifierScheme"=>"orcid"}
+      ]
+    }
+  end
   let(:date_accepted) { "2018-01-02" }
   let(:date_created) { "#{created_year}-01-01" }
   let(:date_published) { "#{published_year}-01-01" }
@@ -56,7 +76,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
       title: [title],
       alt_title: [alt_title1],
       resource_type: [resource_type],
-      creator: [creator1],
+      creator: [creator1.to_json],
       contributor: [contributor],
       publisher: [publisher],
       abstract: abstract,
@@ -99,7 +119,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
           expect(ris).to include("TY  - #{ris_resource_type_identifier}")
           expect(ris).to include("T1  - #{title}")
           expect(ris).to include("T2  - #{alt_title1}")
-          expect(ris).to include("AU  - #{creator1}")
+          expect(ris).to include("AU  - #{creator1_last_name}, #{creator1_first_name}")
           expect(ris).to include("ED  - #{editor}")
           expect(ris).to include("DO  - https://doi.org/#{doi}")
           expect(ris).to include("AB  - #{abstract}")
@@ -126,7 +146,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
             "alt_title" => [alt_title1, alt_title2, ""],
             "book_title" => book_title,
             "contributor" => [contributor],
-            "creator": [creator1, creator2, ""],
+            "creator" => [[creator1, creator2].to_json],
             "date_accepted" => date_accepted,
             "date_published" => date_published,
             "date_submitted" => date_submitted,
@@ -145,52 +165,52 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
             "official_link" => official_link,
             "org_unit" => [org_unit1, org_unit2],
             "pagination" => pagination,
-            "place_of_publication" => [place_of_publication1, place_of_publication2],
+            "place_of_publication" => [place_of_publication, place_of_publication2],
             "project_name" => [project_name1, project_name2],
             "publisher" => [publisher, ""],
-            "resource_type": ["Other", ""],
+            "resource_type" => ["Other", ""],
             "series_name" => [series_name, ""],
             "source" => [""],
-            "title": [title],
+            "title" => [title],
             "version_number" => [version_number, ""],
             "volume" => [volume, ""]
           }
         end
 
-        it "outputs correctly" do
-          ris = metadata.ris
+        context "outputs correctly" do
+          let(:ris) { metadata.ris }
 
-          expect(ris).to include("TY  - GEN")
-          expect(ris).to include("T1  - #{title}")
-          expect(ris).to include("T2  - #{alt_title1}")
-          expect(ris).to include("T2  - #{alt_title2}")
-          expect(ris).to include("T2  - #{book_title}")
-          expect(ris).to include("AU  - #{creator1}")
-          expect(ris).to include("AU  - #{creator2}")
-          expect(ris).to include("ED  - #{editor}")
-          expect(ris).to include("AB  - #{abstract}")
-          expect(ris).to include("DA  - #{date_published}")
-          expect(ris).to include("DO  - https://doi.org/#{doi}")
-          expect(ris).to include("JO  - #{journal_title}")
-          expect(ris).to include("LA  - #{language}")
-          expect(ris).to include("LA  - #{language2}")
-          expect(ris).to include("N1  - #{add_info}")
-          expect(ris).to include("KW  - #{keyword}")
-          expect(ris).to include("KW  - #{keyword2}")
-          expect(ris).to include("IS  - #{issue}")
-          expect(ris).to include("PB  - #{publisher}")
-          expect(ris).to include("PP  - #{place_of_publication1}")
-          expect(ris).to include("PP  - #{place_of_publication2}")
-          expect(ris).to include("PY  - #{published_year}")
-          expect(ris).to include("SN  - #{isbn}")
-          expect(ris).to include("SP  - #{pagination}")
-          expect(ris).to include("UR  - #{official_link}")
-          expect(ris).to include("VL  - #{volume}")
-          expect(ris).to include("ER  - ")
+          it { expect(ris).to include("TY  - GEN") }
+          it { expect(ris).to include("T1  - #{title}") }
+          it { expect(ris).to include("T2  - #{alt_title1}") }
+          it { expect(ris).to include("T2  - #{alt_title2}") }
+          it { expect(ris).to include("T2  - #{book_title}") }
+          it { expect(ris).to include("AU  - #{creator1_last_name}, #{creator1_first_name}") }
+          it { expect(ris).to include("AU  - #{creator2_last_name}, #{creator2_first_name}") }
+          it { expect(ris).to include("ED  - #{editor}") }
+          it { expect(ris).to include("AB  - #{abstract}") }
+          it { expect(ris).to include("DA  - #{date_published}") }
+          it { expect(ris).to include("DO  - https://doi.org/#{doi}") }
+          it { expect(ris).to include("JO  - #{journal_title}") }
+          it { expect(ris).to include("LA  - #{language}") }
+          it { expect(ris).to include("LA  - #{language2}") }
+          it { expect(ris).to include("N1  - #{add_info}") }
+          it { expect(ris).to include("KW  - #{keyword}") }
+          it { expect(ris).to include("KW  - #{keyword2}") }
+          it { expect(ris).to include("IS  - #{issue}") }
+          it { expect(ris).to include("PB  - #{publisher}") }
+          it { expect(ris).to include("PP  - #{place_of_publication}") }
+          it { expect(ris).to include("PP  - #{place_of_publication2}") }
+          it { expect(ris).to include("PY  - #{published_year}") }
+          it { expect(ris).to include("SN  - #{isbn}") }
+          it { expect(ris).to include("SP  - #{pagination}") }
+          it { expect(ris).to include("UR  - #{official_link}") }
+          it { expect(ris).to include("VL  - #{volume}") }
+          it { expect(ris).to include("ER  - ") }
 
           # Ensure the priority of the identifiers is being respected
-          expect(ris).not_to include(issn)
-          expect(ris).not_to include(eissn)
+          it { expect(ris).not_to include(issn) }
+          it { expect(ris).not_to include(eissn) }
         end
       end
     end
@@ -211,7 +231,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
 
       context 'it correctly populates the datacite XML' do
         it { expect(datacite_xml.xpath('/resource/titles/title[1]/text()').to_s).to eq title }
-        it { expect(datacite_xml.xpath('/resource/creators/creator[1]/creatorName/text()').to_s).to eq creator1 }
+        it { expect(datacite_xml.xpath('/resource/creators/creator[1]/creatorName/text()').to_s).to eq "#{creator1_last_name}, #{creator1_first_name}" }
         it { expect(datacite_xml.xpath('/resource/publisher/text()').to_s).to eq publisher }
         it { expect(datacite_xml.xpath('/resource/descriptions/description[1]/text()').to_s).to eq abstract }
         it { expect(datacite_xml.xpath('/resource/contributors/contributor[1]/contributorName/text()').to_s).to eq contributor }
