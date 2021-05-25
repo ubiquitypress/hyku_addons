@@ -22,8 +22,8 @@ module Bolognese
             xml.parent.namespace = xml.parent.namespace_definitions.find { |ns| ns.prefix == "work" }
 
             xml[:work].title do
-              xml[:common].title "Work title"
-              xml[:common].subtitle "Work Alt title"
+              xml[:common].title titles.first.dig("title")
+              xml[:common].subtitle meta.dig("alt_title").first
             end
 
             xml[:work].type type

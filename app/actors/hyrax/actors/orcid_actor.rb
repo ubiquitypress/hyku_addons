@@ -8,11 +8,15 @@ module Hyrax
       TARGET_TERMS = %i[creator contributor].freeze
 
       def create(env)
-        process_work(env) && next_actor.create(env)
+        process_work(env)
+
+        next_actor.create(env)
       end
 
       def update(env)
-        process_work(env) && next_actor.update(env)
+        process_work(env)
+
+        next_actor.update(env)
       end
 
       protected
@@ -22,6 +26,7 @@ module Hyrax
 
           @curation_concern = env.curation_concern
 
+          # If the work includes our default terms
           (TARGET_TERMS & work_type_terms).each { |term| process_term(term) }
         end
 
@@ -30,6 +35,8 @@ module Hyrax
 
           return unless data.present?
 
+          # TODO: Check for user participation in syncing
+          # For all work contributors, sync the work to their profile
           JSON.parse(data).each do |participant|
             next unless (orcid_id = participant.dig("#{term}_orcid")).present?
 

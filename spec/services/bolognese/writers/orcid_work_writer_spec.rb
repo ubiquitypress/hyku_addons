@@ -8,17 +8,38 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
   let(:alt_title1) { 'alt-title' }
   let(:alt_title2) { 'alt-title-2' }
   let(:book_title) { "Book Title 1" }
-  let(:contributor) { 'Elizabeth Portch' }
-  let(:created_year) { "1945" }
-  let(:creator1) { 'Tove Jansson' }
-  let(:creator2) { 'Creator 2' }
-  let(:date_accepted) { "2018-01-02" }
-  let(:date_created) { "#{created_year}-01-01" }
-  let(:date_published) { "#{published_year}-01-01" }
-  let(:date_submitted) { "2019-01-02" }
+  let(:contributor) do
+    {
+      "contributor_organization_name" => "",
+      "contributor_given_name" => "Johnny",
+      "contributor_family_name" => "Smithy",
+      "contributor_name_type" => "Personal",
+      "contributor_orcid" => "",
+      "contributor_isni" => "",
+      "contributor_ror" => "",
+      "contributor_grid" => "",
+      "contributor_wikidata" => "",
+      "contributor_type" => "Other"
+    }
+  end
+  let(:creator) do
+    {
+      "creator_organization_name" => "",
+      "creator_given_name" => "Sebastian",
+      "creator_family_name" => "Hageneuer",
+      "creator_name_type" => "Personal",
+      "creator_orcid" => "https://orcid.org/0000-0001-8973-1544",
+      "creator_isni" => "",
+      "creator_ror" => "",
+      "creator_grid" => "",
+      "creator_wikidata" => ""
+    }
+  end
+  let(:date_accepted) { "1992-5-6" }
+  let(:date_published) { "2020-2-6" }
+  let(:published_year) { "2020" }
+  let(:date_submitted) { "1980-4-8" }
   let(:doi) { '10.18130/v3-k4an-w022' }
-  let(:duration1) { "duration1" }
-  let(:duration2) { "duration2" }
   let(:edition) { "1" }
   let(:editor) { "Test Editor" }
   let(:eissn) { "1234-5678" }
@@ -27,72 +48,63 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
   let(:isbn) { "9781770460621" }
   let(:issn) { "0987654321" }
   let(:issue) { 7 }
-  let(:journal_title) { "Test Journal Title" }
-  let(:keyword) { 'Lighthouses' }
-  let(:keyword2) { 'Hippos' }
+  let(:keywords) { ['Lighthouses', 'Hippos'] }
   let(:language) { "Swedish" }
-  let(:language2) { "English" }
   let(:official_link) { "http://test-url.com" }
-  let(:org_unit1) { "Department of Crackers" }
-  let(:org_unit2) { "Department2" }
   let(:pagination) { "1-2" }
-  let(:place_of_publication) { "Finland" }
-  let(:place_of_publication1) { "Buenos Aires, Argentina" }
-  let(:place_of_publication2) { "Place of publication2" }
-  let(:project_name1) { "Project name2" }
-  let(:project_name2) { "The Chicken projectca" }
-  let(:published_year) { "1946" }
   let(:publisher) { 'Schildts' }
   let(:resource_type) { "Book" }
-  let(:ris_resource_type_identifier) { "BOOK" }
-  let(:series_name) { "Series name" }
+  let(:series_name) { "Series nme" }
   let(:title) { 'Moomin' }
   let(:version_number) { "3" }
   let(:volume) { 2 }
 
   let(:attributes) do
     {
-      "abstract" => abstract,
-      "add_info" => add_info,
-      "alt_title" => [alt_title1, alt_title2, ""],
-      "book_title" => book_title,
-      "contributor" => [contributor],
-      "creator": [creator1, creator2, ""],
-      "date_accepted" => date_accepted,
-      "date_published" => date_published,
-      "date_submitted" => date_submitted,
-      "doi": [doi],
-      "duration" => [duration1, duration2, ""],
-      "edition" => edition,
-      "editor" => [editor],
-      "eissn" => eissn,
-      "institution" => [institution1, institution2],
-      "isbn" => isbn,
-      "issn" => issn,
-      "issue" => issue,
-      "journal_title" => journal_title,
-      "keyword" => [keyword, keyword2, ""],
-      "language" => [language, language2],
-      "official_link" => official_link,
-      "org_unit" => [org_unit1, org_unit2],
-      "pagination" => pagination,
-      "place_of_publication" => [place_of_publication1, place_of_publication2],
-      "project_name" => [project_name1, project_name2],
-      "publisher" => [publisher, ""],
-      "resource_type": ["Other", ""],
-      "series_name" => [series_name, ""],
-      "source" => [""],
-      "title": [title],
-      "version_number" => [version_number, ""],
-      "volume" => [volume, ""]
+      # "depositor" => "paul.danelli+admin@ubiquitypress.com",
+      "title" => ["Communicating the Past in the Digital Age: Proceedings of the International Conference on Digital Methods in Teaching and Learning in Archaeology (12th-13th October 2018)"],
+      # "official_link" => "https://www.ubiquitypress.com/site/books/10.5334/bch/",
+      # "institution" => ["British Library"],
+      # "date_published" => "2020-2-6",
+      # "date_accepted" => "1992-5-6",
+      # "date_submitted" => "1980-4-8",
+      # "doi" => ["10.5334/bch"],
+      # "volume" => ["2"],
+      # "book_title" => "Communicating the Past in the Digital Age: Proceedings of the International Conference on Digital Methods in Teaching and Learning in Archaeology (12th-13th October 2018)",
+      # "isbn" => "9781911529842",
+      # "resource_type" => ["Cartographic material"],
+      "creator" => [
+        [
+          {
+            "creator_organization_name"=>"",
+            "creator_given_name"=>"Sebastian",
+            "creator_family_name"=>"Hageneuer",
+            "creator_name_type"=>"Personal",
+            "creator_orcid"=>"https://orcid.org/0000-0001-8973-1544",
+            "creator_isni"=>"",
+            "creator_ror"=>"",
+            "creator_grid"=>"",
+            "creator_wikidata"=>""
+          }
+        ].to_json
+      ]
     }
+  end
+
+  context "" do
+    it {
+      work =  GenericWork.new(attributes)
+      input = work.attributes.merge(has_model: work.has_model.first).to_json
+      meta = Bolognese::Readers::GenericWorkReader.new(input: input, from: "work")
+
+      meta.send(:read_creator)
+    }
+
   end
 
   let(:model_class) { GenericWork }
   let(:work) { model_class.new(attributes) }
   let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
-  let(:reader) { Bolognese::Readers::GenericWorkReader.new(input: input, from: "work") }
-
   # NOTE: If updating the schema files, you'll need to manually update the remove `schemaLocation` references
   let(:xml_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1") }
 
@@ -127,7 +139,7 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
   describe "#orcid_xml" do
     it "outputs the XML" do
       puts '==================================================================='
-      puts reader.orcid_xml("other")
+      puts meta meta.orcid_xml("other")
       puts '==================================================================='
     end
 
@@ -135,7 +147,7 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
       Dir.chdir(xml_path) do
         schema = Nokogiri::XML::Schema(IO.read(schema_file))
 
-        doc = Nokogiri::XML(reader.orcid_xml("other"))
+        doc = Nokogiri::XML(meta.orcid_xml("other"))
         expect(schema.validate(doc)).to be_empty
       end
     end
