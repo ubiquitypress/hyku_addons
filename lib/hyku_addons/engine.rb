@@ -497,6 +497,7 @@ module HykuAddons
         config.register_curation_concern :redlands_book
         config.register_curation_concern :redlands_chapters_and_book_section
         config.register_curation_concern :redlands_conferences_reports_and_paper
+        config.register_curation_concern :redlands_open_educational_resource
         config.register_curation_concern :redlands_media
         config.register_curation_concern :redlands_student_work
         config.register_curation_concern :uva_work

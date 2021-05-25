@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      redlands_open_educational_resource:     'fa fa-file-text-o'
+    select_type:
+      redlands_open_educational_resource:
+        # TODO: translate `human_name` into Spanish
+        description:        "Redlands open educational resource trabajos"
+        name:               "Redlands Open Educational Resource"
+        # TODO: translate `human_name` into Spanish

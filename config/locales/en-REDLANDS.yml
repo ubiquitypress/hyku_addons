@@ -74,12 +74,21 @@ en-REDLANDS:
         related_identifier: PMID
         location: Geolocate
         alt_book_title: Alternative Book Title
-        edition: Book Edition
+        edition: Edition
     placeholders:
       defaults:
         alt_email: downloadreports@tellme.org
         related_identifier: 33613019
+        adapted_from: Julie Shayne’s 2020 Persistence is Resistance Celebrating 50 Years of Gender, Women & Sexuality Studies available from https://uw.pressbooks.pub/happy50thws/
+        related_material: This simulation may be used in conjunction with the Chi-Square chapter from David Lane’s Rice Virtual Lab in Statistics available from https://www.merlot.org/merlot/viewMaterial.htm?id=79148
+        suggested_reviewers: "Pia R. Reviewer (University of San Diego) to review introduction. They have expertise introducing first-year students to issues of power and privilege in higher education settings.
+                              Petra Viewer (Occidental College) to review the Citation chapter. Has expertise in the politics of citation practices."
+        suggested_student_reviewers: I’d like Stewart Vuher (University of Redlands) to complete each exercise in the order provided and comment on any areas of confusion, provide suggestions.
     hints:
       defaults:
         alt_email: To facilitate communication past your tenure at Redlands. Will not be used for non-repository purposes.
         related_identifier: PubMed Identifier
+        adapted_from: As a professional courtesy, reference works from which this work was adapted.
+        related_material: If applicable, please list all material related to this work.
+        suggested_reviewers: To improve the quality and rigor of OER, and to aid potential adopters in their evaluations, the Armacost Library recommends subjecting your OER to the review of peers following these OER review guidelines. If you would like Armacost Library to solicit open, post-publication review(s) of your work by peers, please provide their names, affiliations, and reasons their input has value. For larger works and for submissions with multiple files, please specify whether reviewers are being asked to review all or particular sections of this OER.
+        suggested_student_reviewers: To improve the quality and rigor of OER, and to aid potential adopters in their evaluations, the Armacost Library recommends subjecting your OER to the review of students following these OER review guidelines. If you would like Armacost Library to solicit open, post-publication review(s) of your work by students, please provide their names, affiliations, and reasons their input has value. For larger works and for submissions with multiple files, please specify whether reviewers are being asked to review all or particular sections of this OER.
