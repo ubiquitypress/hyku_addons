@@ -226,7 +226,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
 
       it "sets the DOI" do
         url = "https://doi.org/#{doi}"
-        expect(datacite_xml.xpath("/resource/identifier[@identifierType="DOI"]/text()").to_s).to eq url
+        expect(datacite_xml.xpath("/resource/identifier[@identifierType='DOI']/text()").to_s).to eq url
       end
 
       context "it correctly populates the datacite XML" do
@@ -238,13 +238,13 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
         it { expect(datacite_xml.xpath("/resource/subjects/subject[1]/text()").to_s).to eq keyword }
         it { expect(JSON.parse(datacite_xml.xpath("/resource/language/text()").to_s).first).to eq language }
         it {
-          xpath = "/resource/relatedIdentifiers/relatedIdentifier[@relatedIdentifierType="ISBN"]/text()"
+          xpath = "/resource/relatedIdentifiers/relatedIdentifier[@relatedIdentifierType='ISBN']/text()"
           expect(datacite_xml.xpath(xpath).to_s).to eq isbn
         }
       end
 
       it "sets the resource type" do
-        type = JSON.parse(datacite_xml.xpath("/resource/resourceType[@resourceTypeGeneral="Other"]/text()").to_s).first
+        type = JSON.parse(datacite_xml.xpath("/resource/resourceType[@resourceTypeGeneral='Other']/text()").to_s).first
         expect(type).to eq resource_type
       end
 
