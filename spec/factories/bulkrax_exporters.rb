@@ -30,7 +30,7 @@ FactoryBot.define do
     user { FactoryBot.build(:base_user) }
     export_type { 'metadata' }
     export_from { 'worktype' }
-    export_source { 'Generic' }
+    export_source { "Generic" }
     parser_klass { "Bulkrax::CsvParser" }
     limit { 0 }
     field_mapping { nil }
