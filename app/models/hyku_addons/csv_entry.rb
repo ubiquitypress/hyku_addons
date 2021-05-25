@@ -156,6 +156,7 @@ module HykuAddons
       hyrax_record.class.json_fields.map(&:to_s).each do |field|
         json_str = parsed_metadata.delete(field)
         next unless json_str.present?
+        # Split JSON into separate columns for each subfield suffixed by index within the JSON (e.g. creator_given_name_1)
         JSON.parse(json_str).each_with_index { |h, i| h.each { |k, v| parsed_metadata["#{k}_#{i + 1}"] = v } }
       rescue JSON::ParseError
         next
