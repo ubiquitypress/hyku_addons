@@ -147,3 +147,8 @@ RSpec/LetSetup:
 Performance/RedundantSortBy:
   Exclude:
     - 'app/renderers/hyrax/renderers/work_metadata_diff_renderer.rb'
+
+Naming/FileName:
+  Exclude:
+    - 'config/initializers/hydra-derivatives.rb'
+    - 'Gemfile'
