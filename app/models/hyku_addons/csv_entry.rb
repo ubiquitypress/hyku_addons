@@ -127,7 +127,10 @@ module HykuAddons
       parsed_metadata['model'] = hyrax_record.has_model.first
       build_mapping_metadata
       unless hyrax_record.is_a?(Collection)
-        parsed_metadata['file'] = hyrax_record.file_sets.map { |fs| filename(fs)&.to_s.presence }.compact.join('|')
+        parsed_metadata['file'] = hyrax_record.file_sets
+                                              .map { |fs| filename(fs)&.to_s.presence }
+                                              .compact
+                                              .join('|')
       end
       build_json_metadata
       parsed_metadata['visibility'] = hyrax_record.visibility
