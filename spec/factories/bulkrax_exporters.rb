@@ -28,7 +28,7 @@ FactoryBot.define do
   factory :bulkrax_exporter_worktype, class: "Bulkrax::Exporter" do
     name { "Export from Worktype" }
     user { FactoryBot.build(:base_user) }
-    export_type { 'metadata' }
+    export_type { "metadata" }
     export_from { 'worktype' }
     export_source { "Generic" }
     parser_klass { "Bulkrax::CsvParser" }
