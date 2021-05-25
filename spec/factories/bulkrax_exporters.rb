@@ -14,7 +14,7 @@ FactoryBot.define do
     field_mapping { nil }
   end
 
-  factory :bulkrax_exporter_collection, class: 'Bulkrax::Exporter' do
+  factory :bulkrax_exporter_collection, class: "Bulkrax::Exporter" do
     name { "Export from Collection" }
     user { FactoryBot.build(:base_user) }
     export_type { "full" }
