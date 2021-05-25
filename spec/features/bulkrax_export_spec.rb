@@ -54,9 +54,9 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
       expect(parsed_metadata["pagination"]).to eq "1"
       expect(parsed_metadata["event_date"]).to eq "2009"
       expect(parsed_metadata["related_exhibition_date"]).to eq "2009"
-      expected_dois = "3-921099-34-X", "doi:10.1038/nphys1170", "ISBN:978-83-7659-303-6", "9790879392788",
-                      "3-540-49698-x", "0-19-852663-6", "978-3-540-49698-4"
-      expect(parsed_metadata["identifier"].split("|")).to contain_exactly(expected_dois)
+      expected_dois = ["3-921099-34-X", "doi:10.1038/nphys1170", "ISBN:978-83-7659-303-6", "9790879392788",
+                       "3-540-49698-x", "0-19-852663-6", "978-3-540-49698-4"]
+      expect(parsed_metadata["identifier"].split("|")).to contain_exactly(*expected_dois)
     end
   end
 
@@ -92,7 +92,7 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
     it "exports all fields" do
       entry = exporter.entries.find { |e| e.identifier == "c109b1ff-6d9a-4498-b86c-190e7dcbe2e0" }
       expect(entry).to be_present
-      expect(entry.parsed_metadata["title"]).to eq "Bourdieu\"s Art"
+      expect(entry.parsed_metadata["title"]).to eq "Bourdieu's Art"
       expect(entry.parsed_metadata["date_published"]).to eq "2010-1-1"
       expect(entry.parsed_metadata["creator_family_name_1"]).to eq "Wilkes"
       expect(entry.parsed_metadata["creator_given_name_1"]).to eq "Christopher"
