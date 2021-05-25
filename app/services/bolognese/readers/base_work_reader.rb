@@ -70,15 +70,15 @@ module Bolognese
         # Prepare the json to be parsed through Bolognese get_authors method
         # Bologese wants a hash with `givenName` not `creator_given_name` etc
         def bologneseify_author_json(type, json)
-          creators = JSON.parse(json)
-          transformed = Array.wrap(creators).map { |cr| cr.transform_keys { |k| k.gsub(/#{type}_/, "") }.deep_transform_keys { |k| k.camelize(:lower) } }
+          obj = JSON.parse(json)
+          transformed = Array.wrap(obj).map { |cr| cr.transform_keys { |k| k.gsub(/#{type}_/, "") }.deep_transform_keys { |k| k.camelize(:lower) } }
 
-          transformed.each do |creator|
-            next unless creator["orcid"].present?
+          transformed.each do |t|
+            next unless t["orcid"].present?
 
-            creator["nameIdentifier"] = {
+            t["nameIdentifier"] = {
               "nameIdentifierScheme" => "orcid",
-              "__content__" => creator["orcid"]
+              "__content__" => t["orcid"]
             }
           end
 
