@@ -2,12 +2,12 @@
 require "rails_helper"
 
 RSpec.describe Bolognese::Readers::GenericWorkReader do
-  let(:abstract) { 'Swedish comic about the adventures of the residents of Moominvalley.' }
+  let(:abstract) { "Swedish comic about the adventures of the residents of Moominvalley." }
   let(:add_info) { "Nothing to report" }
-  let(:alt_title1) { 'alt-title' }
-  let(:alt_title2) { 'alt-title-2' }
+  let(:alt_title1) { "alt-title" }
+  let(:alt_title2) { "alt-title-2" }
   let(:book_title) { "Book Title 1" }
-  let(:contributor) { 'Elizabeth Portch' }
+  let(:contributor) { "Elizabeth Portch" }
   let(:created_year) { "1945" }
   let(:creator1_first_name) { "Sebastian" }
   let(:creator1_last_name) { "Hageneuer" }
@@ -35,7 +35,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:date_created) { "#{created_year}-01-01" }
   let(:date_published) { "#{published_year}-01-01" }
   let(:date_submitted) { "2019-01-02" }
-  let(:doi) { '10.18130/v3-k4an-w022' }
+  let(:doi) { "10.18130/v3-k4an-w022" }
   let(:duration1) { "duration1" }
   let(:duration2) { "duration2" }
   let(:edition) { "1" }
@@ -48,8 +48,8 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:issue) { "6" }
   let(:issue) { 7 }
   let(:journal_title) { "Test Journal Title" }
-  let(:keyword) { 'Lighthouses' }
-  let(:keyword2) { 'Hippos' }
+  let(:keyword) { "Lighthouses" }
+  let(:keyword2) { "Hippos" }
   let(:language) { "Swedish" }
   let(:language2) { "English" }
   let(:official_link) { "http://test-url.com" }
@@ -62,11 +62,11 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:project_name1) { "Project name2" }
   let(:project_name2) { "The Chicken projectca" }
   let(:published_year) { "1946" }
-  let(:publisher) { 'Schildts' }
+  let(:publisher) { "Schildts" }
   let(:resource_type) { "Book" }
   let(:ris_resource_type_identifier) { "BOOK" }
   let(:series_name) { "Series name" }
-  let(:title) { 'Moomin' }
+  let(:title) { "Moomin" }
   let(:version_number) { "3" }
   let(:volume) { 2 }
 
@@ -215,88 +215,88 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
       end
     end
 
-    context 'datacite' do
+    context "datacite" do
       subject(:datacite_xml) { Nokogiri::XML(datacite_string, &:strict).remove_namespaces! }
       let(:datacite_string) { metadata.datacite }
 
-      it 'creates datacite XML' do
+      it "creates datacite XML" do
         expect(datacite_string).to be_a String
         expect(datacite_xml).to be_a Nokogiri::XML::Document
       end
 
-      it 'sets the DOI' do
+      it "sets the DOI" do
         url = "https://doi.org/#{doi}"
-        expect(datacite_xml.xpath('/resource/identifier[@identifierType="DOI"]/text()').to_s).to eq url
+        expect(datacite_xml.xpath("/resource/identifier[@identifierType="DOI"]/text()").to_s).to eq url
       end
 
-      context 'it correctly populates the datacite XML' do
-        it { expect(datacite_xml.xpath('/resource/titles/title[1]/text()').to_s).to eq title }
-        it { expect(datacite_xml.xpath('/resource/creators/creator[1]/creatorName/text()').to_s).to eq "#{creator1_last_name}, #{creator1_first_name}" }
-        it { expect(datacite_xml.xpath('/resource/publisher/text()').to_s).to eq publisher }
-        it { expect(datacite_xml.xpath('/resource/descriptions/description[1]/text()').to_s).to eq abstract }
-        it { expect(datacite_xml.xpath('/resource/contributors/contributor[1]/contributorName/text()').to_s).to eq contributor }
-        it { expect(datacite_xml.xpath('/resource/subjects/subject[1]/text()').to_s).to eq keyword }
-        it { expect(JSON.parse(datacite_xml.xpath('/resource/language/text()').to_s).first).to eq language }
+      context "it correctly populates the datacite XML" do
+        it { expect(datacite_xml.xpath("/resource/titles/title[1]/text()").to_s).to eq title }
+        it { expect(datacite_xml.xpath("/resource/creators/creator[1]/creatorName/text()").to_s).to eq "#{creator1_last_name}, #{creator1_first_name}" }
+        it { expect(datacite_xml.xpath("/resource/publisher/text()").to_s).to eq publisher }
+        it { expect(datacite_xml.xpath("/resource/descriptions/description[1]/text()").to_s).to eq abstract }
+        it { expect(datacite_xml.xpath("/resource/contributors/contributor[1]/contributorName/text()").to_s).to eq contributor }
+        it { expect(datacite_xml.xpath("/resource/subjects/subject[1]/text()").to_s).to eq keyword }
+        it { expect(JSON.parse(datacite_xml.xpath("/resource/language/text()").to_s).first).to eq language }
         it {
-          xpath = '/resource/relatedIdentifiers/relatedIdentifier[@relatedIdentifierType="ISBN"]/text()'
+          xpath = "/resource/relatedIdentifiers/relatedIdentifier[@relatedIdentifierType="ISBN"]/text()"
           expect(datacite_xml.xpath(xpath).to_s).to eq isbn
         }
       end
 
-      it 'sets the resource type' do
-        type = JSON.parse(datacite_xml.xpath('/resource/resourceType[@resourceTypeGeneral="Other"]/text()').to_s).first
+      it "sets the resource type" do
+        type = JSON.parse(datacite_xml.xpath("/resource/resourceType[@resourceTypeGeneral="Other"]/text()").to_s).first
         expect(type).to eq resource_type
       end
 
-      context 'publication year' do
-        let(:create_date) { '1945-01-01' }
-        let(:upload_date) { DateTime.parse('2009-12-25 11:30').iso8601 }
+      context "publication year" do
+        let(:create_date) { "1945-01-01" }
+        let(:upload_date) { DateTime.parse("2009-12-25 11:30").iso8601 }
 
-        it 'sets year from date_published by default' do
-          expect(datacite_xml.xpath('/resource/publicationYear/text()').to_s).to eq published_year
+        it "sets year from date_published by default" do
+          expect(datacite_xml.xpath("/resource/publicationYear/text()").to_s).to eq published_year
         end
 
-        context 'with date_created' do
+        context "with date_created" do
           before do
             work.date_created = [create_date]
             work.date_uploaded = upload_date
             work.date_published = nil
           end
 
-          it 'sets year from date_created' do
-            expect(datacite_xml.xpath('/resource/publicationYear/text()').to_s).to eq created_year
+          it "sets year from date_created" do
+            expect(datacite_xml.xpath("/resource/publicationYear/text()").to_s).to eq created_year
           end
 
-          context 'with only year' do
-            let(:create_date) { '1945' }
+          context "with only year" do
+            let(:create_date) { "1945" }
 
-            it 'sets year from date_created' do
-              expect(datacite_xml.xpath('/resource/publicationYear/text()').to_s).to eq created_year
+            it "sets year from date_created" do
+              expect(datacite_xml.xpath("/resource/publicationYear/text()").to_s).to eq created_year
             end
           end
         end
 
-        context 'with date_uploaded' do
+        context "with date_uploaded" do
           before do
             work.date_created = []
             work.date_uploaded = upload_date
             work.date_published = nil
           end
 
-          it 'sets year from date_uploaded' do
-            expect(datacite_xml.xpath('/resource/publicationYear/text()').to_s).to eq "2009"
+          it "sets year from date_uploaded" do
+            expect(datacite_xml.xpath("/resource/publicationYear/text()").to_s).to eq "2009"
           end
         end
 
-        context 'without either' do
+        context "without either" do
           before do
             work.date_created = []
             work.date_uploaded = nil
             work.date_published = nil
           end
 
-          it 'defaults to current year' do
-            expect(datacite_xml.xpath('/resource/publicationYear/text()').to_s).to eq Date.today.year.to_s
+          it "defaults to current year" do
+            expect(datacite_xml.xpath("/resource/publicationYear/text()").to_s).to eq Date.today.year.to_s
           end
         end
       end

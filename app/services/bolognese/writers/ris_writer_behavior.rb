@@ -55,7 +55,7 @@ module Bolognese
             "ED" => to_ris(meta.dig("editor")),
             "AB" => parse_attributes(descriptions, content: "description", first: true),
             "KW" => Array.wrap(subjects).map { |k| parse_attributes(k, content: "subject", first: true) }.presence,
-            "DA" => meta.dig('dates').find { |date| date["dateType"] == "Issued" }&.dig("date"),
+            "DA" => meta.dig("dates").find { |date| date["dateType"] == "Issued" }&.dig("date"),
             "PY" => publication_year,
             "PB" => publisher,
             "PP" => meta.dig("place_of_publication"),
@@ -89,7 +89,7 @@ module Bolognese
         end
 
         def secondary_titles
-          Array.wrap(parse_attributes(meta["alt_title"])) + Array.wrap(parse_attributes(meta['book_title']))
+          Array.wrap(parse_attributes(meta["alt_title"])) + Array.wrap(parse_attributes(meta["book_title"]))
         end
 
         # Legacy code ordered the values and returned
@@ -97,7 +97,7 @@ module Bolognese
           related_identifiers
             .select { |h| h["relatedIdentifier"].present? }
             .map { |h| [h["relatedIdentifierType"], h["relatedIdentifier"]] }.to_h
-            .slice('ISBN', 'ISSN', 'EISSN')
+            .slice("ISBN", "ISSN", "EISSN")
             .values.first
         end
 

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'bolognese'
+require "bolognese"
 
 # NOTE:
 # Parent class to work type class readers.
@@ -89,7 +89,7 @@ module Bolognese
         end
 
         def read_creator
-          return unless (value = @meta.fetch('creator', @meta.dig('creator_display'))).present?
+          return unless (value = @meta.fetch("creator", @meta.dig("creator_display"))).present?
 
           value = bologneseify_author_json(:creator, value.first)
 
@@ -97,7 +97,7 @@ module Bolognese
         end
 
         def read_contributor
-          return unless (value = @meta.fetch('contributor', @meta.dig('contributor_display'))).present?
+          return unless (value = @meta.fetch("contributor", @meta.dig("contributor_display"))).present?
 
           value = bologneseify_author_json(:contributor, value.first)
 
@@ -106,7 +106,7 @@ module Bolognese
 
         # For now editor is treated differently to creator/contributor
         def read_editor
-          return unless (value = @meta.fetch('editor_display', @meta.dig('editor'))).present?
+          return unless (value = @meta.fetch("editor_display", @meta.dig("editor"))).present?
 
           get_authors(value)
         end
@@ -134,7 +134,7 @@ module Bolognese
         end
 
         def read_doi
-          normalize_doi(meta_value('doi')&.first)
+          normalize_doi(meta_value("doi")&.first)
         end
 
         # This is a special method that adds some additional values to the meta object. As its not part of the

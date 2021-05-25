@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe HykuAddons::TaskMaster::FileSetBehavior do
-  subject(:file_set) { create(:file_set, user: user, title: ['A Contained PDF FileSet'], label: 'filename.pdf') }
+  subject(:file_set) { create(:file_set, user: user, title: ["A Contained PDF FileSet"], label: "filename.pdf") }
   let(:user) { create(:user) }
   let(:work) { create(:task_master_work) }
   let(:account) { create(:account) }
