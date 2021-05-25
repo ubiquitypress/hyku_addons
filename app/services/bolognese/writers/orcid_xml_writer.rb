@@ -30,7 +30,7 @@ module Bolognese
 
             # These fields will cause multiple errors when included, no matter the work-type being used - even `other`
             # xml[:work].send("journal-title", "Work Journal Title")
-            # xml[:work].send("short-description", "The short description for the work")
+            # xml[:work].send('short-description", "The short description for the work")
             # xml[:work].url "http://test-url.com"
             # xml[:common].country "US"
             # xml[:common].send("language-code", "en")

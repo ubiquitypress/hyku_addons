@@ -105,7 +105,7 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
   let(:model_class) { GenericWork }
   let(:work) { model_class.new(attributes) }
   let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
-  # NOTE: If updating the schema files, you'll need to manually update the remove `schemaLocation` references
+  # NOTE: If updating the schema files, you"ll need to manually update the remove `schemaLocation` references
   let(:xml_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1") }
 
   let(:schema_file) { "work-2.1.xsd" }
@@ -138,9 +138,9 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
 
   describe "#orcid_xml" do
     it "outputs the XML" do
-      puts '==================================================================='
+      puts "==================================================================="
       puts meta meta.orcid_xml("other")
-      puts '==================================================================='
+      puts "==================================================================="
     end
 
     it "returns a nonempty XML document" do
