@@ -26,7 +26,7 @@ FactoryBot.define do
   end
 
   factory :bulkrax_exporter_worktype, class: "Bulkrax::Exporter" do
-    name { 'Export from Worktype' }
+    name { "Export from Worktype" }
     user { FactoryBot.build(:base_user) }
     export_type { 'metadata' }
     export_from { 'worktype' }
