@@ -137,7 +137,7 @@ module HykuAddons
 
     def build_mapping_metadata
       export_mapping.each do |key, value|
-        method_name = value['from']&.first&.to_s || key.to_s
+       method_name = Array.wrap(value['from']).first&.to_s || key.to_s
         next unless hyrax_record.respond_to?(method_name)
         data = hyrax_record.send(method_name)
         if data.is_a?(ActiveTriples::Relation)
