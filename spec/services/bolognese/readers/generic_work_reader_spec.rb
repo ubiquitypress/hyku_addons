@@ -15,19 +15,19 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:creator2_last_name) { "Testing" }
   let(:creator1) do
     {
-      "nameType"=>"Personal",
-      "name"=>"#{creator1_last_name}, #{creator1_first_name}",
-      "givenName"=> creator1_first_name,
-      "familyName"=> creator1_last_name
+      "nameType" => "Personal",
+      "name" => "#{creator1_last_name}, #{creator1_first_name}",
+      "givenName" => creator1_first_name,
+      "familyName" => creator1_last_name
     }
   end
   let(:creator2) do
     {
-      "name"=>"#{creator2_last_name}, #{creator2_first_name}",
-      "givenName"=> creator2_first_name,
-      "familyName"=> creator2_last_name,
-      "nameIdentifiers"=>[
-        {"nameIdentifier"=>"12345678890", "nameIdentifierScheme"=>"orcid"}
+      "name" => "#{creator2_last_name}, #{creator2_first_name}",
+      "givenName" => creator2_first_name,
+      "familyName" => creator2_last_name,
+      "nameIdentifiers" => [
+        { "nameIdentifier" => "12345678890", "nameIdentifierScheme" => "orcid" }
       ]
     }
   end
