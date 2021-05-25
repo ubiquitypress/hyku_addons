@@ -25,7 +25,7 @@ FactoryBot.define do
     field_mapping { nil }
   end
 
-  factory :bulkrax_exporter_worktype, class: 'Bulkrax::Exporter' do
+  factory :bulkrax_exporter_worktype, class: "Bulkrax::Exporter" do
     name { 'Export from Worktype' }
     user { FactoryBot.build(:base_user) }
     export_type { 'metadata' }
