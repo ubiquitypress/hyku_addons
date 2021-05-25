@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'bolognese'
+require "bolognese"
 
 # NOTE:
 # Parent class to work type class readers.
@@ -67,20 +67,46 @@ module Bolognese
 
       protected
 
+        # Prepare the json to be parsed through Bolognese get_authors method
+        # Bologese wants a hash with `givenName` not `creator_given_name` etc
+        def bologneseify_author_json(type, json)
+          creators = JSON.parse(json)
+          transformed = Array.wrap(creators).map { |cr| cr.transform_keys { |k| k.gsub(/#{type}_/, "") }.deep_transform_keys { |k| k.camelize(:lower) } }
+
+          transformed.each do |creator|
+            next unless creator["orcid"].present?
+
+            creator["nameIdentifier"] = {
+              "nameIdentifierScheme" => "orcid",
+              "__content__" => creator["orcid"]
+            }
+          end
+
+          transformed.compact
+
+        rescue JSON::ParserError
+          json
+        end
+
         def read_creator
-          return unless (value = @meta.fetch('creator_display', @meta.dig('creator'))).present?
+          return unless (value = @meta.fetch("creator", @meta.dig("creator_display"))).present?
+
+          value = bologneseify_author_json(:creator, value.first)
 
           get_authors(value)
         end
 
         def read_contributor
-          return unless (value = @meta.fetch('contributor_display', @meta.dig('contributor'))).present?
+          return unless (value = @meta.fetch("contributor", @meta.dig("contributor_display"))).present?
+
+          value = bologneseify_author_json(:contributor, value.first)
 
           get_authors(value)
         end
 
+        # For now editor is treated differently to creator/contributor
         def read_editor
-          return unless (value = @meta.fetch('editor_display', @meta.dig('editor'))).present?
+          return unless (value = @meta.fetch("editor_display", @meta.dig("editor"))).present?
 
           get_authors(value)
         end
@@ -108,7 +134,7 @@ module Bolognese
         end
 
         def read_doi
-          normalize_doi(meta_value('doi')&.first)
+          normalize_doi(meta_value("doi")&.first)
         end
 
         # This is a special method that adds some additional values to the meta object. As its not part of the
@@ -127,12 +153,12 @@ module Bolognese
         # Avoid overriding a parent method publication_year
         def read_publication_year
           @publication_year ||= begin
-            date = meta_value("date_published") || meta_value("date_created")&.first || meta_value("date_uploaded")
-            Date.edtf(date.to_s).year
+                                  date = meta_value("date_published") || meta_value("date_created")&.first || meta_value("date_uploaded")
+                                  Date.edtf(date.to_s).year
 
-          rescue Date::Error, TypeError, NoMethodError
-            Time.zone.today.year
-          end
+                                rescue Date::Error, TypeError, NoMethodError
+                                  Time.zone.today.year
+                                end
         end
 
         def build_dates!
@@ -179,7 +205,7 @@ module Bolognese
           else
             value
           end
-        # Don't worry about methods that aren't in the form terms, just return the value and continue
+          # Don't worry about methods that aren't in the form terms, just return the value and continue
         rescue ActiveFedora::UnknownAttributeError
           value
         end
