@@ -31,7 +31,7 @@ FactoryBot.define do
     export_type { 'metadata' }
     export_from { 'worktype' }
     export_source { 'Generic' }
-    parser_klass { 'Bulkrax::CsvParser' }
+    parser_klass { "Bulkrax::CsvParser" }
     limit { 0 }
     field_mapping { nil }
   end
