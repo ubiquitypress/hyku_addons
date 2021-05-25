@@ -19,7 +19,7 @@ FactoryBot.define do
     user { FactoryBot.build(:base_user) }
     export_type { "full" }
     export_from { "collection" }
-    export_source { '12345' }
+    export_source { "12345" }
     parser_klass { "Bulkrax::CsvParser" }
     limit { 0 }
     field_mapping { nil }
