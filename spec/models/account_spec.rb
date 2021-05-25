@@ -17,7 +17,7 @@ RSpec.describe Account, type: :model do
     context 'with a settings.yml override' do
       before do
         account.update(locale_name: 'test')
-        allow(account).to receive(:tenant_settings_filename).with('test').and_return(HykuAddons::Engine.root.join('spec', 'fixtures', 'settings', 'test-TEST.yml'))
+        allow(Settings).to receive(:tenant_settings_filename).with('test').and_return(HykuAddons::Engine.root.join('spec', 'fixtures', 'settings', 'test-TEST.yml'))
       end
 
       it 'loads settings' do
@@ -80,7 +80,7 @@ RSpec.describe Account, type: :model do
     describe 'tenant_settings_filename' do
       it 'returns a standardized filename' do
         account.switch!
-        expect(account.tenant_settings_filename('test')).to eq Rails.root.join('config', 'settings', 'test-TEST.yml')
+        expect(Settings.tenant_settings_filename('test')).to eq Rails.root.join('config', 'settings', 'test-TEST.yml')
       end
     end
 
