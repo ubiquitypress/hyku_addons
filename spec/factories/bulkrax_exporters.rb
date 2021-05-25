@@ -4,7 +4,7 @@
 
 FactoryBot.define do
   factory :bulkrax_exporter, class: 'Bulkrax::Exporter' do
-    name { 'Export from Importer' }
+    name { "Export from Importer" }
     user { FactoryBot.build(:base_user) }
     export_type { "metadata" }
     export_from { 'importer' }
