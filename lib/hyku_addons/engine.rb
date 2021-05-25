@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 require 'hyrax/doi/engine'
 require 'bolognese/metadata'
-require 'config'
 
 module HykuAddons
   class Engine < ::Rails::Engine
@@ -20,6 +19,12 @@ module HykuAddons
 
     config.before_initialize do
       HykuAddons::I18nMultitenant.configure(I18n)
+    end
+
+    initializer "hyku_addons.settings" do
+      # Undefine Settings constant to allow for per-thread settings using Settings singleton
+      Object.send(:remove_const, Config.const_name) if Object.const_defined?(Config.const_name)
+      Settings.switch!
     end
 
     initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
@@ -56,6 +61,7 @@ module HykuAddons
           FcrepoEndpoint.reset!
           RedisEndpoint.reset!
           DataCiteEndpoint.reset!
+          Settings.switch!
           switch_host!(nil)
           switch_settings!
           reload_hyrax_config!
