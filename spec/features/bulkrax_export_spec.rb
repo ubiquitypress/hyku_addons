@@ -32,7 +32,7 @@ RSpec.describe 'Bulkrax export', clean: true, perform_enqueued: true do
 
     it 'creates csv and zip' do
       Bulkrax::ExporterJob.perform_now(exporter.id)
-      expect(File.exist?(exporter.parser.setup_export_file)).to eq true
+      expect(File.exist?(exporter.parser.setup_export_file)).to be_truthy
       expect(File.exist?(exporter.exporter_export_zip_path)).to eq true
       expect(File.readlines(exporter.parser.setup_export_file).size).to eq 2
     end
