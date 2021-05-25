@@ -42,7 +42,8 @@ module HykuAddons
            alternate_identifier related_identifier refereed keyword dewey library_of_congress_classification add_info
            page_display_order_number irb_number irb_status subject additional_links is_included_in buy_book challenged
            location outcome participant reading_level photo_caption photo_description degree longitude latitude alt_email
-           alt_book_title table_of_contents] + hyrax_terms
+           alt_book_title table_of_contents prerequisites suggested_student_reviewers suggested_reviewers adapted_from audience
+           related_material] + hyrax_terms
       end
 
       def hyrax_terms
