@@ -22,13 +22,13 @@ module HykuAddons
       class_attribute :registered_attributes
       # Pre-seed registered attributes because they have already been created before this module is included
       self.registered_attributes = [:doi, :identifier, :based_near, :based_near_label, :related_url, :resource_type,
-                                    :edit_groups, :edit_people, :read_groups, :admin_set, :member_ids,
+                                    :edit_groups, :edit_people, :read_groups, :admin_set, :member_ids, :creator,
                                     :member_of_collection_ids, :description, :abstract, :title, :contributor, :subject,
                                     :publisher, :language, :keyword, :license, :source, :date_created, :rights_statement,
                                     :mime_type, :workflow_state, :human_readable_type, :representative_id, :rendering_ids,
                                     :thumbnail_id, :thumbnail_path, :label, :file_format, :suppressed?, :original_file_id,
                                     :date_modified, :date_uploaded, :create_date, :modified_date, :embargo_release_date,
-                                    :lease_expiration_date]
+                                    :lease_expiration_date, :add_info]
 
       attribute :file_size, SolrDocument::Solr::String, "file_size_lts"
       attribute :extent, SolrDocument::Solr::Array, solr_name('extent')
