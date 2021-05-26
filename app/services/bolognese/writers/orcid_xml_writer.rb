@@ -3,6 +3,9 @@
 module Bolognese
   module Writers
     module OrcidXmlWriter
+      include Bolognese::Helpers::Dates
+      include Bolognese::Helpers::Writers
+
       PERMITTED_EXTERNAL_IDENTIFIERS = %w[issn isbn].freeze
 
       ROOT_ATTRIBUTES = {
@@ -22,8 +25,8 @@ module Bolognese
             xml.parent.namespace = xml.parent.namespace_definitions.find { |ns| ns.prefix == "work" }
 
             xml[:work].title do
-              xml[:common].title titles.first.dig("title")
-              xml[:common].subtitle meta.dig("alt_title").first
+              xml[:common].title write_title.first
+              xml[:common].subtitle write_alt_title.first
             end
 
             xml[:work].type type
@@ -36,31 +39,19 @@ module Bolognese
             # xml[:common].send("language-code", "en")
 
             xml[:common].send("publication-date") do
-              xml[:common].year "2021"
-              xml[:common].month "10"
-              xml[:common].day "01"
+              %i[year month day].each do |int|
+                xml[:common].send(int, date_published.first["date_published_#{int}"])
+              end
             end
 
             # Full list of external-id-type: https://pub.orcid.org/v3.0/identifiers
             xml[:common].send("external-ids") do
-              write_external_doi(xml)
-              write_external_identifiers(xml)
+              xml_external_doi(xml)
+              xml_external_identifiers(xml)
             end
 
             xml[:work].contributors do
-              xml[:work].contributor do
-                xml[:common].send("contributor-orcid") do
-                  xml[:common].uri "https://orcid.org/0000-0001-5109-3700"
-                  xml[:common].path "0000-0001-5109-3700"
-                  xml[:common].host "orcid.org"
-                end
-
-                xml[:work].send("credit-name", "John Smith")
-                xml[:work].send("contributor-attributes") do
-                  xml[:work].send("contributor-sequence", "first")
-                  xml[:work].send("contributor-role", "author")
-                end
-              end
+              xml_creators(xml)
             end
           end
         end
@@ -73,7 +64,7 @@ module Bolognese
 
       protected
 
-        def write_external_doi(xml)
+        def xml_external_doi(xml)
           return if meta["doi"].blank?
 
           xml[:common].send("external-id") do
@@ -84,7 +75,7 @@ module Bolognese
           end
         end
 
-        def write_external_identifiers(xml)
+        def xml_external_identifiers(xml)
           PERMITTED_EXTERNAL_IDENTIFIERS.each do |item|
             next unless (value = meta.dig(item)).present?
 
@@ -94,6 +85,33 @@ module Bolognese
               xml[:common].send("external-id-relationship", "self")
             end
           end
+        end
+
+        def xml_creators(xml)
+          creators.each_with_index do |creator, i|
+            xml[:work].contributor do
+              if (orcid = find_valid_orcid(creator)).present?
+                xml[:common].send("contributor-orcid") do
+                  xml[:common].uri "https://orcid.org/#{orcid}"
+                  xml[:common].path orcid
+                  xml[:common].host "orcid.org"
+                end
+              end
+
+              xml[:work].send("credit-name", "#{creator['givenName']} #{creator['familyName']}")
+
+              xml[:work].send("contributor-attributes") do
+                xml[:work].send("contributor-sequence", i.zero? ? "first" : "additional")
+                xml[:work].send("contributor-role", "author")
+              end
+            end
+          end
+        end
+
+        def find_valid_orcid(hsh)
+          identifier = hsh["nameIdentifiers"]&.find { |id| id["nameIdentifierScheme"] == "orcid" }
+
+          validate_orcid(identifier&.dig("nameIdentifier"))
         end
     end
   end

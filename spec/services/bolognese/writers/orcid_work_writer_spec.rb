@@ -5,33 +5,32 @@ require "rails_helper"
 RSpec.describe Bolognese::Writers::OrcidXmlWriter do
   let(:abstract) { "Swedish comic about the adventures of the residents of Moominvalley." }
   let(:add_info) { "Nothing to report" }
-  let(:alt_title1) { "alt-title" }
+  let(:alt_title) { "alt-title" }
   let(:contributor) { "Elizabeth Portch" }
-  let(:created_year) { "1945" }
   let(:creator1_first_name) { "Sebastian" }
   let(:creator1_last_name) { "Hageneuer" }
   let(:creator2_first_name) { "Johnny" }
   let(:creator2_last_name) { "Testing" }
+  let(:creator2_orcid) { "0000-0001-5109-3701" }
   let(:creator1) do
     {
-      "nameType" => "Personal",
-      "name" => "#{creator1_last_name}, #{creator1_first_name}",
-      "givenName" => creator1_first_name,
-      "familyName" => creator1_last_name
+      "creator_name_type" => "Personal",
+      "creator_name" => "#{creator1_last_name}, #{creator1_first_name}",
+      "creator_given_name" => creator1_first_name,
+      "creator_family_name" => creator1_last_name
     }
   end
   let(:creator2) do
     {
-      "name" => "#{creator2_last_name}, #{creator2_first_name}",
-      "givenName" => creator2_first_name,
-      "familyName" => creator2_last_name,
-      "nameIdentifiers" => [
-        { "nameIdentifier" => "12345678890", "nameIdentifierScheme" => "orcid" }
-      ]
+      "creator_name_type" => "Personal",
+      "creator_name" => "#{creator2_last_name}, #{creator2_first_name}",
+      "creator_given_name" => creator2_first_name,
+      "creator_family_name" => creator2_last_name,
+      "creator_orcid" => "https://orcid.org/#{creator2_orcid}"
     }
   end
-  let(:date_created) { "#{created_year}-01-01" }
-  let(:date_published) { "#{published_year}-01-01" }
+  let(:date_created) { "#{created_year}-08-19" }
+  let(:date_published) { "#{published_year}-09-27" }
   let(:doi) { "10.18130/v3-k4an-w022" }
   let(:editor) { "Test Editor" }
   let(:isbn) { "9781770460621" }
@@ -40,7 +39,8 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
   let(:language) { "Swedish" }
   let(:official_link) { "http://test-url.com" }
   let(:place_of_publication) { "Finland" }
-  let(:published_year) { "1946" }
+  let(:published_year) { "2019" }
+  let(:created_year) { "1983" }
   let(:publisher) { "Schildts" }
   let(:resource_type) { "Book" }
   let(:title) { "Moomin" }
@@ -51,7 +51,7 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
     {
       doi: [doi],
       title: [title],
-      alt_title: [alt_title1],
+      alt_title: [alt_title],
       resource_type: [resource_type],
       creator: [[creator1, creator2].to_json],
       contributor: [contributor],
@@ -127,8 +127,34 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
       end
     end
 
-    it { byebug }
-    it { expect(datacite_xml.xpath("/resource/identifier[@identifierType='DOI']/text()").to_s).to eq url }
+    describe "titles" do
+      it { expect(doc.xpath("//common:title/text()").to_s).to eq title }
+      it { expect(doc.xpath("//common:subtitle/text()").to_s).to eq alt_title }
+    end
 
+    describe "publication-date" do
+      it { expect(doc.xpath("//common:publication-date/common:year/text()").to_s).to eq published_year }
+      it { expect(doc.xpath("//common:publication-date/common:month/text()").to_s).to eq "9" }
+      it { expect(doc.xpath("//common:publication-date/common:day/text()").to_s).to eq "27" }
+    end
+
+    describe "external-ids" do
+      it { expect(doc.xpath("//common:external-id[common:external-id-type='isbn']/common:external-id-value/text()").to_s).to eq isbn }
+      it { expect(doc.xpath("//common:external-id[common:external-id-type='doi']/common:external-id-url/text()").to_s).to eq "https://doi.org/#{doi}" }
+    end
+
+    describe "contributors" do
+      it { expect(doc.xpath("//work:contributor").count).to eq 2}
+
+      it { expect(doc.xpath("//work:contributor[1]/common:contributor-orcid/common:path/text()").to_s).to eq "" }
+      it { expect(doc.xpath("//work:contributor[1]/work:credit-name/text()").to_s).to eq "#{creator1_first_name} #{creator1_last_name}" }
+      it { expect(doc.xpath("//work:contributor[1]/work:contributor-attributes/work:contributor-role/text()").to_s).to eq "author" }
+      it { expect(doc.xpath("//work:contributor[1]/work:contributor-attributes/work:contributor-sequence/text()").to_s).to eq "first" }
+
+      it { expect(doc.xpath("//work:contributor[2]/common:contributor-orcid/common:path/text()").to_s).to eq creator2_orcid }
+      it { expect(doc.xpath("//work:contributor[2]/work:credit-name/text()").to_s).to eq "#{creator2_first_name} #{creator2_last_name}" }
+      it { expect(doc.xpath("//work:contributor[2]/work:contributor-attributes/work:contributor-role/text()").to_s).to eq "author" }
+      it { expect(doc.xpath("//work:contributor[2]/work:contributor-attributes/work:contributor-sequence/text()").to_s).to eq "additional" }
+    end
   end
 end
