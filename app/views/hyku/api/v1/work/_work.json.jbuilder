@@ -86,7 +86,7 @@ json.photo_caption work.try(:photo_caption)
 json.photo_description work.try(:photo_description)
 #                                         "place_of_publication" => nil,
 #                                         "project_name" => nil,
-json.prerequisites work,try(:prerequisites)
+json.prerequisites work.try(:prerequisites)
 json.publisher work.publisher
 #                                         "qualification_level" => nil,
 #                                         "qualification_name" => nil,
