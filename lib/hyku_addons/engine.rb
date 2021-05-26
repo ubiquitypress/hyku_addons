@@ -294,11 +294,11 @@ module HykuAddons
         def find
           return find_by_id if attributes[:id]
           return search_by_identifier if attributes[system_identifier_field].present?
-          return search_by_title if klass == AdminSet && attributes[:title].present?
+          return search_by_title_or_identifier if klass == AdminSet && attributes[:title].present?
         end
 
-        def search_by_title
-          AdminSet.where(title: Array(attributes[:title]).first).first
+        def search_by_title_or_identifier
+          AdminSet.where(title: Array(attributes[:title]).first).first || AdminSet.where(id: Array(attributes[:title]).first).first
         end
 
         def permitted_attributes
