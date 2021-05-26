@@ -74,6 +74,8 @@ module Bolognese
       protected
 
         def write_external_doi(xml)
+          return if meta["doi"].blank?
+
           xml[:common].send("external-id") do
             xml[:common].send("external-id-type", "doi")
             xml[:common].send("external-id-value", meta["doi"].gsub("https://doi.org/", ""))
@@ -84,9 +86,11 @@ module Bolognese
 
         def write_external_identifiers(xml)
           PERMITTED_EXTERNAL_IDENTIFIERS.each do |item|
+            next unless (value = meta.dig(item)).present?
+
             xml[:common].send("external-id") do
               xml[:common].send("external-id-type", item)
-              xml[:common].send("external-id-value", meta.dig(item))
+              xml[:common].send("external-id-value", value)
               xml[:common].send("external-id-relationship", "self")
             end
           end
