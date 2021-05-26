@@ -347,7 +347,7 @@ module HykuAddons
         end
 
         def search_by_title_or_identifier
-          AdminSet.find_by(title: Array(attributes[:title]).first) || AdminSet.where(id: Array(attributes[:title]).first).first
+          AdminSet.where(title: Array(attributes[:title]).first).first || AdminSet.where(id: Array(attributes[:title]).first).first
         end
 
         def permitted_attributes
