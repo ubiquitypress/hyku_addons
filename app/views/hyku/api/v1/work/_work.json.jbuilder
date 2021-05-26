@@ -3,7 +3,7 @@
 json.uuid work.id
 
 json.abstract work.try(:abstract)
-json.abstract work.try(:adapted_from)
+json.adapted_from work.try(:adapted_from)
 json.additional_info work.try(:add_info)
 json.additional_links work.try(:additional_links)
 json.admin_set_name work.admin_set.first
