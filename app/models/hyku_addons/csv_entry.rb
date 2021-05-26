@@ -52,7 +52,9 @@ module HykuAddons
     # Override to use the value in prefer the named admin set provided in the admin_set column then fallback to previous behavior
     def add_admin_set_id
       parsed_metadata['admin_set_id'] = nil if parsed_metadata['admin_set_id'].blank?
-      parsed_metadata['admin_set_id'] ||= AdminSet.find_by(title: raw_metadata['admin_set'])&.id || AdminSet.find_by(id: raw_metadata['admin_set'])&.id || importerexporter.admin_set_id
+      parsed_metadata['admin_set_id'] ||= AdminSet.where(title: raw_metadata['admin_set']).first&.id ||
+                                          AdminSet.where(id: raw_metadata['admin_set']).first&.id ||
+                                          importerexporter.admin_set_id
     end
 
     # TODO: memoize factory class to avoid having to compute it each time
@@ -100,8 +102,7 @@ module HykuAddons
 
     def admin_set_created?
       return true if record["admin_set"].blank?
-      admin_set = AdminSet.find_by(title: record["admin_set"]) || AdminSet.where(id: record["admin_set"])
-      admin_set.present?
+      AdminSet.where(title: record["admin_set"]).any? || AdminSet.where(id: record["admin_set"]).any?
     end
 
     # If only filename is given, construct the path (/files/my_file)
