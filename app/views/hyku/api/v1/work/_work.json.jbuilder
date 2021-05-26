@@ -16,7 +16,6 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   #                                         "collections" => nil,
   creator = work.creator.try(:first)
   json.creator creator.present? ? JSON.parse(creator) : []
-
   contributor = work.contributor.try(:first)
   json.contributor contributor.present? ? JSON.parse(contributor) : []
   #                                         "current_he_institution" => nil,
@@ -63,10 +62,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
         end
       end
     end
-  else
-    json.license []
   end
-
   json.location work.try(:location)
   #                                         "material_media" => nil,
   #                                         "migration_id" => nil,
@@ -120,3 +116,4 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   collections = collection_presenters.map { |collection| { uuid: collection.id, title: collection.title.first } }
   json.collections collections
 end
+

@@ -50,8 +50,8 @@ terms:
   - id: French
     term: French
     active: true
-  - id: Geographic and Information Systems
-    term: Geographic and Information Systems
+  - id: Geographic Information Science
+    term: Geographic Information Science
     active: true
   - id: German
     term: German
@@ -74,8 +74,8 @@ terms:
   - id: Latin American Studies
     term: Latin American Studies
     active: true
-  - id: Learning and Higher Education
-    term: Learning and Higher Education
+  - id: Leadership and Higher Education
+    term: Leadership and Higher Education
     active: true
   - id: Library
     term: Library
@@ -140,3 +140,7 @@ terms:
   - id: Women, Gender, and Sexuality Studies
     term: Women, Gender, and Sexuality Studies
     active: true
+# Terms Added for Migration purposes
+  - id: Engineering
+    term: Engineering
+    active: false
