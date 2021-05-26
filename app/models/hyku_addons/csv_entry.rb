@@ -5,23 +5,6 @@ module HykuAddons
       HykuAddons::CsvMatcher
     end
 
-    # def build_for_importer
-    #   begin
-    #     build_metadata
-    #     unless self.importerexporter.validate_only
-    #       raise Bulkrax::CollectionsCreatedError unless collections_created?
-    #       @item = factory.run!
-    #     end
-    #   rescue RSolr::Error::Http, Bulkrax::CollectionsCreatedError => e
-    #     raise e
-    #   rescue StandardError => e
-    #     status_info(e)
-    #   else
-    #     status_info
-    #   end
-    #   return @item
-    # end
-
     # Override to add date and json field handling
     def build_metadata
       raise StandardError, 'Record not found' if record.nil?
@@ -30,6 +13,7 @@ module HykuAddons
 
       self.parsed_metadata = {}
       parsed_metadata[Bulkrax.system_identifier_field] = record['source_identifier']
+      parsed_metadata['id'] = record['id'] if record['id'].present?
 
       record.each do |key, value|
         next if key == 'collection'
@@ -92,8 +76,14 @@ module HykuAddons
     # Override to allow `id` as system identifier field
     def valid_system_id(model_class)
       return true if Bulkrax.system_identifier_field == 'id'
+      # Collection and AdminSet are handled differently so don't worry about them
+      return true if model_class == Collection || model_class == AdminSet
       return true if model_class.properties.keys.include?(Bulkrax.system_identifier_field)
       raise("#{model_class} does not implement the system_identifier_field: #{Bulkrax.system_identifier_field}")
+    end
+
+    def find_collection(collection_identifier)
+      Collection.where(id: collection_identifier).first
     end
 
     def collections_created?
@@ -123,8 +113,7 @@ module HykuAddons
       # make_round_trippable
       self.parsed_metadata = {}
       # We don't need a separate column for id because it is already in the source_identifer_field
-      # self.parsed_metadata['id'] = hyrax_record.id
-      parsed_metadata[self.class.source_identifier_field] = hyrax_record.id
+      parsed_metadata['id'] = hyrax_record.id
       parsed_metadata['model'] = hyrax_record.has_model.first
       build_mapping_metadata
       unless hyrax_record.is_a?(Collection)
@@ -134,6 +123,8 @@ module HykuAddons
                                               .join('|')
       end
       build_json_metadata
+      # Populate source_identifer if it doesn't have a value similar to make_round_trippable
+      parsed_metadata[self.class.source_identifier_field] ||= hyrax_record.id
       parsed_metadata['visibility'] = hyrax_record.visibility
       parsed_metadata['admin_set'] = hyrax_record.admin_set_id
       parsed_metadata['collection'] = hyrax_record.member_of_collection_ids.join('|')

@@ -48,6 +48,7 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
     end
 
     it "populates all fields" do
+      expect(parsed_metadata["id"]).to eq work.id
       expect(parsed_metadata["source_identifier"]).to eq work.id
       expect(parsed_metadata["model"]).to eq "GenericWork"
       expect(parsed_metadata["depositor"]).to eq depositor.email
@@ -92,6 +93,8 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
     it "exports all fields" do
       entry = exporter.entries.find { |e| e.identifier == "c109b1ff-6d9a-4498-b86c-190e7dcbe2e0" }
       expect(entry).to be_present
+      expect(entry.parsed_metadata["id"]).to eq "c109b1ff-6d9a-4498-b86c-190e7dcbe2e0"
+      expect(entry.parsed_metadata["source_identifier"]).to eq "c109b1ff-6d9a-4498-b86c-190e7dcbe2e0"
       expect(entry.parsed_metadata["title"]).to eq "Bourdieu's Art"
       expect(entry.parsed_metadata["date_published"]).to eq "2010-1-1"
       expect(entry.parsed_metadata["creator_family_name_1"]).to eq "Wilkes"

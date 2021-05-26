@@ -40,6 +40,7 @@ module HykuAddons
         metadata = {
           title: [collection],
           Bulkrax.system_identifier_field => collection,
+          id: collection,
           visibility: 'open',
           collection_type_gid: Hyrax::CollectionType.find_or_create_default_collection_type.gid
         }
