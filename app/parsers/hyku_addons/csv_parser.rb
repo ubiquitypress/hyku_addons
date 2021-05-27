@@ -67,5 +67,28 @@ module HykuAddons
     def path_to_files
       ENV['BULKRAX_FILE_PATH'].presence || super
     end
+
+    # All possible column names
+    def export_headers
+      # Trust that the entries' parsed metadata
+      importerexporter.entries.where(identifier: current_work_ids).limit(limit || total).map { |e| e.parsed_metadata.keys }.flatten.uniq
+    end
+
+    # See https://stackoverflow.com/questions/2650517/count-the-number-of-lines-in-a-file-without-reading-entire-file-into-memory
+    #   Changed to grep as wc -l counts blank lines, and ignores the final unescaped line (which may or may not contain data)
+    def total
+      # Reevaluate if total is not set or is 0
+      return @total if @total&.positive?
+      @total = if importer?
+                 # @total ||= `wc -l #{parser_fields['import_file_path']}`.to_i - 1
+                 `grep -vc ^$ #{parser_fields['import_file_path']}`.to_i - 1
+               elsif exporter?
+                 importerexporter.entries.count
+               else
+                 0
+               end
+    rescue StandardError
+      @total = 0
+    end
   end
 end

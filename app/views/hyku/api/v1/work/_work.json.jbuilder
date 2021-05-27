@@ -3,12 +3,15 @@
 json.uuid work.id
 
 json.abstract work.try(:abstract)
+json.adapted_from work.try(:adapted_from)
 json.additional_info work.try(:add_info)
 json.additional_links work.try(:additional_links)
 json.admin_set_name work.admin_set.first
 #                                         "alternative_journal_title" => nil,
+json.alternative_book_title work.try(:alt_book_title)
 json.alternative_title work.try(:alt_title)
 #                                         "article_number" => nil,
+json.audience work.try(:audience)
 json.book_title work.try(:book_title)
 json.buy_book work.try(:buy_book)
 json.challenged work.try(:challenged)
@@ -68,6 +71,8 @@ else
 end
 
 json.location work.try(:location)
+json.latitude work.try(:latitude)
+json.longitude work.try(:longitude)
 #                                         "material_media" => nil,
 #                                         "migration_id" => nil,
 #                                         "official_url" => nil,
@@ -81,6 +86,7 @@ json.photo_caption work.try(:photo_caption)
 json.photo_description work.try(:photo_description)
 #                                         "place_of_publication" => nil,
 #                                         "project_name" => nil,
+json.prerequisites work.try(:prerequisites)
 json.publisher work.publisher
 #                                         "qualification_level" => nil,
 #                                         "qualification_name" => nil,
@@ -89,6 +95,7 @@ json.refereed work.try(:refereed)
 #                                         "related_exhibition" => nil,
 #                                         "related_exhibition_date" => nil,
 #                                         "related_exhibition_venue" => nil,
+json.related_material work.try(:related_material)
 json.related_url work.related_url
 json.resource_type work.resource_type
 #                                         "review_data" => nil,
@@ -97,6 +104,8 @@ json.rights_statement work.rights_statement
 #                                         "series_name" => nil,
 json.source work.source
 json.subject work.subject
+json.suggested_reviewers work.try(:suggested_reviewers)
+json.suggested_student_reviewers work.try(:suggested_student_reviewers)
 # json.thumbnail_base64_string nil
 if work.representative_presenter&.solr_document&.public?
   components = {
@@ -109,6 +118,7 @@ if work.representative_presenter&.solr_document&.public?
 else
   json.thumbnail_url nil
 end
+json.table_of_contents work.try(:table_of_contents)
 json.title work.title.first
 json.type "work"
 json.version work.try(:version_number)
