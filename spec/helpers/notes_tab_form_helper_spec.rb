@@ -9,6 +9,13 @@ RSpec.describe HykuAddons::NotesTabFormHelper do
   let(:work) { GenericWork.new(title: ["Moomin"], depositor: user.user_key) }
   let(:form) { Hyrax::GenericWorkForm.new(work, nil, nil) }
   let(:helper) { _view }
+  let(:note_hash) do
+    [
+      { timestamp: "2021-05-26 00:05:12 UTC", note: "Second Note" }.to_json,
+      { timestamp: "2021-05-25 00:07:12 UTC", note: "First Note" }.to_json,
+      { timestamp: "2021-05-27 00:05:12 UTC", note: "Third Note" }.to_json
+    ]
+  end
 
   before do
     allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(false)
@@ -48,13 +55,5 @@ RSpec.describe HykuAddons::NotesTabFormHelper do
         ["First Note", "Second Note", "Third Note"]
       )
     end
-  end
-
-  def note_hash
-    [
-      { timestamp: "2021-05-25 00:07:12 UTC", note: "First Note" }.to_json,
-      { timestamp: "2021-05-26 00:05:12 UTC", note: "Second Note" }.to_json,
-      { timestamp: "2021-05-27 00:05:12 UTC", note: "Third Note" }.to_json
-    ]
   end
 end

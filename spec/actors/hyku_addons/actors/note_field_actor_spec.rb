@@ -16,6 +16,7 @@ RSpec.describe HykuAddons::Actors::NoteFieldActor do
   let(:middleware) do
     stack = ActionDispatch::MiddlewareStack.new.tap do |middleware|
       middleware.use described_class
+      middleware.use Hyrax::Actors::ModelActor
     end
 
     stack.build(terminator)
@@ -27,24 +28,27 @@ RSpec.describe HykuAddons::Actors::NoteFieldActor do
 
       before do
         allow(terminator).to receive(:create).with(env)
-        allow(middleware).to receive(:serialize_note_field).with(env_class)
       end
 
-      it "call serialize_note_field method while creating work" do
+      it "creates note from the the note attributes" do
+        expect(work.note).to be_blank
         middleware.create(env)
-        expect(middleware).to have_received(:serialize_note_field).with(env)
-      end
-
-      it "returns an ActiveTriples::Relation class for note attribute" do
-        middleware.create(env)
-        expect(work.note.class).to eq(ActiveTriples::Relation)
+        expect(work.note).to be_present
+        note_hash = JSON.parse(work.note.first)
+        expect(note_hash["email"]).to eq(user.email)
+        expect(note_hash["note"]).to eq(attributes[:note])
       end
     end
   end
 
   describe "#update" do
-    let(:generic_work) { create(:generic_work, title: ["Test Name #{rand}"], note: ['my first note']) }
-    let(:env) { env_class.new(generic_work, ability, attributes) }
+    let(:work) do
+      create(
+        :generic_work,
+        title: ["Test Name #{rand}"],
+        note: ["{\"email\":\"email-1@test.com\",\"timestamp\":\"2021-05-27 23:15:23 UTC\",\"note\":\"first note\"}"]
+      )
+    end
     let(:attributes) { { note: 'this is a new note' } }
 
     context "when the note attribute is present" do
@@ -52,9 +56,17 @@ RSpec.describe HykuAddons::Actors::NoteFieldActor do
         allow(terminator).to receive(:update).with(env)
       end
 
-      it "call the update method " do
+      it "append the new note attributes with previous note" do
+        expect(work.note).to be_present
+        expect(work.note.count).to eq(1)
+
         middleware.update(env)
-        expect(terminator).to have_received(:update).with(env_class)
+
+        expect(work.note.count).to eq(2)
+        note_content_ary = work.note.map do |note|
+          JSON.parse(note)["note"]
+        end
+        expect(note_content_ary).to include(attributes[:note])
       end
     end
   end
