@@ -6,12 +6,8 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
   let(:abstract) { "Swedish comic about the adventures of the residents of Moominvalley." }
   let(:add_info) { "Nothing to report" }
   let(:alt_title) { "alt-title" }
-  let(:contributor) { "Elizabeth Portch" }
   let(:creator1_first_name) { "Sebastian" }
   let(:creator1_last_name) { "Hageneuer" }
-  let(:creator2_first_name) { "Johnny" }
-  let(:creator2_last_name) { "Testing" }
-  let(:creator2_orcid) { "0000-0001-5109-3701" }
   let(:creator1) do
     {
       "creator_name_type" => "Personal",
@@ -20,6 +16,9 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
       "creator_family_name" => creator1_last_name
     }
   end
+  let(:creator2_first_name) { "Johnny" }
+  let(:creator2_last_name) { "Testing" }
+  let(:creator2_orcid) { "0000-0001-5109-3701" }
   let(:creator2) do
     {
       "creator_name_type" => "Personal",
@@ -27,6 +26,20 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
       "creator_given_name" => creator2_first_name,
       "creator_family_name" => creator2_last_name,
       "creator_orcid" => "https://orcid.org/#{creator2_orcid}"
+    }
+  end
+  let(:contributor1_first_name) { "Jannet" }
+  let(:contributor1_last_name) { "Gnitset" }
+  let(:contributor1_orcid) { "0000-1234-5109-3702" }
+  let(:contributor1_role) { "Other" }
+  let(:contributor1) do
+    {
+      "contributor_name_type" => "Personal",
+      "contributor_name" => "#{contributor1_last_name}, #{contributor1_first_name}",
+      "contributor_given_name" => contributor1_first_name,
+      "contributor_family_name" => contributor1_last_name,
+      "contributor_orcid" => "https://orcid.org/#{contributor1_orcid}",
+      "contributor_type" => contributor1_role
     }
   end
   let(:date_created) { "#{created_year}-08-19" }
@@ -54,7 +67,7 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
       alt_title: [alt_title],
       resource_type: [resource_type],
       creator: [[creator1, creator2].to_json],
-      contributor: [contributor],
+      contributor: [[contributor1].to_json],
       publisher: [publisher],
       abstract: abstract,
       keyword: [keyword],
@@ -143,8 +156,8 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
       it { expect(doc.xpath("//common:external-id[common:external-id-type='doi']/common:external-id-url/text()").to_s).to eq "https://doi.org/#{doi}" }
     end
 
-    describe "contributors" do
-      it { expect(doc.xpath("//work:contributor").count).to eq 2}
+    describe "creators" do
+      it { expect(doc.xpath("//work:contributor").count).to eq 3 }
 
       it { expect(doc.xpath("//work:contributor[1]/common:contributor-orcid/common:path/text()").to_s).to eq "" }
       it { expect(doc.xpath("//work:contributor[1]/work:credit-name/text()").to_s).to eq "#{creator1_first_name} #{creator1_last_name}" }
@@ -155,6 +168,11 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
       it { expect(doc.xpath("//work:contributor[2]/work:credit-name/text()").to_s).to eq "#{creator2_first_name} #{creator2_last_name}" }
       it { expect(doc.xpath("//work:contributor[2]/work:contributor-attributes/work:contributor-role/text()").to_s).to eq "author" }
       it { expect(doc.xpath("//work:contributor[2]/work:contributor-attributes/work:contributor-sequence/text()").to_s).to eq "additional" }
+
+      it { expect(doc.xpath("//work:contributor[3]/common:contributor-orcid/common:path/text()").to_s).to eq contributor1_orcid }
+      it { expect(doc.xpath("//work:contributor[3]/work:credit-name/text()").to_s).to eq "#{contributor1_first_name} #{contributor1_last_name}" }
+      it { expect(doc.xpath("//work:contributor[3]/work:contributor-attributes/work:contributor-role/text()").to_s).to eq "support-staff" }
+      it { expect(doc.xpath("//work:contributor[3]/work:contributor-attributes/work:contributor-sequence/text()").to_s).to eq "additional" }
     end
   end
 end

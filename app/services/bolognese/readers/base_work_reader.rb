@@ -212,12 +212,8 @@ module Bolognese
           transformed = Array.wrap(obj).map { |cr| cr.transform_keys { |k| k.gsub(/#{type}_/, "") }.deep_transform_keys { |k| k.camelize(:lower) } }
 
           transformed.each do |t|
-            next unless t["orcid"].present?
-
-            t["nameIdentifier"] = {
-              "nameIdentifierScheme" => "orcid",
-              "__content__" => t["orcid"]
-            }
+            t["nameIdentifier"] = { "nameIdentifierScheme" => "orcid", "__content__" => t["orcid"] } if t["orcid"].present?
+            t["contributorType"] = t.delete("type") if t["type"].present?
           end
 
           transformed.compact

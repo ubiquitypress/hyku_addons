@@ -7,16 +7,28 @@ module Bolognese
       include Bolognese::Helpers::Writers
 
       PERMITTED_EXTERNAL_IDENTIFIERS = %w[issn isbn].freeze
-
       ROOT_ATTRIBUTES = {
         "xmlns:common" => "http://www.orcid.org/ns/common",
         "xmlns:work" => "http://www.orcid.org/ns/work",
         "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
         "xsi:schemaLocation" => "http://www.orcid.org/ns/work /work-2.1.xsd "
       }.freeze
+      CONTRIBUTOR_MAP = {
+        "author" => ["Author"],
+        "assignee" => [],
+        "editor" => ["Editor"],
+        "chair-or-translator" => ["Translator"],
+        "co-investigator" => [],
+        "co-inventor" => [],
+        "graduate-student" => [],
+        "other-inventor" => [],
+        "principal-investigator" => [],
+        "postdoctoral-researcher" => [],
+        "support-staff" => ["Other"]
+      }.freeze
+      DEFAULT_CONTRIBUTOR_ROLE = "support-staff"
 
       # rubocop:disable Metrics/MethodLength
-      # rubocop:disable Metrics/BlockLength
       # rubocop:disable Metrics/AbcSize
       def orcid_xml(type)
         builder = Nokogiri::XML::Builder.new(encoding: "UTF-8") do |xml|
@@ -52,6 +64,7 @@ module Bolognese
 
             xml[:work].contributors do
               xml_creators(xml)
+              xml_contributors(xml)
             end
           end
         end
@@ -59,7 +72,6 @@ module Bolognese
         builder.to_xml
       end
       # rubocop:enable Metrics/MethodLength
-      # rubocop:enable Metrics/BlockLength
       # rubocop:enable Metrics/AbcSize
 
       protected
@@ -90,21 +102,45 @@ module Bolognese
         def xml_creators(xml)
           creators.each_with_index do |creator, i|
             xml[:work].contributor do
-              if (orcid = find_valid_orcid(creator)).present?
-                xml[:common].send("contributor-orcid") do
-                  xml[:common].uri "https://orcid.org/#{orcid}"
-                  xml[:common].path orcid
-                  xml[:common].host "orcid.org"
-                end
-              end
-
-              xml[:work].send("credit-name", "#{creator['givenName']} #{creator['familyName']}")
-
-              xml[:work].send("contributor-attributes") do
-                xml[:work].send("contributor-sequence", i.zero? ? "first" : "additional")
-                xml[:work].send("contributor-role", "author")
-              end
+              xml_contributor_orcid(xml, find_valid_orcid(creator))
+              xml_contributor_name(xml, "#{creator['givenName']} #{creator['familyName']}")
+              xml_contributor_role(xml, i.zero?, "Author")
             end
+          end
+        end
+
+        def xml_contributors(xml)
+          contributors.each do |contributor|
+            xml[:work].contributor do
+              xml_contributor_orcid(xml, find_valid_orcid(contributor))
+              xml_contributor_name(xml, "#{contributor['givenName']} #{contributor['familyName']}")
+              xml_contributor_role(xml, false, contributor["contributorType"])
+            end
+          end
+        end
+
+        private
+
+        def xml_contributor_name(xml, name)
+          xml[:work].send("credit-name", name)
+        end
+
+        def xml_contributor_role(xml, primary = true, role = "Author")
+          xml[:work].send("contributor-attributes") do
+            xml[:work].send("contributor-sequence", primary ? "first" : "additional")
+
+            ocrid_role = CONTRIBUTOR_MAP.find { |k, v| v.include?(role) }&.first || DEFAULT_CONTRIBUTOR_ROLE
+            xml[:work].send("contributor-role", ocrid_role)
+          end
+        end
+
+        def xml_contributor_orcid(xml, orcid)
+          return unless orcid.present?
+
+          xml[:common].send("contributor-orcid") do
+            xml[:common].uri "https://orcid.org/#{orcid}"
+            xml[:common].path orcid
+            xml[:common].host "orcid.org"
           end
         end
 
