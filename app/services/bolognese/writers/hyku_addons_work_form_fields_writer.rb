@@ -263,7 +263,6 @@ module Bolognese
           "https://doi.org/10.13039/#{doi}"
         end
 
-
       private
 
         def process_work_type_terms

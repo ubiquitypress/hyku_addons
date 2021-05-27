@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
 module Bolognese
   module Writers
     module OrcidXmlWriter
@@ -121,34 +122,35 @@ module Bolognese
 
         private
 
-        def xml_contributor_name(xml, name)
-          xml[:work].send("credit-name", name)
-        end
-
-        def xml_contributor_role(xml, primary = true, role = "Author")
-          xml[:work].send("contributor-attributes") do
-            xml[:work].send("contributor-sequence", primary ? "first" : "additional")
-
-            ocrid_role = CONTRIBUTOR_MAP.find { |k, v| v.include?(role) }&.first || DEFAULT_CONTRIBUTOR_ROLE
-            xml[:work].send("contributor-role", ocrid_role)
+          def xml_contributor_name(xml, name)
+            xml[:work].send("credit-name", name)
           end
-        end
 
-        def xml_contributor_orcid(xml, orcid)
-          return unless orcid.present?
+          def xml_contributor_role(xml, primary = true, role = "Author")
+            xml[:work].send("contributor-attributes") do
+              xml[:work].send("contributor-sequence", primary ? "first" : "additional")
 
-          xml[:common].send("contributor-orcid") do
-            xml[:common].uri "https://orcid.org/#{orcid}"
-            xml[:common].path orcid
-            xml[:common].host "orcid.org"
+              ocrid_role = CONTRIBUTOR_MAP.find { |_k, v| v.include?(role) }&.first || DEFAULT_CONTRIBUTOR_ROLE
+              xml[:work].send("contributor-role", ocrid_role)
+            end
           end
-        end
 
-        def find_valid_orcid(hsh)
-          identifier = hsh["nameIdentifiers"]&.find { |id| id["nameIdentifierScheme"] == "orcid" }
+          def xml_contributor_orcid(xml, orcid)
+            return unless orcid.present?
 
-          validate_orcid(identifier&.dig("nameIdentifier"))
-        end
+            xml[:common].send("contributor-orcid") do
+              xml[:common].uri "https://orcid.org/#{orcid}"
+              xml[:common].path orcid
+              xml[:common].host "orcid.org"
+            end
+          end
+
+          def find_valid_orcid(hsh)
+            identifier = hsh["nameIdentifiers"]&.find { |id| id["nameIdentifierScheme"] == "orcid" }
+
+            validate_orcid(identifier&.dig("nameIdentifier"))
+          end
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength

@@ -2,6 +2,8 @@
 
 # Methods which attemt to normalize writing (ouputting) data from the parsed Bolognese Meta readers, and allow them
 # to be used in a number of different areas, all of which must extend or be prepended into Bolognese::Metadata
+
+# rubocop:disable Metrics/ModuleLength
 module Bolognese
   module Helpers
     module Writers
@@ -144,60 +146,61 @@ module Bolognese
 
       protected
 
-      def write_involved(type)
-        key = type.to_s.singularize
+        def write_involved(type)
+          key = type.to_s.singularize
 
-        meta.dig(type)&.map do |item|
-          # transform but don't change original or each time method is run it prepends the key
-          trans = item.transform_keys { |k| "#{key}_#{k.underscore}" }
+          meta.dig(type)&.map do |item|
+            # transform but don't change original or each time method is run it prepends the key
+            trans = item.transform_keys { |k| "#{key}_#{k.underscore}" }
 
-          # Individual name identifiers will require specific tranformations as required
-          trans["#{key}_name_identifiers"]&.each_with_object(trans) do |hash, identifier|
-            identifier["#{key}_#{hash['nameIdentifierScheme'].downcase}"] = hash["nameIdentifier"]
+            # Individual name identifiers will require specific tranformations as required
+            trans["#{key}_name_identifiers"]&.each_with_object(trans) do |hash, identifier|
+              identifier["#{key}_#{hash['nameIdentifierScheme'].downcase}"] = hash["nameIdentifier"]
+            end
+
+            # We need to ensure that the field is named properly if we have an organisation if its not blank
+            if trans.dig("#{key}_name_type") == "Organizational" && trans["#{key}_name"] != UNAVAILABLE_LABEL
+              trans["#{key}_organization_name"] = trans.delete("#{key}_name")
+
+            # Incase edge cases don't provide a full set of name values, but should have: 10.7925/drs1.duchas_5019334
+            elsif trans["#{key}_name"]&.match?(/,/) && trans["#{key}_given_name"].blank?
+              trans["#{key}_family_name"], trans["#{key}_given_name"] = trans["#{key}_name"].split(", ")
+            end
+
+            trans
           end
+        end
 
-          # We need to ensure that the field is named properly if we have an organisation if its not blank
-          if trans.dig("#{key}_name_type") == "Organizational" && trans["#{key}_name"] != UNAVAILABLE_LABEL
-            trans["#{key}_organization_name"] = trans.delete("#{key}_name")
+        # Always returns a hash
+        def get_funder_ror(funder_doi)
+          # doi should be similar to "10.13039/501100000267" however we only want the second segment
+          response = Faraday.get("#{ROR_QUERY_URL}#{funder_doi.split('/').last}")
 
-          # Incase edge cases don't provide a full set of name values, but should have: 10.7925/drs1.duchas_5019334
-          elsif trans["#{key}_name"]&.match?(/,/) && trans["#{key}_given_name"].blank?
-            trans["#{key}_family_name"], trans["#{key}_given_name"] = trans["#{key}_name"].split(", ")
+          return {} unless response.success?
+
+          # `body.items` is an array of hashes - but we only need the first one
+          JSON.parse(response.body)&.dig("items")&.first || {}
+        end
+
+        # Dip into a data continer and check for a specific key, returning the value is present
+        # bucket would normally be `identifiers` or `container`
+        def identifier_by_type(bucket, type)
+          Array.wrap(send(bucket))&.find { |id| id["identifierType"] == type }&.dig("identifier")
+        end
+
+        # Group the funders by their name, as we might not have a unique DOI for them.
+        # This is a big of a sledge hammer approach, but I believe it'll work for now.
+        def grouped_funders
+          return unless funding_references.present?
+
+          funding_references.group_by { |funder| funder["funderName"] }.map do |_name, group|
+            funder = group.first
+            funder["awardNumber"] = group.pluck("awardNumber").compact
+
+            funder
           end
-
-          trans
         end
-      end
-
-      # Always returns a hash
-      def get_funder_ror(funder_doi)
-        # doi should be similar to "10.13039/501100000267" however we only want the second segment
-        response = Faraday.get("#{ROR_QUERY_URL}#{funder_doi.split('/').last}")
-
-        return {} unless response.success?
-
-        # `body.items` is an array of hashes - but we only need the first one
-        JSON.parse(response.body)&.dig("items")&.first || {}
-      end
-
-      # Dip into a data continer and check for a specific key, returning the value is present
-      # bucket would normally be `identifiers` or `container`
-      def identifier_by_type(bucket, type)
-        Array.wrap(send(bucket))&.find { |id| id["identifierType"] == type }&.dig("identifier")
-      end
-
-      # Group the funders by their name, as we might not have a unique DOI for them.
-      # This is a big of a sledge hammer approach, but I believe it'll work for now.
-      def grouped_funders
-        return unless funding_references.present?
-
-        funding_references.group_by { |funder| funder["funderName"] }.map do |_name, group|
-          funder = group.first
-          funder["awardNumber"] = group.pluck("awardNumber").compact
-
-          funder
-        end
-      end
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength
