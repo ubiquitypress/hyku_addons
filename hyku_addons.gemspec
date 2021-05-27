@@ -6,7 +6,7 @@ require "hyku_addons/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
-  spec.name        = "hyku_addons"
+  spec.name = "hyku_addons"
   spec.version     = HykuAddons::VERSION
   spec.authors     = ["Chris Colvard"]
   spec.email       = ["chris.colvard@gmail.com"]
@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
     spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
+			"public gem pushes."
   end
 
   spec.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
@@ -39,6 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'maremma', '< 4.8'
   spec.add_dependency 'postrank-uri', '>= 1.0.24'
   spec.add_dependency 'public_suffix', '~> 2.0.2'
+  spec.add_dependency 'bolognese', '~> 1.9', '>= 1.9.7'
 
   spec.add_development_dependency 'ammeter'
   spec.add_development_dependency "bixby"
