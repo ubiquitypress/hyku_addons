@@ -39,6 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'maremma', '< 4.8'
   spec.add_dependency 'postrank-uri', '>= 1.0.24'
   spec.add_dependency 'public_suffix', '~> 2.0.2'
+	spec.add_dependency 'bolognese', '~> 1.9.7'
 
   spec.add_development_dependency 'ammeter'
   spec.add_development_dependency "bixby"
