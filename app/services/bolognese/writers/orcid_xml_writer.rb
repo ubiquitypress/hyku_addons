@@ -120,36 +120,36 @@ module Bolognese
           end
         end
 
-        private
+      private
 
-          def xml_contributor_name(xml, name)
-            xml[:work].send("credit-name", name)
+        def xml_contributor_name(xml, name)
+          xml[:work].send("credit-name", name)
+        end
+
+        def xml_contributor_role(xml, primary = true, role = "Author")
+          xml[:work].send("contributor-attributes") do
+            xml[:work].send("contributor-sequence", primary ? "first" : "additional")
+
+            ocrid_role = CONTRIBUTOR_MAP.find { |_k, v| v.include?(role) }&.first || DEFAULT_CONTRIBUTOR_ROLE
+            xml[:work].send("contributor-role", ocrid_role)
           end
+        end
 
-          def xml_contributor_role(xml, primary = true, role = "Author")
-            xml[:work].send("contributor-attributes") do
-              xml[:work].send("contributor-sequence", primary ? "first" : "additional")
+        def xml_contributor_orcid(xml, orcid)
+          return unless orcid.present?
 
-              ocrid_role = CONTRIBUTOR_MAP.find { |_k, v| v.include?(role) }&.first || DEFAULT_CONTRIBUTOR_ROLE
-              xml[:work].send("contributor-role", ocrid_role)
-            end
+          xml[:common].send("contributor-orcid") do
+            xml[:common].uri "https://orcid.org/#{orcid}"
+            xml[:common].path orcid
+            xml[:common].host "orcid.org"
           end
+        end
 
-          def xml_contributor_orcid(xml, orcid)
-            return unless orcid.present?
+        def find_valid_orcid(hsh)
+          identifier = hsh["nameIdentifiers"]&.find { |id| id["nameIdentifierScheme"] == "orcid" }
 
-            xml[:common].send("contributor-orcid") do
-              xml[:common].uri "https://orcid.org/#{orcid}"
-              xml[:common].path orcid
-              xml[:common].host "orcid.org"
-            end
-          end
-
-          def find_valid_orcid(hsh)
-            identifier = hsh["nameIdentifiers"]&.find { |id| id["nameIdentifierScheme"] == "orcid" }
-
-            validate_orcid(identifier&.dig("nameIdentifier"))
-          end
+          validate_orcid(identifier&.dig("nameIdentifier"))
+        end
     end
   end
 end
