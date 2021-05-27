@@ -83,7 +83,7 @@ module Bolognese
       def write_abstract
         return nil if descriptions.blank?
 
-        descriptions.pluck("description")&.map { |d| Array(d).join("\n") }
+        Array.wrap(descriptions).pluck("description")&.map { |d| Array(d).join("\n") }
       end
 
       def write_date_published
@@ -97,7 +97,8 @@ module Bolognese
           # TODO: Need to get the award name from the number here
           funder["funder_award"] = Array.wrap(funder.delete("award_number"))
 
-          if (doi = funder["funder_identifier"]&.match(DOI_REGEX)).present?
+          regex = Bolognese::Writers::HykuAddonsWorkFormFieldsWriter::DOI_REGEX
+          if (doi = funder["funder_identifier"]&.match(regex)).present?
             # Ensure we only ever use the doi_id and not the full URL
             funder["funder_doi"] = doi[0]
 
@@ -159,7 +160,8 @@ module Bolognese
             end
 
             # We need to ensure that the field is named properly if we have an organisation if its not blank
-            if trans.dig("#{key}_name_type") == "Organizational" && trans["#{key}_name"] != UNAVAILABLE_LABEL
+            label = Bolognese::Writers::HykuAddonsWorkFormFieldsWriter::UNAVAILABLE_LABEL
+            if trans.dig("#{key}_name_type") == "Organizational" && trans["#{key}_name"] != label
               trans["#{key}_organization_name"] = trans.delete("#{key}_name")
 
             # Incase edge cases don't provide a full set of name values, but should have: 10.7925/drs1.duchas_5019334
@@ -174,7 +176,7 @@ module Bolognese
         # Always returns a hash
         def get_funder_ror(funder_doi)
           # doi should be similar to "10.13039/501100000267" however we only want the second segment
-          response = Faraday.get("#{ROR_QUERY_URL}#{funder_doi.split('/').last}")
+          response = Faraday.get("#{Bolognese::Writers::HykuAddonsWorkFormFieldsWriter::ROR_QUERY_URL}#{funder_doi.split('/').last}")
 
           return {} unless response.success?
 

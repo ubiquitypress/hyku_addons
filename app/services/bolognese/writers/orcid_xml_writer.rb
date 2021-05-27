@@ -43,10 +43,11 @@ module Bolognese
             end
 
             xml[:work].type type
+            xml[:work].send("short-description", fixed_length_abstract)
+            xml[:work].send("language-code", "en") # Temp as HA doesn't deal with languages properly
 
             # These fields will cause multiple errors when included, no matter the work-type being used - even `other`
             # xml[:work].send("journal-title", "Work Journal Title")
-            # xml[:work].send('short-description", "The short description for the work")
             # xml[:work].url "http://test-url.com"
             # xml[:common].country "US"
             # xml[:common].send("language-code", "en")
@@ -152,6 +153,11 @@ module Bolognese
 
         def orcid_role(role)
           CONTRIBUTOR_MAP.find { |_k, v| v.include?(role) }&.first || DEFAULT_CONTRIBUTOR_ROLE
+        end
+
+        # short-description max length is 5000, and truncate uses `...` after truncation
+        def fixed_length_abstract
+          write_abstract.first&.truncate(4997)
         end
     end
   end

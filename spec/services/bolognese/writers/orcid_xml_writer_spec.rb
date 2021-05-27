@@ -145,6 +145,10 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
       it { expect(doc.xpath("//common:subtitle/text()").to_s).to eq alt_title }
     end
 
+    describe "short-description" do
+      it { expect(doc.xpath("//work:short-description/text()").to_s).to eq abstract }
+    end
+
     describe "publication-date" do
       it { expect(doc.xpath("//common:publication-date/common:year/text()").to_s).to eq published_year }
       it { expect(doc.xpath("//common:publication-date/common:month/text()").to_s).to eq "9" }
