@@ -12,8 +12,6 @@ RSpec.describe HykuAddons::Actors::NoteFieldActor do
   let(:env) { env_class.new(work, ability, attributes) }
   let(:terminator) { Hyrax::Actors::Terminator.new }
 
-  # let(:actor) { described_class.new(terminator) }
-
   # This lets us use the middleware chain, rather than assuming its running and using the `create` method on the actor
   let(:middleware) do
     stack = ActionDispatch::MiddlewareStack.new.tap do |middleware|
