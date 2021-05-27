@@ -1,11 +1,11 @@
 <div class="previous_notes">
-  <% curation_concern.note.each do |note_hash| %>
-    <% parsed_note_content = parse_note_content(note_hash) %>
+  <% sorted_hash_by_timestamp = sort_note_hash(curation_concern.note)%>
+  <% sorted_hash_by_timestamp.each do |note_hash| %>
     <div class="note-content-container">
-      <p class="note-body"><%= parsed_note_content["note"].html_safe %></p>
+      <p class="note-body"><%= note_hash["note"].html_safe %></p>
       <span class="note-timestamp">
-        <b><%= parsed_note_content["email"]%></b>
-        <%= Time.zone.parse(parsed_note_content["timestamp"]).utc %>
+        <b><%= note_hash["email"]%></b>
+        <%= Time.zone.parse(note_hash["timestamp"]).utc %>
       </span>
     </div>
   <% end %>
