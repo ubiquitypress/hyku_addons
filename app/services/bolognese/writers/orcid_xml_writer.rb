@@ -130,8 +130,7 @@ module Bolognese
           xml[:work].send("contributor-attributes") do
             xml[:work].send("contributor-sequence", primary ? "first" : "additional")
 
-            ocrid_role = CONTRIBUTOR_MAP.find { |_k, v| v.include?(role) }&.first || DEFAULT_CONTRIBUTOR_ROLE
-            xml[:work].send("contributor-role", ocrid_role)
+            xml[:work].send("contributor-role", orcid_role(role))
           end
         end
 
@@ -149,6 +148,10 @@ module Bolognese
           identifier = hsh["nameIdentifiers"]&.find { |id| id["nameIdentifierScheme"] == "orcid" }
 
           validate_orcid(identifier&.dig("nameIdentifier"))
+        end
+
+        def orcid_role(role)
+          CONTRIBUTOR_MAP.find { |_k, v| v.include?(role) }&.first || DEFAULT_CONTRIBUTOR_ROLE
         end
     end
   end
