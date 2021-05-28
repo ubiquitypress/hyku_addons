@@ -158,7 +158,7 @@ module HykuAddons
     def export_mapping
       # Add all fields from this model to the mapping unless explicitly excluded by already being in the mapping
       map = mapping.reject { |k, _| k == 'model' || (Bulkrax.reserved_properties.include?(k) && !field_supported?(k)) }
-      hyrax_record.attributes.keys.map { |k| map[k] = { 'from' => [k] } unless map.key?(k) || Bulkrax.reserved_properties.include?(k) || !field_supported?(k) }
+      hyrax_record.attributes.keys.map { |k| map[k] ||= { 'from' => Array.wrap(k) } unless Bulkrax.reserved_properties.include?(k) || !field_supported?(k) }
       map
     end
   end

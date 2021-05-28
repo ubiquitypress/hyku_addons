@@ -14,7 +14,7 @@ Metrics/ClassLength:
   Exclude:
     - 'app/models/hyku_addons/csv_entry.rb'
     - 'app/services/bolognese/readers/base_work_reader.rb'
-    - 'app/services/hyku_addons/entry_validation_service.rb'
+    - 'app/services/hyku_addons/validations/solr_entry_validation_service.rb'
     - 'lib/hyku_addons/engine.rb'
 
 Metrics/LineLength:
@@ -56,7 +56,7 @@ Metrics/MethodLength:
     - 'app/parsers/hyku_addons/csv_parser.rb'
     - 'app/services/bolognese/readers/base_work_reader.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
-    - 'app/services/hyku_addons/entry_validation_service.rb'
+    - 'app/services/hyku_addons/validations/solr_entry_validation_service.rb'
     - 'bin/transform_export_batch.rb'
     - 'lib/hyku_addons/engine.rb'
     - 'lib/tasks/account.rake'
@@ -67,14 +67,14 @@ Metrics/CyclomaticComplexity:
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
     - 'bin/transform_export_batch.rb'
     - 'lib/hyku_addons/engine.rb'
-    - 'app/services/hyku_addons/entry_validation_service.rb'
+    - 'app/services/hyku_addons/validations/solr_entry_validation_service.rb'
 
 Metrics/PerceivedComplexity:
   Exclude:
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
     - 'bin/transform_export_batch.rb'
     - 'lib/hyku_addons/engine.rb'
-    - 'app/services/hyku_addons/entry_validation_service.rb'
+    - 'app/services/hyku_addons/validations/solr_entry_validation_service.rb'
 
 Metrics/AbcSize:
   Exclude:

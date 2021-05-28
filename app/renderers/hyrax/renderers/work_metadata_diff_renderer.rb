@@ -53,7 +53,7 @@ module Hyrax
       protected
 
         def service
-          @_service ||= HykuAddons::EntryValidationService.new(@view_context.current_account, @entry)
+          @_service ||= HykuAddons::Validations::EntryValidationService.new(@view_context.current_account, @entry)
         end
 
         def key_value_list_for(a_hash)
