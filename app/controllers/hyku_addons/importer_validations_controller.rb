@@ -6,7 +6,7 @@ module HykuAddons
     def show
       respond_to do |format|
         format.csv do
-          send_data(HykuAddons::ImporterValidationReportService.new(@importer, params[:field]).perform,
+          send_data(HykuAddons::Validations::ImporterValidationReportService.new(@importer, params[:field]).perform,
                     type: 'text/csv; charset=utf-8; header=present',
                     disposition: 'attachment; filename=validation.csv')
         end
