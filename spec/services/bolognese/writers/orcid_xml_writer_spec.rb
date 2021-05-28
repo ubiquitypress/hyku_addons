@@ -84,25 +84,27 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
     }
   end
 
-  let(:model_class) { GenericWork }
-  let(:work) { model_class.new(attributes) }
-  let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
-  let(:meta) { Bolognese::Readers::GenericWorkReader.new(input: input, from: "work") }
-
   # NOTE: If updating the schema files, you"ll need to manually update the remove `schemaLocation` references
   let(:xml_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1") }
-
   let(:schema_file) { "work-2.1.xsd" }
   let(:simple_sample_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1", "example-simple-2.1.xml") }
   let(:complete_sample_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1", "example-simple-2.1.xml") }
   let(:error_sample_path) { Rails.root.join("..", "fixtures", "orcid", "xml", "record_2.1", "example-error.xml") }
+
+  # Setup our work, reader and writer objects
+  let(:model_class) { GenericWork }
+  let(:work) { model_class.new(attributes) }
+  let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
+  let(:meta) { Bolognese::Readers::GenericWorkReader.new(input: input, from: "work") }
+  let(:orcid_xml) { meta.orcid_xml(type) }
+  let(:doc) { Nokogiri::XML(orcid_xml) }
 
   it "includes the module into the Metadata class" do
     expect(Bolognese::Metadata.new).to respond_to(:orcid_xml)
   end
 
   describe "the schema" do
-    it "validates against the test XML documents" do
+    it "validates against the sample XML documents from ORCID" do
       # Because of the way the documents need to be altered to use relative schemaLocation's, Dir.chdir is required
       Dir.chdir(xml_path) do
         schema = Nokogiri::XML::Schema(IO.read(schema_file))
@@ -121,63 +123,59 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
   end
 
   describe "#orcid_xml" do
-    subject(:orcid_xml) { meta.orcid_xml("other") }
-    let(:doc) { Nokogiri::XML(orcid_xml) }
+    context "when type is `other`" do
+      let(:type) { "other" }
 
-    # This is just for debugging to show what is being output
-    it "outputs the XML" do
-      puts "==================================================================="
-      puts orcid_xml
-      puts "==================================================================="
-    end
-
-    it "returns a valid XML document" do
-      Dir.chdir(xml_path) do
-        schema = Nokogiri::XML::Schema(IO.read(schema_file))
-
-        doc = Nokogiri::XML(orcid_xml)
-        expect(schema.validate(doc)).to be_empty
+      # This is just for debugging to show what is being output
+      xit "outputs the XML" do
+        puts "==================================================================="
+        puts orcid_xml
+        puts "==================================================================="
       end
-    end
 
-    describe "titles" do
-      it { expect(doc.xpath("//common:title/text()").to_s).to eq title }
-      it { expect(doc.xpath("//common:subtitle/text()").to_s).to eq alt_title }
-    end
+      it "returns a valid XML document" do
+        Dir.chdir(xml_path) do
+          schema = Nokogiri::XML::Schema(IO.read(schema_file))
 
-    # Short-description is not avaiable with some other options, but i can't find the docs to explain it.
-    describe "short-description" do
-      xit { expect(doc.xpath("//work:short-description/text()").to_s).to eq abstract }
-    end
+          doc = Nokogiri::XML(orcid_xml)
+          expect(schema.validate(doc)).to be_empty
+        end
+      end
 
-    describe "publication-date" do
-      it { expect(doc.xpath("//common:publication-date/common:year/text()").to_s).to eq published_year }
-      it { expect(doc.xpath("//common:publication-date/common:month/text()").to_s).to eq "9" }
-      it { expect(doc.xpath("//common:publication-date/common:day/text()").to_s).to eq "27" }
-    end
+      describe "titles" do
+        it { expect(doc.xpath("//common:title/text()").to_s).to eq title }
+        it { expect(doc.xpath("//common:subtitle/text()").to_s).to eq alt_title }
+      end
 
-    describe "external-ids" do
-      it { expect(doc.xpath("//common:external-id[common:external-id-type='isbn']/common:external-id-value/text()").to_s).to eq isbn }
-      it { expect(doc.xpath("//common:external-id[common:external-id-type='doi']/common:external-id-url/text()").to_s).to eq "https://doi.org/#{doi}" }
-    end
+      describe "publication-date" do
+        it { expect(doc.xpath("//common:publication-date/common:year/text()").to_s).to eq published_year }
+        it { expect(doc.xpath("//common:publication-date/common:month/text()").to_s).to eq "9" }
+        it { expect(doc.xpath("//common:publication-date/common:day/text()").to_s).to eq "27" }
+      end
 
-    describe "creators" do
-      it { expect(doc.xpath("//work:contributor").count).to eq 3 }
+      describe "external-ids" do
+        it { expect(doc.xpath("//common:external-id[common:external-id-type='isbn']/common:external-id-value/text()").to_s).to eq isbn }
+        it { expect(doc.xpath("//common:external-id[common:external-id-type='doi']/common:external-id-url/text()").to_s).to eq "https://doi.org/#{doi}" }
+      end
 
-      it { expect(doc.xpath("//work:contributor[1]/common:contributor-orcid/common:path/text()").to_s).to eq "" }
-      it { expect(doc.xpath("//work:contributor[1]/work:credit-name/text()").to_s).to eq "#{creator1_first_name} #{creator1_last_name}" }
-      it { expect(doc.xpath("//work:contributor[1]/work:contributor-attributes/work:contributor-role/text()").to_s).to eq "author" }
-      it { expect(doc.xpath("//work:contributor[1]/work:contributor-attributes/work:contributor-sequence/text()").to_s).to eq "first" }
+      describe "creators" do
+        it { expect(doc.xpath("//work:contributor").count).to eq 3 }
 
-      it { expect(doc.xpath("//work:contributor[2]/common:contributor-orcid/common:path/text()").to_s).to eq creator2_orcid }
-      it { expect(doc.xpath("//work:contributor[2]/work:credit-name/text()").to_s).to eq "#{creator2_first_name} #{creator2_last_name}" }
-      it { expect(doc.xpath("//work:contributor[2]/work:contributor-attributes/work:contributor-role/text()").to_s).to eq "author" }
-      it { expect(doc.xpath("//work:contributor[2]/work:contributor-attributes/work:contributor-sequence/text()").to_s).to eq "additional" }
+        it { expect(doc.xpath("//work:contributor[1]/common:contributor-orcid/common:path/text()").to_s).to eq "" }
+        it { expect(doc.xpath("//work:contributor[1]/work:credit-name/text()").to_s).to eq "#{creator1_first_name} #{creator1_last_name}" }
+        it { expect(doc.xpath("//work:contributor[1]/work:contributor-attributes/work:contributor-role/text()").to_s).to eq "author" }
+        it { expect(doc.xpath("//work:contributor[1]/work:contributor-attributes/work:contributor-sequence/text()").to_s).to eq "first" }
 
-      it { expect(doc.xpath("//work:contributor[3]/common:contributor-orcid/common:path/text()").to_s).to eq contributor1_orcid }
-      it { expect(doc.xpath("//work:contributor[3]/work:credit-name/text()").to_s).to eq "#{contributor1_first_name} #{contributor1_last_name}" }
-      it { expect(doc.xpath("//work:contributor[3]/work:contributor-attributes/work:contributor-role/text()").to_s).to eq "support-staff" }
-      it { expect(doc.xpath("//work:contributor[3]/work:contributor-attributes/work:contributor-sequence/text()").to_s).to eq "additional" }
+        it { expect(doc.xpath("//work:contributor[2]/common:contributor-orcid/common:path/text()").to_s).to eq creator2_orcid }
+        it { expect(doc.xpath("//work:contributor[2]/work:credit-name/text()").to_s).to eq "#{creator2_first_name} #{creator2_last_name}" }
+        it { expect(doc.xpath("//work:contributor[2]/work:contributor-attributes/work:contributor-role/text()").to_s).to eq "author" }
+        it { expect(doc.xpath("//work:contributor[2]/work:contributor-attributes/work:contributor-sequence/text()").to_s).to eq "additional" }
+
+        it { expect(doc.xpath("//work:contributor[3]/common:contributor-orcid/common:path/text()").to_s).to eq contributor1_orcid }
+        it { expect(doc.xpath("//work:contributor[3]/work:credit-name/text()").to_s).to eq "#{contributor1_first_name} #{contributor1_last_name}" }
+        it { expect(doc.xpath("//work:contributor[3]/work:contributor-attributes/work:contributor-role/text()").to_s).to eq "support-staff" }
+        it { expect(doc.xpath("//work:contributor[3]/work:contributor-attributes/work:contributor-sequence/text()").to_s).to eq "additional" }
+      end
     end
   end
 end
