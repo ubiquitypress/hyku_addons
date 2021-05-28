@@ -19,6 +19,7 @@ RSpec.describe HykuAddons::NotesTabFormHelper do
 
   before do
     allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(false)
+    allow(Flipflop).to receive(:enabled?).with(:simplified_deposit_form).and_return(false)
     allow(Flipflop).to receive(:enabled?).with(:notes_tab_form).and_return(false)
     allow(controller).to receive(:current_user) { user }
   end
@@ -27,7 +28,6 @@ RSpec.describe HykuAddons::NotesTabFormHelper do
     context "when the feature is enabled" do
       before do
         allow(Flipflop).to receive(:enabled?).with(:notes_tab_form).and_return(true)
-        allow(helper).to receive(:form_tabs_for).with(form: form).and_return(['notes'])
       end
 
       it "shows the notes tab" do
@@ -36,11 +36,6 @@ RSpec.describe HykuAddons::NotesTabFormHelper do
     end
 
     context "when the feature is disabled" do
-      before do
-        allow(Flipflop).to receive(:enabled?).with(:notes_tab_form).and_return(false)
-        allow(helper).to receive(:form_tabs_for).with(form: form).and_return(['relationships'])
-      end
-
       it "doesn not show the notes tab" do
         expect(helper.form_tabs_for(form: form)).not_to include("notes")
       end
