@@ -90,8 +90,7 @@ module HykuAddons
             end
             tesim["#{prefix}_role"] = Array(tesim["#{prefix}_role"].presence)
             tesim["#{prefix}_position"] ||= "0"
-            tesim["#{prefix}_institutional_relationship"] =
-                Array(tesim["#{prefix}_institutional_relationship"].presence)
+            tesim["#{prefix}_institutional_relationship"] = Array(tesim["#{prefix}_institutional_relationship"].presence)
             returning_value.push([tesim].to_json)
           end
           returning_value

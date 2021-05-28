@@ -23,11 +23,12 @@ RSpec.describe HykuAddons::Validations::CsvEntryValidationService, type: :model 
     end
   end
 
+  # rubocop:disable RSpec/EmptyExampleGroup
   describe "validate" do
     context "with a correctly imported CSV file" do
       let(:user) { create(:user, email: 'test@example.com') }
       # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
-      let!(:depositor) { create(:user, email: 'batchuser@example.com') }
+      let(:depositor) { create(:user, email: 'batchuser@example.com') }
       let(:importer) do
         create(:bulkrax_importer_csv,
                user: user,
@@ -37,7 +38,7 @@ RSpec.describe HykuAddons::Validations::CsvEntryValidationService, type: :model 
                limit: 0)
       end
       let(:import_batch_file) { 'spec/fixtures/csv/pacific_articles.metadata.csv' }
-
     end
   end
+  # rubocop:enable RSpec/EmptyExampleGroup
 end
