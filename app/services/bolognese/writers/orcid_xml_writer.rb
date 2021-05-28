@@ -27,6 +27,11 @@ module Bolognese
       end
 
       # Allow us to use specific writer classes for work types that might be required to return different XML
+      #
+      # The has_model attribute needs to be set properly for this to work as intended:
+      #
+      # input = work.attributes.merge(has_model: work.has_model.first).to_json
+      # Bolognese::Readers::GenericWorkReader.new(input: input, from: "work")
       def xml_writer_class
         "Bolognese::Writers::Xml::#{meta.dig('types', 'hyrax')}Writer".constantize
       rescue NameError

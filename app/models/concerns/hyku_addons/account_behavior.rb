@@ -9,7 +9,10 @@ module HykuAddons
     ARRAY_SETTINGS = %w[weekly_email_list monthly_email_list yearly_email_list email_format].freeze
     BOOLEAN_SETTINGS = %w[allow_signup shared_login bulkrax_validations].freeze
     HASH_SETTINGS = %w[].freeze
-    TEXT_SETTINGS = %w[contact_email gtm_id oai_admin_email oai_prefix oai_sample_identifier google_analytics_id].freeze
+    TEXT_SETTINGS = [
+      "contact_email", "gtm_id", "oai_admin_email", "oai_prefix", "oai_sample_identifier", "google_analytics_id",
+      "orcid_client_id", "orcid_client_secret", "orcid_redirect"
+    ].freeze
 
     included do
       belongs_to :datacite_endpoint, dependent: :delete
@@ -20,7 +23,8 @@ module HykuAddons
       store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
                      :google_scholarly_work_types, :gtm_id, :shared_login, :email_format,
                      :allow_signup, :oai_admin_email, :file_size_limit, :enable_oai_metadata, :oai_prefix,
-                     :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id
+                     :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id,
+                     :orcid_client_id, :orcid_client_secret, :orcid_redirect
 
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
       after_initialize :set_jsonb_allow_signup_default

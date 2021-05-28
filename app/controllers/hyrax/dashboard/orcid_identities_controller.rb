@@ -7,7 +7,7 @@
 
 module Hyrax
   class OrcidIdentitiesController < ApplicationController
-    with_themed_layout 'dashboard'
+    with_themed_layout "dashboard"
     before_action :authenticate_user!
 
     def new
@@ -32,8 +32,8 @@ module Hyrax
 
       def request_authorization
         data = {
-          client_id: ENV["ORCID_CLIENT_ID"],
-          client_secret: ENV["ORCID_CLIENT_SECRET"],
+          client_id: Site.instance.account.settings["orcid_client_id"],
+          client_secret: Site.instance.account.settings["orcid_client_secret"],
           grant_type: "authorization_code",
           code: code
         }

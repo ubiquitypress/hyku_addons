@@ -10,10 +10,10 @@ module HykuAddons
 
     def orcid_authorize_uri
       params = {
-        client_id: ENV["ORCID_CLIENT_ID"],
+        client_id: Site.instance.account.settings["orcid_client_id"],
         scope: "/activities/update%20/read-limited",
         response_type: "code",
-        redirect_uri: ENV["ORCID_AUTH_REDIRECT"]
+        redirect_uri: Site.instance.account.settings["orcid_redirect"],
       }
 
       "https://#{orcid_domain}/oauth/authorize?#{params.to_query}"

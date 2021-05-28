@@ -116,9 +116,6 @@ services:
       SETTINGS__ZOOKEEPER__CONNECTION_STR: zookeeper_cluster:2181/configs
       SOLR_URL: http://solr:8983/solr/
       PASSENGER_APP_ENV: development
-      ORCID_CLIENT_ID: APP-IK56X6QNRRL9VNOM
-      ORCID_CLIENT_SECRET: f5154480-039b-4ad5-aaf4-aa6eb272c670
-      ORCID_AUTH_REDIRECT: https://developers.google.com/oauthplayground
       GCLOUD_ZONE: 1233465
       GCLOUD_PROJECT_ID: ABCDEFG
       PUBSUB_SERVICEACCOUNT_KEY:
