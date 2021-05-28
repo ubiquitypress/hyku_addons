@@ -111,7 +111,7 @@ jobs:
     parameters:
       parallelism:
         type: integer
-        default: 1
+        default: 4
     docker:
       - image: cimg/base:stable
     steps:
