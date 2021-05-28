@@ -11,7 +11,9 @@ class CreateOrcidIdentities < ActiveRecord::Migration[5.2]
       t.string :refresh_token
       t.integer :expires_in
       t.string :scope
-      t.column :sync_preferences, :json, default: {}
+      t.integer :work_sync_preference, default: 0
+      t.index :work_sync_preference
+      t.column :profile_sync_preference, :json, default: {}
 
       t.timestamps
     end

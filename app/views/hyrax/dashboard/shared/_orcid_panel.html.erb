@@ -10,26 +10,38 @@
       <%== t("orcid_identity.sync.title", link: link) %>
     </div>
 
-    <div class="list-group-item">
-      <p><%= t("orcid_identity.sync.intro") %></p>
-
-      <% path = hyku_addons.orcid_identity_path(current_user.orcid_identity) %>
-      <%= form_for current_user.orcid_identity, url: path, method: :patch, html: { class: "form" } do |f| %>
-        <%= f.fields_for :sync_preferences do |sf| %>
-          <div class="form-check">
-            <% OrcidIdentity.sync_preferences.each do |pref, value| %>
-              <div class="form-check">
-                <% checked = current_user.orcid_identity.sync_preferences.dig(pref.to_s) == "1" %>
-                <%= sf.check_box pref, value: true, checked: checked, class: "form-check-input", id: "sync_preference_#{pref}" %>
-                <%= sf.label t("orcid_identity.sync.preferences.#{pref}"), class: "form-check-label", for: "sync_preference_#{pref}" %>
-              </div>
-            <% end %>
-          </div>
+    <% path = hyku_addons.orcid_identity_path(current_user.orcid_identity) %>
+    <%= form_for current_user.orcid_identity, url: path, method: :patch, html: { class: "form" } do |f| %>
+      <div class="list-group-item">
+        <%= f.fields_for :work_sync_preference do |sf| %>
+          <% OrcidIdentity.work_sync_preferences.each do |pref, value| %>
+            <div class="radio">
+              <%= label_tag do %>
+                <%= sf.radio_button pref, value: 1 class: "form-check-input", id: "work_sync_preference_#{pref}" %>
+                <%= t("orcid_identity.sync.work_preference.#{pref}") %>
+              <% end %>
+            </div>
+          <% end %>
         <% end %>
+      </div>
 
-        <%= f.submit "Save Preferences", class: "btn btn-primary" %>
-      <% end %>
-    </div>
+      <div class="list-group-item">
+        <p><%= t("orcid_identity.sync.intro") %></p>
+
+        <%= f.fields_for :profile_sync_preference do |sf| %>
+          <% OrcidIdentity.profile_sync_preference.each do |pref, value| %>
+            <div class="check">
+              <%= label_tag do %>
+                <% checked = current_user.orcid_identity.profile_sync_preference.dig(pref.to_s) == "1" %>
+                <%= sf.check_box pref, value: true, checked: checked, class: "form-check-input", id: "profile_sync_preference_#{pref}" %>
+                <%= t("orcid_identity.sync.profile_preference.#{pref}") %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <%= f.submit "Save Preferences", class: "btn btn-primary" %>
+    <% end %>
 
   <% else %>
     <div class="list-group-item">
@@ -49,6 +61,9 @@
         <%= image_tag 'orcid.png', alt: t('hyrax.user_profile.orcid.alt'), class: "profile" %>
         Connect to ORCID
       </a>
+
+      <p><b>For testing in development</b></p>
+      <p>When you get your "code" from the google playground, go to the following path: /dashboard/orcid_identity/new?code=</p>
     </div>
   <% end %>
 </div>

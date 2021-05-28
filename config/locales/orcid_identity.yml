@@ -4,7 +4,7 @@ en:
       title: Currently synced with ORCID user %{link}
       intro: |
         Works in this repository are being synced to your ORCID. Your repository profile page will import the following fields from your ORCID profile.
-      preferences:
+      profile_preference:
         employment: Employment
         funding: Funding
         education: Education and Qualifications
@@ -13,3 +13,7 @@ en:
         websites: Websites and Social Links
         memberships: Membership and Service
         other: Other IDs
+      work_preference:
+        sync_all: Automatically sync all works with my ORCID attached, even if I am not the depositor
+        sync_primary_and_ask: Sync all works I deposit to my ORCID, but ask me for works where someone lists me as a creator/contributor
+        ask_all: Always ask me before syncing a work to my ORCID profile

@@ -27,7 +27,7 @@ module Hyrax
     protected
 
       def permitted_preference_params
-        params.require(:orcid_identity).permit(sync_preferences: {})
+        params.require(:orcid_identity).permit(:work_sync_preference, profile_sync_preference: {})
       end
 
       def request_authorization
