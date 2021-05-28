@@ -251,7 +251,7 @@ module HykuAddons
 
     initializer 'hyku_addons.bulkrax_overrides' do
       Bulkrax.setup do |config|
-        config.system_identifier_field = 'id'
+        config.system_identifier_field = 'source_identifier'
         config.reserved_properties -= ['depositor']
         config.parsers += [{ class_name: "HykuAddons::CsvParser", name: "Ubiquity Repositiories Hyku 1 CSV", partial: "csv_fields" }]
         config.field_mappings["HykuAddons::CsvParser"] = {

@@ -40,6 +40,7 @@ module HykuAddons
         metadata = {
           title: [collection],
           Bulkrax.system_identifier_field => collection,
+          id: collection,
           visibility: 'open',
           collection_type_gid: Hyrax::CollectionType.find_or_create_default_collection_type.gid
         }
@@ -68,10 +69,29 @@ module HykuAddons
       ENV['BULKRAX_FILE_PATH'].presence || super
     end
 
+    # Override to use #entries_to_export for better handling of limiting
+    def write_files
+      CSV.open(setup_export_file, "w", headers: export_headers, write_headers: true) do |csv|
+        entries_to_export.each do |e|
+          csv << e.parsed_metadata
+        end
+      end
+    end
+
     # All possible column names
     def export_headers
       # Trust that the entries' parsed metadata
-      importerexporter.entries.where(identifier: current_work_ids).limit(limit || total).map { |e| e.parsed_metadata.keys }.flatten.uniq
+      entries_to_export.map { |e| e.parsed_metadata.keys }.flatten.uniq
+    end
+
+    def entries_to_export
+      entries_to_export = importerexporter.entries.where(identifier: current_work_ids)
+      entries_to_export = if limit&.positive?
+                            entries_to_export.limit(limit)
+                          else
+                            entries_to_export.limit(total)
+                          end
+      entries_to_export
     end
 
     # See https://stackoverflow.com/questions/2650517/count-the-number-of-lines-in-a-file-without-reading-entire-file-into-memory

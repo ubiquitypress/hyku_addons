@@ -166,4 +166,17 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       end
     end
   end
+
+  describe 'identifiers' do
+    context 'when only source_identifier is present' do
+      let(:import_batch_file) { 'spec/fixtures/csv/generic_work.csv' }
+      let(:source_identifier) { 'external-id-1' }
+
+      it 'mints a new id' do
+        expect { Bulkrax::ImporterJob.perform_now(importer.id) }.to change { GenericWork.count }.by(1)
+        work = GenericWork.where(source_identifier: source_identifier).first
+        expect(work.id).not_to eq source_identifier
+      end
+    end
+  end
 end
