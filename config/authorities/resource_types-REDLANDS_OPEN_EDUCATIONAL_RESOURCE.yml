@@ -15,12 +15,12 @@ terms:
     term: Exercise
   - id: Handout
     term: Handout
-  - id: Lab Manual
-    term: Lab Manual
-  - id: Lab Exercise
-    term: Lab Exercise
-  - id: Lesson Plan
-    term: Lesson Plan
+  - id: Lab manual
+    term: Lab manual
+  - id: Lab exercise
+    term: Lab exercise
+  - id: Lesson plan
+    term: Lesson plan
   - id: Presentation
     term: Presentation
   - id: Quiz/Test
