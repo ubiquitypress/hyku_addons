@@ -5,9 +5,10 @@ module Hyrax
     class ProcessWorkJob < ApplicationJob
       queue_as Hyrax.config.ingest_queue_name
 
-      def perform(orcid_id, work)
-        # TODO: Check user preferences and send notificaions
-        OrcidIdentity.find_by(orcid_id: orcid_id)&.sync_work(work)
+      def perform(work)
+        return unless Flipflop.enabled?(:orcid_identities)
+
+        HykuAddons::Orcid::ProcessWorkService.new(work).perform
       end
     end
   end

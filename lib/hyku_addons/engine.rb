@@ -508,7 +508,7 @@ module HykuAddons
       Hyrax::Dashboard::ProfilesController.prepend HykuAddons::Dashboard::ProfilesControllerBehavior
 
       User.include Hyrax::UserBehavior
-      Hyrax::CurationConcern.actor_factory.use Hyrax::Actors::OrcidActor
+      Hyrax::CurationConcern.actor_factory.use HykuAddons::Actors::Orcid::WorkActor
       Bolognese::Metadata.prepend Bolognese::Writers::OrcidXmlWriter
     end
 
