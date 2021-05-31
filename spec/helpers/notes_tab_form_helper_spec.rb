@@ -18,8 +18,7 @@ RSpec.describe HykuAddons::NotesTabFormHelper do
   end
 
   before do
-    allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(false)
-    allow(Flipflop).to receive(:enabled?).with(:simplified_deposit_form).and_return(false)
+    allow(Flipflop).to receive(:enabled?).and_call_original
     allow(Flipflop).to receive(:enabled?).with(:notes_tab_form).and_return(false)
     allow(controller).to receive(:current_user) { user }
   end
