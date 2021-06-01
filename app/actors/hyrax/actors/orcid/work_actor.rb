@@ -21,7 +21,7 @@ module Hyrax
           def process_work(env)
             return unless Flipflop.enabled?(:orcid_identities)
 
-            HykuAddons::Orcid::ProcessWorkJob.perform_now(env.curation_concern)
+            Hyrax::Orcid::ProcessWorkJob.perform_now(env.curation_concern)
           end
       end
     end

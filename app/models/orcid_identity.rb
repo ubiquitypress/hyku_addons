@@ -11,10 +11,4 @@ class OrcidIdentity < ApplicationRecord
   def self.profile_sync_preference
     %i[employment funding education works distinctions websites memberships other].freeze
   end
-
-  def sync_work!(_work)
-    # TODO: Check for user participation in syncing
-    # For all work contributors, sync the work to their profile
-    byebug
-  end
 end
