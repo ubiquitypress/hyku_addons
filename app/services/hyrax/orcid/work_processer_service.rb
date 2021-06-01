@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module HykuAddons
+module Hyrax
   module Orcid
     class ProcessWorkService
       include HykuAddons::WorkFormNameable

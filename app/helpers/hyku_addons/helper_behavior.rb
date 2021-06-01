@@ -7,6 +7,6 @@ module HykuAddons
     include HykuAddons::ContributorFieldHelper
     include HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper
     include HykuAddons::SimplifiedDepositFormHelper
-    include HykuAddons::OrcidHelper
+    include Hyrax::OrcidHelper
   end
 end

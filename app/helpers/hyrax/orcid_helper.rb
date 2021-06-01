@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module HykuAddons
+module Hyrax
   module OrcidHelper
     ORCID_API_VERSION = "v3.0"
 

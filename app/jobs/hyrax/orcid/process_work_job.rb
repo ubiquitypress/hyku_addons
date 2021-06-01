@@ -8,7 +8,7 @@ module Hyrax
       def perform(work)
         return unless Flipflop.enabled?(:orcid_identities)
 
-        HykuAddons::Orcid::ProcessWorkService.new(work).perform
+        Hyrax::Orcid::ProcessWorkService.new(work).perform
       end
     end
   end
