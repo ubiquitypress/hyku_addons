@@ -1,19 +1,31 @@
 en:
   orcid_identity:
-    sync:
-      title: Currently synced with ORCID user %{link}
-      intro: |
-        Works in this repository are being synced to your ORCID. Your repository profile page will import the following fields from your ORCID profile.
-      profile_preference:
-        employment: Employment
-        funding: Funding
-        education: Education and Qualifications
-        works: Works
-        distinctions: Invited Positions and Distinctions
-        websites: Websites and Social Links
-        memberships: Membership and Service
-        other: Other IDs
-      work_preference:
-        sync_all: Automatically sync all works with my ORCID attached, even if I am not the depositor
-        sync_primary_and_ask: Sync all works I deposit to my ORCID, but ask me for works where someone lists me as a creator/contributor
-        ask_all: Always ask me before syncing a work to my ORCID profile
+    preferences:
+      title: ORCID Sync
+      linked: Currently synced with ORCID user %{link}
+      button_text:  Save Preferences
+      info:
+        connect_intro: |
+          Syncing your Hyku repository profile with ORCID allows you to import all the data in your ORCID profile to your repository profile and makes it easier for works deposited in this repository to be synced to ORCID.
+        connect_title: What is ORCID?
+        connect_button_text: Connect to ORCID
+      profile_sync:
+        intro: |
+          Works in this repository are being synced to your ORCID. Your repository profile page will import the following fields from your ORCID profile.
+        preferences:
+          employment: Employment
+          funding: Funding
+          education: Education and Qualifications
+          works: Works
+          distinctions: Invited Positions and Distinctions
+          websites: Websites and Social Links
+          memberships: Membership and Service
+          other: Other IDs
+      work_sync:
+        title: Works Sent to ORCID
+        intro: |
+          Select how you'd like your works deposited to the repository to interact with ORCID. Note, that you can always stop individual works from being sent to ORCID.
+        preferences:
+          sync_all: Automatically sync all works with my ORCID attached, even if I am not the depositor
+          sync_primary_and_ask: Sync all works I deposit to my ORCID, but ask me for works where someone lists me as a creator/contributor
+          ask_all: Always ask me before syncing a work to my ORCID profile

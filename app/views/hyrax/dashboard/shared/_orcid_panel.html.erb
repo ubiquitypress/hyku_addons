@@ -1,70 +1,76 @@
-<div class="list-group col-lg-7 col-md-6 col-sm-12">
-  <% if current_user.orcid_identity? %>
-    <div class="list-group-item">
-      <b>ORCID Sync</b>
-    </div>
+<div id="orcid-options-panel" class="list-group col-lg-7 col-md-6 col-sm-12">
+	<% if current_user.orcid_identity? %>
+		<div class="list-group-item">
+			<b><%= t("orcid_identity.preferences.title") %></b>
+		</div>
 
-    <div class="list-group-item">
-      <% name = "#{current_user.orcid_identity.name} (#{current_user.orcid_identity.orcid_id})" %>
-      <% link = link_to(name, orcid_profile_uri(current_user.orcid_identity.orcid_id)) %>
-      <%== t("orcid_identity.sync.title", link: link) %>
-    </div>
+		<div class="list-group-item">
+			<% name = "#{current_user.orcid_identity.name} (#{current_user.orcid_identity.orcid_id})" %>
+			<% link = link_to(name, orcid_profile_uri(current_user.orcid_identity.orcid_id)) %>
+			<%== t("orcid_identity.preferences.linked", link: link) %>
+		</div>
 
-    <% path = hyku_addons.orcid_identity_path(current_user.orcid_identity) %>
-    <%= form_for current_user.orcid_identity, url: path, method: :patch, html: { class: "form" } do |f| %>
-      <div class="list-group-item">
-        <%= f.fields_for :work_sync_preference do |sf| %>
-          <% OrcidIdentity.work_sync_preferences.each do |pref, value| %>
-            <div class="radio">
-              <%= label_tag do %>
-                <%= sf.radio_button pref, value: 1 class: "form-check-input", id: "work_sync_preference_#{pref}" %>
-                <%= t("orcid_identity.sync.work_preference.#{pref}") %>
-              <% end %>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
+		<% path = hyku_addons.orcid_identity_path(current_user.orcid_identity) %>
+		<%= form_for current_user.orcid_identity, url: path, method: :patch, html: { class: "form" } do |f| %>
+			<div class="list-group-item">
+				<p><%= t("orcid_identity.preferences.work_sync.intro") %></p>
 
-      <div class="list-group-item">
-        <p><%= t("orcid_identity.sync.intro") %></p>
+				<% options = OrcidIdentity.work_sync_preferences.map { |ident| [ident[0], ident[0].titleize] } %>
+				<%= f.collection_radio_buttons :work_sync_preference, options, :first, :last do |b| %>
+					<div class="radio">
+						<%= b.label do %>
+							<%= b.radio_button class: "form-check-input" %>
+							<%= t("orcid_identity.preferences.work_sync.preferences.#{b.object[0]}") %>
+						<% end %>
+					</div>
+				<% end %>
+			</div>
 
-        <%= f.fields_for :profile_sync_preference do |sf| %>
-          <% OrcidIdentity.profile_sync_preference.each do |pref, value| %>
-            <div class="check">
-              <%= label_tag do %>
-                <% checked = current_user.orcid_identity.profile_sync_preference.dig(pref.to_s) == "1" %>
-                <%= sf.check_box pref, value: true, checked: checked, class: "form-check-input", id: "profile_sync_preference_#{pref}" %>
-                <%= t("orcid_identity.sync.profile_preference.#{pref}") %>
-              <% end %>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
-      <%= f.submit "Save Preferences", class: "btn btn-primary" %>
-    <% end %>
+			<div class="list-group-item">
+				<p><%= t("orcid_identity.preferences.profile_sync.intro") %></p>
 
-  <% else %>
-    <div class="list-group-item">
-      ORCID Sync
-    </div>
+				<%= f.fields_for :profile_sync_preference do |sf| %>
+					<% OrcidIdentity.profile_sync_preference.each do |pref, value| %>
+						<div class="check">
+							<%= label_tag do %>
+								<% checked = current_user.orcid_identity.profile_sync_preference.dig(pref.to_s) == "1" %>
 
-    <div class="list-group-item">
-      <p>
-      Syncing your Hyku repository profile with ORCID allows you to import all the data in your ORCID profile to your repository profile and makes it easier for works deposited in this repository to be synced to ORCID.
-      </p>
+								<%= sf.check_box pref, value: true, checked: checked, class: "form-check-input", id: "profile_sync_preference_#{pref}" %>
+								<%= t("orcid_identity.preferences.profile_sync.preference.#{pref}") %>
+							<% end %>
+						</div>
+					<% end %>
+				<% end %>
+			</div>
 
-      <p>
-      <b>What is ORCID?</b>
-      </p>
+			<%= f.submit t("orcid_identity.preferences.button_text"), class: "btn btn-primary margin-top" %>
+		<% end %>
 
-      <a href="<%= orcid_authorize_uri %>" title="Connect to ORCID" class="btn btn-orcid popup" data-popup-width="515" data-popup-height="670">
-        <%= image_tag 'orcid.png', alt: t('hyrax.user_profile.orcid.alt'), class: "profile" %>
-        Connect to ORCID
-      </a>
+	<% else %>
+		<div class="list-group-item">
+			<b><%= t("orcid_identity.preferences.title") %></b>
+		</div>
 
-      <p><b>For testing in development</b></p>
-      <p>When you get your "code" from the google playground, go to the following path: /dashboard/orcid_identity/new?code=</p>
-    </div>
-  <% end %>
+		<div class="list-group-item">
+			<p><%= t("orcid_identity.preferences.info.connect_intro") %></p>
+			<p><b><%= t("orcid_identity.preferences.info.connect_title") %></b></p>
+
+			<a
+					href="<%= orcid_authorize_uri %>"
+					title="Connect to ORCID"
+					class="btn btn-orcid popup"
+					data-popup-width="515"
+					data-popup-height="670"
+					>
+					<%= image_tag 'orcid.png', alt: t('hyrax.user_profile.orcid.alt'), class: "profile" %>
+					<%= t("orcid_identity.preferences.info.connect_button_text") %>
+			</a>
+
+			<div class="alert alert-warning" style="margin-left: 0; margin-right: 0">
+				<p><b>For testing in development</b></p>
+				<p>When you get your "code" from the google playground, go to the following path: /dashboard/orcid_identity/new?code=</p>
+			</div>
+		</div>
+	<% end %>
 </div>
 
