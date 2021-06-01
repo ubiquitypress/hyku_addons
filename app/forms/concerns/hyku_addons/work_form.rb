@@ -21,6 +21,7 @@ module HykuAddons
           permitted_params << event_fields
           permitted_params << current_he_institution_fields
           permitted_params << related_exhibition_fields
+          permitted_params << note
         end
       end
 
@@ -43,7 +44,7 @@ module HykuAddons
            page_display_order_number irb_number irb_status subject additional_links is_included_in buy_book challenged
            location outcome participant reading_level photo_caption photo_description degree longitude latitude alt_email
            alt_book_title table_of_contents prerequisites suggested_student_reviewers suggested_reviewers adapted_from audience
-           related_material] + hyrax_terms
+           related_material note] + hyrax_terms
       end
 
       def hyrax_terms
@@ -109,6 +110,10 @@ module HykuAddons
           related_exhibition_date: [:related_exhibition_date_year, :related_exhibition_date_month,
                                     :related_exhibition_date_day]
         ]
+      end
+
+      def note
+        [:note]
       end
     end
 
