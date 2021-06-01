@@ -13,7 +13,7 @@ module HykuAddons
         client_id: Site.instance.account.settings["orcid_client_id"],
         scope: "/activities/update%20/read-limited",
         response_type: "code",
-        redirect_uri: Site.instance.account.settings["orcid_redirect"],
+        redirect_uri: Site.instance.account.settings["orcid_redirect"]
       }
 
       "https://#{orcid_domain}/oauth/authorize?#{params.to_query}"
