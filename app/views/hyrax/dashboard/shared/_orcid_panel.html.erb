@@ -29,18 +29,26 @@
 			<div class="list-group-item">
 				<p><%= t("orcid_identity.preferences.profile_sync.intro") %></p>
 
-				<%= f.fields_for :profile_sync_preference do |sf| %>
-					<% OrcidIdentity.profile_sync_preference.each do |pref, value| %>
-						<div class="check">
-							<%= label_tag do %>
-								<% checked = current_user.orcid_identity.profile_sync_preference.dig(pref.to_s) == "1" %>
+				<div class="row">
+					<div class="col-md-6 col-sm-12">
+						<%= f.fields_for :profile_sync_preference do |sf| %>
+							<% OrcidIdentity.profile_sync_preference.sort.each_with_index do |(pref, value), i| %>
+								<div class="check">
+									<%= label_tag do %>
+										<% checked = current_user.orcid_identity.profile_sync_preference.dig(pref.to_s) == "1" %>
 
-								<%= sf.check_box pref, value: true, checked: checked, class: "form-check-input", id: "profile_sync_preference_#{pref}" %>
-								<%= t("orcid_identity.preferences.profile_sync.preference.#{pref}") %>
+										<%= sf.check_box pref, value: true, checked: checked, class: "form-check-input", id: "profile_sync_preference_#{pref}" %>
+										<%= t("orcid_identity.preferences.profile_sync.preference.#{pref}") %>
+									<% end %>
+								</div>
+
+								<% if (OrcidIdentity.profile_sync_preference.count / 2).ceil == i+1 %>
+									</div><div class="col-md-6 col-sm-12">
+								<% end %>
 							<% end %>
-						</div>
-					<% end %>
-				<% end %>
+						<% end %>
+					</div>
+				</div>
 			</div>
 
 			<%= f.submit t("orcid_identity.preferences.button_text"), class: "btn btn-primary margin-top" %>
