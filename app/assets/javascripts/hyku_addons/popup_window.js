@@ -1,6 +1,11 @@
 class PopupWindow {
   constructor($target){
     this.$target = $target
+
+    if (this.$target.length === 0) {
+      return
+    }
+
     this.registerListeners()
   }
 
@@ -9,6 +14,11 @@ class PopupWindow {
   }
 
   onClick(event) {
+    // Check the event target, or all links seem to trigger the modal - not sure why, this is temp until I work it out
+    if (event.target !== this.$target[0]) {
+      return
+    }
+
     event.preventDefault()
 
     const $target = $(event.target)
