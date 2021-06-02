@@ -16,12 +16,12 @@ class RequiredFieldListener {
     $("body").on(this.unsetEventName, this.onUnsetEvent.bind(this))
   }
 
-  onSetEvent(event, target){
+  onSetEvent(_event, target){
     this.toggleRequired($(target), true)
     this.addRequiredLabel($(target))
   }
 
-  onUnsetEvent(event, target){
+  onUnsetEvent(_event, target){
     this.toggleRequired($(target), false)
     this.removeRequiredLabel($(target))
   }

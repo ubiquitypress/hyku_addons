@@ -22,11 +22,12 @@ class RequiredGroupFieldListener {
     $(`[${this.groupAttributeName}]`).trigger("blur")
   }
 
-  onEvent(event, target){
+  onEvent(_event, target){
     let group = $(`[${this.groupAttributeName}=${target.attr(this.groupAttributeName)}]`)
 
-    group.not(target).each($.proxy(function(i, el){
-      let eventName = $(target).val().length ? "unset_required" : "set_required"
+    group.not(target).each($.proxy(function(_i, el){
+      // If the element is hidden, we need to unset required or the form will break
+      let eventName = $(target).val().length || $(target).is(":hidden") ? "unset_required" : "set_required"
 
       $("body").trigger(eventName, [el])
     }))
