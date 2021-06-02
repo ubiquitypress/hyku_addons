@@ -17,34 +17,47 @@ module Hyrax
 
       # If the work includes our default processable terms
       def perform
-        (TARGET_TERMS & work_type_terms).each do |term|
-          target = "#{term}_orcid"
+        return unless Flipflop.enabled?(:orcid_identities)
 
-          JSON.parse(@work.send(term).first).select { |person| person.dig(target) }.each do |person|
+        target_terms.each do |term|
+          target = "#{term}_orcid"
+          json = json_for_term(term)
+
+          JSON.parse(json).select { |person| person.dig(target) }.each do |person|
             orcid_id = validate_orcid(person.dig(target))
 
-            # If the user hasn't linked their account in this repository
-            next unless (identity = OrcidIdentity.find_by(orcid_id: orcid_id)).present?
-
-            sync_class(identity).new(work, identity).perform
+            perform_user_preference(orcid_id)
           end
         end
       end
 
+      protected
+
+        # A factory method for building the appropriate class depending on the users work sync preference
+        def perform_user_preference(orcid_id)
+          return unless (identity = OrcidIdentity.find_by(orcid_id: orcid_id)).present?
+
+          "Hyrax::Orcid::#{identity.work_sync_preference.classify}".constantize.new(@work, identity).perform
+        end
+
+        def json_for_term(term)
+          @work.send(term).first
+        end
+
+        def target_terms
+          (TARGET_TERMS & work_type_terms)
+        end
+
       private
 
-      def sync_class(identity)
-        "Hyrax::Orcid::#{identity.work_sync_preference.classify}".constantize
-      end
+        # Required for WorkFormNameable to function correctly
+        def meta_model
+          @work.class.name
+        end
 
-      # Required for WorkFormNameable to function correctly
-      def meta_model
-        @work.class.name
-      end
-
-      def validate!
-        raise ArgumentError, "A work is required" unless @work.is_a?(ActiveFedora::Base)
-      end
+        def validate!
+          raise ArgumentError, "A work is required" unless @work.is_a?(ActiveFedora::Base)
+        end
     end
   end
 end

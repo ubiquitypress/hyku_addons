@@ -55,6 +55,12 @@ To perform the migration you will need to scope the command as follows:
 bundle exec rails db:migrate SCOPE=hyku_addons
 ```
 
+Don't forget to run the test migations at the same time:
+
+```
+RAILS_ENV=test bundle exec rails db:migrate
+```
+
 If you get errors when performing the migration it might be because your schema is out of date. This means you wil need to manually add the version numbers to the `schema_migration` table inside the database.
 
 For instance:

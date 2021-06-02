@@ -9,6 +9,6 @@ FactoryBot.define do
     refresh_token { SecureRandom.uuid }
     expires_in { 5.years.from_now.to_i.to_s }
     scope { "/read-limited /activities/update" }
-    sync_preferences { {} }
+    profile_sync_preference { {} }
   end
 end

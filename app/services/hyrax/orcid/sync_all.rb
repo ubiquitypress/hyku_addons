@@ -9,7 +9,7 @@ module Hyrax
       end
 
       def perform
-        byebug
+        # byebug
       end
     end
   end
