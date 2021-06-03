@@ -8,14 +8,5 @@
                      name: "#{template}[related_identifier][][related_identifier]",
                      placeholder: t("simple_form.placeholders.defaults.related_identifier")
   %>
-  <div style="display: none;">
-    <%= select_tag "#{template}[related_identifier][][related_identifier_type]",
-        options_from_collection_for_select(HykuAddons::RelatedIdentifierTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s),
-        {:class => 'form-control multi-text-field multi_value related_identifier_type'} %>
-
-    <%= select_tag "#{template}[related_identifier][][relation_type]",
-        options_for_select(HykuAddons::RelationTypeService.new.select_active_options.uniq),
-        {:class => 'form-control multi-text-field multi_value related_identifier_relation'} %>
-  </div>
   <br>
 </div>
