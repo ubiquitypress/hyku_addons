@@ -24,7 +24,7 @@ module HykuAddons
                 Array(process_note_hash(env.attributes[:note]).to_json)
               end
           else
-            env.attributes[:note] = []
+            env.attributes[:note] = env.curation_concern.note
           end
         end
 

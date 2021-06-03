@@ -13,19 +13,14 @@ class RequiredGroupFieldListener {
 
   registerListeners(){
     $("body").on(this.eventName, this.onEvent.bind(this))
-
-    // When the page events have finished being registered, listen and perform an after action
-    $("body").on("after-register-events", this.afterRegisterEvents.bind(this))
   }
 
-  afterRegisterEvents(){
-    $(`[${this.groupAttributeName}]`).trigger("blur")
-  }
-
-  onEvent(event, target){
+  // This event callback looks at individual required groups, if one item has been updated,
+  // then the other can have its required tag removed.
+  onEvent(_event, target){
     let group = $(`[${this.groupAttributeName}=${target.attr(this.groupAttributeName)}]`)
 
-    group.not(target).each($.proxy(function(i, el){
+    group.not(target).each($.proxy(function(_i, el){
       let eventName = $(target).val().length ? "unset_required" : "set_required"
 
       $("body").trigger(eventName, [el])

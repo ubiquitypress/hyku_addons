@@ -69,5 +69,25 @@ RSpec.describe HykuAddons::Actors::NoteFieldActor do
         expect(note_content_ary).to include(attributes[:note])
       end
     end
+    context "when the note attribute is not present" do
+      before do
+        allow(terminator).to receive(:update).with(env)
+      end
+
+      let(:attributes) { { note: [] } }
+
+      it "retains the previous note if note attributes are not present " do
+        expect(work.note).to be_present
+        expect(work.note.count).to eq(1)
+
+        middleware.update(env)
+
+        expect(work.note.count).to eq(1)
+        note_content_ary = work.note.map do |note|
+          JSON.parse(note)["note"]
+        end
+        expect(note_content_ary).to include('first note')
+      end
+    end
   end
 end

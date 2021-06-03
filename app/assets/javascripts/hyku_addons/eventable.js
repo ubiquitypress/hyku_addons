@@ -22,7 +22,7 @@ class Eventable {
       $("body").trigger(eventName, [$(this)])
     })
 
-    $("body").on("blur", "[data-on-blur]", function(event){
+    $("body").on("blur", "[data-on-blur]", function(_event){
       let eventName = $(this).data("on-blur")
       $("body").trigger(eventName, [$(this)])
     })
