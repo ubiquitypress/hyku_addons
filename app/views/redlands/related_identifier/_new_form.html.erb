@@ -3,10 +3,6 @@
 <div class="ubiquity-meta-related-identifier" >
   <label class="control-label multi_value optional" for="<% template %>_related_identifier"><%= t("simple_form.labels.defaults.related_identifier") %></label>
   <p class="help-block"><%= t("simple_form.hints.defaults.related_identifier") %></p>
-  <%=  text_field_tag "#{template}[related_identifier][][related_identifier]", nil,
-                     class: "#{template}_related_identifier form-control multi-text-field multi_value related_identifier",
-                     name: "#{template}[related_identifier][][related_identifier]",
-                     placeholder: t("simple_form.placeholders.defaults.related_identifier")
-  %>
+    <%= related_identifier_new_input_for(template) %>
   <br>
 </div>
