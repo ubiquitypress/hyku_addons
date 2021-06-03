@@ -88,10 +88,6 @@ module HykuAddons
         index.as :stored_searchable
       end
 
-      property :orcid_put_code, predicate: ::RDF::Literal::Integer, multiple: false do |index|
-        index.as :orcid_put_code
-      end
-
       class_attribute :json_fields, :date_fields
       self.json_fields = %i[creator contributor funder alternate_identifier related_identifier]
       self.date_fields = %i[date_published date_accepted date_submitted]
