@@ -101,6 +101,11 @@ module HykuAddons
       attribute :alt_email, SolrDocument::Solr::Array, solr_name('alt_email')
       attribute :alt_book_title, SolrDocument::Solr::Array, solr_name('alt_book_title')
       attribute :table_of_contents, SolrDocument::Solr::Array, solr_name('table_of_contents')
+      attribute :adapted_from, SolrDocument::Solr::Array, solr_name('adapted_from')
+      attribute :suggested_reviewers, SolrDocument::Solr::Array, solr_name('suggested_reviewers')
+      attribute :suggested_student_reviewers, SolrDocument::Solr::Array, solr_name('suggested_student_reviewers')
+      attribute :prerequisites, SolrDocument::Solr::Array, solr_name('prerequisites')
+      attribute :audience, SolrDocument::Solr::Array, solr_name('audience')
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(
