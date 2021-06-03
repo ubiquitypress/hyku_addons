@@ -68,14 +68,14 @@ RSpec.describe Hyrax::Orcid::ProcessWorkService do
       end
 
       it "returns nil" do
-        expect(service.perform).to be_nil
+        expect(service).not_to have_received(:perform_user_preference).with(orcid_id)
       end
     end
   end
 
   describe "#perform_user_preference" do
     let(:sync_class) { Hyrax::Orcid::SyncAll }
-    let(:sync_instance) { instance_double(sync_class, perform: "something") }
+    let(:sync_instance) { instance_double(sync_class, perform: nil) }
 
     context "when the user has selected sync_all" do
       before do
@@ -83,7 +83,7 @@ RSpec.describe Hyrax::Orcid::ProcessWorkService do
       end
 
       it "calls the perform method on the sync class" do
-        service.perform
+        service.send(:perform_user_preference, orcid_id)
 
         expect(sync_instance).to have_received(:perform).with(no_args)
       end
