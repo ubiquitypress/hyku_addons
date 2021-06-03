@@ -1,20 +1,20 @@
 terms:
-  - id: English
+  - id: eng
     term: English
     active: true
-  - id: Arabic
+  - id: ara
     term: Arabic
     active: true
-  - id: Chinese
+  - id: zho
     term: Chinese
     active: true
-  - id: French
+  - id: fra
     term: French
     active: true
-  - id: Russian
+  - id: rus
     term: Russian
     active: true
-  - id: Spanish
+  - id: spa
     term: Spanish
     active: true
   - id: Other

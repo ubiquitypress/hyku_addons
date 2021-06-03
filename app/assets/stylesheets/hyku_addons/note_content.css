@@ -1,0 +1,21 @@
+.note-content-container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 25px;
+  margin: 5px 0;
+}
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.note-timestamp {
+  float: right;
+  color: #aaa;
+}
+
+.note-body {
+  word-wrap: normal;
+}

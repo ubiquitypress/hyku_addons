@@ -1,0 +1,14 @@
+<div class="previous_notes">
+  <% sorted_hash_by_timestamp = sort_note_hash(curation_concern.note)%>
+  <% sorted_hash_by_timestamp.each do |note_hash| %>
+    <div class="note-content-container">
+      <p class="note-body"><%= note_hash["note"].html_safe %></p>
+      <span class="note-timestamp">
+        <b><%= note_hash["email"]%></b>
+        <%= Time.zone.parse(note_hash["timestamp"]).utc %>
+      </span>
+    </div>
+  <% end %>
+</div>
+<br>
+<%= f.input :note, label: 'New Note', as: :text, input_html: { value: '', rows: '5' } %>

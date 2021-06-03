@@ -18,6 +18,8 @@ jobs:
       name: 'samvera/ruby_fcrepo_solr_redis_postgres'
       ruby_version: << parameters.ruby_version >>
 
+    parallelism: 4
+
     environment:
       RAILS_VERSION: << parameters.rails_version >>
       DATABASE_NAME: circle_test
@@ -109,7 +111,7 @@ jobs:
     parameters:
       parallelism:
         type: integer
-        default: 1
+        default: 4
     docker:
       - image: cimg/base:stable
     steps:

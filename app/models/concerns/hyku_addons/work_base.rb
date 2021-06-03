@@ -76,9 +76,17 @@ module HykuAddons
         index.as :stored_searchable
       end
 
+      property :note, predicate: ::RDF::Vocab::MODS.note, multiple: true do |index|
+        index.as :stored_searchable
+      end
+
       # property :file_availability, predicate: ::RDF::Vocab::SCHEMA.ItemAvailability do |index|
       #   index.as :stored_searchable, :facetable
       # end
+
+      property :source_identifier, predicate: ::RDF::Vocab::PROV.wasDerivedFrom, multiple: false do |index|
+        index.as :stored_searchable
+      end
 
       class_attribute :json_fields, :date_fields
       self.json_fields = %i[creator contributor funder alternate_identifier related_identifier]

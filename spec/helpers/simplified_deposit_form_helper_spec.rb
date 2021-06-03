@@ -14,7 +14,7 @@ RSpec.describe HykuAddons::SimplifiedDepositFormHelper do
     # NOTE:
     # This seems to be required or the following error is received:
     # Please stub a default value first if message might be received with other args as well.
-    allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(false)
+    allow(Flipflop).to receive(:enabled?).and_call_original
     allow(Flipflop).to receive(:enabled?).with(:simplified_deposit_form).and_return(false)
   end
 
