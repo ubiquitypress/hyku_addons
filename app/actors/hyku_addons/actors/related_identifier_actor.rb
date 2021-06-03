@@ -15,14 +15,14 @@ module HykuAddons
         def add_related_identifier_data(env)
           return unless env.curation_concern.class.to_s.include? "Redlands"
           identifier_hash = JSON.parse(env.attributes[:related_identifier].first).first if env.attributes[:related_identifier]
-          env.attributes[:related_identifier] = [add_related_metadata(identifier_hash)]
+          env.attributes[:related_identifier] = Array.wrap(add_related_metadata(identifier_hash))
         end
 
         def add_related_metadata(identifier_hash)
           return unless identifier_hash["related_identifier"].present?
           identifier_hash["related_identifier_type"] = "PMID"
           identifier_hash["relation_type"] = "HasMetadata"
-          [identifier_hash].to_json
+          Array.wrap(identifier_hash).to_json
         end
     end
   end
