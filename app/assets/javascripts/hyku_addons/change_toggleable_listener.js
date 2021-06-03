@@ -29,7 +29,7 @@ class ChangeToggleableListener {
 
   onLoad(){
     // Can't seen to get this to work via triggering the change event
-    $(this.controlSelector).each($.proxy(function(i, el){
+    $(this.controlSelector).each($.proxy(function(_i, el){
       this.toggleSelectGroup($(el))
     }, this))
   }
@@ -54,7 +54,7 @@ class ChangeToggleableListener {
     let afterHiddenEventName = target.attr(this.afterHiddenAttributeName)
 
     // Hide all elements and unset required attributes by default
-    parent.find(this.groupSelector).not(selectedElement).each($.proxy(function(i, group){
+    parent.find(this.groupSelector).not(selectedElement).each($.proxy(function(_i, group){
       $(group).hide()
       this.toggleRequiredChildren($(group), "unset_required")
 

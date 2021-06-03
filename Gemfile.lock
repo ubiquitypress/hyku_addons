@@ -68,7 +68,7 @@ PATH
   specs:
     hyku_addons (0.1.0)
       blacklight_oai_provider (~> 6.1)
-      bolognese (~> 1.9.7)
+      bolognese (~> 1.9, >= 1.9.7)
       config (>= 3.0)
       google-cloud-pubsub (~> 2.6.1)
       google-cloud-storage (~> 1.31)
