@@ -2,7 +2,7 @@
 
 module Hyrax
   module OrcidHelper
-    ORCID_API_VERSION = "v3.0"
+    ORCID_API_VERSION = "v2.1"
     ORCID_REGEX = %r{
       (?:(http|https):\/\/
       (?:www\.(?:sandbox\.)?)?orcid\.org\/)?
@@ -29,8 +29,16 @@ module Hyrax
       "https://#{orcid_domain}/oauth/token"
     end
 
-    def orcid_api_uri(orcid_id, endpoint)
-      "https://api.#{orcid_domain}/#{ORCID_API_VERSION}/#{orcid_id}/#{endpoint}"
+    # TODO: Test me
+    # Ensure production/dev domains have correct domain
+    def orcid_api_uri(orcid_id, endpoint, put_code = nil)
+      [
+        "https://api.#{orcid_domain}",
+        ORCID_API_VERSION,
+        orcid_id,
+        endpoint,
+        put_code
+      ].compact.join("/")
     end
 
     def validate_orcid(orcid)

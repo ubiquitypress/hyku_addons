@@ -13,6 +13,10 @@ module Bolognese
         Array(doi)
       end
 
+      def write_uuid
+        meta["uuid"]
+      end
+
       def write_title
         titles&.pluck("title")
       end

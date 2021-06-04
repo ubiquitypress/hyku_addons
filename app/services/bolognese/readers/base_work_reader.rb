@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "bolognese"
 
 # NOTE:
@@ -16,7 +17,7 @@ module Bolognese
 
       # Some attributes are not copied over from data inside of hyku, but calculated in reader methods below.
       def self.special_terms
-        %w[types publication_year]
+        %w[types publication_year uuid]
       end
 
       # Some attributes wont match those that are expected by bolognese. This is
@@ -66,6 +67,10 @@ module Bolognese
       end
 
       protected
+
+        def read_uuid
+          meta["id"]
+        end
 
         def read_creator
           # Depending on where in the parse process we are, `creators` might be set, or we might have to fall back.

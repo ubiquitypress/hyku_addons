@@ -25,6 +25,7 @@ module Hyrax
     end
 
     def destroy
+      # This is pretty ugly, but for a has_one relation we can't do a find_by! from User
       raise ActiveRecord::RecordNotFound unless current_user.orcid_identity.id == params["id"].to_i
 
       current_user.orcid_identity.destroy

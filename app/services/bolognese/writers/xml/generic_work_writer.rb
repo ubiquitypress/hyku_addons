@@ -39,8 +39,9 @@ module Bolognese
 
           xml_date_published
 
-          # Full list of external-id-type: https://pub.orcid.org/v3.0/identifiers
+          # NOTE: A full list of external-id-type: https://pub.orcid.org/v2.1/identifiers
           @xml[:common].send("external-ids") do
+            xml_internal_identifier
             xml_external_doi
             xml_external_identifiers
           end
@@ -52,6 +53,15 @@ module Bolognese
         end
 
         protected
+
+          def xml_internal_identifier
+            @xml[:common].send("external-id") do
+              @xml[:common].send("external-id-type", "other-id")
+              @xml[:common].send("external-id-value", @metadata.write_uuid)
+              @xml[:common].send("external-id-relationship", "self")
+            end
+          end
+
 
           def xml_external_doi
             return if @metadata.meta["doi"].blank?
