@@ -9,7 +9,6 @@ module Hyrax
       (\d{4}[[:space:]-]\d{4}[[:space:]-]\d{4}[[:space:]-]\d{3}[0-9X]+)
     }x
 
-
     def orcid_profile_uri(profile_id)
       "https://#{orcid_domain}/#{profile_id}"
     end

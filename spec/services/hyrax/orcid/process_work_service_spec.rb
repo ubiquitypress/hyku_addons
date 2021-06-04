@@ -90,4 +90,3 @@ RSpec.describe Hyrax::Orcid::ProcessWorkService do
     end
   end
 end
-

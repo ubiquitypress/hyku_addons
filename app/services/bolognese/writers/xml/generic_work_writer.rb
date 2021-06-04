@@ -62,7 +62,6 @@ module Bolognese
             end
           end
 
-
           def xml_external_doi
             return if @metadata.meta["doi"].blank?
 
