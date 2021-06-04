@@ -45,7 +45,6 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
   let(:date_created) { "#{created_year}-08-19" }
   let(:date_published) { "#{published_year}-09-27" }
   let(:doi) { "10.18130/v3-k4an-w022" }
-  let(:editor) { "Test Editor" }
   let(:isbn) { "9781770460621" }
   let(:issn) { "0987654321" }
   let(:keyword) { "Lighthouses" }
@@ -73,7 +72,6 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
       keyword: [keyword],
       date_created: [date_created],
       date_published: date_published,
-      editor: [editor],
       isbn: isbn,
       place_of_publication: [place_of_publication],
       language: [language],
@@ -96,7 +94,9 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
   let(:work) { model_class.new(attributes) }
   let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
   let(:meta) { Bolognese::Readers::GenericWorkReader.new(input: input, from: "work") }
-  let(:orcid_xml) { meta.orcid_xml(type) }
+  let(:type) { "other" }
+  let(:put_code) { nil }
+  let(:orcid_xml) { meta.orcid_xml(type, put_code) }
   let(:doc) { Nokogiri::XML(orcid_xml) }
 
   it "includes the module into the Metadata class" do
@@ -123,14 +123,17 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
   end
 
   describe "#orcid_xml" do
-    context "when type is `other`" do
-      let(:type) { "other" }
+    context "when `put_code` is provided" do
+      let(:put_code) { "987654321" }
 
-      # This is just for debugging to show what is being output
-      xit "outputs the XML" do
-        puts "==================================================================="
-        puts orcid_xml
-        puts "==================================================================="
+      it "includes the put-code in the root attributes" do
+        expect(doc.root.attributes.dig("put-code").to_s).to eq put_code
+      end
+    end
+
+    context "when type is `other`" do
+      before do
+        work.save
       end
 
       it "returns a valid XML document" do
@@ -139,6 +142,13 @@ RSpec.describe Bolognese::Writers::OrcidXmlWriter do
 
           doc = Nokogiri::XML(orcid_xml)
           expect(schema.validate(doc)).to be_empty
+        end
+      end
+
+      describe "attributes" do
+        it "doesn't includes the put-code in the root attributes" do
+          expect(doc.root.attributes.keys).not_to include("put-code")
+          expect(doc.root.attributes.dig("put-code")).to be_nil
         end
       end
 
