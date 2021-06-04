@@ -9,7 +9,7 @@ module Hyrax
     end
 
     def orcid_identity_from_authorization(params)
-      transformed = params.symbolize_keys.except(:name)
+      transformed = params.symbolize_keys
       transformed[:orcid_id] = transformed.delete(:orcid)
 
       create_orcid_identity(transformed)
