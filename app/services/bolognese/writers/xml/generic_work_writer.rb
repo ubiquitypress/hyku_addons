@@ -55,6 +55,9 @@ module Bolognese
         protected
 
           def xml_internal_identifier
+            # We should always have a UUID, but specs might not be saving works and will fail otherwise
+            return unless @metadata.write_uuid.present?
+
             @xml[:common].send("external-id") do
               @xml[:common].send("external-id-type", "other-id")
               @xml[:common].send("external-id-value", @metadata.write_uuid)
