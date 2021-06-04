@@ -4,6 +4,10 @@ en:
       title: ORCID Sync
       linked: Currently synced with ORCID user %{link}
       button_text:  Save Preferences
+      destroy:
+        button_text: Unlink Account
+        confirm: Are you sure you want to remove the ORCID authorisation for your account?
+        success: Successfully unlinked your account
       info:
         connect_intro: |
           Syncing your Hyku repository profile with ORCID allows you to import all the data in your ORCID profile to your repository profile and makes it easier for works deposited in this repository to be synced to ORCID.

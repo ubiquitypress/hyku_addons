@@ -15,11 +15,19 @@ module Hyrax
 
       current_user.orcid_identity_from_authorization(authorization_body) if @authorization_response.success?
 
-      render json: authorization_body, status: @authorization_response.status
+      redirect_to dashboard_profile_path(current_user)
     end
 
     def update
       current_user.orcid_identity.update(permitted_preference_params)
+
+      redirect_back fallback_location: dashboard_profile_path(current_user)
+    end
+
+    def destroy
+      raise ActiveRecord::RecordNotFound unless current_user.orcid_identity.id == params["id"].to_i
+
+      current_user.orcid_identity.destroy
 
       redirect_back fallback_location: dashboard_profile_path(current_user)
     end
