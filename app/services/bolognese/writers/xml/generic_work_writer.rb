@@ -27,20 +27,17 @@ module Bolognese
           @type = type
         end
 
-        # rubocop:disable Metrics/MethodLength
+        # Fields guide:
+        # https://github.com/ORCID/ORCID-Source/blob/master/orcid-api-web/tutorial/works.md#work-fields
         def build
           @xml[:work].title do
             @xml[:common].title @metadata.write_title.first
-            @xml[:common].subtitle @metadata.write_alt_title.first
+            @xml[:common].subtitle @metadata.write_alt_title&.first
           end
 
           @xml[:work].type @type
 
-          @xml[:common].send("publication-date") do
-            %i[year month day].each do |int|
-              @xml[:common].send(int, @metadata.date_published.first["date_published_#{int}"])
-            end
-          end
+          xml_date_published
 
           # Full list of external-id-type: https://pub.orcid.org/v3.0/identifiers
           @xml[:common].send("external-ids") do
@@ -53,7 +50,6 @@ module Bolognese
             xml_contributors
           end
         end
-        # rubocop:enable Metrics/MethodLength
 
         protected
 
@@ -62,8 +58,8 @@ module Bolognese
 
             @xml[:common].send("external-id") do
               @xml[:common].send("external-id-type", "doi")
-              @xml[:common].send("external-id-value", @metadata.meta["doi"].gsub("https://doi.org/", ""))
-              @xml[:common].send("external-id-url", @metadata.meta["doi"])
+              @xml[:common].send("external-id-value", @metadata.doi&.gsub("https://doi.org/", ""))
+              @xml[:common].send("external-id-url", @metadata.doi)
               @xml[:common].send("external-id-relationship", "self")
             end
           end
@@ -81,6 +77,8 @@ module Bolognese
           end
 
           def xml_creators
+            return unless @metadata.creators.present?
+
             @metadata.creators.each_with_index do |creator, i|
               @xml[:work].contributor do
                 xml_contributor_orcid(find_valid_orcid(creator))
@@ -91,11 +89,23 @@ module Bolognese
           end
 
           def xml_contributors
+            return unless @metadata.contributors.present?
+
             @metadata.contributors.each do |contributor|
               @xml[:work].contributor do
                 xml_contributor_orcid(find_valid_orcid(contributor))
                 xml_contributor_name("#{contributor['givenName']} #{contributor['familyName']}")
                 xml_contributor_role(false, contributor["contributorType"])
+              end
+            end
+          end
+
+          def xml_date_published
+            return unless (date = @metadata.date_published&.first).present?
+
+            @xml[:common].send("publication-date") do
+              %i[year month day].each do |int|
+                @xml[:common].send(int, date.dig("date_published_#{int}"))
               end
             end
           end
