@@ -315,41 +315,13 @@ module HykuAddons
           if klass == ::Collection || klass == ::AdminSet
             attributes.slice(*permitted_attributes)
           else
-            attributes.slice(*permitted_attributes).merge(file_attributes)
+            attrs = attributes.slice(*permitted_attributes).merge(file_attributes)
+            attrs = attrs.merge('file_set' => attributes['file_set'])
+            attrs['uploaded_files'].each_with_index { |id, i| attrs['file_set'][i]['uploaded_file_id'] = id if attrs['file_set'][i].present? } if attrs['file_set'].present?
+            attrs
           end
         end
       end
-
-      # FIXME: This might only be important for debugging
-      # Bulkrax::ImportWorkJob.class_eval do
-      #   def perform(*args)
-      #     entry = Bulkrax::Entry.find(args[0])
-      #     importer_run = Bulkrax::ImporterRun.find(args[1])
-      #     begin
-      #       entry.build
-      #     rescue Bulkrax::CollectionsCreatedError => e
-      #       byebug
-      #       # Don't retry on error of collection not created because it goes into an infinite loop
-      #       # A failed record is much better
-      #       entry.status_info(e)
-      #     end
-
-      #     if entry.status == "Complete"
-      #       importer_run.increment!(:processed_records)
-      #     else
-      #       # do not retry here because whatever parse error kept you from creating a work will likely
-      #       # keep preventing you from doing so.
-      #       importer_run.increment!(:failed_records)
-      #     end
-      #     entry.save!
-      #     return if importer_run.enqueued_records.positive?
-      #     if importer_run.failed_records.positive?
-      #       importer_run.importer.status_info('Complete (with failures)')
-      #     else
-      #       importer_run.importer.status_info('Complete')
-      #     end
-      #   end
-      # end
     end
 
     initializer 'hyku_addons.import_mode_overrides' do
@@ -358,11 +330,7 @@ module HykuAddons
           acquire_lock_for(work.id) do
             # Ensure we have an up-to-date copy of the members association, so that we append to the end of the list.
             work.reload unless work.new_record?
-            unless assign_visibility?(file_set_params)
-              # Work around lack of functionality in bulkrax by bringing all file sets in as private
-              # then change visibility post-import
-              file_set.visibility = Flipflop.enabled?(:import_mode) ? 'restricted' : work.visibility
-            end
+            file_set.visibility = work.visibility unless assign_visibility?(file_set_params)
             work.ordered_members << file_set
             work.representative = file_set if work.representative_id.blank?
             work.thumbnail = file_set if work.thumbnail_id.blank?
@@ -375,6 +343,52 @@ module HykuAddons
             Hyrax.config.callback.run(:task_master_after_create_fileset, file_set, user)
           end
         end
+      end
+    end
+
+    # Monkey-patch override to make use of file set parameters relating to permissions
+    # See https://github.com/samvera/hyrax/pull/4992
+    initializer 'hyku_addons.file_set_overrides' do
+      # Override to skip file_set attribute when doing mass assignment
+      Hyrax::Actors::BaseActor.class_eval do
+        def clean_attributes(attributes)
+          attributes[:license] = Array(attributes[:license]) if attributes.key? :license
+          attributes[:rights_statement] = Array(attributes[:rights_statement]) if attributes.key? :rights_statement
+          remove_blank_attributes!(attributes).except('file_set')
+        end
+      end
+
+      AttachFilesToWorkJob.class_eval do
+        # @param [ActiveFedora::Base] work - the work object
+        # @param [Array<Hyrax::UploadedFile>] uploaded_files - an array of files to attach
+        def perform(work, uploaded_files, **work_attributes)
+          validate_files!(uploaded_files)
+          depositor = proxy_or_depositor(work)
+          user = User.find_by_user_key(depositor)
+          work_permissions = work.permissions.map(&:to_hash)
+          uploaded_files.each do |uploaded_file|
+            next if uploaded_file.file_set_uri.present?
+
+            actor = Hyrax::Actors::FileSetActor.new(FileSet.create, user)
+            metadata = visibility_attributes(work_attributes, uploaded_file)
+            uploaded_file.update(file_set_uri: actor.file_set.uri)
+            actor.file_set.permissions_attributes = work_permissions
+            actor.create_metadata(metadata)
+            actor.create_content(uploaded_file)
+            actor.attach_to_work(work, metadata)
+          end
+        end
+
+        private
+
+          # The attributes used for visibility - sent as initial params to created FileSets.
+          def visibility_attributes(attributes, uploaded_file)
+            file_set_attributes = Array(attributes[:file_set]).find { |fs| fs[:uploaded_file_id] == uploaded_file&.id }
+            attributes.merge(Hash(file_set_attributes).symbolize_keys).slice(:visibility, :visibility_during_lease,
+                                                                             :visibility_after_lease, :lease_expiration_date,
+                                                                             :embargo_release_date, :visibility_during_embargo,
+                                                                             :visibility_after_embargo)
+          end
       end
     end
 
