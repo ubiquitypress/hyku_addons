@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module HykuAddons
-  module CreatorFieldHelper
+  module RelatedIdentifierHelper
     def related_identifier_new_input_for(template)
       text_field_tag "#{template}[related_identifier][][related_identifier]", nil,
                      class: "#{template}_related_identifier form-control multi-text-field multi_value related_identifier",
