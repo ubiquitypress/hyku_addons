@@ -1,4 +1,4 @@
-en-REDLANDS:
+en:
   hyrax:
     icons:
       redlands_chapters_and_book_section:     'fa fa-file-text-o'
@@ -6,7 +6,3 @@ en-REDLANDS:
       redlands_chapters_and_book_section:
         description:        "Redlands chapters and book section works"
         name:               "Chapters And Book Section"
-  simple_form:
-    labels:
-      redlands_chapters_and_book_section:
-        edition:        "Book Edition"
