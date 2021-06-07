@@ -16,7 +16,7 @@ module HykuAddons
       # This needs to be run on each request to properly set the correct lang file and fallback
       # which is why the complicated logic for deciding the current locale is inside of hyku_addon_locale
       #
-      # URL: http://repo.lvh.me:3000/admin/account_settings?locale=en
+      # URL: http://repo.hyku.docker/admin/account_settings?locale=en
       # locale: "en-REPO"
       #
       # NOTE:

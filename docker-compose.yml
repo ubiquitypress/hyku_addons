@@ -104,10 +104,10 @@ services:
       SETTINGS__BULKRAX__ENABLED: "true"
       SETTINGS__FITS_PATH: /opt/fits/fits.sh
       # Comment out these 5 for single tenancy / Uncomment for multi
-      SETTINGS__MULTITENANCY__ADMIN_HOST: lvh.me
+      SETTINGS__MULTITENANCY__ADMIN_HOST: hyku.docker
       SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION: "false"
-      SETTINGS__MULTITENANCY__DEFAULT_HOST: "%{tenant}.lvh.me"
-      SETTINGS__MULTITENANCY__ROOT_HOST: lvh.me
+      SETTINGS__MULTITENANCY__DEFAULT_HOST: "%{tenant}.hyku.docker"
+      SETTINGS__MULTITENANCY__ROOT_HOST: hyku.docker
       SETTINGS__MULTITENANCY__ENABLED: "true"
       # Comment out these 2 for multi tenancy / Uncomment for single
       # SETTINGS__MULTITENANCY__ROOT_HOST: hyku.docker
@@ -132,7 +132,7 @@ services:
     environment:
       <<: *web_environment
       VIRTUAL_PORT: 3000
-      VIRTUAL_HOST: lvh.me
+      VIRTUAL_HOST: hyku.docker
     depends_on:
       - db
       - solr
@@ -142,8 +142,8 @@ services:
       - chrome
       - initialize_app
       - db_migrate
-    #expose:
-      #- 3000
+    # expose:
+      # - 3000
     stdin_open: true
     tty: true
     ports:
@@ -195,7 +195,7 @@ services:
     command: bash -c "bundle exec rspec"
     environment:
       <<: *web_environment
-      SETTINGS__MULTITENANCY__ADMIN_HOST: lvh.me
+      SETTINGS__MULTITENANCY__ADMIN_HOST: hyku.docker
       DISABLE_REDIS_CLUSTER: "true"
       RAILS_ENV: test
       DATABASE_HOST: db-test
