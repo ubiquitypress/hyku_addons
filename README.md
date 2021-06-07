@@ -114,7 +114,7 @@ When behavior that is tested in Hyku changes, copy the relevant test files from 
 
 ## Development
 
-The rails server will be running at http://lvh.me:3000 and tenants will be subdomains like http://tenant1.lvh.me:3000.
+The rails server will be running at http://hyku.docker and tenants will be subdomains like http://tenant1.hyku.docker.
 
 Check out the code then initialize the internal test hyku application:
 ```
@@ -165,7 +165,7 @@ bundle exec rails app:hyku_addons:superadmin:create
 
 ##### Via app interface
 
-Goto the accounts screen http://lvh.me:3000/proprietor/accounts?locale=en
+Goto the accounts screen http://hyku.docker/proprietor/accounts?locale=en
 
 ##### Via console
 
@@ -186,12 +186,12 @@ The account create command requires 4 arguments:
 
 + Account name - lower case and hyphen seperated
 + UUID - copied from above
-+ CNAME - full domain of the account tenant without the rails testing port (3000), i.e. test.lvh.me
++ CNAME - full domain of the account tenant without the rails testing port (3000), i.e. test.hyku.docker
 + Admin Email - The email address of the user you created above
 
 ```sh
 # Example
-docker-compose exec web bundle exec rails "app:hyku:account:create[test, aa070467-09d7-4b13-bb5a-7192f900e6c3, test.lvh.me, your-email@address.com]"
+docker-compose exec web bundle exec rails "app:hyku:account:create[test, aa070467-09d7-4b13-bb5a-7192f900e6c3, test.hyku.docker, your-email@address.com]"
 ```
 
 ### Activate user
@@ -225,7 +225,7 @@ To run the tests locally outside of docker do the following with each line in it
 cd spec/internal_test_hyku && solr_wrapper -v --config config/solr_wrapper_test.yml
 fcrepo_wrapper -v --config spec/internal_test_hyku/config/fcrepo_wrapper_test.yml
 DISABLE_REDIS_CLUSTER=true bundle exec sidekiq -r spec/internal_test_hyku/
-SETTINGS__MULTITENANCY__ADMIN_HOST=lvh.me DISABLE_REDIS_CLUSTER=true RAILS_ENV=test bundle exec rails server -b 0.0.0.0
+SETTINGS__MULTITENANCY__ADMIN_HOST=localhost DISABLE_REDIS_CLUSTER=true RAILS_ENV=test bundle exec rails server -b 0.0.0.0
 bundle exec rspec `find spec -name *_spec.rb | grep -v internal_test_hyku`
 ```
 You shouldn't need to run anything from inside `spec/internal_test_hyku` unless explicitly told to do so.

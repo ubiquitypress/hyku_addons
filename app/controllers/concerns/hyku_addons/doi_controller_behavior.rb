@@ -8,7 +8,7 @@ module HykuAddons
     included do
       def autofill
         respond_to do |format|
-          # http://repo.lvh.me:3000/doi/autofill.json?curation_concern=generic_work&doi=10.7554/elife.63646
+          # http://repo.hyku.docker/doi/autofill.json?curation_concern=generic_work&doi=10.7554/elife.63646
           format.json { render json: json_response, status: :ok }
 
           # Allow easier debugging of DOIs in production
@@ -16,7 +16,7 @@ module HykuAddons
             # NOTE: Use this to see the raw XML returned, useful for creating fixtures for specs,
             # copy the raw sauce, NOT the html rendered output or you will see errors:
             #
-            # http://repo.lvh.me:3000/doi/autofill.xml?curation_concern=generic_work&doi=10.7554/elife.63646
+            # http://repo.hyku.docker/doi/autofill.xml?curation_concern=generic_work&doi=10.7554/elife.63646
             format.xml { render xml: raw_response.string, status: :ok }
           end
         end

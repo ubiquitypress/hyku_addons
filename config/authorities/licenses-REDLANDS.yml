@@ -20,3 +20,6 @@ terms:
   - term: CC Public Domain Mark 1.0
     id: https://creativecommons.org/publicdomain/mark/1.0/
     active: true
+  - term: Unknown
+    id: Unknown
+    active: true

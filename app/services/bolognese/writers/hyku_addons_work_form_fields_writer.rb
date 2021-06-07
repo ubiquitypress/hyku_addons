@@ -5,11 +5,11 @@
 # You must also add the logic to the PrefillWorkFormViaDOI JS class.
 #
 # The processed JSON can be access via a JSON request:
-# # http://YOUR_TENANT.lvh.me:3000/doi/autofill.xml?curation_concern=generic_work&doi=YOUR_DOI
+# # http://YOUR_TENANT.hyku.docker/doi/autofill.xml?curation_concern=generic_work&doi=YOUR_DOI
 #
 # To create fixtures for specs, the the unprocessed XML can be accessed via an XML request.
 # NOTE: Copy the raw source, not the HTML output:
-# http://YOUR_TENANT.lvh.me:3000/doi/autofill.xml?curation_concern=generic_work&doi=YOUR_DOI
+# http://YOUR_TENANT.hyku.docker/doi/autofill.xml?curation_concern=generic_work&doi=YOUR_DOI
 module Bolognese
   module Writers
     module HykuAddonsWorkFormFieldsWriter
