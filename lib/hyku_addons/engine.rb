@@ -203,7 +203,7 @@ module HykuAddons
 
     # Add migrations to parent app paths
     initializer 'hyku_addons.append_migrations' do |app|
-      Hyku::Application.default_url_options[:host] = 'lvh.me:3000'
+      Hyku::Application.default_url_options[:host] = 'hyku.docker'
       unless app.root.to_s.match?(root.to_s)
         config.paths['db/migrate'].expanded.each do |expanded_path|
           app.config.paths['db/migrate'] << expanded_path
@@ -220,7 +220,7 @@ module HykuAddons
     config.after_initialize do
       if Rails.env == 'development' || Rails.env == 'test'
         # Resolves Missing host to link to! Please provide the :host parameter, set default_url_options[:host], or set :only_path to true
-        HykuAddons::Engine.routes.default_url_options = { host: 'lvh.me:3000' }
+        HykuAddons::Engine.routes.default_url_options = { host: 'hyku.docker' }
       end
     end
 
