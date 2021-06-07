@@ -23,7 +23,7 @@ module Hyrax
           target = "#{term}_orcid"
           json = json_for_term(term)
 
-          JSON.parse(json).select { |person| person.dig(target) }.each do |person|
+          JSON.parse(json).select { |person| person.dig(target).present? }.each do |person|
             orcid_id = validate_orcid(person.dig(target))
 
             perform_user_preference(orcid_id)

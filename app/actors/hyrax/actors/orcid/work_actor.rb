@@ -21,6 +21,7 @@ module Hyrax
           def process_work(env)
             return unless Flipflop.enabled?(:orcid_identities)
 
+            # TODO: This should be changed to perform_later
             Hyrax::Orcid::ProcessWorkJob.perform_now(env.curation_concern)
           end
       end

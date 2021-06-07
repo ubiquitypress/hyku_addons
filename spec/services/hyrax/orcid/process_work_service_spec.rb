@@ -51,8 +51,25 @@ RSpec.describe Hyrax::Orcid::ProcessWorkService do
     end
 
     context "when the feature is enabled" do
-      it "doesn't return nil" do
-        expect(service.perform).not_to be_nil
+      let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
+      let(:meta) { Bolognese::Readers::GenericWorkReader.new(input: input, from: "work") }
+      let(:type) { "other" }
+      let(:put_code) { nil }
+      let(:xml) { meta.orcid_xml(type, put_code) }
+      let(:headers) do
+        {
+          "Accept" => '*/*',
+          "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+          "Authorization" => "Bearer #{orcid_identity.access_token}",
+          "Content-Type" => "application/vnd.orcid+xml",
+          "User-Agent" => "Faraday v0.17.4"
+        }
+      end
+
+      before do
+        stub_request(:post, "https://api.sandbox.orcid.org/#{Hyrax::OrcidHelper::ORCID_API_VERSION}/#{orcid_id}/work")
+          .with(body: xml, headers: headers)
+          .to_return(status: 200, body: "", headers: {})
       end
 
       it "calls the delegated sync class" do
