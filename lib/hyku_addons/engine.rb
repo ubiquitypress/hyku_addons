@@ -204,25 +204,29 @@ module HykuAddons
       Bulkrax.setup do |config|
         config.system_identifier_field = 'source_identifier'
         config.reserved_properties -= ['depositor']
-        config.parsers += [{ class_name: "HykuAddons::CsvParser", name: "Ubiquity Repositiories Hyku 1 CSV", partial: "csv_fields" }]
+        config.parsers += [{ class_name: "HykuAddons::CsvParser", name: "Ubiquity Repositiories CSV", partial: "csv_fields" }]
         config.field_mappings["HykuAddons::CsvParser"] = {
-          "institution" => { split: true },
-          "org_unit" => { split: true },
-          "fndr_project_ref" => { split: true },
-          "project_name" => { split: true },
-          "rights_holder" => { split: true },
-          "library_of_congress_classification" => { split: true },
-          "alt_title" => { split: true },
-          "volume" => { split: true },
-          "duration" => { split: true },
-          "version" => { split: true },
-          "publisher" => { split: true },
-          "keyword" => { split: true },
+          "institution" => { split: '\|' },
+          "org_unit" => { split: '\|' },
+          "fndr_project_ref" => { split: '\|' },
+          "project_name" => { split: '\|' },
+          "rights_holder" => { split: '\|' },
+          "library_of_congress_classification" => { split: '\|' },
+          "alt_title" => { split: '\|' },
+          "volume" => { split: '\|' },
+          "duration" => { split: '\|' },
+          "version" => { split: '\|' },
+          "publisher" => { split: '\|' },
+          "keyword" => { split: '\|' },
           "license" => { split: '\|', parsed: true },
-          "subject" => { split: true, parsed: true },
-          "language" => { split: true, parsed: true },
-          "resource_type" => { split: true, parsed: false },
-          "date_published" => { split: true, parsed: true }
+          "subject" => { split: '\|', parsed: true },
+          "language" => { split: '\|', parsed: true },
+          "resource_type" => { split: '\|', parsed: false },
+          "date_published" => { split: '\|', parsed: true },
+          "alt_email" => { split: '\|' },
+          "isbn" => { split: '\|' },
+          "audience" => { split: '\|' },
+          "advisor" => { split: '\|' }
         }
       end
 
