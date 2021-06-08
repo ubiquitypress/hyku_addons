@@ -30,7 +30,7 @@ RSpec.describe Hyrax::Orcid::SyncAllStrategy do
 
   describe "#perform" do
     let(:faraday_response) { instance_double(Faraday::Response, body: "", headers: response_headers, success?: true) }
-    let(:put_code) { 123456 }
+    let(:put_code) { 123_456 }
     let(:response_headers) do
       { "location" => "http://api.sandbox.orcid.org/#{api_version}/#{orcid_id}/work/#{put_code}" }
     end
@@ -102,7 +102,6 @@ RSpec.describe Hyrax::Orcid::SyncAllStrategy do
     it { expect(service.send(:xml)).to be_a(String) }
   end
 
-
   describe "#previously_uploaded?" do
     context "when the work was published" do
       let(:put_code) { "123456" }
@@ -144,4 +143,3 @@ RSpec.describe Hyrax::Orcid::SyncAllStrategy do
     it { expect(headers.dig("authorization")).to eq "Bearer #{orcid_identity.access_token}" }
   end
 end
-

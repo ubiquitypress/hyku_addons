@@ -4,4 +4,3 @@ FactoryBot.define do
   factory :orcid_work do
   end
 end
-
