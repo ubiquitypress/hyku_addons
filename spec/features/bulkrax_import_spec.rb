@@ -53,6 +53,16 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       expect(work.depositor).to eq 'batchuser@example.com'
     end
 
+    context 'resource_type' do
+      let(:import_batch_file) { 'spec/fixtures/csv/generic_work.csv' }
+
+      it 'populates resource_type' do
+        importer.import_works
+        work = GenericWork.last
+        expect(work.resource_type).to eq ["Interactive resource"]
+      end
+    end
+
     context 'with files' do
       let(:import_batch_file) { 'spec/fixtures/csv/pacific_articles.csv' }
 
