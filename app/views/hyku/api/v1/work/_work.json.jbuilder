@@ -102,7 +102,7 @@ json.resource_type work.resource_type
 #                                         "review_data" => nil,
 json.rights_holder work.try(:rights_holder)
 json.rights_statement work.rights_statement
-json,series_name work.try(:series_name)
+json.series_name work.try(:series_name)
 json.source work.source
 json.subject work.subject
 json.suggested_reviewers work.try(:suggested_reviewers)
