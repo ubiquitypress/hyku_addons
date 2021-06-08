@@ -30,6 +30,7 @@ module HykuAddons
       add_date_fields
       add_json_fields
       add_resource_type
+      add_subject
 
       parsed_metadata
     end
@@ -85,7 +86,17 @@ module HykuAddons
     def add_resource_type
       resource_type_service = HykuAddons::ResourceTypesService.new(model: parsed_metadata['model']&.safe_constantize)
       parsed_metadata['resource_type'] = parsed_metadata['resource_type'].map do |resource_type|
-        resource_type_service.label(resource_type.strip.titleize)
+        resource_type_service.label(resource_type.strip)
+      rescue
+        nil
+      end.compact
+    end
+
+    def add_subject
+      return unless parsed_metadata['subject'].present?
+      subject_service = HykuAddons::SubjectService.new(model: parsed_metadata['model']&.safe_constantize)
+      parsed_metadata['subject'] = parsed_metadata['subject'].map do |subject|
+        subject_service.label(subject.strip)
       rescue
         nil
       end.compact

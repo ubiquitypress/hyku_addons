@@ -219,7 +219,7 @@ module HykuAddons
           "publisher" => { split: '\|' },
           "keyword" => { split: '\|' },
           "license" => { split: '\|', parsed: true },
-          "subject" => { split: '\|', parsed: true },
+          "subject" => { split: '\|' },
           "language" => { split: '\|', parsed: true },
           "resource_type" => { split: '\|', parsed: false },
           "date_published" => { split: '\|', parsed: true },

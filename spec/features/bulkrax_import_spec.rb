@@ -47,9 +47,20 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       expect(JSON.parse(work.creator.first)).to be_present
       expect(JSON.parse(work.creator.first).size).to eq 1
       expect(work.resource_type).to eq ["Research Article"]
+      expect(work.subject).to eq ["Social Sciences", "Performing arts", "Music"]
       expect(work.license).to eq ["https://commons.pacificu.edu/rights"]
       expect(work.publisher).to eq ['Pacific University Press', 'Ubiquity Press']
       expect(work.depositor).to eq 'batchuser@example.com'
+    end
+
+    context 'resource_type' do
+      let(:import_batch_file) { 'spec/fixtures/csv/generic_work.csv' }
+
+      it 'populates resource_type' do
+        importer.import_works
+        work = GenericWork.last
+        expect(work.resource_type).to eq ["Interactive resource"]
+      end
     end
 
     context 'with files' do
