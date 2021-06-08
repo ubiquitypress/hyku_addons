@@ -88,7 +88,7 @@ json.place_of_publication work.try(:place_of_publication)
 #                                         "project_name" => nil,
 json.prerequisites work.try(:prerequisites)
 json.publisher work.publisher
-#                                         "qualification_level" => nil,
+#                                         "qualification_name" => nil,
 json.qualification_name work.try(:qualification_level)
 json.reading_level work.try(:reading_level)
 json.refereed work.try(:refereed)
