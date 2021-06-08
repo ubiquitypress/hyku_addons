@@ -13,6 +13,8 @@ class CloneableListener {
   constructor(){
     this.cloneableAttributeName = "data-cloneable"
     this.cloneableSelector = `[${this.cloneableAttributeName}]`
+    this.cloneableTargetAttributeName = "data-cloneable-target"
+    this.cloneableTargetSelector = `[${this.cloneableTargetAttributeName}]`
     this.afterEventsDataAttributeName = "data-after-clone"
 
     this.registerListeners()
@@ -27,6 +29,11 @@ class CloneableListener {
     event.preventDefault()
 
     let target = clicked.closest(this.cloneableSelector).last()
+
+    if (target.find(this.cloneableTargetSelector).length) {
+      target = target.find(this.cloneableTargetSelector).last()
+    }
+
     let clone = target.clone()
 
     clone.insertAfter(target)
@@ -40,7 +47,15 @@ class CloneableListener {
       return false
     }
 
-    clicked.closest(this.cloneableSelector).remove()
+    // Check if we have a cloneable target somewhere above us and use that selector if so.
+    let selector
+    if (clicked.closest(this.cloneableTargetSelector).length) {
+      selector = this.cloneableTargetSelector
+    } else {
+      selector = this.cloneableSelector
+    }
+
+    clicked.closest(selector).remove()
   }
 
   // Trigger any events requested, allowing for multiple space delimited event names
@@ -59,8 +74,15 @@ class CloneableListener {
   // ... data-cloneable-min="1"
   reachedMinCount(clicked) {
     let parent = clicked.closest(this.cloneableSelector)
-    let attrName = parent.attr(this.cloneableAttributeName)
-    let siblingCount = $(`[${this.cloneableAttributeName}=${attrName}]`).length
+
+    let siblingCount
+    if (clicked.closest(this.cloneableTargetSelector).length) {
+      siblingCount = parent.find(this.cloneableTargetSelector).length
+
+    } else {
+      let attrName = parent.attr(this.cloneableAttributeName)
+      siblingCount = $(`[${this.cloneableAttributeName}=${attrName}]`).length
+    }
 
     return siblingCount <= (parent.data("cloneable-min") || 0)
   }
