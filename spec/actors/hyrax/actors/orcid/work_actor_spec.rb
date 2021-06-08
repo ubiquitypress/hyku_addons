@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Hyrax::Actors::OrcidActor do
+RSpec.describe Hyrax::Actors::Orcid::WorkActor do
   subject(:actor) { described_class.new(next_actor) }
   let(:ability) { Ability.new(user) }
   let(:env) { Hyrax::Actors::Environment.new(work, ability, {}) }
@@ -36,7 +36,7 @@ RSpec.describe Hyrax::Actors::OrcidActor do
     context "when orcid_identities is enabled" do
       it "enqueues a job" do
         expect { actor.create(env) }.to have_enqueued_job(Hyrax::Orcid::ProcessWorkJob)
-          .with(orcid_id, work)
+          .with(work)
           .on_queue(Hyrax.config.ingest_queue_name)
       end
     end
@@ -56,7 +56,7 @@ RSpec.describe Hyrax::Actors::OrcidActor do
     context "when orcid_identities is enabled" do
       it "enqueues a job" do
         expect { actor.update(env) }.to have_enqueued_job(Hyrax::Orcid::ProcessWorkJob)
-          .with(orcid_id, work)
+          .with(work)
           .on_queue(Hyrax.config.ingest_queue_name)
       end
     end

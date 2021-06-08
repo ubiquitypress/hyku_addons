@@ -2,7 +2,7 @@
 
 module Hyrax
   module Orcid
-    class SyncAll
+    class SyncAllStrategy
       include Hyrax::OrcidHelper
 
       def initialize(work, identity)

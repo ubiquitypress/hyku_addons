@@ -91,7 +91,7 @@ RSpec.describe Hyrax::Orcid::ProcessWorkService do
   end
 
   describe "#perform_user_preference" do
-    let(:sync_class) { Hyrax::Orcid::SyncAll }
+    let(:sync_class) { Hyrax::Orcid::SyncAllStrategy }
     let(:sync_instance) { instance_double(sync_class, perform: nil) }
 
     context "when the user has selected sync_all" do

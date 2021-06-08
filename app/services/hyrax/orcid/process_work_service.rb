@@ -37,7 +37,7 @@ module Hyrax
         def perform_user_preference(orcid_id)
           return unless (identity = OrcidIdentity.find_by(orcid_id: orcid_id)).present?
 
-          "Hyrax::Orcid::#{identity.work_sync_preference.classify}".constantize.new(@work, identity).perform
+          "Hyrax::Orcid::#{identity.work_sync_preference.classify}Strategy".constantize.new(@work, identity).perform
         end
 
         def json_for_term(term)
