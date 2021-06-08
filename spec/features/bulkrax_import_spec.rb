@@ -108,9 +108,12 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
           importer.import_works
           work = GenericWork.first
           expect(work.visibility).to eq 'open'
-          expect(work.file_sets.size).to eq 2
+          expect(work.file_sets.size).to eq 3
           expect(work.ordered_members.to_a.first.visibility).to eq 'restricted'
           expect(work.ordered_members.to_a.second.visibility).to eq 'open'
+          expect(work.ordered_members.to_a.third.visibility).to eq 'authenticated'
+          expect(work.ordered_members.to_a.third.embargo_release_date).to eq '2029-07-01'
+          expect(work.ordered_members.to_a.third.visibility_after_embargo).to eq 'open'
         end
       end
     end
