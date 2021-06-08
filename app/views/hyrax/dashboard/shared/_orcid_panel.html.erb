@@ -69,18 +69,13 @@
       <a
           href="<%= orcid_authorize_uri %>"
           title="Connect to ORCID"
-          class="btn btn-orcid popup"
+          class="btn btn-orcid margin-bottom"
           data-popup-width="515"
           data-popup-height="670"
           >
           <%= image_tag 'orcid.png', alt: t('hyrax.user_profile.orcid.alt'), class: "profile" %>
           <%= t("orcid_identity.preferences.info.connect_button_text") %>
       </a>
-
-      <div class="alert alert-warning" style="margin-left: 0; margin-right: 0">
-        <p><b>For testing in development</b></p>
-        <p>When you get your "code" from the google playground, go to the following path: /dashboard/orcid_identity/new?code=</p>
-      </div>
     </div>
   <% end %>
 </div>

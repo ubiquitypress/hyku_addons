@@ -16,7 +16,7 @@ module Hyrax
     def orcid_authorize_uri
       params = {
         client_id: Site.instance.account.settings["orcid_client_id"],
-        scope: "/activities/update%20/read-limited",
+        scope: "/activities/update /read-limited",
         response_type: "code",
         redirect_uri: Site.instance.account.settings["orcid_redirect"]
       }
