@@ -32,10 +32,10 @@ json.degree work.try(:degree)
 #                                         "doi" => nil,
 # json.download_link nil
 json.duration work.try(:duration)
-#                                         "edition" => nil,
+json.edition work.try(:edition)
 #                                         "eissn" => nil,
 #                                         "event_date" => nil,
-#                                         "event_location" => nil,
+json.event_location work.try(:event_location)
 #                                         "event_title" => nil,
 json.files do
   json.has_private_files work.file_set_presenters.any? { |fsp| fsp.solr_document.private? }
@@ -84,24 +84,25 @@ json.pagination work.try(:pagination)
 json.participant work.try(:participant)
 json.photo_caption work.try(:photo_caption)
 json.photo_description work.try(:photo_description)
-#                                         "place_of_publication" => nil,
+json.place_of_publication work.try(:place_of_publication)
 #                                         "project_name" => nil,
 json.prerequisites work.try(:prerequisites)
 json.publisher work.publisher
 #                                         "qualification_level" => nil,
-#                                         "qualification_name" => nil,
+json.qualification_name work.try(:qualification_level)
 json.reading_level work.try(:reading_level)
 json.refereed work.try(:refereed)
 #                                         "related_exhibition" => nil,
 #                                         "related_exhibition_date" => nil,
 #                                         "related_exhibition_venue" => nil,
+json.related_identifier work.try(:related_identifier)
 json.related_material work.try(:related_material)
 json.related_url work.related_url
 json.resource_type work.resource_type
 #                                         "review_data" => nil,
 json.rights_holder work.try(:rights_holder)
 json.rights_statement work.rights_statement
-#                                         "series_name" => nil,
+json,series_name work.try(:series_name)
 json.source work.source
 json.subject work.subject
 json.suggested_reviewers work.try(:suggested_reviewers)
