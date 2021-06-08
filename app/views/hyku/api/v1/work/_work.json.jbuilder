@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 # FIXME: many attributes here left nil so specs will pass
+
 json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.member_of_collection_ids & collection_docs.pluck('id')] do
   json.uuid work.id
   json.abstract work.try(:abstract)
@@ -116,4 +117,5 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   collections = collection_presenters.map { |collection| { uuid: collection.id, title: collection.title.first } }
   json.collections collections
 end
+
 
