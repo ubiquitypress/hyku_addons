@@ -38,11 +38,12 @@ module HykuAddons
       file_metadata = []
       raw_metadata.select { |k, _v| k =~ /^file_((?<subfield>.+)_)?(?<index>\d+)$/ }.each do |k, v|
         match = k.match(/^file_((?<subfield>.+)_)?(?<index>\d+)$/)
-        file_metadata[match[:index].to_i - 1] ||= {}
-        if match[:subfield].present?
-          file_metadata[match[:index].to_i - 1][match[:subfield]] = v
+        file_index = match[:index].to_i - 1
+        file_metadata[file_index] ||= {}
+        if (subfield = match[:subfield].presence)
+          file_metadata[file_index][subfield] = v
         else
-          file_metadata[match[:index].to_i - 1]['file'] = v
+          file_metadata[file_index]['file'] = v
         end
       end
       parsed_metadata['file'] = file_metadata.pluck('file') if parsed_metadata['file'].blank?
