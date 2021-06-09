@@ -3,7 +3,7 @@
 <% Array.wrap(hash.fetch(field_slug.to_s, "")).each do |value| %>
 	<div
 		class="<%= local_assigns["group_class"] || "form-group #{field_slug}-group #{template}_#{field_slug}" %>"
-		data-cloneable="multiple_field"
+		data-cloneable
 		data-after-clone="clear_inputs"
 		data-cloneable-min="1"
 	>
@@ -18,7 +18,7 @@
 			required: local_assigns[:required]
 		}.merge(local_assigns[:field_args] || {}) %>
 
-		<div <% if cloneable %>class="input-group" data-cloneable-target<% end %>>
+	<div <% if cloneable %>class="input-group" data-cloneable-target="cloneable-<%= field_slug %>"<% end %>>
 			<% field_name_suffix = cloneable ? "[]" : "" %>
 			<%= text_field_tag "#{template}[#{field_group}][][#{field_slug}]#{field_name_suffix}", value, defaults %>
 

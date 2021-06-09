@@ -28,15 +28,10 @@ class CloneableListener {
   onClone(event, clicked){
     event.preventDefault()
 
-    let target = clicked.closest(this.cloneableSelector).last()
-
-    if (target.find(this.cloneableTargetSelector).length) {
-      target = target.find(this.cloneableTargetSelector).last()
-    }
-
+    let target = this.findTargets(clicked).first()
     let clone = target.clone()
 
-    clone.insertAfter(target)
+    clone.insertAfter(this.findTargets(clicked).last())
     this.triggerElementAfterEvents(clone)
   }
 
@@ -47,20 +42,20 @@ class CloneableListener {
       return false
     }
 
-    // Check if we have a cloneable target somewhere above us and use that selector if so.
-    let selector
-    if (clicked.closest(this.cloneableTargetSelector).length) {
-      selector = this.cloneableTargetSelector
-    } else {
-      selector = this.cloneableSelector
-    }
+    clicked.closest(this.cloneableTargetSelector).remove()
+  }
 
-    clicked.closest(selector).remove()
+  // addBack includes the current element if that is the cloneable-target, so this could include
+  // the parent div and its children, or just the children
+  findTargets(clicked) {
+    return clicked.closest(this.cloneableSelector)
+      .find(this.cloneableTargetSelector)
+      .addBack(this.cloneableTargetSelector)
   }
 
   // Trigger any events requested, allowing for multiple space delimited event names
   triggerElementAfterEvents(element){
-    // Ensure we have events to trigger and account for times when no events are required
+    // Ensure we have events to trigger and account for times when no events are require
     let events = (element.attr(this.afterEventsDataAttributeName) || "").split(" ").filter(String)
 
     if (events.length == 0) {
@@ -74,15 +69,10 @@ class CloneableListener {
   // ... data-cloneable-min="1"
   reachedMinCount(clicked) {
     let parent = clicked.closest(this.cloneableSelector)
-
-    let siblingCount
-    if (clicked.closest(this.cloneableTargetSelector).length) {
-      siblingCount = parent.find(this.cloneableTargetSelector).length
-
-    } else {
-      let attrName = parent.attr(this.cloneableAttributeName)
-      siblingCount = $(`[${this.cloneableAttributeName}=${attrName}]`).length
-    }
+    // let attrName = parent.attr(this.cloneableTargetAttributeName)
+    let targets = this.findTargets(clicked)
+    let attrName = targets.last().attr(this.cloneableTargetAttributeName)
+    let siblingCount = $(`[${this.cloneableTargetAttributeName}=${attrName}]`).length
 
     return siblingCount <= (parent.data("cloneable-min") || 0)
   }
