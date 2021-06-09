@@ -60,6 +60,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
           json.name license_hash.key(item)
           json.link item
         end
+
       end
     end
   end
