@@ -20,6 +20,10 @@ require 'ammeter/init'
 # Optional execution of specs for examples that fail randomly on CI
 require File.expand_path('support/optional_example', __dir__)
 
+HykuAddons::Ubiquitous::Container.table_name =  "hyku_addons_ubiquitous_containers"
+HykuAddons::Ubiquitous::Content.table_name =  "hyku_addons_ubiquitous_contents"
+HykuAddons::Ubiquitous::Widget.table_name =  "hyku_addons_ubiquitous_widgets"
+
 if ENV['CI']
   # Capybara config copied over from Hyrax
   Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|

@@ -1,0 +1,11 @@
+<%= content_tag(:tr, class: "ubiquitous_container", id: "ubiquitous_container_#{container.id}") do %>
+  <td><%= container.name %></td>
+  <td><%= container.content.name %></td>
+  <td><%= container.style %></td>
+  <td class="table-actions">
+    <div class="btn-group">
+      <%= link_to icon('pencil'), [:edit, :admin, container], class: 'fa-lg mr-2' %>
+      <%= link_to_destroy_item([:admin, container]) %>
+    </div>
+  </td>
+<% end %>

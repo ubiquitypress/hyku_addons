@@ -1,0 +1,11 @@
+<%= content_tag(:tr, class: "page", id: "page_#{page.id}") do %>
+  <td><%= page.name %></td>
+  <td><%= page.hyku_widgets.count %></td>
+  <td><%= page.updated_at %></td>
+  <td class="table-actions">
+    <div class="btn-group">
+      <%= link_to icon('pencil'), [:edit, :admin, page], class: 'fa-lg mr-2' %>
+      <%= link_to_destroy_item([:admin, page]) %>
+    </div>
+  </td>
+<% end %>

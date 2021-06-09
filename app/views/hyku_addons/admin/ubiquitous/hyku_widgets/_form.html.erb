@@ -1,0 +1,9 @@
+<%#= simple_form_for @hyku_widget, url: admin_ubiquitous_page_hyku_widget_path(@page, @hyku_widget), as: :hyku_widget do |f| %>
+<%= simple_form_for @hyku_widget, url: [:admin, @page, @hyku_widget], as: :hyku_widget do |f| %>
+  <%= f.input :name %>
+  <%= f.association :container, collection: HykuAddons::Ubiquitous::Container.all, include_blank: false %>
+  <%= f.input :position %>
+  <%= f.input :height %>
+  <%= f.input :width %>
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>

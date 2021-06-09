@@ -207,3 +207,11 @@ en:
     collections:
       show:
         item_count: Items
+
+  hyku_addons:
+    admin:
+      sidebar:
+        ubiquitous:
+          title: "CMS"
+          widgets: "Widgets"
+          pages: "Customised Pages"

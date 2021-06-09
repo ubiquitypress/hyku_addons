@@ -1,0 +1,7 @@
+<% provide :page_header do %>
+  <br>
+  <h1> <%= icon 'table' %>Pages </h1>
+<% end %>
+
+<%= link_to_new %>
+<%= table_for @pages, { partial: "page" }, :name, :widgets, :updated_at, :actions %>

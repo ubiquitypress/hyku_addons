@@ -1,0 +1,7 @@
+<% provide :page_header do %>
+  <br>
+  <h1> <%= icon 'table' %> Widgets </h1>
+<% end %>
+
+<%= link_to_new %>
+<%= table_for @containers, { partial: "container" }, :name, :content, :style, :actions %>

@@ -1,0 +1,13 @@
+<%= content_tag(:tr, class: "hyku_widget", id: "hyku_widget_#{hyku_widget.id}") do %>
+  <td><%= hyku_widget.name %></td>
+  <td><%= hyku_widget.container&.name %></td>
+  <td><%= hyku_widget.position %></td>
+  <td><%= hyku_widget.height %></td>
+  <td><%= hyku_widget.width %></td>
+  <td class="table-actions">
+    <div class="btn-group">
+      <%= link_to icon('pencil'), [:edit, :admin, @page, hyku_widget], class: 'fa-lg mr-2' %>
+      <%= link_to_destroy_item([:admin, @page, hyku_widget]) %>
+    </div>
+  </td>
+<% end %>

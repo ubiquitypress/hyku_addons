@@ -1,0 +1,8 @@
+<%= simple_form_for [:admin, @container], as: :container do |f| %>
+  <%= f.input :name %>
+  <%= f.association :content, collection: HykuAddons::Ubiquitous::Content.all, include_blank: false %>
+  <%= f.input :style, collection: available_container_styles_collection, include_blank: false %>
+  <%= f.input :custom_title %>
+  <%= f.input :custom_description %>
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>

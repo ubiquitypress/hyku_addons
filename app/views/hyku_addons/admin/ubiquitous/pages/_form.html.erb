@@ -1,0 +1,7 @@
+<%= simple_form_for [:admin, @page], as: :page do |f| %>
+  <%= f.input :name %>
+  <%= f.input :path_matcher %>
+  <%= f.input :grid_columns_count %>
+  <%= f.input :disabled_at %>
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>

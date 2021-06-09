@@ -1,23 +1,20 @@
 <%# override from bulkrax to make bulkrax a feature flipper %>
 <li class="h5"><%= t('hyrax.admin.sidebar.repository_objects') %></li>
 
-<%= menu.nav_link(hyrax.my_works_path,
-                  also_active_for: hyrax.dashboard_works_path) do %>
-  <span class="fa fa-file" aria-hidden="true"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.works') %></span>
-<% end %>
+<%= menu.menu_item_for(name: 'hyrax.admin.sidebar.works', path: hyrax.my_works_path, icon: 'file',
+                       also_active_for: hyrax.dashboard_works_path) %>
 
 <% if current_user.can?(:manage, Collection) || Flipflop.enabled?(:show_repository_objects_links) %>
-  <%= menu.nav_link(hyrax.my_collections_path,
-                    also_active_for: hyrax.dashboard_collections_path) do %>
-    <span class="fa fa-folder-open" aria-hidden="true"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.collections') %></span>
-  <% end %>
+  <%= menu.menu_item_for(name: 'hyrax.admin.sidebar.collections', path: hyrax.my_collections_path, icon: 'folder-open',
+                         also_active_for: hyrax.dashboard_collections_path) %>
   <% if Settings.bulkrax.enabled %>
-    <%= menu.nav_link(bulkrax.importers_path) do %>
-      <span class="fa fa-cloud-upload" aria-hidden="true"></span> <span class="sidebar-action-text"><%= t('bulkrax.admin.sidebar.importers') %></span>
-    <% end %>
-
-    <%= menu.nav_link(bulkrax.exporters_path) do %>
-      <span class="fa fa-cloud-download" aria-hidden="true"></span> <span class="sidebar-action-text"><%= t('bulkrax.admin.sidebar.exporters') %></span>
-    <% end %>
+    <%= menu.menu_item_for(name: 'bulkrax.admin.sidebar.importers', path: bulkrax.importers_path, icon: 'cloud-upload') %>
+    <%= menu.menu_item_for(name: 'bulkrax.admin.sidebar.exporters', path: bulkrax.exporters_path, icon: 'cloud-download') %>
   <% end %>
+<% end %>
+
+<% if Settings.ubiquitous.enabled %>
+    <li class="h5"><%= t('hyku_addons.admin.sidebar.ubiquitous.title') %></li>
+    <%= menu.menu_item_for(name: 'hyku_addons.admin.sidebar.ubiquitous.widgets', path: hyku_addons.admin_ubiquitous_containers_path, icon: 'gears') %>
+    <%= menu.menu_item_for(name: 'hyku_addons.admin.sidebar.ubiquitous.pages', path: hyku_addons.admin_ubiquitous_pages_path, icon: 'table') %>
 <% end %>
