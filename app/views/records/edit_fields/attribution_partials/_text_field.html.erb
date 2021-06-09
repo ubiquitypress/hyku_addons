@@ -2,11 +2,11 @@
 <% cloneable_name ="cloneable-#{template}-#{field_slug}" %>
 
 <% Array.wrap(hash.fetch(field_slug.to_s, "")).each do |value| %>
+	<% byebug if field_slug == :creator_institution %>
 	<div
 		class="<%= local_assigns["group_class"] || "form-group #{field_slug}-group #{template}_#{field_slug}" %>"
 		<% if cloneable %>
 			data-cloneable
-			data-after-clone="clear_inputs"
 			data-cloneable-min="1"
 		<% end %>
 	>
@@ -16,7 +16,6 @@
 		<% defaults = {
 			class: "#{template}_#{field_group} #{template}_#{field_slug} form-control multi-text-field multi_value",
 			placeholder: t("simple_form.#{field_group}.#{field_slug}.placeholder"),
-			name: "#{template}[#{field_group}][][#{field_slug}]",
 			data: { field_name: "ubiquity_#{field_slug}", template: template, field_group: field_group },
 			required: local_assigns[:required]
 		}.merge(local_assigns[:field_args] || {}) %>
@@ -25,14 +24,14 @@
 			<% if cloneable %>
 				class="input-group"
 				data-cloneable-group="<%= cloneable_name %>"
+				data-cloneable-after-action="clear_inputs"
 			<% end %>
 		>
-			<% field_name_suffix = cloneable ? "[]" : "" %>
-			<%= text_field_tag "#{template}[#{field_group}][][#{field_slug}]#{field_name_suffix}", value, defaults %>
+			<%= text_field_tag "#{template}[#{field_group}][][#{field_slug}]#{cloneable ? '[]' : ''}", value, defaults %>
 
 			<% if cloneable %>
 				<div class="input-group-addon">
-					<a href="" class="remove text-danger" data-on-click="remove_parent" data-cloneable-target="<%= cloneable_name %>">
+					<a href="" class="remove text-danger" data-on-click="remove_group" data-cloneable-target="<%= cloneable_name %>">
 						<span class="glyphicon glyphicon-remove"></span>
 						<span class="controls-remove-text">Remove</span>
 					</a>
@@ -50,7 +49,7 @@
 		<% end %>
 
 		<% if cloneable %>
-			<button type="button" class="btn btn-link add" data-on-click="clone_parent" data-cloneable-target="<%= cloneable_name %>">
+			<button type="button" class="btn btn-link add" data-on-click="clone_group" data-cloneable-target="<%= cloneable_name %>">
 				<span class="glyphicon glyphicon-plus"></span>
 				<span class="controls-add-text">Add another</span>
 			</button>

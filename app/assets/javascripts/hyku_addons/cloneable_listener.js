@@ -1,3 +1,18 @@
+// TODO:
+// Ensure after actions work
+// clear other cloneables in cloned group after clone
+// covert other newer elements (editor/contributor)
+// ensure autofill_work_form.js is still working normally
+// add focus to cloned element after clone
+
+// <div data-cloneable data-after-clone="clear_inputs" data-cloneable-min="1">
+//   <div data-cloneable-group="my-cloneable-group">
+//     <input type="text">
+//     <textarea></textarea>
+//     <a href="" data-on-click="remove_group" data-cloneable-target="my-cloneable-group">Remove</a>
+//   </div>
+//   <button data-on-click="clone_group" data-cloneable-target="my-cloneable-group">Add</button>
+// </div>
 class CloneableListener {
   constructor(){
     this.cloneableAttribute = "data-cloneable"
@@ -5,14 +20,14 @@ class CloneableListener {
     this.groupAttribute = "data-cloneable-group"
     this.groupSelector = `[${this.groupAttribute}]`
     this.targetAttribute = "data-cloneable-target"
-    this.afterEventsDataAttribute = "data-after-clone"
+    this.afterActionAttribute = "data-cloneable-after-action"
 
     this.registerListeners()
   }
 
   registerListeners(){
-    $("body").on("clone_parent", this.onClone.bind(this))
-    $("body").on("remove_parent", this.onRemove.bind(this))
+    $("body").on("clone_group", this.onClone.bind(this))
+    $("body").on("remove_group", this.onRemove.bind(this))
   }
 
   onClone(event, clicked){
@@ -39,7 +54,7 @@ class CloneableListener {
   // Trigger any events requested, allowing for multiple space delimited event names
   triggerElementAfterEvents(element){
     // Ensure we have events to trigger and account for times when no events are require
-    let events = (element.attr(this.afterEventsDataAttribute) || "").split(" ").filter(String)
+    let events = (element.attr(this.afterActionAttribute) || "").split(" ").filter(String)
 
     if (events.length == 0) {
       return false;
@@ -59,7 +74,7 @@ class CloneableListener {
   siblings(clicked) {
     let attrName = clicked.attr(this.targetAttribute)
 
-    return clicked.closest(this.cloneableSelector).find(`[${this.groupAttribute}=${attrName}]`)
+    return this.parent(clicked).find(`[${this.groupAttribute}=${attrName}]`)
   }
 
   parent(clicked) {
