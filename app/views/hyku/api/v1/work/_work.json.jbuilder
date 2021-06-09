@@ -53,7 +53,11 @@ json.issn work.try(:issn)
 json.issue work.try(:issue)
 json.journal_title work.try(:journal_title)
 json.keywords work.keyword
-json.language work.language
+if work.language.present?
+  language_service = HykuAddons::LanguageService.new(model: work.class)
+  languages = work.language.map { |id| language_service.label(id) rescue nil }.compact
+  json.language languages
+end
 #                                         "library_of_congress_classification" => nil,
 license = work.try(:license)
 license_hash = HykuAddons::LicenseService.new.select_all_options.to_h
