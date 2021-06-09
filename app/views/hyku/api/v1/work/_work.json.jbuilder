@@ -54,8 +54,12 @@ json.issue work.try(:issue)
 json.journal_title work.try(:journal_title)
 json.keywords work.keyword
 if work.language.present?
-  language_service = HykuAddons::LanguageService.new(model: work.class)
-  languages = work.language.map { |id| language_service.label(id) rescue nil }.compact
+  language_service = HykuAddons::LanguageService.new
+  begin
+    languages = work.language.map { |id| language_service.label(id) }.compact
+  rescue
+    nil
+  end
   json.language languages
 end
 #                                         "library_of_congress_classification" => nil,
