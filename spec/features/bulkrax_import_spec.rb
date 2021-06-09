@@ -63,6 +63,21 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       end
     end
 
+    context 'langauage' do
+      let(:account) { FactoryBot.create(:account, locale_name: 'redlands') }
+      let(:import_batch_file) { 'spec/fixtures/csv/redlands_article.csv' }
+
+      before do
+        Site.update(account: account)
+      end
+
+      it 'populates language' do
+        importer.import_works
+        work = RedlandsArticle.last
+        expect(work.language).to eq ["eng", "ara", "zho", "fra", "rus", "spa", "Other"]
+      end
+    end
+
     context 'with files' do
       let(:import_batch_file) { 'spec/fixtures/csv/pacific_articles.csv' }
 
