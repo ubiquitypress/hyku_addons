@@ -1,21 +1,11 @@
-// Example:
-//	<div
-//		data-toggleable
-//		data-cloneable="creator"
-//		data-after-clone="clear_inputs"
-//		data-cloneable-min="1"
-//	>
-//   <a href="#" data-turbolinks="false" data-on-click="clone_parent">Add another</a>
-//   <a href="#" data-turbolinks="false" data-on-click="remove_parent">Remove</a>
-// </div>
-
 class CloneableListener {
   constructor(){
-    this.cloneableAttributeName = "data-cloneable"
-    this.cloneableSelector = `[${this.cloneableAttributeName}]`
-    this.cloneableTargetAttributeName = "data-cloneable-target"
-    this.cloneableTargetSelector = `[${this.cloneableTargetAttributeName}]`
-    this.afterEventsDataAttributeName = "data-after-clone"
+    this.cloneableAttribute = "data-cloneable"
+    this.cloneableSelector = `[${this.cloneableAttribute}]`
+    this.groupAttribute = "data-cloneable-group"
+    this.groupSelector = `[${this.groupAttribute}]`
+    this.targetAttribute = "data-cloneable-target"
+    this.afterEventsDataAttribute = "data-after-clone"
 
     this.registerListeners()
   }
@@ -28,10 +18,11 @@ class CloneableListener {
   onClone(event, clicked){
     event.preventDefault()
 
-    let target = this.findTargets(clicked).first()
-    let clone = target.clone()
+    let sibling = this.siblings(clicked).last()
+    let clone = sibling.clone()
 
-    clone.insertAfter(this.findTargets(clicked).last())
+    clone.insertAfter(sibling)
+
     this.triggerElementAfterEvents(clone)
   }
 
@@ -42,21 +33,13 @@ class CloneableListener {
       return false
     }
 
-    clicked.closest(this.cloneableTargetSelector).remove()
-  }
-
-  // addBack includes the current element if that is the cloneable-target, so this could include
-  // the parent div and its children, or just the children
-  findTargets(clicked) {
-    return clicked.closest(this.cloneableSelector)
-      .find(this.cloneableTargetSelector)
-      .addBack(this.cloneableTargetSelector)
+    clicked.closest(this.groupSelector).remove()
   }
 
   // Trigger any events requested, allowing for multiple space delimited event names
   triggerElementAfterEvents(element){
     // Ensure we have events to trigger and account for times when no events are require
-    let events = (element.attr(this.afterEventsDataAttributeName) || "").split(" ").filter(String)
+    let events = (element.attr(this.afterEventsDataAttribute) || "").split(" ").filter(String)
 
     if (events.length == 0) {
       return false;
@@ -65,16 +48,22 @@ class CloneableListener {
     events.forEach((event) => $("body").trigger(event, [element]))
   }
 
-  // Set a min number of sublings for a cloneable element by:
-  // ... data-cloneable-min="1"
+  // Set a min number of sublings for a cloneable element by: data-cloneable-min="1"
   reachedMinCount(clicked) {
-    let parent = clicked.closest(this.cloneableSelector)
-    // let attrName = parent.attr(this.cloneableTargetAttributeName)
-    let targets = this.findTargets(clicked)
-    let attrName = targets.last().attr(this.cloneableTargetAttributeName)
-    let siblingCount = $(`[${this.cloneableTargetAttributeName}=${attrName}]`).length
+    let siblingCount = this.siblings(clicked).length
+    let minimum = this.parent(clicked).data("cloneable-min") || 0
 
-    return siblingCount <= (parent.data("cloneable-min") || 0)
+    return siblingCount <= minimum
+  }
+
+  siblings(clicked) {
+    let attrName = clicked.attr(this.targetAttribute)
+
+    return clicked.closest(this.cloneableSelector).find(`[${this.groupAttribute}=${attrName}]`)
+  }
+
+  parent(clicked) {
+    return clicked.closest(this.cloneableSelector)
   }
 }
 

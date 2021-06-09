@@ -1,11 +1,14 @@
 <% cloneable = local_assigns.dig(:field_args, :cloneable) %>
+<% cloneable_name ="cloneable-#{template}-#{field_slug}" %>
 
 <% Array.wrap(hash.fetch(field_slug.to_s, "")).each do |value| %>
 	<div
 		class="<%= local_assigns["group_class"] || "form-group #{field_slug}-group #{template}_#{field_slug}" %>"
-		data-cloneable
-		data-after-clone="clear_inputs"
-		data-cloneable-min="1"
+		<% if cloneable %>
+			data-cloneable
+			data-after-clone="clear_inputs"
+			data-cloneable-min="1"
+		<% end %>
 	>
 		<% options = { class: "control-label multi_value optional" } %>
 		<%= label_tag "#{template}_#{field_slug}", t("simple_form.#{field_group}.#{field_slug}.label"), options %>
@@ -18,15 +21,20 @@
 			required: local_assigns[:required]
 		}.merge(local_assigns[:field_args] || {}) %>
 
-	<div <% if cloneable %>class="input-group" data-cloneable-target="cloneable-<%= field_slug %>"<% end %>>
+		<div
+			<% if cloneable %>
+				class="input-group"
+				data-cloneable-group="<%= cloneable_name %>"
+			<% end %>
+		>
 			<% field_name_suffix = cloneable ? "[]" : "" %>
 			<%= text_field_tag "#{template}[#{field_group}][][#{field_slug}]#{field_name_suffix}", value, defaults %>
 
 			<% if cloneable %>
 				<div class="input-group-addon">
-					<a href="" class="remove text-danger" data-on-click="remove_parent">
-							<span class="glyphicon glyphicon-remove"></span>
-							<span class="controls-remove-text">Remove</span>
+					<a href="" class="remove text-danger" data-on-click="remove_parent" data-cloneable-target="<%= cloneable_name %>">
+						<span class="glyphicon glyphicon-remove"></span>
+						<span class="controls-remove-text">Remove</span>
 					</a>
 				</div>
 			<% end %>
@@ -42,7 +50,7 @@
 		<% end %>
 
 		<% if cloneable %>
-			<button type="button" class="btn btn-link add" data-on-click="clone_parent">
+			<button type="button" class="btn btn-link add" data-on-click="clone_parent" data-cloneable-target="<%= cloneable_name %>">
 				<span class="glyphicon glyphicon-plus"></span>
 				<span class="controls-add-text">Add another</span>
 			</button>
