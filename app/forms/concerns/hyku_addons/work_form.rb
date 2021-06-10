@@ -44,7 +44,7 @@ module HykuAddons
            page_display_order_number irb_number irb_status subject additional_links is_included_in buy_book challenged
            location outcome participant reading_level photo_caption photo_description degree longitude latitude alt_email
            alt_book_title table_of_contents prerequisites suggested_student_reviewers suggested_reviewers adapted_from audience
-           related_material note] + hyrax_terms
+           related_material note advisor] + hyrax_terms
       end
 
       def hyrax_terms
