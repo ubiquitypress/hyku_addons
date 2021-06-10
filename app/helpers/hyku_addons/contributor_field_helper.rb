@@ -13,8 +13,8 @@ module HykuAddons
       array[1] = { field_type: :text, field_slug: :contributor_given_name }
       array.insert(2, field_type: :text, field_slug: :contributor_middle_name)
       array.insert(3, field_type: :text, field_slug: :contributor_suffix)
-      array.insert(4, field_type: :select, field_slug: :contributor_role, select_options: service_options, field_args: { multiple: true })
-      array.insert(5, field_type: :text, field_slug: :contributor_institution, field_args: { multiple: true })
+      array.insert(4, field_type: :select, field_slug: :contributor_role, select_options: service_options, field_args: { cloneable: true })
+      array.insert(5, field_type: :text, field_slug: :contributor_institution, field_args: { cloneable: true })
       array
     end
 
