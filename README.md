@@ -87,7 +87,7 @@ CFLAGS=-Wno-error=format-overflow  gem install zookeeper -v '1.4.11' --source 'h
 
 ### Dory / Host file
 
-Dory can be used to automatically configure your local development environment so that you can use local subdomains, however you may experience issues. 
+Dory can be used to automatically configure your local development environment so that you can use local subdomains, however you may experience issues. (See https://github.com/samvera/hyku/#dory)
 
 Another solution is to simply edit your `/etc/hosts` file and add in each tenants cname here. For example: 
 
