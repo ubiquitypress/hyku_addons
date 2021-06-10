@@ -13,7 +13,7 @@ module HykuAddons
       private
 
         def add_related_identifier_data(env)
-          return unless env.curation_concern.class.to_s.include? "Redlands"
+          return true unless env.curation_concern.class.to_s.include? "Redlands"
           identifier_hash = JSON.parse(env.attributes[:related_identifier].first).first if env.attributes[:related_identifier].present?
           env.attributes[:related_identifier] = Array.wrap(add_related_metadata(identifier_hash))
         end
