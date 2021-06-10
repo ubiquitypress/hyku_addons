@@ -104,13 +104,15 @@ json.refereed work.try(:refereed)
 #                                         "related_exhibition_date" => nil,
 #                                         "related_exhibition_venue" => nil,
 related_identifier = work.try(:related_identifier)&.first
-if valid_json?(related_identifier)
-  related_identifier_array = JSON.parse(related_identifier)
-  json.related_identifier do
-    json.array! related_identifier_array do |hash|
-      json.name hash['related_identifier']
-      json.type hash['related_identifier_type']
-      json.relationship hash['relation_type']
+if related_identifier.present?
+  related_identifier_array = JSON.parse(related_identifier) rescue nil
+  if related_identifier_array.present?
+    json.related_identifier do
+      json.array! related_identifier_array do |hash|
+	json.name hash['related_identifier']
+	json.type hash['related_identifier_type']
+	json.relationship hash['relation_type']
+      end
     end
   end
 end
