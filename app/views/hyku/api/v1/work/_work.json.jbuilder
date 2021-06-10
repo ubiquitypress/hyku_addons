@@ -29,7 +29,7 @@ json.date_submitted work.date_uploaded
 json.degree work.try(:degree)
 #                                         "dewey" => nil,
 #                                         "display" => "full",
-#                                         "doi" => nil,
+json.doi work.try(:doi)
 # json.download_link nil
 json.duration work.try(:duration)
 json.edition work.try(:edition)
@@ -85,7 +85,7 @@ json.longitude work.try(:longitude)
 #                                         "migration_id" => nil,
 #                                         "official_url" => nil,
 json.official_link work.try(:official_link)
-json.organisational_unit work.try(:org_unit)
+json.org_unit work.try(:org_unit)
 json.outcome work.try(:outcome)
 json.page_display_order_number work.try(:page_display_order_number)
 json.pagination work.try(:pagination)
@@ -96,14 +96,24 @@ json.place_of_publication work.try(:place_of_publication)
 #                                         "project_name" => nil,
 json.prerequisites work.try(:prerequisites)
 json.publisher work.publisher
-json.qualification_name work.try(:qualification_level)
-#                                         "qualification_name" => nil,
+json.qualification_level work.try(:qualification_level)
+json.qualification_name work.try(:qualification_name)
 json.reading_level work.try(:reading_level)
 json.refereed work.try(:refereed)
 #                                         "related_exhibition" => nil,
 #                                         "related_exhibition_date" => nil,
 #                                         "related_exhibition_venue" => nil,
-json.related_identifier work.try(:related_identifier)
+related_identifier = work&.related_identifier&.first
+if valid_json?(related_identifier)
+  related_identifier_array = JSON.parse(related_identifier)
+  json.related_identifier do
+    json.array! related_identifier_array do |hash|
+      json.name hash['related_identifier']
+      json.type hash['related_identifier_type']
+      json.relationship hash['relation_type']
+    end
+  end
+end
 json.related_material work.try(:related_material)
 json.related_url work.related_url
 json.resource_type work.resource_type
