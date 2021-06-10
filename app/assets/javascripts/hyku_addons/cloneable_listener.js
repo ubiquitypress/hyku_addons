@@ -1,10 +1,3 @@
-// TODO:
-// Ensure after actions work
-// clear other cloneables in cloned group after clone
-// covert other newer elements (editor/contributor)
-// ensure autofill_work_form.js is still working normally
-// add focus to cloned element after clone
-
 // <div data-cloneable data-after-clone="clear_inputs" data-cloneable-min="1">
 //   <div data-cloneable-group="my-cloneable-group">
 //     <input type="text">

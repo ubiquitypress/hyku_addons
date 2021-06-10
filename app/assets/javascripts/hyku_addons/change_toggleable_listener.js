@@ -1,6 +1,6 @@
 // Example:
 //
-//	<div data-toggleable data-cloneable data-after-clone="clear_inputs">
+//	<div data-toggleable>
 //    <select
 //      class="form-control"
 //      data-toggleable-control
@@ -10,18 +10,18 @@
 //      <option selected="selected" value="Personal">Personal</option>
 //      <option value="Organisational">Organisational</option>
 //    </select>
-//    <div data-toggleable-group="Personal"></div>
-//    <div data-toggleable-group="Organisational"></div>
+//    <div data-toggleable-group="Personal">...</div>
+//    <div data-toggleable-group="Organisational">...</div>
 //  </div>
 
 class ChangeToggleableListener {
   constructor(){
     this.parentSelector = "[data-toggleable]"
-    this.groupAttributeName = "data-toggleable-group"
-    this.groupSelector = `[${this.groupAttributeName}]`
+    this.groupAttribute = "data-toggleable-group"
+    this.groupSelector = `[${this.groupAttribute}]`
     this.controlSelector = "[data-toggleable-control]"
     this.eventName = "toggleable_group"
-    this.afterHiddenAttributeName = "data-after-toggleable-hidden"
+    this.afterHiddenAttribute = "data-after-toggleable-hidden"
 
     this.onLoad()
     this.registerListeners()
@@ -50,8 +50,8 @@ class ChangeToggleableListener {
   toggleSelectGroup(target){
     let val = target.val()
     let parent = target.closest(this.parentSelector)
-    let selectedElement = parent.find(`[${this.groupAttributeName}=${val}]`)
-    let afterHiddenEventName = target.attr(this.afterHiddenAttributeName)
+    let selectedElement = parent.find(`[${this.groupAttribute}=${val}]`)
+    let afterHiddenEventName = target.attr(this.afterHiddenAttribute)
 
     // Hide all elements and unset required attributes by default
     parent.find(this.groupSelector).not(selectedElement).each($.proxy(function(_i, group){

@@ -3,12 +3,15 @@
 
 <div
 	class="<%= template %>_creator"
-	data-toggleable
 	data-cloneable
 	data-cloneable-min="1"
 >
 	<% f.object.creator_list.each do |hash| %>
-		<div data-cloneable-group="<%= template %>_creator" data-cloneable-after-action="clear_inputs clear_cloned">
+		<div
+			data-toggleable
+			data-cloneable-group="<%= template %>_creator"
+			data-cloneable-after-action="clear_inputs clear_cloned"
+		>
 			<% field_options = {
 				field_slug: :creator_name_type,
 				select_options: types.map { |t| t.slice("label", "id").values },
