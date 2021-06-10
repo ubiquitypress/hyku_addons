@@ -103,7 +103,17 @@ json.refereed work.try(:refereed)
 #                                         "related_exhibition" => nil,
 #                                         "related_exhibition_date" => nil,
 #                                         "related_exhibition_venue" => nil,
-json.related_identifier work.try(:related_identifier)
+related_identifier = work['related_identifier_tesim'].try(:first)
+if valid_json?(related_identifier)
+  related_identifier_array = JSON.parse(related_identifier)
+  json.related_identifier do
+    json.array! related_identifier_array do |hash|
+      json.name hash['related_identifier']
+      json.type hash['related_identifier_type']
+      json.relationship hash['relation_type']
+    end
+  end
+end
 json.related_material work.try(:related_material)
 json.related_url work.related_url
 json.resource_type work.resource_type
