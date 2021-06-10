@@ -1,3 +1,5 @@
+// Example
+//
 // <div data-cloneable data-after-clone="clear_inputs" data-cloneable-min="1">
 //   <div data-cloneable-group="my-cloneable-group">
 //     <input type="text">
@@ -23,25 +25,25 @@ class CloneableListener {
     $("body").on("remove_group", this.onRemove.bind(this))
   }
 
-  onClone(event, clicked){
+  onClone(event, $clicked){
     event.preventDefault()
 
-    let sibling = this.siblings(clicked).last()
-    let clone = sibling.clone()
+    let $sibling = this.siblings($clicked).last()
+    let $clone = $sibling.clone()
 
-    clone.insertAfter(sibling)
+    $clone.insertAfter($sibling)
 
-    this.triggerElementAfterEvents(clone)
+    this.triggerElementAfterEvents($clone)
   }
 
-  onRemove(event, clicked){
+  onRemove(event, $clicked){
     event.preventDefault()
 
-    if(this.reachedMinCount(clicked)) {
+    if(this.reachedMinCount($clicked)) {
       return false
     }
 
-    clicked.closest(this.groupSelector).remove()
+    $clicked.closest(this.groupSelector).remove()
   }
 
   // Trigger any events requested, allowing for multiple space delimited event names
@@ -57,21 +59,21 @@ class CloneableListener {
   }
 
   // Set a min number of sublings for a cloneable element by: data-cloneable-min="1"
-  reachedMinCount(clicked) {
-    let siblingCount = this.siblings(clicked).length
-    let minimum = this.parent(clicked).data("cloneable-min") || 0
+  reachedMinCount($clicked) {
+    let siblingCount = this.siblings($clicked).length
+    let minimum = this.parent($clicked).data("cloneable-min") || 0
 
     return siblingCount <= minimum
   }
 
-  siblings(clicked) {
-    let attrName = clicked.attr(this.targetAttribute)
+  siblings($clicked) {
+    let attrName = $clicked.attr(this.targetAttribute)
 
-    return this.parent(clicked).find(`[${this.groupAttribute}=${attrName}]`)
+    return this.parent($clicked).find(`[${this.groupAttribute}=${attrName}]`)
   }
 
-  parent(clicked) {
-    return clicked.closest(this.cloneableSelector)
+  parent($clicked) {
+    return $clicked.closest(this.cloneableSelector)
   }
 }
 
