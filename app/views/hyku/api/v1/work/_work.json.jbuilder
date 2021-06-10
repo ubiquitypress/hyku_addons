@@ -103,7 +103,7 @@ json.refereed work.try(:refereed)
 #                                         "related_exhibition" => nil,
 #                                         "related_exhibition_date" => nil,
 #                                         "related_exhibition_venue" => nil,
-related_identifier = work&.related_identifier&.first
+related_identifier = work.try(:related_identifier)&.first
 if valid_json?(related_identifier)
   related_identifier_array = JSON.parse(related_identifier)
   json.related_identifier do
