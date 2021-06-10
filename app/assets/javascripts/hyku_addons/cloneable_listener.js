@@ -57,7 +57,7 @@ class CloneableListener {
     events.forEach((event) => $("body").trigger(event, [element]))
   }
 
-  // Set a min number of sublings for a cloneable element by: data-cloneable-min="1"
+  // Set a min number of siblings for a cloneable element by: data-cloneable-min="1"
   reachedMinCount($clicked) {
     let siblingCount = this.siblings($clicked).length
     let minimum = this.parent($clicked).data("cloneable-min") || 0
