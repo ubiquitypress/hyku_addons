@@ -14,7 +14,7 @@ module HykuAddons
       array[1] = { field_type: :text, field_slug: :creator_given_name }
       array.insert(2, field_type: :text, field_slug: :creator_middle_name)
       array.insert(3, field_type: :text, field_slug: :creator_suffix)
-      array.insert(4, field_type: :select, field_slug: :creator_role, select_options: service_options, field_args: { cloneable: true })
+      array.insert(4, field_type: :select, field_slug: :creator_role, select_options: service_options, field_args: { cloneable: true, include_blank: "Please Select..." })
       array.insert(5, field_type: :text, field_slug: :creator_institution, field_args: { cloneable: true })
       array
     end
