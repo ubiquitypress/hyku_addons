@@ -368,7 +368,6 @@ module HykuAddons
           work_permissions = work.permissions.map(&:to_hash)
           uploaded_files.each do |uploaded_file|
             next if uploaded_file.file_set_uri.present?
-
             actor = Hyrax::Actors::FileSetActor.new(FileSet.create, user)
             metadata = visibility_attributes(work_attributes, uploaded_file)
             uploaded_file.update(file_set_uri: actor.file_set.uri)
