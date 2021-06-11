@@ -4,5 +4,5 @@ en:
       redlands_student_work:     'fa fa-file-text-o'
     select_type:
       redlands_student_work:
-        description:        "Redlands student work works"
+        description:        "Theses and dissertations"
         name:               "Student Work"

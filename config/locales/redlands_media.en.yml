@@ -4,5 +4,5 @@ en:
       redlands_media:     'fa fa-file-text-o'
     select_type:
       redlands_media:
-        description:        "Redlands media works"
+        description:        "Images, audio and visual work"
         name:               "Media"
