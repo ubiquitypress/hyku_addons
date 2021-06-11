@@ -36,7 +36,7 @@ module HykuAddons
       protected
 
         # FileSets will not have their metadata until after this has already ran 5 times (after 5 updates inside of
-        # the actor stack. It's better to use the FileSet after_update_index hook which runs after metadata is added
+        # the actor stack). It's better to use the FileSet after_update_index hook which runs after metadata is added
         def publish_upsert; end
 
         def task_master_publish_file_size
