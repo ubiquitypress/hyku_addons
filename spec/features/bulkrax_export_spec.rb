@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
   let(:user) { create(:user, email: "test@example.com") }
   # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
-  let(:depositor) { create(:user, email: "batchuser@example.com") }
+  let!(:depositor) { create(:user, email: "batchuser@example.com") }
   let(:exporter) do
     create(:bulkrax_exporter_worktype,
            user: user,
@@ -67,7 +67,7 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
              user: user,
              field_mapping: Bulkrax.field_mappings["HykuAddons::CsvParser"],
              parser_klass: "HykuAddons::CsvParser",
-             export_source: "PacificArticle",
+             export_source: export_source,
              limit: nil)
     end
 
@@ -81,9 +81,12 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
     end
     let(:import_batch_file) { "spec/fixtures/csv/pacific_articles.metadata.csv" }
     let(:export_batch_file) { exporter.parser.setup_export_file }
+    let(:export_source) { "PacificArticle" }
 
     before do
+      ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
       stub_request(:get, Addressable::Template.new("#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}")).to_return(status: 200)
+      allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
       importer.import_collections
       importer.import_works
       exporter.export
@@ -115,16 +118,38 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
       import_headers = import_csv_array.delete_at(0)
       export_headers = export_csv_array.delete_at(0)
 
-      # Compare headers
-      expect(export_headers).to include(*import_headers)
+      # Compare headers (except file)
+      expect(export_headers).to include(*import_headers.without("file"))
 
       # Compare values
       import_entries = import_csv_array.sort_by(&:first)
       export_entries = export_csv_array.sort_by(&:first)
+
       import_headers.each_with_index do |field, col|
+        next if field == "file" # TODO: Add matching for this?
         export_col = export_headers.index(field)
         # FIXME: Should fail sometimes because publisher -> multiple values are unordered
         expect(export_entries.collect { |r| r[export_col].presence }).to eq import_entries.collect { |r| r[col].presence }
+      end
+    end
+
+    context 'file visibility' do
+      let(:import_batch_file) { 'spec/fixtures/csv/generic_work.file_set.csv' }
+      let(:export_source) { "GenericWork" }
+
+      it 'imports files' do
+        entry = exporter.entries.first
+        expect(entry).to be_present
+        expect(entry.parsed_metadata['visibility']).to eq 'open'
+        expect(entry.parsed_metadata['file_1']).to end_with 'nypl-hydra-of-lerna.jpg'
+        expect(entry.parsed_metadata['file_visibility_1']).to eq 'restricted'
+        expect(entry.parsed_metadata['file_2']).to end_with 'nypl-hydra-of-lerna.jpg'
+        expect(entry.parsed_metadata['file_visibility_2']).to eq 'open'
+        expect(entry.parsed_metadata['file_3']).to end_with 'nypl-hydra-of-lerna.jpg'
+        expect(entry.parsed_metadata['file_visibility_3']).to eq 'embargo'
+        expect(entry.parsed_metadata['file_embargo_release_date_3']).to eq '2029-07-01'
+        expect(entry.parsed_metadata['file_visibility_during_embargo_3']).to eq 'authenticated'
+        expect(entry.parsed_metadata['file_visibility_after_embargo_3']).to eq 'open'
       end
     end
   end
