@@ -7,7 +7,7 @@ json.adapted_from work.try(:adapted_from)
 json.additional_info work.try(:add_info)
 json.additional_links work.try(:additional_links)
 json.admin_set_name work.admin_set.first
-json.advisor work.advisor
+json.advisor work.try(:advisor)
 #                                         "alternative_journal_title" => nil,
 json.alternative_book_title work.try(:alt_book_title)
 json.alternative_title work.try(:alt_title)
