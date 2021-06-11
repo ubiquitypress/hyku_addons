@@ -104,7 +104,7 @@ class AutofillWorkForm {
 
       // Don't create extra cloneable blocks unless we have more data to add
       if (index + 1 < this.arrayValuesLength) {
-        $wrapper.find("[data-on-click=clone_parent]").trigger("click")
+        $wrapper.find("[data-on-click=clone_group]").trigger("click")
       } else {
         this.setUpdated(field)
       }

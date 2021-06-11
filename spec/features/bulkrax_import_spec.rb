@@ -27,6 +27,7 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
     # Make sure default admin set exists
     AdminSet.find_or_create_default_admin_set_id
     stub_request(:get, Addressable::Template.new("#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}")).to_return(status: 200)
+    allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
   end
 
   describe 'import works' do
@@ -46,9 +47,35 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       expect(JSON.parse(work.creator.first)).to be_present
       expect(JSON.parse(work.creator.first).size).to eq 1
       expect(work.resource_type).to eq ["Research Article"]
+      expect(work.subject).to eq ["Social Sciences", "Performing arts", "Music"]
       expect(work.license).to eq ["https://commons.pacificu.edu/rights"]
       expect(work.publisher).to eq ['Pacific University Press', 'Ubiquity Press']
       expect(work.depositor).to eq 'batchuser@example.com'
+    end
+
+    context 'resource_type' do
+      let(:import_batch_file) { 'spec/fixtures/csv/generic_work.csv' }
+
+      it 'populates resource_type' do
+        importer.import_works
+        work = GenericWork.last
+        expect(work.resource_type).to eq ["Interactive resource"]
+      end
+    end
+
+    context 'langauage' do
+      let(:account) { FactoryBot.create(:account, locale_name: 'redlands') }
+      let(:import_batch_file) { 'spec/fixtures/csv/redlands_article.csv' }
+
+      before do
+        Site.update(account: account)
+      end
+
+      it 'populates language' do
+        importer.import_works
+        work = RedlandsArticle.last
+        expect(work.language).to eq ["eng", "ara", "zho", "fra", "rus", "spa", "Other"]
+      end
     end
 
     context 'with files' do
@@ -99,29 +126,20 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       end
 
       context 'file visibility' do
-        context 'import_mode' do
-          let(:account) { FactoryBot.build(:account, name: 'moominU') }
+        let(:import_batch_file) { 'spec/fixtures/csv/generic_work.file_set.csv' }
 
-          before do
-            allow(Apartment::Tenant).to receive(:current).and_return('x')
-            allow(Account).to receive(:find_by).with(tenant: 'x').and_return(account)
-            allow(Apartment::Tenant).to receive(:switch).with('x') do |&block|
-              block.call
-            end
-
-            allow(Flipflop).to receive(:enabled?).and_call_original
-            allow(Flipflop).to receive(:enabled?).with(:import_mode).and_return(true)
-          end
-
-          it 'imports files' do
-            # For some reason this has to be explictly set here and the meta tag in the top-most describe isn't sticking
-            ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
-            importer.import_works
-            work = PacificArticle.find('c109b1ff-6d9a-4498-b86c-190e7dcbe2e0')
-            expect(work.file_sets.size).to eq 1
-            expect(work.file_sets.first.original_file.file_name).to eq ["nypl-hydra-of-lerna.jpg"]
-            expect(work.file_sets.first.visibility).to eq 'restricted'
-          end
+        it 'imports files' do
+          # For some reason this has to be explictly set here and the meta tag in the top-most describe isn't sticking
+          ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
+          importer.import_works
+          work = GenericWork.first
+          expect(work.visibility).to eq 'open'
+          expect(work.file_sets.size).to eq 3
+          expect(work.ordered_members.to_a.first.visibility).to eq 'restricted'
+          expect(work.ordered_members.to_a.second.visibility).to eq 'open'
+          expect(work.ordered_members.to_a.third.visibility).to eq 'authenticated'
+          expect(work.ordered_members.to_a.third.embargo_release_date).to eq '2029-07-01'
+          expect(work.ordered_members.to_a.third.visibility_after_embargo).to eq 'open'
         end
       end
     end

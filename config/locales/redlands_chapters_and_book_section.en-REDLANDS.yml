@@ -1,0 +1,5 @@
+en-REDLANDS:
+  simple_form:
+    labels:
+      redlands_chapters_and_book_section:
+        edition:        "Book Edition"

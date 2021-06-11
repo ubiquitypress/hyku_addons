@@ -21,6 +21,7 @@ module HykuAddons
       end
 
       add_file
+      add_file_subfields
       add_visibility
       add_rights_statement
       add_admin_set_id
@@ -28,9 +29,28 @@ module HykuAddons
       add_local
       add_date_fields
       add_json_fields
-      add_resource_type
+      add_controlled_vocabulary_field('resource_type', HykuAddons::ResourceTypesService)
+      add_controlled_vocabulary_field('subject', HykuAddons::SubjectService)
+      add_controlled_vocabulary_field('language', HykuAddons::LanguageService)
 
       parsed_metadata
+    end
+
+    def add_file_subfields
+      file_metadata = []
+      raw_metadata.select { |k, _v| k =~ /^file_((?<subfield>.+)_)?(?<index>\d+)$/ }.each do |k, v|
+        match = k.match(/^file_((?<subfield>.+)_)?(?<index>\d+)$/)
+        file_index = match[:index].to_i - 1
+        file_metadata[file_index] ||= {}
+        if (subfield = match[:subfield].presence)
+          file_metadata[file_index][subfield] = v
+        else
+          file_metadata[file_index]['file'] = v
+        end
+      end
+      parsed_metadata['file'] = file_metadata.pluck('file') if parsed_metadata['file'].blank?
+      parsed_metadata['file'] = parsed_metadata['file'].map { |f| path_to_file(f.tr(' ', '_')) }
+      parsed_metadata['file_set'] = file_metadata
     end
 
     # Override to use the value in prefer the named admin set provided in the admin_set column then fallback to previous behavior
@@ -64,10 +84,11 @@ module HykuAddons
       end
     end
 
-    def add_resource_type
-      resource_type_service = HykuAddons::ResourceTypesService.new(model: parsed_metadata['model']&.safe_constantize)
-      parsed_metadata['resource_type'] = parsed_metadata['resource_type'].map do |resource_type|
-        resource_type_service.label(resource_type.strip.titleize)
+    def add_controlled_vocabulary_field(field, service_class)
+      return unless parsed_metadata[field].present?
+      service = service_class.new(model: parsed_metadata['model']&.safe_constantize)
+      parsed_metadata[field] = parsed_metadata[field].map do |val|
+        service.authority.find(val).fetch("id")
       rescue
         nil
       end.compact

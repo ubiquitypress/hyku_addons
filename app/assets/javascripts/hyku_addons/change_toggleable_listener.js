@@ -1,6 +1,6 @@
 // Example:
 //
-//	<div data-toggleable data-cloneable data-after-clone="clear_inputs">
+//	<div data-toggleable>
 //    <select
 //      class="form-control"
 //      data-toggleable-control
@@ -10,18 +10,18 @@
 //      <option selected="selected" value="Personal">Personal</option>
 //      <option value="Organisational">Organisational</option>
 //    </select>
-//    <div data-toggleable-group="Personal"></div>
-//    <div data-toggleable-group="Organisational"></div>
+//    <div data-toggleable-group="Personal">...</div>
+//    <div data-toggleable-group="Organisational">...</div>
 //  </div>
 
 class ChangeToggleableListener {
   constructor(){
     this.parentSelector = "[data-toggleable]"
-    this.groupAttributeName = "data-toggleable-group"
-    this.groupSelector = `[${this.groupAttributeName}]`
+    this.groupAttribute = "data-toggleable-group"
+    this.groupSelector = `[${this.groupAttribute}]`
     this.controlSelector = "[data-toggleable-control]"
     this.eventName = "toggleable_group"
-    this.afterHiddenAttributeName = "data-after-toggleable-hidden"
+    this.afterActionAttribute = "data-after-toggleable-hidden"
 
     this.onLoad()
     this.registerListeners()
@@ -38,8 +38,8 @@ class ChangeToggleableListener {
     $("body").on(this.eventName, this.onToggleGroupEvent.bind(this))
   }
 
-  onToggleGroupEvent(_event, target){
-    this.toggleSelectGroup(target)
+  onToggleGroupEvent(_event, $target){
+    this.toggleSelectGroup($target)
   }
 
   // NOTE:
@@ -47,32 +47,42 @@ class ChangeToggleableListener {
   // Ideally, it would trigger an event and then move on. That event could then deal with the
   // toggling of required attributes on elements, but i feel like that might be a step
   // to far down the rabbit hole for now.
-  toggleSelectGroup(target){
-    let val = target.val()
-    let parent = target.closest(this.parentSelector)
-    let selectedElement = parent.find(`[${this.groupAttributeName}=${val}]`)
-    let afterHiddenEventName = target.attr(this.afterHiddenAttributeName)
+  toggleSelectGroup($target){
+    let val = $target.val()
+    let $parent = $target.closest(this.parentSelector)
+    let $selectedElement = $parent.find(`[${this.groupAttribute}=${val}]`)
 
     // Hide all elements and unset required attributes by default
-    parent.find(this.groupSelector).not(selectedElement).each($.proxy(function(_i, group){
-      $(group).hide()
-      this.toggleRequiredChildren($(group), "unset_required")
+    $parent.find(this.groupSelector).not($selectedElement).each($.proxy(function(_i, hidden_group){
+        let $hidden_group = $(hidden_group)
 
-      // Trigger any after hide actions on the hidden elements
-      if (afterHiddenEventName) {
-        $("body").trigger(afterHiddenEventName, [group])
-      }
-    }, this))
+        $hidden_group.hide()
 
-    // Show the selectedElement and toggle required
-    selectedElement.show()
-    this.toggleRequiredChildren(selectedElement, "set_required")
+        this.toggleRequiredChildren($hidden_group, "unset_required")
+        this.triggerElementAfterEvents($target, $hidden_group)
+      }, this))
+
+    // Show the $selectedElement and toggle required
+    $selectedElement.show()
+    this.toggleRequiredChildren($selectedElement, "set_required")
   }
 
-  toggleRequiredChildren(parent, eventName) {
-    parent.find("[data-required='true']").each(function(){
+  toggleRequiredChildren($element, eventName) {
+    $element.find("[data-required='true']").each(function(){
       $("body").trigger(eventName, [$(this)])
     }, this)
+  }
+
+  // Find the after action from the element and apply them to a group - usually the hidden group
+  triggerElementAfterEvents($element, $group){
+    // Ensure we have events to trigger and account for times when no events are require
+    let events = ($element.attr(this.afterActionAttribute) || "").split(" ").filter(String)
+
+    if (events.length == 0) {
+      return false;
+    }
+
+    events.forEach((event) => $("body").trigger(event, [$group]))
   }
 }
 

@@ -130,6 +130,27 @@ docker-compose exec web bundle exec rails g hyku_addons:install
 CFLAGS=-Wno-error=format-overflow  gem install zookeeper -v '1.4.11' --source 'https://rubygems.org/'
 ```
 
+### Dory / Host file
+
+Dory can be used to automatically configure your local development environment so that you can use local subdomains, however you may experience issues. (See https://github.com/samvera/hyku/#dory)
+
+Another solution is to simply edit your `/etc/hosts` file and add in each tenants cname here. For example: 
+
+```
+sudo vim /etc/hosts
+```
+And add the following: 
+
+```
+# ... Existing content
+
+# Hyku
+127.0.0.1       hyku.docker          # The main account section 
+127.0.0.1       repo.hyku.docker
+127.0.0.1       pacific.hyku.docker
+```
+You will need to add each new tenant cname to your host file when a new account is added.  
+
 ### Docker
 
 Running a docker development environment is possible by running:
