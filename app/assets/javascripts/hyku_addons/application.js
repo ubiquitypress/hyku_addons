@@ -23,6 +23,7 @@ const onLoad = function() {
   // Register listeners before events, so that onload events are consumed
   // Listeners
   new InputClearableListener()
+  new ClonedClearableListener()
   new RequiredFieldListener()
   new RequiredGroupFieldListener()
   new CloneableListener()
