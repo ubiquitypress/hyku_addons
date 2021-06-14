@@ -67,7 +67,7 @@ RSpec.describe Hyrax::Orcid::ProcessWorkService do
       end
 
       before do
-        stub_request(:post, "https://api.sandbox.orcid.org/#{Hyrax::OrcidHelper::ORCID_API_VERSION}/#{orcid_id}/work")
+        stub_request(:post, "https://api.sandbox.orcid.org/#{Hyrax::Orcid::UrlHelper::ORCID_API_VERSION}/#{orcid_id}/work")
           .with(body: xml, headers: headers)
           .to_return(status: 200, body: "", headers: {})
       end

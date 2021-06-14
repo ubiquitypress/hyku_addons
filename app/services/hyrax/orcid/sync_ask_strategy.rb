@@ -4,7 +4,7 @@
 module Hyrax
   module Orcid
     class SyncAskStrategy
-      include Hyrax::OrcidHelper
+      include Hyrax::Orcid::UrlHelper
 
       def initialize(work, identity)
         @work = work

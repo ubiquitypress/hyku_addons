@@ -9,6 +9,6 @@ module HykuAddons
     include HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper
     include HykuAddons::SimplifiedDepositFormHelper
     include HykuAddons::NotesTabFormHelper
-    include Hyrax::OrcidHelper
+    include Hyrax::Orcid::UrlHelper
   end
 end

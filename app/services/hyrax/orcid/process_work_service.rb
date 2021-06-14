@@ -4,7 +4,7 @@ module Hyrax
   module Orcid
     class ProcessWorkService
       include HykuAddons::WorkFormNameable
-      include Hyrax::OrcidHelper
+      include Hyrax::Orcid::UrlHelper
 
       # TARGET_TERMS = %i[creator contributor].freeze
       TARGET_TERMS = %i[creator].freeze

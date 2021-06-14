@@ -21,7 +21,7 @@ RSpec.describe Hyrax::Orcid::SyncAllStrategy do
     }
   end
   let(:orcid_id) { user.orcid_identity.orcid_id }
-  let(:api_version) { Hyrax::OrcidHelper::ORCID_API_VERSION }
+  let(:api_version) { Hyrax::Orcid::UrlHelper::ORCID_API_VERSION }
   let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
   let(:meta) { Bolognese::Readers::GenericWorkReader.new(input: input, from: "work") }
   let(:type) { "other" }
