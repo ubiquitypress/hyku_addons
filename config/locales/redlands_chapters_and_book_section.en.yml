@@ -4,5 +4,5 @@ en:
       redlands_chapters_and_book_section:     'fa fa-file-text-o'
     select_type:
       redlands_chapters_and_book_section:
-        description:        "Redlands chapters and book section works"
+        description:        "Short works such as encyclopedia entries"
         name:               "Chapters And Book Section"
