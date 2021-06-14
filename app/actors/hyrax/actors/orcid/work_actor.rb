@@ -21,7 +21,8 @@ module Hyrax
           def process_work(env)
             return unless Flipflop.enabled?(:orcid_identities)
 
-            Hyrax::Orcid::ProcessWorkJob.perform_later(env.curation_concern)
+            action = "perform_#{Rails.env.development? ? 'now' : 'later'}"
+            Hyrax::Orcid::ProcessWorkJob.send(action, env.curation_concern)
           end
       end
     end
