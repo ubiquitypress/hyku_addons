@@ -1,4 +1,5 @@
+<% model_name = f.object.model.class %>
 <%= f.input :resource_type, as: :select,
-            collection: HykuAddons::ResourceTypesService.new(model: f.object.model.class).select_active_options,
+            collection: HykuAddons::ResourceTypesService.new(model: model_name).select_active_options,
             include_blank: true,
-            input_html: { class: 'form-control' } %>
+            input_html: { name: "#{model_name}[resource_type][]", class: 'form-control' } %>
