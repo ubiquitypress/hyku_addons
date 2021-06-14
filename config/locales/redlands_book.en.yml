@@ -4,5 +4,5 @@ en:
       redlands_book:     'fa fa-file-text-o'
     select_type:
       redlands_book:
-        description:        "Redlands book works"
+        description:        ""
         name:               "Book"

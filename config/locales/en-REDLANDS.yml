@@ -60,7 +60,6 @@ en-REDLANDS:
         placeholder: " "
     labels:
       defaults:
-        resource_type: Document Type
         org_unit: Department
         alt_email: Alternative Email
         license: Distribution License
