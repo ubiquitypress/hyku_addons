@@ -104,6 +104,9 @@ And add the following:
 127.0.0.1       repo.hyku.docker
 127.0.0.1       pacific.hyku.docker
 ```
+
+You can now access the repositories by suffixing the URL with `:3000`, for instance: http://hyku.docker:3000
+
 You will need to add each new tenant cname to your host file when a new account is added.  
 
 ### Docker
