@@ -37,28 +37,28 @@ module Hyrax
 
         protected
 
-        def permitted_preference_params
-          params.require(:orcid_identity).permit(:work_sync_preference, profile_sync_preference: {})
-        end
+          def permitted_preference_params
+            params.require(:orcid_identity).permit(:work_sync_preference, profile_sync_preference: {})
+          end
 
-        def request_authorization
-          data = {
-            client_id: Site.instance.account.settings["orcid_client_id"],
-            client_secret: Site.instance.account.settings["orcid_client_secret"],
-            grant_type: "authorization_code",
-            code: code
-          }
+          def request_authorization
+            data = {
+              client_id: Site.instance.account.settings["orcid_client_id"],
+              client_secret: Site.instance.account.settings["orcid_client_secret"],
+              grant_type: "authorization_code",
+              code: code
+            }
 
-          @authorization_response = Faraday.post(helpers.orcid_token_uri, data.to_query, "Accept" => "application/json")
-        end
+            @authorization_response = Faraday.post(helpers.orcid_token_uri, data.to_query, "Accept" => "application/json")
+          end
 
-        def authorization_body
-          JSON.parse(@authorization_response.body)
-        end
+          def authorization_body
+            JSON.parse(@authorization_response.body)
+          end
 
-        def code
-          params.require(:code)
-        end
+          def code
+            params.require(:code)
+          end
       end
     end
   end

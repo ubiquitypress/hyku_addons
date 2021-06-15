@@ -15,19 +15,18 @@ module Hyrax
 
         protected
 
-        def work
-          @_work ||= ActiveFedora::Base.find(permitted_params.dig(:work_id))
-        end
+          def work
+            @_work ||= ActiveFedora::Base.find(permitted_params.dig(:work_id))
+          end
 
-        def identity
-          @_identity = OrcidIdentity.find_by(orcid_id: permitted_params.dig(:orcid_id))
-        end
+          def identity
+            @_identity = OrcidIdentity.find_by(orcid_id: permitted_params.dig(:orcid_id))
+          end
 
-        def permitted_params
-          params.permit(:work_id, :orcid_id)
-        end
+          def permitted_params
+            params.permit(:work_id, :orcid_id)
+          end
       end
     end
   end
 end
-

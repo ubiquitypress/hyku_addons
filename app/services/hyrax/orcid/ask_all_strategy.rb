@@ -10,10 +10,7 @@ module Hyrax
         @identity = identity
       end
 
-      def perform
-
-      end
+      def perform; end
     end
   end
 end
-
