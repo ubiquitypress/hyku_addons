@@ -81,7 +81,7 @@ module HykuAddons
     private
 
       def person_or_organization_list(field)
-        return [] unless send(field)&.first.present?
+        return [] unless respond_to?(field) && send(field)&.first.present?
 
         JSON.parse(send(field).first).collect do |hash|
           name = hash.slice("#{field}_family_name", "#{field}_given_name", "#{field}_organization_name").values.map(&:presence).compact.join(', ')

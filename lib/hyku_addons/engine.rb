@@ -1,4 +1,8 @@
 # frozen_string_literal: true
+require 'hyrax/form_fields'
+require 'hyrax/indexer'
+require 'hyrax/schema'
+require 'hyrax/simple_schema_loader'
 require 'hyrax/doi/engine'
 require 'bolognese/metadata'
 
