@@ -51,27 +51,6 @@ RSpec.describe Hyrax::Orcid::ProcessWorkService do
     end
 
     context "when the feature is enabled" do
-      let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
-      let(:meta) { Bolognese::Readers::GenericWorkReader.new(input: input, from: "work") }
-      let(:type) { "other" }
-      let(:put_code) { nil }
-      let(:xml) { meta.orcid_xml(type, put_code) }
-      let(:headers) do
-        {
-          "Accept" => '*/*',
-          "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-          "Authorization" => "Bearer #{orcid_identity.access_token}",
-          "Content-Type" => "application/vnd.orcid+xml",
-          "User-Agent" => "Faraday v0.17.4"
-        }
-      end
-
-      before do
-        stub_request(:post, "https://api.sandbox.orcid.org/#{Hyrax::Orcid::UrlHelper::ORCID_API_VERSION}/#{orcid_id}/work")
-          .with(body: xml, headers: headers)
-          .to_return(status: 200, body: "", headers: {})
-      end
-
       it "calls the delegated sync class" do
         service.perform
 
@@ -91,19 +70,11 @@ RSpec.describe Hyrax::Orcid::ProcessWorkService do
   end
 
   describe "#perform_user_strategy" do
-    let(:sync_class) { Hyrax::Orcid::SyncAllStrategy }
-    let(:sync_instance) { instance_double(sync_class, perform: nil) }
-
-    context "when the user has selected sync_all" do
-      before do
-        allow(sync_class).to receive(:new).and_return(sync_instance)
-      end
-
-      it "calls the perform method on the sync class" do
-        service.send(:perform_user_strategy, orcid_id)
-
-        expect(sync_instance).to have_received(:perform).with(no_args)
-      end
+    it "calls the perform method on the sync class" do
+      expect { service.send(:perform_user_strategy, orcid_id) }
+        .to have_enqueued_job(Hyrax::Orcid::PerformIdentityStrategyJob)
+        .on_queue(Hyrax.config.ingest_queue_name)
+        .with(work, orcid_identity)
     end
   end
 end
