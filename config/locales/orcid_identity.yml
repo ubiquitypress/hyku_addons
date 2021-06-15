@@ -34,9 +34,12 @@ en:
           sync_ask: Sync all works I deposit to my ORCID, but ask me for works where someone lists me as a creator/contributor
           ask_all: Always ask me before syncing a work to my ORCID profile
     notify:
-      subject: |
-        %{depositor_description} has added you to a work
-      body: |
-        <a href="%{depositor_profile}">%{depositor_description}</a> has added you as a collatorator to <a href="%{work_path}">%{work_title}</a>.
-        Because of your <a href="%{profile_path}">sync preferences</a>, we will only push this work to your ORCID
-        profile, if you click here to <a href="%{approval_path}">approve this action</a>.
+      notification:
+        subject: |
+          %{depositor_description} has added you to a work
+        body: |
+          <a href="%{depositor_profile}">%{depositor_description}</a> has added you as a collatorator to <a href="%{work_path}">%{work_title}</a>.
+          Because of your <a href="%{profile_path}">sync preferences</a>, we will only push this work to your ORCID
+          profile, if you click here to <a href="%{approval_path}">approve this action</a>.
+      approved: |
+        The work has been published to your ORCID profile, you can now delete the notification.

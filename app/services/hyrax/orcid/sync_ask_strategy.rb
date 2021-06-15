@@ -40,13 +40,13 @@ module Hyrax
             profile_path: hyrax_routes.dashboard_profile_path(@identity.user),
             work_title: @work.title.first,
             work_path: routes.send("hyrax_#{@work.class.name.underscore}_path", @work.id),
-            approval_path: hyku_addons_routes.orcid_works_approval_path(identity: @identity.orcid_id, work: @work.id)
+            approval_path: hyku_addons_routes.orcid_works_approval_path(work_id: @work.id, orcid_id: @identity.orcid_id)
           }
-          I18n.t("orcid_identity.notify.body", params)
+          I18n.t("orcid_identity.notify.notification.body", params)
         end
 
         def message_subject
-          I18n.t("orcid_identity.notify.subject", depositor_description: depositor_description)
+          I18n.t("orcid_identity.notify.notification.subject", depositor_description: depositor_description)
         end
 
         def depositor_description

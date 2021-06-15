@@ -6,35 +6,36 @@
 # response = Faraday.get(helpers.orcid_api_uri(body["orcid"], :record), nil, headers)
 
 module Hyrax
-  module Orcid
-    class OrcidIdentitiesController < ApplicationController
-      with_themed_layout "dashboard"
-      before_action :authenticate_user!
+  module Dashboard
+    module Orcid
+      class OrcidIdentitiesController < ApplicationController
+        with_themed_layout "dashboard"
+        before_action :authenticate_user!
 
-      def new
-        request_authorization
+        def new
+          request_authorization
 
-        current_user.orcid_identity_from_authorization(authorization_body) if @authorization_response.success?
+          current_user.orcid_identity_from_authorization(authorization_body) if @authorization_response.success?
 
-        redirect_to dashboard_profile_path(current_user)
-      end
+          redirect_to dashboard_profile_path(current_user)
+        end
 
-      def update
-        current_user.orcid_identity.update(permitted_preference_params)
+        def update
+          current_user.orcid_identity.update(permitted_preference_params)
 
-        redirect_back fallback_location: dashboard_profile_path(current_user)
-      end
+          redirect_back fallback_location: dashboard_profile_path(current_user)
+        end
 
-      def destroy
-        # This is pretty ugly, but for a has_one relation we can't do a find_by! from User
-        raise ActiveRecord::RecordNotFound unless current_user.orcid_identity.id == params["id"].to_i
+        def destroy
+          # This is pretty ugly, but for a has_one relation we can't do a find_by! from User
+          raise ActiveRecord::RecordNotFound unless current_user.orcid_identity.id == params["id"].to_i
 
-        current_user.orcid_identity.destroy
+          current_user.orcid_identity.destroy
 
-        redirect_back fallback_location: dashboard_profile_path(current_user)
-      end
+          redirect_back fallback_location: dashboard_profile_path(current_user)
+        end
 
-      protected
+        protected
 
         def permitted_preference_params
           params.require(:orcid_identity).permit(:work_sync_preference, profile_sync_preference: {})
@@ -58,6 +59,7 @@ module Hyrax
         def code
           params.require(:code)
         end
+      end
     end
   end
 end

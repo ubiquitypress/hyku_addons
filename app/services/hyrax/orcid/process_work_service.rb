@@ -26,7 +26,7 @@ module Hyrax
           JSON.parse(json).select { |person| person.dig(target).present? }.each do |person|
             orcid_id = validate_orcid(person.dig(target))
 
-            perform_user_preference(orcid_id)
+            perform_user_strategy(orcid_id)
           end
         end
       end
@@ -34,10 +34,12 @@ module Hyrax
       protected
 
         # A factory method for building the appropriate class depending on the users work sync preference
-        def perform_user_preference(orcid_id)
+        def perform_user_strategy(orcid_id)
           return unless (identity = OrcidIdentity.find_by(orcid_id: orcid_id)).present?
 
-          "Hyrax::Orcid::#{identity.work_sync_preference.classify}Strategy".constantize.new(@work, identity).perform
+          # TODO: Put this in a configuration object
+          action = "perform_#{Rails.env.development? ? 'now' : 'later'}"
+          Hyrax::Orcid::PerformIdentityStrategyJob.send(action, @work, identity)
         end
 
         def json_for_term(term)

@@ -47,7 +47,7 @@ RSpec.describe Hyrax::Orcid::ProcessWorkService do
 
   describe "#perform" do
     before do
-      allow(service).to receive(:perform_user_preference).and_call_original
+      allow(service).to receive(:perform_user_strategy).and_call_original
     end
 
     context "when the feature is enabled" do
@@ -75,7 +75,7 @@ RSpec.describe Hyrax::Orcid::ProcessWorkService do
       it "calls the delegated sync class" do
         service.perform
 
-        expect(service).to have_received(:perform_user_preference).with(orcid_id)
+        expect(service).to have_received(:perform_user_strategy).with(orcid_id)
       end
     end
 
@@ -85,12 +85,12 @@ RSpec.describe Hyrax::Orcid::ProcessWorkService do
       end
 
       it "returns nil" do
-        expect(service).not_to have_received(:perform_user_preference).with(orcid_id)
+        expect(service).not_to have_received(:perform_user_strategy).with(orcid_id)
       end
     end
   end
 
-  describe "#perform_user_preference" do
+  describe "#perform_user_strategy" do
     let(:sync_class) { Hyrax::Orcid::SyncAllStrategy }
     let(:sync_instance) { instance_double(sync_class, perform: nil) }
 
@@ -100,7 +100,7 @@ RSpec.describe Hyrax::Orcid::ProcessWorkService do
       end
 
       it "calls the perform method on the sync class" do
-        service.send(:perform_user_preference, orcid_id)
+        service.send(:perform_user_strategy, orcid_id)
 
         expect(sync_instance).to have_received(:perform).with(no_args)
       end
