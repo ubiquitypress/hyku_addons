@@ -13,7 +13,7 @@ module Hyrax
 
       def perform
         if primary_user?
-          sync_now
+          publish_work
         else
           notify
         end
@@ -25,8 +25,10 @@ module Hyrax
           depositor == @identity.user
         end
 
-        def sync_now
-          Hyrax::Orcid::SyncAllStrategy.new(@work, @identity).perform
+        def publish_work
+          # TODO: Put this in a configuration object
+          action = "perform_#{Rails.env.development? ? 'now' : 'later'}"
+          Hyrax::Orcid::PublishWorkJob.send(action, @work, @identity)
         end
 
         def notify
