@@ -1,0 +1,13 @@
+attributes:
+  rights_holder:
+    type: string
+    predicate: 'http://purl.org/dc/terms/rightsHolder'
+    multiple: true
+    index_keys:
+      - "rights_holder_sim"
+      - "rights_holder_tesim"
+    form:
+      required: false
+      primary: false
+
+    
