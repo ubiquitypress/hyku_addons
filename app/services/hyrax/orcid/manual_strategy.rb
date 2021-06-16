@@ -5,7 +5,7 @@
 # personal/professional history shown on the public profile,
 module Hyrax
   module Orcid
-    class DoNothingStrategy
+    class ManualStrategy
       def initialize(work, identity)
         @work = work
         @identity = identity

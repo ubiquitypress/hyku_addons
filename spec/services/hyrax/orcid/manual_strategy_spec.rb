@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe Hyrax::Orcid::DoNothingStrategy do
-  let(:sync_preference) { "sync_notify" }
+RSpec.describe Hyrax::Orcid::ManualStrategy do
+  let(:sync_preference) { "manual" }
   let(:service) { described_class.new(work, orcid_identity) }
   let(:user) { create(:user, orcid_identity: orcid_identity) }
   let(:orcid_identity) { create(:orcid_identity, work_sync_preference: sync_preference) }

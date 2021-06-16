@@ -38,8 +38,7 @@ en:
         preferences:
           sync_all: Automatically sync all works with my ORCID attached, even if I am not the depositor
           sync_notify: Sync all works I deposit to my ORCID, but ask me for works where someone lists me as a creator/contributor
-          notify_all: Always ask me before syncing a work to my ORCID profile
-          do_nothing: Do not sync or notify you new works in which you are referenced
+          manual: Do not sync or notify you new works automatically, however syncing is available via the works section below
     notify:
       notification:
         subject: |

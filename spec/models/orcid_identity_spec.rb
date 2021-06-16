@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe OrcidIdentity, type: :model do
-  let(:work_sync_preference) { { sync_all: 0, sync_notify: 1, notify_all: 2, do_nothing: 3 } }
+  let(:work_sync_preference) { { sync_all: 0, sync_notify: 1, manual: 2 } }
 
   it { is_expected.to validate_presence_of(:access_token) }
   it { is_expected.to validate_presence_of(:token_type) }
