@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OrcidIdentity < ApplicationRecord
-  enum work_sync_preference: { sync_all: 0, sync_ask: 1, ask_all: 2 }
+  enum work_sync_preference: { sync_all: 0, sync_notify: 1, notify_all: 2 }
 
   belongs_to :user
   has_many :orcid_works

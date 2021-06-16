@@ -3,7 +3,7 @@
 # Sync the the users details if they are the priamry user, otherwise create a notification
 module Hyrax
   module Orcid
-    class SyncAskStrategy
+    class SyncNotifyStrategy
       include Hyrax::Orcid::UrlHelper
 
       def initialize(work, identity)

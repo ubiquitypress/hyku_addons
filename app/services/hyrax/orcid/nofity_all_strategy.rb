@@ -2,7 +2,7 @@
 
 module Hyrax
   module Orcid
-    class AskAllStrategy
+    class NotifyAllStrategy
       include Hyrax::Orcid::UrlHelper
 
       def initialize(work, identity)

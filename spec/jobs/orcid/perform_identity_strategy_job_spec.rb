@@ -67,9 +67,9 @@ RSpec.describe Hyrax::Orcid::PerformIdentityStrategyJob do
       end
     end
 
-    context "when the user has selected sync_ask" do
-      let(:work_sync_preference) { "sync_ask" }
-      let(:sync_class) { Hyrax::Orcid::SyncAskStrategy }
+    context "when the user has selected sync_notify" do
+      let(:work_sync_preference) { "sync_notify" }
+      let(:sync_class) { Hyrax::Orcid::SyncNotifyStrategy }
 
       it "calls the perform method" do
         described_class.perform_now(work, orcid_identity)
@@ -78,8 +78,8 @@ RSpec.describe Hyrax::Orcid::PerformIdentityStrategyJob do
       end
     end
 
-    context "when the user has selected ask_all" do
-      let(:work_sync_preference) { "ask_all" }
+    context "when the user has selected notify_all" do
+      let(:work_sync_preference) { "notify_all" }
       let(:sync_class) { Hyrax::Orcid::AskAllStrategy }
 
       it "calls the perform method" do
