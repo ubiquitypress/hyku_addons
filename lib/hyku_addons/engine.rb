@@ -418,9 +418,11 @@ module HykuAddons
           uploaded_files.each do |uploaded_file|
             next if uploaded_file.file_set_uri.present?
             actor = Hyrax::Actors::FileSetActor.new(FileSet.create, user)
-            metadata = visibility_attributes(work_attributes, uploaded_file)
+            file_set_attributes = file_set_attrs(work_attributes, uploaded_file)
+            metadata = visibility_attributes(work_attributes, file_set_attributes)
             uploaded_file.update(file_set_uri: actor.file_set.uri)
             actor.file_set.permissions_attributes = work_permissions
+            actor.file_set.title = Array(file_set_attributes[:title].presence)
             actor.create_metadata(metadata)
             actor.create_content(uploaded_file)
             actor.attach_to_work(work, metadata)
@@ -430,12 +432,16 @@ module HykuAddons
         private
 
           # The attributes used for visibility - sent as initial params to created FileSets.
-          def visibility_attributes(attributes, uploaded_file)
-            file_set_attributes = Array(attributes[:file_set]).find { |fs| fs[:uploaded_file_id] == uploaded_file&.id }
+          def visibility_attributes(attributes, file_set_attributes)
             attributes.merge(Hash(file_set_attributes).symbolize_keys).slice(:visibility, :visibility_during_lease,
                                                                              :visibility_after_lease, :lease_expiration_date,
                                                                              :embargo_release_date, :visibility_during_embargo,
                                                                              :visibility_after_embargo)
+          end
+
+          def file_set_attrs(attributes, uploaded_file)
+            attrs = Array(attributes[:file_set]).find { |fs| fs[:uploaded_file_id] == uploaded_file&.id }
+            Hash(attrs).symbolize_keys
           end
       end
     end
