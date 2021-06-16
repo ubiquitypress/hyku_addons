@@ -86,7 +86,7 @@ RSpec.describe Hyrax::Orcid::Strategy::SyncNotify do
     let(:orcid_id) { user2.orcid_identity.orcid_id }
 
     it "increments the message count for the referenced user" do
-      expect { service.send(:notify) }.to  change { UserMailbox.new(user2).inbox.count }.by(1)
+      expect { service.send(:notify) }.to change { UserMailbox.new(user2).inbox.count }.by(1)
     end
   end
 end

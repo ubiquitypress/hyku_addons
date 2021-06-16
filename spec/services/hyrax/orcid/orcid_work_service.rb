@@ -144,4 +144,3 @@ RSpec.describe Hyrax::Orcid::OrcidWorkService do
     it { expect(headers.dig("authorization")).to eq "Bearer #{orcid_identity.access_token}" }
   end
 end
-

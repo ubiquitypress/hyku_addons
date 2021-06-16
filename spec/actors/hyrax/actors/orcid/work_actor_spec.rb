@@ -46,7 +46,7 @@ RSpec.describe Hyrax::Actors::Orcid::WorkActor do
         allow(Flipflop).to receive(:enabled?).with(:orcid_identities).and_return(false)
       end
 
-      it "enqueues a job" do
+      it "does not enqueue a job" do
         expect { actor.create(env) }.not_to have_enqueued_job(Hyrax::Orcid::ProcessWorkJob)
       end
     end
@@ -66,7 +66,7 @@ RSpec.describe Hyrax::Actors::Orcid::WorkActor do
         allow(Flipflop).to receive(:enabled?).with(:orcid_identities).and_return(false)
       end
 
-      it "enqueues a job" do
+      it "does not enqueue a job" do
         expect { actor.update(env) }.not_to have_enqueued_job(Hyrax::Orcid::ProcessWorkJob)
       end
     end

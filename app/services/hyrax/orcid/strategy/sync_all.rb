@@ -4,7 +4,6 @@ module Hyrax
   module Orcid
     module Strategy
       class SyncAll
-
         def initialize(work, identity)
           @work = work
           @identity = identity

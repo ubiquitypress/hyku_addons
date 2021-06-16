@@ -42,4 +42,3 @@ RSpec.describe Hyrax::Orcid::Strategy::Manual do
     end
   end
 end
-
