@@ -1,9 +1,4 @@
 # frozen_string_literal: true
-#
-# API Request
-#
-# headers = { authorization: "Bearer #{body['access_token']}", "Content-Type": "application/orcid+json" }
-# response = Faraday.get(helpers.orcid_api_uri(body["orcid"], :record), nil, headers)
 
 module Hyrax
   module Dashboard
