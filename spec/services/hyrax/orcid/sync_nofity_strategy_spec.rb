@@ -3,9 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Hyrax::Orcid::SyncNotifyStrategy do
+  let(:sync_preference) { "sync_notify" }
   let(:service) { described_class.new(work, orcid_identity) }
   let(:user) { create(:user, orcid_identity: orcid_identity) }
-  let(:orcid_identity) { create(:orcid_identity, work_sync_preference: "sync_all") }
+  let(:orcid_identity) { create(:orcid_identity, work_sync_preference: sync_preference) }
   let(:work) { create(:work, user: user, **work_attributes) }
   let(:work_attributes) do
     {
@@ -23,12 +24,30 @@ RSpec.describe Hyrax::Orcid::SyncNotifyStrategy do
   let(:orcid_id) { user.orcid_identity.orcid_id }
 
   describe "#perform" do
-    context "when the depositor is the primary referenced user" do
+    before do
+      allow(service).to receive(:notify)
+      allow(service).to receive(:publish_work)
+    end
 
+    context "when the depositor is the primary referenced user" do
+      it "calls publish_work" do
+        service.perform
+
+        expect(service).to have_received(:publish_work)
+      end
     end
 
     context "when the referenced user is not the depositor" do
+      let(:service) { described_class.new(work, orcid_identity2) }
+      let(:user2) { create(:user, orcid_identity: orcid_identity2) }
+      let(:orcid_identity2) { create(:orcid_identity, work_sync_preference: sync_preference) }
+      let(:orcid_id) { user2.orcid_identity.orcid_id }
 
+      it "calls notify" do
+        service.perform
+
+        expect(service).to have_received(:notify)
+      end
     end
   end
 
@@ -43,16 +62,31 @@ RSpec.describe Hyrax::Orcid::SyncNotifyStrategy do
 
   describe "#primary_user?" do
     context "when the user depositing the work is referenced" do
-
+      it "returns true" do
+        expect(service.send(:primary_user?)).to be_truthy
+      end
     end
 
     context "when the depositing user is not the user being referenced" do
+      let(:service) { described_class.new(work, orcid_identity2) }
+      let(:user2) { create(:user, orcid_identity: orcid_identity2) }
+      let(:orcid_identity2) { create(:orcid_identity, work_sync_preference: sync_preference) }
+      let(:orcid_id) { user2.orcid_identity.orcid_id }
 
+      it "returns false" do
+        expect(service.send(:primary_user?)).to be_falsey
+      end
     end
   end
 
   describe "#notify" do
+    let(:service) { described_class.new(work, orcid_identity2) }
+    let(:user2) { create(:user, orcid_identity: orcid_identity2) }
+    let(:orcid_identity2) { create(:orcid_identity, work_sync_preference: sync_preference) }
+    let(:orcid_id) { user2.orcid_identity.orcid_id }
+
     it "increments the message count for the referenced user" do
+      expect { service.send(:notify) }.to  change { UserMailbox.new(user2).inbox.count }.by(1)
     end
   end
 end
