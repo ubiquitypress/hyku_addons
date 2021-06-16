@@ -107,6 +107,7 @@ module HykuAddons
       attribute :prerequisites, SolrDocument::Solr::Array, solr_name('prerequisites')
       attribute :audience, SolrDocument::Solr::Array, solr_name('audience')
       attribute :related_material, SolrDocument::Solr::Array, solr_name('related_material')
+      attribute :advisor, SolrDocument::Solr::Array, solr_name('advisor')
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(
