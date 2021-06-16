@@ -49,8 +49,8 @@ module Hyrax
 
         form_field_definitions.each do |field_name, options|
           descendant.terms += [field_name.to_sym]
-          descendant.required_terms += [field_name.to_sym] if options[:required]
-          descendant.primary_terms += [field_name.to_sym] if options[:primary]
+          descendant.required_fields += [field_name.to_sym] if options[:required]
+          descendant.primary_fields += [field_name.to_sym] if options[:primary]
         end
       end
   end
