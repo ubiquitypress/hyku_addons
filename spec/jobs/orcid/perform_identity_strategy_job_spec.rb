@@ -80,7 +80,7 @@ RSpec.describe Hyrax::Orcid::PerformIdentityStrategyJob do
 
     context "when the user has selected notify_all" do
       let(:work_sync_preference) { "notify_all" }
-      let(:sync_class) { Hyrax::Orcid::AskAllStrategy }
+      let(:sync_class) { Hyrax::Orcid::NotifyAllStrategy }
 
       it "calls the perform method" do
         described_class.perform_now(work, orcid_identity)
