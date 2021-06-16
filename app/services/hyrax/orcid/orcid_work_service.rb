@@ -2,7 +2,7 @@
 
 module Hyrax
   module Orcid
-    class SyncAllStrategy
+    class OrcidWorkService
       include Hyrax::Orcid::UrlHelper
 
       def initialize(work, identity)
@@ -10,8 +10,7 @@ module Hyrax
         @identity = identity
       end
 
-      def perform
-        # Hyrax::Orcid::SyncAllStrategy.new(@work, @identity).perform
+      def publish
         @response = Faraday.send(request_method, request_url, xml, headers)
 
         update_identity if @response.success?
@@ -60,3 +59,4 @@ module Hyrax
     end
   end
 end
+

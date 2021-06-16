@@ -8,7 +8,7 @@ module Hyrax
       def perform(work, identity)
         return unless Flipflop.enabled?(:orcid_identities)
 
-        Hyrax::Orcid::SyncAllStrategy.new(work, identity).perform
+        Hyrax::Orcid::OrcidWorkService.new(work, identity).publish
       end
     end
   end

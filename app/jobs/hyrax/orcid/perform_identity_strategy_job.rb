@@ -8,7 +8,7 @@ module Hyrax
       def perform(work, identity)
         return unless Flipflop.enabled?(:orcid_identities)
 
-        "Hyrax::Orcid::#{identity.work_sync_preference.classify}Strategy".constantize.new(work, identity).perform
+        "Hyrax::Orcid::Strategy::#{identity.work_sync_preference.classify}".constantize.new(work, identity).perform
       end
     end
   end

@@ -2,10 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe Hyrax::Orcid::SyncAllStrategy do
+RSpec.describe Hyrax::Orcid::OrcidWorkService do
+  let(:sync_preference) { "sync_all" }
   let(:service) { described_class.new(work, orcid_identity) }
   let(:user) { create(:user, orcid_identity: orcid_identity) }
-  let(:orcid_identity) { create(:orcid_identity, work_sync_preference: "sync_all") }
+  let(:orcid_identity) { create(:orcid_identity, work_sync_preference: sync_preference) }
   let(:work) { create(:work, user: user, **work_attributes) }
   let(:work_attributes) do
     {
@@ -28,9 +29,9 @@ RSpec.describe Hyrax::Orcid::SyncAllStrategy do
   let(:put_code) { nil }
   let(:xml) { meta.orcid_xml(type, put_code) }
 
-  describe "#perform" do
+  describe "#publish" do
     let(:faraday_response) { instance_double(Faraday::Response, body: "", headers: response_headers, success?: true) }
-    let(:put_code) { 123_456 }
+    let(:put_code) { "123456" }
     let(:response_headers) do
       { "location" => "http://api.sandbox.orcid.org/#{api_version}/#{orcid_id}/work/#{put_code}" }
     end
@@ -143,3 +144,4 @@ RSpec.describe Hyrax::Orcid::SyncAllStrategy do
     it { expect(headers.dig("authorization")).to eq "Bearer #{orcid_identity.access_token}" }
   end
 end
+

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Hyrax::Orcid::PerformIdentityStrategyJob do
+RSpec.describe Hyrax::Orcid::PublishWorkJob do
   let(:user) { create(:user, orcid_identity: orcid_identity) }
   let(:orcid_identity) { create(:orcid_identity, work_sync_preference: sync_preference) }
   let(:work) { create(:work, user: user, **work_attributes) }
@@ -39,8 +39,8 @@ RSpec.describe Hyrax::Orcid::PerformIdentityStrategyJob do
   end
 
   describe ".perform" do
-    let(:sync_class) { Hyrax::Orcid::Strategy::SyncAll }
-    let(:sync_instance) { instance_double(sync_class, perform: nil) }
+    let(:sync_class) { Hyrax::Orcid::OrcidWorkService }
+    let(:sync_instance) { instance_double(sync_class, publish: nil) }
 
     before do
       allow(sync_class).to receive(:new).and_return(sync_instance)
@@ -50,7 +50,7 @@ RSpec.describe Hyrax::Orcid::PerformIdentityStrategyJob do
       it "calls the perform method" do
         described_class.perform_now(work, orcid_identity)
 
-        expect(sync_instance).to have_received(:perform).with(no_args)
+        expect(sync_instance).to have_received(:publish).with(no_args)
       end
     end
 
@@ -62,29 +62,7 @@ RSpec.describe Hyrax::Orcid::PerformIdentityStrategyJob do
       it "does not call the perform method" do
         described_class.perform_now(work, orcid_identity)
 
-        expect(sync_instance).not_to have_received(:perform).with(no_args)
-      end
-    end
-
-    context "when the user has selected sync_notify" do
-      let(:sync_preference) { "sync_notify" }
-      let(:sync_class) { Hyrax::Orcid::Strategy::SyncNotify }
-
-      it "calls the perform method" do
-        described_class.perform_now(work, orcid_identity)
-
-        expect(sync_instance).to have_received(:perform).with(no_args)
-      end
-    end
-
-    context "when the user has selected manual" do
-      let(:sync_preference) { "manual" }
-      let(:sync_class) { Hyrax::Orcid::Strategy::Manual }
-
-      it "calls the perform method" do
-        described_class.perform_now(work, orcid_identity)
-
-        expect(sync_instance).to have_received(:perform).with(no_args)
+        expect(sync_instance).not_to have_received(:publish).with(no_args)
       end
     end
   end

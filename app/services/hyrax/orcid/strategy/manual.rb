@@ -5,14 +5,15 @@
 # personal/professional history shown on the public profile,
 module Hyrax
   module Orcid
-    class ManualStrategy
-      def initialize(work, identity)
-        @work = work
-        @identity = identity
-      end
+    module Strategy
+      class Manual
+        def initialize(work, identity)
+          @work = work
+          @identity = identity
+        end
 
-      def perform; end
+        def perform; end
+      end
     end
   end
 end
-
