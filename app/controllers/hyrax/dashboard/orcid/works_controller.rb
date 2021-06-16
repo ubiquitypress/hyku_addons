@@ -20,7 +20,7 @@ module Hyrax
           end
 
           def identity
-            @_identity = OrcidIdentity.find_by(orcid_id: permitted_params.dig(:orcid_id))
+            @_identity ||= OrcidIdentity.find_by(orcid_id: permitted_params.dig(:orcid_id))
           end
 
           def permitted_params
