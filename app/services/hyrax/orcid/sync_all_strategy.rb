@@ -11,6 +11,7 @@ module Hyrax
       end
 
       def perform
+        # Hyrax::Orcid::SyncAllStrategy.new(@work, @identity).perform
         @response = Faraday.send(request_method, request_url, xml, headers)
 
         update_identity if @response.success?
