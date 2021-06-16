@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      anschutz_work:     'fa fa-file-text-o'
+    select_type:
+      anschutz_work:
+        # TODO: translate `human_name` into Spanish
+        description:        "Anschutz work trabajos"
+        name:               "Anschutz Work"
+        # TODO: translate `human_name` into Spanish
