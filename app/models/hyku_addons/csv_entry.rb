@@ -137,12 +137,7 @@ module HykuAddons
       parsed_metadata['id'] = hyrax_record.id
       parsed_metadata['model'] = hyrax_record.has_model.first
       build_mapping_metadata
-      unless hyrax_record.is_a?(Collection)
-        parsed_metadata['file'] = hyrax_record.file_sets
-                                              .map { |fs| filename(fs)&.to_s.presence }
-                                              .compact
-                                              .join('|')
-      end
+      build_file_visibility unless hyrax_record.is_a?(Collection)
       build_json_metadata
       # Populate source_identifer if it doesn't have a value similar to make_round_trippable
       parsed_metadata[self.class.source_identifier_field] ||= hyrax_record.id
@@ -173,6 +168,21 @@ module HykuAddons
         JSON.parse(json_str).each_with_index { |h, i| h.each { |k, v| parsed_metadata["#{k}_#{i + 1}"] = v } }
       rescue JSON::ParseError
         next
+      end
+    end
+
+    def build_file_visibility
+      hyrax_record.ordered_members.to_a.each_with_index do |fs, i|
+        next unless fs.is_a?(FileSet) && (file = filename(fs)&.to_s.presence)
+        index = i + 1
+        parsed_metadata["file_#{index}"] = file
+        parsed_metadata["file_visibility_#{index}"] = fs.visibility
+        next unless fs.embargo
+
+        parsed_metadata["file_visibility_#{index}"] = "embargo"
+        parsed_metadata["file_visibility_during_embargo_#{index}"] = fs.visibility_during_embargo
+        parsed_metadata["file_visibility_after_embargo_#{index}"] = fs.visibility_after_embargo
+        parsed_metadata["file_embargo_release_date_#{index}"] = fs.embargo_release_date.to_date.to_s
       end
     end
 
