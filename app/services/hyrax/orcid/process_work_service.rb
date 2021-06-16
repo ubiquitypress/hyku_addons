@@ -4,7 +4,7 @@ module Hyrax
   module Orcid
     class ProcessWorkService
       include HykuAddons::WorkFormNameable
-      include Hyrax::Orcid::UrlHelper
+      include Hyrax::Orcid::OrcidHelper
 
       # TARGET_TERMS = %i[creator contributor].freeze
       TARGET_TERMS = %i[creator].freeze
@@ -33,7 +33,7 @@ module Hyrax
 
       protected
 
-        # A factory method for building the appropriate class depending on the users work sync preference
+        # Find the identity and farm out the rest of the logic to a background worker
         def perform_user_strategy(orcid_id)
           return unless (identity = OrcidIdentity.find_by(orcid_id: orcid_id)).present?
 
