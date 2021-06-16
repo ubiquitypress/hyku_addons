@@ -15,13 +15,23 @@ module Hyrax
         def new
           request_authorization
 
-          current_user.orcid_identity_from_authorization(authorization_body) if @authorization_response.success?
+          current_user.orcid_identity_from_authorization(authorization_body)
+
+          if authorization_success?
+            flash[:notice] = I18n.t("orcid_identity.preferences.create.success")
+          else
+            flash[:error] = I18n.t("orcid_identity.preferences.create.failure")
+          end
 
           redirect_to dashboard_profile_path(current_user)
         end
 
         def update
-          current_user.orcid_identity.update(permitted_preference_params)
+          if current_user.orcid_identity.update(permitted_preference_params)
+            flash[:notice] = I18n.t("orcid_identity.preferences.update.success")
+          else
+            flash[:error] = I18n.t("orcid_identity.preferences.update.failure")
+          end
 
           redirect_back fallback_location: dashboard_profile_path(current_user)
         end
@@ -31,6 +41,7 @@ module Hyrax
           raise ActiveRecord::RecordNotFound unless current_user.orcid_identity.id == params["id"].to_i
 
           current_user.orcid_identity.destroy
+          flash[:notice] = I18n.t("orcid_identity.preferences.destroy.success")
 
           redirect_back fallback_location: dashboard_profile_path(current_user)
         end
@@ -50,6 +61,10 @@ module Hyrax
             }
 
             @authorization_response = Faraday.post(helpers.orcid_token_uri, data.to_query, "Accept" => "application/json")
+          end
+
+          def authorization_success?
+            @authorization_response.success?
           end
 
           def authorization_body

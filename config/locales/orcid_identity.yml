@@ -4,10 +4,16 @@ en:
       title: ORCID Sync
       linked: Currently synced with ORCID user %{link}
       button_text:  Save Preferences
+      create:
+        success: Your repository account was successfully linked to your ORCID profile
+        failure: An error seems to have occured.
+      update:
+        success: Your preferences were updated successfully
+        failure: An error seems to have occured.
       destroy:
         button_text: Unlink Account
         confirm: Are you sure you want to remove the ORCID authorisation for your account?
-        success: Successfully unlinked your account
+        success: Successfully unlinked your repository account from your ORCID profile
       info:
         connect_intro: |
           Syncing your Hyku repository profile with ORCID allows you to import all the data in your ORCID profile to your repository profile and makes it easier for works deposited in this repository to be synced to ORCID.
@@ -31,8 +37,8 @@ en:
           Select how you'd like your works deposited to the repository to interact with ORCID. Note, that you can always stop individual works from being sent to ORCID.
         preferences:
           sync_all: Automatically sync all works with my ORCID attached, even if I am not the depositor
-          sync_ask: Sync all works I deposit to my ORCID, but ask me for works where someone lists me as a creator/contributor
-          ask_all: Always ask me before syncing a work to my ORCID profile
+          sync_notify: Sync all works I deposit to my ORCID, but ask me for works where someone lists me as a creator/contributor
+          notify_all: Always ask me before syncing a work to my ORCID profile
     notify:
       notification:
         subject: |
