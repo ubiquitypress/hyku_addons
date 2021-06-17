@@ -27,9 +27,7 @@ module Hyrax
           end
 
           def publish_work
-            # TODO: Put this in a configuration object
-            action = "perform_#{Rails.env.development? ? 'now' : 'later'}"
-            Hyrax::Orcid::PublishWorkJob.send(action, @work, @identity)
+            Hyrax::Orcid::OrcidWorkService.new(@work, @identity).publish
           end
 
           def notify

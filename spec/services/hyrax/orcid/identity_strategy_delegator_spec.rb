@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Hyrax::Orcid::ProcessWorkService do
+RSpec.describe Hyrax::Orcid::IdentityStrategyDelegator do
   let(:service) { described_class.new(work) }
   let(:user) { create(:user, orcid_identity: orcid_identity) }
   let(:orcid_identity) { create(:orcid_identity, work_sync_preference: work_sync_preference) }

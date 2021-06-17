@@ -35,7 +35,7 @@ RSpec.describe Hyrax::Actors::Orcid::WorkActor do
   describe "#create" do
     context "when orcid_identities is enabled" do
       it "enqueues a job" do
-        expect { actor.create(env) }.to have_enqueued_job(Hyrax::Orcid::ProcessWorkJob)
+        expect { actor.create(env) }.to have_enqueued_job(Hyrax::Orcid::IdentityStrategyDelegatorJob)
           .with(work)
           .on_queue(Hyrax.config.ingest_queue_name)
       end
@@ -47,7 +47,7 @@ RSpec.describe Hyrax::Actors::Orcid::WorkActor do
       end
 
       it "does not enqueue a job" do
-        expect { actor.create(env) }.not_to have_enqueued_job(Hyrax::Orcid::ProcessWorkJob)
+        expect { actor.create(env) }.not_to have_enqueued_job(Hyrax::Orcid::IdentityStrategyDelegatorJob)
       end
     end
   end
@@ -55,7 +55,7 @@ RSpec.describe Hyrax::Actors::Orcid::WorkActor do
   describe "#update" do
     context "when orcid_identities is enabled" do
       it "enqueues a job" do
-        expect { actor.update(env) }.to have_enqueued_job(Hyrax::Orcid::ProcessWorkJob)
+        expect { actor.update(env) }.to have_enqueued_job(Hyrax::Orcid::IdentityStrategyDelegatorJob)
           .with(work)
           .on_queue(Hyrax.config.ingest_queue_name)
       end
@@ -67,7 +67,7 @@ RSpec.describe Hyrax::Actors::Orcid::WorkActor do
       end
 
       it "does not enqueue a job" do
-        expect { actor.update(env) }.not_to have_enqueued_job(Hyrax::Orcid::ProcessWorkJob)
+        expect { actor.update(env) }.not_to have_enqueued_job(Hyrax::Orcid::IdentityStrategyDelegatorJob)
       end
     end
   end

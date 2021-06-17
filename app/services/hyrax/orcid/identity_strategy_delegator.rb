@@ -1,14 +1,10 @@
 # frozen_string_literal: true
 
+# Take a work, extract its orcid ids, and for each orcid identity that is found
+# create a seperate job to process the users identity sync strategy.
 module Hyrax
   module Orcid
-    class ProcessWorkService
-      include HykuAddons::WorkFormNameable
-      include Hyrax::Orcid::OrcidHelper
-
-      # TARGET_TERMS = %i[creator contributor].freeze
-      TARGET_TERMS = %i[creator].freeze
-
+    class IdentityStrategyDelegator
       def initialize(work)
         @work = work
 
@@ -19,16 +15,9 @@ module Hyrax
       def perform
         return unless Flipflop.enabled?(:orcid_identities)
 
-        target_terms.each do |term|
-          target = "#{term}_orcid"
-          json = json_for_term(term)
+        orcids = Hyrax::Orcid::WorkOrcidExtractor.new(@work).extract
 
-          JSON.parse(json).select { |person| person.dig(target).present? }.each do |person|
-            orcid_id = validate_orcid(person.dig(target))
-
-            perform_user_strategy(orcid_id)
-          end
-        end
+        orcids.each { |orcid| perform_user_strategy(orcid) }
       end
 
       protected
@@ -40,21 +29,6 @@ module Hyrax
           # TODO: Put this in a configuration object
           action = "perform_#{Rails.env.development? ? 'now' : 'later'}"
           Hyrax::Orcid::PerformIdentityStrategyJob.send(action, @work, identity)
-        end
-
-        def json_for_term(term)
-          @work.send(term).first
-        end
-
-        def target_terms
-          (TARGET_TERMS & work_type_terms)
-        end
-
-      private
-
-        # Required for WorkFormNameable to function correctly
-        def meta_model
-          @work.class.name
         end
 
         def validate!
