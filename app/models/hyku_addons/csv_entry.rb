@@ -192,5 +192,12 @@ module HykuAddons
       hyrax_record.attributes.keys.map { |k| map[k] ||= { 'from' => Array.wrap(k) } unless Bulkrax.reserved_properties.include?(k) || !field_supported?(k) }
       map
     end
+
+    def hyrax_record
+      @hyrax_record ||= begin
+                          super
+                        rescue
+                        end || factory.find
+    end
   end
 end
