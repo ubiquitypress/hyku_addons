@@ -24,6 +24,16 @@ namespace :hyku do
           HykuAddons::ValidateImporterEntryJob.perform_later(account, entry, source_cookie_options(args), destination_cookie_options(args))
         end
       end
+      
+      task :csv, [:tenant, :importer] => [:environment] do |_t, args|
+        account = load_account(args[:tenant])
+        importer = Bulkrax::Importer.find(args[:importer])
+        
+        importer.entries.find_each.map do |entry|
+          next unless entry.is_a?(HykuAddons::CsvEntry)
+          HykuAddons::ValidateCsvImporterEntryJob.perform_later(account, entry)
+        end
+      end
     end
 
     namespace :entries do
@@ -31,7 +41,7 @@ namespace :hyku do
       task :http, [:tenant, :entry, :source_path, :source_auth, :destination_path, :destination_auth] => [:environment] do |_t, args|
         account = load_account(args[:tenant])
         entry = Bulkrax::Entry.find(args[:entry])
-        validate_http_params(args)
+        
         exit(1) unless entry.is_a?(HykuAddons::CsvEntry)
 
         HykuAddons::ValidateImporterEntryJob.perform_later(account, entry, source_auth_options(args), destination_auth_options(args))
@@ -44,6 +54,14 @@ namespace :hyku do
         exit(1) unless entry.is_a?(HykuAddons::CsvEntry)
 
         HykuAddons::ValidateImporterEntryJob.perform_later(account, entry, source_cookie_options(args), destination_cookie_options(args))
+      end
+
+      task :csv, [:tenant, :entry] => [:environment] do |_t, args|
+        account = load_account(args[:tenant])
+        entry = Bulkrax::Entry.find(args[:entry])
+        exit(1) unless entry.is_a?(HykuAddons::CsvEntry)
+
+        HykuAddons::ValidateCsvImporterEntryJob.perform_later(account, entry)
       end
     end
   end

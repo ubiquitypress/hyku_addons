@@ -153,3 +153,7 @@ Naming/FileName:
   Exclude:
     - 'config/initializers/hydra-derivatives.rb'
     - 'Gemfile'
+
+Lint/HandleExceptions:
+  Exclude:
+    - 'app/models/hyku_addons/csv_entry.rb'
