@@ -199,4 +199,31 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       end
     end
   end
+
+  describe "hyrax_record" do
+    context "with identifiers" do
+      it "returns the work created" do
+        Bulkrax::ImporterJob.perform_now(importer.id)
+        importer.entries.each do |entry|
+          next unless entry.is_a?(HykuAddons::CsvEntry)
+          work = PacificArticle.find(entry.identifier)
+          expect(entry.hyrax_record).to eq work
+        end
+      end
+    end
+
+    context "when only source_identifier is present" do
+      let(:import_batch_file) { 'spec/fixtures/csv/generic_work.csv' }
+      let(:source_identifier) { 'external-id-1' }
+
+      it "return the work imported" do
+        Bulkrax::ImporterJob.perform_now(importer.id)
+        importer.entries.each do |entry|
+          next unless entry.is_a?(HykuAddons::CsvEntry)
+          work = GenericWork.all.first
+          expect(entry.hyrax_record).to eq work
+        end
+      end
+    end
+  end
 end
