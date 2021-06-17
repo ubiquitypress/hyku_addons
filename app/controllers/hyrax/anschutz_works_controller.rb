@@ -9,6 +9,6 @@ module Hyrax
     include HykuAddons::WorksControllerBehavior
 
     self.curation_concern_type = ::AnschutzWork
-    self.show_presenter = Hyrax::AnschutzWork
+    self.show_presenter = Hyrax::AnschutzWorkPresenter
   end
 end

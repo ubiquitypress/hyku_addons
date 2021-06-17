@@ -46,7 +46,7 @@ class AnschutzWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :citation, predicate: ::RDF::Vocab::DC.references do |index|
+  property :references, predicate: ::RDF::Vocab::DC.references do |index|
     index.as :stored_searchable
   end
 
