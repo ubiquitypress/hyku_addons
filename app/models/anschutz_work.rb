@@ -10,6 +10,10 @@ class AnschutzWork < ActiveFedora::Base
 
   self.indexer = AnschutzWorkIndexer
 
+  property :add_info, predicate: ::RDF::Vocab::BIBO.term(:Note) do |index|
+    index.as :stored_searchable
+  end
+
   property :location, predicate: ::RDF::Vocab::BF2.physicalLocation, multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
@@ -30,7 +34,7 @@ class AnschutzWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :journal_frequency, predicate: ::RDF::Vocab::DC.term(:Frequency) do |index|
+  property :journal_frequency, predicate: ::RDF::Vocab::DC.term(:Frequency), multiple: false do |index|
     index.as :stored_searchable
   end
 
@@ -50,11 +54,19 @@ class AnschutzWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :extent, predicate: ::RDF::Vocab::DC.extent do |index|
+  property :extent, predicate: ::RDF::Vocab::DC.extent, multiple: false do |index|
     index.as :stored_searchable
   end
 
   property :medium, predicate: ::RDF::Vocab::DC.medium do |index|
+    index.as :stored_searchable
+  end
+
+  property :publisher, predicate: ::RDF::Vocab::DC11.publisher, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :add_info, predicate: ::RDF::Vocab::BIBO.term(:Note), multiple: true do |index|
     index.as :stored_searchable
   end
 

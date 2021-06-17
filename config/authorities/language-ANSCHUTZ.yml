@@ -1,0 +1,28 @@
+terms:
+  - id: eng
+    term: English
+    active: true
+  - id: zho
+    term: Chinese
+    active: true
+  - id: fra
+    term: French
+    active: true
+  - id: deu
+    term: German
+    active: true
+  - id: ell
+    term: Greek
+    active: true
+  - id: jap
+    term: Japanese
+    active: true
+  - id: lat
+    term: Latin
+    active: true
+  - id: rus
+    term: Russian
+    active: true
+  - id: spa
+    term: Spanish
+    active: true
