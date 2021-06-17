@@ -207,3 +207,8 @@ en:
     collections:
       show:
         item_count: Items
+  bulkrax:
+    validation_issues:
+      attribute: "Attribute"
+      original_value: "Original value"
+      current_value: "Current Value"
