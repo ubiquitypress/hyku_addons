@@ -5,8 +5,8 @@ module HykuAddons
     # non_tenant_job
     def perform(account, entry)
       AccountElevator.switch! account.cname
-      s = HykuAddons::Validations::CsvEntryValidationService.new(account, entry)
-      s.validate
+      service = HykuAddons::Validations::CsvEntryValidationService.new(account, entry)
+      service.validate
     end
   end
 end
