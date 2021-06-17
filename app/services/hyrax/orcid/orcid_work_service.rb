@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This class is the meat of the publishing/unpublishing works to/from orcid.
 module Hyrax
   module Orcid
     class OrcidWorkService
@@ -19,8 +20,13 @@ module Hyrax
         update_identity if @response.success?
       end
 
-      # TODO: Add unpublish works from orcid
-      def unpublish; end
+      def unpublish
+        return unless visible?
+
+        @response = Faraday.send(:delete, request_url, nil, headers)
+
+        orcid_work.destory if @response.success?
+      end
 
       protected
 

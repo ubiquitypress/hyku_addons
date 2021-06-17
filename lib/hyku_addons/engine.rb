@@ -534,9 +534,10 @@ module HykuAddons
       ::ActiveJob::Base.include HykuAddons::ImportMode
       Hyrax::Dashboard::ProfilesController.prepend HykuAddons::Dashboard::ProfilesControllerBehavior
 
-      User.include Hyrax::UserBehavior
-      Hyrax::CurationConcern.actor_factory.use Hyrax::Actors::Orcid::WorkActor
+      User.include Hyrax::Orcid::UserBehavior
       Bolognese::Metadata.prepend Bolognese::Writers::OrcidXmlWriter
+      actors = [Hyrax::Actors::ModelActor, Hyrax::Actors::Orcid::WorkActor]
+      Hyrax::CurationConcern.actor_factory.insert_before(*actors)
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
