@@ -8,7 +8,7 @@ module Hyrax
     include Hyrax::BreadcrumbsForWorks
     include HykuAddons::WorksControllerBehavior
 
-    self.curation_concern_type = ::Article
-    self.show_presenter = Hyrax::ArticlePresenter
+    self.curation_concern_type = ::AnschutzWork
+    self.show_presenter = Hyrax::AnschutzWorkPresenter
   end
 end
