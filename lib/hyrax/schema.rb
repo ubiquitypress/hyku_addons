@@ -86,6 +86,8 @@ module Hyrax
         super
         attributes_config.each do |name, config|
           descendant.property(name, config.symbolize_keys)
+          descendant.json_fields += [name] if config['subfields'].present?
+          descendant.date_fields += [name] if config['type'] == 'date'
         end
       end
   end

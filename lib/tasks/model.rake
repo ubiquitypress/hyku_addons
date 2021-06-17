@@ -16,7 +16,8 @@ namespace :hyku_addons do
         attributes[term]['form']['primary'] = false
         attributes[term]['form']['multiple'] = config.multiple? if config.respond_to?(:multiple?)
       end
-      puts ({ 'attributes' => attributes }).to_yaml
+      yml = { 'attributes' => attributes }.to_yaml
+      puts yml
     end
   end
 end

@@ -11,6 +11,7 @@ attributes:
       required: true
       primary: true
       multiple: false
+      type: text
   alt_title:
     type: string
     predicate: http://purl.org/dc/terms/alternative
@@ -21,6 +22,7 @@ attributes:
       required: false
       primary: true
       multiple: true
+      type: text
   creator:
     predicate: http://purl.org/dc/elements/1.1/creator
     multiple: true
@@ -29,8 +31,88 @@ attributes:
       required: true
       primary: true
       multiple: true
+    subfields:
+      name_type:
+        type: string
+        form:
+          required: true
+          multiple: false
+          type: select
+      family_name:
+        type: string
+        form:
+          required: true
+          multiple: false
+          type: text
+          display_for:
+            - personal
+      given_name:
+        type: string
+        form:
+          required: true
+          multiple: false
+          type: text
+          display_for:
+            - personal
+      orcid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - personal
+      institutional_relationship:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          display_for:
+            - personal
+      organization_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - organizational
+      ror:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - organizational
+      grid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - organizational
+      wikidata:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - organizational
+      isni:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - personal
+            - organizational
   date_published:
-    type: string
+    type: date
     predicate: http://purl.org/dc/terms/available
     multiple: false
     index_keys:
@@ -39,6 +121,7 @@ attributes:
       required: true
       primary: true
       multiple: false
+      type: date
   abstract:
     type: text
     predicate: http://purl.org/dc/terms/abstract
@@ -49,6 +132,7 @@ attributes:
       required: true
       primary: true
       multiple: false
+      type: textarea
   resource_type:
     predicate: http://purl.org/dc/terms/type
     multiple: true
@@ -56,7 +140,8 @@ attributes:
     form:
       required: true
       primary: true
-      multiple: true
+      multiple: false
+      type: select
   license:
     predicate: http://purl.org/dc/terms/rights
     multiple: true
@@ -64,7 +149,8 @@ attributes:
     form:
       required: true
       primary: true
-      multiple: true
+      multiple: false
+      type: select
   place_of_publication:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/Place
@@ -76,6 +162,7 @@ attributes:
       required: false
       primary: true
       multiple: true
+      type: text
   language:
     predicate: http://purl.org/dc/elements/1.1/language
     multiple: true
@@ -84,6 +171,7 @@ attributes:
       required: false
       primary: true
       multiple: true
+      type: select
   subject_text:
     type: string
     predicate: http://purl.org/dc/terms/subject
@@ -94,6 +182,7 @@ attributes:
       required: false
       primary: true
       multiple: true
+      type: text
   mesh:
     type: string
     predicate: http://purl.org/dc/terms/MESH
@@ -104,16 +193,18 @@ attributes:
       required: false
       primary: true
       multiple: true
+      type: text
   add_info:
     type: string
     predicate: http://purl.org/ontology/bibo/Note
-    multiple: false
+    multiple: true
     index_keys:
     - add_info_tesim
     form:
       required: false
       primary: true
-      multiple: false
+      multiple: true
+      type: textarea
   contributor:
     predicate: http://purl.org/dc/elements/1.1/contributor
     multiple: true
@@ -122,6 +213,84 @@ attributes:
       required: false
       primary: false
       multiple: true
+    subfields:
+      name_type:
+        type: string
+        form:
+          required: true
+          multiple: false
+      family_name:
+        type: string
+        form:
+          required: true
+          multiple: false
+          display_for:
+            - personal
+      given_name:
+        type: string
+        form:
+          required: true
+          multiple: false
+          display_for:
+            - personal
+      orcid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          display_for:
+            - personal
+      institutional_relationship:
+        type: string
+        form:
+          required: false
+          multiple: false
+          display_for:
+            - personal
+      organization_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          display_for:
+            - organizational
+      ror:
+        type: string
+        form:
+          required: false
+          multiple: false
+          display_for:
+            - organizational
+      grid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          display_for:
+            - organizational
+      wikidata:
+        type: string
+        form:
+          required: false
+          multiple: false
+          display_for:
+            - organizational
+      isni:
+        type: string
+        form:
+          required: false
+          multiple: false
+          display_for:
+            - personal
+            - organizational
+      role:
+        type: string
+        form:
+          required: false
+          multiple: true
+          display_for:
+            - personal
+            - organizational
   publisher:
     predicate: http://purl.org/dc/elements/1.1/publisher
     multiple: true
@@ -129,7 +298,8 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: true
+      multiple: false
+      type: text
   source:
     predicate: http://purl.org/dc/terms/source
     multiple: true
@@ -138,16 +308,18 @@ attributes:
       required: false
       primary: false
       multiple: true
+      type: text
   journal_frequency:
     type: string
     predicate: http://purl.org/dc/terms/Frequency
-    multiple: true
+    multiple: false
     index_keys:
     - journal_frequency_tesim
     form:
       required: false
       primary: false
-      multiple: true
+      multiple: false
+      type: text
   funding_description:
     type: string
     predicate: http://id.loc.gov/vocabulary/relators/spn
@@ -158,9 +330,10 @@ attributes:
       required: false
       primary: false
       multiple: true
+      type: text
   citation:
     type: string
-    predicate: http://purl.org/dc/terms/references
+    predicate: http://purl.org/dc/terms/bibliographicCitation
     multiple: true
     index_keys:
     - citation_tesim
@@ -168,6 +341,7 @@ attributes:
       required: false
       primary: false
       multiple: true
+      type: text
   table_of_contents:
     type: string
     predicate: http://bibframe.org/vocab/tableOfContents
@@ -178,16 +352,29 @@ attributes:
       required: false
       primary: false
       multiple: false
+      type: textarea
+  references:
+    type: string
+    predicate: http://purl.org/dc/terms/references
+    multiple: true
+    index_keys:
+      - references_sim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
   extent:
     type: string
     predicate: http://purl.org/dc/terms/extent
-    multiple: true
+    multiple: false
     index_keys:
     - extent_tesim
     form:
       required: false
       primary: false
-      multiple: true
+      multiple: false
+      type: text
   medium:
     type: string
     predicate: http://purl.org/dc/terms/medium
@@ -198,6 +385,7 @@ attributes:
       required: false
       primary: false
       multiple: true
+      type: text
   library_of_congress_classification:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/ClassificationLcc
@@ -209,139 +397,23 @@ attributes:
       required: false
       primary: false
       multiple: true
+      type: text
+  committee_member:
+    type: string
+    predicate: http://purl.org/dc/terms/contributor#committee_member
+    multiple: true
+    index_keys:
+    - committee_member_tesim
+    - committee_member_sim
+  time:
+    type: string
+    predicate: http://purl.org/dc/terms/temporal
+    multiple: true
+    index_keys:
+    - time_tesim
+    - time_sim
 
-
-  related_url:
-    predicate: http://www.w3.org/2000/01/rdf-schema#seeAlso
-    multiple: true
-    index_keys: []
-  rights_statement:
-    predicate: http://www.europeana.eu/schemas/edm/rights
-    multiple: true
-    index_keys: []
-
-
-  official_link:
-    type: string
-    predicate: http://schema.org/url
-    multiple: false
-    index_keys:
-    - official_link_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-  institution:
-    type: string
-    predicate: http://www.w3.org/ns/org#organization
-    multiple: true
-    index_keys:
-    - institution_tesim
-    - institution_sim
-    form:
-      required: false
-      primary: false
-      multiple: true
-  org_unit:
-    type: string
-    predicate: http://www.w3.org/ns/org#OrganizationalUnit
-    multiple: true
-    index_keys:
-    - org_unit_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-  funder:
-    type: string
-    predicate: http://id.loc.gov/vocabulary/relators/fnd
-    multiple: true
-    index_keys:
-    - funder_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-  fndr_project_ref:
-    type: string
-    predicate: http://id.loc.gov/ontologies/bibframe/awards
-    multiple: true
-    index_keys:
-    - fndr_project_ref_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-  date_accepted:
-    type: string
-    predicate: http://purl.org/dc/terms/dateAccepted
-    multiple: false
-    index_keys:
-    - date_accepted_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-  date_submitted:
-    type: string
-    predicate: http://bibframe.org/vocab/originDate
-    multiple: false
-    index_keys:
-    - date_submitted_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-  project_name:
-    type: string
-    predicate: http://id.loc.gov/ontologies/bibframe/CollectiveTitle
-    multiple: true
-    index_keys:
-    - project_name_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-  rights_holder:
-    type: string
-    predicate: http://purl.org/dc/terms/rightsHolder
-    multiple: true
-    index_keys:
-    - rights_holder_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-  alternate_identifier:
-    type: string
-    predicate: http://id.loc.gov/ontologies/bibframe/Local
-    multiple: true
-    index_keys:
-    - alternate_identifier_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-  related_identifier:
-    type: string
-    predicate: http://id.loc.gov/ontologies/bibframe/identifiedBy
-    multiple: true
-    index_keys:
-    - related_identifier_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-  dewey:
-    type: string
-    predicate: http://schema.org/CategoryCode
-    multiple: false
-    index_keys:
-    - dewey_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
+# TODO: Remove this from here and include from a module other than WorkBase
   note:
     type: string
     predicate: http://www.loc.gov/mods/rdf/v1#note
@@ -351,105 +423,4 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: true
-  source_identifier:
-    type: string
-    predicate: http://www.w3.org/ns/prov#wasDerivedFrom
-    multiple: false
-    index_keys:
-    - source_identifier_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-  location:
-    type: string
-    predicate: http://id.loc.gov/ontologies/bibframe/physicalLocation
-    multiple: false
-    index_keys:
-    - location_tesim
-    - location_sim
-    form:
-      required: false
-      primary: false
-      multiple: false
-  label:
-    predicate: info:fedora/fedora-system:def/model#downloadFilename
-    multiple: false
-    index_keys: []
-    form:
-      required: false
-      primary: false
-      multiple: false
-  relative_path:
-    predicate: http://scholarsphere.psu.edu/ns#relativePath
-    multiple: false
-    index_keys: []
-    form:
-      required: false
-      primary: false
-      multiple: false
-  import_url:
-    predicate: http://scholarsphere.psu.edu/ns#importUrl
-    multiple: false
-    index_keys: []
-    form:
-      required: false
-      primary: false
-      multiple: false
-  description:
-    predicate: http://purl.org/dc/elements/1.1/description
-    multiple: true
-    index_keys: []
-    form:
-      required: false
-      primary: false
-      multiple: true
-  keyword:
-    predicate: http://purl.org/dc/elements/1.1/relation
-    multiple: true
-    index_keys: []
-    form:
-      required: false
-      primary: false
-      multiple: true
-  date_created:
-    predicate: http://purl.org/dc/terms/created
-    multiple: true
-    index_keys: []
-    form:
-      required: false
-      primary: false
-      multiple: true
-  subject:
-    predicate: http://purl.org/dc/elements/1.1/subject
-    multiple: true
-    index_keys: []
-    form:
-      required: false
-      primary: false
-      multiple: true
-  identifier:
-    predicate: http://purl.org/dc/terms/identifier
-    multiple: true
-    index_keys: []
-    form:
-      required: false
-      primary: false
-      multiple: true
-  based_near:
-    predicate: http://xmlns.com/foaf/0.1/based_near
-    multiple: true
-    index_keys: []
-    form:
-      required: false
-      primary: false
-      multiple: true
-  bibliographic_citation:
-    predicate: http://purl.org/dc/terms/bibliographicCitation
-    multiple: true
-    index_keys: []
-    form:
-      required: false
-      primary: false
-      multiple: true
+ 
