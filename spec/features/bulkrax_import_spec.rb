@@ -138,7 +138,7 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
           expect(work.ordered_members.to_a.first.title).to eq ["Lerna"]
           expect(work.ordered_members.to_a.first.visibility).to eq 'restricted'
           expect(work.ordered_members.to_a.second.visibility).to eq 'open'
-          expect(work.ordered_members.to_a.first.title).to eq ["nypl-hydra-of-lerna.jpg"]
+          expect(work.ordered_members.to_a.second.title).to eq ["nypl-hydra-of-lerna.jpg"]
           expect(work.ordered_members.to_a.third.visibility).to eq 'authenticated'
           expect(work.ordered_members.to_a.third.embargo_release_date).to eq '2029-07-01'
           expect(work.ordered_members.to_a.third.visibility_after_embargo).to eq 'open'
