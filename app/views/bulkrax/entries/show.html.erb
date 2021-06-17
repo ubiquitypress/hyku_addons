@@ -36,13 +36,13 @@
 
     <p class='bulkrax-p-align'>
       <% if @importer.present? %>
-        <% factory_record = @entry.factory.find %>
-        <% if @entry.last_succeeded_at != nil && factory_record.present? && @entry.factory_class %>
+        <% factory_record = @entry.hyrax_record %>
+        <% if factory_record.present? && @entry.factory_class %>
           <strong><%= @entry.factory_class.to_s %> Link:</strong>
           <% if @entry.factory_class.to_s == 'Collection' %>
-            <%= link_to @entry.factory_class.to_s, hyrax.polymorphic_path(factory_record) %>
+            <%= link_to @entry.factory_class.to_s, hyrax.polymorphic_path(factory_record), target: :_blank %>
           <% else %>
-            <%= link_to @entry.factory_class.to_s, main_app.polymorphic_path(factory_record) %>
+            <%= link_to @entry.factory_class.to_s, main_app.polymorphic_path(factory_record), target: :_blank %>
           <% end %>
         <% else %>
           <strong>Item Link:</strong> Item has not yet been imported successfully
@@ -52,9 +52,9 @@
         <% if record.present? && @entry.factory_class %>
           <strong><%= record.class.to_s %> Link:</strong>
           <% if record.is_a?(Collection) %>
-            <%= link_to record.class.to_s, hyrax.polymorphic_path(record) %>
+            <%= link_to record.class.to_s, hyrax.polymorphic_path(record), target: :_blank %>
           <% else %>
-            <%= link_to record.class.to_s, main_app.polymorphic_path(record) %>
+            <%= link_to record.class.to_s, main_app.polymorphic_path(record), target: :_blank %>
           <% end %>
         <% else %>
           <strong>Item Link:</strong> No item associated with this entry or class unknown
