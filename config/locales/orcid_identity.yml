@@ -16,12 +16,12 @@ en:
         success: Successfully unlinked your repository account from your ORCID profile
       info:
         connect_intro: |
-          Syncing your Hyku repository profile with ORCID allows you to import all the data in your ORCID profile to your repository profile and makes it easier for works deposited in this repository to be synced to ORCID.
+          Syncing your Hyku repository profile with ORCID allows you to display all the data in your ORCID profile to your repository profile and makes it easier for public works deposited in this repository to be synced to ORCID.
         connect_title: What is ORCID?
         connect_button_text: Connect to ORCID
       profile_sync:
         intro: |
-          Works in this repository are being synced to your ORCID. Your repository profile page will import the following fields from your ORCID profile.
+          Your repository profile page will import the following fields from your ORCID profile.
         preferences:
           employment: Employment
           funding: Funding
@@ -36,9 +36,9 @@ en:
         intro: |
           Select how you'd like your works deposited to the repository to interact with ORCID. Note, that you can always stop individual works from being sent to ORCID.
         preferences:
-          sync_all: Automatically sync all works with my ORCID attached, even if I am not the depositor
-          sync_notify: Sync all works I deposit to my ORCID, but ask me for works where someone lists me as a creator/contributor
-          manual: Do not sync or notify you new works automatically, however syncing is available via the works section below
+          sync_all: Automatically sync all public works with my ORCID attached, even if I am not the depositor
+          sync_notify: Sync all public works I deposit to my ORCID, but ask me for works where someone lists me as a creator/contributor
+          manual: Do not sync or notify you new public works automatically, however syncing is available via the works section below
     notify:
       notification:
         subject: |

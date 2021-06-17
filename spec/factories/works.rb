@@ -52,7 +52,19 @@ FactoryBot.define do
     contributor { [''] }
   end
 
-  factory :task_master_work, parent: :work do
+  trait :public do
+    visibility { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
+  end
+
+  trait :private do
+    visibility { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE }
+  end
+
+  trait :authenticate do
+    visibility { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED }
+  end
+
+  factory :task_raster_work, parent: :work do
     sequence(:title) { |n| ["Test Title #{n}"] }
 
     transient do

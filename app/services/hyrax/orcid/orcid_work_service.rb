@@ -11,10 +11,16 @@ module Hyrax
       end
 
       def publish
+        return unless visible?
+
+        request_method = previously_uploaded? ? :put : :post
         @response = Faraday.send(request_method, request_url, xml, headers)
 
         update_identity if @response.success?
       end
+
+      # TODO: Add unpublish works from orcid
+      def unpublish; end
 
       protected
 
@@ -27,10 +33,6 @@ module Hyrax
           meta.orcid_xml("other", orcid_work.put_code)
         end
 
-        def request_method
-          previously_uploaded? ? :put : :post
-        end
-
         def request_url
           orcid_api_uri(@identity.orcid_id, :work, orcid_work.put_code)
         end
@@ -40,6 +42,10 @@ module Hyrax
             "authorization" => "Bearer #{@identity.access_token}",
             "Content-Type" => "application/vnd.orcid+xml"
           }
+        end
+
+        def visible?
+          @work.visibility == Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
         end
 
       private

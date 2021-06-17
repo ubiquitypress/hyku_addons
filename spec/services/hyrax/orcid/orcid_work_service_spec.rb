@@ -7,7 +7,7 @@ RSpec.describe Hyrax::Orcid::OrcidWorkService do
   let(:service) { described_class.new(work, orcid_identity) }
   let(:user) { create(:user, orcid_identity: orcid_identity) }
   let(:orcid_identity) { create(:orcid_identity, work_sync_preference: sync_preference) }
-  let(:work) { create(:work, user: user, **work_attributes) }
+  let(:work) { create(:work, :public, user: user, **work_attributes) }
   let(:work_attributes) do
     {
       "title" => ["Moomin"],
@@ -36,6 +36,33 @@ RSpec.describe Hyrax::Orcid::OrcidWorkService do
       { "location" => "http://api.sandbox.orcid.org/#{api_version}/#{orcid_id}/work/#{put_code}" }
     end
 
+    describe "the works visbility" do
+      before do
+        allow(Faraday).to receive(:send).and_return(faraday_response)
+
+        service.publish
+      end
+
+      context "when the work is public" do
+        let(:work) { create(:work, :public, user: user, **work_attributes) }
+
+        it { expect(Faraday).to have_received(:send) }
+      end
+
+      context "when the work is private" do
+        let(:work) { create(:work, :private, user: user, **work_attributes) }
+
+        it { expect(Faraday).not_to have_received(:send) }
+      end
+
+      context "when the work is restricted to the institution" do
+        let(:work) { create(:work, :authenticate, user: user, **work_attributes) }
+
+        it { expect(Faraday).not_to have_received(:send) }
+      end
+    end
+
+
     context "when the work has not been published to ORCID yet" do
       # Even though we have the put_code set, not passing it in here, will remove it from the XML output
       let(:xml) { meta.orcid_xml(type, nil) }
@@ -44,7 +71,7 @@ RSpec.describe Hyrax::Orcid::OrcidWorkService do
       before do
         allow(Faraday).to receive(:send).and_return(faraday_response)
 
-        service.perform
+        service.publish
       end
 
       it "calls Faraday" do
@@ -56,7 +83,7 @@ RSpec.describe Hyrax::Orcid::OrcidWorkService do
 
         expect(orcid_work).to be_present
         expect(orcid_work.work_uuid).to eq work.id
-        expect(orcid_work.put_code).to eq put_code
+        expect(orcid_work.put_code.to_s).to eq put_code
       end
     end
 
@@ -67,10 +94,10 @@ RSpec.describe Hyrax::Orcid::OrcidWorkService do
       before do
         allow(Faraday).to receive(:send).and_return(faraday_response)
 
-        # By adding the orcid work to the identity, we ensure that a PUT update request is performed
+        # By adding the orcid work to the identity, we ensure that a PUT update request is published
         orcid_identity.orcid_works << orcid_work
 
-        service.perform
+        service.publish
       end
 
       it "calls Faraday" do
@@ -117,23 +144,6 @@ RSpec.describe Hyrax::Orcid::OrcidWorkService do
 
     context "when the work was not published" do
       it { expect(service.send(:previously_uploaded?)).to be false }
-    end
-  end
-
-  describe "#request_method" do
-    context "when the work was published" do
-      let(:put_code) { "123456" }
-      let(:orcid_work) { create(:orcid_work, orcid_identity: orcid_identity, work_uuid: work.id, put_code: put_code) }
-
-      before do
-        orcid_identity.orcid_works << orcid_work
-      end
-
-      it { expect(service.send(:request_method)).to be :put }
-    end
-
-    context "when the work was not published" do
-      it { expect(service.send(:request_method)).to be :post }
     end
   end
 
