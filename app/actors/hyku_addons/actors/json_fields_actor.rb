@@ -14,6 +14,7 @@ module HykuAddons
 
         def jsonify_fields(env)
           env.curation_concern.class.json_fields.each do |field|
+            field = field.first if field.is_a?(Array) # This handles the case when field is a key/value pair coming from the yaml schema
             if name_blank?(field, env.attributes[field]) || recursive_blank?(env.attributes[field])
               env.attributes.delete(field)
             else
