@@ -1,0 +1,34 @@
+<div class="list-group-item">
+	<b><%= t("orcid_identity.preferences.works.title") %></b>
+</div>
+
+<div class="table-responsive" id="documents">
+	<table id="works-table" class="table table-striped works-list">
+		<thead>
+			<tr>
+				<th>Work title</th>
+				<th>Creator(s)</th>
+				<th>Work type</th>
+				<th>Visibility</th>
+				<th>Source</th>
+				<th>Sync to ORCID?</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><a href="">The work title</a></td>
+				<td>John Smith, Elenor Johnson... </td>
+				<td>Generic Work</td>
+				<td><span class="badge badge-success">Public</span></td>
+				<td>ORID</td>
+				<td>
+					<div class="check">
+						<%= label_tag do %>
+							<input type="checkbox" class="form-check-input" checked="checked">
+						<% end %>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
