@@ -62,7 +62,6 @@ RSpec.describe Hyrax::Orcid::OrcidWorkService do
       end
     end
 
-
     context "when the work has not been published to ORCID yet" do
       # Even though we have the put_code set, not passing it in here, will remove it from the XML output
       let(:xml) { meta.orcid_xml(type, nil) }

@@ -37,18 +37,18 @@ module Hyrax
 
       protected
 
-      def json_for_term(term)
-        @work.send(term).first
-      end
+        def json_for_term(term)
+          @work.send(term).first
+        end
 
-      # Required for WorkFormNameable to function correctly
-      def meta_model
-        @work.class.name
-      end
+        # Required for WorkFormNameable to function correctly
+        def meta_model
+          @work.class.name
+        end
 
-      def validate!
-        raise ArgumentError, "A work is required" unless @work.is_a?(ActiveFedora::Base)
-      end
+        def validate!
+          raise ArgumentError, "A work is required" unless @work.is_a?(ActiveFedora::Base)
+        end
     end
   end
 end
