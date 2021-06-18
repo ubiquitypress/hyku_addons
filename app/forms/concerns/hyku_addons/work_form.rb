@@ -5,11 +5,6 @@ module HykuAddons
 
     include HykuAddons::PersonOrOrganizationFormBehavior
 
-    included do
-      class_attribute :primary_fields
-      self.primary_fields = []
-    end
-
     class_methods do
       # Group all params here so save on boiler plate
       def build_permitted_params
@@ -123,9 +118,11 @@ module HykuAddons
     end
 
     def primary_terms
-      pt = primary_fields | super
-      pt += %i[admin_set_id] if Flipflop.enabled?(:simplified_admin_set_selection)
-      pt
+      if Flipflop.enabled?(:simplified_admin_set_selection)
+        super + %i[admin_set_id]
+      else
+        super
+      end
     end
 
     def initialize(model, current_ability, controller)
