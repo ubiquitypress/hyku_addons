@@ -8,23 +8,23 @@ module HykuAddons
         class_attribute :primary_fields
         self.primary_fields = []
         self.required_fields = []
+
+        def self.build_permitted_params
+          super.tap do |permitted_params|
+            model_class.json_fields.each do |field, field_config|
+              permitted_params << { field => field_config['subfields'].keys.map { |subfield| field_config['subfields'][subfield]['form']['multiple'] ? { subfield.to_sym => [] } : subfield.to_sym } }
+            end
+            model_class.date_fields.each do |field|
+              permitted_params << { field => ["#{field}_year".to_sym, "#{field}_month".to_sym, "#{field}_day".to_sym] }
+            end
+          end
+        end
       end
 
       def primary_terms
         pt = primary_fields | super
         pt += %i[admin_set_id] if Flipflop.enabled?(:simplified_admin_set_selection)
         pt
-      end
-
-      def self.build_permitted_params
-        super.tap do |permitted_params|
-          model_class.json_fields.each do |field, field_config|
-            permitted_params << { field => field_config['subfields'].keys.map {|subfield| field_config['subfields'][subfield]['form']['multiple'] ? { subfield.to_sym => [] } : subfield.to_sym } }
-          end
-          model_class.date_fields.each do |field|
-            permitted_params << { field => ["#{field}_year".to_sym, "#{field}_month".to_sym, "#{field}_day".to_sym] }
-          end
-        end
       end
 
       def initialize(model, current_ability, controller)
