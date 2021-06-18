@@ -2,13 +2,13 @@
 
 module Hyrax
   module Orcid
-    class WorkUnpublisherJob < ApplicationJob
+    class PublishWorkJob < ApplicationJob
       queue_as Hyrax.config.ingest_queue_name
 
-      def perform(work)
+      def perform(work, identity)
         return unless Flipflop.enabled?(:orcid_identities)
 
-        Hyrax::Orcid::WorkUnpublisher.new(work).perform
+        Hyrax::Orcid::OrcidWorkService.new(work, identity).publish
       end
     end
   end

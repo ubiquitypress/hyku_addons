@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Hyrax::Actors::Orcid::WorkActor do
+RSpec.describe Hyrax::Actors::Orcid::UnpublishWorkActor do
   subject(:actor) { described_class.new(next_actor) }
   let(:ability) { Ability.new(user) }
   let(:env) { Hyrax::Actors::Environment.new(work, ability, {}) }
@@ -23,7 +23,7 @@ RSpec.describe Hyrax::Actors::Orcid::WorkActor do
       ]
     }
   end
-  let(:orcid_id) { "0000-0003-0652-4625" }
+  let(:orcid_id) { user.orcid_identity.orcid_id }
 
   before do
     allow(Flipflop).to receive(:enabled?).and_call_original
@@ -32,10 +32,10 @@ RSpec.describe Hyrax::Actors::Orcid::WorkActor do
     ActiveJob::Base.queue_adapter = :test
   end
 
-  describe "#create" do
+  describe "#destroy" do
     context "when orcid_identities is enabled" do
       it "enqueues a job" do
-        expect { actor.create(env) }.to have_enqueued_job(Hyrax::Orcid::IdentityStrategyDelegatorJob)
+        expect { actor.destroy(env) }.to have_enqueued_job(Hyrax::Orcid::UnpublishWorkDelegatorJob)
           .with(work)
           .on_queue(Hyrax.config.ingest_queue_name)
       end
@@ -47,27 +47,7 @@ RSpec.describe Hyrax::Actors::Orcid::WorkActor do
       end
 
       it "does not enqueue a job" do
-        expect { actor.create(env) }.not_to have_enqueued_job(Hyrax::Orcid::IdentityStrategyDelegatorJob)
-      end
-    end
-  end
-
-  describe "#update" do
-    context "when orcid_identities is enabled" do
-      it "enqueues a job" do
-        expect { actor.update(env) }.to have_enqueued_job(Hyrax::Orcid::IdentityStrategyDelegatorJob)
-          .with(work)
-          .on_queue(Hyrax.config.ingest_queue_name)
-      end
-    end
-
-    context "when orcid_identities is disabled" do
-      before do
-        allow(Flipflop).to receive(:enabled?).with(:orcid_identities).and_return(false)
-      end
-
-      it "does not enqueue a job" do
-        expect { actor.update(env) }.not_to have_enqueued_job(Hyrax::Orcid::IdentityStrategyDelegatorJob)
+        expect { actor.destroy(env) }.not_to have_enqueued_job(Hyrax::Orcid::UnpublishWorkDelegatorJob)
       end
     end
   end

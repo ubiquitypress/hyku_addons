@@ -536,7 +536,9 @@ module HykuAddons
 
       User.include Hyrax::Orcid::UserBehavior
       Bolognese::Metadata.prepend Bolognese::Writers::OrcidXmlWriter
-      actors = [Hyrax::Actors::ModelActor, Hyrax::Actors::Orcid::WorkActor]
+      Hyrax::CurationConcern.actor_factory.use Hyrax::Actors::Orcid::PublishWorkActor
+      # Because the Hyrax::ModelActor does not call next_actor and continue the chain, we require a new actor
+      actors = [Hyrax::Actors::ModelActor, Hyrax::Actors::Orcid::UnpublishWorkActor]
       Hyrax::CurationConcern.actor_factory.insert_before(*actors)
     end
 

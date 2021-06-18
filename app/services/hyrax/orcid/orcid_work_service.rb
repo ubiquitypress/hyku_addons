@@ -25,7 +25,7 @@ module Hyrax
 
         @response = Faraday.send(:delete, request_url, nil, headers)
 
-        orcid_work.destory if @response.success?
+        orcid_work.destroy if @response.success?
       end
 
       protected

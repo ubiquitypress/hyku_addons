@@ -21,6 +21,8 @@ module Hyrax
           target = "#{term}_orcid"
           json = json_for_term(term)
 
+          next unless json.present?
+
           JSON.parse(json).select { |person| person.dig(target).present? }.each do |person|
             @orcids << validate_orcid(person.dig(target))
           end
