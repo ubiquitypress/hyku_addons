@@ -30,10 +30,6 @@ class AnschutzWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :source, predicate: ::RDF::Vocab::DC.source do |index|
-    index.as :stored_searchable
-  end
-
   property :journal_frequency, predicate: ::RDF::Vocab::DC.term(:Frequency), multiple: false do |index|
     index.as :stored_searchable
   end

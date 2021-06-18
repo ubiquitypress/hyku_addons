@@ -16,6 +16,7 @@ json.audience work.try(:audience)
 json.book_title work.try(:book_title)
 json.buy_book work.try(:buy_book)
 json.challenged work.try(:challenged)
+json.citation work.try(:citation)
 json.cname @account.cname
 #                                         "collections" => nil,
 creator = work.creator.try(:first)
@@ -37,6 +38,7 @@ json.edition work.try(:edition)
 #                                         "eissn" => nil,
 #                                         "event_date" => nil,
 json.event_location work.try(:event_location)
+json.extent work.tey(:extent)
 #                                         "event_title" => nil,
 json.files do
   json.has_private_files work.file_set_presenters.any? { |fsp| fsp.solr_document.private? }
@@ -44,6 +46,7 @@ json.files do
   json.has_public_files work.file_set_presenters.any? { |fsp| fsp.solr_document.public? }
 end
 #                                         "funder" => nil,
+json.funding_description work.try(:funding_description)
 #                                         "funder_project_reference" => nil,
 #                                         "institution" => nil,
 json.irb_number work.try(:irb_number)
@@ -53,6 +56,7 @@ json.isbn work.try(:isbn)
 json.issn work.try(:issn)
 json.issue work.try(:issue)
 json.journal_title work.try(:journal_title)
+json.journal_frequency work.try(:journal_frequency)
 json.keywords work.keyword
 if work.language.present?
   language_service = HykuAddons::LanguageService.new
@@ -83,6 +87,8 @@ json.location work.try(:location)
 json.latitude work.try(:latitude)
 json.longitude work.try(:longitude)
 #                                         "material_media" => nil,
+json.medium work.try(:medium)
+json.mesh work.try(:mesh)
 #                                         "migration_id" => nil,
 #                                         "official_url" => nil,
 json.official_link work.try(:official_link)
@@ -100,6 +106,7 @@ json.publisher work.publisher
 json.qualification_level work.try(:qualification_level)
 json.qualification_name work.try(:qualification_name)
 json.reading_level work.try(:reading_level)
+json.references work.try(:references)
 json.refereed work.try(:refereed)
 #                                         "related_exhibition" => nil,
 #                                         "related_exhibition_date" => nil,
@@ -130,6 +137,7 @@ json.rights_statement work.rights_statement
 json.series_name work.try(:series_name)
 json.source work.source
 json.subject work.subject
+json.subject_text work.try(:subject_text)
 json.suggested_reviewers work.try(:suggested_reviewers)
 json.suggested_student_reviewers work.try(:suggested_student_reviewers)
 # json.thumbnail_base64_string nil
