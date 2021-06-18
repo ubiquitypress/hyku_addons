@@ -5,6 +5,7 @@ module Hyrax
   module Orcid
     class OrcidWorkService
       include Hyrax::Orcid::UrlHelper
+      include Hyrax::Orcid::WorkHelper
 
       def initialize(work, identity)
         @work = work
@@ -52,14 +53,6 @@ module Hyrax
         def update_identity
           put_code = @response.headers.dig("location")&.split("/")&.last
           orcid_work.update(work_uuid: @work.id, put_code: put_code)
-        end
-
-        def previously_uploaded?
-          orcid_work.put_code.present?
-        end
-
-        def orcid_work
-          @_orcid_work ||= @identity.orcid_works.where(work_uuid: @work.id).first_or_initialize
         end
     end
   end

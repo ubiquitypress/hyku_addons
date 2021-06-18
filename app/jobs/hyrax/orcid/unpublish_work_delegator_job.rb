@@ -8,7 +8,7 @@ module Hyrax
       def perform(work)
         return unless Flipflop.enabled?(:orcid_identities)
 
-        Hyrax::Orcid::WorkUnpublisherDelegator.new(work).perform
+        Hyrax::Orcid::UnpublishWorkDelegator.new(work).perform
       end
     end
   end

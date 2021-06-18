@@ -6,6 +6,7 @@ module Hyrax
     module Strategy
       class SyncNotify
         include Hyrax::Orcid::UrlHelper
+        include Hyrax::Orcid::WorkHelper
 
         def initialize(work, identity)
           @work = work
@@ -21,10 +22,6 @@ module Hyrax
         end
 
         protected
-
-          def primary_user?
-            depositor == @identity.user
-          end
 
           def publish_work
             Hyrax::Orcid::OrcidWorkService.new(@work, @identity).publish
@@ -48,14 +45,6 @@ module Hyrax
 
           def message_subject
             I18n.t("orcid_identity.notify.notification.subject", depositor_description: depositor_description)
-          end
-
-          def depositor_description
-            "#{depositor.orcid_identity.name} (#{depositor.orcid_identity.orcid_id})"
-          end
-
-          def depositor
-            @_depositor ||= ::User.find_by_user_key @work.depositor
           end
       end
     end

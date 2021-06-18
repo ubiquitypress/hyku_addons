@@ -6,8 +6,7 @@ module Hyrax
       include HykuAddons::WorkFormNameable
       include Hyrax::Orcid::OrcidHelper
 
-      # TARGET_TERMS = %i[creator contributor].freeze
-      TARGET_TERMS = %i[creator].freeze
+      TARGET_TERMS = %i[creator contributor].freeze
 
       def initialize(work)
         @work = work
