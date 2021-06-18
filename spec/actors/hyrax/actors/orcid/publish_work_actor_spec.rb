@@ -26,6 +26,8 @@ RSpec.describe Hyrax::Actors::Orcid::PublishWorkActor do
   let(:orcid_id) { "0000-0003-0652-4625" }
 
   before do
+    work.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+
     allow(Flipflop).to receive(:enabled?).and_call_original
     allow(Flipflop).to receive(:enabled?).with(:orcid_identities).and_return(true)
 
@@ -50,6 +52,16 @@ RSpec.describe Hyrax::Actors::Orcid::PublishWorkActor do
         expect { actor.create(env) }.not_to have_enqueued_job(Hyrax::Orcid::IdentityStrategyDelegatorJob)
       end
     end
+
+    context "when the work is private" do
+      before do
+        work.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+      end
+
+      it "does not enqueue a job" do
+        expect { actor.create(env) }.not_to have_enqueued_job(Hyrax::Orcid::IdentityStrategyDelegatorJob)
+      end
+    end
   end
 
   describe "#update" do
@@ -68,6 +80,44 @@ RSpec.describe Hyrax::Actors::Orcid::PublishWorkActor do
 
       it "does not enqueue a job" do
         expect { actor.update(env) }.not_to have_enqueued_job(Hyrax::Orcid::IdentityStrategyDelegatorJob)
+      end
+    end
+
+    context "when the work is private" do
+      before do
+        work.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+      end
+
+      it "does not enqueue a job" do
+        expect { actor.update(env) }.not_to have_enqueued_job(Hyrax::Orcid::IdentityStrategyDelegatorJob)
+      end
+    end
+  end
+
+  describe "visible?" do
+    context "when the work is public" do
+      it "is true" do
+        expect(actor.send(:visible?, env)).to be_truthy
+      end
+    end
+
+    context "when the work is private" do
+      before do
+        work.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+      end
+
+      it "is false" do
+        expect(actor.send(:visible?, env)).to be_falsey
+      end
+    end
+
+    context "when the work is restricted to the institution" do
+      before do
+        work.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED
+      end
+
+      it "is false" do
+        expect(actor.send(:visible?, env)).to be_falsey
       end
     end
   end

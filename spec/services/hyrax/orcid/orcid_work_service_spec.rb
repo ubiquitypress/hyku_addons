@@ -36,32 +36,6 @@ RSpec.describe Hyrax::Orcid::OrcidWorkService do
       { "location" => "http://api.sandbox.orcid.org/#{api_version}/#{orcid_id}/work/#{put_code}" }
     end
 
-    describe "the works visbility" do
-      before do
-        allow(Faraday).to receive(:send).and_return(faraday_response)
-
-        service.publish
-      end
-
-      context "when the work is public" do
-        let(:work) { create(:work, :public, user: user, **work_attributes) }
-
-        it { expect(Faraday).to have_received(:send) }
-      end
-
-      context "when the work is private" do
-        let(:work) { create(:work, :private, user: user, **work_attributes) }
-
-        it { expect(Faraday).not_to have_received(:send) }
-      end
-
-      context "when the work is restricted to the institution" do
-        let(:work) { create(:work, :authenticate, user: user, **work_attributes) }
-
-        it { expect(Faraday).not_to have_received(:send) }
-      end
-    end
-
     context "when the work has not been published to ORCID yet" do
       # Even though we have the put_code set, not passing it in here, will remove it from the XML output
       let(:xml) { meta.orcid_xml(type, nil) }
@@ -103,6 +77,14 @@ RSpec.describe Hyrax::Orcid::OrcidWorkService do
         expect(Faraday).to have_received(:send).with(:put, url, xml, service.send(:headers))
       end
     end
+  end
+
+  describe "#unpublish" do
+
+  end
+
+  describe "#notify_unpublished" do
+
   end
 
   describe "#request_url" do

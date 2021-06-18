@@ -19,7 +19,7 @@ module Hyrax
         protected
 
           def delegate_work_strategy(env)
-            return unless enabled?
+            return unless enabled? && visible?(env)
 
             # TODO: Put this in a configuration object
             action = "perform_#{Rails.env.development? ? 'now' : 'later'}"
@@ -27,6 +27,10 @@ module Hyrax
           end
 
         private
+
+          def visible?(env)
+            env.curation_concern.visibility == Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+          end
 
           def enabled?
             Flipflop.enabled?(:orcid_identities)

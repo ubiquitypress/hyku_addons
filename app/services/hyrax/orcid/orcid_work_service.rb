@@ -12,8 +12,6 @@ module Hyrax
       end
 
       def publish
-        return unless visible?
-
         request_method = previously_uploaded? ? :put : :post
         @response = Faraday.send(request_method, request_url, xml, headers)
 
@@ -21,8 +19,6 @@ module Hyrax
       end
 
       def unpublish
-        return unless visible?
-
         @response = Faraday.send(:delete, request_url, nil, headers)
 
         orcid_work.destroy if @response.success?
@@ -50,9 +46,6 @@ module Hyrax
           }
         end
 
-        def visible?
-          @work.visibility == Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
-        end
 
       private
 
