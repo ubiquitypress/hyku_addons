@@ -5,9 +5,10 @@ module HykuAddons
       extend ActiveSupport::Concern
 
       included do
-        class_attribute :primary_fields
+        class_attribute :primary_fields, :field_configs
         self.primary_fields = []
         self.required_fields = []
+        self.field_configs = {}
 
         def self.build_permitted_params
           super.tap do |permitted_params|

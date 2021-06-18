@@ -68,6 +68,7 @@ attributes:
           required: false
           multiple: false
           type: select
+          authority: HykuAddons::InstitutionalRelationshipService
           display_for:
             - personal
       creator_organization_name:
@@ -217,20 +218,23 @@ attributes:
       contributor_name_type:
         type: string
         form:
-          required: true
+          required: false
           multiple: false
+          type: select
       contributor_family_name:
         type: string
         form:
-          required: true
+          required: false
           multiple: false
+          type: text
           display_for:
             - personal
       contributor_given_name:
         type: string
         form:
-          required: true
+          required: false
           multiple: false
+          type: text
           display_for:
             - personal
       contributor_orcid:
@@ -238,6 +242,7 @@ attributes:
         form:
           required: false
           multiple: false
+          type: text
           display_for:
             - personal
       contributor_institutional_relationship:
@@ -245,6 +250,8 @@ attributes:
         form:
           required: false
           multiple: false
+          type: select
+          authority: HykuAddons::ContributorInstitutionalRelationshipService
           display_for:
             - personal
       contributor_organization_name:
@@ -252,6 +259,7 @@ attributes:
         form:
           required: false
           multiple: false
+          type: text
           display_for:
             - organizational
       contributor_ror:
@@ -259,6 +267,7 @@ attributes:
         form:
           required: false
           multiple: false
+          type: text
           display_for:
             - organizational
       contributor_grid:
@@ -266,6 +275,7 @@ attributes:
         form:
           required: false
           multiple: false
+          type: text
           display_for:
             - organizational
       contributor_wikidata:
@@ -273,6 +283,7 @@ attributes:
         form:
           required: false
           multiple: false
+          type: text
           display_for:
             - organizational
       contributor_isni:
@@ -280,6 +291,7 @@ attributes:
         form:
           required: false
           multiple: false
+          type: text
           display_for:
             - personal
             - organizational
@@ -288,6 +300,8 @@ attributes:
         form:
           required: false
           multiple: true
+          type: select
+          authority: HykuAddons::RoleService
           display_for:
             - personal
             - organizational
@@ -400,6 +414,7 @@ attributes:
       type: text
   committee_member:
     type: string
+    # FIXME: I made up this predicate
     predicate: http://purl.org/dc/terms/contributor#committee_member
     multiple: true
     index_keys:

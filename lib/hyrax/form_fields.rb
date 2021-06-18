@@ -33,7 +33,13 @@ module Hyrax
     ##
     # @return [Hash{Symbol => Hash{Symbol => Object}}]
     def form_field_definitions
-      @definition_loader.form_definitions_for(schema: name)
+      definitions = @definition_loader.form_definitions_for(schema: name)
+      attributes = @definition_loader.attributes_config_for(schema: name)
+      definitions.each_key do |d|
+        next unless attributes[d].key?('subfields')
+        definitions[d]['subfields'] = attributes[d]['subfields'].transform_values { |subfield| subfield['form'] }
+      end
+      definitions
     end
 
     ##
@@ -51,6 +57,7 @@ module Hyrax
           descendant.terms += [field_name.to_sym]
           descendant.required_fields += [field_name.to_sym] if options[:required]
           descendant.primary_fields += [field_name.to_sym] if options[:primary]
+          descendant.field_configs[field_name.to_sym] = options
         end
       end
   end
