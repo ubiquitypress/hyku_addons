@@ -95,9 +95,6 @@ terms:
   - id: Philosophy
     term: Philosophy
     active: true
-  - id: Philosophy
-    term: Philosophy
-    active: true
   - id: Physical Education
     term: Physical Education
     active: true
@@ -127,9 +124,6 @@ terms:
     active: true
   - id: Spanish
     term: Spanish
-    active: true
-  - id: Teaching and Learning
-    term: Teaching and Learning
     active: true
   - id: Teaching and Learning
     term: Teaching and Learning

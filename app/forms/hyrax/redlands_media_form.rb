@@ -11,7 +11,7 @@ module Hyrax
                  org_unit language license date_published event_location official_link contributor location
                  longitude latitude add_info]
     self.terms -= %i[rights_statement related_url publisher]
-    self.required_fields = %i[title alt_title resource_type creator alt_email abstract keyword subject
+    self.required_fields = %i[title resource_type creator alt_email abstract keyword subject
                               org_unit language license date_published event_location]
 
     include Hyrax::DOI::DOIFormBehavior

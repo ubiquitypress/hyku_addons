@@ -11,10 +11,14 @@
     <div id="work-diff-show" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="work-diff-show">
       <div class="accordion-body ">
         <%  diff_renderer = Hyrax::Renderers::WorkMetadataDiffRenderer.new(@entry, self) %>
-        <h3>Differences: </h3>
         <div class="overflow-wrap-break">
           <%= diff_renderer.render_diff_from_local_status %>
         </div>
+        <p>
+          <span class="label label-success">Additions</span>
+          <span class="label label-danger">Deletions</span>
+          <span class="label label-info">Changes</span>
+        </p>
       </div>
     </div>
   </div>

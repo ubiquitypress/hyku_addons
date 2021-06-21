@@ -118,6 +118,7 @@ module HykuAddons
       attribute :extent, SolrDocument::Solr::Array, solr_name('extent')
       attribute :medium, SolrDocument::Solr::Array, solr_name('medium')
 
+
       # Override OAI-PMH field mappings
       field_semantics.merge!(
         contributor: ['contributor_display_ssim', 'editor_display_ssim', 'funder_tesim'],
