@@ -38,7 +38,7 @@ json.edition work.try(:edition)
 #                                         "eissn" => nil,
 #                                         "event_date" => nil,
 json.event_location work.try(:event_location)
-json.extent work.tey(:extent)
+json.extent work.try(:extent)
 #                                         "event_title" => nil,
 json.files do
   json.has_private_files work.file_set_presenters.any? { |fsp| fsp.solr_document.private? }
