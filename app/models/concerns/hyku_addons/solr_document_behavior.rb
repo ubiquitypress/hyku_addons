@@ -108,7 +108,15 @@ module HykuAddons
       attribute :audience, SolrDocument::Solr::Array, solr_name('audience')
       attribute :related_material, SolrDocument::Solr::Array, solr_name('related_material')
       attribute :advisor, SolrDocument::Solr::Array, solr_name('advisor')
-
+      attribute :subject_text, SolrDocument::Solr::Array, solr_name('subject_text')
+      attribute :mesh, SolrDocument::Solr::Array, solr_name('mesh')
+      attribute :source, SolrDocument::Solr::Array, solr_name('source')
+      attribute :journal_frequency, SolrDocument::Solr::Array, solr_name('journal_frequency')
+      attribute :funding_description, SolrDocument::Solr::Array, solr_name('funding_description')
+      attribute :citation, SolrDocument::Solr::Array, solr_name('citation')
+      attribute :references, SolrDocument::Solr::Array, solr_name('references')
+      attribute :extent, SolrDocument::Solr::Array, solr_name('extent')
+      attribute :medium, SolrDocument::Solr::Array, solr_name('medium')
       # Override OAI-PMH field mappings
       field_semantics.merge!(
         contributor: ['contributor_display_ssim', 'editor_display_ssim', 'funder_tesim'],

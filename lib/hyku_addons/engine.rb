@@ -497,6 +497,7 @@ module HykuAddons
 
       Hyrax.config do |config|
         # Injected via `rails g hyrax:work HykuAddons::Article`
+        config.register_curation_concern :anschutz_work
         config.register_curation_concern :article
         config.register_curation_concern :book
         config.register_curation_concern :book_contribution

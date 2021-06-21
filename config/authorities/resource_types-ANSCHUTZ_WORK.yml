@@ -1,0 +1,25 @@
+terms:
+  - id: Collection
+    term: Collection
+  - id: Dataset
+    term: Dataset
+  - id: Event
+    term: Event
+  - id: Image
+    term: Image
+  - id: Interactive Resource
+    term: Interactive Resource
+  - id: Moving Image
+    term: Moving Image
+  - id: Physical Object
+    term: Physical Object
+  - id: Service
+    term: Service
+  - id: Software
+    term: Software
+  - id: Sound
+    term: Sound
+  - id: Still Image
+    term: Still Image
+  - id: Text
+    term: Text
