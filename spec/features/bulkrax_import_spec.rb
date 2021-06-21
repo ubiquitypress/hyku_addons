@@ -135,8 +135,10 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
           work = GenericWork.first
           expect(work.visibility).to eq 'open'
           expect(work.file_sets.size).to eq 3
+          expect(work.ordered_members.to_a.first.title).to eq ["Lerna"]
           expect(work.ordered_members.to_a.first.visibility).to eq 'restricted'
           expect(work.ordered_members.to_a.second.visibility).to eq 'open'
+          expect(work.ordered_members.to_a.second.title).to eq ["nypl-hydra-of-lerna.jpg"]
           expect(work.ordered_members.to_a.third.visibility).to eq 'authenticated'
           expect(work.ordered_members.to_a.third.embargo_release_date).to eq '2029-07-01'
           expect(work.ordered_members.to_a.third.visibility_after_embargo).to eq 'open'
@@ -194,6 +196,33 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
         expect { Bulkrax::ImporterJob.perform_now(importer.id) }.to change { GenericWork.count }.by(1)
         work = GenericWork.where(source_identifier: source_identifier).first
         expect(work.id).not_to eq source_identifier
+      end
+    end
+  end
+
+  describe "hyrax_record" do
+    context "with identifiers" do
+      it "returns the work created" do
+        Bulkrax::ImporterJob.perform_now(importer.id)
+        importer.entries.each do |entry|
+          next unless entry.is_a?(HykuAddons::CsvEntry)
+          work = PacificArticle.find(entry.identifier)
+          expect(entry.hyrax_record).to eq work
+        end
+      end
+    end
+
+    context "when only source_identifier is present" do
+      let(:import_batch_file) { 'spec/fixtures/csv/generic_work.csv' }
+      let(:source_identifier) { 'external-id-1' }
+
+      it "return the work imported" do
+        Bulkrax::ImporterJob.perform_now(importer.id)
+        importer.entries.each do |entry|
+          next unless entry.is_a?(HykuAddons::CsvEntry)
+          work = GenericWork.all.first
+          expect(entry.hyrax_record).to eq work
+        end
       end
     end
   end

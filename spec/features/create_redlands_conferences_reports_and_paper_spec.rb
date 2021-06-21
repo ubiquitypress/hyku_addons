@@ -9,6 +9,11 @@ RSpec.feature 'Create a RedlandsConferencesReportsAndPaper', js: false do
   include_context 'create redlands work user context' do
     let(:work_type) { "redlands_conferences_reports_and_paper" }
 
+    def visit_new_work_page
+      visit "concern/#{work_type.to_s.pluralize}/new"
+      expect(page).to have_content "Add New Redlands Conferences Reports And Paper"
+    end
+
     scenario do
       visit_new_work_page
       add_files_to_work
