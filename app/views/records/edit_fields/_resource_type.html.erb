@@ -2,4 +2,4 @@
 <%= f.input :resource_type, as: :select,
             collection: HykuAddons::ResourceTypesService.new(model: model_name).select_active_options,
             include_blank: true,
-            input_html: { name: "#{model_name}[resource_type][]", class: 'form-control' } %>
+            input_html: { name: "#{model_name.to_s.underscore}[resource_type][]", class: 'form-control' } %>
