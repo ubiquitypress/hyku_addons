@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      anschutz_work:     'fa fa-file-text-o'
+    select_type:
+      anschutz_work:
+        description:        "Anschutz work Werke"
+        name:               "Anschutz Work"
