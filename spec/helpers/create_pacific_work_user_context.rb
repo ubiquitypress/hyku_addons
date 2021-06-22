@@ -27,15 +27,6 @@ RSpec.shared_context 'create pacific work user context' do
     login_as user
   end
 
-  scenario "Create popup", js: true do
-    visit '/dashboard'
-    click_link "Works"
-    click_link "Add new work"
-    choose "payload_concern", option: work_type.to_s.camelize
-    click_button "Create work"
-    expect(page).to have_content "Add New #{human_work_type_name}"
-  end
-
   def visit_new_work_page
     visit "concern/#{work_type.to_s.pluralize}/new"
     expect(page).to have_content "Add New Pacific #{human_work_type_name}"
