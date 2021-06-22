@@ -9,6 +9,8 @@ class PacificNewsClipping < ActiveFedora::Base
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
+  include ::HykuAddons::AddInfoSingular
+  
   property :reading_level, predicate: ::RDF::Vocab::SCHEMA.proficiencyLevel, multiple: false do |index|
     index.as :stored_searchable
   end

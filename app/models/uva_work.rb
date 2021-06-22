@@ -6,6 +6,7 @@ class UvaWork < ActiveFedora::Base
   include Hyrax::DOI::DOIBehavior
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
+  include ::HykuAddons::AddInfoSingular
 
   self.indexer = UvaWorkIndexer
   # Change this to restrict which works can be added as a child.
