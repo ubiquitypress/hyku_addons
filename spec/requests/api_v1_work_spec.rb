@@ -3,22 +3,17 @@ require 'rails_helper'
 
 RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multitenant: true do
   let(:account) { create(:account) }
-  let(:user) { create(:user) }
   let(:work) { nil }
 
   before do
-    WebMock.disable!
-    Apartment::Tenant.create(account.tenant)
-    Apartment::Tenant.switch(account.tenant) do
+    allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
+      block&.call
+    end
+
+    Apartment::Tenant.switch!(account.tenant) do
       Site.update(account: account)
-      user
       work
     end
-  end
-
-  after do
-    WebMock.enable!
-    Apartment::Tenant.drop(account.tenant)
   end
 
   describe "/work/:id" do
