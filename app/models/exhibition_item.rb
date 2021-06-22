@@ -7,7 +7,7 @@ class ExhibitionItem < ActiveFedora::Base
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
   include ::HykuAddons::AddInfoSingular
-  
+
   property :series_name, predicate: ::RDF::Vocab::BF2.subseriesOf do |index|
     index.as :stored_searchable, :facetable
   end

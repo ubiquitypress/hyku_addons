@@ -10,7 +10,7 @@ class PacificPresentation < ActiveFedora::Base
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
   include ::HykuAddons::AddInfoSingular
-  
+
   property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
     index.as :stored_searchable
   end

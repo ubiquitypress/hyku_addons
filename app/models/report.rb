@@ -49,7 +49,7 @@ class Report < ActiveFedora::Base
   end
 
   self.json_fields += %i[editor]
-  
+
   self.indexer = ReportIndexer
   validates :title, presence: { message: 'Your work must have a title.' }
 

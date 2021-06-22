@@ -10,7 +10,7 @@ class PacificArticle < ActiveFedora::Base
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
   include ::HykuAddons::AddInfoSingular
-  
+
   property :journal_title, predicate: ::RDF::Vocab::BIBO.Journal, multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
