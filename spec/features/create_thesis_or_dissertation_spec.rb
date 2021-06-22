@@ -2,6 +2,8 @@
 # Generated via
 #  `rails generate hyrax:work ThesisOrDissertation`
 require 'rails_helper'
+require File.expand_path('../helpers/create_work_user_context', __dir__)
+
 include Warden::Test::Helpers
 
 # NOTE: If you generated more than one work, you have to set "js: true"
