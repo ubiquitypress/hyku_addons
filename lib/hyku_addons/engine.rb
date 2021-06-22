@@ -432,7 +432,8 @@ module HykuAddons
         private
 
           # The attributes used for visibility - sent as initial params to created FileSets.
-          def visibility_attributes(attributes, file_set_attributes)
+          def visibility_attributes(attributes, uploaded_file)
+            file_set_attributes = Array(attributes[:file_set]).find { |fs| fs[:uploaded_file_id].to_i == uploaded_file&.id }
             attributes.merge(Hash(file_set_attributes).symbolize_keys).slice(:visibility, :visibility_during_lease,
                                                                              :visibility_after_lease, :lease_expiration_date,
                                                                              :embargo_release_date, :visibility_during_embargo,
