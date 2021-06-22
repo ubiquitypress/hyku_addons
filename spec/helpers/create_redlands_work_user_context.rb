@@ -28,12 +28,10 @@ RSpec.shared_context 'create redlands work user context' do
   end
 
   scenario "Create popup", js: true do
-    skip 'TODO: work type selection not working'
     visit '/dashboard'
     click_link "Works"
     click_link "Add new work"
     choose "payload_concern", option: work_type.to_s.camelize
-    # find("input[value='#{work_type.to_s.camelize}']", visible: true).find(:xpath, '..').click
     click_button "Create work"
     expect(page).to have_content "Add New #{human_work_type_name}"
   end
