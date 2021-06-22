@@ -32,7 +32,6 @@ RSpec.describe Hyrax::DOI::RegisterDOIJob, type: :job do
   end
 
   it 'mints a DOI' do
-    optional "fails randomnly on CI" if ENV["CI"]
     expect { described_class.perform_now(work, registrar: work.doi_registrar.presence, registrar_opts: work.doi_registrar_opts) }
       .to change { work.doi }
       .to eq [doi]

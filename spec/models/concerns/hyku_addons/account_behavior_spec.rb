@@ -54,7 +54,6 @@ RSpec.describe HykuAddons::AccountBehavior do
     end
 
     it 'resets the active connections back to the defaults' do
-      optional "fails randomly on CI" if ENV["CI"]
       account.switch do
         # no-op
       end
