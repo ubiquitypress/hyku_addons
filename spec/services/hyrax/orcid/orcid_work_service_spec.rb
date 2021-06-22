@@ -26,61 +26,117 @@ RSpec.describe Hyrax::Orcid::OrcidWorkService do
   let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
   let(:meta) { Bolognese::Readers::GenericWorkReader.new(input: input, from: "work") }
   let(:type) { "other" }
-  let(:put_code) { nil }
+  let(:put_code) { "123456" }
   let(:xml) { meta.orcid_xml(type, put_code) }
+  let(:orcid_work) { create(:orcid_work, orcid_identity: orcid_identity, work_uuid: work.id, put_code: put_code) }
+  let(:faraday_response) { instance_double(Faraday::Response, body: "", headers: response_headers, success?: true) }
+  let(:response_headers) { { "location" => url } }
+  let(:url) { "https://api.sandbox.orcid.org/#{api_version}/#{orcid_id}/work/#{put_code}" }
 
   describe "#publish" do
-    let(:faraday_response) { instance_double(Faraday::Response, body: "", headers: response_headers, success?: true) }
-    let(:put_code) { "123456" }
-    let(:response_headers) do
-      { "location" => "http://api.sandbox.orcid.org/#{api_version}/#{orcid_id}/work/#{put_code}" }
+    before do
+      allow(Faraday).to receive(:send).and_return(faraday_response)
     end
 
     context "when the work has not been published to ORCID yet" do
       # Even though we have the put_code set, not passing it in here, will remove it from the XML output
       let(:xml) { meta.orcid_xml(type, nil) }
+      let(:put_code) { "198765" }
       let(:url) { "https://api.sandbox.orcid.org/#{api_version}/#{orcid_id}/work" }
-
-      before do
-        allow(Faraday).to receive(:send).and_return(faraday_response)
-
-        service.publish
+      let(:response_headers) do
+        { "location" => "https://api.sandbox.orcid.org/#{api_version}/#{orcid_id}/work/#{put_code}"  }
       end
 
       it "calls Faraday" do
+        service.publish
+
         expect(Faraday).to have_received(:send).with(:post, url, xml, service.send(:headers))
       end
 
       it "adds the orcid_work association" do
-        orcid_work = orcid_identity.orcid_works.first
+        service.publish
 
-        expect(orcid_work).to be_present
-        expect(orcid_work.work_uuid).to eq work.id
-        expect(orcid_work.put_code.to_s).to eq put_code
+        identity_orcid_work = orcid_identity.orcid_works.first
+
+        expect(identity_orcid_work).to be_present
+        expect(identity_orcid_work.work_uuid).to eq work.id
+        expect(identity_orcid_work.put_code.to_s).to eq put_code
       end
     end
 
     context "when the work has been published to ORCID" do
-      let(:url) { "https://api.sandbox.orcid.org/#{api_version}/#{orcid_id}/work/#{put_code}" }
-      let(:orcid_work) { create(:orcid_work, orcid_identity: orcid_identity, work_uuid: work.id, put_code: put_code) }
-
       before do
-        allow(Faraday).to receive(:send).and_return(faraday_response)
-
         # By adding the orcid work to the identity, we ensure that a PUT update request is published
         orcid_identity.orcid_works << orcid_work
-
-        service.publish
+        orcid_identity.save
       end
 
       it "calls Faraday" do
+        service.publish
+
         expect(Faraday).to have_received(:send).with(:put, url, xml, service.send(:headers))
       end
     end
   end
 
   describe "#unpublish" do
+    let(:put_code) { "564375" }
+    let(:xml) { nil }
 
+    before do
+      allow(Faraday).to receive(:send).and_return(faraday_response)
+    end
+
+    context "when the creator is the depositor" do
+      before do
+        orcid_identity.orcid_works << orcid_work
+        orcid_identity.save
+      end
+
+      it "calls Faraday" do
+        service.unpublish
+
+        expect(Faraday).to have_received(:send).with(:delete, url, xml, service.send(:headers))
+      end
+
+      it "destroys the orcid_work record" do
+        service.unpublish
+
+        expect(orcid_identity.reload.orcid_works).to be_empty
+      end
+
+      it "doesn't create the notification" do
+        expect { service.unpublish }.not_to change { UserMailbox.new(user).inbox.count }
+      end
+    end
+
+    context "when the creator is not the depositor" do
+      let(:service) { described_class.new(work, orcid_identity2) }
+      let(:user2) { create(:user, orcid_identity: orcid_identity2) }
+      let(:orcid_identity2) { create(:orcid_identity, work_sync_preference: sync_preference) }
+      let(:orcid_id) { user2.orcid_identity.orcid_id }
+
+      before do
+        orcid_identity2.orcid_works << orcid_work
+        orcid_identity2.save
+      end
+
+      it "calls Faraday" do
+        service.unpublish
+
+        expect(Faraday).to have_received(:send).with(:delete, url, xml, service.send(:headers))
+      end
+
+      it "destroys the orcid_work record" do
+        service.unpublish
+
+        expect(orcid_identity.reload.orcid_works).to be_empty
+      end
+
+      it "creates the notification" do
+        expect { service.unpublish }.to change { UserMailbox.new(user2).inbox.count }.by(1)
+      end
+    end
   end
 
   describe "#notify_unpublished" do
@@ -90,7 +146,6 @@ RSpec.describe Hyrax::Orcid::OrcidWorkService do
   describe "#request_url" do
     context "when the work was published" do
       let(:put_code) { "123456" }
-      let(:orcid_work) { create(:orcid_work, orcid_identity: orcid_identity, work_uuid: work.id, put_code: put_code) }
       let(:url) { "https://api.sandbox.orcid.org/#{api_version}/#{orcid_id}/work/#{put_code}" }
 
       before do
@@ -114,7 +169,6 @@ RSpec.describe Hyrax::Orcid::OrcidWorkService do
   describe "#previously_uploaded?" do
     context "when the work was published" do
       let(:put_code) { "123456" }
-      let(:orcid_work) { create(:orcid_work, orcid_identity: orcid_identity, work_uuid: work.id, put_code: put_code) }
 
       before do
         orcid_identity.orcid_works << orcid_work

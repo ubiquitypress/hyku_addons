@@ -3,7 +3,8 @@
 FactoryBot.define do
   factory :orcid_identity do
     name { "John Smith" }
-    orcid_id { "0000-0003-0652-4625" }
+    # Create a random orcid_id, 4 groups of 4, 4 digit numbers, hyphen seperated, i.e. "6245-1498-7128-1812"
+    orcid_id { SecureRandom.random_number(10**16).to_s.scan(/.{1,4}/).join("-") }
     access_token { SecureRandom.uuid }
     token_type { "bearer" }
     refresh_token { SecureRandom.uuid }

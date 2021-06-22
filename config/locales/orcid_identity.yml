@@ -39,6 +39,14 @@ en:
           sync_all: Automatically sync all public works with my ORCID attached, even if I am not the depositor
           sync_notify: Sync all public works I deposit to my ORCID, but ask me for works where someone lists me as a creator/contributor
           manual: Do not sync or notify you new public works automatically, however syncing is available via the works section below
+      works:
+        title: Works
+    unpublish:
+      notification:
+        subject: |
+          %{depositor_description} has removed a work
+        body: |
+          <a href="%{depositor_profile}">%{depositor_description}</a> has removed a work inwhich you were a collatorator "%{work_title}".
     notify:
       notification:
         subject: |

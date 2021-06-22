@@ -22,7 +22,10 @@ module Hyrax
       def unpublish
         @response = Faraday.send(:delete, request_url, nil, headers)
 
-        orcid_work.destroy if @response.success?
+        if @response.success?
+          notify_unpublished
+          orcid_work.destroy
+        end
       end
 
       protected
@@ -47,8 +50,19 @@ module Hyrax
           }
         end
 
+        def notify_unpublished
+          return if primary_user?
 
-      private
+          subject = I18n.t("orcid_identity.unpublish.notification.subject", depositor_description: depositor_description)
+          params = {
+            depositor_profile: orcid_profile_uri(depositor.orcid_identity.orcid_id),
+            depositor_description: depositor_description,
+            work_title: @work.title.first
+          }
+          body = I18n.t("orcid_identity.unpublish.notification.body", params)
+
+          depositor.send_message(@identity.user, body, subject)
+        end
 
         def update_identity
           put_code = @response.headers.dig("location")&.split("/")&.last
