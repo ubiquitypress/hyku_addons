@@ -120,16 +120,22 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
 
       # Compare headers (except file)
       expect(export_headers).to include(*import_headers.without("file"))
+      import_header_id = import_headers.index("id")
+      export_header_id = export_headers.index("id")
 
       # Compare values
       import_entries = import_csv_array.sort_by(&:first)
       export_entries = export_csv_array.sort_by(&:first)
 
-      import_headers.each_with_index do |field, col|
-        next if field == "file" # TODO: Add matching for this?
-        export_col = export_headers.index(field)
-        # FIXME: Should fail sometimes because publisher -> multiple values are unordered
-        expect(export_entries.collect { |r| r[export_col].presence }).to eq import_entries.collect { |r| r[col].presence }
+      export_entries.each do |export_entry|
+        import_entry = import_entries.find { |e| e[import_header_id] == export_entry[export_header_id] }
+
+        import_headers.each_with_index do |field, col|
+          next if field == "file" # TODO: Add matching for this?
+          export_col = export_headers.index(field)
+          # Handle multi-valued fields by spliting on both sides and using contain_exactly
+          expect(Array(export_entry[export_col].presence&.split("|"))).to contain_exactly(*Array(import_entry[col].presence&.split("|")))
+        end
       end
     end
 

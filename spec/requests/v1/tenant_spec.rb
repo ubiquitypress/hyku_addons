@@ -8,14 +8,11 @@ RSpec.describe Hyku::API::V1::TenantController, type: :request, clean: true, mul
   let(:work_types) { ["Article", "Book", "ThesisOrDissertation", "BookChapter"] }
 
   before do
-    WebMock.disable!
-    Apartment::Tenant.create(account.tenant)
-    Apartment::Tenant.switch(account.tenant) { Site.update(account: account) }
-  end
+    allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
+      block&.call
+    end
 
-  after do
-    WebMock.enable!
-    Apartment::Tenant.drop(account.tenant)
+    Apartment::Tenant.switch!(account.tenant) { Site.update(account: account) }
   end
 
   describe "/tenant/:id" do
