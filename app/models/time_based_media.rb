@@ -7,6 +7,7 @@ class TimeBasedMedia < ActiveFedora::Base
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
+  include ::HykuAddons::AddInfoSingular
 
   property :media, predicate: ::RDF::Vocab::MODS.physicalForm do |index|
     index.as :stored_searchable
