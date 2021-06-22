@@ -6,26 +6,20 @@ RSpec.describe Hyku::API::V1::FilesController, type: :request, clean: true, mult
   let(:account) { create(:account) }
   let(:work) { create(:work_with_one_file, visibility: 'open') }
   let(:file_set) { work.file_sets.first }
-  let(:user) { create(:user) }
 
   before do
-    WebMock.disable!
-    Apartment::Tenant.create(account.tenant)
-    Apartment::Tenant.switch(account.tenant) do
-      Site.update(account: account)
-      user
-      work
+    allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
+      block&.call
+    end
 
+    Apartment::Tenant.switch!(account.tenant) do
+      Site.update(account: account)
+      work
       if file_set.present?
         file_set.visibility = work.visibility
         file_set.save!
       end
     end
-  end
-
-  after do
-    WebMock.enable!
-    Apartment::Tenant.drop(account.tenant)
   end
 
   describe "/tenant/:tenant_id/files/:id/work" do
