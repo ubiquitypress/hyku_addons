@@ -6,6 +6,7 @@ module HykuAddons
 
     include ::HykuAddons::WorkBase
     include ::HykuAddons::AltTitleMultiple
+    include ::HykuAddons::AddInfoSingular
 
     included do
       include Hyrax::DOI::DOIBehavior
