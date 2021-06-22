@@ -1,0 +1,81 @@
+en-ANSCHUTZ:
+  simple_form:
+    creator:
+      creator_name_type:
+        help_text: " "
+      creator_family_name:
+        label: Last Name
+      creator_given_name:
+        label: First Name
+      creator_institutional_relationship:
+        label: Creator Role
+        placeholder:
+        help_text: " "
+      creator_orcid:
+        help_text: " "
+        placeholder: " "
+      creator_isni:
+        help_text: " "
+        placeholder: " "
+    contributor:
+      contributor_name_type:
+        help_text: " "
+      contributor_family_name:
+        label: Contributor Last Name
+        help_text: " "
+        placeholder: " "
+      contributor_given_name:
+        label: Contributor First Name
+        help_text: " "
+        placeholder: " "
+      contributor_type:
+        label: Contributor role
+        placeholder:
+        help_text: " "
+      contributor_isni:
+        label: Contributor ISNI
+        help_text: " "
+        placeholder: " "
+      contributor_institution:
+        label: Institution
+        placeholder: " "
+      contributor_orcid:
+        placeholder: " "
+        help_text: " "
+    labels:
+      defaults:
+        alt_title: Other Title(s)
+        license: Licensing
+        place_of_publication: Place Published
+        language: Language(s)
+        subject_text: Subject(s)
+        mesh: MeSH
+        add_info: Notes
+        publisher: Original Publisher
+        source: Original Source
+        funding_description: Funding Source(s)
+        citation: Bibliographic Citation
+        extent: Content Length or Size
+        medium: Format(s)
+        library_of_congress_classification: LCSH
+    hints:
+      defaults:
+        abstract: "Abstract or short description of content"
+        resource_type: " "
+        title: " "
+        alt_title: " "
+        date_published: " "
+        place_of_publication: " "
+        license: " "
+        language: " "
+        publisher: " "
+        extent: Sound/video length or item dimensions
+        library_of_congress_classification: " "
+        medium: Admin Only, please do not define
+        table_of_contents: Admin Only, please do not define
+        add_info: Any additional information to be included
+        source: If submission is derived from another source.
+    placeholders:
+      defaults:
+        extent: 59 minutes, 30 seconds or 2.5 x 3 cm
+        place_of_publication: e.g. Denver, CO

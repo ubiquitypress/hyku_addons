@@ -17,30 +17,12 @@ terms:
   - term: CC BY-NC-ND 4.0 Attribution NonCommercial-NoDerivs
     id: https://creativecommons.org/licenses/by-nc-nd/4.0/
     active: true
-  - term: CC Public Domain Mark 1.0
-    id: https://creativecommons.org/publicdomain/mark/1.0/
-    active: true
   - term: CC0 1.0 Universal Public Domain
     id: http://creativecommons.org/publicdomain/zero/1.0
     active: true
-  - term: MIT
-    id: https://opensource.org/licenses/MIT
-    active: true
-  - term: GNU General Public License v3.0
-    id: https://www.gnu.org/licenses/gpl-3.0.en.html
-    active: true
-  - term: Apache License v2.0
-    id: https://www.apache.org/licenses/LICENSE-2.0
-    active: true
-  - term: Open Database License (ODBL)
-    id: https://opendatacommons.org/licenses/odbl/1.0/
-    active: true
-  - term: Mozilla Public License (MPL)
-    id: https://www.mozilla.org/en-US/MPL/2.0/
-    active: true
-  - term: Open Government Licence (OGL)
-    id: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
-    active: true
-  - term: Default
-    id: https://commons.pacificu.edu/rights
+  - term: CC BY 3.0 Attribution
+    id: https://creativecommons.org/licenses/by/3.0/
+    active: false
+  - term: CC BY-NC 3.0 Attribution-NonCommercial
+    id: https://creativecommons.org/licenses/by-nc/3.0/
     active: false

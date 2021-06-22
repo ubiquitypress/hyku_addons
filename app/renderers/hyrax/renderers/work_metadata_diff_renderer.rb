@@ -13,11 +13,7 @@ module Hyrax
         if service.validate
           @view_context.content_tag :p, "No validation issues detected"
         else
-          @view_context.content_tag :ul do
-            Array.wrap(service.errors).sort_by { |error| error[:path] }.map do |diff_entry|
-              diff_entry_html(diff_entry.with_indifferent_access)
-            end.join.html_safe
-          end
+          render_validation_issues(Array.wrap(service.errors))
         end
       end
 
@@ -26,11 +22,7 @@ module Hyrax
         if validation_errors.blank?
           @view_context.content_tag :p, "No validation issues detected"
         else
-          @view_context.content_tag :ul do
-            validation_errors.sort_by { |error| error[:path] }.map do |diff_entry|
-              diff_entry_html(diff_entry.with_indifferent_access)
-            end.join.html_safe
-          end
+          render_validation_issues(validation_errors)
         end
       end
 
@@ -64,20 +56,51 @@ module Hyrax
           end.join.html_safe
         end
 
-        def diff_entry_html(diff_entry)
-          @view_context.content_tag :li, class: 'overflow-wrap-break' do
-            change_description = "#{diff_entry[:path]}: #{diff_entry[:value]}"
-            label_klazz = case diff_entry[:op]&.to_s
-                          when 'add'
-                            'success'
-                          when 'move'
-                            'info'
-                          when 'remove'
-                            'danger'
-                          else 'info'
-                          end
-            @view_context.content_tag :span, change_description, class: "label label-#{label_klazz} overflow-wrap-break"
+        def render_validation_issues(validation_errors)
+          @view_context.content_tag :table, class: 'table' do
+            thead = validation_table_header
+            tbody = @view_context.content_tag :tbody do
+              validation_errors.sort_by { |error| error[:path] }.map do |diff_entry|
+                diff_entry_html(diff_entry.with_indifferent_access)
+              end.join.html_safe
+            end
+            [thead, tbody].join.html_safe
           end
+        end
+
+        def validation_table_header
+          @view_context.content_tag :thead do
+            @view_context.content_tag(:tr) do
+              [
+                @view_context.content_tag(:th, I18n.t("bulkrax.validation_issues.attribute")),
+                @view_context.content_tag(:th, I18n.t("bulkrax.validation_issues.original_value")),
+                @view_context.content_tag(:th, I18n.t("bulkrax.validation_issues.current_value"))
+              ].join.html_safe
+            end
+          end
+        end
+
+        def diff_entry_html(diff_entry)
+          label_klazz = case diff_entry[:op]&.to_s
+                        when 'add'
+                          'success'
+                        when 'move'
+                          'info'
+                        when 'remove'
+                          'danger'
+                        else 'info'
+                        end
+          @view_context.content_tag :tr, class: "bg-#{label_klazz} overflow-wrap-break" do
+            diff_entry_item(diff_entry[:path], diff_entry[:source_v], diff_entry[:dest_v])
+          end
+        end
+
+        def diff_entry_item(path, from, to)
+          [
+            @view_context.content_tag(:td, path, class: ""),
+            @view_context.content_tag(:td, from, class: "bg-none"),
+            @view_context.content_tag(:td, to, class: "bg-none")
+          ].join.html_safe
         end
     end
   end
