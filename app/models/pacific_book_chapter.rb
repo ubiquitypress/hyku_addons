@@ -9,6 +9,7 @@ class PacificBookChapter < ActiveFedora::Base
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
+  include ::HykuAddons::AddInfoSingular
 
   property :book_title, predicate: ::RDF::Vocab::BIBO.term(:Proceedings), multiple: false do |index|
     index.as :stored_searchable, :facetable
