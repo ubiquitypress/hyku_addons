@@ -4,9 +4,11 @@
 		{ f: f, field_type: :text, field_slug: :creator_organization_name, field_args: { data: { required: f.object.required?(:creator) } } },
 		{ f: f, field_type: :text, field_slug: :creator_ror },
 		{ f: f, field_type: :text, field_slug: :creator_grid },
-		{ f: f, field_type: :text, field_slug: :creator_wikidata }
+		{ f: f, field_type: :text, field_slug: :creator_wikidata },
+		{ f: f, field_type: :text, field_slug: :creator_isni }
 	] %>
 	<% organisational_fields = remove_redlands_creator_organisational_fields(organisational_fields) if template.include? "redlands" %>
+	<% organisational_fields = remove_anschutz_creator_organisational_fields(organisational_fields) if template.include? "anschutz" %>
 	<% organisational_fields.each do |field| %>
 		<% options = { field_group: :creator, template: template, hash: hash }.merge(field) %>
 		<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
