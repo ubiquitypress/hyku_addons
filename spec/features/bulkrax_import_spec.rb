@@ -44,13 +44,21 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       work = PacificArticle.find('c109b1ff-6d9a-4498-b86c-190e7dcbe2e0')
       expect(work.title).to eq ["Bourdieu's Art"]
       expect(work.date_published).to eq "2010-1-1"
-      expect(JSON.parse(work.creator.first)).to be_present
-      expect(JSON.parse(work.creator.first).size).to eq 1
       expect(work.resource_type).to eq ["Research Article"]
       expect(work.subject).to eq ["Social Sciences", "Performing arts", "Music"]
       expect(work.license).to eq ["https://commons.pacificu.edu/rights"]
       expect(work.publisher).to eq ['Pacific University Press', 'Ubiquity Press']
       expect(work.depositor).to eq 'batchuser@example.com'
+
+      creators = JSON.parse(work.creator.first)
+      creator = creators.first
+      expect(creators).not_to be_empty
+      expect(creators.size).to eq 1
+      expect(creator["creator_family_name"]).to eq "Wilkes"
+      expect(creator["creator_given_name"]).to eq "Christopher"
+      expect(creator["creator_institutional_relationship"]).to eq "Pacific University"
+      expect(creator["creator_middle_name"]).to eq "D"
+      expect(creator["creator_name_type"]).to eq "Personal"
     end
 
     context 'resource_type' do
