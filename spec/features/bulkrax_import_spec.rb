@@ -63,7 +63,7 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       end
     end
 
-    context 'langauage' do
+    context 'language' do
       let(:account) { FactoryBot.create(:account, locale_name: 'redlands') }
       let(:import_batch_file) { 'spec/fixtures/csv/redlands_article.csv' }
 
@@ -156,13 +156,17 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
 
   describe 'full import' do
     it 'creates collections and works' do
-      expect { Bulkrax::ImporterJob.perform_now(importer.id) }.to change { Collection.count }.by(1).and change { PacificArticle.count }.by(2)
+      expect { Bulkrax::ImporterJob.perform_now(importer.id) }.to change { Collection.count }.by(2).and change { PacificArticle.count }.by(2)
       # Check that created works are in created collection
       collection = Collection.find('e51dbdd3-11bd-47f6-b00a-8aace969f2ab')
       work = PacificArticle.find('c109b1ff-6d9a-4498-b86c-190e7dcbe2e0')
       expect(work.member_of_collections).to include collection
+
       # Check that other work is created
-      expect(PacificArticle.exists?('54237483-f9d9-4b03-8867-812eb58bd4ac')).to eq true
+      work_with_multiple_collections = PacificArticle.find('54237483-f9d9-4b03-8867-812eb58bd4ac')
+      other_collection = Collection.find('bedd7330-5040-4687-8226-0851f7256dff')
+      expect(work_with_multiple_collections.member_of_collections).to include other_collection
+      expect(work_with_multiple_collections.member_of_collections).to include collection
     end
 
     context 'with admin sets' do
