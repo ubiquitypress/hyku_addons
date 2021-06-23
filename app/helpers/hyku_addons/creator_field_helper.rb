@@ -24,7 +24,6 @@ module HykuAddons
       array
     end
 
-
     def remove_redlands_creator_organisational_fields(array)
       array.delete_at(4) # Removes isni from Redlands worktype
       array.delete_at(3) # removes wikidata from Redlands worktype

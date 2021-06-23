@@ -2,7 +2,6 @@
 
 module HykuAddons
   module ContributorFieldHelper
-
     def add_redlands_contributor_personal_fields(array, service_options)
       array.delete_at(6) # removes institutional relationship from Redlands worktype
       array[1] = { field_type: :text, field_slug: :contributor_given_name }
