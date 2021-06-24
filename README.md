@@ -41,7 +41,53 @@ If you need to reference a Hyku route using a route helper then you can access i
 ```
 
 ### Database Migrations
-Migrations for database changes introduced by this engine are defined in `db/migrate` like any Rails application.  These get copied into Hyku during installation when `rake hyku_additions:install:migrations` is run.  These files are suffixed by the engine name for easy identification (e.g. `20200103172822_add_contact_email_to_sites.hyku_additions.rb`).  This command is safe to rerun and will only copy over missing migrations.  See https://edgeguides.rubyonrails.org/engines.html#engine-setup for more details.
+Migrations for database changes introduced by this engine are defined in `db/migrate` like any Rails application.  These get copied into Hyku during installation when the following in run:
+
+```
+bundle exec rails app:hyku_addons:install:migrations
+```
+
+These files are suffixed by the engine name for easy identification (e.g. `20200103172822_add_contact_email_to_sites.hyku_additions.rb`).  This command is safe to rerun and will only copy over missing migrations.  See https://edgeguides.rubyonrails.org/engines.html#engine-setup for more details.
+
+To perform the migration you will need to scope the command as follows:
+
+``
+bundle exec rails db:migrate SCOPE=hyku_addons
+```
+
+Don't forget to run the test migations at the same time:
+
+```
+RAILS_ENV=test bundle exec rails db:migrate
+```
+
+If you get errors when performing the migration it might be because your schema is out of date. This means you wil need to manually add the version numbers to the `schema_migration` table inside the database.
+
+For instance:
+
+```
+Caused by:
+PG::DuplicateColumn: ERROR:  column "frontend_url" of relation "accounts" already exists
+#...
+/home/app/spec/internal_test_hyku/db/migrate/20210409153318_add_frontend_url_to_account.hyku_addons.rb:5:in `change'
+#...
+```
+
+Use the following to insert the version into the migration table:
+
+```
+sql = "insert into schema_migrations (version) values ('20210409153318')"
+ActiveRecord::Base.connection.execute(sql)
+``
+
+To manually connect to the postgres container, first connect to the `web` container and then:
+
+```
+psql --host db --port 5432 --user postgres --dbname hyku
+```
+
+Then enter the password from the `docker-compose.yml` POSTGRES_PASSWORD.
+
 
 ### Initializers
 Initializers that should be run within Hyku can be added to `config/initializers` like in a Rails application.  They can also be added as `initializer` blocks within the `Engine` class, but that should be reserved for code needed to configure the engine infrastructure instead of setup, configuration, and override code that would normally go in `config/initializers` in a Hyku application.  There are additional hooks for different stages of the initialization process available within the `Engine` as described by https://edgeguides.rubyonrails.org/engines.html#available-configuration-hooks.
