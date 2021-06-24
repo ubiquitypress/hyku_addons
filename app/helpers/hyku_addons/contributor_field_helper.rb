@@ -19,14 +19,8 @@ module HykuAddons
     end
 
     def remove_redlands_contributor_organisational_fields(array)
-      array.delete_at(4) # removes isni from Redlands worktype
       array.delete_at(3) # removes wikidata from Redlands worktype
       array.delete_at(2) # removes grid from Redlands worktype
-      array
-    end
-
-    def remove_anschutz_contributor_organisational_fields(array)
-      array.delete_at(4) # Removes isni from Anschutz worktype
       array
     end
 

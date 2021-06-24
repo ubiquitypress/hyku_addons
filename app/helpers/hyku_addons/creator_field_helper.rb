@@ -8,7 +8,6 @@ module HykuAddons
     end
 
     def add_redlands_creator_personal_fields(array, service_options)
-      array.delete_at(7) # removes isni from Redlands worktype
       array.delete_at(6) # removes institutional relationship from Redlands worktype
       array[1] = { field_type: :text, field_slug: :creator_given_name }
       array.insert(4, field_type: :select, field_slug: :creator_role, select_options: service_options, field_args: { cloneable: true, include_blank: "Please Select..." })
@@ -21,18 +20,13 @@ module HykuAddons
       array[1] = { field_type: :text, field_slug: :creator_given_name }
       array.insert(4, field_type: :select, field_slug: :creator_role, select_options: service_options, field_args: { cloneable: true, include_blank: "Please Select..." })
       array[5] = { field_type: :text, field_slug: :creator_institution, field_args: { cloneable: true } }
+      array.insert(7, field_type: :text, field_slug: :creator_isni)
       array
     end
 
     def remove_redlands_creator_organisational_fields(array)
-      array.delete_at(4) # Removes isni from Redlands worktype
       array.delete_at(3) # removes wikidata from Redlands worktype
       array.delete_at(2) # removes grid from Redlands worktype
-      array
-    end
-
-    def remove_anschutz_creator_organisational_fields(array)
-      array.delete_at(4) # Removes isni from Anschutz worktype
       array
     end
 
