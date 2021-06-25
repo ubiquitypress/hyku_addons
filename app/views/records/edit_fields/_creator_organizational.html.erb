@@ -7,6 +7,7 @@
 		{ f: f, field_type: :text, field_slug: :creator_wikidata }
 	] %>
 	<% organisational_fields = remove_redlands_creator_organisational_fields(organisational_fields) if template.include? "redlands" %>
+
 	<% organisational_fields.each do |field| %>
 		<% options = { field_group: :creator, template: template, hash: hash }.merge(field) %>
 		<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>

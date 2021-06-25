@@ -33,11 +33,8 @@
 				<%= render "records/edit_fields/contributor_#{type["id"].downcase}", f: f, type: type["id"], template: template, hash: hash %>
 			<% end %>
 
-			<% field_options = { field_slug: :contributor_isni, field_group: :contributor, template: template, hash: hash } %>
-			<%= render "records/edit_fields/attribution_partials/text_field", field_options unless (template.include? "redlands") %>
-
 			<% # FIXME: This condition should be moved to the model/form %>
-			<% unless template.include?("pacific") || template.include?("uva") || template.include?("redlands") %>
+			<% unless template.include?("pacific") || template.include?("uva") || template.include?("redlands") || template.include?("anschutz") %>
 				<% model = f.object.model.class %>
 				<% opts = HykuAddons::ContributorGroupService.new(model: model).select_active_options.flatten.uniq! %>
 				<% field_options = {

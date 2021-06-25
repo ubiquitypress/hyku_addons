@@ -3,9 +3,12 @@
 		{ field_type: :text, field_slug: :contributor_organization_name },
 		{ field_type: :text, field_slug: :contributor_ror },
 		{ field_type: :text, field_slug: :contributor_grid },
-		{ field_type: :text, field_slug: :contributor_wikidata }
+		{ field_type: :text, field_slug: :contributor_wikidata },
+		{ field_type: :text, field_slug: :contributor_isni }
 		] %>
-	<% organisational_fields = remove_redlands_creator_organisational_fields(organisational_fields) if template.include? "redlands" %>
+	<% organisational_fields = remove_redlands_contributor_organisational_fields(organisational_fields) if template.include? "redlands" %>
+	<% organisational_fields = remove_anschutz_contributor_organisational_fields(organisational_fields) if template.include? "anschutz" %>
+
 	<% organisational_fields.each do |field| %>
 		<% options = { field_group: :contributor, template: template, hash: hash }.merge(field) %>
 		<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>
