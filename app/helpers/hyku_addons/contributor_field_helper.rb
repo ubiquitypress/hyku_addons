@@ -28,6 +28,7 @@ module HykuAddons
 
     def remove_anschutz_contributor_organisational_fields(array)
       array.delete_at(4) # removes isni
+      array
     end
 
     def add_uva_contributor_personal_fields(array)
