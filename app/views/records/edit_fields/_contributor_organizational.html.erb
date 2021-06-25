@@ -7,6 +7,7 @@
 		{ field_type: :text, field_slug: :contributor_isni }
 		] %>
 	<% organisational_fields = remove_redlands_contributor_organisational_fields(organisational_fields) if template.include? "redlands" %>
+	<% organisational_fields = remove_anschutz_contributor_organisational_fields(organisational_fields) if template.include? "anschutz" %>
 
 	<% organisational_fields.each do |field| %>
 		<% options = { field_group: :contributor, template: template, hash: hash }.merge(field) %>
