@@ -49,6 +49,24 @@
       }
     });
   }
+
+  // For Disabling the File Set Visibility Options based on the Admin Set Configuration
+  // Function should be loaded before the table row loads
+  function setVisiblityOptions(fileId){
+    var fileSetDropDownId = "file-set-visibility-drop-down-" + fileId
+    disableDropDownItemsByAdminSetConfig(fileSetDropDownId)
+  }
+
+  function disableDropDownItemsByAdminSetConfig(dropDownId){
+    var disabledVisibilityOptions = []
+    $('ul.visibility li.radio :input:radio:disabled').each(function () {
+      disabledVisibilityOptions.push($(this).val());
+    });
+
+    $.each(disabledVisibilityOptions, function(index, visibilityValue) {
+      $("#"+ dropDownId +" option[value='" + visibilityValue + "']").remove();
+    });
+  }
 </script>
 
 <!-- The template to display files available for download -->
@@ -169,6 +187,8 @@
             </button>
         </td>
     </tr>
+  {% var RecentFileId = file.id; %}
+  {% setTimeout(function(){ setVisiblityOptions(RecentFileId) }, 300); %}
 {% } %}
 </script>
 <script type="text/javascript">
