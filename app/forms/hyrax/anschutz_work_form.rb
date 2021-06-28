@@ -9,8 +9,9 @@ module Hyrax
     add_terms %i[title alt_title creator date_published abstract resource_type license
                  place_of_publication language subject_text mesh add_info contributor publisher source
                  journal_frequency funding_description citation table_of_contents
-                 references extent medium library_of_congress_classification]
-    self.terms -= %i[related_url rights_statement subject keyword]
+                 references extent medium library_of_congress_classification committee_member
+                 time rights_statement subject qualification_grantor qualification_level qualification_name]
+    self.terms -= %i[related_url keyword]
     self.required_fields = %i[title resource_type creator date_published abstract license]
 
     include Hyrax::DOI::DOIFormBehavior
