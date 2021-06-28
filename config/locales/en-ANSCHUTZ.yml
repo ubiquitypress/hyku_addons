@@ -83,6 +83,12 @@ en-ANSCHUTZ:
         extent: Content Length or Size
         medium: Format(s)
         library_of_congress_classification: LCSH
+        time: Coverage Span
+        rights_statement: DPLA Rights (Pre-Defined)
+        subject: Thesis discipline
+        qualification_level: Thesis Grantor
+        qualification_level: Thesis Level
+        qualification_name: Thesis Degree
     hints:
       defaults:
         abstract: "Abstract or short description of content"
@@ -100,6 +106,7 @@ en-ANSCHUTZ:
         table_of_contents: Admin Only, please do not define
         add_info: Any additional information to be included
         source: If submission is derived from another source.
+        subject: " "
     placeholders:
       defaults:
         extent: 59 minutes, 30 seconds or 2.5 x 3 cm

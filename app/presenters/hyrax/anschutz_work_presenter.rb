@@ -10,7 +10,9 @@ module Hyrax
        :language, :place_of_publication, :license, :language, :add_info,
        :publisher, :source, :journal_frequency, :funding_description,
        :citation, :table_of_contents, :references, :extent,
-       :medium, :library_of_congress_classification].freeze
+       :medium, :library_of_congress_classification, :committee_member,
+       :time, :rights_statement, :subject, :qualification_grantor, :qualification_level,
+       :qualification_name].freeze
     end
 
     include ::HykuAddons::PresenterDelegatable
