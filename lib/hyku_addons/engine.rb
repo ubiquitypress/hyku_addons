@@ -391,7 +391,7 @@ module HykuAddons
           end
 
           def file_set_attrs(attributes, uploaded_file)
-            attrs = Array(attributes[:file_set]).find { |fs| fs[:uploaded_file_id] == uploaded_file&.id }
+            attrs = Array(attributes[:file_set]).find { |fs| fs[:uploaded_file_id].present? && (fs[:uploaded_file_id].to_i == uploaded_file&.id) }
             Hash(attrs).symbolize_keys
           end
       end

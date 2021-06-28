@@ -10,6 +10,7 @@ module HykuAddons
       def build_permitted_params
         super.tap do |permitted_params|
           permitted_params << common_fields
+          permitted_params << file_set_fields
           permitted_params << date_published_fields
           permitted_params << date_accepted_fields
           permitted_params << date_submitted_fields
@@ -60,6 +61,11 @@ module HykuAddons
            library_of_congress_classification add_info issn isbn eissn version_number series_name book_title pagination
            publisher place_of_publication journal_title alternative_journal_title volume edition issue article_num
            qualification_name qualification_level representative_id thumbnail_id]
+      end
+
+      def file_set_fields
+        { file_set: [:visibility, :visibility_during_embargo, :embargo_release_date, :visibility_after_embargo,
+                     :visibility_during_lease, :lease_expiration_date, :visibility_after_lease, :uploaded_file_id] }
       end
 
       def date_accepted_fields
