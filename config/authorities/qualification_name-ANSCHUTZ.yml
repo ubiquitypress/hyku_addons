@@ -1,0 +1,13 @@
+terms:
+- id: DM
+  term: DM
+  active: true
+- id: DNP
+  term: DNP
+  active: true
+- id: PhD
+  term: PhD
+  active: true
+- id: MSc
+  term: MS
+  active: true
