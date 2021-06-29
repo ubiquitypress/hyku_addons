@@ -3,15 +3,12 @@
 module HykuAddons
   class PerTenantSmtpInterceptor
     def self.delivering_email(message)
-      account = Account.find_by(tenant: Apartment::Tenant.current)
-      account.switch!
+      Account.find_by(tenant: Apartment::Tenant.current)&.switch!
+      return unless (mailer_settings = Settings.action_mailer.presence)
 
-      mailer_settings = Settings.action_mailer.smtp_settings
-      return unless mailer_settings.present?
-      message.from = mailer_settings.from if mailer_settings.from
-
+      message.from = mailer_settings.from if mailer_settings.from.present?
       dynamic_settings = Settings.action_mailer.smtp_settings
-      message.delivery_method.settings.merge!(dynamic_settings) if dynamic_settings
+      message.delivery_method.settings.merge!(dynamic_settings) if dynamic_settings.present?
     end
   end
 end
