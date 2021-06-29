@@ -8,7 +8,7 @@ module HykuAddons
 
     ARRAY_SETTINGS = %w[weekly_email_list monthly_email_list yearly_email_list email_format].freeze
     BOOLEAN_SETTINGS = %w[allow_signup shared_login bulkrax_validations].freeze
-    HASH_SETTINGS = %w[].freeze
+    HASH_SETTINGS = %w[smtp_settings].freeze
     TEXT_SETTINGS = %w[contact_email gtm_id oai_admin_email oai_prefix oai_sample_identifier google_analytics_id].freeze
 
     included do
@@ -20,10 +20,10 @@ module HykuAddons
       store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
                      :google_scholarly_work_types, :gtm_id, :shared_login, :email_format,
                      :allow_signup, :oai_admin_email, :file_size_limit, :enable_oai_metadata, :oai_prefix,
-                     :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id
+                     :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id, :smtp_settings
 
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
-      after_initialize :set_jsonb_allow_signup_default
+      after_initialize :initialize_settings
       validates :gtm_id, format: { with: /GTM-[A-Z0-9]{4,7}/, message: "Invalid GTM ID" }, allow_blank: true
       validates :contact_email, :oai_admin_email,
                 format: { with: URI::MailTo::EMAIL_REGEXP },
@@ -57,9 +57,19 @@ module HykuAddons
         end
       end
 
+      def initialize_settings
+        set_jsonb_allow_signup_default
+        set_smtp_settings
+      end
+
       def set_jsonb_allow_signup_default
         return if settings['allow_signup'].present?
         self.allow_signup = 'true'
+      end
+
+      def set_smtp_settings
+        return if settings["smtp_settings"].present?
+        settings["smtp_settings"] = HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h
       end
   end
 end
