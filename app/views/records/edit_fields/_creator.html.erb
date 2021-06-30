@@ -34,7 +34,7 @@
 				<%= render "records/edit_fields/creator_#{type["id"].downcase}", f: f, type: type["id"], template: template, hash: hash %>
 			<% end %>
 
-			<% unless template.include?("redlands") || template.include?("anschutz") %>
+			<% unless template.include?("redlands") %>
 				<% field_options = { field_slug: :creator_isni, required: false, field_group: :creator, template: template, hash: hash } %>
 				<%= render "records/edit_fields/attribution_partials/text_field", field_options %>
 			<% end %>

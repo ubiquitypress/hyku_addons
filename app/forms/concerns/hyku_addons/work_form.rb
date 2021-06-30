@@ -46,7 +46,8 @@ module HykuAddons
            location outcome participant reading_level photo_caption photo_description degree longitude latitude alt_email
            alt_book_title table_of_contents prerequisites suggested_student_reviewers suggested_reviewers adapted_from audience
            related_material note advisor subject_text mesh journal_frequency funding_description
-           citation references extent medium source committee_member time qualification_grantor] + hyrax_terms
+           citation references extent medium source committee_member time qualification_grantor date_published_text
+           rights_statement_text qualification_subject_text] + hyrax_terms
       end
 
       def hyrax_terms
