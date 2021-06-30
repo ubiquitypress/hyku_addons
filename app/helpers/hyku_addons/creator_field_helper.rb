@@ -20,7 +20,6 @@ module HykuAddons
       array[1] = { field_type: :text, field_slug: :creator_given_name }
       array.insert(4, field_type: :select, field_slug: :creator_role, select_options: service_options, field_args: { cloneable: true, include_blank: "Please Select..." })
       array[5] = { field_type: :text, field_slug: :creator_institution, field_args: { cloneable: true } }
-      array.insert(7, field_type: :text, field_slug: :creator_isni)
       array
     end
 

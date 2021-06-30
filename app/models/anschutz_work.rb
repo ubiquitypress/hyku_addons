@@ -54,10 +54,6 @@ class AnschutzWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :publisher, predicate: ::RDF::Vocab::DC11.publisher, multiple: false do |index|
-    index.as :stored_searchable
-  end
-
   property :add_info, predicate: ::RDF::Vocab::BIBO.term(:Note), multiple: true do |index|
     index.as :stored_searchable
   end
@@ -79,6 +75,18 @@ class AnschutzWork < ActiveFedora::Base
   end
 
   property :qualification_level, predicate: ::RDF::Vocab::BF2.degree, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :date_published_text, predicate: ::RDF::Vocab::DC.date, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :rights_statement_text, predicate: ::RDF::Vocab::DC.rights, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :qualification_subject_text, predicate: ::RDF::Vocab::HYDRA.subject, multiple: true do |index|
     index.as :stored_searchable
   end
 
