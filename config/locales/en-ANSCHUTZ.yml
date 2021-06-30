@@ -28,6 +28,7 @@ en-ANSCHUTZ:
       creator_organization_name:
         label: Organization Name
         placeholder: " "
+        help_text: " "
       creator_ror:
         label: ROR
         placeholder: " "
@@ -67,6 +68,18 @@ en-ANSCHUTZ:
         label: ORCiD
         placeholder: " "
         help_text: " "
+      contributor_ror:
+        label: ROR
+        placeholder: " "
+      contributor_grid:
+        label: GRID
+        placeholder: " "
+      contributor_wikidata:
+        label: Wikidata
+        placeholder: " "
+      contributor_organization_name:
+        label: Organization Name
+        placeholder: " "
     labels:
       defaults:
         alt_title: Other Title(s)
@@ -85,8 +98,8 @@ en-ANSCHUTZ:
         library_of_congress_classification: LCSH
         time: Coverage Span
         rights_statement: DPLA Rights (Pre-Defined)
-        subject: Thesis discipline
-        qualification_level: Thesis Grantor
+        subject: Thesis Discipline
+        qualification_grantor: Thesis Grantor
         qualification_level: Thesis Level
         qualification_name: Thesis Degree
     hints:
@@ -107,7 +120,9 @@ en-ANSCHUTZ:
         add_info: Any additional information to be included
         source: If submission is derived from another source.
         subject: " "
+        journal_frequency: Frequency for serials, journals, annual reports, etc.
     placeholders:
       defaults:
         extent: 59 minutes, 30 seconds or 2.5 x 3 cm
         place_of_publication: e.g. Denver, CO
+        journal_frequency: e.g. annual

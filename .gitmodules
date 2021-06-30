@@ -1,4 +1,4 @@
 [submodule "spec/internal_test_hyku"]
 	path = spec/internal_test_hyku
-	url = https://github.com/ubiquitypress/hyku.git
-	branch = hyku_2/3_without_user_elevation
+	url = https://github.com/ubiquitypress/hyku_base.git
+	branch = main
