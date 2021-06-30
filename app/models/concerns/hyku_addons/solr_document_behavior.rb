@@ -120,6 +120,9 @@ module HykuAddons
       attribute :time, SolrDocument::Solr::Array, solr_name('time')
       attribute :committee_member, SolrDocument::Solr::Array, solr_name('committee_member')
       attribute :qualification_grantor, SolrDocument::Solr::Array, solr_name('qualification_grantor')
+      attribute :date_published_text, SolrDocument::Solr::Array, solr_name('date_published_text')
+      attribute :rights_statement_text, SolrDocument::Solr::Array, solr_name('rights_statement_text')
+      attribute :qualification_subject_text, SolrDocument::Solr::Array, solr_name('qualification_subject_text')
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(
