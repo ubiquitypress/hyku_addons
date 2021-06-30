@@ -20,8 +20,10 @@ RSpec.describe Hyrax::ContactMailer, type: :feature do
       let(:mail) { described_class.contact(contact_form) }
 
       before do
-        allow(Settings).to receive(:tenant_settings_filename).with('test').and_return(HykuAddons::Engine.root.join('spec', 'fixtures', 'settings', 'test-TEST.yml'))
+        allow(Settings).to receive(:smtp_settings).and_return(HykuAddons::Engine.root.join('spec', 'fixtures', 'settings', 'test-TEST.yml'))
+        account.save(validate: false)
         account.switch!
+        debugger
         allow(Site).to receive(:contact_email).and_return('me@example.com')
         mail.deliver
       end
