@@ -28,6 +28,7 @@ en-ANSCHUTZ:
       creator_organization_name:
         label: Organization Name
         placeholder: " "
+        help_text: " "
       creator_ror:
         label: ROR
         placeholder: " "
@@ -67,6 +68,18 @@ en-ANSCHUTZ:
         label: ORCiD
         placeholder: " "
         help_text: " "
+      contributor_ror:
+        label: ROR
+        placeholder: " "
+      contributor_grid:
+        label: GRID
+        placeholder: " "
+      contributor_wikidata:
+        label: Wikidata
+        placeholder: " "
+      contributor_organization_name:
+        label: Organization Name
+        placeholder: " "
     labels:
       defaults:
         alt_title: Other Title(s)
