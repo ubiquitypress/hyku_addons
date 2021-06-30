@@ -94,7 +94,10 @@ class AutofillWorkForm {
       })
 
     } else if ($.type(value) == "object") {
-      var $wrapper = this.wrapper(field, index)
+      // Since a refactor how groups nested elements, we cannot use the default class selector
+      // and instead must look for cloneable elements within the wrapper. This means that if there
+      // are any subfields that are cloneable, then we will not count this by mistake
+      var $wrapper = $($(this.wrapperSelector(field)).find(`[data-cloneable-group=${this.fieldName(field)}]`)[index])
 
       // This isn't using the normal setValue method because of the requirement
       // to autofill nested groups of fields from within a specific parent wrapper
@@ -110,6 +113,37 @@ class AutofillWorkForm {
       }
     } else {
       this.setValue(field, value)
+    }
+  }
+
+  // TODO:
+  // This is a slightly modified version of `setValue`. It would be best to use just one, but with the extra
+  // requirements to use a specific parent element context, its currently not possible
+  setNestedValue(parentElement, childElement, value, index = 0) {
+    if (this.isBlank(value)) {
+      return false
+    }
+
+    // Find the relevant element selector
+    var selector = this.inputSelector(childElement)
+    // From within the wrapper, find all matching elements and then filter only form fields
+    var input = parentElement.find(selector).find(this.targetInputSelector).get(index)
+
+    // Updating the value doesn't automaticaly trigger the onChange event
+    $(input).val(value).trigger("change")
+  }
+
+  // TODO: Make it so that this method can be used by all of the other sections where we are currently specifying
+  // the wrapper and setting the value within that.
+  setValue(field, value, index = 0) {
+    if (this.isBlank(value)) {
+      return false
+    }
+
+    let input = $($(this.inputSelector(field)).find(this.targetInputSelector).get(index))
+    if (input.length > 0) {
+      this.setUpdated(field)
+      input.val(value)
     }
   }
 
@@ -146,37 +180,6 @@ class AutofillWorkForm {
         this.setUpdated("funder")
       }
     }, this)
-  }
-
-  // TODO:
-  // This is a slightly modified version of `setValue`. It would be best to use just one, but with the extra
-  // requirements to use a specific parent element context, its currently not possible
-  setNestedValue(parentElement, childElement, value, index = 0) {
-    if (this.isBlank(value)) {
-      return false
-    }
-
-    // Find the relevant element selector
-    var selector = this.inputSelector(childElement)
-    // From within the wrapper, find all matching elements and then filter only form fields
-    var input = parentElement.find(selector).find(this.targetInputSelector).get(index)
-
-    // Updating the value doesn't automaticaly trigger the onChange event
-    $(input).val(value).trigger("change")
-  }
-
-  // TODO: Make it so that this method can be used by all of the other sections where we are currently specifying
-  // the wrapper and setting the value within that.
-  setValue(field, value, index = 0) {
-    if (this.isBlank(value)) {
-      return false
-    }
-
-    let input = $($(this.inputSelector(field)).find(this.targetInputSelector).get(index))
-    if (input.length > 0) {
-      this.setUpdated(field)
-      input.val(value)
-    }
   }
 
   logSuccess() {
