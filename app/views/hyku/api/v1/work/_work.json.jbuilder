@@ -107,7 +107,7 @@ json.publisher work.publisher
 json.qualification_grantor work.try(:qualification_grantor)
 json.qualification_level work.try(:qualification_level)
 json.qualification_name work.try(:qualification_name)
-josn,qualification_subject_text work.try(:qualification_subject_text)
+json.qualification_subject_text work.try(:qualification_subject_text)
 json.reading_level work.try(:reading_level)
 json.references work.try(:references)
 json.refereed work.try(:refereed)
