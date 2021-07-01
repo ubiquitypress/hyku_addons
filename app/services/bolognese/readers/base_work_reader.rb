@@ -10,6 +10,7 @@ module Bolognese
   module Readers
     class BaseWorkReader < Bolognese::Metadata
       include HykuAddons::WorkFormNameable
+      include ::HykuAddons::Bolognese::JsonFieldReaders
 
       DEFAULT_RESOURCE_TYPE = "Work"
       DEFAULT_META_MODEL = "GenericWork"
@@ -67,27 +68,6 @@ module Bolognese
 
       protected
 
-        # Prepare the json to be parsed through Bolognese get_authors method
-        # Bologese wants a hash with `givenName` not `creator_given_name` etc
-        def bologneseify_author_json(type, json)
-          obj = JSON.parse(json)
-          transformed = Array.wrap(obj).map { |cr| cr.transform_keys { |k| k.gsub(/#{type}_/, "") }.deep_transform_keys { |k| k.camelize(:lower) } }
-
-          transformed.each do |t|
-            next unless t["orcid"].present?
-
-            t["nameIdentifier"] = {
-              "nameIdentifierScheme" => "orcid",
-              "__content__" => t["orcid"]
-            }
-          end
-
-          transformed.compact
-
-        rescue JSON::ParserError
-          json
-        end
-
         def read_creator
           return unless (value = @meta.fetch("creator", @meta.dig("creator_display"))).present?
 
@@ -110,6 +90,8 @@ module Bolognese
 
           get_authors(value)
         end
+
+      protected
 
         def read_title
           meta_value("title").collect { |r| { "title" => sanitize(r) } }
