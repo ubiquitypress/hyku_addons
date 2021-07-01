@@ -12,7 +12,7 @@ module HykuAddons
 
       message.from = mailer_settings.from if mailer_settings.from.present?
       data = (HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields - ['from']).map do |key|
-        value = Settings.smtp_settings.try(key)
+        value = mailer_settings.try(key)
         [key, value] if value.present?
       end
       message.delivery_method.settings.merge! data.compact.to_h
