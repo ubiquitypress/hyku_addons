@@ -30,19 +30,22 @@ RSpec.describe 'autofilling the form from DOI', js: true do
       click_on 'Additional fields'
 
       # expect form fields have been filled in
-      expect(page).to have_field("#{work_type}_title", with: 'Eating your own Dog Food')
-      expect(page).to have_field("#{work_type}_creator__creator_family_name", with: 'Fenner')
-      expect(page).to have_field("#{work_type}_creator__creator_given_name", with: 'Martin')
+      expect(page).to have_content("The following fields were auto-populated", wait: 30)
+      expect(page).to have_field("#{work_type}_title", with: 'Eating your own Dog Food', wait: 30)
+      expect(page).to have_field("#{work_type}_creator__creator_family_name", with: 'Fenner', wait: 30)
+      expect(page).to have_field("#{work_type}_creator__creator_given_name", with: 'Martin', wait: 30)
       expect(page).to have_field("#{work_type}_abstract", with: 'Eating your own dog food is a slang term to describe that an organization '\
                                                                 'should itself use the products and services it provides. For DataCite this '\
                                                                 'means that we should use DOIs with appropriate metadata and strategies for '\
-                                                                'long-term preservation for...')
-      expect(page).to have_field("#{work_type}_keyword", with: 'datacite')
-      expect(page).to have_field("#{work_type}_keyword", with: 'doi')
-      expect(page).to have_field("#{work_type}_keyword", with: 'metadata')
-      expect(page).to have_field("#{work_type}_publisher", with: 'DataCite')
-      expect(page).to have_field("#{work_type}_date_created", with: '2016')
-      expect(page).to have_field("#{work_type}_identifier", with: 'MS-49-3632-5083')
+                                                                'long-term preservation for...', wait: 30)
+      expect(page).to have_field("#{work_type}_keyword", with: 'datacite', wait: 30)
+      expect(page).to have_field("#{work_type}_keyword", with: 'doi', wait: 30)
+      expect(page).to have_field("#{work_type}_keyword", with: 'metadata', wait: 30)
+      expect(page).to have_field("#{work_type}_publisher", with: 'DataCite', wait: 30)
+
+      # We don't use these fields
+      # expect(page).to have_field("#{work_type}_date_created", with: '2016', wait: 30)
+      # expect(page).to have_field("#{work_type}_identifier", with: 'MS-49-3632-5083', wait: 30)
 
       # expect page to have forwarded to metadata tab
       # expect(URI.parse(page.current_url).fragment).to eq 'metadata'

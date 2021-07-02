@@ -2,7 +2,7 @@
 
 module HykuAddons
   module Bolognese
-    module JsonFieldReaders
+    module JsonFieldsReader
       extend ActiveSupport::Concern
 
       # Prepare the json to be parsed through Bolognese get_authors method
