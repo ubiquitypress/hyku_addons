@@ -44,12 +44,14 @@ RSpec.describe Hyrax::ContactMailer, clean: true, multitenant: true do
       end
 
       it "replaces the email headers" do
-        #  expect(mail.from).to eq ["test@test.edu"]
-        #  settings = mail.delivery_method.settings.with_indifferent_access
-        #  expect(settings[:address]).to eq "test.edu"
-        #  expect(settings[:user_name]).to eq "username"
-        #  expect(settings[:password]).to eq "password"
-        #  expect(settings[:domain]).to eq "test.custom_domain.com"
+        # expect(mail.from).to eq ["test@test.edu"]
+        # expect(mail.reply_to).to eq ["test@test.edu"]
+        # expect(mail.return_path).to eq "test@test.edu"
+        # settings = mail.delivery_method.settings.with_indifferent_access
+        # expect(settings[:address]).to eq "test.edu"
+        # expect(settings[:user_name]).to eq "username"
+        # expect(settings[:password]).to eq "password"
+        # expect(settings[:domain]).to eq "test.custom_domain.com"
       end
     end
   end
