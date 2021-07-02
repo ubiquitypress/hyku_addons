@@ -11,6 +11,8 @@ module HykuAddons
     HASH_SETTINGS = %w[smtp_settings].freeze
     TEXT_SETTINGS = %w[contact_email gtm_id oai_admin_email oai_prefix oai_sample_identifier google_analytics_id].freeze
 
+    PRIVATE_SETTINGS = %w[smtp_settings].freeze
+
     included do
       belongs_to :datacite_endpoint, dependent: :delete
       has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :destroy, inverse_of: :parent
@@ -33,10 +35,18 @@ module HykuAddons
       validates :google_analytics_id,
                 format: { with: /(UA|YT|MO)-\d+-\d+/i },
                 allow_blank: true
+
+      def self.private_settings
+        PRIVATE_SETTINGS
+      end
     end
 
     def datacite_endpoint
       super || NilDataCiteEndpoint.new
+    end
+
+    def public_settings
+      settings.reject { |k, _v| Account.private_settings.include?(k.to_s) }
     end
 
     private
