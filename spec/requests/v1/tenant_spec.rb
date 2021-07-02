@@ -33,5 +33,19 @@ RSpec.describe Hyku::API::V1::TenantController, type: :request, clean: true, mul
       expect(response.status).to eq(200)
       expect(json_response.dig("settings", "google_scholarly_work_types")).to eq(["Book"])
     end
+
+    context "with private settings do" do
+      before do
+        Account.private_settings.each do |setting|
+          account.settings[setting] = ["foo"]
+        end
+        account.save
+      end
+
+      it "excludes private settings" do
+        get "/api/v1/tenant/#{account.tenant}"
+        expect(json_response.keys).not_to include(Account.private_settings)
+      end
+    end
   end
 end

@@ -173,4 +173,18 @@ RSpec.describe HykuAddons::AccountBehavior do
       end
     end
   end
+
+  describe "public_settings" do
+    before do
+      Account.private_settings.each do |setting|
+        account.settings[setting] = ["foo"]
+      end
+    end
+
+    it "excludes private settings" do
+      Account.private_settings do |setting|
+        expect(account.public_settings).not_to include(setting)
+      end
+    end
+  end
 end
