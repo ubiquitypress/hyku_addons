@@ -9,7 +9,7 @@ json.fcrepo_endpoint account.fcrepo_endpoint_id
 json.redis_endpoint account.redis_endpoint_id
 
 # Multi Selects add a blank to the values, this checks for those and removes
-settings = account.settings.map do |key, value|
+settings = account.public_settings.map do |key, value|
   if value.is_a?(Array)
     [key, value.reject(&:blank?)]
   else
