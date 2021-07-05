@@ -529,7 +529,12 @@ module HykuAddons
       Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
       Bolognese::Metadata.prepend Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
+
       Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
+
+      Bolognese::Metadata.prepend Bolognese::Writers::HyraxWorkWriterBehavior
+      Bolognese::Metadata.include HykuAddons::Bolognese::JsonFieldsReader
+
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
       ::Hyku::API::V1::HighlightsController.class_eval do
