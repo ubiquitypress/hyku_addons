@@ -554,14 +554,14 @@ module HykuAddons
 
     # Use #to_prepare because it reloads where after_initialize only runs once
     # This might slow down every request so only do it in development environment
-    # if Rails.env.development?
-    #   config.to_prepare { HykuAddons::Engine.dynamically_include_mixins }
-    # else
+    if Rails.env.development?
+      config.to_prepare { HykuAddons::Engine.dynamically_include_mixins }
+    else
       config.after_initialize { HykuAddons::Engine.dynamically_include_mixins }
       # This is needed to allow the API search to copy the blacklight configuration after our customisations are applied.
       initializer 'hyku_addons.blacklight_config override' do
         CatalogController.include HykuAddons::CatalogControllerBehavior
       end
-    # end
+    end
   end
 end
