@@ -61,6 +61,23 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       expect(creator["creator_name_type"]).to eq "Personal"
     end
 
+    context "for an articles" do
+      let(:account) { FactoryBot.create(:account, locale_name: 'anschutz') }
+      let(:import_batch_file) { 'spec/fixtures/csv/anschutz.csv' }
+
+      before do
+        Site.update(account: account)
+      end
+
+      it 'populates the fields' do
+        importer.import_works
+        work = AnschutzWork.last
+        %w[advisor mesh subject_text citation references medium comittee_member time qualification_subject_text].each do |field|
+          expect(work.send(field)).to(eq(["#{field}1", "#{field}2"])) if work.present?
+        end
+      end
+    end
+
     context 'resource_type' do
       let(:import_batch_file) { 'spec/fixtures/csv/generic_work.csv' }
 
