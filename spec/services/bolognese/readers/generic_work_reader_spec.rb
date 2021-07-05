@@ -26,7 +26,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
     {
       creator_name_type: "Personal",
       creator_given_name: creator2_first_name,
-      creator_family_name: creator2_last_name,
+      creator_family_name: creator2_last_name
     }
   end
   let(:date_accepted) { "2018-01-02" }
