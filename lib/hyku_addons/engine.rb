@@ -203,7 +203,6 @@ module HykuAddons
 
     # Add migrations to parent app paths
     initializer 'hyku_addons.append_migrations' do |app|
-      Hyku::Application.default_url_options[:host] = 'hyku.docker'
       unless app.root.to_s.match?(root.to_s)
         config.paths['db/migrate'].expanded.each do |expanded_path|
           app.config.paths['db/migrate'] << expanded_path
