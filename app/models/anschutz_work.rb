@@ -82,7 +82,7 @@ class AnschutzWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :rights_statement_text, predicate: ::RDF::Vocab::DC.rights, multiple: false do |index|
+  property :rights_statement_text, predicate: ::RDF::Vocab::DC.term(:RightsStatement), multiple: false do |index|
     index.as :stored_searchable
   end
 
