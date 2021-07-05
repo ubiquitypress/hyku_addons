@@ -422,6 +422,8 @@ module HykuAddons
             metadata = visibility_attributes(work_attributes, file_set_attributes)
             uploaded_file.update(file_set_uri: actor.file_set.uri)
             actor.file_set.permissions_attributes = work_permissions
+            # NOTE: The next line is not included in the upstream PR
+            # This line allows the setting of a file's title from a bulkrax import
             actor.file_set.title = Array(file_set_attributes[:title].presence)
             actor.create_metadata(metadata)
             actor.create_content(uploaded_file)
