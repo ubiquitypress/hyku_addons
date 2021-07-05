@@ -225,7 +225,17 @@ module HykuAddons
           "alt_email" => { split: '\|' },
           "isbn" => { split: '\|' },
           "audience" => { split: '\|' },
-          "advisor" => { split: '\|' }
+          "advisor" => { split: '\|' },
+          "mesh" => { split: '\|' },
+          "subject_text" => { split: '\|' },
+          "source" => { split: '\|' },
+          "funding_description" => { split: '\|' },
+          "citation" => { split: '\|' },
+          "references" => { split: '\|' },
+          "medium" => { split: '\|' },
+          "committee_member" => { split: '\|' },
+          "time" => { split: '\|' },
+          "qualification_subject_text" => { split: '\|' }
         }
       end
 
