@@ -92,8 +92,6 @@ module Bolognese
           get_authors(value)
         end
 
-      protected
-
         def read_title
           meta_value("title").collect { |r| { "title" => sanitize(r) } }
         end
