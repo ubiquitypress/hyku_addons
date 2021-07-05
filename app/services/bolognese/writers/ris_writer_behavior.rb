@@ -51,7 +51,7 @@ module Bolognese
             "T1" => parse_attributes(titles, content: "title", first: true),
             "T2" => secondary_titles,
             "DO" => doi,
-            "AU" => to_ris(creators),
+            "AU" => to_ris(meta.dig("creators")), # Don't use `creators` method as its memoized and might not update
             "ED" => to_ris(meta.dig("editor")),
             "AB" => parse_attributes(descriptions, content: "description", first: true),
             "KW" => Array.wrap(subjects).map { |k| parse_attributes(k, content: "subject", first: true) }.presence,
@@ -74,36 +74,38 @@ module Bolognese
           expand_nested_and_prepare(hash)
         end
 
-        # Expand nested arrays, remove any blank entries and expand into a RIS formatted string
-        def expand_nested_and_prepare(hash)
-          hash
-            .compact
-            .map do |k, v|
-              if v.is_a?(Array)
-                # `dup` string for different object ID allowing duplicate keys in compare_by_identity hash
-                v.map { |vi| "#{k.dup}  - #{vi}" if vi.present? }.compact.join(RIS_DELIMITER)
-              else
-                "#{k}  - #{v}"
-              end
-            end.join(RIS_DELIMITER)
-        end
+        protected
 
-        def secondary_titles
-          Array.wrap(parse_attributes(meta["alt_title"])) + Array.wrap(parse_attributes(meta["book_title"]))
-        end
+          # Expand nested arrays, remove any blank entries and expand into a RIS formatted string
+          def expand_nested_and_prepare(hash)
+            hash
+              .compact
+              .map do |k, v|
+                if v.is_a?(Array)
+                  # `dup` string for different object ID allowing duplicate keys in compare_by_identity hash
+                  v.map { |vi| "#{k.dup}  - #{vi}" if vi.present? }.compact.join(RIS_DELIMITER)
+                else
+                  "#{k}  - #{v}"
+                end
+              end.join(RIS_DELIMITER)
+          end
 
-        # Legacy code ordered the values and returned
-        def ordered_identifiers
-          related_identifiers
-            .select { |h| h["relatedIdentifier"].present? }
-            .map { |h| [h["relatedIdentifierType"], h["relatedIdentifier"]] }.to_h
-            .slice("ISBN", "ISSN", "EISSN")
-            .values.first
-        end
+          def secondary_titles
+            Array.wrap(parse_attributes(meta["alt_title"])) + Array.wrap(parse_attributes(meta["book_title"]))
+          end
 
-        def calculate_resource_type(types)
-          RESOURCE_TYPES.select { |_k, v| v.include?(types["resourceType"].first) }.keys.first || DEFAULT_RESOURCE_TYPE
-        end
+          # Legacy code ordered the values and returned
+          def ordered_identifiers
+            related_identifiers
+              .select { |h| h["relatedIdentifier"].present? }
+              .map { |h| [h["relatedIdentifierType"], h["relatedIdentifier"]] }.to_h
+              .slice("ISBN", "ISSN", "EISSN")
+              .values.first
+          end
+
+          def calculate_resource_type(types)
+            RESOURCE_TYPES.select { |_k, v| v.include?(types["resourceType"].first) }.keys.first || DEFAULT_RESOURCE_TYPE
+          end
       end
     end
   end
