@@ -55,7 +55,7 @@ GIT
 
 GIT
   remote: https://github.com/ubiquitypress/hyrax-hirmeos
-  revision: 406baca89fd002614d844e30c543048bc7c7ef03
+  revision: 282618af2a3ebdb8334494bc95d08430b5351b8b
   branch: main
   specs:
     hyrax-hirmeos (0.1.0)
@@ -515,7 +515,6 @@ GEM
       googleauth (~> 0.9)
       mini_mime (~> 1.0)
     google-protobuf (3.17.0)
-    google-protobuf (3.17.0-x86_64-linux)
     google_drive (3.0.7)
       google-apis-drive_v3 (>= 0.5.0, < 1.0.0)
       google-apis-sheets_v4 (>= 0.4.0, < 1.0.0)
@@ -535,9 +534,6 @@ GEM
       os (>= 0.9, < 2.0)
       signet (~> 0.14)
     grpc (1.37.1)
-      google-protobuf (~> 3.15)
-      googleapis-common-protos-types (~> 1.0)
-    grpc (1.37.1-x86_64-linux)
       google-protobuf (~> 3.15)
       googleapis-common-protos-types (~> 1.0)
     grpc-google-iam-v1 (0.6.11)
