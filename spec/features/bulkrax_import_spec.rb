@@ -73,7 +73,8 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
         importer.import_works
         work = AnschutzWork.last
         %w[advisor mesh subject_text citation references medium comittee_member time qualification_subject_text].each do |field|
-          expect(work.send(field)).to(eq(["#{field}1", "#{field}2"])) if work.present?
+          next unless (val = work.try(field))
+          expect(val).to eq(["#{field}1", "#{field}2"])
         end
       end
     end
