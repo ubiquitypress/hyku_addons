@@ -30,45 +30,6 @@ module HykuAddons
     initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
       require_dependency 'hyrax/search_state'
 
-      # Cannot do prepend here because it causes it to get loaded before AcitveRecord breaking things
-      Account.class_eval do
-        include HykuAddons::AccountBehavior
-
-        # @return [Account] a placeholder account using the default connections configured by the application
-        def self.single_tenant_default
-          Account.new do |a|
-            a.build_solr_endpoint
-            a.build_fcrepo_endpoint
-            a.build_redis_endpoint
-            a.build_datacite_endpoint
-          end
-        end
-
-        # Make all the account specific connections active
-        def switch!
-          solr_endpoint.switch!
-          fcrepo_endpoint.switch!
-          redis_endpoint.switch!
-          datacite_endpoint.switch!
-          Settings.switch!(name: locale_name, settings: settings)
-          switch_host!(cname)
-        end
-
-        def reset!
-          SolrEndpoint.reset!
-          FcrepoEndpoint.reset!
-          RedisEndpoint.reset!
-          DataCiteEndpoint.reset!
-          Settings.switch!
-          switch_host!(nil)
-        end
-
-        def switch_host!(cname)
-          Rails.application.routes.default_url_options[:host] = cname
-          Hyrax::Engine.routes.default_url_options[:host] = cname
-        end
-      end
-
       Hyku::RegistrationsController.class_eval do
         def new
           return super if current_account&.allow_signup == "true"
@@ -507,6 +468,7 @@ module HykuAddons
 
     # Pre-existing Work type overrides and dynamic includes
     def self.dynamically_include_mixins
+      Account.include HykuAddons::AccountBehavior
       GenericWork.include HykuAddons::GenericWorkOverrides
       Image.include HykuAddons::ImageOverrides
       GenericWork.include ::Hyrax::BasicMetadata
