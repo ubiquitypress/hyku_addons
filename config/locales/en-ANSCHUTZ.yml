@@ -97,7 +97,7 @@ en-ANSCHUTZ:
         medium: Format(s)
         library_of_congress_classification: LCSH
         time: Coverage Span
-        rights_statement_text: DPLA Rights (Pre-Defined)
+        rights_statement: DPLA Rights (Pre-Defined)
         qualification_subject_text: Thesis Discipline
         qualification_grantor: Thesis Grantor
         qualification_level: Thesis Level
