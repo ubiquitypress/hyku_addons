@@ -107,10 +107,6 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
     context 'with files' do
       let(:import_batch_file) { 'spec/fixtures/csv/pacific_articles.csv' }
 
-      before do
-        allow(Hyrax::Hirmeos).to receive(:configured?).and_return(true)
-      end
-
       it 'is valid' do
         expect(importer.valid_import?).to eq true
         expect(importer.parser.file_paths).to include 'spec/fixtures/csv/files/nypl-hydra-of-lerna.jpg'
