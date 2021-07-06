@@ -225,7 +225,17 @@ module HykuAddons
           "alt_email" => { split: '\|' },
           "isbn" => { split: '\|' },
           "audience" => { split: '\|' },
-          "advisor" => { split: '\|' }
+          "advisor" => { split: '\|' },
+          "mesh" => { split: '\|' },
+          "subject_text" => { split: '\|' },
+          "source" => { split: '\|' },
+          "funding_description" => { split: '\|' },
+          "citation" => { split: '\|' },
+          "references" => { split: '\|' },
+          "medium" => { split: '\|' },
+          "committee_member" => { split: '\|' },
+          "time" => { split: '\|' },
+          "qualification_subject_text" => { split: '\|' }
         }
       end
 
@@ -526,14 +536,14 @@ module HykuAddons
 
       User.include HykuAddons::UserEmailFormat
       Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
-      Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
-      Bolognese::Metadata.prepend Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
+      ::Bolognese::Writers::RisWriter.include ::Bolognese::Writers::RisWriterBehavior
+      ::Bolognese::Metadata.prepend ::Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
 
       Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
 
-      Bolognese::Metadata.prepend Bolognese::Writers::HyraxWorkWriterBehavior
-      Bolognese::Metadata.include HykuAddons::Bolognese::JsonFieldsReader
+      ::Bolognese::Metadata.prepend ::Bolognese::Writers::HyraxWorkWriterBehavior
+      ::Bolognese::Metadata.include HykuAddons::Bolognese::JsonFieldsReader
 
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
