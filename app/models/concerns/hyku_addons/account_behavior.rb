@@ -13,6 +13,7 @@ module HykuAddons
 
     PRIVATE_SETTINGS = %w[smtp_settings].freeze
 
+    # rubocop:disable Metrics/BlockLength
     included do
       belongs_to :datacite_endpoint, dependent: :delete
       has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :destroy, inverse_of: :parent
@@ -74,6 +75,7 @@ module HykuAddons
         Hyrax::Engine.routes.default_url_options[:host] = cname
       end
     end
+    # rubocop:enable Metrics/BlockLength
 
     def datacite_endpoint
       super || NilDataCiteEndpoint.new
