@@ -194,10 +194,10 @@ module HykuAddons
     end
 
     def hyrax_record
-      @hyrax_record ||= begin
-                          super
-                        rescue
-                        end || factory.find
+      begin
+        super
+      rescue
+      end || factory.find
     end
   end
 end

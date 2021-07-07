@@ -25,13 +25,14 @@ namespace :hyku do
         end
       end
 
-      task :csv, [:tenant, :importer] => [:environment] do |_t, args|
+      task :csv, [:tenant, :importer, :klazz] => [:environment] do |_t, args|
         account = load_account(args[:tenant])
+        debugger
         importer = Bulkrax::Importer.find(args[:importer])
 
         importer.entries.find_each.map do |entry|
           next unless entry.is_a?(HykuAddons::CsvEntry)
-          HykuAddons::ValidateCsvImporterEntryJob.perform_later(account, entry)
+          HykuAddons::ValidateCsvImporterEntryJob.perform_later(account, entry, args[:klazz])
         end
       end
     end
@@ -55,12 +56,12 @@ namespace :hyku do
         HykuAddons::ValidateImporterEntryJob.perform_later(account, entry, source_cookie_options(args), destination_cookie_options(args))
       end
 
-      task :csv, [:tenant, :entry] => [:environment] do |_t, args|
+      task :csv, [:tenant, :entry, :klazz] => [:environment] do |_t, args|
         account = load_account(args[:tenant])
         entry = Bulkrax::Entry.find(args[:entry])
         exit(1) unless entry.is_a?(HykuAddons::CsvEntry)
 
-        HykuAddons::ValidateCsvImporterEntryJob.perform_later(account, entry)
+        HykuAddons::ValidateCsvImporterEntryJob.perform_later(account, entry, args[:klazz])
       end
     end
   end
