@@ -284,6 +284,7 @@ module HykuAddons
           "medium" => { split: '\|' },
           "committee_member" => { split: '\|' },
           "time" => { split: '\|' },
+          "add_info" => { split: '\|' },
           "qualification_subject_text" => { split: '\|' }
         }
       end
