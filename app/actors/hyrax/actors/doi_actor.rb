@@ -10,7 +10,7 @@ module Hyrax
       end
 
       def update(env)
-        # Ensure that work has any changed attributes persisted before we create the job
+        # Ensure that the work has any changed attributes persisted before we create the job
         apply_save_data_to_curation_concern(env) && save(env)
 
         create_or_update_doi(env.curation_concern) && next_actor.update(env)
