@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 # Generated via
 #  `rails generate hyrax:work TemplateWork`
+# rubocop:disable  Metrics/ClassLength
 class UbiquityTemplateWork < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include Hyrax::DOI::DOIBehavior
