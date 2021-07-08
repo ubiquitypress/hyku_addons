@@ -15,7 +15,7 @@ module HykuAddons
 
         r[file_mapping].split(/\s*[:;|]\s*/).map do |f|
           # HACK: Override the tr method to prevent spaces from being changes to underscores
-          file = File.join(path_to_files, f.tr(' ', ' '))
+          file = File.join(path_to_files)
           if File.exist?(file) # rubocop:disable Style/GuardClause
             file
           else
@@ -39,7 +39,7 @@ module HykuAddons
         end
         # this only works for uniquely named files
         # HACK: Override the tr method to prevent spaces from being changes to underscores
-        target_file = File.join(files_path, file['file_name'].tr(' ', ' '))
+        target_file = File.join(files_path, file['file_name'])
         # Now because we want the files in place before the importer runs
         # Problematic for a large upload
         Bulkrax::DownloadCloudFileJob.perform_now(file, target_file)
