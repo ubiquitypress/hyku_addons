@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 module HykuAddons
+  # rubocop:disable Metrics/ClassLength
   class CsvParser < Bulkrax::CsvParser
     # FIXME: Override to make debugging easier
     def perform_method
@@ -15,7 +16,7 @@ module HykuAddons
 
         r[file_mapping].split(/\s*[:;|]\s*/).map do |f|
           # HACK: Override the tr method to prevent spaces from being changes to underscores
-          file = File.join(path_to_files)
+          file = File.join(path_to_files, f)
           if File.exist?(file) # rubocop:disable Style/GuardClause
             file
           else
@@ -44,7 +45,7 @@ module HykuAddons
         # Problematic for a large upload
         Bulkrax::DownloadCloudFileJob.perform_now(file, target_file)
       end
-      return nil
+      nil
     end
 
     def entry_class
@@ -151,4 +152,5 @@ module HykuAddons
       @total = 0
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end
