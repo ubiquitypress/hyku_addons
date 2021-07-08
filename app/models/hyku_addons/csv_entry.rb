@@ -49,7 +49,7 @@ module HykuAddons
         end
       end
       parsed_metadata['file'] = file_metadata.pluck('file') if parsed_metadata['file'].blank?
-      parsed_metadata['file'] = parsed_metadata['file'].map { |f| path_to_file(f.tr(' ', '_')) }
+      parsed_metadata['file'] = parsed_metadata['file'].map { |f| path_to_file(f) }
       parsed_metadata['file_set'] = file_metadata
     end
 
