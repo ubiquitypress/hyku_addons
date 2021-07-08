@@ -1,10 +1,51 @@
 # frozen_string_literal: true
 module HykuAddons
+  # rubocop:disable Metrics/ClassLength
   class CsvParser < Bulkrax::CsvParser
     # FIXME: Override to make debugging easier
     def perform_method
       return :perform_now unless Rails.env.production?
       super
+    end
+
+    def file_paths
+      raise StandardError, 'No records were found' if records.blank?
+      @file_paths ||= records.map do |r|
+        file_mapping = Bulkrax.field_mappings.dig(self.class.to_s, 'file', :from)&.first&.to_sym || :file
+        next unless r[file_mapping].present?
+
+        r[file_mapping].split(/\s*[:;|]\s*/).map do |f|
+          # HACK: Override the tr method to prevent spaces from being changes to underscores
+          file = File.join(path_to_files, f)
+          if File.exist?(file) # rubocop:disable Style/GuardClause
+            file
+          else
+            raise "File #{file} does not exist"
+          end
+        end
+      end.flatten.compact.uniq
+    end
+
+    # @todo - investigate getting directory structure
+    # @todo - investigate using perform_later, and having the importer check for
+    #   DownloadCloudFileJob before it starts
+    def retrieve_cloud_files(files)
+      files_path = File.join(path_for_import, 'files')
+      FileUtils.mkdir_p(files_path) unless File.exist?(files_path)
+      files.each_pair do |_key, file|
+        # fixes bug where auth headers do not get attached properly
+        if file['auth_header'].present?
+          file['headers'] ||= {}
+          file['headers'].merge!(file['auth_header'])
+        end
+        # this only works for uniquely named files
+        # HACK: Override the tr method to prevent spaces from being changes to underscores
+        target_file = File.join(files_path, file['file_name'])
+        # Now because we want the files in place before the importer runs
+        # Problematic for a large upload
+        Bulkrax::DownloadCloudFileJob.perform_now(file, target_file)
+      end
+      nil
     end
 
     def entry_class
@@ -111,4 +152,5 @@ module HykuAddons
       @total = 0
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end
