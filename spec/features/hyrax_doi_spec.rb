@@ -78,16 +78,19 @@ RSpec.describe "Minting a DOI for an existing work", js: true, clean: true do
     end
 
     context "when the user selects `findable`" do
+      let(:new_title) { "New work title" }
+
       it "mints a DOI" do
         choose "Findable"
         choose "generic_work_visibility_open"
         check "agreement"
 
+        find("a[role=tab]", text: "Description").click
+        fill_in("Title", with: new_title)
         find("input[type=submit]").click
 
-        # expect(page).to have_current_path(polymorphic_path(work))
         expect(page).to have_selector("h1", text: "Work", wait: 10)
-        expect(page).to have_selector("h2", text: work.title.first)
+        expect(page).to have_selector("h2", text: new_title)
       end
     end
   end
