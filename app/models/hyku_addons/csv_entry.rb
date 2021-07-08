@@ -94,15 +94,15 @@ module HykuAddons
       end.compact
     end
 
-    # Removes the replcement of spaces to underscores https://github.com/samvera-labs/bulkrax/blob/master/app/models/bulkrax/csv_entry.rb#L84 
+    # Removes the replcement of spaces to underscores https://github.com/samvera-labs/bulkrax/blob/master/app/models/bulkrax/csv_entry.rb#L84
     def add_file
-      self.parsed_metadata['file'] ||= []
+      parsed_metadata['file'] ||= []
       if record['file']&.is_a?(String)
-        self.parsed_metadata['file'] = record['file'].split(/\s*[;|]\s*/)
+        parsed_metadata['file'] = record['file'].split(/\s*[;|]\s*/)
       elsif record['file'].is_a?(Array)
-        self.parsed_metadata['file'] = record['file']
+        parsed_metadata['file'] = record['file']
       end
-      self.parsed_metadata['file'] = self.parsed_metadata['file'].map { |f| path_to_file(f) }
+      parsed_metadata['file'] = parsed_metadata['file'].map { |f| path_to_file(f) }
     end
 
     # Override to allow `id` as system identifier field
