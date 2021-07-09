@@ -52,6 +52,7 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Exclude:
     - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
+    - 'app/controllers/concerns/hyku_addons/importer_controller_behavior.rb'
     - 'app/forms/concerns/hyku_addons/generic_work_form_overrides.rb'
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/models/hyku_addons/csv_entry.rb'
@@ -84,6 +85,7 @@ Metrics/AbcSize:
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/models/hyku_addons/csv_entry.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
+    - 'app/controllers/concerns/hyku_addons/importer_controller_behavior.rb'
     - 'bin/transform_export_batch.rb'
     - 'lib/hyku_addons/engine.rb'
 
