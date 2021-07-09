@@ -10,8 +10,9 @@ module Hyrax
                  place_of_publication language subject_text mesh add_info advisor publisher source
                  journal_frequency funding_description citation table_of_contents
                  references extent medium library_of_congress_classification committee_member
-                 time rights_statement qualification_subject_text qualification_grantor qualification_level qualification_name]
-    self.terms -= %i[related_url keyword subject]
+                 time rights_statement qualification_subject_text qualification_grantor qualification_level qualification_name
+                 is_format_of]
+    self.terms -= %i[related_url keyword subject contributor]
     self.required_fields = %i[title resource_type creator date_published abstract license]
 
     include Hyrax::DOI::DOIFormBehavior

@@ -12,7 +12,8 @@ module Hyrax
        :citation, :table_of_contents, :references, :extent, :advisor,
        :medium, :library_of_congress_classification, :committee_member,
        :time, :rights_statement, :subject, :qualification_grantor, :qualification_level,
-       :qualification_name, :date_published_text, :qualification_subject_text, :rights_statement_text].freeze
+       :qualification_name, :date_published_text, :qualification_subject_text, :rights_statement_text,
+       :is_format_of].freeze
     end
 
     include ::HykuAddons::PresenterDelegatable

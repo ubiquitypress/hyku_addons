@@ -90,6 +90,10 @@ class AnschutzWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  property :is_format_of, predicate: ::RDF::Vocab::DC.isFormatOf do |index|
+    index.as :stored_searchable
+  end
+
   self.indexer = AnschutzWorkIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
