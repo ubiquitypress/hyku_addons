@@ -9,7 +9,7 @@ module Hyrax
       [:alt_title, :abstract, :subject_text, :mesh,
        :language, :place_of_publication, :license, :language, :add_info,
        :publisher, :source, :journal_frequency, :funding_description,
-       :citation, :table_of_contents, :references, :extent,
+       :citation, :table_of_contents, :references, :extent, :advisor,
        :medium, :library_of_congress_classification, :committee_member,
        :time, :rights_statement, :subject, :qualification_grantor, :qualification_level,
        :qualification_name, :date_published_text, :qualification_subject_text, :rights_statement_text].freeze

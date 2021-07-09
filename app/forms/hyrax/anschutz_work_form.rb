@@ -7,7 +7,7 @@ module Hyrax
     include ::HykuAddons::WorkForm
     self.model_class = ::AnschutzWork
     add_terms %i[title alt_title creator date_published date_published_text abstract resource_type license
-                 place_of_publication language subject_text mesh add_info publisher source
+                 place_of_publication language subject_text mesh add_info advisor publisher source
                  journal_frequency funding_description citation table_of_contents
                  references extent medium library_of_congress_classification committee_member
                  time rights_statement qualification_subject_text qualification_grantor qualification_level qualification_name]
@@ -29,7 +29,7 @@ module Hyrax
                              :language, :place_of_publication, :license, :language, :add_info,
                              :publisher, :source, :journal_frequency, :funding_description,
                              :citation, :table_of_contents, :references, :extent,
-                             :medium, :library_of_congress_classification]
+                             :medium, :library_of_congress_classification, :advisor]
       end
     end
   end
