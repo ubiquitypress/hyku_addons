@@ -26,3 +26,12 @@ terms:
   - term: CC BY-NC 3.0 Attribution-NonCommercial
     id: https://creativecommons.org/licenses/by-nc/3.0/
     active: false
+  - term: CC BY-NC-ND 3.0
+    id: https://creativecommons.org/licenses/by-nc-nd/3.0/
+    active: false
+  - term: CC BY 2.0
+    id: https://creativecommons.org/licenses/by/2.0/
+    active: false
+  - term: Copyright of the original work is retained by the creator(s).
+    id: authorownscopyright
+    active: false
