@@ -81,7 +81,7 @@ module Hyrax
         end
 
         def diff_entry_html(diff_entry)
-          label_klazz = case diff_entry[:op]&.to_s
+          label_klass = case diff_entry[:op]&.to_s
                         when 'add'
                           'success'
                         when 'move'
@@ -90,7 +90,7 @@ module Hyrax
                           'danger'
                         else 'info'
                         end
-          @view_context.content_tag :tr, class: "bg-#{label_klazz} overflow-wrap-break" do
+          @view_context.content_tag :tr, class: "bg-#{label_klass} overflow-wrap-break" do
             diff_entry_item(diff_entry[:path], diff_entry[:source_v], diff_entry[:dest_v])
           end
         end

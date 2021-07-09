@@ -560,6 +560,7 @@ module HykuAddons
           @collection_docs = repository.search(collection_search_builder).documents
         end
       end
+      Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
       ::ActiveJob::Base.include HykuAddons::ImportMode
     end
 
