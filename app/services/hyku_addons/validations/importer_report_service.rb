@@ -10,7 +10,7 @@ module HykuAddons
       def perform(context = nil)
         @statuses = Bulkrax::Status.where(statusable_type: 'Bulkrax::Entry').where(statusable_id: @importer.entry_ids)
         CSV.generate do |csv|
-          csv << %i[import_id import_name entry_id work_id status link run_at]
+          csv << %i[import_id import_name entry_id identifier status link]
           @statuses.each do |status|
             entry = status.statusable
             csv << [@importer.id, @importer.name, entry.id, entry.identifier, status.status_message,
