@@ -5,9 +5,16 @@ module HykuAddons
     class EntryValidationService
       attr_reader :errors, :entry
 
-      EXCLUDED_FIELDS = %i[].freeze
-      RENAMED_FIELDS = {}.freeze
-      EXCLUDED_FIELDS_WITH_VALUES = {}.freeze
+      @excluded_fields = %i[].freeze
+      @renamed_fields = {}.freeze
+      @excluded_fields_with_value = {}.freeze
+      @separator_char = ','
+
+      class << self
+        %i[excluded_fields renamed_fields excluded_fields_with_value separator_char].each do |attr|
+          attr_reader attr
+        end
+      end
 
       def initialize(account, entry)
         @account = account
@@ -98,11 +105,11 @@ module HykuAddons
         end
 
         def excluded_field?(k)
-          EXCLUDED_FIELDS.include?(k.to_sym)
+          self.class.excluded_fields.include?(k.to_sym)
         end
 
         def excluded_field_with_value?(k, v)
-          Array(EXCLUDED_FIELDS_WITH_VALUES[k]) == Array(v)
+          Array(self.class.excluded_fields_with_value[k]) == Array(v)
         end
 
         def non_empty_list_of_values?(v)
@@ -110,7 +117,7 @@ module HykuAddons
         end
 
         def rename_fields(metadata)
-          RENAMED_FIELDS.each do |k, v|
+          self.class.renamed_fields.each do |k, v|
             metadata[v] = metadata.delete(k)
           end
           metadata
@@ -121,7 +128,8 @@ module HykuAddons
         end
 
         def non_blank_stripped_sets(item)
-          Array.wrap(item).select(&:present?).map { |i| i.try(:strip)&.downcase || i }.to_set
+          value_to_transform = item.try(:split, self.class.separator_char) || item
+          Array.wrap(value_to_transform).select(&:present?).map { |i| i.try(:strip)&.downcase || i }.to_set
         end
 
         def reevaluate_fields(metadata)
