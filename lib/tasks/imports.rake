@@ -27,7 +27,6 @@ namespace :hyku do
 
       task :csv, [:tenant, :importer, :klazz] => [:environment] do |_t, args|
         account = load_account(args[:tenant])
-        debugger
         importer = Bulkrax::Importer.find(args[:importer])
 
         importer.entries.find_each.map do |entry|

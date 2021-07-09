@@ -44,27 +44,21 @@ RSpec.describe HykuAddons::Validations::RedlandsEntryValidationService, type: :m
 
   describe 'filter_out_excluded_fields' do
     let(:metadata) do
-      {
-        foo: :bar,
-        bar: :baz,
-        empty_string: "",
-        empty_string_array: [""],
-        exclude: 'true',
-        include: 'true'
-      }
+      described_class.excluded_fields
+                     .each_with_object("")
+                     .to_h.merge(foo: :bar)
     end
-    let(:excluded_fields) { [:bar] }
     let(:excluded_fields_with_values) { { exclude: 'true', include: 'false' } }
     let(:result) { service.send(:processable_fields, metadata) }
 
-    before do
-      stub_const("HykuAddons::Validations::RedlandsEntryValidationService::EXCLUDED_FIELDS", excluded_fields)
-      stub_const("HykuAddons::Validations::RedlandsEntryValidationService::EXCLUDED_FIELDS_WITH_VALUES", excluded_fields_with_values)
+    it 'keeps attrs not listed' do
+      expect(result.keys).to include(:foo)
     end
 
-    it 'removes the excluded fields from the hash param based on EXCLUDED_FIELDS' do
-      expect(result.keys).to include(:foo)
-      expect(result.keys).not_to include(:bar)
+    described_class.excluded_fields.each do |field|
+      it "removes #{field} from the list based on EXCLUDED_FIELDS" do
+        expect(result.keys).not_to include(:bar)
+      end
     end
   end
 end

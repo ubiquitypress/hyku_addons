@@ -187,12 +187,12 @@ RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
       }
     end
     let(:excluded_fields) { [:bar] }
-    let(:excluded_fields_with_values) { { exclude: 'true', include: 'false' } }
+    let(:excluded_fields_with_value) { { exclude: 'true', include: 'false' } }
     let(:result) { service.send(:processable_fields, metadata) }
 
     before do
-      stub_const("HykuAddons::Validations::EntryValidationService::EXCLUDED_FIELDS", excluded_fields)
-      stub_const("HykuAddons::Validations::EntryValidationService::EXCLUDED_FIELDS_WITH_VALUES", excluded_fields_with_values)
+      allow(described_class).to receive(:excluded_fields).and_return(excluded_fields)
+      allow(described_class).to receive(:excluded_fields_with_value).and_return(excluded_fields_with_value)
     end
 
     it 'removes the excluded fields from the hash param based on EXCLUDED_FIELDS' do
@@ -219,7 +219,7 @@ RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
     let(:renamed_fields) { { foo: :fooz, bar: :barz } }
 
     before do
-      stub_const("HykuAddons::Validations::EntryValidationService::RENAMED_FIELDS", renamed_fields)
+      allow(described_class).to receive(:renamed_fields).and_return(renamed_fields)
     end
 
     it 'renames the fields using the RENAMED_FIELDS map' do

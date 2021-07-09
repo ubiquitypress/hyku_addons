@@ -2,20 +2,19 @@
 module HykuAddons
   module Validations
     class RedlandsEntryValidationService < CsvEntryValidationService
-
-      EXCLUDED_FIELDS = %i[
+      @excluded_fields = %i[
         admin_set calc_url create_openurl csvfile ctmtime depositor document_type id
       ].freeze
 
-      RENAMED_FIELDS = {
+      @renamed_fields = {
         doi_tesim: 'official_link'
       }.with_indifferent_access.freeze
 
-      EXCLUDED_FIELDS_WITH_VALUES = {
+      @excluded_fields_with_value = {
         edit_access_group_ssim: ["admin"]
       }.with_indifferent_access.freeze
 
-      SEPARATOR_CHAR = "|"
+      @separator_char = "|"
     end
   end
 end

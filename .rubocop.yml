@@ -15,6 +15,7 @@ Metrics/ClassLength:
     - 'app/models/hyku_addons/csv_entry.rb'
     - 'app/services/bolognese/readers/base_work_reader.rb'
     - 'app/services/hyku_addons/validations/solr_entry_validation_service.rb'
+    - 'app/services/hyku_addons/validations/entry_validation_service.rb'
     - 'lib/hyku_addons/engine.rb'
 
 Metrics/LineLength:
