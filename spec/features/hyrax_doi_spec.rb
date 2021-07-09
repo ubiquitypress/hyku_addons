@@ -92,6 +92,8 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
       end
     end
 
+    # NOTE: This monkeypatch is to get around an issue where by no matter what I try, the Rails routes are not having
+    # their host set by the default_url_options command above. I don't like this either.
     Hyrax::DOI::DataCiteRegistrar.class_eval do
       def work_url(work)
         Rails.application.routes.url_helpers.polymorphic_url(work, host: Site.instance.account.cname)
@@ -199,6 +201,7 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
           # Ensure we end up on the right page
           expect(page).to have_selector("h1", text: "Work", wait: 10)
           expect(page).to have_selector("h2", text: new_title)
+          expect(page).to have_selector("a", text: "https://doi.org/#{doi}")
         end
       end
     end
