@@ -46,19 +46,4 @@ class Settings
       config.geonames_username = Settings.geonames_username
     end
   end
-
-  def self.setup_tenant_cache
-    if (Rails.application.config.action_controller.perform_caching = Flipflop.enabled?(:cache_enabled) && true)
-      ActionController::Base.perform_caching = true
-      Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id }
-      Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
-    end
-  end
-
-  def self.disable_tenant_cache
-    Rails.application.config.action_controller.perform_caching = Settings.cache_enabled || false
-    ActionController::Base.perform_caching = Rails.application.config.action_controller.perform_caching
-    Rails.application.config.cache_store = :file_store, Settings.cache_filesystem_root
-    Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
-  end
 end

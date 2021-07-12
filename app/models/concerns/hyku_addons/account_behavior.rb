@@ -13,6 +13,7 @@ module HykuAddons
 
     PRIVATE_SETTINGS = %w[smtp_settings].freeze
 
+    # rubocop:disable Metrics/BlockLength
     included do
       belongs_to :datacite_endpoint, dependent: :delete
       has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :destroy, inverse_of: :parent
@@ -39,7 +40,59 @@ module HykuAddons
       def self.private_settings
         PRIVATE_SETTINGS
       end
+
+      # @return [Account] a placeholder account using the default connections configured by the application
+      def self.single_tenant_default
+        Account.new do |a|
+          a.build_solr_endpoint
+          a.build_fcrepo_endpoint
+          a.build_redis_endpoint
+          a.build_datacite_endpoint
+        end
+      end
+
+      # Make all the account specific connections active
+      def switch!
+        solr_endpoint.switch!
+        fcrepo_endpoint.switch!
+        redis_endpoint.switch!
+        datacite_endpoint.switch!
+        Settings.switch!(name: locale_name, settings: settings)
+        switch_host!(cname)
+        setup_tenant_cache
+      end
+
+      def reset!
+        SolrEndpoint.reset!
+        FcrepoEndpoint.reset!
+        RedisEndpoint.reset!
+        DataCiteEndpoint.reset!
+        Settings.switch!
+        switch_host!(nil)
+        disable_tenant_cache
+      end
+
+      def switch_host!(cname)
+        Rails.application.routes.default_url_options[:host] = cname
+        Hyrax::Engine.routes.default_url_options[:host] = cname
+      end
+
+      def setup_tenant_cache
+        if (Rails.application.config.action_controller.perform_caching = Flipflop.enabled?(:cache_enabled) && true)
+          ActionController::Base.perform_caching = true
+          Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id }
+          Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
+        end
+      end
+
+      def disable_tenant_cache
+        Rails.application.config.action_controller.perform_caching = Settings.cache_enabled || false
+        ActionController::Base.perform_caching = Rails.application.config.action_controller.perform_caching
+        Rails.application.config.cache_store = :file_store, Settings.cache_filesystem_root
+        Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
+      end
     end
+    # rubocop:enable Metrics/BlockLength
 
     def datacite_endpoint
       super || NilDataCiteEndpoint.new

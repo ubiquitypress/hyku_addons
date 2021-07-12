@@ -29,95 +29,6 @@ module HykuAddons
 
     initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
       require_dependency 'hyrax/search_state'
-
-      # Cannot do prepend here because it causes it to get loaded before AcitveRecord breaking things
-      Account.class_eval do
-        include HykuAddons::AccountBehavior
-
-        # @return [Account] a placeholder account using the default connections configured by the application
-        def self.single_tenant_default
-          Account.new do |a|
-            a.build_solr_endpoint
-            a.build_fcrepo_endpoint
-            a.build_redis_endpoint
-            a.build_datacite_endpoint
-          end
-        end
-
-        # Make all the account specific connections active
-        def switch!
-          solr_endpoint.switch!
-          fcrepo_endpoint.switch!
-          redis_endpoint.switch!
-          datacite_endpoint.switch!
-          switch_host!(cname)
-          switch_settings!(name: locale_name, settings: settings)
-          reload_hyrax_config!
-          setup_tenant_cache
-        end
-
-        def reset!
-          SolrEndpoint.reset!
-          FcrepoEndpoint.reset!
-          RedisEndpoint.reset!
-          DataCiteEndpoint.reset!
-          Settings.switch!
-          switch_host!(nil)
-          switch_settings!
-          reload_hyrax_config!
-          disable_tenant_cache
-        end
-
-        def switch_host!(cname)
-          Rails.application.routes.default_url_options[:host] = cname
-          Hyrax::Engine.routes.default_url_options[:host] = cname
-        end
-
-        def switch_settings!(name: nil, settings: {})
-          if name
-            Settings.reload_from_files(Config.setting_files(::Rails.root.join('config'), ::Rails.env) + [tenant_settings_filename(name)])
-            Settings.add_source!(Config::Sources::EnvSource.new(ENV, prefix: ["SETTINGS", name.upcase].compact.join(Config.env_separator)))
-          else
-            Settings.reload_from_files(Config.setting_files(::Rails.root.join('config'), ::Rails.env))
-          end
-
-          Settings.add_source!(settings)
-          Settings.reload!
-        end
-
-        def tenant_settings_filename(name)
-          ::Rails.root.join('config', 'settings', "#{::Rails.env}-#{name.upcase}.yml")
-        end
-
-        # Reload all hyrax configuration that reads from Settings
-        # TODO: Figure out a better way to do this
-        def reload_hyrax_config!
-          Hyrax.config do |config|
-            config.contact_email = Settings.contact_email
-            config.analytics = Settings.google_analytics_id.present?
-            config.google_analytics_id = Settings.google_analytics_id
-            config.redis_namespace = Settings.redis.default_namespace
-            config.fits_path = Settings.fits_path
-            config.geonames_username = Settings.geonames_username
-          end
-        end
-
-        def setup_tenant_cache
-          if (Rails.application.config.action_controller.perform_caching = Flipflop.enabled?(:cache_enabled) && true)
-            ActionController::Base.perform_caching = true
-            Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id }
-            Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
-          end
-        end
-
-        def disable_tenant_cache
-          Rails.application.config.action_controller.perform_caching = Settings.cache_enabled || false
-          ActionController::Base.perform_caching = Rails.application.config.action_controller.perform_caching
-          Rails.application.config.cache_store = :file_store, Settings.cache_filesystem_root
-          Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
-        end
-      end
-
       Hyku::RegistrationsController.class_eval do
         def new
           return super if current_account&.allow_signup == "true"
@@ -558,6 +469,7 @@ module HykuAddons
 
     # Pre-existing Work type overrides and dynamic includes
     def self.dynamically_include_mixins
+      Account.include HykuAddons::AccountBehavior
       GenericWork.include HykuAddons::GenericWorkOverrides
       Image.include HykuAddons::ImageOverrides
       GenericWork.include ::Hyrax::BasicMetadata
