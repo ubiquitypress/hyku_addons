@@ -13,6 +13,7 @@ module HykuAddons
 
     PRIVATE_SETTINGS = %w[smtp_settings].freeze
 
+    # rubocop:disable Metrics/BlockLength
     included do
       belongs_to :datacite_endpoint, dependent: :delete
       has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :destroy, inverse_of: :parent
@@ -39,7 +40,42 @@ module HykuAddons
       def self.private_settings
         PRIVATE_SETTINGS
       end
+
+      # @return [Account] a placeholder account using the default connections configured by the application
+      def self.single_tenant_default
+        Account.new do |a|
+          a.build_solr_endpoint
+          a.build_fcrepo_endpoint
+          a.build_redis_endpoint
+          a.build_datacite_endpoint
+        end
+      end
+
+      # Make all the account specific connections active
+      def switch!
+        solr_endpoint.switch!
+        fcrepo_endpoint.switch!
+        redis_endpoint.switch!
+        datacite_endpoint.switch!
+        Settings.switch!(name: locale_name, settings: settings)
+        switch_host!(cname)
+      end
+
+      def reset!
+        SolrEndpoint.reset!
+        FcrepoEndpoint.reset!
+        RedisEndpoint.reset!
+        DataCiteEndpoint.reset!
+        Settings.switch!
+        switch_host!(nil)
+      end
+
+      def switch_host!(cname)
+        Rails.application.routes.default_url_options[:host] = cname
+        Hyrax::Engine.routes.default_url_options[:host] = cname
+      end
     end
+    # rubocop:enable Metrics/BlockLength
 
     def datacite_endpoint
       super || NilDataCiteEndpoint.new
