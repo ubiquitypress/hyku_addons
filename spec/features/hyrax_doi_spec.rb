@@ -35,12 +35,13 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
     )
   end
 
+  let(:prefix) { "10.23716" }
   let(:datacite_endpoint_attributes) do
     {
       mode: :test,
-      prefix: "10.23716",
+      prefix: prefix,
       username: "VJKA.JCRXZG-LOCAL",
-      password: "1xEU5MV4"
+      password: "password"
     }
   end
   let(:account) do
@@ -139,36 +140,25 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
 
     context "when the user selects `findable`" do
       let(:new_title) { "New work title" }
-      let(:prefix) { "10.23716" }
       let(:doi) { "#{prefix}/kgkc-nn31" }
 
       let(:response_fixture) { File.read Rails.root.join("..", "fixtures", "datacite", "put_metadata.xml") }
-      let(:json_headers) do
+      let(:common_headers) do
         {
           "Accept": "*/*",
           "Accept-Encoding": "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-          "Authorization": "Basic VkpLQS5KQ1JYWkctTE9DQUw6MXhFVTVNVjQ=",
-          "Content-Type": "application/json",
+          "Authorization": "Basic VkpLQS5KQ1JYWkctTE9DQUw6cGFzc3dvcmQ=",
           "User-Agent": "Faraday v0.17.4"
         }
+      end
+      let(:json_headers) do
+        common_headers.merge("Content-Type": "application/json")
       end
       let(:xml_headers) do
-        {
-          "Accept": "*/*",
-          "Accept-Encoding": "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-          "Authorization": "Basic VkpLQS5KQ1JYWkctTE9DQUw6MXhFVTVNVjQ=",
-          "Content-Type": "application/xml;charset=UTF-8",
-          "User-Agent": "Faraday v0.17.4"
-        }
+        common_headers.merge("Content-Type": "application/xml;charset=UTF-8")
       end
       let(:text_headers) do
-        {
-          "Accept": "*/*",
-          "Accept-Encoding": "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-          "Authorization": "Basic VkpLQS5KQ1JYWkctTE9DQUw6MXhFVTVNVjQ=",
-          "Content-Type": "text/plain;charset=UTF-8",
-          "User-Agent": "Faraday v0.17.4"
-        }
+        common_headers.merge("Content-Type": "text/plain;charset=UTF-8")
       end
 
       before do
