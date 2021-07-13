@@ -124,7 +124,7 @@ module HykuAddons
       attribute :rights_statement_text, SolrDocument::Solr::Array, solr_name('rights_statement_text')
       attribute :qualification_subject_text, SolrDocument::Solr::Array, solr_name('qualification_subject_text')
       attribute :is_format_of, SolrDocument::Solr::Array, solr_name('is_format_of')
-      attribute :is_part_of, SolrDocument::Solr::Array, solr_name('is_format_of')
+      attribute :is_part_of, SolrDocument::Solr::Array, solr_name('is_part_of')
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(
