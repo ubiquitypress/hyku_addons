@@ -6,7 +6,7 @@ module Hyrax
     include ::HykuAddons::WorkPresenterBehavior
 
     def self.delegated_methods
-      [:alt_title, :abstract, :subject_text, :mesh,
+      [:alt_title, :abstract, :subject_text, :mesh, :date_published,
        :language, :place_of_publication, :license, :language, :add_info,
        :publisher, :source, :journal_frequency, :funding_description,
        :citation, :table_of_contents, :references, :extent, :advisor,

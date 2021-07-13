@@ -71,7 +71,8 @@ if work.language.present?
   end
   json.language languages.compact
 end
-#                                         "library_of_congress_classification" => nil,
+json.library_of_congress_classification work.try(:library_of_congress_classification)
+
 license = work.try(:license)
 license_hash = HykuAddons::LicenseService.new.select_all_options.to_h
 if license.present?
