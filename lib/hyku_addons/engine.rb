@@ -197,7 +197,8 @@ module HykuAddons
           "committee_member" => { split: '\|' },
           "time" => { split: '\|' },
           "add_info" => { split: '\|' },
-          "qualification_subject_text" => { split: '\|' }
+          "qualification_subject_text" => { split: '\|' },
+          "is_part_of" => { split: '\|' }
         }
       end
 

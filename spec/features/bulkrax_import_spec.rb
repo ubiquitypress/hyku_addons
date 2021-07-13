@@ -72,7 +72,7 @@ RSpec.describe 'Bulkrax import', clean: true, perform_enqueued: true do
       it 'populates the fields' do
         importer.import_works
         work = AnschutzWork.last
-        %w[advisor mesh subject_text citation references medium comittee_member time qualification_subject_text add_info].each do |field|
+        %w[advisor mesh subject_text citation references medium comittee_member time qualification_subject_text add_info is_part_of].each do |field|
           next unless (val = work.try(field))
           expect(val).to eq(["#{field}1", "#{field}2"])
         end

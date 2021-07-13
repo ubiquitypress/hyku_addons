@@ -1,2 +1,2 @@
-id,source_identifier,model,title,advisor,mesh,subject_text,citation,references,medium,comittee_member,time,qualification_subject_text,add_info
-,abc127,Anschutz Work,title,advisor1|advisor2,mesh1|mesh2,subject_text1|subject_text1,citation1|citation2,references1|references2,medium1|medium2,comittee_member1|comittee_member2,time1|time2,qualification_subject_text1|qualification_subject_text2,add_info1|add_info2
+id,source_identifier,model,title,advisor,mesh,subject_text,citation,references,medium,comittee_member,time,qualification_subject_text,add_info,is_part_of
+,abc127,Anschutz Work,title,advisor1|advisor2,mesh1|mesh2,subject_text1|subject_text1,citation1|citation2,references1|references2,medium1|medium2,comittee_member1|comittee_member2,time1|time2,qualification_subject_text1|qualification_subject_text2,add_info1|add_info2,is_part_of1|is_part_of2
