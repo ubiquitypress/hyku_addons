@@ -86,7 +86,7 @@ class AnschutzWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :advisor, predicate: ::RDF::Vocab::Bibframe.Person  do |index|
+  property :advisor, predicate: ::RDF::Vocab::Bibframe.Person do |index|
     index.as :stored_searchable
   end
 
