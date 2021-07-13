@@ -31,45 +31,6 @@ module HykuAddons
     initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
       require_dependency 'hyrax/search_state'
 
-      # Cannot do prepend here because it causes it to get loaded before AcitveRecord breaking things
-      Account.class_eval do
-        include HykuAddons::AccountBehavior
-
-        # @return [Account] a placeholder account using the default connections configured by the application
-        def self.single_tenant_default
-          Account.new do |a|
-            a.build_solr_endpoint
-            a.build_fcrepo_endpoint
-            a.build_redis_endpoint
-            a.build_datacite_endpoint
-          end
-        end
-
-        # Make all the account specific connections active
-        def switch!
-          solr_endpoint.switch!
-          fcrepo_endpoint.switch!
-          redis_endpoint.switch!
-          datacite_endpoint.switch!
-          Settings.switch!(name: locale_name, settings: settings)
-          switch_host!(cname)
-        end
-
-        def reset!
-          SolrEndpoint.reset!
-          FcrepoEndpoint.reset!
-          RedisEndpoint.reset!
-          DataCiteEndpoint.reset!
-          Settings.switch!
-          switch_host!(nil)
-        end
-
-        def switch_host!(cname)
-          Rails.application.routes.default_url_options[:host] = cname
-          Hyrax::Engine.routes.default_url_options[:host] = cname
-        end
-      end
-
       Hyku::RegistrationsController.class_eval do
         def new
           return super if current_account&.allow_signup == "true"
@@ -155,7 +116,6 @@ module HykuAddons
 
     # Add migrations to parent app paths
     initializer 'hyku_addons.append_migrations' do |app|
-      Hyku::Application.default_url_options[:host] = 'hyku.docker'
       unless app.root.to_s.match?(root.to_s)
         config.paths['db/migrate'].expanded.each do |expanded_path|
           app.config.paths['db/migrate'] << expanded_path
@@ -227,7 +187,18 @@ module HykuAddons
           "alt_email" => { split: '\|' },
           "isbn" => { split: '\|' },
           "audience" => { split: '\|' },
-          "advisor" => { split: '\|' }
+          "advisor" => { split: '\|' },
+          "mesh" => { split: '\|' },
+          "subject_text" => { split: '\|' },
+          "source" => { split: '\|' },
+          "funding_description" => { split: '\|' },
+          "citation" => { split: '\|' },
+          "references" => { split: '\|' },
+          "medium" => { split: '\|' },
+          "committee_member" => { split: '\|' },
+          "time" => { split: '\|' },
+          "add_info" => { split: '\|' },
+          "qualification_subject_text" => { split: '\|' }
         }
       end
 
@@ -374,6 +345,8 @@ module HykuAddons
             metadata = visibility_attributes(work_attributes, file_set_attributes)
             uploaded_file.update(file_set_uri: actor.file_set.uri)
             actor.file_set.permissions_attributes = work_permissions
+            # NOTE: The next line is not included in the upstream PR
+            # This line allows the setting of a file's title from a bulkrax import
             actor.file_set.title = Array(file_set_attributes[:title].presence)
             actor.create_metadata(metadata)
             actor.create_content(uploaded_file)
@@ -392,7 +365,7 @@ module HykuAddons
           end
 
           def file_set_attrs(attributes, uploaded_file)
-            attrs = Array(attributes[:file_set]).find { |fs| fs[:uploaded_file_id] == uploaded_file&.id }
+            attrs = Array(attributes[:file_set]).find { |fs| fs[:uploaded_file_id].present? && (fs[:uploaded_file_id].to_i == uploaded_file&.id) }
             Hash(attrs).symbolize_keys
           end
       end
@@ -476,6 +449,7 @@ module HykuAddons
         config.register_curation_concern :redlands_open_educational_resource
         config.register_curation_concern :redlands_media
         config.register_curation_concern :redlands_student_work
+        config.register_curation_concern :ubiquity_template_work
         config.register_curation_concern :uva_work
 
         config.license_service_class = HykuAddons::LicenseService
@@ -497,6 +471,7 @@ module HykuAddons
 
     # Pre-existing Work type overrides and dynamic includes
     def self.dynamically_include_mixins
+      Account.include HykuAddons::AccountBehavior
       GenericWork.include HykuAddons::GenericWorkOverrides
       Image.include HykuAddons::ImageOverrides
       GenericWork.include ::Hyrax::BasicMetadata
@@ -526,11 +501,17 @@ module HykuAddons
 
       User.include HykuAddons::UserEmailFormat
       Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
-      Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
-      Bolognese::Metadata.prepend Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
+      ::Bolognese::Writers::RisWriter.include ::Bolognese::Writers::RisWriterBehavior
+      ::Bolognese::Metadata.prepend ::Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
+
       Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
-      ::ApplicationController.include ::HykuAddons::MultitenantLocaleControllerBehavior # ::HykuAddons... is required
+
+      ::Bolognese::Metadata.prepend ::Bolognese::Writers::HyraxWorkWriterBehavior
+      ::Bolognese::Metadata.include HykuAddons::Bolognese::JsonFieldsReader
+
+      ::ApplicationController.include ::HykuAddons::MultitenantLocaleControllerBehavior
+
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
       ::Hyku::API::V1::HighlightsController.class_eval do
         def index
@@ -544,6 +525,7 @@ module HykuAddons
           @collection_docs = repository.search(collection_search_builder).documents
         end
       end
+      Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
       ::ActiveJob::Base.include HykuAddons::ImportMode
       Hyrax::Dashboard::ProfilesController.prepend HykuAddons::Dashboard::ProfilesControllerBehavior
 

@@ -39,7 +39,7 @@ module HykuAddons
       end
 
       def raw_response
-        response = Bolognese::Metadata.new(input: doi)
+        response = ::Bolognese::Metadata.new(input: doi)
 
         return response if response.string.present? && response.meta.present?
 

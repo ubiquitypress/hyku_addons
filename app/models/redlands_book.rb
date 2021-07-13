@@ -9,6 +9,7 @@ class RedlandsBook < ActiveFedora::Base
   # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
+  include ::HykuAddons::AddInfoSingular
 
   property :alt_title, predicate: ::RDF::Vocab::DC.alternative, multiple: false do |index|
     index.as :stored_searchable

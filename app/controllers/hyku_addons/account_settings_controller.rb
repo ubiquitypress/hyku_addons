@@ -35,7 +35,7 @@ module HykuAddons
                      :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup, :bulkrax_validations,
                      :google_analytics_id, :orcid_client_id, :orcid_client_secret, :orcid_redirect,
                      google_scholarly_work_types: [], email_format: [], weekly_email_list: [], monthly_email_list: [],
-                     yearly_email_list: []]
+                     yearly_email_list: [], smtp_settings: HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields]
         )
       end
 

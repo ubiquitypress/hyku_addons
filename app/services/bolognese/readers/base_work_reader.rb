@@ -11,6 +11,7 @@ module Bolognese
   module Readers
     class BaseWorkReader < Bolognese::Metadata
       include HykuAddons::WorkFormNameable
+      include ::HykuAddons::Bolognese::JsonFieldsReader
 
       DEFAULT_RESOURCE_TYPE = "Work"
       DEFAULT_META_MODEL = "GenericWork"
@@ -91,7 +92,8 @@ module Bolognese
           get_authors(value)
         end
 
-        # For now editor is treated differently to creator/contributor
+        # For now editor is treated differently to creator/contributor because we don't have a specific example
+        # where this should be adjusted. This will likely change as a client provides a useful example.
         def read_editor
           return unless (value = @meta.fetch("editor_display", @meta.dig("editor"))).present?
 

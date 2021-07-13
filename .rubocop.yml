@@ -15,6 +15,7 @@ Metrics/ClassLength:
     - 'app/models/hyku_addons/csv_entry.rb'
     - 'app/services/bolognese/readers/base_work_reader.rb'
     - 'app/services/hyku_addons/validations/solr_entry_validation_service.rb'
+    - 'app/services/hyku_addons/validations/entry_validation_service.rb'
     - 'lib/hyku_addons/engine.rb'
 
 Metrics/LineLength:
@@ -50,6 +51,7 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Exclude:
     - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
+    - 'app/controllers/concerns/hyku_addons/importer_controller_behavior.rb'
     - 'app/forms/concerns/hyku_addons/generic_work_form_overrides.rb'
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/models/hyku_addons/csv_entry.rb'
@@ -82,6 +84,7 @@ Metrics/AbcSize:
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/models/hyku_addons/csv_entry.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
+    - 'app/controllers/concerns/hyku_addons/importer_controller_behavior.rb'
     - 'bin/transform_export_batch.rb'
     - 'lib/hyku_addons/engine.rb'
 

@@ -37,7 +37,7 @@ module HykuAddons
           contributor: [
             :contributor_organization_name, :contributor_given_name, :contributor_middle_name,
             :contributor_family_name, :contributor_name_type, :contributor_orcid, :contributor_isni, :contributor_ror,
-            :contributor_grid, :contributor_wikidata, :creator_suffix, :contributor_type,
+            :contributor_grid, :contributor_wikidata, :contributor_suffix, :contributor_type,
             contributor_institution: [], contributor_role: [], contributor_institutional_relationship: []
           ]
         }

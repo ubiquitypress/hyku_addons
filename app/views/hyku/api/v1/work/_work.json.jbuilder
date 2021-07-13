@@ -19,6 +19,7 @@ json.challenged work.try(:challenged)
 json.citation work.try(:citation)
 json.cname @account.cname
 #                                         "collections" => nil,
+json.committee_member work.try(:committee_member)
 creator = work.creator.try(:first)
 json.creator creator.present? ? JSON.parse(creator) : []
 
@@ -27,6 +28,7 @@ json.contributor contributor.present? ? JSON.parse(contributor) : []
 #                                         "current_he_institution" => nil,
 #                                         "date_accepted" => nil,
 json.date_published work.try(:date_published)
+json.date_published_text work.try(:date_published_text)
 json.date_submitted work.date_uploaded
 json.degree work.try(:degree)
 #                                         "dewey" => nil,
@@ -55,6 +57,7 @@ json.is_included_in work.try(:is_included_in)
 json.isbn work.try(:isbn)
 json.issn work.try(:issn)
 json.issue work.try(:issue)
+json.is_format_of work.try(:is_format_of)
 json.journal_title work.try(:journal_title)
 json.journal_frequency work.try(:journal_frequency)
 json.keywords work.keyword
@@ -103,8 +106,10 @@ json.place_of_publication work.try(:place_of_publication)
 #                                         "project_name" => nil,
 json.prerequisites work.try(:prerequisites)
 json.publisher work.publisher
+json.qualification_grantor work.try(:qualification_grantor)
 json.qualification_level work.try(:qualification_level)
 json.qualification_name work.try(:qualification_name)
+json.qualification_subject_text work.try(:qualification_subject_text)
 json.reading_level work.try(:reading_level)
 json.references work.try(:references)
 json.refereed work.try(:refereed)
@@ -130,10 +135,12 @@ if related_identifier.present?
 end
 json.related_material work.try(:related_material)
 json.related_url work.related_url
+json.time work.try(:time)
 json.resource_type work.resource_type
 #                                         "review_data" => nil,
 json.rights_holder work.try(:rights_holder)
 json.rights_statement work.rights_statement
+json.rights_statement_text work.try(:rights_statement_text)
 json.series_name work.try(:series_name)
 json.source work.source
 json.subject work.subject

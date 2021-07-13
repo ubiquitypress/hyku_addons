@@ -1,3 +1,0 @@
-<%= f.input :language, as: :multi_value_select,
-            collection: HykuAddons::LanguageService.new(model: f.object.model.class).select_active_options,
-            input_html: { class: "form-control" } %>

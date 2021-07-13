@@ -19,7 +19,7 @@ module HykuAddons
       end
 
       property :org_unit, predicate: ::RDF::Vocab::ORG.OrganizationalUnit do |index|
-        index.as :stored_searchable
+        index.as :stored_searchable, :facetable
       end
 
       property :funder, predicate: ::RDF::Vocab::MARCRelators.fnd do |index|
@@ -27,10 +27,6 @@ module HykuAddons
       end
 
       property :fndr_project_ref, predicate: ::RDF::Vocab::BF2.awards do |index|
-        index.as :stored_searchable
-      end
-
-      property :add_info, predicate: ::RDF::Vocab::BIBO.term(:Note), multiple: false do |index|
         index.as :stored_searchable
       end
 

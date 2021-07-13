@@ -117,6 +117,14 @@ module HykuAddons
       attribute :references, SolrDocument::Solr::Array, solr_name('references')
       attribute :extent, SolrDocument::Solr::Array, solr_name('extent')
       attribute :medium, SolrDocument::Solr::Array, solr_name('medium')
+      attribute :time, SolrDocument::Solr::Array, solr_name('time')
+      attribute :committee_member, SolrDocument::Solr::Array, solr_name('committee_member')
+      attribute :qualification_grantor, SolrDocument::Solr::Array, solr_name('qualification_grantor')
+      attribute :date_published_text, SolrDocument::Solr::Array, solr_name('date_published_text')
+      attribute :rights_statement_text, SolrDocument::Solr::Array, solr_name('rights_statement_text')
+      attribute :qualification_subject_text, SolrDocument::Solr::Array, solr_name('qualification_subject_text')
+      attribute :is_format_of, SolrDocument::Solr::Array, solr_name('is_format_of')
+
       # Override OAI-PMH field mappings
       field_semantics.merge!(
         contributor: ['contributor_display_ssim', 'editor_display_ssim', 'funder_tesim'],

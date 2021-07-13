@@ -10,10 +10,6 @@ class AnschutzWork < ActiveFedora::Base
 
   self.indexer = AnschutzWorkIndexer
 
-  property :add_info, predicate: ::RDF::Vocab::BIBO.term(:Note) do |index|
-    index.as :stored_searchable
-  end
-
   property :location, predicate: ::RDF::Vocab::BF2.physicalLocation, multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
@@ -58,11 +54,43 @@ class AnschutzWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :publisher, predicate: ::RDF::Vocab::DC11.publisher, multiple: false do |index|
+  property :add_info, predicate: ::RDF::Vocab::BIBO.term(:Note), multiple: true do |index|
     index.as :stored_searchable
   end
 
-  property :add_info, predicate: ::RDF::Vocab::BIBO.term(:Note), multiple: true do |index|
+  property :committee_member, predicate: ::RDF::Vocab::AS.term(:Person) do |index|
+    index.as :stored_searchable
+  end
+
+  property :time, predicate: ::RDF::Vocab::DC.temporal do |index|
+    index.as :stored_searchable
+  end
+
+  property :qualification_grantor, predicate: ::RDF::Vocab::BF2.grantingInstitution, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :qualification_name, predicate: ::RDF::Vocab::SCHEMA.qualifications, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :qualification_level, predicate: ::RDF::Vocab::BF2.degree, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :date_published_text, predicate: ::RDF::Vocab::DC.date, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :qualification_subject_text, predicate: ::RDF::Vocab::HYDRA.subject, multiple: true do |index|
+    index.as :stored_searchable
+  end
+
+  property :advisor, predicate: ::RDF::Vocab::Bibframe.Person, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  property :is_format_of, predicate: ::RDF::Vocab::DC.isFormatOf, multiple: false do |index|
     index.as :stored_searchable
   end
 

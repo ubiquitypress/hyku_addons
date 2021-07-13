@@ -174,6 +174,9 @@ RSpec.configure do |config|
     example = RSpec.current_example
     ENV['SETTINGS__MULTITENANCY__ENABLED'] = 'true' if example.metadata[:multitenant] || example.metadata[:faketenant] || example.metadata[:type] == :controller
     ENV['SETTINGS__MULTITENANCY__ENABLED'] = 'false' if example.metadata[:singletenant] || example.metadata[:type] == :feature
+
+    # Ensure that Hirmeos is always enabled or all the feature tests will fail
+    allow(Hyrax::Hirmeos).to receive(:configured?).and_return(true)
   end
   ## End override
 end

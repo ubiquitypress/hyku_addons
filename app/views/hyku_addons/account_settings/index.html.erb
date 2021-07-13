@@ -25,7 +25,7 @@
     <% if (settings = HykuAddons::AccountBehavior::HASH_SETTINGS).present? %>
       <% settings.each do|fname| %>
         <tr>
-          <td id="link-<%= fname %>"><b> <%= fname.humanize %>:</b> <%= @account&.settings[fname]&.to_sentence %></td>
+          <td id="link-<%= fname %>"><b> <%= fname.humanize %>:</b> <%= @account&.settings[fname] %></td>
           <td><%=link_to "Edit #{fname.humanize}", hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: 'render_hash_settings', field_name: fname), class: "btn btn-xs btn-default", remote: true  %></td>
         </tr>
       <% end %>

@@ -67,7 +67,13 @@
     </p>
 
     <p class="bulkrax-p-align">
-      <strong>Validation report:</strong>
+      <strong>Import CSV report:</strong>
+      <%= link_to 'Download', bulkrax.importer_path(@importer, format: :csv) %>
+    </p>
+
+
+    <p class="bulkrax-p-align">
+      <strong>Validation CSV report:</strong>
       <%= link_to 'Download', hyku_addons.importer_validation_path(@importer, format: :csv) %>
     </p>
 

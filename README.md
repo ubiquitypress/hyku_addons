@@ -134,25 +134,25 @@ CFLAGS=-Wno-error=format-overflow  gem install zookeeper -v '1.4.11' --source 'h
 
 Dory can be used to automatically configure your local development environment so that you can use local subdomains, however you may experience issues. (See https://github.com/samvera/hyku/#dory)
 
-Another solution is to simply edit your `/etc/hosts` file and add in each tenants cname here. For example: 
+Another solution is to simply edit your `/etc/hosts` file and add in each tenants cname here. For example:
 
 ```
 sudo vim /etc/hosts
 ```
-And add the following: 
+And add the following:
 
 ```
 # ... Existing content
 
 # Hyku
-127.0.0.1       hyku.docker          # The main account section 
+127.0.0.1       hyku.docker          # The main account section
 127.0.0.1       repo.hyku.docker
 127.0.0.1       pacific.hyku.docker
 ```
 
 You can now access the repositories by suffixing the URL with `:3000`, for instance: http://hyku.docker:3000
 
-You will need to add each new tenant cname to your host file when a new account is added.  
+You will need to add each new tenant cname to your host file when a new account is added.
 
 ### Docker
 

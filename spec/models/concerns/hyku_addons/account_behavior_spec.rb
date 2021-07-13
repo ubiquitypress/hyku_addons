@@ -54,7 +54,6 @@ RSpec.describe HykuAddons::AccountBehavior do
     end
 
     it 'resets the active connections back to the defaults' do
-      optional "fails randomly on CI" if ENV["CI"]
       account.switch do
         # no-op
       end
@@ -171,6 +170,20 @@ RSpec.describe HykuAddons::AccountBehavior do
 
       it "is invalid" do
         expect(account.errors[:tenant]).not_to be_empty
+      end
+    end
+  end
+
+  describe "public_settings" do
+    before do
+      Account.private_settings.each do |setting|
+        account.settings[setting] = ["foo"]
+      end
+    end
+
+    it "excludes private settings" do
+      Account.private_settings do |setting|
+        expect(account.public_settings).not_to include(setting)
       end
     end
   end
