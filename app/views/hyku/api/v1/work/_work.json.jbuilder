@@ -58,6 +58,7 @@ json.isbn work.try(:isbn)
 json.issn work.try(:issn)
 json.issue work.try(:issue)
 json.is_format_of work.try(:is_format_of)
+json.is_part_of work.try(:is_part_of)
 json.journal_title work.try(:journal_title)
 json.journal_frequency work.try(:journal_frequency)
 json.keywords work.keyword
@@ -70,7 +71,8 @@ if work.language.present?
   end
   json.language languages.compact
 end
-#                                         "library_of_congress_classification" => nil,
+json.library_of_congress_classification work.try(:library_of_congress_classification)
+
 license = work.try(:license)
 license_hash = HykuAddons::LicenseService.new.select_all_options.to_h
 if license.present?
