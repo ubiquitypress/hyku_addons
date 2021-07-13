@@ -427,6 +427,7 @@ module HykuAddons
         config.register_curation_concern :book_contribution
         config.register_curation_concern :conference_item
         config.register_curation_concern :dataset
+        config.register_curation_concern :denver_image
         config.register_curation_concern :exhibition_item
         config.register_curation_concern :report
         config.register_curation_concern :time_based_media
