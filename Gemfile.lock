@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/hyrax-doi
-  revision: 7e7df16bcef06644f48a5cc3439991c9a169483f
+  revision: 0bf92a69bcadd18409bf294964ec4e822e610081
   branch: main
   specs:
     hyrax-doi (0.2.0)
