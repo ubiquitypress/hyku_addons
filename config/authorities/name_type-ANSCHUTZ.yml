@@ -1,7 +1,7 @@
 terms:
-- id: personal
+- id: Personal
   term: Personal
   active: true
-- id: organizational
+- id: Organizational
   term: Organizational
   active: true
