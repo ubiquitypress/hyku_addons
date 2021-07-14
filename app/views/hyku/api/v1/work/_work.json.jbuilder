@@ -58,7 +58,8 @@ json.isbn work.try(:isbn)
 json.issn work.try(:issn)
 json.issue work.try(:issue)
 json.is_format_of work.try(:is_format_of)
-json.is_part_of work.try(:is_part_of)
+# NOTE: I'm leaving the frontend json variable as it is so that no changes are required in that codebase
+json.is_part_of work.try(:part_of)
 json.journal_title work.try(:journal_title)
 json.journal_frequency work.try(:journal_frequency)
 json.keywords work.keyword
