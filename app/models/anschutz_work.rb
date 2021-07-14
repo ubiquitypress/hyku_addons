@@ -90,7 +90,7 @@ class AnschutzWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :part_of, predicate: ::RDF::Vocab::DC.term(:partOf), multiple: false do |index|
+  property :part_of, predicate: ::RDF::Vocab::DC.term(:partOf), multiple: true do |index|
     index.as :stored_searchable
   end
 
