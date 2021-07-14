@@ -61,6 +61,7 @@ en-ANSCHUTZ:
         qualification_name: Thesis Degree
         is_format_of: Is Format Of
         is_part_of: Is Part Of
+        part_of: Is Part Of
     hints:
       defaults:
         abstract: "Abstract or short description of content"
