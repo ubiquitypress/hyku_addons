@@ -90,11 +90,11 @@ class AnschutzWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :is_format_of, predicate: ::RDF::Vocab::DC.isFormatOf, multiple: false do |index|
+  property :part_of, predicate: ::RDF::Vocab::DC.term(:partOf), multiple: true do |index|
     index.as :stored_searchable
   end
 
-  property :is_part_of, predicate: ::RDF::Vocab::DC.isPartOf, multiple: false do |index|
+  property :is_format_of, predicate: ::RDF::Vocab::DC.isFormatOf, multiple: false do |index|
     index.as :stored_searchable
   end
 

@@ -10,8 +10,8 @@ module Hyrax
                  place_of_publication language subject_text mesh add_info advisor publisher source
                  journal_frequency funding_description citation table_of_contents
                  references extent medium library_of_congress_classification committee_member
-                 time is_part_of rights_statement qualification_subject_text qualification_grantor qualification_level qualification_name
-                 is_format_of]
+                 time part_of rights_statement qualification_subject_text qualification_grantor qualification_level
+                 qualification_name is_format_of]
     self.terms -= %i[related_url keyword subject contributor]
     self.required_fields = %i[title resource_type creator date_published abstract license]
 
@@ -30,7 +30,7 @@ module Hyrax
                              :language, :place_of_publication, :license, :language, :add_info,
                              :publisher, :source, :journal_frequency, :funding_description,
                              :citation, :table_of_contents, :references, :extent,
-                             :medium, :library_of_congress_classification, :advisor]
+                             :medium, :library_of_congress_classification, :advisor, :part_of]
       end
     end
   end
