@@ -1,0 +1,4 @@
+<%= f.input :rights_statement, as: :select,
+            collection: HykuAddons::RightsStatementService.new(model: f.object.model.class).select_active_options,
+            include_blank: true,
+            input_html: { class: 'form-control' } %>
