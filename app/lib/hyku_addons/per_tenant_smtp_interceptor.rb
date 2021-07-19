@@ -14,6 +14,7 @@ module HykuAddons
         message.from = mailer_settings.from
         message.reply_to = mailer_settings.from
         message.return_path = mailer_settings.from
+        message.smtp_envelope_from = mailer_settings.from
       end
 
       data = (HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields - ['from']).map do |key|
