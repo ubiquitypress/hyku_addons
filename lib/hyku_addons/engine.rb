@@ -526,6 +526,12 @@ module HykuAddons
       end
       Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
       ::ActiveJob::Base.include HykuAddons::ImportMode
+
+      User.class_eval do
+        def mailboxer_email
+          email
+        end
+      end
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
