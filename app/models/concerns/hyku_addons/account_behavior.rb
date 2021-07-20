@@ -27,7 +27,7 @@ module HykuAddons
 
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
       after_initialize :initialize_settings
-      validates :gtm_id, format: { with: /(G-[A-Z0-9]{10}|GTM-[A-Z0-9]{4,7})/ , message: "Invalid GTM ID" }, allow_blank: true
+      validates :gtm_id, format: { with: /(G-[A-Z0-9]{10}|GTM-[A-Z0-9]{4,7})/, message: "Invalid GTM ID" }, allow_blank: true
       validates :contact_email, :oai_admin_email,
                 format: { with: URI::MailTo::EMAIL_REGEXP },
                 allow_blank: true
