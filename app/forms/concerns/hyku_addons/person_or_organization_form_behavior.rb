@@ -22,7 +22,7 @@ module HykuAddons
         end
       end
 
-        def creator_fields
+      def creator_fields
         {
           creator: [
             :creator_organization_name, :creator_given_name, :creator_middle_name, :creator_family_name,
