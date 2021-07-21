@@ -1,79 +1,82 @@
 terms:
 - id: PhD
-  term: PhD
+  term: Doctor of Philosophy
   active: true
 - id: DBA
-  term: DBA
+  term: Doctor of Business Administration
   active: true
 - id: DClinPsy
-  term: DClinPsy
+  term: Doctor of Clinical Psychology
   active: true
 - id: DDS
-  term: DDS
-  active: true
-- id: DEdPsy
-  term: DEdPsy
-  active: true
-- id: DHRes
-  term: DHRes
-  active: true
-- id: DLitt
-  term: DLitt
-  active: true
-- id: DMin
-  term: DMin
-  active: true
-- id: DPhil
-  term: DPhil
-  active: true
-- id: DMus
-  term: DMus
-  active: true
-- id: DPT
-  term: DPT
-  active: true
-- id: DrPH
-  term: DrPH
-  active: true
-- id: DSc
-  term: DSc
-  active: true
-- id: DSocSci
-  term: DSocSci
+  term: Doctor of Dental Surgery
   active: true
 - id: EdD
-  term: EdD
+  term: Doctor of Education
+  active: true
+- id: DEdPsy
+  term: Doctor of Educational Psychology
   active: true
 - id: EngD
-  term: EngD
+  term: Doctor of Engineering
+  active: true
+- id: DHRes
+  term: Doctor of Health Research
   active: true
 - id: HScD
-  term: HScD
+  term: Doctor of Health Science
   active: true
-- id: MA
-  term: MA
+- id: DLitt
+  term: Doctor of Letters
+  active: true
+- id: DMin
+  term: Doctor of Ministry
   active: true
 - id: MD
-  term: MD
+  term: Doctor of Medicine
   active: true
-- id: MBA
-  term: MBA
+- id: DMus
+  term: Doctor of Music
   active: true
-- id: MLitt
-  term: MLitt
+- id: DPhil
+  term: Doctor of Philosophy
   active: true
-- id: MRes
-  term: MRes
+- id: DPT
+  term: Doctor of Physical Therapy
   active: true
-- id: MSc
-  term: MSc
+- id: DrPH
+  term: Doctor of Public Health
   active: true
-- id: MSt
-  term: MSt
+- id: DSc
+  term: Doctor of Science
+  active: true
+- id: DSocSci
+  term: Doctor of Social Science
   active: true
 - id: ProfDoc
-  term: ProfDoc
+  term: Doctor of Professional Studies
   active: true
 - id: ThD
-  term: ThD
+  term: Doctor of Theology
+  active: true
+- id: MA
+  term: Master of Arts
+  active: true
+- id: MBA
+  term: Master of Business Administration
+  active: true
+- id: MLitt
+  term: Master of Letters
+  active: true
+- id: MM
+  term: Master of Music
+  active: true
+- id: MRes
+  term: Master of Research
+  active: true
+- id: MSc
+  term: Master of Science
+  active: true
+- id: MSt
+  term: Master of Studies
   active: true
