@@ -40,7 +40,7 @@ terms:
   active: true
 - id: DPhil
   term: Doctor of Philosophy
-  active: true
+  active: false
 - id: DPT
   term: Doctor of Physical Therapy
   active: true
