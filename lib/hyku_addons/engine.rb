@@ -528,9 +528,9 @@ module HykuAddons
       ::ActiveJob::Base.include HykuAddons::ImportMode
 
       User.class_eval do
-        def mailboxer_email(_obj)
-          email
-        end
+        # def mailboxer_email(_obj)
+        #   email
+        # end
       end
     end
 
