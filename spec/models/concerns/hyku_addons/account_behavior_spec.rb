@@ -121,8 +121,13 @@ RSpec.describe HykuAddons::AccountBehavior do
         expect(account.settings['gtm_id']).to eq 'GTM-123456'
       end
 
-      it "contains google_analytics_id" do
+      it "allows UA google_analytics_id" do
         expect(account.settings['google_analytics_id']).to eq 'UA-123456-12'
+      end
+
+      it "allows G4A google_analytics_id" do
+        account.settings['google_analytics_id'] = 'G-ABCDE12345'
+        expect(account.settings['google_analytics_id']).to eq 'G-ABCDE12345'
       end
 
       it "contains email_format" do
