@@ -1,0 +1,8 @@
+pt-BR:
+  hyrax:
+    icons:
+      denver_image:     'fa fa-file-text-o'
+    select_type:
+      denver_image:
+        description:        "Denver image trabalhos"
+        name:               "Denver Image"

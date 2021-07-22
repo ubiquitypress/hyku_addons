@@ -8,9 +8,10 @@ module Hyrax
     self.model_class = ::DenverImage
     add_terms %i[title alt_title resource_type creator abstract keyword subject org_unit
                  date_published alternate_identifier related_identifier related_exhibition
-                 related_exhibition_venue related_exhibition_date licence rights_holder
-                 rights_statement contributor extent language location longditude latitude
+                 related_exhibition_venue related_exhibition_date license rights_holder
+                 rights_statement contributor extent language location longitude latitude
                  georeferenced add_info]
+    self.terms -= %i[related_url publisher source]
     self.required_fields = %i[title creator resource_type]
 
     include Hyrax::DOI::DOIFormBehavior
@@ -25,7 +26,7 @@ module Hyrax
         permitted_params << common_fields
         permitted_params << [:alternate_identifier, :related_identifier, :related_exhibition,
                              :related_exhibition_venue, :related_exhibition_date, :licence, :rights_holder,
-                             :rights_statement, :contributor, :extent, :language, :location, :longditude, :latitude,
+                             :rights_statement, :contributor, :extent, :language, :location, :longitude, :latitude,
                              :georeferenced, :add_info]
       end
     end
