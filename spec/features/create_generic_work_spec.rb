@@ -290,7 +290,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # DOI
 
       # Qualification name
-      select('PhD', from: 'generic_work_qualification_name')
+      select('Doctor of Philosophy', from: 'generic_work_qualification_name')
 
       # Qualification level
       select('Doctoral', from: 'generic_work_qualification_level')

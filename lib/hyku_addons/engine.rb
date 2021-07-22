@@ -197,6 +197,7 @@ module HykuAddons
           "committee_member" => { split: '\|' },
           "time" => { split: '\|' },
           "add_info" => { split: '\|' },
+          "part_of" => { split: '\|' },
           "qualification_subject_text" => { split: '\|' }
         }
       end
@@ -526,6 +527,12 @@ module HykuAddons
       end
       Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
       ::ActiveJob::Base.include HykuAddons::ImportMode
+
+      User.class_eval do
+        # def mailboxer_email(_obj)
+        #   email
+        # end
+      end
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once

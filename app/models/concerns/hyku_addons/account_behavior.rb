@@ -34,7 +34,7 @@ module HykuAddons
       validates :tenant, format: { with: /\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/ }
       validate :validate_email_format, :validate_contact_emails
       validates :google_analytics_id,
-                format: { with: /(UA|YT|MO)-\d+-\d+/i },
+                format: { with: /((UA|YT|MO)-\d+-\d+|G-[A-Z0-9]{10})/i },
                 allow_blank: true
 
       def self.private_settings
