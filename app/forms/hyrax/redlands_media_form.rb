@@ -12,7 +12,7 @@ module Hyrax
                  longitude latitude add_info]
     self.terms -= %i[rights_statement related_url publisher]
     self.required_fields = %i[title resource_type creator alt_email abstract keyword subject
-                              org_unit language license date_published event_location]
+                              org_unit language date_published event_location]
 
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior

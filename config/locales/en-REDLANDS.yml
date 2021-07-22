@@ -74,6 +74,7 @@ en-REDLANDS:
         location: Geolocate
         alt_book_title: Alternative Book Title
         edition: Edition
+        version_number: Document Version
     placeholders:
       defaults:
         alt_email: downloadreports@tellme.org
