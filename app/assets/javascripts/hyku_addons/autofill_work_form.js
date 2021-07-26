@@ -99,6 +99,12 @@ class AutofillWorkForm {
       // are any subfields that are cloneable, then we will not count this by mistake
       var $wrapper = $($(this.wrapperSelector(field)).find(`[data-cloneable-group=${this.fieldName(field)}]`)[index])
 
+      // If the cloneable enabled check above returns no results, then do one more to ensure that objects for
+      // non-cloneable fields (like date_published) are found and can have their value set.
+      if ($wrapper.length == 0) {
+        $wrapper = $($(this.wrapperSelector(field))[index])
+      }
+
       // This isn't using the normal setValue method because of the requirement
       // to autofill nested groups of fields from within a specific parent wrapper
       Object.entries(value).forEach(([childField, childValue]) => {

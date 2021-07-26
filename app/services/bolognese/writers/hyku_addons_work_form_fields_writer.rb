@@ -273,6 +273,8 @@ module Bolognese
         end
 
         def process_editor_contributors!
+          return unless @form_data["contributor"].present?
+
           editors = proc { |item| item["contributor_contributor_type"] == "Editor" }
 
           # If we do not have editors, they might be missing from the fields for this work type.
