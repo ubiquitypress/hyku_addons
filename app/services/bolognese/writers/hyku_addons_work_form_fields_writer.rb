@@ -273,7 +273,7 @@ module Bolognese
         end
 
         def process_editor_contributors!
-          return unless work_type_terms.include?(:editor)
+          return unless @form_data["contributor"].present?
 
           editors = proc { |item| item["contributor_contributor_type"] == "Editor" }
 
