@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crossref_result xmlns="http://www.crossref.org/qrschema/3.0" version="3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.crossref.org/qrschema/3.0 http://www.crossref.org/schemas/crossref_query_output3.0.xsd">
+  <query_result>
+    <head>
+      <doi_batch_id>none</doi_batch_id>
+    </head>
+    <body>
+      <query status="resolved">
+        <doi type="journal_article">10.47989/irpaper872</doi>
+        <crm-item name="publisher-name" type="string">University of Boras, Faculty of Librarianship, Information, Education and IT</crm-item>
+        <crm-item name="prefix-name" type="string">University of Boras, Faculty of Librarianship, Information, Education and IT</crm-item>
+        <crm-item name="member-id" type="number">27919</crm-item>
+        <crm-item name="citation-id" type="number">121645162</crm-item>
+        <crm-item name="journal-id" type="number">402477</crm-item>
+        <crm-item name="deposit-timestamp" type="number">20201128170806077</crm-item>
+        <crm-item name="owner-prefix" type="string">10.47989</crm-item>
+        <crm-item name="last-update" type="date">2020-11-28T22:08:21Z</crm-item>
+        <crm-item name="created" type="date">2020-11-28T22:08:11Z</crm-item>
+        <crm-item name="citedby-count" type="number">0</crm-item>
+        <doi_record>
+          <crossref xmlns="http://www.crossref.org/xschema/1.1" xsi:schemaLocation="http://www.crossref.org/xschema/1.1 http://doi.crossref.org/schemas/unixref1.1.xsd">
+            <journal>
+              <journal_metadata>
+                <full_title>Information Research: an international electronic journal</full_title>
+                <abbrev_title>IR</abbrev_title>
+                <issn media_type="electronic">13681613</issn>
+                <doi_data>
+                  <doi>10.47989/ir</doi>
+                  <resource>http://informationr.net/ir/index.html</resource>
+                </doi_data>
+              </journal_metadata>
+              <journal_issue>
+                <publication_date media_type="online">
+                  <year>2020</year>
+                </publication_date>
+                <doi_data>
+                  <doi>10.47989/irinfres253</doi>
+                  <resource>http://informationr.net/ir/25-3/infres253.html</resource>
+                </doi_data>
+              </journal_issue>
+              <journal_article publication_type="full_text">
+                <titles>
+                  <title>Information School academics and the value of their personal digital archives</title>
+                </titles>
+                <contributors>
+                  <organization sequence="first" contributor_role="author">British Library, London, United Kingdom</organization>
+                  <person_name sequence="first" contributor_role="author">
+                    <given_name>Loukia</given_name>
+                    <surname>Drosopoulou</surname>
+                  </person_name>
+                  <person_name sequence="additional" contributor_role="author">
+                    <given_name>Andrew M.</given_name>
+                    <surname>Cox</surname>
+                  </person_name>
+                  <organization sequence="additional" contributor_role="author">Information School, University of Sheffield, United Kingdom</organization>
+                </contributors>
+                <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" xml:lang="en">
+                  <jats:p>Introduction.This paper explores the value that academics in an information school assign to their digital files and how this relates to their personal information management and personal digital archiving practices. Method. An interpretivist qualitative approach was adopted with data from in-depth interviews and participant-led tours of their digital storage space. Analysis. The approach taken was thematic analysis. Results. Participants placed little value on their digital material beyond the value of its immediate use. They did not attach worth to their digital files for reuse by others, for sentiment, to project their identity or for the study of the development of the discipline or the study of the creative process. This was reflected in storage and file-naming practices, and the lack of curatorial activity. Conclusions. This paper is one of the first to investigate academics' personal information management and personal digital archiving practices, especially to focus on the value of digital possessions. The paper begins to uncover the importance of wider contextual factors in shaping such practices. Institutions need to do more to encourage academics to recognise the diverse types of value in the digital material they create.</jats:p>
+                </jats:abstract>
+                <publication_date media_type="online">
+                  <year>2020</year>
+                </publication_date>
+                <doi_data>
+                  <doi>10.47989/irpaper872</doi>
+                  <resource>http://informationr.net/ir/25-3/paper872.html</resource>
+                </doi_data>
+              </journal_article>
+            </journal>
+          </crossref>
+        </doi_record>
+      </query>
+    </body>
+  </query_result>
+</crossref_result>
