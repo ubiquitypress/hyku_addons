@@ -29,7 +29,7 @@ module Hyrax
                              :library_of_congress_classification, :publisher,
                              :related_identifier, :place_of_publication,
                              :licence, :rights_holder, :rights_statement,
-                             :table_of_contents, :medium, :extent, :language]
+                             :table_of_contents, :medium, :extent]
       end
     end
   end

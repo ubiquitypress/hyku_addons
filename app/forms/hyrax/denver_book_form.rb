@@ -27,7 +27,7 @@ module Hyrax
                              :alternate_identifier, :library_of_congress_classification,
                              :related_identifier, :isbn, :publisher, :place_of_publication,
                              :licence, :rights_holder, :rights_statement, :editor,
-                             :table_of_contents, :medium, :extent, :language, :time, :refereed]
+                             :table_of_contents, :medium, :time, :refereed]
       end
     end
   end
