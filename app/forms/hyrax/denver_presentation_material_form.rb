@@ -9,7 +9,7 @@ module Hyrax
     add_terms %i[title resource_type creator abstract keyword subject org_unit
                  date_published related_identifier event_title event_location event_date
                  licence rights_holder rights_statement contributor language add_info]
-    self.terms -= %i[related_url source]
+    self.terms -= %i[related_url source publisher]
     self.required_fields = %i[title creator resource_type]
 
     include Hyrax::DOI::DOIFormBehavior
