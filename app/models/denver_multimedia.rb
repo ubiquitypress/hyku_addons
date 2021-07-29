@@ -31,7 +31,6 @@ class DenverMultimedia < ActiveFedora::Base
 
   self.indexer = DenverMultimediaIndexer
 
-  self.date_fields += %i[related_exhibition_date]
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
