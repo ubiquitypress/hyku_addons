@@ -1,0 +1,11 @@
+terms:
+  - id: Thesis
+    term: Thesis
+  - id: Dissertation
+    term: Dissertation
+  - id: Capstone
+    term: Capstone
+  - id: Undergraduate thesis
+    term: Undergraduate thesis
+  - id: Other
+    term: Other
