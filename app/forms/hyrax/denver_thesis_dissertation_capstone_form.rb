@@ -13,7 +13,7 @@ module Hyrax
                  related_identifier publisher place_of_publication licence rights_holder rights_statement
                  contributor table_of_contents references medium extent language]
     self.terms -= %i[related_url source]
-    self.required_fields = %i[title creator resource_type abstract]
+    self.required_fields = %i[title creator resource_type abstract licence]
 
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior

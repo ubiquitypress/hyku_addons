@@ -13,7 +13,7 @@ module Hyrax
                  rights_holder rights_statement contributor editor medium extent
                  language location time refereed add_info]
     self.terms -= %i[related_url source]
-    self.required_fields = %i[title creator resource_type]
+    self.required_fields = %i[title creator resource_type licence rights_holder]
 
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
