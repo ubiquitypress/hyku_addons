@@ -11,7 +11,7 @@ module Hyrax
          date_published pagination alternate_identifier library_of_congress_classification
          related_identifier publisher place_of_publication licence rights_holder rights_statement
          contributor table_of_contents references medium extent language].freeze
-      end
+    end
     include ::HykuAddons::PresenterDelegatable
   end
 end
