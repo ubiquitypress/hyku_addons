@@ -64,10 +64,20 @@ en-DENVER:
         license: Licensing
         language: Language(s)
         subject_text: Subject
-        add_info: Notes
+        add_info: Note(s)
         georeferenced: Georeferenced?
         location: Geolocate
         extent: Content Length or Size
+        keyword: Keywords
+        org_unit: Organisational Unit
+        mesh: MeSH
+        language: Language(s)
+        refereed: Peer reviewed?
+        medium: Format(s)
+        time: Coverage Span
+        issn: ISSN
+        eissn: eISSN
+        official_link: Official URL
     hints:
       defaults:
         abstract: "Abstract or short description of content"
