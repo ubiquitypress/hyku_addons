@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      denver_image:     'fa fa-file-text-o'
+    select_type:
+      denver_image:
+        # TODO: translate `human_name` into Spanish
+        description:        "Denver image trabajos"
+        name:               "Denver Image"
+        # TODO: translate `human_name` into Spanish

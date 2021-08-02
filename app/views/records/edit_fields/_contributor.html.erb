@@ -34,7 +34,7 @@
 			<% end %>
 
 			<% # FIXME: This condition should be moved to the model/form %>
-			<% unless template.include?("pacific") || template.include?("uva") || template.include?("redlands") || template.include?("anschutz") %>
+			<% unless template.include?("pacific") || template.include?("uva") || template.include?("redlands") || template.include?("anschutz") || template.include?("denver") %>
 				<% model = f.object.model.class %>
 				<% opts = HykuAddons::ContributorGroupService.new(model: model).select_active_options.flatten.uniq! %>
 				<% field_options = {

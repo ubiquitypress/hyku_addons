@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      denver_book:     'fa fa-file-text-o'
+    select_type:
+      denver_book:
+        description:        "Denver book works"
+        name:               "Denver Book"

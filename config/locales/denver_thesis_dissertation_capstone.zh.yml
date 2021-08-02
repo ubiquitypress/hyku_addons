@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      denver_thesis_dissertation_capstone:     'fa fa-file-text-o'
+    select_type:
+      denver_thesis_dissertation_capstone:
+        # TODO: translate `human_name` into Chinese
+        description:        "Denver thesis dissertation capstone 作品"
+        name:               "Denver Thesis Dissertation Capstone"
+        # TODO: translate `human_name` into Chinese

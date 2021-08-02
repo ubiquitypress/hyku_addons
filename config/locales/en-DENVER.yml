@@ -1,0 +1,83 @@
+en-DENVER:
+  simple_form:
+    creator:
+      creator_name_type:
+        label: Creator Name Type
+      creator_family_name:
+        label: Last Name
+      creator_given_name:
+        label: First Name
+      creator_middle_name:
+        label: Middle Name
+        placeholder: " "
+        help_text: Please enter the creator's middle name.
+      creator_suffix:
+        label: Suffix
+      creator_role:
+        label: Role
+        placeholder:
+        help_text: " "
+      creator_institution:
+        label: Institution
+      creator_orcid:
+        label: ORCiD
+        help_text: " "
+        placeholder: " "
+      creator_organization_name:
+        label: Organization Name
+      creator_ror:
+        label: ROR
+        placeholder: " "
+      creator_grid:
+        label: GRID
+        placeholder: " "
+      creator_wikidata:
+        label: Wikidata
+        placeholder: " "
+      creator_isni:
+        label: Creator ISNI
+    contributor:
+      contributor_organization_name:
+        label: Organization Name
+      contributor_family_name:
+        label: Last Name
+      contributor_given_name:
+        label: First Name
+      contributor_isni:
+        label: ISNI
+      contributor_institution:
+        label: Institution
+        placeholder: " "
+      contributor_orcid:
+        label: ORCiD
+      contributor_ror:
+        label: ROR
+      contributor_wikidata:
+        label: Wikidata
+      contributor_role:
+        label: Role
+      contributor_grid:
+        label: GRID
+    labels:
+      defaults:
+        alt_title: Other Title(s)
+        license: Licensing
+        language: Language(s)
+        subject_text: Subject
+        add_info: Note(s)
+        georeferenced: Georeferenced?
+        location: Geolocate
+        extent: Content Length or Size
+        keyword: Keywords
+        org_unit: Organisational Unit
+        mesh: MeSH
+        language: Language(s)
+        refereed: Peer reviewed?
+        medium: Format(s)
+        time: Coverage Span
+        issn: ISSN
+        eissn: eISSN
+        official_link: Official URL
+    hints:
+      defaults:
+        abstract: "Abstract or short description of content"
