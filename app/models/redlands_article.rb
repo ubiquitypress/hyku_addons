@@ -46,7 +46,7 @@ class RedlandsArticle < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :version_number, predicate: ::RDF::Vocab::SCHEMA.version do |index|
+  property :version_number, predicate: ::RDF::Vocab::SCHEMA.version, multiple: false do |index|
     index.as :stored_searchable
   end
 

@@ -26,7 +26,7 @@ module Hyrax
       super.tap do |permitted_params|
         permitted_params << common_fields
         permitted_params << [:alt_title, :alt_email, :edition, :book_title, :org_unit, :subject, :keyword,
-                             :language, :version_number, :location, :longitude,
+                             :language, :location, :longitude,
                              :latitude, :license, :event_location]
       end
     end
