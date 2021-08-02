@@ -1,4 +1,1 @@
-<%= f.input :version_number, as: :select,
-            collection: HykuAddons::VersionNumberService.new(model: f.object.model.class).select_active_options,
-            include_blank: true,
-            input_html: { class: 'form-control' } %>
+<%= render "redlands/version_number", f: f%>
