@@ -1,0 +1,10 @@
+terms:
+ - id: Preprint
+   term: Preprint (Not Peer Reviewed)
+   active: true
+ - id: Postprint
+   term: Postprint (Peer Reviewed, Unformatted)
+   active: true
+ - id: Version
+   term: Version of Record (Published Version)
+   active: true
