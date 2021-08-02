@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      denver_thesis_dissertation_capstone:     'fa fa-file-text-o'
+    select_type:
+      denver_thesis_dissertation_capstone:
+        description:        "Denver thesis dissertation capstone Werke"
+        name:               "Denver Thesis Dissertation Capstone"

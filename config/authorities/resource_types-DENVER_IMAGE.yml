@@ -1,0 +1,11 @@
+terms:
+  - id: Photograph
+    term: Photograph
+  - id: Satellite imagery
+    term: Satellite imagery
+  - id: Aerial photograph
+    term: Aerial photograph
+  - id: Scanned document
+    term: Scanned document
+  - id: Other
+    term: Other

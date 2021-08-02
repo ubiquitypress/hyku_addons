@@ -1,0 +1,7 @@
+terms:
+ - id: Yes
+   term: Yes
+   active: true
+ - id: No
+   term: No
+   active: true
