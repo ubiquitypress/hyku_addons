@@ -50,6 +50,7 @@ end
 #                                         "funder" => nil,
 json.funding_description work.try(:funding_description)
 #                                         "funder_project_reference" => nil,
+json.georeferenced work.try(:georeferenced)
 #                                         "institution" => nil,
 json.irb_number work.try(:irb_number)
 json.irb_status work.try(:irb_status)
