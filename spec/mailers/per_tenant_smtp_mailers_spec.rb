@@ -60,6 +60,10 @@ RSpec.describe Hyrax::ContactMailer, clean: true, multitenant: true do
         expect(settings[:password]).to eq "password"
         expect(settings[:domain]).to eq "test.custom_domain.com"
       end
+
+      it "replaces the email headers" do
+        expect{ mail.deliver }.to change{ ActionMailer::Base.deliveries.count }.by(1)
+      end
     end
   end
 end
