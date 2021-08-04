@@ -19,9 +19,12 @@ module HykuAddons
 
       data = (HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields - ['from']).map do |key|
         value = mailer_settings.try(key)
-        [key, value] if value.present?
+        [key.to_sym, value] if value.present?
       end
+
       message.delivery_method.settings.merge! data.compact.to_h
+      # Temporary quick and dirty assignation to make a proof of concept
+      message.delivery_method.settings[:authentication] = :login
     end
   end
 end
