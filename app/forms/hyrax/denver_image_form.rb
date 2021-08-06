@@ -6,7 +6,7 @@ module Hyrax
   class DenverImageForm < Hyrax::Forms::WorkForm
     include ::HykuAddons::WorkForm
     self.model_class = ::DenverImage
-    add_terms %i[title alt_title resource_type creator abstract keyword subject org_unit
+    add_terms %i[title alt_title resource_type creator institution abstract keyword subject org_unit
                  date_published alternate_identifier related_identifier related_exhibition
                  related_exhibition_venue related_exhibition_date license rights_holder
                  rights_statement contributor extent language location longitude latitude

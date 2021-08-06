@@ -6,7 +6,7 @@ module Hyrax
   class DenverMultimediaForm < Hyrax::Forms::WorkForm
     include ::HykuAddons::WorkForm
     self.model_class = ::DenverMultimedia
-    add_terms %i[title alt_title resource_type creator abstract keyword subject
+    add_terms %i[title alt_title resource_type creator institution abstract keyword subject
                  date_published alternate_identifier library_of_congress_classification
                  related_identifier publisher place_of_publication event_title event_location
                  license rights_holder rights_statement contributor medium duration

@@ -58,6 +58,8 @@ en-DENVER:
         label: Role
       contributor_grid:
         label: GRID
+      contributor_role:
+        label: Role
     labels:
       defaults:
         alt_title: Other Title(s)

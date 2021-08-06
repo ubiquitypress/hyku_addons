@@ -30,7 +30,6 @@ module HykuAddons
 
     def remove_denver_creator_personal_fields(array)
       array.delete_at(6) # removes institutional relationship from Denver worktype
-      array[3] = { field_type: :text, field_slug: :creator_suffix, field_args: { cloneable: true } }
       array
     end
 

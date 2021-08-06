@@ -6,7 +6,7 @@ module Hyrax
   class DenverSerialPublicationForm < Hyrax::Forms::WorkForm
     include ::HykuAddons::WorkForm
     self.model_class = ::DenverSerialPublication
-    add_terms %i[title alt_title resource_type creator alt_email abstract keyword subject
+    add_terms %i[title alt_title resource_type creator alt_email institution abstract keyword subject
                  org_unit date_published journal_title journal_frequency volume
                  issue pagination official_link alternate_identifier library_of_congress_classification
                  related_identifier issn eissn publisher place_of_publication licence
