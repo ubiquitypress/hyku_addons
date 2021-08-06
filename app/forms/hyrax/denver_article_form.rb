@@ -6,7 +6,7 @@ module Hyrax
   class DenverArticleForm < Hyrax::Forms::WorkForm
     include ::HykuAddons::WorkForm
     self.model_class = ::DenverArticle
-    add_terms %i[title alt_title resource_type creator abstract keyword subject org_unit
+    add_terms %i[title alt_title resource_type creator institution abstract keyword subject org_unit
                  date_published journal_title alternative_journal_title volume issue pagination
                  alternate_identifier mesh related_identifier licence rights_holder
                  rights_statement contributor date_accepted date_submitted language refereed

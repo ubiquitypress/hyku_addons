@@ -6,7 +6,7 @@ module Hyrax
   class DenverPresentationMaterialForm < Hyrax::Forms::WorkForm
     include ::HykuAddons::WorkForm
     self.model_class = ::DenverPresentationMaterial
-    add_terms %i[title resource_type creator abstract keyword subject org_unit
+    add_terms %i[title resource_type creator institution abstract keyword subject org_unit
                  date_published related_identifier event_title event_location event_date
                  licence rights_holder rights_statement contributor language add_info]
     self.terms -= %i[related_url source publisher]
