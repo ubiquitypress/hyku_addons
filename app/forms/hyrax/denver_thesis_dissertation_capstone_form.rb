@@ -11,7 +11,7 @@ module Hyrax
                  qualification_name advisor committee_member org_unit
                  date_published pagination alternate_identifier library_of_congress_classification
                  related_identifier publisher place_of_publication licence rights_holder rights_statement
-                 contributor table_of_contents references medium extent language]
+                 contributor table_of_contents references medium extent language add_info]
     self.terms -= %i[related_url source]
     self.required_fields = %i[title creator resource_type abstract licence]
 
