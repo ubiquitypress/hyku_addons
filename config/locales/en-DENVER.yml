@@ -82,4 +82,5 @@ en-DENVER:
         official_link: Official URL
     hints:
       defaults:
-        abstract: "Abstract or short description of content"
+        abstract: Abstract or short description of content.
+        institution: The Auraria entity responsible for the item.
