@@ -27,6 +27,7 @@ RSpec.describe Hyrax::ContactMailer, clean: true, multitenant: true do
           address: 'test.edu',
           user_name: 'username',
           password: 'password',
+          authentication: 'login',
           domain: 'test.custom_domain.com'
         }
       end
@@ -59,6 +60,7 @@ RSpec.describe Hyrax::ContactMailer, clean: true, multitenant: true do
         expect(settings[:user_name]).to eq "username"
         expect(settings[:password]).to eq "password"
         expect(settings[:domain]).to eq "test.custom_domain.com"
+        expect(settings[:authentication]).to eq :login
       end
 
       it "sends the email" do
