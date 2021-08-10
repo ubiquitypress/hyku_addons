@@ -7,6 +7,7 @@ class DenverPresentationMaterial < ActiveFedora::Base
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AddInfoSingular
+  include ::HykuAddons::InstitutionSingular
 
   property :event_title, predicate: ::RDF::Vocab::BF2.term(:Event) do |index|
     index.as :stored_searchable, :facetable
