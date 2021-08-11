@@ -7,6 +7,7 @@ class DenverThesisDissertationCapstone < ActiveFedora::Base
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AddInfoSingular
+  include ::HykuAddons::InstitutionSingular
 
   property :table_of_contents, predicate: ::RDF::Vocab::Bibframe.term(:tableOfContents), multiple: false do |index|
     index.as :stored_searchable

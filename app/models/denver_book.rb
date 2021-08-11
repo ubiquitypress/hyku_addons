@@ -8,6 +8,7 @@ class DenverBook < ActiveFedora::Base
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
   include ::HykuAddons::AddInfoSingular
+  include ::HykuAddons::InstitutionSingular
 
   property :subject_text, predicate: ::RDF::Vocab::DC.subject, multiple: true do |index|
     index.as :stored_searchable

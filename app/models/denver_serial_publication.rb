@@ -8,6 +8,7 @@ class DenverSerialPublication < ActiveFedora::Base
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
   include ::HykuAddons::AddInfoSingular
+  include ::HykuAddons::InstitutionSingular
 
   property :place_of_publication, predicate: ::RDF::Vocab::BF2.term(:Place) do |index|
     index.as :stored_searchable, :facetable

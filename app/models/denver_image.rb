@@ -8,6 +8,7 @@ class DenverImage < ActiveFedora::Base
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
   include ::HykuAddons::AddInfoSingular
+  include ::HykuAddons::InstitutionSingular
 
   property :georeferenced, predicate: ::RDF::Vocab::OGC.boolean_str, multiple: false do |index|
     index.as :stored_searchable

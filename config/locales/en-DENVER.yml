@@ -60,13 +60,18 @@ en-DENVER:
         label: GRID
       contributor_role:
         label: Role
+    editor:
+      editor_family_name:
+        label: Editor Last Name
+      editor_given_name:
+        label: Editor First Name
     labels:
       defaults:
         alt_title: Other Title(s)
         license: Licensing
         language: Language(s)
         subject_text: Subject
-        add_info: Note(s)
+        add_info: Additional Information
         georeferenced: Georeferenced?
         location: Geolocate
         extent: Content Length or Size
@@ -82,4 +87,6 @@ en-DENVER:
         official_link: Official URL
     hints:
       defaults:
-        abstract: "Abstract or short description of content"
+        abstract: Abstract or short description of content.
+        institution: The Auraria entity responsible for the item.
+        georeferenced: A digital image is georeferenced if it is a map view AND the file contains the information to align the image on the planet's surface.
