@@ -28,8 +28,9 @@ module HykuAddons
       array
     end
 
-    def remove_denver_creator_personal_fields(array)
+    def add_denver_creator_personal_fields(array, service_options)
       array.delete_at(6) # removes institutional relationship from Denver worktype
+      array.append(field_type: :select, field_slug: :creator_role, select_options: service_options, field_args: { include_blank: "Please Select..." })
       array
     end
 
