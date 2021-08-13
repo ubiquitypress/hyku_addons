@@ -11,6 +11,15 @@ terms:
 - id: EdD
   term: Doctor of Education
   active: true
+- id: PhD
+  term: Doctor of Philosophy
+  active: true
+- id: PsyD
+  term: Doctor of Psychology
+  active: true
+- id: DPA
+  term: Doctor of Public Administration
+  active: true
 - id: MArch
   term: Master of Architecture
   active: true
@@ -40,10 +49,4 @@ terms:
   active: true
 - id: MURP
   term: Master of Urban and Regional Planning
-  active: true
-- id: PhD
-  term: Doctor of Philosophy
-  active: true
-- id: PsyD
-  term: Doctor of Psychology
   active: true
