@@ -63,6 +63,7 @@ Metrics/MethodLength:
     - 'lib/hyku_addons/engine.rb'
     - 'lib/tasks/account.rake'
     - 'spec/**/*.rb'
+    - `app/controllers/concerns/hyku_addons/search_controller_behavior.rb`
 
 Metrics/CyclomaticComplexity:
   Exclude:
