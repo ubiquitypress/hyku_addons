@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'hyku-api', git: 'https://github.com/ubiquitypress/hyku-api', ref: 'da983b76de8a25967bccaa21874e32445c1bc85c'
+gem 'hyku-api', git: 'https://github.com/ubiquitypress/hyku-api', branch: 'main'
 gem 'hyrax-doi', git: 'https://github.com/samvera-labs/hyrax-doi', branch: 'main'
 gem 'hyrax-hirmeos', git: 'https://github.com/ubiquitypress/hyrax-hirmeos', branch: 'main'
 
