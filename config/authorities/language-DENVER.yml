@@ -5,7 +5,7 @@ terms:
   - id: fra
     term: French
     active: true
-  - id: jap
+  - id: jpn
     term: Japanese
     active: true
   - id: spa

@@ -2,7 +2,7 @@
 # FIXME: many attributes here left nil so specs will pass
 json.uuid work.id
 
-json.abstract work.try(:abstract)
+json.abstract work.try(:solr_document)&.dig('abstract_tesim')&.first
 json.adapted_from work.try(:adapted_from)
 json.additional_info work.try(:add_info)
 json.additional_links work.try(:additional_links)
