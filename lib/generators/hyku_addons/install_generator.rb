@@ -5,12 +5,13 @@ module HykuAddons
       This generator makes the following changes to Hyku:
         1. Installs hyrax-doi
         2. Installs hyrax-hirmeos
-        3. Injects work type overrides
-        4. Copies controlled vocabularies
-        5. Injects javascript
-        6. Injects CSS
-        7. Injects helpers
-        8. Installs workflows
+        3. Installs hyrax-orcid
+        4. Injects work type overrides
+        5. Copies controlled vocabularies
+        6. Injects javascript
+        7. Injects CSS
+        8. Injects helpers
+        9. Installs workflows
     EOS
 
     source_root File.expand_path('templates', __dir__)
@@ -21,6 +22,10 @@ module HykuAddons
 
     def install_hyrax_hirmeos
       generate 'hyrax:hirmeos:install'
+    end
+
+    def install_hyrax_orcid
+      generate 'hyrax:orcid:install'
     end
 
     def inject_overrides_into_curation_concerns

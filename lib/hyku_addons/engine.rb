@@ -87,7 +87,13 @@ module HykuAddons
     ## In engine development mode (ENGINE_ROOT defined) handle specific generators as app-only by setting destintation_root appropriately
     initializer 'hyku_addons.app_generators' do
       if defined?(ENGINE_ROOT)
-        APP_GENERATORS = ['HykuAddons::InstallGenerator', 'Hyrax::DOI::InstallGenerator', 'Hyrax::DOI::AddToWorkTypeGenerator', 'Hyrax::Hirmeos::InstallGenerator'].freeze
+        APP_GENERATORS = [
+          'HykuAddons::InstallGenerator',
+          'Hyrax::DOI::InstallGenerator',
+          'Hyrax::DOI::AddToWorkTypeGenerator',
+          'Hyrax::Hirmeos::InstallGenerator',
+          'Hyrax::Orcid::InstallGenerator'
+        ].freeze
 
         Rails::Generators::Base.class_eval do
           def initialize(args, options, config)
