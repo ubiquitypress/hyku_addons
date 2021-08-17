@@ -27,19 +27,8 @@ module HykuAddons
       end
     end
 
+# THIS NEEDS TO BE REMOVED ONCE CASHING IS SOLVED AND HYKU API TRACKS MAIN BRANCH
     private
-
-      def facet_offset
-        params[:page].present? && params[:per_page].present? ? ([params[:page].to_i, 1].max - 1) * params[:per_page].to_i : 0
-      end
-
-      def facet_limit
-        params[:per_page].present? ? params[:per_page].to_i : 0
-      end
-
-      def facet_range
-        facet_offset..(facet_offset + facet_limit - 1)
-      end
 
       def hash_of_terms_ordered_by_hits(items)
         Hash[items.pluck(:value, :hits).sort_by(&:second).reverse]
