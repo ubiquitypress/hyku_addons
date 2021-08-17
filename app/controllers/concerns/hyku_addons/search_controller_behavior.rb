@@ -27,7 +27,7 @@ module HykuAddons
       end
     end
 
-# THIS NEEDS TO BE REMOVED ONCE CASHING IS SOLVED AND HYKU API TRACKS MAIN BRANCH
+    # THIS NEEDS TO BE REMOVED ONCE CASHING IS SOLVED AND HYKU API TRACKS MAIN BRANCH
     private
 
       def hash_of_terms_ordered_by_hits(items)
