@@ -35,12 +35,6 @@ RSpec.describe Hyku::API::V1::SearchController, type: :request, clean: true, mul
         Apartment::Tenant.switch(account.tenant) { another_work }
       end
 
-      it 'returns facet information' do
-        get "/api/v1/tenant/#{account.tenant}/search/facet/#{id}"
-        expect(response.status).to eq(200)
-        expect(json_response).to include('language_sim' => { "English" => 1, "Chinese" => 1 })
-      end
-
       it "returns the result ordered by hits" do
         get "/api/v1/tenant/#{account.tenant}/search/facet/#{id}"
         expect(response.status).to eq(200)
