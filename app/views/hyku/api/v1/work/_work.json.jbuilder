@@ -51,7 +51,7 @@ end
 json.funding_description work.try(:funding_description)
 #                                         "funder_project_reference" => nil,
 json.georeferenced work.try(:georeferenced)
-#                                         "institution" => nil,
+json.institution work.try(:institution)
 json.irb_number work.try(:irb_number)
 json.irb_status work.try(:irb_status)
 json.is_included_in work.try(:is_included_in)
@@ -111,7 +111,11 @@ json.prerequisites work.try(:prerequisites)
 json.publisher work.publisher
 json.qualification_grantor work.try(:qualification_grantor)
 json.qualification_level work.try(:qualification_level)
-json.qualification_name work.try(:qualification_name)
+
+qualification_name_service = HykuAddons::QualificationNameService.new
+id = work.try(:qualification_name)
+json.qualification_name qualification_name_service.label(id)
+
 json.qualification_subject_text work.try(:qualification_subject_text)
 json.reading_level work.try(:reading_level)
 json.references work.try(:references)
