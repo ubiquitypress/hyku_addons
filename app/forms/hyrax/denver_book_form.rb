@@ -8,7 +8,7 @@ module Hyrax
     self.model_class = ::DenverBook
     add_terms %i[title alt_title resource_type creator institution abstract keyword subject_text org_unit
                  date_published edition alternate_identifier library_of_congress_classification
-                 related_identifier isbn publisher place_of_publication licence rights_holder rights_statement
+                 related_identifier isbn publisher place_of_publication license rights_holder rights_statement
                  contributor editor table_of_contents medium extent language time refereed add_info]
     self.terms -= %i[related_url source]
     self.required_fields = %i[title creator resource_type rights_statement]
@@ -26,7 +26,7 @@ module Hyrax
         permitted_params << [:edition, :contributor, :extent, :language, :add_info,
                              :alternate_identifier, :library_of_congress_classification,
                              :related_identifier, :isbn, :publisher, :place_of_publication,
-                             :licence, :rights_holder, :rights_statement, :editor,
+                             :license, :rights_holder, :rights_statement, :editor,
                              :table_of_contents, :medium, :time, :refereed]
       end
     end

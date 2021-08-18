@@ -8,7 +8,7 @@ module Hyrax
     self.model_class = ::DenverPresentationMaterial
     add_terms %i[title resource_type creator institution abstract keyword subject org_unit
                  date_published related_identifier event_title event_location event_date
-                 licence rights_holder rights_statement contributor language add_info]
+                 license rights_holder rights_statement contributor language add_info]
     self.terms -= %i[related_url source publisher]
     self.required_fields = %i[title creator resource_type]
 
@@ -24,7 +24,7 @@ module Hyrax
         permitted_params << common_fields
         permitted_params << [:contributor, :language, :add_info,
                              :alternate_identifier, :related_identifier,
-                             :licence, :rights_holder, :rights_statement]
+                             :license, :rights_holder, :rights_statement]
       end
     end
   end
