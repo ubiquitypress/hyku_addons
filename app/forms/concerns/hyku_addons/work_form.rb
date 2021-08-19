@@ -145,8 +145,8 @@ module HykuAddons
 
     protected
 
-    def simplfied_admin_set?(controller)
-      Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig('admin_set_id').present?
-    end
+      def simplfied_admin_set?(controller)
+        Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig('admin_set_id').present?
+      end
   end
 end
