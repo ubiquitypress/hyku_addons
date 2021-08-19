@@ -31,23 +31,23 @@ json.date_published work.try(:date_published)
 json.date_published_text work.try(:date_published_text)
 json.date_submitted work.date_uploaded
 json.degree work.try(:degree)
-#                                         "dewey" => nil,
+json.dewey work.try(:dewey)
 #                                         "display" => "full",
 json.doi work.try(:doi)
 # json.download_link nil
 json.duration work.try(:duration)
 json.edition work.try(:edition)
-#                                         "eissn" => nil,
-#                                         "event_date" => nil,
+json.eissn work.try(:eissn)
+json.event_date work.try(:event_date)
 json.event_location work.try(:event_location)
 json.extent work.try(:extent)
-#                                         "event_title" => nil,
+json.event_title work.try(:event_title)
 json.files do
   json.has_private_files work.file_set_presenters.any? { |fsp| fsp.solr_document.private? }
   json.has_registered_files work.file_set_presenters.any? { |fsp| fsp.solr_document.registered? }
   json.has_public_files work.file_set_presenters.any? { |fsp| fsp.solr_document.public? }
 end
-#                                         "funder" => nil,
+json.funder work.try(:funder)
 json.funding_description work.try(:funding_description)
 #                                         "funder_project_reference" => nil,
 json.georeferenced work.try(:georeferenced)
@@ -96,7 +96,7 @@ json.longitude work.try(:longitude)
 json.medium work.try(:medium)
 json.mesh work.try(:mesh)
 #                                         "migration_id" => nil,
-#                                         "official_url" => nil,
+jsin.official_url work.try(:official_url)
 json.official_link work.try(:official_link)
 json.org_unit work.try(:org_unit)
 json.outcome work.try(:outcome)
@@ -116,9 +116,9 @@ json.qualification_subject_text work.try(:qualification_subject_text)
 json.reading_level work.try(:reading_level)
 json.references work.try(:references)
 json.refereed work.try(:refereed)
-#                                         "related_exhibition" => nil,
-#                                         "related_exhibition_date" => nil,
-#                                         "related_exhibition_venue" => nil,
+json.related_exhibition work.try(:related_exhibition)
+json.related_exhibition_date work.try(:related_exhibition_date)
+json.related_exhibition_venue work.try(:related_exhibition_venue)
 related_identifier = work.try(:related_identifier)&.first
 if related_identifier.present?
   related_identifier_array = begin
