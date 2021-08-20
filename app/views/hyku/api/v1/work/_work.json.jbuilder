@@ -96,7 +96,7 @@ json.longitude work.try(:longitude)
 json.medium work.try(:medium)
 json.mesh work.try(:mesh)
 #                                         "migration_id" => nil,
-jsin.official_url work.try(:official_url)
+json.official_url work.try(:official_url)
 json.official_link work.try(:official_link)
 json.org_unit work.try(:org_unit)
 json.outcome work.try(:outcome)
