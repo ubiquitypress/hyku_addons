@@ -3,7 +3,7 @@ module HykuAddons
   module NotesTabFormHelper
     def form_tabs_for(form:)
       if Flipflop.enabled?(:notes_tab_form)
-        super + ['notes']
+        super + ["notes"]
       else
         super
       end
