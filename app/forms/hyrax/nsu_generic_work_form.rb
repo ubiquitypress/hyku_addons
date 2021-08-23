@@ -7,7 +7,7 @@ module Hyrax
     self.model_class = ::NsuGenericWork
     add_terms %i[title alt_title resource_type creator alt_email abstract
                  keyword subject degree qualification_level qualification_name
-                 advisor org_unit date_published book_title alt_book_title
+                 advisor committee_member org_unit date_published book_title alt_book_title
                  buy_book edition volume issue pagination version_number
                  official_link library_of_congress_classification
                  dewey mesh related_identifier adapted_from series_name source isbn

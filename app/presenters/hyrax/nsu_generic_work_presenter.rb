@@ -7,7 +7,7 @@ module Hyrax
     def self.delegated_methods
       %i[title alt_title resource_type creator alt_email abstract
          keyword subject degree qualification_level qualification_name
-         advisor org_unit date_published book_title alt_book_title
+         advisor org_unit date_published book_title alt_book_title committee_member
          buy_book edition volume issue pagination version_number official_link
          library_of_congress_classification dewey mesh related_identifier adapted_from
          series_name source isbn issn eissn publisher place_of_publication funder
