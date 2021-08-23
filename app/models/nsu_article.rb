@@ -29,7 +29,7 @@ class NsuArticle < ActiveFedora::Base
   property :advisor, predicate: ::RDF::Vocab::Bibframe.Person, multiple: true do |index|
     index.as :stored_searchable
   end
-  
+
   property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
     index.as :stored_searchable
   end
