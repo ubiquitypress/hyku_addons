@@ -28,8 +28,8 @@ module Hyrax
         permitted_params << [:contributor, :extent, :language, :alternate_identifier,
                              :library_of_congress_classification, :publisher,
                              :related_identifier, :place_of_publication,
-                             :license, :rights_holder, :rights_statement,
-                             :table_of_contents, :medium, :extent]
+                             :licence, :rights_holder, :rights_statement,
+                             :table_of_contents, :medium, :extent, :advisor]
       end
     end
   end
