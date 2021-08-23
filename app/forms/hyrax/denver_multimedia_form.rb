@@ -24,7 +24,7 @@ module Hyrax
     def self.build_permitted_params
       super.tap do |permitted_params|
         permitted_params << common_fields
-        permitted_params << [:alternate_identifier, :related_identifier, :licence, :rights_holder,
+        permitted_params << [:alternate_identifier, :related_identifier, :license, :rights_holder,
                              :rights_statement, :contributor, :medium, :language, :duration, :add_info,
                              :place_of_publication, :library_of_congress_classification, :event_title,
                              :event_location]

@@ -9,11 +9,11 @@ module Hyrax
     add_terms %i[title alt_title resource_type creator alt_email institution abstract keyword subject
                  org_unit date_published journal_title journal_frequency volume
                  issue pagination official_link alternate_identifier library_of_congress_classification
-                 related_identifier issn eissn publisher place_of_publication licence
+                 related_identifier issn eissn publisher place_of_publication license
                  rights_holder rights_statement contributor editor medium extent
                  language location time refereed add_info]
     self.terms -= %i[related_url source]
-    self.required_fields = %i[title creator resource_type licence rights_holder]
+    self.required_fields = %i[title creator resource_type license rights_holder]
 
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
@@ -28,7 +28,7 @@ module Hyrax
         permitted_params << [:contributor, :extent, :language, :add_info,
                              :alternate_identifier, :library_of_congress_classification,
                              :related_identifier, :isbn, :publisher, :place_of_publication,
-                             :licence, :rights_holder, :rights_statement, :editor,
+                             :license, :rights_holder, :rights_statement, :editor,
                              :table_of_contents, :medium, :time, :refereed]
       end
     end

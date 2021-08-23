@@ -131,7 +131,11 @@ json.prerequisites work.try(:prerequisites)
 json.publisher work.publisher
 json.qualification_grantor work.try(:qualification_grantor)
 json.qualification_level work.try(:qualification_level)
-json.qualification_name work.try(:qualification_name)
+
+qualification_name_service = HykuAddons::QualificationNameService.new
+id = work.try(:qualification_name)&.first
+json.qualification_name qualification_name_service.label(id) if id.present?
+
 json.qualification_subject_text work.try(:qualification_subject_text)
 json.reading_level work.try(:reading_level)
 json.references work.try(:references)
