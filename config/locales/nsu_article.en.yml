@@ -5,4 +5,4 @@ en:
     select_type:
       nsu_article:
         description:        "NSU Article works"
-        name:               "Article Work"
+        name:               "Article"
