@@ -1,0 +1,64 @@
+terms:
+ - id: Archives
+   term: Archives
+   active: true
+ - id: Arts & Humanities
+   term: Arts & Humanities
+   active: true
+ - id: Biography
+   term: Biography
+   active: true
+ - id: Books and Dissertations
+   term: Books and Dissertations
+   active: true
+ - id: Business, Finance, and Technology
+   term: Business, Finance, and Technology
+   active: true
+ - id: Cherokee and Other Indigenous Peoples
+   term: Cherokee and Other Indigenous Peoples
+   active: true
+ - id: Communications and Media
+   term: Communications and Media
+   active: true
+ - id: Dictionaries and Encyclopedias
+   term: Dictionaries and Encyclopedias
+   active: true
+ - id: Education
+   term: Education
+   active: true
+ - id: General Research
+   term: General Research
+   active: true
+ - id: Health and Kinesiology
+   term: Health and Kinesiology
+   active: true
+ - id: Hospitality and Tourism
+   term: Hospitality and Tourism
+   active: true
+ - id: Library
+   term: Library
+   active: true
+ - id: Natural Sciences and Mathematics
+   term: Natural Sciences and Mathematics
+   active: true
+ - id: News Sources
+   term: News Sources
+   active: true
+ - id: Optometry
+   term: Optometry
+   active: true
+ - id: Political Science
+   term: Political Science
+   active: true
+ - id: Psychology and Counseling
+   term: Psychology and Counseling
+   active: true
+ - id: Education
+   term: Education
+   active: true
+ - id: Social Sciences
+   term: Social Sciences
+   active: true
+ - id: Special Collections
+   term: Special Collections
+   active: true

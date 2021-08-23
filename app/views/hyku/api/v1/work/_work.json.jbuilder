@@ -104,6 +104,57 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
     json.thumbnail_url URI::Generic.build(components).to_s
   else
     json.thumbnail_url nil
+=======
+else
+  json.license []
+end
+
+json.location work.try(:location)
+json.latitude work.try(:latitude)
+json.longitude work.try(:longitude)
+#                                         "material_media" => nil,
+json.medium work.try(:medium)
+json.mesh work.try(:mesh)
+#                                         "migration_id" => nil,
+json.official_url work.try(:official_url)
+json.official_link work.try(:official_link)
+json.org_unit work.try(:org_unit)
+json.outcome work.try(:outcome)
+json.page_display_order_number work.try(:page_display_order_number)
+json.pagination work.try(:pagination)
+json.participant work.try(:participant)
+json.photo_caption work.try(:photo_caption)
+json.photo_description work.try(:photo_description)
+json.place_of_publication work.try(:place_of_publication)
+#                                         "project_name" => nil,
+json.prerequisites work.try(:prerequisites)
+json.publisher work.publisher
+json.qualification_grantor work.try(:qualification_grantor)
+json.qualification_level work.try(:qualification_level)
+json.qualification_name work.try(:qualification_name)
+json.qualification_subject_text work.try(:qualification_subject_text)
+json.reading_level work.try(:reading_level)
+json.references work.try(:references)
+json.refereed work.try(:refereed)
+json.related_exhibition work.try(:related_exhibition)
+json.related_exhibition_date work.try(:related_exhibition_date)
+json.related_exhibition_venue work.try(:related_exhibition_venue)
+related_identifier = work.try(:related_identifier)&.first
+if related_identifier.present?
+  related_identifier_array = begin
+                               JSON.parse(related_identifier)
+                             rescue
+                               nil
+                             end
+  if related_identifier_array.present?
+    json.related_identifier do
+      json.array! related_identifier_array do |hash|
+        json.name hash['related_identifier']
+        json.type hash['related_identifier_type']
+        json.relationship hash['relation_type']
+      end
+    end
+>>>>>>> NSU Generic Worktype (#439)
   end
   json.title work.title.first
   json.type "work"
