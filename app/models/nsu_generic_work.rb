@@ -34,10 +34,6 @@ class NsuGenericWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :journal_title, predicate: ::RDF::Vocab::BIBO.Journal, multiple: false do |index|
-    index.as :stored_searchable, :facetable
-  end
-
   property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
     index.as :stored_searchable
   end
