@@ -17,6 +17,7 @@ Metrics/ClassLength:
     - 'app/services/hyku_addons/validations/solr_entry_validation_service.rb'
     - 'app/services/hyku_addons/validations/entry_validation_service.rb'
     - 'lib/hyku_addons/engine.rb'
+    - 'app/models/nsu_generic_work.rb'
 
 Metrics/LineLength:
   Exclude:
@@ -64,6 +65,7 @@ Metrics/MethodLength:
     - 'lib/tasks/account.rake'
     - 'spec/**/*.rb'
     - 'app/controllers/concerns/hyku_addons/search_controller_behavior.rb'
+    - 'app/forms/hyrax/nsu_generic_work_form.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:

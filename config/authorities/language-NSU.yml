@@ -1,0 +1,43 @@
+terms:
+  - id: apa
+    term: Apache
+    active: true
+  - id: chr
+    term: Cherokee
+    active: true
+  - id: cic
+    term: Chickasaw
+    active: true
+  - id: cho
+    term: Choctaw
+    active: true
+  - id: com
+    term: Comanche
+    active: true
+  - id: eng
+    term: English
+    active: true
+  - id: fra
+    term: French
+    active: true
+  - id: deu
+    term: German
+    active: true
+  - id: grc
+    term: Greek
+    active: true
+  - id: lat
+    term: Latin
+    active: true
+  - id: nav
+    term: Navajo
+    active: true
+  - id: osa
+    term: Osage
+    active: true
+  - id: esp
+    term: Spanish
+    active: true
+  - id: Other
+    term: Other
+    active: true
