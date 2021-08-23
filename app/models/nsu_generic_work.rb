@@ -214,6 +214,10 @@ class NsuGenericWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  property :committee_member, predicate: ::RDF::Vocab::AS.term(:Person) do |index|
+    index.as :stored_searchable
+  end
+
   self.json_fields += %i[editor]
   self.date_fields += %i[event_date related_exhibition_date]
   self.indexer = NsuGenericWorkIndexer
