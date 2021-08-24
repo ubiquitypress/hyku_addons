@@ -26,7 +26,7 @@ json.creator creator.present? ? JSON.parse(creator) : []
 contributor = work.contributor.try(:first)
 json.contributor contributor.present? ? JSON.parse(contributor) : []
 #                                         "current_he_institution" => nil,
-#                                         "date_accepted" => nil,
+json.date_accepted work.try(:date_accepted)
 json.date_published work.try(:date_published)
 json.date_published_text work.try(:date_published_text)
 json.date_submitted work.date_uploaded
