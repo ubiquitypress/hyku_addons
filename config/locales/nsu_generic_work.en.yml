@@ -1,8 +1,8 @@
 en:
   hyrax:
     icons:
-      anschutz_work:     'fa fa-file-text-o'
+      nsu_generic_work:     'fa fa-file-text-o'
     select_type:
       nsu_generic_work:
-        description:        "NSU Generic work works"
+        description:        "NSU Generic works"
         name:               "Generic Work"

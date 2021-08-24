@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      nsu_article:     'fa fa-file-text-o'
+    select_type:
+      nsu_article:
+        description:        "NSU Article works"
+        name:               "Article"
