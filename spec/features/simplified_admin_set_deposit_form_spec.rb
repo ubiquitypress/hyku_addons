@@ -4,16 +4,22 @@ require 'rails_helper'
 
 include Warden::Test::Helpers
 
-# NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature "Simplfied AdminSet deposit form", js: true do
+RSpec.feature "Simplfied AdminSet deposit form", js: true, singletenant: true do
   let(:user) { create(:user) }
   let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
   let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
   let(:workflow) do
-    Sipity::Workflow.create!(active: true, name: 'test-workflow', permission_template: permission_template)
+    options = {
+      active: true,
+      name: 'test-workflow',
+      permission_template: permission_template,
+      allows_access_grant: true
+    }
+    Sipity::Workflow.create!(options)
   end
   let(:work_type) { "book" }
   let(:human_work_type_name) { I18n.t("hyrax.select_type.#{work_type}.name") }
+  let(:routes) { Rails.application.routes.url_helpers }
 
   before do
     allow(Flipflop).to receive(:enabled?).and_call_original
@@ -47,17 +53,41 @@ RSpec.feature "Simplfied AdminSet deposit form", js: true do
     end
   end
 
-  context "when the user is managing" do
+  context "when the user is an admin" do
     let(:work) { create(:work, title: ["Moomin"], depositor: user.user_key) }
     let(:admin_user) { create(:admin) }
-    let(:main_app) { Rails.application.routes.url_helpers }
 
     before do
       login_as admin_user
     end
 
     scenario "it shows the relationships tab", js: true do
-      visit main_app.edit_hyrax_generic_work_path(work)
+      visit routes.edit_hyrax_generic_work_path(work)
+
+      expect(page).to have_selector("a[aria-controls='relationships']")
+    end
+  end
+
+  context "when the user is a manager" do
+    let(:manager) { create(:user) }
+    let(:depositor) { create(:user) }
+    let(:admin_set) { FactoryBot.create(:admin_set, title: ["Private Admin Set"]) }
+    let(:permission_template) do
+      options = {
+        source_id: admin_set.id,
+        visibility: "restricted",
+        release_period: "now"
+      }
+      Hyrax::PermissionTemplate.find_or_create_by!(options)
+    end
+    let(:work) { create(:work, title: ["Moomin"], depositor: depositor.user_key, admin_set: admin_set, edit_users: [manager.user_key]) }
+
+    before do
+      login_as manager
+    end
+
+    it "shows the relationship tab" do
+      visit routes.edit_hyrax_generic_work_path(work)
 
       expect(page).to have_selector("a[aria-controls='relationships']")
     end
