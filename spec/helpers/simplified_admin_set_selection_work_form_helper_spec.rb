@@ -35,7 +35,7 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
         allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(false)
       end
 
-      it "includes relationships" do
+      it "is false" do
         expect(helper.simplified_admin_set_for_form?(form: form)).to be_falsey
       end
     end
@@ -47,7 +47,7 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
         allow(helper).to receive(:depositor?).with(form.depositor).and_return(true)
       end
 
-      it "includes relationships" do
+      it "is true" do
         expect(helper.simplified_admin_set_for_form?(form: form)).to be_truthy
       end
     end
@@ -59,7 +59,7 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
         allow(helper).to receive(:depositor?).with(form.depositor).and_return(false)
       end
 
-      it "includes relationships" do
+      it "is false" do
         expect(helper.simplified_admin_set_for_form?(form: form)).to be_falsey
       end
     end
