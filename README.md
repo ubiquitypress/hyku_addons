@@ -266,6 +266,25 @@ docker-compose up -d web
 docker attach hyku_addons_web_1
 ```
 
+### Updating the internal test app
+
+Hyku Addons uses a custom version of Hyrax that we call `hyku_base` which is added as a Git submodule. It is a fork of Hyku 2 just before Hyku 3 without the user elevation plus newer commits that have been cherry-picked. 
+In order to apply new commits that have been made into Hyrax/Hyku, we need to bring them first into `hyku_base` as [described here](https://github.com/ubiquitypress/hyku_base#updating-the-app) and then update the git submodule.
+
+Make sure you have a clean internal test app before doing the `git add`, otherwise Git will not add the submodule as it will consider it dirty.
+
+The process is:
+1. Update the submodule with `git submodule update --remote`
+2. Run `bundle exec rails g hyku_addons:install`
+3. [Run the tests](https://github.com/ubiquitypress/hyku_addons#testing)
+4. When the tests pass, run git diff to see the new revision number of the submodule, which will be prefixed by "-dirty".
+   This happens because of additional files generated in step 2
+5. Some of the changes that `hyku_addons:install` makes are modifications of existing files instead and others are just new files. 
+   The modified files needs to be restored to their original state using `git restore`, the new ones should be deleted.
+6. Running `git diff` again should show the new submodule revision number without appending "-dirty" to the end. 
+7. You can now add your changes: `git add spec/internal_test_hyku`
+8. And commit them: `git commit`
+
 ### Dependency Management
 
 #### Gemfiles
@@ -310,4 +329,5 @@ To enable updates to a pinned gem, like hyku-api shown above, simply reset it to
 In order to build the hyku_addons application, the hyku_base (currently a fork of hyku 2.x branch) is checked out and the gemfile.plugins file is copied into the Gemfile. Without this extra step, production environments would not have access to rake/rails generators and tasks - which is apparently a Rails quirk that no one properly understands. This also means that gems can be pinned to versions, which isn't possible within a gemspec file, which enforces only rubygems references are used.
 
 The gemfile.lock from hyku_addons is copied into the hyku_base project to override their default Gemfile.lock - this solved an issue where by bundler wasn't able to compute builds correctly and wasn't pulling latest versions.
+
 
