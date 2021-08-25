@@ -276,12 +276,12 @@ Make sure you have a clean internal test app before doing the `git add`, otherwi
 The process is:
 1. Update the submodule with `git submodule update --remote`
 2. Run `bundle exec rails g hyku_addons:install`
-3. Run the tests
-4. When the tests pass, run `git diff` to see the new revision number of the submodule, which will be prefixed by "-dirty".
-This happens because of additional files generated in step 2
-5. Some of the changes that `hyku_addons:install` makes are modifications of existing files instead and others are just new files.
-The modified files needs to be restored to their original state using `git restore`. The new ones need to be deleted. 
+3. [Run the tests](https://github.com/ubiquitypress/hyku_addons#testing)
+4. When the tests pass, run git diff to see the new revision number of the submodule, which will be prefixed by "-dirty".
+   This happens because of additional files generated in step 2
+5. Some of the changes that `hyku_addons:install` makes are modifications of existing files instead and others are just new files. 
+   The modified files needs to be restored to their original state using `git restore`, the new ones should be deleted.
 6. Running `git diff` again should show the new submodule revision number without appending "-dirty" to the end. 
-7.`git add spec/internal_test_hyku`
-8.`git commit`
+7. You can now add your changes: `git add spec/internal_test_hyku`
+8. And commit them: `git commit`
 
