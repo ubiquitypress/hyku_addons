@@ -135,25 +135,25 @@ CFLAGS=-Wno-error=format-overflow  gem install zookeeper -v '1.4.11' --source 'h
 
 Dory can be used to automatically configure your local development environment so that you can use local subdomains, however you may experience issues. (See https://github.com/samvera/hyku/#dory)
 
-Another solution is to simply edit your `/etc/hosts` file and add in each tenants cname here. For example: 
+Another solution is to simply edit your `/etc/hosts` file and add in each tenants cname here. For example:
 
 ```
 sudo vim /etc/hosts
 ```
-And add the following: 
+And add the following:
 
 ```
 # ... Existing content
 
 # Hyku
-127.0.0.1       hyku.docker          # The main account section 
+127.0.0.1       hyku.docker          # The main account section
 127.0.0.1       repo.hyku.docker
 127.0.0.1       pacific.hyku.docker
 ```
 
 You can now access the repositories by suffixing the URL with `:3000`, for instance: http://hyku.docker:3000
 
-You will need to add each new tenant cname to your host file when a new account is added.  
+You will need to add each new tenant cname to your host file when a new account is added.
 
 ### Docker
 
@@ -284,4 +284,50 @@ The process is:
 6. Running `git diff` again should show the new submodule revision number without appending "-dirty" to the end. 
 7. You can now add your changes: `git add spec/internal_test_hyku`
 8. And commit them: `git commit`
+
+### Dependency Management
+
+#### Gemfiles
+
+HykuAddons employs a number of Gems to bring in dependencies.
+
++ hyku_addon/Gemfile
++ hyku_addon/hyku_addon.gemspec
++ hyku_addon/spec/internal_test_hyku/Gemfile
++ advancinghyku-utils/gemfile.plugins
+
+These service difference purposes depending on context.
+
+##### hyku_addons/Gemfile
+
+The Gemfile for the project is uses for local development and actions performed witin the application directory, `rails g`, `rake` etc.
+
+##### hyku_addons/hyku_addon.gemspec
+
+Used in the context of the gem and for bundler build dependencies when installing as a gem. Any application using HA, now uses these dependencies as well.
+
+##### hyku_addon/spec/internal_test_hyku/Gemfile
+
+Included into the hyku_addons/Gemfile when the application is started, brings all upstream dependencies.
+
+##### advancinghyku-utils/gemfile.plugins
+
+Uses internally for production builds within the deployment pipeline. Takes precedence over the other files mentioned, so if you pin a version in this file, you can prevent the application using an updated version of the gem.
+
+An example is the hyku-api gem that was pinned to a version before a breaking change, which was in active development, was pushed.
+
+```ruby
+gem 'hyku-api', git: 'https://github.com/ubiquitypress/hyku-api', ref: 'd7cd47d396a6f3695188001bb3447ad97e766124'
+```
+
+Using tagged releases would obviously solve the need for this, but at the time this was not possible.
+
+To enable updates to a pinned gem, like hyku-api shown above, simply reset it to track `main` and then `bundle update gem-name` from within the hyku_addons application.
+
+#### Production builds - advancinghyku-utils
+
+In order to build the hyku_addons application, the hyku_base (currently a fork of hyku 2.x branch) is checked out and the gemfile.plugins file is copied into the Gemfile. Without this extra step, production environments would not have access to rake/rails generators and tasks - which is apparently a Rails quirk that no one properly understands. This also means that gems can be pinned to versions, which isn't possible within a gemspec file, which enforces only rubygems references are used.
+
+The gemfile.lock from hyku_addons is copied into the hyku_base project to override their default Gemfile.lock - this solved an issue where by bundler wasn't able to compute builds correctly and wasn't pulling latest versions.
+
 

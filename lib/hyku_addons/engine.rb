@@ -428,7 +428,16 @@ module HykuAddons
         config.register_curation_concern :book_contribution
         config.register_curation_concern :conference_item
         config.register_curation_concern :dataset
+        config.register_curation_concern :denver_article
+        config.register_curation_concern :denver_book
+        config.register_curation_concern :denver_image
+        config.register_curation_concern :denver_multimedia
+        config.register_curation_concern :denver_presentation_material
+        config.register_curation_concern :denver_serial_publication
+        config.register_curation_concern :denver_thesis_dissertation_capstone
         config.register_curation_concern :exhibition_item
+        config.register_curation_concern :nsu_generic_work
+        config.register_curation_concern :nsu_article
         config.register_curation_concern :report
         config.register_curation_concern :time_based_media
         config.register_curation_concern :thesis_or_dissertation
@@ -511,6 +520,7 @@ module HykuAddons
       ::Bolognese::Metadata.include HykuAddons::Bolognese::JsonFieldsReader
 
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
+      ::Hyku::API::V1::SearchController.prepend HykuAddons::SearchControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
       ::Hyku::API::V1::HighlightsController.class_eval do
         def index

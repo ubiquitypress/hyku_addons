@@ -1,0 +1,29 @@
+terms:
+  - id: Article
+    term: Article
+  - id: Book review
+    term: Book review
+  - id: Editorial
+    term: Editorial
+  - id: Essay
+    term: Essay
+  - id: Interview
+    term: Interview
+  - id: Journal Article
+    term: Journal Article
+  - id: Letter to the editor
+    term: Letter to the editor
+  - id: Magazine article
+    term: Magazine article
+  - id: Newspaper article
+    term: Newspaper article
+  - id: Poem
+    term: Poem
+  - id: Policy report
+    term: Policy report
+  - id: Research article
+    term: Research article
+  - id: Review article
+    term: Review article
+  - id: Short story
+    term: Short story

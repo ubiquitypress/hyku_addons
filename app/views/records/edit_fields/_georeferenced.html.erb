@@ -1,0 +1,3 @@
+<%= f.input :georeferenced, as: :select,
+            collection: HykuAddons::GeoreferencedService.new(model: f.object.model.class).select_active_options,
+            input_html: { class: 'form-control' } %>

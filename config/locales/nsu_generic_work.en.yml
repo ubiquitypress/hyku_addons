@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      nsu_generic_work:     'fa fa-file-text-o'
+    select_type:
+      nsu_generic_work:
+        description:        "NSU Generic works"
+        name:               "Generic Work"

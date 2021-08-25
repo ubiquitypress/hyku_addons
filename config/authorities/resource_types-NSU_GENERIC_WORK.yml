@@ -1,0 +1,147 @@
+terms:
+  - id: Abstract
+    term: Abstract
+  - id: Assessment
+    term: Assessment
+  - id: Assignment
+    term: Assignment
+  - id: Audio
+    term: Audio
+  - id: Blog post
+    term: Blog post
+  - id: Book
+    term: Book
+  - id: Book chapter
+    term: Book chapter
+  - id: Book review
+    term: Book review
+  - id: Capstone
+    term: Capstone
+  - id: Commencement program
+    term: Commencement program
+  - id: Commentary
+    term: Commentary
+  - id: Conference paper
+    term: Conference paper
+  - id: Conference poster
+    term: Conference poster
+  - id: Conference Proceeding
+    term: Conference Proceeding
+  - id: Creative work
+    term: Creative work
+  - id: Database
+    term: Database
+  - id: Dataset
+    term: Dataset
+  - id: Dictionary or encyclopedia entry
+    term: Dictionary or encyclopedia entry
+  - id: Digital creative works
+    term: Digital creative works
+  - id: Dissertation
+    term: Dissertation
+  - id: Editorial
+    term: Editorial
+  - id: Essay
+    term: Essay
+  - id: Event
+    term: Event
+  - id: Exhibition
+    term: Exhibition
+  - id: Exhibition catalogue
+    term: Exhibition catalogue
+  - id: Grey literature
+    term: Grey literature
+  - id: Handbook
+    term: Handbook
+  - id: Handout
+    term: Handout
+  - id: Image
+    term: Image
+  - id: Interactive resource
+    term: Interactive resource
+  - id: Interview
+    term: Interview
+  - id: Journal
+    term: Journal
+  - id: Lab manual
+    term: Lab manual
+  - id: Learning object
+    term: Learning object
+  - id: Lecture
+    term: Lecture
+  - id: Lesson plan
+    term: Lesson plan
+  - id: Letter
+    term: Letter
+  - id: Letter to the editor
+    term: Letter to the editor
+  - id: Map or Cartographic Material
+    term: Map or Cartographic Material
+  - id: Multimedia
+    term: Multimedia
+  - id: Musical composition
+    term: Musical composition
+  - id: Musical notation
+    term: Musical notation
+  - id: Newspaper
+    term: Newspaper
+  - id: Optometry Dissertation
+    term: Optometry Dissertation
+  - id: Other
+    term: Other
+  - id: Part of Book
+    term: Part of Book
+  - id: Patent
+    term: Patent
+  - id: Performance
+    term: Performance
+  - id: Physical object
+    term: Physical object
+  - id: Podcast
+    term: Podcast
+  - id: Poem
+    term: Poem
+  - id: Poster
+    term: Poster
+  - id: Poster
+    term: Poster
+  - id: Presentation
+    term: Presentation
+  - id: Project
+    term: Project
+  - id: Quiz/Test
+    term: Quiz/Test
+  - id: Report
+    term: Report
+  - id: Research Paper
+    term: Research Paper
+  - id: Short story
+    term: Short story
+  - id: Slides
+    term: Slides
+  - id: Software or Program Code
+    term: Software or Program Code
+  - id: Survey
+    term: Survey
+  - id: Syllabus
+    term: Syllabus
+  - id: Technical documentation
+    term: Technical documentation
+  - id: Thesis
+    term: Thesis
+  - id: Tutorial
+    term: Tutorial
+  - id: Video
+    term: Video
+  - id: Webinar
+    term: Webinar
+  - id: Website
+    term: Website
+  - id: Workflow
+    term: Workflow
+  - id: Working paper
+    term: Working paper
+  - id: Worksheet
+    term: Worksheet
+  - id: Yearbook
+    term: Yearbook

@@ -25,7 +25,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
       it 'returns work json' do
         get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
         expect(response.status).to eq(200)
-        expect(json_response).to include("abstract" => [],
+        expect(json_response).to include("abstract" => nil,
                                          "additional_info" => [],
                                          "additional_links" => nil,
                                          "admin_set_name" => "",
@@ -118,7 +118,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
         let(:creator) { ["[{\"creator_organization_name\":\"\",\"creator_given_name\":\"Bertie\",\"creator_family_name\":\"Wooles\",\"creator_name_type\":\"Personal\",\"creator_orcid\":\"0000 1111 2222 3333\",\"creator_isni\":\"\",\"creator_ror\":\"\",\"creator_grid\":\"\",\"creator_wikidata\":\"\"}]"] }
         it 'returns work json' do
           get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
-          expect(json_response).to include("abstract" => [abstract],
+          expect(json_response).to include("abstract" => abstract,
                                            "creator" => [{ "creator_organization_name" => "", "creator_given_name" => "Bertie", "creator_family_name" => "Wooles", "creator_name_type" => "Personal", "creator_orcid" => "0000 1111 2222 3333", "creator_isni" => "", "creator_ror" => "", "creator_grid" => "", "creator_wikidata" => "" }])
         end
       end

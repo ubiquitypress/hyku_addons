@@ -11,10 +11,10 @@ terms:
   - id: deu
     term: German
     active: true
-  - id: ell
+  - id: grc
     term: Greek
     active: true
-  - id: jap
+  - id: jpn
     term: Japanese
     active: true
   - id: lat
