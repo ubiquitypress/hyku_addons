@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 include Warden::Test::Helpers
 
@@ -11,7 +11,7 @@ RSpec.feature "Simplfied AdminSet deposit form", js: true do
   let(:workflow) do
     options = {
       active: true,
-      name: 'test-workflow',
+      name: "test-workflow",
       permission_template: permission_template,
       allows_access_grant: true
     }
@@ -26,7 +26,7 @@ RSpec.feature "Simplfied AdminSet deposit form", js: true do
     allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(true)
 
     # Create a single action that can be taken
-    Sipity::WorkflowAction.create!(name: 'submit', workflow: workflow)
+    Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
   end
 
   context "when the user is depositing" do
@@ -34,15 +34,15 @@ RSpec.feature "Simplfied AdminSet deposit form", js: true do
       # Grant the user access to deposit into the admin set.
       Hyrax::PermissionTemplateAccess.create!(
         permission_template_id: permission_template.id,
-        agent_type: 'user',
+        agent_type: "user",
         agent_id: user.user_key,
-        access: 'deposit'
+        access: "deposit"
       )
       login_as user
     end
 
     scenario "it doesn't show the relationships tab", js: true do
-      visit '/dashboard'
+      visit "/dashboard"
       click_link "Works"
       click_link "Add new work"
 
