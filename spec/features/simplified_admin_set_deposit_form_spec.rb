@@ -4,7 +4,7 @@ require 'rails_helper'
 
 include Warden::Test::Helpers
 
-RSpec.feature "Simplfied AdminSet deposit form", js: true, singletenant: true do
+RSpec.feature "Simplfied AdminSet deposit form", js: true do
   let(:user) { create(:user) }
   let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
   let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
@@ -69,6 +69,10 @@ RSpec.feature "Simplfied AdminSet deposit form", js: true, singletenant: true do
   end
 
   context "when the user is a manager" do
+    # NOTE: In order to get the workflow working without properly understanding the Sipity permissioned i'm hacking it
+    # and adding the manager to `edit_users` to mimic the process. This isn't what i want and i'd love to know how to do it properly.
+    let(:params) { { title: ["Moomin"], depositor: depositor.user_key, admin_set: admin_set, edit_users: [manager.user_key] } }
+    let(:work) { create(:work, params) }
     let(:manager) { create(:user) }
     let(:depositor) { create(:user) }
     let(:admin_set) { FactoryBot.create(:admin_set, title: ["Private Admin Set"]) }
@@ -80,7 +84,6 @@ RSpec.feature "Simplfied AdminSet deposit form", js: true, singletenant: true do
       }
       Hyrax::PermissionTemplate.find_or_create_by!(options)
     end
-    let(:work) { create(:work, title: ["Moomin"], depositor: depositor.user_key, admin_set: admin_set, edit_users: [manager.user_key]) }
 
     before do
       login_as manager
