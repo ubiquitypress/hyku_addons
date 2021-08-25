@@ -265,3 +265,21 @@ Byebug is installed and can be used in tests and the running rails server. You w
 docker-compose up -d web
 docker attach hyku_addons_web_1
 ```
+
+### Updating the internal test app
+
+Hyku Addons uses a custom version of Hyrax that we call `hyku_base` which is added as a Git submodule. It is a fork of Hyku 2 just before Hyku 3 without the user elevation plus newer commits that have been cherry-picked. 
+In order to apply new commits that have been made into Hyrax/Hyku, we need to bring them first into `hyku_base` as [described here](https://github.com/ubiquitypress/hyku_base#updating-the-app) and then update the git submodule.
+
+Make sure you have a clean internal test app before doing the `git add`, otherwise Git will not add the submodule as it will consider it dirty.
+
+The tedious process that works is:
++ Update the submodule with `git submodule update --remote`
++ Run `bundle exec rails g hyku_addons:install`
++ Run the tests
++ When happy with it, running `git diff` should show the new revision number of the git submodule with `-dirty` in the end. This happens because if the files generated on the step before.
++ `git restore` any changes into `spec/internal_test_hyku` and delete any new files added by the `hyku_addons:install` command. 
++ Running `git diff` should show the new revision number of the git submodule without any `-dirty` text in the end. 
++ `git add spec/internal_test_hyku`
++ `git commit`
+
