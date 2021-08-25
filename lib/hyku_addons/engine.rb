@@ -538,9 +538,17 @@ module HykuAddons
       ::ActiveJob::Base.include HykuAddons::ImportMode
 
       User.class_eval do
-        # def mailboxer_email(_obj)
-        #   email
-        # end
+        def mailboxer_email(_obj)
+          email
+        end
+      end
+      Hyrax::Workflow::AbstractNotification.class_eval do
+        private
+
+          def document_path
+            key = document.model_name.singular_route_key
+            Rails.application.routes.url_helpers.send(key + "_url", document.id, host: Site.instance.account.cname, protocol: :https)
+          end
       end
     end
 
