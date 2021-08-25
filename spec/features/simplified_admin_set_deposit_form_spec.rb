@@ -69,10 +69,18 @@ RSpec.feature "Simplfied AdminSet deposit form", js: true do
   end
 
   context "when the user is a manager" do
-    # NOTE: In order to get the workflow working without properly understanding the Sipity permissioned i'm hacking it
-    # and adding the manager to `edit_users` to mimic the process. This isn't what i want and i'd love to know how to do it properly.
-    let(:params) { { title: ["Moomin"], depositor: depositor.user_key, admin_set: admin_set, edit_users: [manager.user_key] } }
-    let(:work) { create(:work, params) }
+    # NOTE: In order to get the workflow working without properly understanding the Sipity
+    # permissioned i'm hacking it and adding the manager to `edit_users` to mimic the process.
+    # This isn't what i want and i'd love to know how to do it properly.
+    let(:work) do
+      params = {
+        title: ["Moomin"],
+        depositor: depositor.user_key,
+        admin_set: admin_set,
+        edit_users: [manager.user_key]
+      }
+      create(:work, params)
+    end
     let(:manager) { create(:user) }
     let(:depositor) { create(:user) }
     let(:admin_set) { FactoryBot.create(:admin_set, title: ["Private Admin Set"]) }
