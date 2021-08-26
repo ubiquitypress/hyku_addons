@@ -116,7 +116,8 @@ module HykuAddons
       def set_smtp_settings
         current_smtp_settings = settings["smtp_settings"].presence || {}
         self.smtp_settings = current_smtp_settings.with_indifferent_access.reverse_merge!(
-          HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h)
+          HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h
+        )
       end
   end
 end
