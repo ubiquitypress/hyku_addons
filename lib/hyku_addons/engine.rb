@@ -96,7 +96,7 @@ module HykuAddons
         end
 
         def setup_tenant_cache
-          if (Rails.application.config.action_controller.perform_caching = Settings.cache_enabled && true)
+          if (Rails.application.config.action_controller.perform_caching = Flipflop.enabled?(:cache_enabled) && true)
             ActionController::Base.perform_caching = true
             Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id }
             Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)

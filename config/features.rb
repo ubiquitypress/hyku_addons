@@ -19,4 +19,8 @@ Flipflop.configure do
   feature :import_mode,
           default: false,
           description: "Import mode - Background jobs are run on specially named queues"
+
+  feature :cache_enabled,
+          default: false,
+          description: "TURBO MODE. Turns on cache for API endpoints. Experimental"
 end
