@@ -214,8 +214,8 @@ en:
       current_value: "Current Value"
   mailboxer:
     message_mailer:
-      subject_new: "%{subject}"
-      subject_reply: "%{subject}"
+      subject_new: "[%{tenant_name}] %{subject}"
+      subject_reply: "[%{tenant_name}] %{subject}"
     notification_mailer:
       subject: "%{subject}"
 
