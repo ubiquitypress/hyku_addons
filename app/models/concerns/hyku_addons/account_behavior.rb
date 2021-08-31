@@ -59,6 +59,7 @@ module HykuAddons
         datacite_endpoint.switch!
         Settings.switch!(name: locale_name, settings: settings)
         switch_host!(cname)
+        setup_tenant_cache
       end
 
       def reset!
@@ -68,11 +69,27 @@ module HykuAddons
         DataCiteEndpoint.reset!
         Settings.switch!
         switch_host!(nil)
+        disable_tenant_cache
       end
 
       def switch_host!(cname)
         Rails.application.routes.default_url_options[:host] = cname
         Hyrax::Engine.routes.default_url_options[:host] = cname
+      end
+​
+      def setup_tenant_cache
+        if (Rails.application.config.action_controller.perform_caching = Flipflop.enabled?(:cache_enabled) && true)
+          ActionController::Base.perform_caching = true
+          Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id }
+          Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
+        end
+      end
+​
+      def disable_tenant_cache
+        Rails.application.config.action_controller.perform_caching = Settings.cache_enabled || false
+        ActionController::Base.perform_caching = Rails.application.config.action_controller.perform_caching
+        Rails.application.config.cache_store = :file_store, Settings.cache_filesystem_root
+        Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
       end
     end
     # rubocop:enable Metrics/BlockLength
@@ -114,10 +131,8 @@ module HykuAddons
       end
 
       def set_smtp_settings
-        current_smtp_settings = settings["smtp_settings"].presence || {}
-        self.smtp_settings = current_smtp_settings.with_indifferent_access.reverse_merge!(
-          HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h
-        )
+        return if settings["smtp_settings"].present?
+        settings["smtp_settings"] = HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h
       end
   end
 end
