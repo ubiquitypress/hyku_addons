@@ -9,8 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 82dffb267c382c3f096c1337ee09a084c9f0335e
-  ref: 82dffb267c382c3f096c1337ee09a084c9f0335e
+  revision: 7d295345009787cde92900306280ceb8d51ff88b
   specs:
     bulkrax (0.1.0)
       bagit (~> 0.4)
@@ -47,8 +46,8 @@ GIT
 
 GIT
   remote: https://github.com/ubiquitypress/hyku-api
-  revision: da983b76de8a25967bccaa21874e32445c1bc85c
-  ref: da983b76de8a25967bccaa21874e32445c1bc85c
+  revision: 3384c465e99bd5fecb38bdba5d66bf879a4d55fd
+  branch: main
   specs:
     hyku-api (0.1.0)
       jwt
@@ -516,7 +515,6 @@ GEM
       googleauth (~> 0.9)
       mini_mime (~> 1.0)
     google-protobuf (3.17.0)
-    google-protobuf (3.17.0-x86_64-linux)
     google_drive (3.0.7)
       google-apis-drive_v3 (>= 0.5.0, < 1.0.0)
       google-apis-sheets_v4 (>= 0.4.0, < 1.0.0)
@@ -536,9 +534,6 @@ GEM
       os (>= 0.9, < 2.0)
       signet (~> 0.14)
     grpc (1.37.1)
-      google-protobuf (~> 3.15)
-      googleapis-common-protos-types (~> 1.0)
-    grpc (1.37.1-x86_64-linux)
       google-protobuf (~> 3.15)
       googleapis-common-protos-types (~> 1.0)
     grpc-google-iam-v1 (0.6.11)
