@@ -33,6 +33,7 @@ Metrics/ModuleLength:
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
     - 'app/models/concerns/hyku_addons/generic_work_overrides.rb'
     - 'app/models/concerns/hyku_addons/solr_document_behavior.rb'
+    - 'app/models/concerns/hyku_addons/account_behavior.rb'
 
 Metrics/BlockLength:
   Exclude:
@@ -44,6 +45,8 @@ Metrics/BlockLength:
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/models/pacific_article.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
+    - 'app/views/hyku/api/v1/work/_work.json.jbuilder'
+    - 'app/models/concerns/hyku_addons/account_behavior.rb'
     - 'bin/transform_export_batch.rb'
     - 'hyku_addons.gemspec'
     - 'lib/hyku_addons/engine.rb'

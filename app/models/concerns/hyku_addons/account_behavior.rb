@@ -13,7 +13,6 @@ module HykuAddons
 
     PRIVATE_SETTINGS = %w[smtp_settings].freeze
 
-    # rubocop:disable Metrics/BlockLength
     included do
       belongs_to :datacite_endpoint, dependent: :delete
       has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :destroy, inverse_of: :parent
@@ -76,15 +75,15 @@ module HykuAddons
         Rails.application.routes.default_url_options[:host] = cname
         Hyrax::Engine.routes.default_url_options[:host] = cname
       end
-​
+
       def setup_tenant_cache
-        if (Rails.application.config.action_controller.perform_caching = Flipflop.enabled?(:cache_enabled) && true)
-          ActionController::Base.perform_caching = true
-          Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id }
-          Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
-        end
+        return unless Flipflop.enabled?(:cache_enabled).presence
+        Rails.application.config.action_controller.perform_caching = true
+        ActionController::Base.perform_caching = true
+        Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id }
+        Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
       end
-​
+
       def disable_tenant_cache
         Rails.application.config.action_controller.perform_caching = Settings.cache_enabled || false
         ActionController::Base.perform_caching = Rails.application.config.action_controller.perform_caching
@@ -92,7 +91,6 @@ module HykuAddons
         Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
       end
     end
-    # rubocop:enable Metrics/BlockLength
 
     def datacite_endpoint
       super || NilDataCiteEndpoint.new
