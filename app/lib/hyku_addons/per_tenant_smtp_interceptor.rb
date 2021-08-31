@@ -3,7 +3,7 @@
 module HykuAddons
   class PerTenantSmtpInterceptor
     def self.available_smtp_fields
-      %w[from user_name password address domain port enable_starttls_auto].freeze
+      %w[from user_name password address domain port authentication enable_starttls_auto].freeze
     end
 
     def self.delivering_email(message)
@@ -23,8 +23,6 @@ module HykuAddons
       end
 
       message.delivery_method.settings.merge! data.compact.to_h
-      # Temporary quick and dirty assignation to make a proof of concept
-      message.delivery_method.settings[:authentication] = :login
     end
   end
 end

@@ -192,4 +192,21 @@ RSpec.describe HykuAddons::AccountBehavior do
       end
     end
   end
+
+  describe "smtp_settings" do
+    context "with an existing account" do
+      let!(:account) { create :account, smtp_settings: { authentication: "login" } }
+
+      it "respects the existing settings" do
+        expect(account.reload.smtp_settings.with_indifferent_access).to include(authentication: "login")
+      end
+
+      it "adds missing smtp config keys" do
+        settings = Account.find(account.id).reload.smtp_settings
+        HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields.each do |setting_name|
+          expect(settings).to have_key(setting_name)
+        end
+      end
+    end
+  end
 end
