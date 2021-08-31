@@ -37,7 +37,7 @@ RSpec.describe Hyku::API::V1::TenantController, type: :request, clean: true, mul
     context "with private settings do" do
       before do
         Account.private_settings.each do |setting|
-          account.settings[setting] = ["foo"]
+          account.settings[setting] = { foo: 'bar' }
         end
         account.save
       end
