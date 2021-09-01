@@ -4,6 +4,7 @@ RSpec.describe CatalogController do
   describe "GET /oai" do
     before do
       allow(Flipflop).to receive(:enabled?).with(:oai_endpoint).and_return(oai_enabled)
+      allow(Flipflop).to receive(:enabled?).with(:cache_enabled).and_return(false)
     end
 
     context "with OAI enabled" do

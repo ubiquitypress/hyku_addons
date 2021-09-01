@@ -10,11 +10,11 @@ module HykuAddons
       Account.find_by(tenant: Apartment::Tenant.current)&.switch!
       return unless (mailer_settings = Settings.smtp_settings.presence)
 
-      if mailer_settings.from.present?
-        message.from = mailer_settings.from
-        message.reply_to = mailer_settings.from
-        message.return_path = mailer_settings.from
-        message.smtp_envelope_from = mailer_settings.from
+      if (from = mailer_settings.from.presence)
+        message.from = from
+        message.reply_to = from
+        message.return_path = from
+        message.smtp_envelope_from = from
       end
 
       data = (HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields - ['from']).map do |key|

@@ -203,6 +203,7 @@ RSpec.describe HykuAddons::AccountBehavior do
 
       it "adds missing smtp config keys" do
         settings = Account.find(account.id).reload.smtp_settings
+
         HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields.each do |setting_name|
           expect(settings).to have_key(setting_name)
         end
