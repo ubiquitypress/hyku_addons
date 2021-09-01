@@ -9,7 +9,6 @@ RSpec.feature 'Create a Collection', js: false, clean: true do
   let(:collection_type) { Hyrax::CollectionType.create(title: 'test_collection_type') }
 
   before do
-    %i[cache enabled ]
     allow(Flipflop).to receive(:enabled?).and_return(false)
     collection_type
     login_as user
