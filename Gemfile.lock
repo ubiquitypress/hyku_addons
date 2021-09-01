@@ -10,7 +10,6 @@ GIT
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
   revision: 82dffb267c382c3f096c1337ee09a084c9f0335e
-  ref: 82dffb267c382c3f096c1337ee09a084c9f0335e
   specs:
     bulkrax (0.1.0)
       bagit (~> 0.4)
@@ -47,8 +46,8 @@ GIT
 
 GIT
   remote: https://github.com/ubiquitypress/hyku-api
-  revision: da983b76de8a25967bccaa21874e32445c1bc85c
-  ref: da983b76de8a25967bccaa21874e32445c1bc85c
+  revision: 3384c465e99bd5fecb38bdba5d66bf879a4d55fd
+  branch: main
   specs:
     hyku-api (0.1.0)
       jwt
@@ -865,8 +864,7 @@ GEM
     powerpack (0.1.3)
     public_suffix (2.0.5)
     pul_uv_rails (2.0.1)
-    puma (4.3.8)
-      nio4r (~> 2.0)
+    puma (3.12.6)
     qa (5.6.0)
       activerecord-import
       deprecation
@@ -1237,7 +1235,7 @@ DEPENDENCIES
   mods (~> 2.4)
   parser (~> 2.5.3)
   pg
-  puma (~> 4.3)
+  puma (~> 3.12)
   rack-test (= 0.7.0)
   rails (~> 5.2.4, >= 5.2.4.3)
   rails-controller-testing

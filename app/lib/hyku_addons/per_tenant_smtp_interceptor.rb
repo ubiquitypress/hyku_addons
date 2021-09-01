@@ -8,9 +8,9 @@ module HykuAddons
 
     def self.delivering_email(message)
       Account.find_by(tenant: Apartment::Tenant.current)&.switch!
-      return unless (mailer_settings = Settings.smtp_settings.presence)
+      return unless (mailer_settings = Settings.smtp_settings).present?
 
-      if (from = mailer_settings.from.presence)
+      if (from = mailer_settings.from).present?
         message.from = from
         message.reply_to = from
         message.return_path = from
