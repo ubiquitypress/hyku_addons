@@ -85,6 +85,7 @@ module HykuAddons
         else
           Rails.application.config.cache_store = :file_store, Settings.cache_filesystem_root
         end
+        # rubocop:enable Style/ConditionalAssignment
         Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
       end
 
