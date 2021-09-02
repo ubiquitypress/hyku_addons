@@ -12,6 +12,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       account.build_redis_endpoint(namespace: 'foobaz')
       account.build_datacite_endpoint(mode: 'test', prefix: '10.1234', username: 'user123', password: 'pass123')
       allow(Flipflop).to receive(:enabled?).with(:cache_api).and_return(cache_enabled)
+      allow(Redis.current).to receive(:id).and_return "redis://localhost:6379/0"
       account.switch!
     end
 
@@ -32,7 +33,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       it "uses Redis as a cache store" do
         expect(Rails.application.config.action_controller.perform_caching).to be_truthy
         expect(ActionController::Base.perform_caching).to be_truthy
-        expect(Rails.application.config.cache_store).to eq([:redis_cache_store, { url: "redis://redis:6379/0" }])
+        expect(Rails.application.config.cache_store).to eq([:redis_cache_store, { url: "redis://localhost:6379/0" }])
       end
 
       it "reverts to using file store when Flipflop is off" do
