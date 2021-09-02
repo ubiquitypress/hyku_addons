@@ -58,11 +58,11 @@ module HykuAddons
         datacite_endpoint.switch!
         Settings.switch!(name: locale_name, settings: settings)
         switch_host!(cname)
-        setup_tenant_cache
+        setup_tenant_cache(cache_api?)
       end
 
       def reset!
-        disable_tenant_cache
+        setup_tenant_cache(cache_api?)
         SolrEndpoint.reset!
         FcrepoEndpoint.reset!
         RedisEndpoint.reset!
@@ -76,23 +76,18 @@ module HykuAddons
         Hyrax::Engine.routes.default_url_options[:host] = cname
       end
 
-      def setup_tenant_cache
-        Rails.application.config.action_controller.perform_caching = api_cache?
-        ActionController::Base.perform_caching = api_cache?
-
-        Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id } if api_cache?
+      def setup_tenant_cache(is_enabled)
+        Rails.application.config.action_controller.perform_caching = is_enabled
+        ActionController::Base.perform_caching = is_enabled
+        if is_enabled
+          Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id }
+        else
+          Rails.application.config.cache_store = :file_store, Settings.cache_filesystem_root
+        end
         Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
       end
 
-      def disable_tenant_cache
-        Rails.application.config.action_controller.perform_caching = api_cache?
-        ActionController::Base.perform_caching = api_cache?
-
-        Rails.application.config.cache_store = :file_store, Settings.cache_filesystem_root
-        Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
-      end
-
-      def api_cache?
+      def cache_api?
         Flipflop.enabled?(:cache_api)
       end
     end

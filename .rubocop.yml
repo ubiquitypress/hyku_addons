@@ -121,6 +121,10 @@ RSpec/NestedGroups:
   Exclude:
     - 'spec/services/bolognese/readers/generic_work_reader_spec.rb'
 
+Style/ConditionalAssignment:
+  Exclude:
+    - 'spec/models/concerns/hyku_addons/account_behavior_spec.rb'
+
 Style/RescueModifier:
   Exclude:
     - 'bin/transform_export_batch.rb'
