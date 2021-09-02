@@ -29,7 +29,7 @@ Flipflop.configure do
           default: false,
           description: "Enables the Notes tab in the deposit form"
 
-  feature :api_cache_enabled,
+  feature :cache_api,
           default: false,
           description: "Turns on cache for API endpoints. Experimental"
 end
