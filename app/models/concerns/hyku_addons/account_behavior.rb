@@ -80,7 +80,7 @@ module HykuAddons
         Rails.application.config.action_controller.perform_caching = api_cache?
         ActionController::Base.perform_caching = api_cache?
 
-        Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id }
+        Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id } if api_cache?
         Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
       end
 
