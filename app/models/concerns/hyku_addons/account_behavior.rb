@@ -79,6 +79,7 @@ module HykuAddons
       def setup_tenant_cache(is_enabled)
         Rails.application.config.action_controller.perform_caching = is_enabled
         ActionController::Base.perform_caching = is_enabled
+        # rubocop:disable Style/ConditionalAssignment
         if is_enabled
           Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id }
         else
