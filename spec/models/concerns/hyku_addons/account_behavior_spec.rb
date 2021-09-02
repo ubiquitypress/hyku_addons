@@ -29,13 +29,13 @@ RSpec.describe HykuAddons::AccountBehavior do
     context "when cache is enabled" do
       let(:cache_enabled) { true }
 
-      it 'does something with redis' do
+      it "uses Redis as a cache store" do
         expect(Rails.application.config.action_controller.perform_caching).to be_truthy
         expect(ActionController::Base.perform_caching).to be_truthy
         expect(Rails.application.config.cache_store).to eq([:redis_cache_store, { url: "redis://redis:6379/0" }])
       end
 
-      it 'reverts to using file store when Flipflop is off' do
+      it "reverts to using file store when Flipflop is off" do
         allow(Flipflop).to receive(:enabled?).with(:cache_api).and_return(false)
         account.switch!
         expect(Rails.application.config.cache_store).to eq([:file_store, nil])
@@ -45,7 +45,7 @@ RSpec.describe HykuAddons::AccountBehavior do
     context "when cashe is disabled" do
       let(:cache_enabled) { false }
 
-      it 'uses the file store' do
+      it "uses the file store" do
         expect(Rails.application.config.action_controller.perform_caching).to be_falsey
         expect(ActionController::Base.perform_caching).to be_falsey
         expect(Rails.application.config.cache_store).to eq([:file_store, nil])
