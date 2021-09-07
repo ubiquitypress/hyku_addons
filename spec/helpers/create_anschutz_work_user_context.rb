@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.shared_context 'create anschutz work user context' do
   let(:user_attributes) do
     { email: 'test@example.com' }

@@ -125,6 +125,7 @@ module HykuAddons
       attribute :qualification_subject_text, SolrDocument::Solr::Array, solr_name('qualification_subject_text')
       attribute :is_format_of, SolrDocument::Solr::Array, solr_name('is_format_of')
       attribute :part_of, SolrDocument::Solr::Array, solr_name('part_of')
+      attribute :georeferenced, SolrDocument::Solr::Array, solr_name('georeferenced')
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(
@@ -141,9 +142,9 @@ module HykuAddons
 
     # Work out the reader class from the solr document model
     def meta_reader_class
-      "Bolognese::Readers::#{@model.instance_variable_get(:@model)}Reader".constantize
+      "::Bolognese::Readers::#{@model.instance_variable_get(:@model)}Reader".constantize
     rescue NameError
-      Bolognese::Readers::GenericWorkReader
+      ::Bolognese::Readers::GenericWorkReader
     end
   end
 end

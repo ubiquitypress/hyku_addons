@@ -264,3 +264,69 @@ Byebug is installed and can be used in tests and the running rails server. You w
 docker-compose up -d web
 docker attach hyku_addons_web_1
 ```
+
+### Updating the internal test app
+
+Hyku Addons uses a custom version of Hyrax that we call `hyku_base` which is added as a Git submodule. It is a fork of Hyku 2 just before Hyku 3 without the user elevation plus newer commits that have been cherry-picked. 
+In order to apply new commits that have been made into Hyrax/Hyku, we need to bring them first into `hyku_base` as [described here](https://github.com/ubiquitypress/hyku_base#updating-the-app) and then update the git submodule.
+
+Make sure you have a clean internal test app before doing the `git add`, otherwise Git will not add the submodule as it will consider it dirty.
+
+The process is:
+1. Update the submodule with `git submodule update --remote`
+2. Run `bundle exec rails g hyku_addons:install`
+3. [Run the tests](https://github.com/ubiquitypress/hyku_addons#testing)
+4. When the tests pass, run git diff to see the new revision number of the submodule, which will be prefixed by "-dirty".
+   This happens because of additional files generated in step 2
+5. Some of the changes that `hyku_addons:install` makes are modifications of existing files instead and others are just new files. 
+   The modified files needs to be restored to their original state using `git restore`, the new ones should be deleted.
+6. Running `git diff` again should show the new submodule revision number without appending "-dirty" to the end. 
+7. You can now add your changes: `git add spec/internal_test_hyku`
+8. And commit them: `git commit`
+
+### Dependency Management
+
+#### Gemfiles
+
+HykuAddons employs a number of Gems to bring in dependencies.
+
++ hyku_addon/Gemfile
++ hyku_addon/hyku_addon.gemspec
++ hyku_addon/spec/internal_test_hyku/Gemfile
++ advancinghyku-utils/gemfile.plugins
+
+These service difference purposes depending on context.
+
+##### hyku_addons/Gemfile
+
+The Gemfile for the project is uses for local development and actions performed witin the application directory, `rails g`, `rake` etc.
+
+##### hyku_addons/hyku_addon.gemspec
+
+Used in the context of the gem and for bundler build dependencies when installing as a gem. Any application using HA, now uses these dependencies as well.
+
+##### hyku_addon/spec/internal_test_hyku/Gemfile
+
+Included into the hyku_addons/Gemfile when the application is started, brings all upstream dependencies.
+
+##### advancinghyku-utils/gemfile.plugins
+
+Uses internally for production builds within the deployment pipeline. Takes precedence over the other files mentioned, so if you pin a version in this file, you can prevent the application using an updated version of the gem.
+
+An example is the hyku-api gem that was pinned to a version before a breaking change, which was in active development, was pushed.
+
+```ruby
+gem 'hyku-api', git: 'https://github.com/ubiquitypress/hyku-api', ref: 'd7cd47d396a6f3695188001bb3447ad97e766124'
+```
+
+Using tagged releases would obviously solve the need for this, but at the time this was not possible.
+
+To enable updates to a pinned gem, like hyku-api shown above, simply reset it to track `main` and then `bundle update gem-name` from within the hyku_addons application.
+
+#### Production builds - advancinghyku-utils
+
+In order to build the hyku_addons application, the hyku_base (currently a fork of hyku 2.x branch) is checked out and the gemfile.plugins file is copied into the Gemfile. Without this extra step, production environments would not have access to rake/rails generators and tasks - which is apparently a Rails quirk that no one properly understands. This also means that gems can be pinned to versions, which isn't possible within a gemspec file, which enforces only rubygems references are used.
+
+The gemfile.lock from hyku_addons is copied into the hyku_base project to override their default Gemfile.lock - this solved an issue where by bundler wasn't able to compute builds correctly and wasn't pulling latest versions.
+
+

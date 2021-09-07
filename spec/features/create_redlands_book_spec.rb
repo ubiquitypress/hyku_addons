@@ -9,6 +9,16 @@ RSpec.feature 'Create a RedlandsBook', js: false do
   include_context 'create redlands work user context' do
     let(:work_type) { "redlands_book" }
 
+    def add_metadata_to_work
+      click_link "Descriptions" # switch tab
+      fill_in("#{work_type}_title", with: 'My Test Work')
+      fill_in('Keyword', with: 'testing')
+      select('Organisational', from: "#{work_type}_creator__creator_name_type")
+      fill_in("#{work_type}_creator__creator_organization_name", with: 'Ubiquity Press')
+      expect(page).not_to have_selector("#redlands_book_version_number[required=true]")
+      yield if block_given?
+    end
+
     scenario do
       visit_new_work_page
       add_files_to_work

@@ -198,6 +198,7 @@ module HykuAddons
           "committee_member" => { split: '\|' },
           "time" => { split: '\|' },
           "add_info" => { split: '\|' },
+          "part_of" => { split: '\|' },
           "qualification_subject_text" => { split: '\|' }
         }
       end
@@ -428,7 +429,16 @@ module HykuAddons
         config.register_curation_concern :book_contribution
         config.register_curation_concern :conference_item
         config.register_curation_concern :dataset
+        config.register_curation_concern :denver_article
+        config.register_curation_concern :denver_book
+        config.register_curation_concern :denver_image
+        config.register_curation_concern :denver_multimedia
+        config.register_curation_concern :denver_presentation_material
+        config.register_curation_concern :denver_serial_publication
+        config.register_curation_concern :denver_thesis_dissertation_capstone
         config.register_curation_concern :exhibition_item
+        config.register_curation_concern :nsu_generic_work
+        config.register_curation_concern :nsu_article
         config.register_curation_concern :report
         config.register_curation_concern :time_based_media
         config.register_curation_concern :thesis_or_dissertation
@@ -509,9 +519,9 @@ module HykuAddons
 
       ::Bolognese::Metadata.prepend ::Bolognese::Writers::HyraxWorkWriterBehavior
       ::Bolognese::Metadata.include HykuAddons::Bolognese::JsonFieldsReader
-
       ::ApplicationController.include ::HykuAddons::MultitenantLocaleControllerBehavior
 
+      ::Hyku::API::V1::SearchController.prepend HykuAddons::SearchControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
       ::Hyku::API::V1::HighlightsController.class_eval do
         def index
@@ -527,6 +537,7 @@ module HykuAddons
       end
       Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
       ::ActiveJob::Base.include HykuAddons::ImportMode
+
       Hyrax::Dashboard::ProfilesController.prepend HykuAddons::Dashboard::ProfilesControllerBehavior
 
       User.include Hyrax::Orcid::UserBehavior
@@ -535,6 +546,43 @@ module HykuAddons
       # Because the Hyrax::ModelActor does not call next_actor and continue the chain, we require a new actor
       actors = [Hyrax::Actors::ModelActor, Hyrax::Actors::Orcid::UnpublishWorkActor]
       Hyrax::CurationConcern.actor_factory.insert_before(*actors)
+
+      User.class_eval do
+        def mailboxer_email(_obj)
+          email
+        end
+      end
+
+      Hyrax::Workflow::AbstractNotification.class_eval do
+        private
+
+          def document_path
+            key = document.model_name.singular_route_key
+            Rails.application.routes.url_helpers.send(key + "_url", document.id, host: Site.instance.account.cname, protocol: :https)
+          end
+      end
+
+      Mailboxer::MessageMailer.class_eval do
+        # Sends an email for indicating a new message for the receiver
+        def new_message_email(message, receiver)
+          @message  = message
+          @receiver = receiver
+          set_subject(message)
+          mail to: receiver.send(Mailboxer.email_method, message),
+               subject: t('mailboxer.message_mailer.subject_new', subject: @subject, tenant_name: Site.instance.application_name),
+               template_name: 'hyku_addons_new_message_email'
+        end
+
+        # Sends an email for indicating a reply in an already created conversation
+        def reply_message_email(message, receiver)
+          @message  = message
+          @receiver = receiver
+          set_subject(message)
+          mail to: receiver.send(Mailboxer.email_method, message),
+               subject: t('mailboxer.message_mailer.subject_reply', subject: @subject, tenant_name: Site.instance.application_name),
+               template_name: 'hyku_addons_reply_message_email'
+        end
+      end
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once

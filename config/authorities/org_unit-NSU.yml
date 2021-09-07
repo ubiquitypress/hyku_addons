@@ -1,0 +1,91 @@
+terms:
+  - id: Academic Affairs
+    term: Academic Affairs
+    active: true
+  - id: Academic Assessment
+    term: Academic Assessment
+    active: true
+  - id: Administration and Finance
+    term: Administration and Finance
+    active: true
+  - id: Admissions and Recruitment
+    term: Admissions and Recruitment
+    active: true
+  - id: Advisor Training
+    term: Advisor Training
+    active: true
+  - id: Business Affairs
+    term: Business Affairs
+    active: true
+  - id: Career Services
+    term: Career Services
+    active: true
+  - id: Center for Tribal Studies
+    term: Center for Tribal Studies
+    active: true
+  - id: College of Business & Technology
+    term: College of Business & Technology
+    active: true
+  - id: College of Education
+    term: College of Education
+    active: true
+  - id: College of Health Professions
+    term: College of Health Professions
+    active: true
+  - id: College of Liberal Arts
+    term: College of Liberal Arts
+    active: true
+  - id: College of Optometry
+    term: College of Optometry
+    active: true
+  - id: College of Science
+    term: College of Science
+    active: true
+  - id: Communications & Marketing
+    term: Communications & Marketing
+    active: true
+  - id: Conferences and Events
+    term: Conferences and Events
+    active: true
+  - id: Faculty Council
+    term: Faculty Council
+    active: true
+  - id: Human Resources
+    term: Human Resources
+    active: true
+  - id: Libraries
+    term: Libraries
+    active: true
+  - id: Research Administration
+    term: Research Administration
+    active: true
+  - id: Research and Sponsored Programs
+    term: Research and Sponsored Programs
+    active: true
+  - id: Staff Council
+    term: Staff Council
+    active: true
+  - id: Student Affairs
+    term: Student Affairs
+    active: true
+  - id: Student Engagement
+    term: Student Engagement
+    active: true
+  - id: Testing Services
+    term: Testing Services
+    active: true
+  - id: TRIO
+    term: TRIO
+    active: true
+  - id: University Advising Center
+    term: University Advising Center
+    active: true
+  - id: University Relations
+    term: University Relations
+    active: true
+  - id: Veterans Services
+    term: Veterans Services
+    active: true
+  - id: Other
+    term: Other
+    active: true

@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      denver_multimedia:     'fa fa-file-text-o'
+    select_type:
+      denver_multimedia:
+        description:        "Denver multimedia works"
+        name:               "Denver Multimedia"

@@ -1,0 +1,52 @@
+terms:
+- id: BA
+  term: Bachelor of Arts
+  active: true
+- id: BFA
+  term: Bachelor of Fine Arts
+  active: true
+- id: BS
+  term: Bachelor of Science
+  active: true
+- id: EdD
+  term: Doctor of Education
+  active: true
+- id: PhD
+  term: Doctor of Philosophy
+  active: true
+- id: PsyD
+  term: Doctor of Psychology
+  active: true
+- id: DPA
+  term: Doctor of Public Administration
+  active: true
+- id: MArch
+  term: Master of Architecture
+  active: true
+- id: MA
+  term: Master of Arts
+  active: true
+- id: MCJ
+  term: Master of Criminal Justice
+  active: true
+- id: MEng
+  term: Master of Engineering
+  active: true
+- id: MH
+  term: Master of Humanities
+  active: true
+- id: MLA
+  term: Master of Landscape Architecture
+  active: true
+- id: MPA
+  term: Master of Public Administration
+  active: true
+- id: MSc
+  term: Master of Science
+  active: true
+- id: MSS
+  term: Master of Social Science
+  active: true
+- id: MURP
+  term: Master of Urban and Regional Planning
+  active: true

@@ -1,0 +1,36 @@
+<% # NOTE: This partial is being over written so that we can append the simplfied_admin_set css for hiding the relationship tab %>
+<%= simple_form_for [main_app, @form], html: { data: { behavior: 'work-form', 'param-key' => @form.model_name.param_key }, multipart: true } do |f| %>
+	<% # We need to hide the tab trigger so that no users can't (easily) access the relationships tab content. %>
+	<% # Doing this via the form_tabs_for monkey patch, removed the tab contents completely, but also removed the admin_set_id field %>
+	<% # which caused the JavaScript which toggles permissions available to the user to not properly find the correct work flow permissions options %>
+	<% if simplified_admin_set_for_form?(form: f.object) %>
+		<style>
+			a[aria-controls="relationships"] { display: none !important; }
+		</style>
+	<% end %>
+
+  <% if f.object.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <%= f.object.errors.full_messages_for(:base).send(SimpleForm.error_method) %>
+      <%= render 'form_in_works_error', f: f %>
+      <%= render 'form_ordered_members_error', f: f %>
+      <%= render 'form_collections_error', f: f %>
+      <%= render 'form_visibility_error', f: f %>
+    </div>
+  <% end %>
+  <% if Flipflop.batch_upload? && f.object.new_record? %>
+    <% provide :metadata_tab do %>
+      <p class="switch-upload-type">To create a separate work for each of the files, go to <%= link_to "Batch upload", hyrax.new_batch_upload_path %></p>
+    <% end %>
+  <% end %>
+  <%= render 'hyrax/base/guts4form', f: f, tabs: form_tabs_for(form: f.object) %>
+<% end %>
+
+<script type="text/javascript">
+  Blacklight.onLoad(function() {
+    <%# This causes the page to switch back to the default template if they've
+        previously visited the batch download page in this Turbolinks session %>
+    $("#fileupload").fileupload('option', 'downloadTemplateId', 'template-download')
+  });
+</script>
