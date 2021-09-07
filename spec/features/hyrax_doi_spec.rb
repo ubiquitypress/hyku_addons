@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# FIXME:
-# These tests don't seem to work because of the following error:
+# FIXME: These tests don't seem to work because of the following error:
 #
 # Apartment::Tenant received :switch with unexpected arguments
 #   expected: ("01f8b714-8373-4ccc-b6c1-7ba9e1522e47")
