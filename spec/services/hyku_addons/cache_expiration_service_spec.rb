@@ -19,7 +19,7 @@ RSpec.describe HykuAddons::CacheExpirationService do
       service.perform
     end
 
-    it "updates the frontend_url of the Account" do
+    it "calls expire_cache_for for every tenant" do
       expect(service).to have_received(:expire_cache_for).once
     end
   end
