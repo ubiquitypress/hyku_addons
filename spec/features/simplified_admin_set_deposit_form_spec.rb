@@ -38,6 +38,7 @@ RSpec.feature "Simplfied AdminSet deposit form", js: true do
         agent_id: user.user_key,
         access: "deposit"
       )
+
       login_as user
     end
 
