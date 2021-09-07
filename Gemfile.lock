@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/hyrax-doi
-  revision: 0bf92a69bcadd18409bf294964ec4e822e610081
+  revision: a2c7c3803c7f2f2b79248398bbd167d3b0c7b348
   branch: main
   specs:
     hyrax-doi (0.2.0)
@@ -46,8 +46,8 @@ GIT
 
 GIT
   remote: https://github.com/ubiquitypress/hyku-api
-  revision: da983b76de8a25967bccaa21874e32445c1bc85c
-  ref: da983b76de8a25967bccaa21874e32445c1bc85c
+  revision: 3384c465e99bd5fecb38bdba5d66bf879a4d55fd
+  branch: main
   specs:
     hyku-api (0.1.0)
       jwt

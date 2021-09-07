@@ -9,6 +9,7 @@ RSpec.feature 'Create a Collection', js: false, clean: true do
   let(:collection_type) { Hyrax::CollectionType.create(title: 'test_collection_type') }
 
   before do
+    allow(Flipflop).to receive(:enabled?).and_return(false)
     collection_type
     login_as user
   end
@@ -65,6 +66,7 @@ RSpec.feature 'Create a Collection', js: false, clean: true do
     let(:user) { FactoryBot.create(:user) }
     it "Does not display the collections link when the setting is off" do
       allow(Flipflop).to receive(:enabled?).with(:show_repository_objects_links).and_return(false)
+
       visit '/dashboard'
       expect(page).not_to have_link("Collections")
     end

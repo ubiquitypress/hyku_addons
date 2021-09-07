@@ -1,0 +1,88 @@
+{
+  "data": {
+    "id": "10.1234/abcdef",
+    "type": "dois",
+    "attributes": {
+      "doi": "10.1234/abcdef",
+      "prefix": "10.1234",
+      "suffix": "abcdef",
+      "identifiers": [],
+      "alternateIdentifiers": [],
+      "creators": [],
+      "titles": null,
+      "publisher": null,
+      "container": {},
+      "publicationYear": null,
+      "subjects": [],
+      "contributors": [],
+      "dates": [],
+      "language": null,
+      "types": {},
+      "relatedIdentifiers": [],
+      "sizes": [],
+      "formats": [],
+      "version": null,
+      "rightsList": [],
+      "descriptions": [],
+      "geoLocations": [],
+      "fundingReferences": [],
+      "xml": null,
+      "url": null,
+      "contentUrl": null,
+      "metadataVersion": 0,
+      "schemaVersion": null,
+      "source": null,
+      "isActive": false,
+      "state": "draft",
+      "reason": null,
+      "landingPage": null,
+      "viewCount": 0,
+      "viewsOverTime": [],
+      "downloadCount": 0,
+      "downloadsOverTime": [],
+      "referenceCount": 0,
+      "citationCount": 0,
+      "citationsOverTime": [],
+      "partCount": 0,
+      "partOfCount": 0,
+      "versionCount": 0,
+      "versionOfCount": 0,
+      "created": "2020-08-10T20:58:59.000Z",
+      "registered": null,
+      "published": "",
+      "updated": "2020-08-10T20:58:59.000Z"
+    },
+    "relationships": {
+      "client": {
+        "data": {
+          "id": "client-id",
+          "type": "clients"
+        }
+      },
+      "media": {
+        "data": {
+          "id": "10.1234/abcdef",
+          "type": "media"
+        }
+      },
+      "references": {
+        "data": []
+      },
+      "citations": {
+        "data": []
+      },
+      "parts": {
+        "data": []
+      },
+      "partOf": {
+        "data": []
+      },
+      "versions": {
+        "data": []
+      },
+      "versionOf": {
+        "data": []
+      }
+    }
+  }
+}

@@ -13,7 +13,6 @@ module HykuAddons
 
     PRIVATE_SETTINGS = %w[smtp_settings].freeze
 
-    # rubocop:disable Metrics/BlockLength
     included do
       belongs_to :datacite_endpoint, dependent: :delete
       has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :destroy, inverse_of: :parent
@@ -59,9 +58,11 @@ module HykuAddons
         datacite_endpoint.switch!
         Settings.switch!(name: locale_name, settings: settings)
         switch_host!(cname)
+        setup_tenant_cache(cache_api?)
       end
 
       def reset!
+        setup_tenant_cache(cache_api?)
         SolrEndpoint.reset!
         FcrepoEndpoint.reset!
         RedisEndpoint.reset!
@@ -74,8 +75,24 @@ module HykuAddons
         Rails.application.routes.default_url_options[:host] = cname
         Hyrax::Engine.routes.default_url_options[:host] = cname
       end
+
+      def setup_tenant_cache(is_enabled)
+        Rails.application.config.action_controller.perform_caching = is_enabled
+        ActionController::Base.perform_caching = is_enabled
+        # rubocop:disable Style/ConditionalAssignment
+        if is_enabled
+          Rails.application.config.cache_store = :redis_cache_store, { url: Redis.current.id }
+        else
+          Rails.application.config.cache_store = :file_store, Settings.cache_filesystem_root
+        end
+        # rubocop:enable Style/ConditionalAssignment
+        Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
+      end
+
+      def cache_api?
+        Flipflop.enabled?(:cache_api)
+      end
     end
-    # rubocop:enable Metrics/BlockLength
 
     def datacite_endpoint
       super || NilDataCiteEndpoint.new
@@ -114,8 +131,10 @@ module HykuAddons
       end
 
       def set_smtp_settings
-        return if settings["smtp_settings"].present?
-        settings["smtp_settings"] = HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h
+        current_smtp_settings = settings["smtp_settings"].presence || {}
+        self.smtp_settings = current_smtp_settings.with_indifferent_access.reverse_merge!(
+          HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h
+        )
       end
   end
 end

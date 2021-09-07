@@ -4,12 +4,15 @@ require 'spec_helper'
 
 RSpec.describe HykuAddons::AccountBehavior do
   subject(:account) { Account.new }
+  let(:cache_enabled) { false }
   describe '#switch!' do
     before do
       account.build_solr_endpoint(url: 'http://example.com/solr/')
       account.build_fcrepo_endpoint(url: 'http://example.com/fedora', base_path: '/dev')
       account.build_redis_endpoint(namespace: 'foobaz')
       account.build_datacite_endpoint(mode: 'test', prefix: '10.1234', username: 'user123', password: 'pass123')
+      allow(Flipflop).to receive(:enabled?).with(:cache_api).and_return(cache_enabled)
+      allow(Redis.current).to receive(:id).and_return "redis://localhost:6379/0"
       account.switch!
     end
 
@@ -22,6 +25,32 @@ RSpec.describe HykuAddons::AccountBehavior do
       expect(Hyrax::DOI::DataCiteRegistrar.username).to eq 'user123'
       expect(Hyrax::DOI::DataCiteRegistrar.password).to eq 'pass123'
       expect(Rails.application.routes.default_url_options[:host]).to eq account.cname
+    end
+
+    context "when cache is enabled" do
+      let(:cache_enabled) { true }
+
+      it "uses Redis as a cache store" do
+        expect(Rails.application.config.action_controller.perform_caching).to be_truthy
+        expect(ActionController::Base.perform_caching).to be_truthy
+        expect(Rails.application.config.cache_store).to eq([:redis_cache_store, { url: "redis://localhost:6379/0" }])
+      end
+
+      it "reverts to using file store when Flipflop is off" do
+        allow(Flipflop).to receive(:enabled?).with(:cache_api).and_return(false)
+        account.switch!
+        expect(Rails.application.config.cache_store).to eq([:file_store, nil])
+      end
+    end
+
+    context "when cashe is disabled" do
+      let(:cache_enabled) { false }
+
+      it "uses the file store" do
+        expect(Rails.application.config.action_controller.perform_caching).to be_falsey
+        expect(ActionController::Base.perform_caching).to be_falsey
+        expect(Rails.application.config.cache_store).to eq([:file_store, nil])
+      end
     end
   end
 
@@ -189,6 +218,24 @@ RSpec.describe HykuAddons::AccountBehavior do
     it "excludes private settings" do
       Account.private_settings do |setting|
         expect(account.public_settings).not_to include(setting)
+      end
+    end
+  end
+
+  describe "smtp_settings" do
+    context "with an existing account" do
+      let!(:account) { create :account, smtp_settings: { authentication: "login" } }
+
+      it "respects the existing settings" do
+        expect(account.reload.smtp_settings.with_indifferent_access).to include(authentication: "login")
+      end
+
+      it "adds missing smtp config keys" do
+        settings = Account.find(account.id).reload.smtp_settings
+
+        HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields.each do |setting_name|
+          expect(settings).to have_key(setting_name)
+        end
       end
     end
   end

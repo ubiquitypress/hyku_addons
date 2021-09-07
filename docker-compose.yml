@@ -244,4 +244,3 @@ services:
       <<: *db_environment
       POSTGRES_DB: hyku_test
     volumes: []
-

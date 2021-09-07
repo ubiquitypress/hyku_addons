@@ -2,14 +2,10 @@
 
 module HykuAddons
   module SimplifiedAdminSetSelectionWorkFormHelper
-    def form_tabs_for(form:)
-      if current_user&.has_role?(:admin, Site.instance)
-        super
-      elsif enabled? && permission?(form.model) && depositor?(form.depositor)
-        super - ["relationships"]
-      else
-        super
-      end
+    def simplified_admin_set_for_form?(form:)
+      return if current_user.has_role?(:admin, Site.instance)
+
+      enabled? && permission?(form.model) && depositor?(form.depositor)
     end
 
     def available_admin_sets

@@ -212,3 +212,10 @@ en:
       attribute: "Attribute"
       original_value: "Original value"
       current_value: "Current Value"
+  mailboxer:
+    message_mailer:
+      subject_new: "[%{tenant_name}] %{subject}"
+      subject_reply: "[%{tenant_name}] %{subject}"
+    notification_mailer:
+      subject: "%{subject}"
+
