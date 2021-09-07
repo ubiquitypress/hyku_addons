@@ -58,10 +58,12 @@ RSpec.describe "Minting a DOI for an existing work", type: :feature, js: true, m
     account.save
     account
   end
-  let!(:site) { Site.create(account: account) }
+  let(:site) { Site.create(account: account) }
   let(:routes) { Rails.application.routes.url_helpers }
 
   before do
+    site
+
     allow(Flipflop).to receive(:enabled?).and_call_original
     allow(Flipflop).to receive(:enabled?).with(:doi_minting).and_return(true)
 
