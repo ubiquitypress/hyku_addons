@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 module HykuAddons
-  module UserEmailFormat
+  module UserBehavior
     extend ActiveSupport::Concern
 
     included do
       validate :must_have_valid_email_format
+    end
+
+    def mailboxer_email(_obj)
+      email
     end
 
     def must_have_valid_email_format

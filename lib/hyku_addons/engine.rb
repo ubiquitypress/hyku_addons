@@ -508,7 +508,7 @@ module HykuAddons
       # Insert at the end of the actor chain
       Hyrax::CurationConcern.actor_factory.use HykuAddons::Actors::TaskMaster::WorkActor
 
-      User.include HykuAddons::UserEmailFormat
+      User.include HykuAddons::UserBehavior
       Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
       ::Bolognese::Writers::RisWriter.include ::Bolognese::Writers::RisWriterBehavior
       ::Bolognese::Metadata.prepend ::Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
@@ -522,56 +522,12 @@ module HykuAddons
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
       ::Hyku::API::V1::SearchController.prepend HykuAddons::SearchControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
-      ::Hyku::API::V1::HighlightsController.class_eval do
-        def index
-          @collections = collections(rows: 6)
-          @recent_documents = recent_documents(rows: 6)
-          @featured_works_list = FeaturedWorkList.new.featured_works.select { |fw| current_ability.can? :read, fw.work_id }
-          @featured_works = Hyrax::PresenterFactory.build_for(ids: @featured_works_list.map(&:work_id),
-                                                              presenter_class: Hyrax::WorkShowPresenter,
-                                                              presenter_args: current_ability)
-          collection_search_builder = Hyrax::CollectionSearchBuilder.new(self).with_access(:read).rows(1_000_000)
-          @collection_docs = repository.search(collection_search_builder).documents
-        end
-      end
+      ::Hyku::API::V1::HighlightsController.prepend HykuAddons::HighlightsControllerBehavior
       Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
       ::ActiveJob::Base.include HykuAddons::ImportMode
 
-      User.class_eval do
-        def mailboxer_email(_obj)
-          email
-        end
-      end
-      Hyrax::Workflow::AbstractNotification.class_eval do
-        private
-
-          def document_path
-            key = document.model_name.singular_route_key
-            Rails.application.routes.url_helpers.send(key + "_url", document.id, host: Site.instance.account.cname, protocol: :https)
-          end
-      end
-
-      Mailboxer::MessageMailer.class_eval do
-        # Sends an email for indicating a new message for the receiver
-        def new_message_email(message, receiver)
-          @message  = message
-          @receiver = receiver
-          set_subject(message)
-          mail to: receiver.send(Mailboxer.email_method, message),
-               subject: t('mailboxer.message_mailer.subject_new', subject: @subject, tenant_name: Site.instance.application_name),
-               template_name: 'hyku_addons_new_message_email'
-        end
-
-        # Sends an email for indicating a reply in an already created conversation
-        def reply_message_email(message, receiver)
-          @message  = message
-          @receiver = receiver
-          set_subject(message)
-          mail to: receiver.send(Mailboxer.email_method, message),
-               subject: t('mailboxer.message_mailer.subject_reply', subject: @subject, tenant_name: Site.instance.application_name),
-               template_name: 'hyku_addons_reply_message_email'
-        end
-      end
+      Hyrax::Workflow::AbstractNotification.include HykuAddons::WorkflowBehavior
+      Mailboxer::MessageMailer.prepend HykuAddons::MailboxerMessageMailerBehavior
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
