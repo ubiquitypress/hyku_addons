@@ -19,6 +19,7 @@ RSpec.describe HykuAddons::AccountBehavior do
     after do
       account.reset!
     end
+
     it 'switches the DataCite connection' do
       expect(Hyrax::DOI::DataCiteRegistrar.mode).to eq 'test'
       expect(Hyrax::DOI::DataCiteRegistrar.prefix).to eq '10.1234'
@@ -33,7 +34,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       it "uses Redis as a cache store" do
         expect(Rails.application.config.action_controller.perform_caching).to be_truthy
         expect(ActionController::Base.perform_caching).to be_truthy
-        expect(Rails.application.config.cache_store).to eq([:redis_cache_store, { url: "redis://localhost:6379/0" }])
+        expect(Rails.application.config.cache_store).to eq([:redis_cache_store, { namespace: "foobaz", url: "redis://localhost:6379/0" }])
       end
 
       it "reverts to using file store when Flipflop is off" do
@@ -43,7 +44,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       end
     end
 
-    context "when cashe is disabled" do
+    context "when cache is disabled" do
       let(:cache_enabled) { false }
 
       it "uses the file store" do
