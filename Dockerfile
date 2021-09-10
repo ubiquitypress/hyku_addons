@@ -28,8 +28,8 @@ RUN         bundle install --jobs=4 --retry=3
 # Base stage for building final images
 FROM        ruby:2.7.1-slim-buster as base
 
-RUN         apt-get update && apt-get install -y --no-install-recommends curl gnupg2 \
-         && curl -sL http://deb.nodesource.com/setup_8.x | bash - 
+RUN         apt-get update && apt-get install -y --no-install-recommends curl gnupg2 ffmpeg \
+         && curl -sL http://deb.nodesource.com/setup_8.x | bash -
 RUN         apt-get update && apt-get install -y --no-install-recommends --allow-unauthenticated \
             nodejs \
             sendmail \
