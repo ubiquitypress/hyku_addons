@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require_tree .
+//= require hyrax/orcid/application
 
 const SelectWorkType = require("hyku_addons/select_work_type")
 
