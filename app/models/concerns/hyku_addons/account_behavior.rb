@@ -26,6 +26,7 @@ module HykuAddons
 
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
       after_initialize :initialize_settings
+
       validates :gtm_id, format: { with: /GTM-[A-Z0-9]{4,7}/, message: "Invalid GTM ID" }, allow_blank: true
       validates :contact_email, :oai_admin_email,
                 format: { with: URI::MailTo::EMAIL_REGEXP },
@@ -79,18 +80,21 @@ module HykuAddons
       def setup_tenant_cache(is_enabled)
         Rails.application.config.action_controller.perform_caching = is_enabled
         ActionController::Base.perform_caching = is_enabled
+
         if is_enabled
           redis_config = { url: Redis.current.id, namespace: redis_endpoint.options["namespace"] }
           Rails.application.config.cache_store = :redis_cache_store, redis_config
         else
           Rails.application.config.cache_store = :file_store, Settings.cache_filesystem_root
         end
-        # rubocop:enable Style/ConditionalAssignment
+
         Rails.cache = ActiveSupport::Cache.lookup_store(Rails.application.config.cache_store)
       end
 
       def cache_api?
-        Flipflop.enabled?(:cache_api)
+        Flipflop.enabled?(:cache_api) && !redis_endpoint.is_a?(NilRedisEndpoint)
+      rescue ActiveRecord::StatementInvalid
+        true
       end
     end
 
