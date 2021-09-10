@@ -525,6 +525,7 @@ module HykuAddons
       ::Hyku::API::V1::HighlightsController.prepend HykuAddons::HighlightsControllerBehavior
       Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
       ::ActiveJob::Base.include HykuAddons::ImportMode
+      ::CleanupAccountJob.prepend HykuAddons::CleanupAccountJobBehavior
 
       Hyrax::Workflow::AbstractNotification.include HykuAddons::WorkflowBehavior
       Mailboxer::MessageMailer.prepend HykuAddons::MailboxerMessageMailerBehavior
