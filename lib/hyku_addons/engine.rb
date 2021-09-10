@@ -514,6 +514,9 @@ module HykuAddons
       # Insert at the end of the actor chain
       Hyrax::CurationConcern.actor_factory.use HykuAddons::Actors::TaskMaster::WorkActor
 
+      # Remove the Hyrax Orcid JSON Actor as we have our own
+      Hyrax::CurationConcern.actor_factory.middlewares.delete(::Hyrax::Actors::Orcid::JSONFieldsActor)
+
       User.include HykuAddons::UserEmailFormat
       Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
       ::Bolognese::Writers::RisWriter.include ::Bolognese::Writers::RisWriterBehavior
