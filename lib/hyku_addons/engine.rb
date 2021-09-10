@@ -536,6 +536,7 @@ module HykuAddons
       end
       Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
       ::ActiveJob::Base.include HykuAddons::ImportMode
+      ::CleanupAccountJob.prepend HykuAddons::CleanupAccountJobBehavior
 
       User.class_eval do
         def mailboxer_email(_obj)
