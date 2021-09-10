@@ -1,5 +1,9 @@
 # frozen_string_literal: true
-# desc "Explaining what the task does"
-# task :hyku_addons do
-#   # Task goes here
-# end
+namespace :hyku do
+  namespace :cache do
+    desc 'Expire the tenants cache'
+    task :expire, [] => [:environment] do |_t, _args|
+      HykuAddons::CacheExpirationService.new.perform
+    end
+  end
+end
