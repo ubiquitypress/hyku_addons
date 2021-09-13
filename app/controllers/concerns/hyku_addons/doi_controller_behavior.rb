@@ -35,7 +35,7 @@ module HykuAddons
       end
 
       def formatted_work
-        raw_response.hyku_addons_work_form_fields(curation_concern: curation_concern)
+        raw_response.hyku_addons_work_form_fields_writer(curation_concern: curation_concern)
       end
 
       def raw_response
