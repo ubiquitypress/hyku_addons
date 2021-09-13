@@ -14,7 +14,7 @@
 
 const SelectWorkType = require("hyku_addons/select_work_type")
 
-const HykuAddonsOnLoad = function() {
+const hykuAddonsOnLoad = function() {
   // Prevent JS being loaded twice
   if ($("body").attr("data-hyku-addons-js-loaded") === "true") {
     return
@@ -48,5 +48,5 @@ const HykuAddonsOnLoad = function() {
 }
 
 // Ensure that page load (via turbolinks) and page refresh (via browser request) both load JS
-$(document).ready(HykuAddonsOnLoad)
-$(document).on("turbolinks:load", HykuAddonsOnLoad)
+$(document).ready(hykuAddonsOnLoad)
+$(document).on("turbolinks:load", hykuAddonsOnLoad)
