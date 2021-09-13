@@ -236,7 +236,6 @@ module Bolognese
         def reader_model
           @meta["has_model"] || DEFAULT_META_MODEL
         end
-
     end
   end
 end
