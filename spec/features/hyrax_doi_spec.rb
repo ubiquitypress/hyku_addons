@@ -1,34 +1,12 @@
 # frozen_string_literal: true
 
-# FIXME: These tests don't seem to work because of the following error:
-#
-# Apartment::Tenant received :switch with unexpected arguments
-#   expected: ("01f8b714-8373-4ccc-b6c1-7ba9e1522e47")
-#        got: ("public")
-#  Please stub a default value first if message might be received with other args as well.
-#
-# We put in the time trying just about everything we can think of to get them to work, but either do not understand
-# some fundamental setup that is required, or have missed something important. Either way, we cannot be sure that the
-# DOIs mint properly until these tests pass.
-
 require "rails_helper"
 
-RSpec.describe "Minting a DOI for an existing work", type: :feature, js: true, multitenant: true do
+RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true do
   let(:user) { create(:user) }
-  let(:admin) { create(:admin) }
-  let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
-  let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
-  let(:workflow) do
-    Sipity::Workflow.create!(
-      active: true,
-      name: "test-workflow",
-      permission_template: permission_template,
-      allows_access_grant: true
-    )
-  end
-
-  let(:work) do
-    attributes = {
+  let!(:account) { create(:account) }
+  let(:attributes) do
+    {
       title: ["Work title"],
       doi_status_when_public: nil,
       visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC,
@@ -43,29 +21,62 @@ RSpec.describe "Minting a DOI for an existing work", type: :feature, js: true, m
       institution: ["University of Virginia"],
       resource_type: ["Blog post"]
     }
-    create(:work, attributes)
+  end
+  let!(:work) { create(:work, attributes) }
+  let(:work_type) { work.class.name.underscore }
+
+  let!(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
+  let!(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
+  let!(:workflow) do
+    Sipity::Workflow.create!(
+      active: true,
+      name: "test-workflow",
+      permission_template: permission_template
+    )
   end
 
   let(:prefix) { "10.23716" }
-  let(:account) do
-    account = create(:account)
-    account.create_datacite_endpoint(
+  let(:datacite_endpoint_attributes) do
+    {
       mode: :test,
       prefix: prefix,
       username: "VJKA.JCRXZG-LOCAL",
       password: "password"
-    )
+    }
+  end
+  let(:account) do
+    account = create(:account)
+    account.create_datacite_endpoint(datacite_endpoint_attributes)
     account.save
     account
   end
   let(:site) { Site.create(account: account) }
-  let(:routes) { Rails.application.routes.url_helpers }
 
   before do
-    site
-
+    allow(Site).to receive(:instance).and_return(site)
     allow(Flipflop).to receive(:enabled?).and_call_original
     allow(Flipflop).to receive(:enabled?).with(:doi_minting).and_return(true)
+
+    # NOTE: Because Hyrax::DOI is build for Hyrax and not a multitenant environment, the datacite_endpoint data is
+    # assigned in class varibles when switch! is called in the engine. Because I can"t seem to mock those varibles
+    # here and have the app see that, this is a hack to update them when they nil inside the class.
+    Hyrax::DOI::DataCiteClient.class_eval do
+      def username
+        @username ||= Site.account.datacite_endpoint.username
+      end
+
+      def password
+        @password ||= Site.account.datacite_endpoint.password
+      end
+
+      def prefix
+        @prefix ||= Site.account.datacite_endpoint.prefix
+      end
+
+      def mode
+        @mode ||= Site.account.datacite_endpoint.mode
+      end
+    end
 
     # NOTE: The default method from Bolognese isn"t sorting the identifiers, so they are returned in a random order,
     # which makes mocking the response impossible as WebMock thinks its a new request.
@@ -101,20 +112,16 @@ RSpec.describe "Minting a DOI for an existing work", type: :feature, js: true, m
       access: "deposit"
     )
 
+    # Ensure that the _url methods have a host when creating XML data
     Capybara.default_host = "http://#{account.cname}"
-    default_url_options[:host] = Capybara.default_host
+    default_url_options[:host] = "http://#{account.cname}"
 
-    login_as admin
+    login_as user
   end
 
   describe "when the user edits a work without a minted DOI" do
     before do
-      allow(Apartment::Tenant).to receive(:switch).with(account.tenant) do |&block|
-        block.call
-      end
-      account.switch!
-
-      visit "/concern/#{work.class.name.underscore.to_s.pluralize}/#{work.id}/edit"
+      visit "/concern/#{work_type.to_s.pluralize}/#{work.id}/edit"
     end
 
     it "Sets up the page correctly" do
@@ -154,8 +161,8 @@ RSpec.describe "Minting a DOI for an existing work", type: :feature, js: true, m
         common_headers.merge("Content-Type": "text/plain;charset=UTF-8")
       end
 
-      # The initial request to create_draft_doi
       before do
+        # The initial request to create_draft_doi
         stub_request(:post, "https://api.test.datacite.org/dois")
           .with(body: { "data": { "type": "dois", "attributes": { "prefix": prefix } } }.to_json, headers: json_headers)
           .to_return(status: 201, body: { "data": { "id": doi, "type": "dois", "attributes": {} } }.to_json, headers: {})
@@ -171,7 +178,7 @@ RSpec.describe "Minting a DOI for an existing work", type: :feature, js: true, m
           .to_return(status: 201, body: "", headers: {})
       end
 
-      xit "mints a DOI" do
+      it "mints a DOI" do
         perform_enqueued_jobs do
           choose "Findable"
           choose "generic_work_visibility_open"
