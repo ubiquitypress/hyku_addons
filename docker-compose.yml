@@ -81,7 +81,8 @@ services:
       dockerfile: Dockerfile
       target: dev
     image: hyku_addons/dev:latest
-    command: bash -c "rm -f spec/internal_test_hyku/tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
+    command: bash -c "rm -f spec/internal_test_hyku/tmp/pids/server.pid && bundle install && bundle exec rails server -b 0.0.0.0"
+    # command: bash -c "rm -f spec/internal_test_hyku/tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
     #env_file:
     #  - ./spec/internal_test_hyku/.env
     environment: &web_environment
@@ -124,6 +125,7 @@ services:
       - assets:/home/app/spec/internal_test_hyku/public/assets
       - cache:/home/app/spec/internal_test_hyku/tmp/cache
       - .:/home/app
+      - /home/paul/Ubiquity/hyrax-orcid:/home/app/hyrax-orcid
     networks:
       internal:
 
