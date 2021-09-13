@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require "bolognese"
 
+# rubocop:disable Metrics/ModuleLength
 module Bolognese
   module Readers
     module HykuAddonsWorkReader
@@ -235,7 +236,7 @@ module Bolognese
         def reader_model
           @meta["has_model"] || DEFAULT_META_MODEL
         end
-
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength
