@@ -5,20 +5,16 @@ module HykuAddons
   module WorkFormNameable
     extend ActiveSupport::Concern
 
-    def meta_model
-      raise NotImplementedError, "You must implement this method, and return a classname string i.e GenericWork"
-    end
-
-    def work_class
+    def work_class(meta_model)
       @_work_class ||= meta_model.constantize
     end
 
-    def work_form_class
+    def work_form_class(meta_model)
       @_work_form_class ||= "Hyrax::#{meta_model}Form".constantize
     end
 
-    def work_type_terms
-      @_work_type_terms ||= work_form_class.terms
+    def work_type_terms(meta_model)
+      @_work_type_terms ||= work_form_class(meta_model).terms
     end
   end
 end

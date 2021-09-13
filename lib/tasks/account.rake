@@ -65,13 +65,13 @@ WARNING: This process will destroy all data for this tenant in:
 DB: All tables
 Fedora:
 \tConnection: #{ActiveFedora.fedora.build_connection.http.url_prefix}
-\tBase Path: #{account.fcrepo_endpoint.options[:base_path]}
+\tBase Path: #{account.fcrepo_endpoint.options&.fetch(:base_path)}
 Solr:
 \tConnection: #{ActiveFedora.solr_config[:url]}
-\tCollection: #{account.solr_endpoint.options[:collection]}
+\tCollection: #{account.solr_endpoint.options&.fetch(:collection)}
 Redis:
 \tConnection: #{Sidekiq.redis { |c| c._client.options.values_at(:host, :port, :db).join(':') }}
-\tNamespace: #{account.redis_endpoint.options[:namespace]}
+\tNamespace: #{account.redis_endpoint.options&.fetch(:namespace)}
 
 Please run `rake hyku:account:cleanup[{tenant}] CONFIRM=yes` to confirm.
     EOC
