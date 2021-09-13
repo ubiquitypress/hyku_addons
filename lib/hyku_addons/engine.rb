@@ -512,6 +512,7 @@ module HykuAddons
       Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
       ::Bolognese::Writers::RisWriter.include ::Bolognese::Writers::RisWriterBehavior
       ::Bolognese::Metadata.prepend ::Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
+      ::Bolognese::Metadata.include ::Bolognese::Readers::HykuAddonsWorkReader
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
 
       Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior

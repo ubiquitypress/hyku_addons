@@ -1,55 +1,54 @@
 # frozen_string_literal: true
 require "bolognese"
 
-# NOTE:
-# Parent class to work type class readers.
-# The class name is build within SolrDocumentBehavior.meta_reader_class
-# and called from inside the RisContentNegotiation.export_as_ris,
-# which is a concern injected into the SolrDocument
 module Bolognese
   module Readers
-    class BaseWorkReader < Bolognese::Metadata
+    module HykuAddonsWorkReader
+      extend ActiveSupport::Concern
+
       include HykuAddons::WorkFormNameable
       include ::HykuAddons::Bolognese::JsonFieldsReader
 
       DEFAULT_RESOURCE_TYPE = "Work"
       DEFAULT_META_MODEL = "GenericWork"
 
-      # Some attributes are not copied over from data inside of hyku, but calculated in reader methods below.
-      def self.special_terms
-        %w[types publication_year]
-      end
+      class_methods do
+        # Some attributes are not copied over from data inside of hyku, but calculated in reader methods below.
+        def special_terms
+          %w[types publication_year]
+        end
 
-      # Some attributes wont match those that are expected by bolognese. This is
-      # a hash map of hyku attributes to bolognese attributes, old => new
-      def self.mismatched_attribute_map
-        {
-          "title" => "titles",
-          "creator" => "creators",
-          "contributor" => "contributors",
-          "abstract" => "descriptions",
-          "keyword" => "subjects"
-        }
-      end
+        # Some attributes wont match those that are expected by bolognese. This is
+        # a hash map of hyku attributes to bolognese attributes, old => new
+        def mismatched_attribute_map
+          {
+            "title" => "titles",
+            "creator" => "creators",
+            "contributor" => "contributors",
+            "abstract" => "descriptions",
+            "keyword" => "subjects"
+          }
+        end
 
-      # A hash of keys and their array of nested attributes that need to be opperated on.
-      # Each of the hash keys will be used as the key name in @reader_attributes and each array index is used as a
-      # normal method to be found with `meta_values(key_name)`.
-      def self.nested_attributes
-        {
-          "container" => %w[volume issue firstPage lastPage pagination]
-        }
-      end
+        # A hash of keys and their array of nested attributes that need to be opperated on.
+        # Each of the hash keys will be used as the key name in @reader_attributes and each array index is used as a
+        # normal method to be found with `meta_values(key_name)`.
+        def nested_attributes
+          {
+            "container" => %w[volume issue firstPage lastPage pagination]
+          }
+        end
 
-      # An array of methods that should be called after the inital attributes have been collected.
-      # These methods should modify the `@reader_attributes` variable directly
-      def self.after_actions
-        %i[build_related_identifiers! build_nested_attributes! build_dates! update_mismatched_attributes!]
+        # An array of methods that should be called after the inital attributes have been collected.
+        # These methods should modify the `@reader_attributes` variable directly
+        def after_actions
+          %i[build_related_identifiers! build_nested_attributes! build_dates! update_mismatched_attributes!]
+        end
       end
 
       # The primary point of interacting with the readers. The name of this method depends on what reader is specified
       # in the `from` argment on intialization: GenericWorkReader.new(input: json, from: "work")
-      def read_work(string: nil, **options)
+      def read_hyku_addons_work(string: nil, **options)
         options.except!(:doi, :id, :url, :sandbox, :validate, :ra)
         read_options = ActiveSupport::HashWithIndifferentAccess.new(options)
 
@@ -57,7 +56,7 @@ module Bolognese
         @meta = string.present? ? Maremma.from_json(string) : {}
 
         # Iterate over the keys within the Work Form and find values for each
-        @reader_attributes = (self.class.special_terms + work_type_terms).map do |term|
+        @reader_attributes = (self.class.special_terms + work_type_terms(reader_model)).map do |term|
           [term.to_s, term_value(term)]
         end.to_h
 
@@ -181,7 +180,7 @@ module Bolognese
         def meta_value(term)
           return unless (value = @meta.dig(term.to_s)).present?
 
-          if work_class.multiple?(term)
+          if work_class(reader_model).multiple?(term)
             Array.wrap(value)
           else
             value
@@ -233,9 +232,10 @@ module Bolognese
         end
 
         # Required for WorkFormNameable
-        def meta_model
+        def reader_model
           @meta["has_model"] || DEFAULT_META_MODEL
         end
+
     end
   end
 end

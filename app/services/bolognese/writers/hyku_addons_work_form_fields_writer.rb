@@ -23,7 +23,7 @@ module Bolognese
       ROR_QUERY_URL = "https://api.ror.org/organizations?query="
       AFTER_ACTIONS = %i[process_editor_contributors! ensure_creator_from_editor!].freeze
 
-      def hyku_addons_work_form_fields(curation_concern: "generic_work")
+      def hyku_addons_work_form_fields_writer(curation_concern: "generic_work")
         @curation_concern = curation_concern
 
         @form_data = process_work_type_terms
@@ -172,7 +172,7 @@ module Bolognese
       private
 
         def process_work_type_terms
-          work_type_terms.each_with_object({}) do |term, data|
+          work_type_terms(@curation_concern.classify).each_with_object({}) do |term, data|
             method_name = "write_#{term}"
 
             data[term.to_s] = respond_to?(method_name, true) ? send(method_name) : nil
@@ -255,11 +255,6 @@ module Bolognese
 
             funder
           end
-        end
-
-        # Required for WorkFormNameable to function correctly
-        def meta_model
-          @curation_concern.classify
         end
 
         # If we have no creator, but we do have editors, then we need to transform the editor contributors to creators
