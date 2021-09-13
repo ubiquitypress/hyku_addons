@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe Bolognese::Readers::GenericWorkReader do
+RSpec.describe Bolognese::Readers::HykuAddonsWorkReader do
   let(:abstract) { "Swedish comic about the adventures of the residents of Moominvalley." }
   let(:add_info) { "Nothing to report" }
   let(:alt_title1) { "alt-title" }
@@ -96,15 +96,20 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:model_class) { GenericWork }
   let(:work) { model_class.new(attributes) }
   let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
-  let(:metadata) { described_class.new(input: input, from: "work") }
+  let(:metadata_class) do
+    Class.new(Bolognese::Metadata) do
+      include Bolognese::Readers::HykuAddonsWorkReader
+    end
+  end
+  let(:metadata) { metadata_class.new(input: input, from: "hyku_addons_work") }
 
   it "reads a GenericWork" do
     expect(metadata).to be_a(Bolognese::Metadata)
   end
 
-  describe "#read_work" do
+  describe "#read_hyku_addons_work" do
     it "responds to the method" do
-      expect(metadata).to respond_to(:read_work)
+      expect(metadata).to respond_to(:read_hyku_addons_work)
     end
   end
 

@@ -48,7 +48,7 @@ module Bolognese
       end
 
       # The primary point of interacting with the readers. The name of this method depends on what reader is specified
-      # in the `from` argment on intialization: GenericWorkReader.new(input: json, from: "work")
+      # in the `from` argment on intialization: Bolognese::Metadata.new(input: json, from: "hyku_addons_work")
       def read_hyku_addons_work(string: nil, **options)
         options.except!(:doi, :id, :url, :sandbox, :validate, :ra)
         read_options = ActiveSupport::HashWithIndifferentAccess.new(options)
