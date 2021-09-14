@@ -43,7 +43,7 @@ module Bolognese
         # An array of methods that should be called after the inital attributes have been collected.
         # These methods should modify the `@reader_attributes` variable directly
         def after_actions
-          %i[build_related_identifiers! build_nested_attributes! build_dates! update_mismatched_attributes!]
+          %i[set_work_id! build_related_identifiers! build_nested_attributes! build_dates! update_mismatched_attributes!]
         end
       end
 
@@ -62,7 +62,7 @@ module Bolognese
         end.to_h
 
         perform_after_actions!
-
+        
         @reader_attributes.merge(read_options)
       end
 
@@ -140,6 +140,10 @@ module Bolognese
                                 rescue Date::Error, TypeError, NoMethodError
                                   Time.zone.today.year
                                 end
+        end
+
+        def set_work_id!
+          @reader_attributes["id"] = @meta["id"]
         end
 
         def build_dates!
