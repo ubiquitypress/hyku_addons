@@ -21,7 +21,6 @@ RUN         gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | ta
 FROM        bundle as bundle-dev
 RUN         bundle config set without 'production'
 RUN         bundle config set with 'aws development test postgres'
-RUN mkdir -p /home/app/hyrax-orcid
 ENV         CFLAGS=-Wno-error=format-overflow
 RUN         bundle install --jobs=4 --retry=3
 
@@ -67,7 +66,6 @@ RUN         useradd -m -U app \
          && su -s /bin/bash -c "mkdir -p /home/app" app
 WORKDIR     /home/app
 
-RUN mkdir -p /home/app/hyrax-orcid
 
 # Build devevelopment image
 FROM        base as dev
