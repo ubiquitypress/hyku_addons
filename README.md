@@ -285,7 +285,7 @@ docker attach hyku_addons_web_1
 
 ### Updating the internal test app
 
-Hyku Addons uses a custom version of Hyrax that we call `hyku_base` which is added as a Git submodule. It is a fork of Hyku 2 just before Hyku 3 without the user elevation plus newer commits that have been cherry-picked. 
+Hyku Addons uses a custom version of Hyku that we call `hyku_base` which is added as a Git submodule. It is a fork of Hyku 2, just before Hyku 3 without the user elevation plus newer commits that have been cherry-picked. 
 In order to apply new commits that have been made into Hyrax/Hyku, we need to bring them first into `hyku_base` as [described here](https://github.com/ubiquitypress/hyku_base#updating-the-app) and then update the git submodule.
 
 Make sure you have a clean internal test app before doing the `git add`, otherwise Git will not add the submodule as it will consider it dirty.
