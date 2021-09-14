@@ -38,7 +38,8 @@ Views provided by this engine are prepended to the view path so they take preced
 Routes added by this engine are declared in `config/routes.rb` just like a normal Rails application.  Normally an engine's routes are mounted in an application's `routes.rb` but this engine mounts them automatically during initialization to avoid the need of modifying any file in Hyku other than `Gemfile`.
 
 If you need to reference a Hyku route using a route helper then you can access it through `main_app`.  If it is a Hyrax route then use `hyrax`.  For example:
-```
+
+```ruby
   redirect_to main_app.new_user_registration_url
   redirect_to hyrax.dashboard_path
 ```
@@ -79,10 +80,10 @@ PG::DuplicateColumn: ERROR:  column "frontend_url" of relation "accounts" alread
 
 Use the following to insert the version into the migration table:
 
-```
+```ruby
 sql = "insert into schema_migrations (version) values ('20210409153318')"
 ActiveRecord::Base.connection.execute(sql)
-``
+```
 
 To manually connect to the postgres container, first connect to the `web` container and then:
 
