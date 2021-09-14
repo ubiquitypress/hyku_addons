@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module HykuAddons
   module Workflow
-    class DepositedNotification < AbstractNotification
+    module DepositedNotification
       private
 
       def message
