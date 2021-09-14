@@ -3,7 +3,7 @@
 module HykuAddons
   class PerTenantSmtpInterceptor
     def self.available_smtp_fields
-      %w[from user_name password address domain port authentication enable_starttls_auto].freeze
+      %w[from from_alias user_name password address domain port authentication enable_starttls_auto].freeze
     end
 
     def self.delivering_email(message)
@@ -11,7 +11,11 @@ module HykuAddons
       return unless (mailer_settings = Settings.smtp_settings).present?
 
       if (from = mailer_settings.from).present?
-        message.from = from
+        if (from_alias = mailer_settings.from_alias).present?
+          message.from = "#{from_alias} <#{from}>"
+        else
+          message.from = from
+        end
         message.reply_to = from
         message.return_path = from
         message.smtp_envelope_from = from

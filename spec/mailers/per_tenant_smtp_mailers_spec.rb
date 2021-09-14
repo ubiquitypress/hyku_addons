@@ -66,6 +66,25 @@ RSpec.describe Hyrax::ContactMailer, clean: true, multitenant: true do
       it "sends the email" do
         expect { mail.deliver }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
+
+      context "with a custom from alias" do
+        let(:smtp_settings) do
+          {
+            from: 'test@test.edu',
+            from_alias: 'Me',
+            address: 'test.edu',
+            user_name: 'username',
+            password: 'password',
+            authentication: 'login',
+            domain: 'test.custom_domain.com'
+          }
+        end
+
+        it "replaces the email headers" do
+          from_field = mail.header.fields.select{ |f| f.name == 'From' }.first
+          expect(from_field.value).to eq "Me <test@test.edu>"
+        end
+      end
     end
   end
 end
