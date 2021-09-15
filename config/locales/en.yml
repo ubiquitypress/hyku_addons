@@ -203,10 +203,13 @@ en:
             message: |-
                 %{link} requires additional changes before approval.
                  '%{comment}'
+            subject: Your deposit requires changes
           deposited:
             message: "%{link} was approved by %{user}. %{comment}"
+            subject: Deposit has been approved
           pending_review:
             message: "%{link} was deposited by %{user} and is awaiting approval %{comment}"
+            subject: Deposit needs review
     works:
       form:
         autofill:
