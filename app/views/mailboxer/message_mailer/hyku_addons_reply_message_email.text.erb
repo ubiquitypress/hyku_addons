@@ -3,5 +3,3 @@
 -----------------------------------------------
 <%= @message.body.html_safe? ? @message.body : strip_tags(@message.body) %>
 -----------------------------------------------
-
-Visit <%= link_to dashboard_url, dashboard_url %> and go to your inbox for more info.

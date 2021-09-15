@@ -2,5 +2,3 @@
 -----------------------------------------------
 <%= @notification.body.html_safe? ? @notification.body : strip_tags(@notification.body) %>
 -----------------------------------------------
-
-Visit <%= link_to dashboard_url, dashboard_url %> and go to your inbox for more info.
