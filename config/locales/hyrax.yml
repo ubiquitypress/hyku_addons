@@ -55,16 +55,6 @@ en:
         title: "A name to aid in identifying a work"
         version_number: "The version number of the resource. If there are major changes then you must mint a new identifier like the DOI"
         volume: "Please enter the number. Leave blank if there are no volumes"
-    hyrax:
-      workflow:
-        changes_required:
-          message: |-
-              %{link} requires additional changes before approval.
-               '%{comment}'
-        deposited:
-          message: "%{link} was approved by %{user}. %{comment}"
-        pending_review:
-          message: "%{link} was deposited by %{user} and is awaiting approval %{comment}"
     labels:
       defaults:
         add_info: "Additional information"
