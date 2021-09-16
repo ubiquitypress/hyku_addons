@@ -26,7 +26,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
         get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
         expect(response.status).to eq(200)
         expect(json_response).to include("abstract" => nil,
-                                         "additional_info" => [],
+                                         "additional_info" => nil,
                                          "additional_links" => nil,
                                          "admin_set_name" => "",
                                          #  "alternative_journal_title" => nil,
