@@ -1,0 +1,38 @@
+
+
+<p>
+  <%= f.check_box :shared_search, {checked: account.shared_search_tenant?, name: "account[settings][shared_search]", id: "account_settings_shared_search"}, 'true' , 'false' %>
+  <%= f.label "Search Only(please tick checkbox select tenants)" %>
+</p>
+<br />
+
+<%= f.label :tenant_list %>
+
+<% if account.new_record? %>
+  <p>
+    <% Account.not_cross_search_tenants.each do |tenant| %>
+      <%= check_box_tag "account[settings][tenant_list][]", tenant.tenant, account.children.include?(tenant) %>
+      <%= f.label tenant.name %>
+      <br />
+    <% end %>
+  </p>
+
+<% else %>
+  <p>
+  <%  @account.children.each do |tenant| %>
+    <%= check_box_tag "account[settings][tenant_list][]", tenant.tenant, @account.children.include?(tenant) %>
+    <%= f.label tenant.name %>
+    <br />
+  <% end %>
+  </p>
+
+  <% tenants_not_in_search = Account.not_cross_search_tenants - @account.children %>
+  <p>
+  <% tenants_not_in_search.each do |tenant| %>
+    <%= check_box_tag "account[settings][tenant_list][]", tenant.tenant, @account.children.include?(tenant) %>
+    <%= f.label tenant.name %>
+    <br />
+  <% end %>
+  </p>
+
+<% end %>

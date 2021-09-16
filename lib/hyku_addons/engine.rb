@@ -58,7 +58,7 @@ module HykuAddons
                                             solr_endpoint_attributes: %i[id url],
                                             fcrepo_endpoint_attributes: %i[id url base_path],
                                             datacite_endpoint_attributes: %i[mode prefix username password],
-                                            settings: %i[file_size_limit locale_name])
+                                            settings: [:file_size_limit, :locale_name, :shared_search, tenant_list: []])
           end
       end
 
@@ -543,6 +543,16 @@ module HykuAddons
       Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
       ::ActiveJob::Base.include HykuAddons::ImportMode
       ::CleanupAccountJob.prepend HykuAddons::CleanupAccountJobBehavior
+      # Overrides for shared_search.
+      # remove when we start using Hyku-3
+      ::CreateSolrCollectionJob.prepend HykuAddons::CreateSolrCollectionJobOverride
+      ::CreateFcrepoEndpointJob.prepend HykuAddons::CreateFcrepoEndpointJobOverride
+      ::CreateAccount.prepend HykuAddons::CreateAccountOverride
+      ::RemoveSolrCollectionJob.prepend HykuAddons::RemoveSolrCollectionJobOverride
+      ::SolrEndpoint.prepend HykuAddons::SolrEndpointOverride
+      ::ApplicationController.prepend HykuAddons::ApplicationControllerOverride
+      ::Hyrax::Admin::FeaturesController.prepend HykuAddons::FlipflopFeaturesControllerOverride
+      ::Flipflop::StrategiesController.prepend HykuAddons::FlipflopStrategiesControllerOverride
 
       User.class_eval do
         def mailboxer_email(_obj)

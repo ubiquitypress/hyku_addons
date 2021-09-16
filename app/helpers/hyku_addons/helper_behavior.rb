@@ -9,5 +9,6 @@ module HykuAddons
     include HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper
     include HykuAddons::SimplifiedDepositFormHelper
     include HykuAddons::NotesTabFormHelper
+    include HykuAddons::CrossTenantSharedSearchHelper
   end
 end

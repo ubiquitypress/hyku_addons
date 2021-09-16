@@ -240,4 +240,43 @@ RSpec.describe HykuAddons::AccountBehavior do
       end
     end
   end
+
+  describe 'cross tenant shared search' do
+    context 'settings keys' do
+      it 'has default value for #shared_search' do
+        expect(account.shared_search).to eq 'false'
+      end
+
+      it '#tenant_list is an array' do
+        expect(account.tenant_list).to be_an(Array)
+      end
+    end
+
+    context 'boolean method checks' do
+      it '#shared_search_enabled? defaults to true' do
+        expect(account.shared_search_enabled?).to be_truthy
+      end
+
+      it '#shared_search_tenant? defaults to false' do
+        expect(account.shared_search_tenant?).to be_falsey
+      end
+    end
+
+    context 'can add and remove child record' do
+      let(:normal_account) { create(:account, shared_search: 'false') }
+      let(:cross_search_solr) { create(:solr_endpoint, url: "http://solr:8983/solr/hydra-cross-search-tenant") }
+
+      let(:shared_account) { create(:account, shared_search: true, tenant_list: [normal_account.tenant], solr_endpoint: cross_search_solr, fcrepo_endpoint: nil) }
+
+      it 'adds child record via #add_parent_id_to_child' do
+        shared_account.add_parent_id_to_child
+        expect(shared_account.children.size).to eq 1
+      end
+
+      it 'removes child record via #remove_existing_child_records' do
+        shared_account.remove_existing_child_records
+        expect(shared_account.children.size).to eq 0
+      end
+    end
+  end
 end

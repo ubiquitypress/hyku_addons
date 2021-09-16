@@ -178,5 +178,11 @@ RSpec.configure do |config|
     # Ensure that Hirmeos is always enabled or all the feature tests will fail
     allow(Hyrax::Hirmeos).to receive(:configured?).and_return(true)
   end
+
+  # in addition to hydra-test, created  2 solr collection for testing cross tenant search
+  config.before(:suite) do
+    CreateSolrCollectionJob.new.without_account('hydra-sample') if ENV['IN_DOCKER']
+    CreateSolrCollectionJob.new.without_account('hydra-cross-search-tenant', 'hydra-test, hydra-sample') if ENV['IN_DOCKER']
+  end
   ## End override
 end

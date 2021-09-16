@@ -1,0 +1,34 @@
+<% content_for :page_header do %>
+  <h1><span class="fa fa-gears"></span> <%= t('.header') %></h1>
+<% end %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default account-form">
+      <%= simple_form_for @account, url: [:proprietor, @account], html: { class: 'form' } do |f| %>
+        <div class="panel-body">
+            <% if @account.errors.any? %>
+              <div id="error_explanation" class="alert alert-danger">
+                <%= pluralize(@account.errors.count, "error") %> prohibited this repository from being saved:
+                <ul>
+                  <% @account.errors.messages.each do |key, messages| %>
+                    <li><%= key %> &quot;<%= @account.errors.details[key].first[:value] %>&quot; <%= messages.join(' and ') %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <%= f.input :name %>
+
+            <% if  @account.shared_search_enabled? %>
+              <%= render 'add_data_for_cross_tenant_search', account: @account, f: f %>
+            <% end %>
+
+            <br />
+            <%= f.submit class: 'btn btn-primary' %>
+            <%= link_to t('simple_form.cancel'), proprietor_accounts_path, class: 'btn btn-link action-cancel' %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
