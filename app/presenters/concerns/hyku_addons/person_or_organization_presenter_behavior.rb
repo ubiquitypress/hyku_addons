@@ -90,6 +90,6 @@ module HykuAddons
           PersonOrOrganization.new(name, hash["#{field}_orcid"], hash["#{field}_isni"], hash["#{field}_ror"], hash["#{field}_grid"], hash["#{field}_wikidata"])
         end
       end
-      alias_method :participants, :person_or_organization_list
+      alias participants person_or_organization_list
   end
 end

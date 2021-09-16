@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-
-# rubocop:disable Metrics/ClassLength
 module Bolognese
   module Writers
     module Orcid
@@ -14,11 +12,11 @@ module Bolognese
 
             xml_subtitle
           end
-          
+
           xml_short_description
           xml_work_type
           xml_date_published
-          
+
           # NOTE: A full list of external-id-type: https://pub.orcid.org/v2.1/identifiers
           @xml[:common].send("external-ids") do
             xml_internal_identifier
@@ -36,7 +34,7 @@ module Bolognese
         protected
 
           def xml_subtitle
-            # Using `.first` isn't a great solution because the alt_title 
+            # Using `.first` isn't a great solution because the alt_title
             # entries could be returned in a non idiomatic order
             subtitle = (@metadata.meta.dig("alt_title") || []).reject(&:blank?).first
 
@@ -92,4 +90,3 @@ module Bolognese
   end
 end
 # rubocop:enable Metrics/ClassLength
-

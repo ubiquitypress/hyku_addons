@@ -62,7 +62,7 @@ module Bolognese
         end.to_h
 
         perform_after_actions!
-        
+
         @reader_attributes.merge(read_options)
       end
 

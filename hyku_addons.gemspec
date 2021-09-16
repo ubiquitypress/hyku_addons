@@ -37,7 +37,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'hyrax', '~> 2.8'
   spec.add_dependency 'hyrax-doi'
-	spec.add_dependency 'hyrax-orcid'
+  spec.add_dependency 'hyrax-orcid'
   spec.add_dependency 'bolognese'
 
   # Pins to help bundler resolve

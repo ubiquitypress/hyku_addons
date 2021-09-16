@@ -39,7 +39,7 @@ RSpec.describe Bolognese::Writers::Orcid::XmlWriter do
       contributor_name_type: "Personal",
       contributor_given_name: contributor1_first_name,
       contributor_family_name: contributor1_last_name,
-      contributor_orcid: "https://orcid.org/#{contributor1_orcid}",
+      contributor_orcid: "https://orcid.org/#{contributor1_orcid}"
     }
   end
   let(:date_accepted) { "2018-01-02" }
@@ -59,7 +59,7 @@ RSpec.describe Bolognese::Writers::Orcid::XmlWriter do
       editor_name_type: "Personal",
       editor_given_name: editor1_first_name,
       editor_family_name: editor1_last_name,
-      editor_orcid: "https://orcid.org/#{editor1_orcid}",
+      editor_orcid: "https://orcid.org/#{editor1_orcid}"
     }
   end
   let(:eissn) { "1234-5678" }
@@ -141,7 +141,7 @@ RSpec.describe Bolognese::Writers::Orcid::XmlWriter do
 
   it "includes the module into the Metadata class" do
     expect(Bolognese::Metadata.new).to respond_to(:hyrax_orcid_xml)
-    expect(Bolognese::Metadata.ancestors).to include(Bolognese::Writers::Orcid::XmlWriter)
+    expect(Bolognese::Metadata.ancestors).to include(described_class)
   end
 
   describe "#hyrax_orcid_xml" do
@@ -212,5 +212,3 @@ RSpec.describe Bolognese::Writers::Orcid::XmlWriter do
     end
   end
 end
-
-
