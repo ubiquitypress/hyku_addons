@@ -2,16 +2,15 @@
 Code: [![CircleCI](https://circleci.com/gh/ubiquitypress/hyku_addons.svg?style=svg)](https://circleci.com/gh/ubiquitypress/hyku_addons)
 [![Code Climate](https://codeclimate.com/github/ubiquitypress/hyku_addons/badges/gpa.svg)](https://codeclimate.com/github/ubiquitypress/hyku_addons)
 
-
 Docs: [![Contribution Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
 [![Apache 2.0 License](http://img.shields.io/badge/APACHE2-license-blue.svg)](./LICENSE)
 
 Jump in: [![Slack Status](http://slack.samvera.org/badge.svg)](http://slack.samvera.org/)
 
-
 HykuAddons is a collection of customizations made to Hyku for Ubiquity Press's implementation.  It is highly opinionated and idiosyncratic so feel free to look at it for inspiration but you probably don't want to use it.  Features that are generally useful will be split out of here into separate plugins.
 
 ## Installation
+
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -19,6 +18,7 @@ gem 'hyku_addons'
 ```
 
 And then execute:
+
 ```bash
 $ bundle
 ```
@@ -26,24 +26,29 @@ $ bundle
 ## How it works
 
 ### Application code
+
 All code that would normally go under `app` in Hyku (controllers, mailers, helpers, jobs, models, etc.) still does in this engine.
 
 ### Views
+
 Views provided by this engine are prepended to the view path so they take precedence over Hyku and Hyrax views.  To override a view from Hyku or Hyrax copy it to the same relative path within this engine then modify it.
 
 ### Routes
+
 Routes added by this engine are declared in `config/routes.rb` just like a normal Rails application.  Normally an engine's routes are mounted in an application's `routes.rb` but this engine mounts them automatically during initialization to avoid the need of modifying any file in Hyku other than `Gemfile`.
 
 If you need to reference a Hyku route using a route helper then you can access it through `main_app`.  If it is a Hyrax route then use `hyrax`.  For example:
-```
+
+```ruby
   redirect_to main_app.new_user_registration_url
   redirect_to hyrax.dashboard_path
 ```
 
 ### Database Migrations
+
 Migrations for database changes introduced by this engine are defined in `db/migrate` like any Rails application.  These get copied into Hyku during installation when the following in run:
 
-```
+```bash
 bundle exec rails app:hyku_addons:install:migrations
 ```
 
@@ -51,13 +56,13 @@ These files are suffixed by the engine name for easy identification (e.g. `20200
 
 To perform the migration you will need to scope the command as follows:
 
-``
+```bash
 bundle exec rails db:migrate SCOPE=hyku_addons
 ```
 
 Don't forget to run the test migations at the same time:
 
-```
+```bash
 RAILS_ENV=test bundle exec rails db:migrate
 ```
 
@@ -65,7 +70,7 @@ If you get errors when performing the migration it might be because your schema 
 
 For instance:
 
-```
+```bash
 Caused by:
 PG::DuplicateColumn: ERROR:  column "frontend_url" of relation "accounts" already exists
 #...
@@ -75,36 +80,41 @@ PG::DuplicateColumn: ERROR:  column "frontend_url" of relation "accounts" alread
 
 Use the following to insert the version into the migration table:
 
-```
+```ruby
 sql = "insert into schema_migrations (version) values ('20210409153318')"
 ActiveRecord::Base.connection.execute(sql)
-``
+```
 
 To manually connect to the postgres container, first connect to the `web` container and then:
 
-```
+```bash
 psql --host db --port 5432 --user postgres --dbname hyku
 ```
 
 Then enter the password from the `docker-compose.yml` POSTGRES_PASSWORD.
 
-
 ### Initializers
+
 Initializers that should be run within Hyku can be added to `config/initializers` like in a Rails application.  They can also be added as `initializer` blocks within the `Engine` class, but that should be reserved for code needed to configure the engine infrastructure instead of setup, configuration, and override code that would normally go in `config/initializers` in a Hyku application.  There are additional hooks for different stages of the initialization process available within the `Engine` as described by https://edgeguides.rubyonrails.org/engines.html#available-configuration-hooks.
 
 ### I18n Locales
+
 Locale files can be overridden or added in `config/locales`.  The locale files in this engine are appended to `I18n.load_path` so they have precedence over Hyku and Hyrax's locales.
 
 #### Customizing locales per tenant
+
 I18n locales can be customized to override default translations for a specific tenant with fallbacks to the original translations.  To do this, create a locale file in `config/locales` that matches the name of an existing locale file but with `-TENANT_NAME` appended to the name.  For example, `en.yml` can be overriden for tenant `demo` with a file called `en-DEMO.yml`.  *Be sure to name the YAML root the same as the tenant (`en-DEMO:` in the example above).*
 
 ### Generators
+
 Any generators that this engine provides downstream to Hyku should be defined in `lib/generators/hyku_addons/`.  Generators provided by rails or other gems/engines can be run like normal from this engine's root (e.g. `rails g job UbiquityExporter`).
 
 ### Rake Tasks
+
 Rake tasks for use in the application (not internal to this engine) should be defined in `lib/tasks`.  When working on this engine rake tasks from Hyku can be run by prepending the `app` namespace (e.g. `rake app:db:migrate`).
 
 ### Enabling Features
+
 Customizations and overrides included in this engine should be put behind a `Flipflop` feature that is disabled by default.  Doing this allows these customizations to be enabled (or disabled) per Hyku instance and even per tenant.
 
 ### Overriding Hyku/Hyrax
@@ -118,7 +128,8 @@ When behavior that is tested in Hyku changes, copy the relevant test files from 
 The rails server will be running at http://hyku.docker and tenants will be subdomains like http://tenant1.hyku.docker.
 
 Check out the code then initialize the internal test hyku application:
-```
+
+```bash
 git submodule init
 git submodule update --remote
 bundle install
@@ -140,9 +151,10 @@ Another solution is to simply edit your `/etc/hosts` file and add in each tenant
 ```
 sudo vim /etc/hosts
 ```
+
 And add the following:
 
-```
+```bash
 # ... Existing content
 
 # Hyku
@@ -158,12 +170,14 @@ You will need to add each new tenant cname to your host file when a new account 
 ### Docker
 
 Running a docker development environment is possible by running:
+
 ```
 docker-compose build
 docker-compose up web workers
 ```
 
 Attaching to the hyku container to run commands can be done by running:
+
 ```
 docker-compose exec web /bin/bash
 ```
@@ -240,19 +254,22 @@ User.first.update(invitation_token: nil, invitation_accepted_at: DateTime.curren
 Tests are run automatically on CircleCI with rubocop and codeclimate.  These tests must pass before pull requests can be merged.
 
 To run the tests locally inside docker run:
-```
+
+```bash
 docker-compose exec web /bin/bash
 bundle exec rspec `find spec -name *_spec.rb | grep -v internal_test_hyku`
 ```
 
 To run the tests locally outside of docker do the following with each line in its own shell from the root of the engine:
-```
+
+```bash
 cd spec/internal_test_hyku && solr_wrapper -v --config config/solr_wrapper_test.yml
 fcrepo_wrapper -v --config spec/internal_test_hyku/config/fcrepo_wrapper_test.yml
 DISABLE_REDIS_CLUSTER=true bundle exec sidekiq -r spec/internal_test_hyku/
 SETTINGS__MULTITENANCY__ADMIN_HOST=localhost DISABLE_REDIS_CLUSTER=true RAILS_ENV=test bundle exec rails server -b 0.0.0.0
 bundle exec rspec `find spec -name *_spec.rb | grep -v internal_test_hyku`
 ```
+
 You shouldn't need to run anything from inside `spec/internal_test_hyku` unless explicitly told to do so.
 
 Note that at this time the application must be run in test mode due to a bug in loading the development environment.
@@ -261,19 +278,20 @@ Note that at this time the application must be run in test mode due to a bug in 
 
 Byebug is installed and can be used in tests and the running rails server. You will need to start your web containers in 'detached' mode and then attach to the container to interact with byebug:
 
-```
+```bash
 docker-compose up -d web
 docker attach hyku_addons_web_1
 ```
 
 ### Updating the internal test app
 
-Hyku Addons uses a custom version of Hyrax that we call `hyku_base` which is added as a Git submodule. It is a fork of Hyku 2 just before Hyku 3 without the user elevation plus newer commits that have been cherry-picked. 
+Hyku Addons uses a custom version of Hyku that we call `hyku_base` which is added as a Git submodule. It is a fork of Hyku 2, just before Hyku 3 without the user elevation plus newer commits that have been cherry-picked. 
 In order to apply new commits that have been made into Hyrax/Hyku, we need to bring them first into `hyku_base` as [described here](https://github.com/ubiquitypress/hyku_base#updating-the-app) and then update the git submodule.
 
 Make sure you have a clean internal test app before doing the `git add`, otherwise Git will not add the submodule as it will consider it dirty.
 
 The process is:
+
 1. Update the submodule with `git submodule update --remote`
 2. Run `bundle exec rails g hyku_addons:install`
 3. [Run the tests](https://github.com/ubiquitypress/hyku_addons#testing)
@@ -289,7 +307,7 @@ The process is:
 
 #### Gemfiles
 
-HykuAddons employs a number of Gems to bring in dependencies.
+HykuAddons employs a number of Gems to bring in dependencies:
 
 + hyku_addon/Gemfile
 + hyku_addon/hyku_addon.gemspec
@@ -329,5 +347,3 @@ To enable updates to a pinned gem, like hyku-api shown above, simply reset it to
 In order to build the hyku_addons application, the hyku_base (currently a fork of hyku 2.x branch) is checked out and the gemfile.plugins file is copied into the Gemfile. Without this extra step, production environments would not have access to rake/rails generators and tasks - which is apparently a Rails quirk that no one properly understands. This also means that gems can be pinned to versions, which isn't possible within a gemspec file, which enforces only rubygems references are used.
 
 The gemfile.lock from hyku_addons is copied into the hyku_base project to override their default Gemfile.lock - this solved an issue where by bundler wasn't able to compute builds correctly and wasn't pulling latest versions.
-
-

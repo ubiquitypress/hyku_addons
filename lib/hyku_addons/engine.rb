@@ -508,6 +508,11 @@ module HykuAddons
       actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
+      # Workflows
+      Hyrax::Workflow::ChangesRequiredNotification.prepend HykuAddons::Workflow::ChangesRequiredNotification
+      Hyrax::Workflow::DepositedNotification.prepend HykuAddons::Workflow::DepositedNotification
+      Hyrax::Workflow::PendingReviewNotification.prepend HykuAddons::Workflow::PendingReviewNotification
+
       # TaskMaster
       Account.include HykuAddons::TaskMaster::AccountBehavior
       FileSet.include HykuAddons::TaskMaster::FileSetBehavior

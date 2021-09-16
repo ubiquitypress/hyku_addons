@@ -10,7 +10,7 @@ module Hyrax
          date_published journal_title alternative_journal_title volume issue pagination
          alternate_identifier mesh related_identifier license rights_holder
          rights_statement contributor date_accepted date_submitted language refereed
-         irb_number add_info].freeze
+         irb_number add_info institution].freeze
     end
     include ::HykuAddons::PresenterDelegatable
   end
