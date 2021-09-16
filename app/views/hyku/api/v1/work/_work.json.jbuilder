@@ -5,7 +5,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
 
   json.abstract work.try(:solr_document)&.dig('abstract_tesim')&.first
   json.adapted_from work.try(:adapted_from)
-  json.additional_info work.try(:solr_document)&.dig('add_info_tesim')
+  json.additional_info work.try(:add_info)
   json.additional_links work.try(:additional_links)
   json.admin_set_name work.admin_set.first
   json.advisor work.try(:advisor)
