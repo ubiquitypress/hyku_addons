@@ -69,6 +69,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       login_as user
     end
+
     it 'persists a new work with only required fields' do
       visit '/dashboard'
       click_link "Works"
@@ -81,11 +82,14 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       # expect(page).to have_content "Add New Work"
       # click_link "Files" # switch tab
       page.find('a[href="#files"]').click
+
       expect(page).to have_content "Add files"
       expect(page).to have_content "Add folder"
+
       within('span#addfiles') do
         attach_file("files[]", File.join(fixture_path, 'hyrax', 'image.jp2'), visible: false)
       end
+
       click_link "Descriptions" # switch tab
 
       # Title
@@ -126,7 +130,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       # Creator
       expect(page).to have_content('Hawking, Stephen')
-      expect(page).to have_link('', href: 'https://orcid.org/000000029079593X')
+      expect(page).to have_link('', href: 'https://orcid.org/0000-0002-9079-593X')
       expect(page).to have_link('', href: 'https://isni.org/isni/0000000121034996')
 
       # Resource type
@@ -339,7 +343,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       # Creator
       expect(page).to have_content('Hawking, Stephen')
-      expect(page).to have_link('', href: 'https://orcid.org/000000029079593X')
+      expect(page).to have_link('', href: 'https://orcid.org/0000-0002-9079-593X')
       expect(page).to have_link('', href: 'https://isni.org/isni/0000000121034996')
 
       # Resource type
@@ -394,7 +398,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       # Editor
       expect(page).to have_link('', href: 'https://isni.org/isni/0000000121035000')
-      expect(page).to have_link('', href: 'https://orcid.org/000000029079600X')
+      expect(page).to have_link('', href: 'https://orcid.org/0000-0002-9079-600X')
       expect(page).to have_content('Curry, Timothy')
 
       # Journal title
