@@ -523,6 +523,8 @@ module HykuAddons
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
       ::Hyku::API::V1::SearchController.prepend HykuAddons::SearchControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
+      ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
+
       ::Hyku::API::V1::HighlightsController.class_eval do
         def index
           @collections = collections(rows: 6)
