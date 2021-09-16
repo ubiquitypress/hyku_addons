@@ -66,7 +66,7 @@ GIT
 
 GIT
   remote: https://github.com/ubiquitypress/hyrax-orcid
-  revision: a32db307048da7b95d4be87798f1e19ab0e920dc
+  revision: 27d78415db7c5d530439640ecc780cd9ead717de
   branch: main
   specs:
     hyrax-orcid (0.1.0)
@@ -525,7 +525,7 @@ GEM
       google-cloud-core (~> 1.6)
       googleauth (>= 0.16.2, < 2.a)
       mini_mime (~> 1.0)
-    google-protobuf (3.17.3)
+    google-protobuf (3.18.0)
     google_drive (3.0.7)
       google-apis-drive_v3 (>= 0.5.0, < 1.0.0)
       google-apis-sheets_v4 (>= 0.4.0, < 1.0.0)
@@ -1170,8 +1170,8 @@ GEM
     uber (0.1.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
-    unicode-display_width (1.7.0)
-    unicode-types (1.6.0)
+    unicode-display_width (1.8.0)
+    unicode-types (1.7.0)
     unicode_utils (1.4.0)
     validatable (1.6.7)
     warden (1.2.9)
