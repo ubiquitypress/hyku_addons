@@ -48,7 +48,7 @@ RSpec.describe CatalogController, type: :request, clean: true, multitenant: true
     end
 
     context 'can fetch data from other tenants' do
-      it 'cross-search-tenant can fetch all record in child tenants' do
+      xit 'cross-search-tenant can fetch all record in child tenants' do
         allow(blacklight_solr_repository).to receive(:build_connection).and_return(RSolr.connect(url: 'http://solr:8983/solr/hydra-cross-search-tenant'))
         allow(CatalogController).to receive(:blacklight_config).and_return(black_light_config)
 

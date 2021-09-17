@@ -6,7 +6,7 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     def perform(account)
-      return NilFcrepoEndpoint.new if account.shared_search_enabled?
+      return NilFcrepoEndpoint.new if account.shared_search_tenant? 
 
       name = account.tenant.parameterize
       account.create_fcrepo_endpoint(base_path: "/#{name}")

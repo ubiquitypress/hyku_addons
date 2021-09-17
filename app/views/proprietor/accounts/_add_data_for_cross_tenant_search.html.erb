@@ -8,31 +8,18 @@
 
 <%= f.label :tenant_list %>
 
-<% if account.new_record? %>
-  <p>
-    <% Account.not_cross_search_tenants.each do |tenant| %>
-      <%= check_box_tag "account[settings][tenant_list][]", tenant.tenant, account.children.include?(tenant) %>
-      <%= f.label tenant.name %>
-      <br />
-    <% end %>
-  </p>
-
-<% else %>
-  <p>
+<p>
   <%  @account.children.each do |tenant| %>
     <%= check_box_tag "account[settings][tenant_list][]", tenant.tenant, @account.children.include?(tenant) %>
     <%= f.label tenant.name %>
     <br />
   <% end %>
-  </p>
+</p>
 
-  <% tenants_not_in_search = Account.not_cross_search_tenants - @account.children %>
-  <p>
-  <% tenants_not_in_search.each do |tenant| %>
+<p>
+  <% tenants_not_in_search(account).each do |tenant| %>
     <%= check_box_tag "account[settings][tenant_list][]", tenant.tenant, @account.children.include?(tenant) %>
     <%= f.label tenant.name %>
     <br />
   <% end %>
-  </p>
-
-<% end %>
+</p>

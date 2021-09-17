@@ -29,15 +29,15 @@
 					<h3><%= t(".solr_endpoint") %></h3>
 					<%= f.simple_fields_for :solr_endpoint do |s| %>
 						<div class="form-group">
-							<%= s.input :url %>
+							<%# s.input :url %>
 						</div>
 					<% end %>
 
 					<h3><%= t(".fcrepo_endpoint") %></h3>
 					<%= f.fields_for :fcrepo_endpoint do |s| %>
 						<div class="form-group">
-							<%= s.input :url %>
-							<%= s.input :base_path %>
+							<%# s.input :url %>
+							<%# s.input :base_path %>
 						</div>
 					<% end %>
 
