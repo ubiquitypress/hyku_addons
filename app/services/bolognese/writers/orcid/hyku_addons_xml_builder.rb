@@ -51,13 +51,11 @@ module Bolognese
           end
 
           def xml_date_published
-            return unless (date_string = @metadata.meta.dig("date_published")).present?
-
-            date = Date.parse(date_string)
+            return if published_date.blank?
 
             @xml[:common].send("publication-date") do
               %i[year month day].each do |interval|
-                @xml[:common].send(interval, date.send(interval))
+                @xml[:common].send(interval, published_date.send(interval))
               end
             end
           end
@@ -84,6 +82,16 @@ module Bolognese
                 xml_contributor_role(false, contributor["contributorType"])
               end
             end
+          end
+
+          def published_date
+            return unless (date_string = @metadata.meta.dig("date_published")).present?
+
+            # The date can be parsed if its "yyyy-m-d" and "yyyy" but not "yyyy-m", 
+            # so if we have just a year and month, append a day sting. 
+            date_string << "-1" if date_string.match?(/^\d{4}-\d{1}$/)
+
+            Date.edtf(date_string)
           end
       end
     end
