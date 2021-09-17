@@ -14,6 +14,7 @@ module HykuAddons
 
     def write(name, value, options = nil)
       Rails.logger.info "[LogCacheKeys] Write: #{name}"
+      Rails.logger.info "[LogCacheKeys] Write Value: #{value}"
       super(name, value, options)
     end
   end
