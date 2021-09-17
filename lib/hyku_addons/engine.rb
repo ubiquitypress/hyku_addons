@@ -48,42 +48,7 @@ module HykuAddons
 
       # Using a concern doesn't actually override the original method so inlining it here
       Proprietor::AccountsController.include HykuAddons::AccountControllerBehavior
-      #Proprietor::AccountsController.prepend HykuAddons::ProprietorControllerOverride
-=begin
-      Proprietor::AccountsController.class_eval do
-        def update
 
-          puts "mati #{account_params.inspect}"
-          puts "moses #{account_params.to_h.inspect}"
-          #raise StandardError
-
-         respond_to do |format|
-           byebug
-           if @account.update(account_params)
-             puts 'me'
-             ::CreateSolrCollectionJob.perform_now(@account)
-             format.html { redirect_to [:proprietor, @account], notice: 'Account was successfully updated.' }
-             format.json { render :show, status: :ok, location: [:proprietor, @account] }
-           else
-             format.html { render :edit }
-             format.json { render json: @account.errors, status: :unprocessable_entity }
-           end
-         end
-       end
-        private
-
-          # Never trust parameters from the scary internet, only allow the allowed list through.
-          def account_params
-            params.require(:account).permit(:name, :cname, :title,
-                                            admin_emails: [],
-                                            solr_endpoint_attributes: %i[id url],
-                                            fcrepo_endpoint_attributes: %i[id url base_path],
-                                            datacite_endpoint_attributes: %i[mode prefix username password],
-                                            settings: [:file_size_limit, :locale_name, :shared_search, tenant_list: []])
-          end
-
-      end
-=end
       CreateAccount.class_eval do
         def create_account_inline
           CreateAccountInlineJob.perform_now(account) && account.create_datacite_endpoint
