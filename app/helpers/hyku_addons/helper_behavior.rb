@@ -21,7 +21,7 @@ module HykuAddons
         .each_with_object([]) do |hash, array|
           array << hash.slice("#{type}_given_name", "#{type}_family_name").values.join(" ")
         end
-        .join(", ")
+        .then { |a| a.compact.reject(&:blank?).join(", ") }
     end
   end
 end
