@@ -15,16 +15,7 @@ module HykuAddons
           config.eager_load = true
         end
       end
-    end
-
-    config.before_initialize do
       HykuAddons::I18nMultitenant.configure(I18n)
-    end
-
-    initializer "hyku_addons.settings" do
-      # Undefine Settings constant to allow for per-thread settings using Settings singleton
-      Object.send(:remove_const, Config.const_name) if Object.const_defined?(Config.const_name)
-      Settings.switch!
     end
 
     initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
