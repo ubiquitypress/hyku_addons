@@ -7,11 +7,7 @@ module HykuAddons
 
     def remove!
       # Spin off as a job, so that it can fail and be retried separately from the other logic.
-      if account.shared_search_enabled?
-        RemoveSolrCollectionJob.perform_later(collection, connection_options, 'cross_search_tenant')
-      else
-        RemoveSolrCollectionJob.perform_later(collection, connection_options)
-      end
+      RemoveSolrCollectionJob.perform_later(collection, connection_options, account.shared_search_enabled?)
       destroy
     end
   end

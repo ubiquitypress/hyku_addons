@@ -15,7 +15,7 @@ module HykuAddons
 
     included do
       scope :not_cross_search_tenants_new_list, -> { where.not('settings @> ?', { shared_search: true }.to_json) }
-      scope :not_cross_search_tenants_edit_list, ->(id) { where.not('settings @> ?', { shared_search: true }.to_json).where.not(id: id) }
+      scope :not_cross_search_excluding, ->(id) { not_cross_search_tenants_new_list.where.not(id: id) }
       belongs_to :datacite_endpoint, dependent: :delete
       has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :nullify, inverse_of: :parent
       belongs_to :parent, class_name: "Account", inverse_of: :parent, foreign_key: "parent_id", optional: true
@@ -128,6 +128,12 @@ module HykuAddons
       children.each { |child| child&.update(parent_id: nil) }
     end
 
+    def tenants_not_in_search
+      @list_for_unsaved_record = self.class.not_cross_search_tenants_new_list - children
+      @list_without_record_under_edit = self.class.not_cross_search_excluding(id) - children
+      new_record? ? @list_for_unsaved_record : @list_without_record_under_edit
+    end
+
     private
 
       def validate_email_format
@@ -167,12 +173,12 @@ module HykuAddons
 
       def set_shared_search_default
         return if settings['shared_search'].present?
-        self.shared_search = false
+        self.shared_search ||= false
       end
 
       def set_default_tenant_list
         return if settings['tenant_list'].present?
-        self.tenant_list = []
+        self.tenant_list ||= []
       end
 
       def create_child_parent_association_from_submitted_tenant_ids

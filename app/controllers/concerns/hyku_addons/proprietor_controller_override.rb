@@ -10,7 +10,7 @@ module HykuAddons
         if @account.update(account_params)
 
           # handles updating of shared search tenant
-          CreateSolrCollectionJob.perform_now(@account)
+          CreateSolrCollectionJob.perform_now(@account) if @account.shared_search_tenant?
 
           format.html { redirect_to [:proprietor, @account], notice: 'Account was successfully updated.' }
           format.json { render :show, status: :ok, location: [:proprietor, @account] }

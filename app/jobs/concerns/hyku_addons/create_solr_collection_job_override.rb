@@ -7,11 +7,12 @@ module HykuAddons
 
     def perform(account)
       name = account.tenant.parameterize
-
-      perform_for_cross_search_tenant(account, name) if account.shared_search_tenant? && account.tenant_list.present?
-
-      perform_for_normal_tenant(account, name) unless account.shared_search_tenant?
-      account.add_parent_id_to_child if account.shared_search_tenant? && account.tenant_list.present?
+      if account.shared_search_tenant? && account.tenant_list.present?
+        perform_for_cross_search_tenant(account, name)
+        account.add_parent_id_to_child
+      else
+        perform_for_normal_tenant(account, name)
+      end
     end
 
     def without_account(name,  tenant_list = '')

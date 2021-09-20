@@ -41,26 +41,4 @@ RSpec.describe HykuAddons::CrossTenantSharedSearchHelper do
       end
     end
   end
-
-  describe 'add tenants to shared search' do
-    let(:account) { create(account) }
-    let(:second_account) { create(account, shared_search: 'false') }
-
-    context 'for new account' do
-      let(:new_account) { build(account) }
-
-      xit '#tenants_not_in_search returns all' do
-        records = helper.tenants_not_in_search(new_account)
-        expect(records.size).to eq 2
-      end
-    end
-
-    context 'for edit account' do
-      xit '#tenants_not_in_search does not return account being edited' do
-        records = helper.tenants_not_in_search(account)
-        expect(records.size).to eq 1
-        expect(records.first.id).to eq second_account.id
-      end
-    end
-  end
 end
