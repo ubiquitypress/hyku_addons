@@ -8,7 +8,4 @@ Hyrax::Orcid.configure do |config|
     # The XML builder class that provides the XML body which is sent to Orcid
     xml_builder_class_name: "Bolognese::Writers::Orcid::HykuAddonsXmlBuilder"
   }
-
-  # TODO: reset to perform_later
-  config.active_job_type = :perform_now
 end
