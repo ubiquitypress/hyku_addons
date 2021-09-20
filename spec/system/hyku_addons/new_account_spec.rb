@@ -14,13 +14,13 @@ RSpec.describe 'Proprietor New Account Page', type: :system do
   end
 
   describe 'shared search checkbox' do
-    it 'can display checkbox for shared_search' do
+    xit 'can display checkbox for shared_search' do
       visit routes.new_proprietor_account_url
       expect(page).to have_content('Search only')
       expect(find_field(id: 'account_settings_shared_search')).not_to be_checked
     end
 
-    it 'can check shared_search checkbox' do
+    xit 'can check shared_search checkbox' do
       visit routes.new_proprietor_account_url
       check "account[settings][shared_search]"
       expect(find_field(id: 'account_settings_shared_search')).to be_checked
