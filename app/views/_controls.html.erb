@@ -12,8 +12,11 @@
           <%= link_to t(:'hyrax.controls.help'), hyrax.help_path, aria: current_page?(hyrax.help_path) ? {current: 'page'} : nil %></li>
         <li <%= 'class=active' if current_page?(hyrax.contact_path) %>>
           <%= link_to t(:'hyrax.controls.contact'), hyrax.contact_path, aria: current_page?(hyrax.contact_path) ? {current: 'page'} : nil %></li>
-          <li <%= 'class=active' if redirect_to_shared_search_page.present? %>>
-            <%= link_to t(:'hyrax.controls.shared_search'), redirect_to_shared_search_page %></li>
+        <% if redirect_to_shared_search_page.present? %>
+          <li <%= 'class=active' if current_page?(redirect_to_shared_search_page) %>>
+            <%= link_to t(:'hyrax.controls.shared_search'), redirect_to_shared_search_page,
+                aria: current_page?(redirect_to_shared_search_page) ? {current: 'page'} : nil %></li>
+        <% end %>
       </ul><!-- /.nav -->
       <div class="searchbar-right navbar-right col-sm-7">
         <%= render partial: 'catalog/search_form' %>

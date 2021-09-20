@@ -1,7 +1,7 @@
 
 
 <p>
-  <%= f.check_box :shared_search, {checked: account.shared_search_tenant?, name: "account[settings][shared_search]", id: "account_settings_shared_search"}, 'true' , 'false' %>
+  <%= f.check_box :shared_search, {checked: account.shared_search_tenant?, name: "account[settings][shared_search]", id: "account_settings_shared_search"}, true , false %>
   <%= f.label "Search Only(please tick checkbox select tenants)" %>
 </p>
 <br />

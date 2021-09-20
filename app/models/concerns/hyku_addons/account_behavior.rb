@@ -14,8 +14,8 @@ module HykuAddons
     PRIVATE_SETTINGS = %w[smtp_settings].freeze
 
     included do
-      scope :not_cross_search_tenants_new_list, -> { where.not('settings @> ?', { shared_search: 'true' }.to_json) }
-      scope :not_cross_search_tenants_edit_list, ->(id) { where.not('settings @> ?', { shared_search: 'true' }.to_json).where.not(id: id) }
+      scope :not_cross_search_tenants_new_list, -> { where.not('settings @> ?', { shared_search: true }.to_json) }
+      scope :not_cross_search_tenants_edit_list, ->(id) { where.not('settings @> ?', { shared_search: true }.to_json).where.not(id: id) }
       belongs_to :datacite_endpoint, dependent: :delete
       has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :nullify, inverse_of: :parent
       belongs_to :parent, class_name: "Account", inverse_of: :parent, foreign_key: "parent_id", optional: true
@@ -102,7 +102,7 @@ module HykuAddons
     end
 
     def datacite_endpoint
-      super || DataCiteEndpoint.new || NilDataCiteEndpoint.new
+      super || NilDataCiteEndpoint.new
     end
 
     def public_settings
@@ -167,7 +167,7 @@ module HykuAddons
 
       def set_shared_search_default
         return if settings['shared_search'].present?
-        self.shared_search = 'false'
+        self.shared_search = false
       end
 
       def set_default_tenant_list

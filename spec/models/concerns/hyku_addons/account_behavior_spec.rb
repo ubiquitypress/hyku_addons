@@ -244,7 +244,7 @@ RSpec.describe HykuAddons::AccountBehavior do
   describe 'cross tenant shared search' do
     context 'settings keys' do
       it 'has default value for #shared_search' do
-        expect(account.shared_search).to eq 'false'
+        expect(account.shared_search).to eq false
       end
 
       it '#tenant_list is an array' do
@@ -263,7 +263,7 @@ RSpec.describe HykuAddons::AccountBehavior do
     end
 
     context 'can add and remove child record' do
-      let(:normal_account) { create(:account, shared_search: 'false') }
+      let(:normal_account) { create(:account, shared_search: false) }
       let(:cross_search_solr) { create(:solr_endpoint, url: "http://solr:8983/solr/hydra-cross-search-tenant") }
 
       let(:shared_account) { create(:account, shared_search: true, tenant_list: [normal_account.tenant], solr_endpoint: cross_search_solr, fcrepo_endpoint: nil) }

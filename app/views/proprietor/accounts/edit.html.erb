@@ -33,22 +33,24 @@
 						</div>
 					<% end %>
 
-					<h3><%= t(".fcrepo_endpoint") %></h3>
-					<%= f.fields_for :fcrepo_endpoint do |s| %>
-						<div class="form-group">
-							<%= s.input :url %>
-							<%= s.input :base_path %>
-						</div>
-					<% end %>
+					<% unless @account.shared_search_tenant? %>
+					  <h3><%= t(".fcrepo_endpoint") %></h3>
+					  <%= f.fields_for :fcrepo_endpoint do |s| %>
+						  <div class="form-group">
+							  <%= s.input :url %>
+							  <%= s.input :base_path %>
+						  </div>
+					  <% end %>
 
-					<h3><%= t(".datacite_endpoint") %></h3>
-					<%= f.fields_for :datacite_endpoint do |s| %>
-						<div class="form-group">
-							<%= s.input :mode, required: false  %>
-							<%= s.input :prefix, required: false  %>
-							<%= s.input :username, required: false  %>
-							<%= s.input :password, input_html: { value: @account.datacite_endpoint.password }, required: false  %>
-						</div>
+					  <h3><%= t(".datacite_endpoint") %></h3>
+					  <%= f.fields_for :datacite_endpoint do |s| %>
+						  <div class="form-group">
+							  <%= s.input :mode, required: false  %>
+							  <%= s.input :prefix, required: false  %>
+							  <%= s.input :username, required: false  %>
+							  <%= s.input :password, input_html: { value: @account.datacite_endpoint.password }, required: false  %>
+						  </div>
+					  <% end %>
 					<% end %>
 
 					<h3><%= t(".account_settings") %></h3>
@@ -69,7 +71,7 @@
 						</div>
 					<% end %>
 
-					<% if  @account.shared_search_enabled? %>
+					<% if @account.shared_search_enabled? %>
 						<%= render 'add_data_for_cross_tenant_search', account: @account, f: f %>
 					<% end %>
 					<br />
