@@ -48,19 +48,6 @@ module HykuAddons
 
       # Using a concern doesn't actually override the original method so inlining it here
       Proprietor::AccountsController.include HykuAddons::AccountControllerBehavior
-      Proprietor::AccountsController.class_eval do
-        private
-
-          # Never trust parameters from the scary internet, only allow the allowed list through.
-          def account_params
-            params.require(:account).permit(:name, :cname, :title,
-                                            admin_emails: [],
-                                            solr_endpoint_attributes: %i[id url],
-                                            fcrepo_endpoint_attributes: %i[id url base_path],
-                                            datacite_endpoint_attributes: %i[mode prefix username password],
-                                            settings: %i[file_size_limit locale_name])
-          end
-      end
 
       CreateAccount.class_eval do
         def create_account_inline
@@ -545,6 +532,17 @@ module HykuAddons
       Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
       ::ActiveJob::Base.include HykuAddons::ImportMode
       ::CleanupAccountJob.prepend HykuAddons::CleanupAccountJobBehavior
+      # Overrides for shared_search.
+      # remove when we start using Hyku-3
+      ::CreateSolrCollectionJob.prepend HykuAddons::CreateSolrCollectionJobOverride
+      ::CreateFcrepoEndpointJob.prepend HykuAddons::CreateFcrepoEndpointJobOverride
+      ::CreateAccount.prepend HykuAddons::CreateAccountOverride
+      ::RemoveSolrCollectionJob.prepend HykuAddons::RemoveSolrCollectionJobOverride
+      ::SolrEndpoint.prepend HykuAddons::SolrEndpointOverride
+      ::ApplicationController.prepend HykuAddons::ApplicationControllerOverride
+      ::Hyrax::Admin::FeaturesController.prepend HykuAddons::FlipflopFeaturesControllerOverride
+      ::Flipflop::StrategiesController.prepend HykuAddons::FlipflopStrategiesControllerOverride
+      ::Proprietor::AccountsController.prepend HykuAddons::ProprietorControllerOverride
 
       User.class_eval do
         def mailboxer_email(_obj)

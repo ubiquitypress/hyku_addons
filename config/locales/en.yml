@@ -217,6 +217,8 @@ en:
     collections:
       show:
         item_count: Items
+    controls:
+      shared_search: Shared search
   bulkrax:
     validation_issues:
       attribute: "Attribute"

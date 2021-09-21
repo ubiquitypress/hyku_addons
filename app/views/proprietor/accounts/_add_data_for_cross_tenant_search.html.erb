@@ -1,0 +1,25 @@
+
+
+<p>
+  <%= enable_shared_search_check_box(f, account) %>
+  <%= f.label "Search Only(please tick checkbox select tenants)" %>
+</p>
+<br />
+
+<%= f.label :tenant_list %>
+
+<p>
+  <%  @account.children.each do |tenant| %>
+    <%= tenants_already_in_search(fetched_account: tenant, account_under_edit: @account) %>
+    <%= f.label tenant.name %>
+    <br />
+  <% end %>
+</p>
+
+<p>
+  <% @account.tenants_not_in_search.each do |tenant| %>
+    <%= not_in_search_checkbox(fetched_account: tenant, account_under_edit: @account) %>
+    <%= f.label tenant.name %>
+    <br />
+  <% end %>
+</p>
