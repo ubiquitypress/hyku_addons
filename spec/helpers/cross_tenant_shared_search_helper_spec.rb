@@ -41,4 +41,18 @@ RSpec.describe HykuAddons::CrossTenantSharedSearchHelper do
       end
     end
   end
+
+  describe 'shared search url' do
+    let(:account) { create(:account) }
+    let(:full_account) { create(:account, parent_id: account.id) }
+    let(:request) { instance_double(ActionDispatch::Request, port: 3000, protocol: "https://", host: 'account.cname') }
+
+    it 'returns #search_catalog_url' do
+      expect(helper.search_catalog_url(account: full_account, request: request)).to be_truthy
+    end
+
+    it 'does not return #search_catalog_url' do
+      expect(helper.search_catalog_url(account: account, request: request)).to be_falsey
+    end
+  end
 end

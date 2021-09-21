@@ -262,20 +262,26 @@ RSpec.describe HykuAddons::AccountBehavior do
       end
     end
 
-    context 'can add and remove child record' do
+    context 'can add and remove child record from shared search' do
       let(:normal_account) { create(:account, shared_search: false) }
       let(:cross_search_solr) { create(:solr_endpoint, url: "http://solr:8983/solr/hydra-cross-search-tenant") }
 
-      let(:shared_account) { create(:account, shared_search: true, tenant_list: [normal_account.tenant], solr_endpoint: cross_search_solr, fcrepo_endpoint: nil) }
+      let(:shared_search_account) { create(:account, shared_search: true, tenant_list: [normal_account.tenant], solr_endpoint: cross_search_solr, fcrepo_endpoint: nil) }
 
       it 'adds child record via #add_parent_id_to_child' do
         shared_account.add_parent_id_to_child
-        expect(shared_account.children.size).to eq 1
+        expect(shared_search_account.children.size).to eq 1
       end
 
       it 'removes child record via #remove_existing_child_records' do
         shared_account.remove_existing_child_records
-        expect(shared_account.children.size).to eq 0
+        expect(shared_search_account.children.size).to eq 0
+      end
+
+      it '#tenants_not_in_search returns accounts for edit' do
+        tenant_list = shared_search_account.tenants_not_in_search
+        expect(tenant_list.size).to eq 1
+        expect(tenant_list.first.id).to eq normal_account.id
       end
     end
   end

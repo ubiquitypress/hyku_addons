@@ -17,12 +17,12 @@ module HykuAddons
       f.check_box :shared_search, { checked: account.shared_search_tenant?, name: "account[settings][shared_search]", id: "account_settings_shared_search" }, true, false
     end
 
-    def tenants_already_in_search(account, existing_account: current_account)
-      check_box_tag "account[settings][tenant_list][]", account&.tenant, existing_account.children.include?(account)
+    def tenants_already_in_search(fetched_account:, account_under_edit:)
+      check_box_tag "account[settings][tenant_list][]", fetched_account&.tenant,  account_under_edit.children.include?(fetched_account)
     end
 
-    def not_in_search_checkbox(account, existing_account: current_account)
-      check_box_tag "account[settings][tenant_list][]", account&.tenant, existing_account.children.include?(account)
+    def not_in_search_checkbox(fetched_account:, account_under_edit:)
+      check_box_tag "account[settings][tenant_list][]", fetched_account&.tenant, account_under_edit.children.include?(fetched_account)
     end
 
     def feature_for_display_in_proprietor_account_ui

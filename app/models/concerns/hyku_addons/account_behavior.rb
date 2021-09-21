@@ -14,7 +14,7 @@ module HykuAddons
     PRIVATE_SETTINGS = %w[smtp_settings].freeze
 
     included do
-      scope :not_cross_search_tenants_new_list, -> { where.not('settings @> ?', { shared_search: true }.to_json) }
+      scope :not_cross_search_tenants_new_list, -> { where.not('settings @> ?', { shared_search: 'true' }.to_json) }
       scope :not_cross_search_excluding, ->(id) { not_cross_search_tenants_new_list.where.not(id: id) }
       belongs_to :datacite_endpoint, dependent: :delete
       has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :nullify, inverse_of: :parent
@@ -129,7 +129,7 @@ module HykuAddons
     end
 
     def tenants_not_in_search
-      @list_for_unsaved_record = self.class.not_cross_search_tenants_new_list - children
+      @list_for_unsaved_record = self.class.not_cross_search_tenants_new_list #- children
       @list_without_record_under_edit = self.class.not_cross_search_excluding(id) - children
       new_record? ? @list_for_unsaved_record : @list_without_record_under_edit
     end

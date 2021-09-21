@@ -12,10 +12,12 @@
           <%= link_to t(:'hyrax.controls.help'), hyrax.help_path, aria: current_page?(hyrax.help_path) ? {current: 'page'} : nil %></li>
         <li <%= 'class=active' if current_page?(hyrax.contact_path) %>>
           <%= link_to t(:'hyrax.controls.contact'), hyrax.contact_path, aria: current_page?(hyrax.contact_path) ? {current: 'page'} : nil %></li>
-        <% if search_catalog_url(request: request).present? %>
-          <li <%= 'class=active' if current_page?(search_catalog_url(request: request)) %>>
-            <%= link_to t(:'hyrax.controls.shared_search'), search_catalog_url(request: request),
-                aria: current_page?(search_catalog_url(request: request)) ? {current: 'page'} : nil %></li>
+
+        <% shared_search_url = search_catalog_url(request: request) %>
+        <% if shared_search_url.present? %>
+          <li <%= 'class=active' if current_page?(shared_search_url) %>>
+            <%= link_to t(:'hyrax.controls.shared_search'), shared_search_url,
+                aria: current_page?(shared_search_url) ? {current: 'page'} : nil %></li>
         <% end %>
       </ul><!-- /.nav -->
       <div class="searchbar-right navbar-right col-sm-7">

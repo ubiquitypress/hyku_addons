@@ -10,7 +10,7 @@
 
 <p>
   <%  @account.children.each do |tenant| %>
-    <%= tenants_already_in_search(tenant) %>
+    <%= tenants_already_in_search(fetched_account: tenant, account_under_edit: @account) %>
     <%= f.label tenant.name %>
     <br />
   <% end %>
@@ -18,7 +18,7 @@
 
 <p>
   <% @account.tenants_not_in_search.each do |tenant| %>
-    <%= not_in_search_checkbox(tenant) %>
+    <%= not_in_search_checkbox(fetched_account: tenant, account_under_edit: @account) %>
     <%= f.label tenant.name %>
     <br />
   <% end %>
