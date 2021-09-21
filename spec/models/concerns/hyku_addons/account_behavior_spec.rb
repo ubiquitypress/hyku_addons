@@ -269,12 +269,12 @@ RSpec.describe HykuAddons::AccountBehavior do
       let(:shared_search_account) { create(:account, shared_search: true, tenant_list: [normal_account.tenant], solr_endpoint: cross_search_solr, fcrepo_endpoint: nil) }
 
       it 'adds child record via #add_parent_id_to_child' do
-        shared_account.add_parent_id_to_child
+        shared_search_account.add_parent_id_to_child
         expect(shared_search_account.children.size).to eq 1
       end
 
       it 'removes child record via #remove_existing_child_records' do
-        shared_account.remove_existing_child_records
+        shared_search_account.remove_existing_child_records
         expect(shared_search_account.children.size).to eq 0
       end
 
