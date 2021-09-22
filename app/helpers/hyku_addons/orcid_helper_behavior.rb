@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # frozen_string_literals: true
 
 module HykuAddons
@@ -20,4 +21,3 @@ module HykuAddons
     end
   end
 end
-

@@ -10,7 +10,7 @@ RSpec.describe HykuAddons::OrcidHelperBehavior do
   end
 
   it "is loaded first" do
-    items = [HykuAddons::OrcidHelperBehavior, Hyrax::Orcid::HelperBehavior, Hyrax::Orcid::JsonFieldHelper]
+    items = [described_class, Hyrax::Orcid::HelperBehavior, Hyrax::Orcid::JsonFieldHelper]
     expect(HykuAddons::HelperBehavior.ancestors.select { |item| items.include?(item) }.first).to eq described_class
   end
 
