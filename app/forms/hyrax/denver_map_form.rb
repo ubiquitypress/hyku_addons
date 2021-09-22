@@ -24,10 +24,13 @@ module Hyrax
     def self.build_permitted_params
       super.tap do |permitted_params|
         permitted_params << common_fields
-        permitted_params << [:alternate_identifier, :related_identifier, :related_exhibition,
-                             :related_exhibition_venue, :related_exhibition_date, :license, :rights_holder,
-                             :rights_statement, :contributor, :extent, :language, :location, :longitude, :latitude,
-                             :georeferenced, :add_info, :irb_number, :mesh]
+        permitted_params << [:title, :alt_title, :resource_type, :creator, :abstract,
+                             :keyword, :subject_text, :org_unit, :date_published,
+                             :alternate_identifier, :related_identifier, :publisher,
+                             :place_of_publication, :event_title, :event_location,
+                             :license, :rights_holder, :rights_statement, :contributor,
+                             :extent, :language, :location, :longitude, :latitude,
+                             :georeferenced, :time, :add_info]
       end
     end
   end
