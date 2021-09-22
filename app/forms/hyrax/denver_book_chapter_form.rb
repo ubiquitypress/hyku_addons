@@ -12,7 +12,7 @@ module Hyrax
                  related_identifier isbn publisher place_of_publication license
                  rights_holder rights_statement contributor editor medium language
                  time refereed add_info]
-    self.terms -= %i[related_url source]
+    self.terms -= %i[related_url source subject]
     self.required_fields = %i[title creator resource_type book_title rights_statement]
 
     include Hyrax::DOI::DOIFormBehavior
