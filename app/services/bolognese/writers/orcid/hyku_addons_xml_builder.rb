@@ -87,8 +87,8 @@ module Bolognese
           def published_date
             return unless (date_string = @metadata.meta.dig("date_published")).present?
 
-            # The date can be parsed if its "yyyy-m-d" and "yyyy" but not "yyyy-m", 
-            # so if we have just a year and month, append a day sting. 
+            # The date can be parsed if its "yyyy-m-d" and "yyyy" but not "yyyy-m"
+            # so if we have just a year and month, append a day sting.
             date_string << "-1" if date_string.match?(/^\d{4}-\d{1}$/)
 
             Date.edtf(date_string)
