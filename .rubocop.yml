@@ -52,6 +52,7 @@ Metrics/BlockLength:
     - 'lib/hyku_addons/engine.rb'
     - 'lib/tasks/*.rake'
     - 'spec/**/*.rb'
+    - 'config/features.rb'
 
 Metrics/MethodLength:
   Exclude:

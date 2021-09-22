@@ -10,5 +10,6 @@ module HykuAddons
     include HykuAddons::SimplifiedDepositFormHelper
     include HykuAddons::NotesTabFormHelper
     include HykuAddons::OrcidHelperBehavior
+    include HykuAddons::CrossTenantSharedSearchHelper
   end
 end

@@ -32,4 +32,8 @@ Flipflop.configure do
   feature :cache_api,
           default: false,
           description: "Turns on cache for API endpoints. Experimental"
+
+  feature :cross_tenant_shared_search,
+          default: true,
+          description: "Turns on cross tenant shared search."
 end
