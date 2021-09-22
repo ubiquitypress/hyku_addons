@@ -64,6 +64,17 @@ GIT
       jwt
       rails (~> 5.2.4, >= 5.2.4.3)
 
+GIT
+  remote: https://github.com/ubiquitypress/hyrax-orcid
+  revision: 0a5acc68e5fc75b370eaa548e24692a5764e4200
+  branch: main
+  specs:
+    hyrax-orcid (0.1.0)
+      bolognese (~> 1.9, >= 1.9.9)
+      flipflop (~> 2.6)
+      hyrax (~> 2.9)
+      rails (~> 5.2.4, >= 5.2.4.3)
+
 PATH
   remote: .
   specs:
@@ -78,15 +89,6 @@ PATH
       hyrax-orcid
       postrank-uri (>= 1.0.24)
       public_suffix (~> 2.0.2)
-      rails (~> 5.2.4, >= 5.2.4.3)
-
-PATH
-  remote: hyrax-orcid
-  specs:
-    hyrax-orcid (0.1.0)
-      bolognese (~> 1.9, >= 1.9.9)
-      flipflop (~> 2.6)
-      hyrax (~> 2.9)
       rails (~> 5.2.4, >= 5.2.4.3)
 
 GEM
