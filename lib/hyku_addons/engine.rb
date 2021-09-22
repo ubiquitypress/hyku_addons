@@ -431,6 +431,7 @@ module HykuAddons
         config.register_curation_concern :denver_article
         config.register_curation_concern :denver_book
         config.register_curation_concern :denver_book_chapter
+        config.register_curation_concern :denver_dataset
         config.register_curation_concern :denver_image
         config.register_curation_concern :denver_map
         config.register_curation_concern :denver_multimedia
