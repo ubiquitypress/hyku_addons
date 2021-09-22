@@ -64,17 +64,6 @@ GIT
       jwt
       rails (~> 5.2.4, >= 5.2.4.3)
 
-GIT
-  remote: https://github.com/ubiquitypress/hyrax-orcid
-  revision: 27d78415db7c5d530439640ecc780cd9ead717de
-  branch: main
-  specs:
-    hyrax-orcid (0.1.0)
-      bolognese (~> 1.9, >= 1.9.9)
-      flipflop (~> 2.6)
-      hyrax (~> 2.9)
-      rails (~> 5.2.4, >= 5.2.4.3)
-
 PATH
   remote: .
   specs:
@@ -89,6 +78,15 @@ PATH
       hyrax-orcid
       postrank-uri (>= 1.0.24)
       public_suffix (~> 2.0.2)
+      rails (~> 5.2.4, >= 5.2.4.3)
+
+PATH
+  remote: hyrax-orcid
+  specs:
+    hyrax-orcid (0.1.0)
+      bolognese (~> 1.9, >= 1.9.9)
+      flipflop (~> 2.6)
+      hyrax (~> 2.9)
       rails (~> 5.2.4, >= 5.2.4.3)
 
 GEM
@@ -552,9 +550,6 @@ GEM
       google-protobuf (~> 3.15)
       googleapis-common-protos-types (~> 1.0)
     grpc-google-iam-v1 (1.0.0)
-    grpc (1.37.1-x86_64-linux)
-      google-protobuf (~> 3.15)
-      googleapis-common-protos-types (~> 1.0)
       google-protobuf (~> 3.14)
       googleapis-common-protos (>= 1.3.12, < 2.0)
       grpc (~> 1.27)
