@@ -14,9 +14,7 @@ module HykuAddons
       participants
         .first
         .then { |s| JSON.parse(s) }
-        .each_with_object([]) do |hash, array|
-          array << hash.slice("#{type}_given_name", "#{type}_family_name").values.join(" ")
-        end
+        .each_with_object([]) { |hash, array| array << hash.slice("#{type}_given_name", "#{type}_family_name").values.join(" ") }
         .then { |a| a.compact.reject(&:blank?).join(", ") }
     end
   end
