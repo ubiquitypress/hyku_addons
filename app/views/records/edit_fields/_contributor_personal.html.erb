@@ -12,8 +12,7 @@
 			field_slug: :contributor_institutional_relationship,
 			select_options: HykuAddons::ContributorInstitutionalRelationshipService.new(model: f.object.model.class).select_active_options.flatten.uniq!,
 			field_args: { multiple: true }
-		},
-		{ field_type: :text, field_slug: :contributor_isni }
+		}
 	] %>
 	<% personal_fields = add_uva_contributor_personal_fields(personal_fields) if template.include? "uva" %>
 	<% personal_fields = add_redlands_contributor_personal_fields(personal_fields, contributor_role_options) if template.include? "redlands" %>
