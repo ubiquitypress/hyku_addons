@@ -85,15 +85,17 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
         let(:abstract) { 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at tincidunt nisl. Nulla et lacus consequat, interdum eros nec, pulvinar.' }
         let(:creator) do
           [
-            [{"creator_organization_name" => "",
-             "creator_given_name" => "Bertie",
-             "creator_family_name" => "Wooles",
-             "creator_name_type" => "Personal",
-             "creator_orcid" => "0000 1111 2222 3333",
-             "creator_isni" => "",
-             "creator_ror" => "",
-             "creator_grid" => "",
-             "creator_wikidata" => ""}].to_json
+            [{
+              "creator_organization_name" => "",
+               "creator_given_name" => "Bertie",
+               "creator_family_name" => "Wooles",
+               "creator_name_type" => "Personal",
+               "creator_orcid" => "0000 1111 2222 3333",
+               "creator_isni" => "",
+               "creator_ror" => "",
+               "creator_grid" => "",
+               "creator_wikidata" => ""
+            }].to_json
           ]
         end
 
@@ -102,16 +104,16 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
 
           expect(json_response).to include("abstract" => abstract,
                                            "creator" => [{
-                                               "creator_organization_name" => "",
-                                               "creator_given_name" => "Bertie",
-                                               "creator_family_name" => "Wooles",
-                                               "creator_name_type" => "Personal",
-                                               "creator_orcid" => "0000 1111 2222 3333",
-                                               "creator_isni" => "",
-                                               "creator_ror" => "",
-                                               "creator_grid" => "",
-                                               "creator_wikidata" => ""
-                                             }])
+                                             "creator_organization_name" => "",
+                                             "creator_given_name" => "Bertie",
+                                             "creator_family_name" => "Wooles",
+                                             "creator_name_type" => "Personal",
+                                             "creator_orcid" => "0000 1111 2222 3333",
+                                             "creator_isni" => "",
+                                             "creator_ror" => "",
+                                             "creator_grid" => "",
+                                             "creator_wikidata" => ""
+                                           }])
         end
       end
     end
