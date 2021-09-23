@@ -56,7 +56,7 @@ RSpec.feature 'Create a Collection', js: false, clean: true do
 
     # Creator
     expect(page).to have_content('Hawking, Stephen')
-    expect(page).to have_link('', href: 'https://orcid.org/000000029079593X')
+    expect(page).to have_link('', href: 'https://orcid.org/0000-0002-9079-593X')
     expect(page).to have_link('', href: 'https://isni.org/isni/0000000121034996')
 
     expect(page).not_to have_content('Contributor')
