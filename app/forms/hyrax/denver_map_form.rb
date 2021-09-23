@@ -11,7 +11,7 @@ module Hyrax
                  publisher place_of_publication event_title event_location license
                  rights_holder rights_statement contributor extent language location
                  longitude latitude georeferenced time add_info]
-    self.terms -= %i[related_url publisher source subject]
+    self.terms -= %i[related_url source subject]
     self.required_fields = %i[title creator resource_type]
 
     include Hyrax::DOI::DOIFormBehavior

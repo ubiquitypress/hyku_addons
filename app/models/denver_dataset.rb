@@ -8,6 +8,7 @@ class DenverDataset < ActiveFedora::Base
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
   include ::HykuAddons::AddInfoSingular
+  include ::HykuAddons::InstitutionSingular
 
   property :longitude, predicate: ::RDF::Vocab::SCHEMA.longitude, multiple: false do |index|
     index.as :stored_searchable
