@@ -23,12 +23,11 @@ module Hyrax
     def self.build_permitted_params
       super.tap do |permitted_params|
         permitted_params << common_fields
-        permitted_params <<  [:title, :alt_title, :resource_type, :creator, :institution,
-                              :abstract, :keyword, :subject_text, :org_unit, :date_published,
-                              :version_number, :alternate_identifier, :related_identifier,
-                              :license, :contributor, :medium, :extent, :language,
-                              :location, :longitude, :latitude, :time, :add_info]
-
+        permitted_params << [:title, :alt_title, :resource_type, :creator, :institution,
+                             :abstract, :keyword, :subject_text, :org_unit, :date_published,
+                             :version_number, :alternate_identifier, :related_identifier,
+                             :license, :contributor, :medium, :extent, :language,
+                             :location, :longitude, :latitude, :time, :add_info]
       end
     end
   end

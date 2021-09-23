@@ -5,7 +5,6 @@ require File.expand_path('../../helpers/work_forms_context', __dir__)
 
 RSpec.describe Hyrax::DenverDatasetForm do
   include_context 'work forms context' do
-
     describe "#required_fields" do
       subject { form.required_fields }
 
