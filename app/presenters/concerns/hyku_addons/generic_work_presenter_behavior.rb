@@ -16,7 +16,7 @@ module HykuAddons
          :institution, :org_unit, :refereed, :funder, :fndr_project_ref, :add_info, :date_published,
          :date_accepted, :date_submitted, :project_name, :rights_holder, :place_of_publication,
          :abstract, :alternate_identifier, :related_identifier, :creator_display, :editor_display,
-         :library_of_congress_classification, :alt_title, :dewey,
+         :library_of_congress_classification, :alt_title, :dewey, :creator, :contributor,
          :title, :date_created, :description, :export_as_ris].freeze
       end
       include HykuAddons::PresenterDelegatable

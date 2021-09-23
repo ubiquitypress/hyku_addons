@@ -21,6 +21,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.cname @account.cname
   #                                         "collections" => nil,
   json.committee_member work.try(:committee_member)
+
   creator = work.creator.try(:first)
   json.creator creator.present? ? JSON.parse(creator) : []
 
