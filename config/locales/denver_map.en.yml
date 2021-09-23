@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      denver_map:     'fa fa-file-text-o'
+    select_type:
+      denver_map:
+        description:        "Denver map works"
+        name:               "Denver Map"
