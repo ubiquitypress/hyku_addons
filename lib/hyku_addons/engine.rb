@@ -508,6 +508,8 @@ module HykuAddons
 
       # Remove the Hyrax Orcid JSON Actor as we have our own
       Hyrax::CurationConcern.actor_factory.middlewares.delete(::Hyrax::Actors::Orcid::JSONFieldsActor)
+      # Remove the Hyrax Orcid pipeline as its not required within HykuAddons
+      ::Blacklight::Rendering::Pipeline.operations.delete(Hyrax::Orcid::Blacklight::Rendering::PipelineJsonExtractor)
 
       User.include HykuAddons::UserEmailFormat
       Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
@@ -558,6 +560,7 @@ module HykuAddons
           email
         end
       end
+
       Hyrax::Workflow::AbstractNotification.class_eval do
         private
 
