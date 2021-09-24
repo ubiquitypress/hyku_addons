@@ -139,7 +139,16 @@ bundle exec rails g hyku_addons:install
 docker-compose exec web bundle exec rails g hyku_addons:install
 
 # If you see an error where by Zookeeper cannot be installed via Bundler, the following should work:
-CFLAGS=-Wno-error=format-overflow  gem install zookeeper -v '1.4.11' --source 'https://rubygems.org/'
+CFLAGS=-Wno-error=format-overflow gem install zookeeper -v '1.4.11' --source 'https://rubygems.org/'
+
+# If you get the following Postgres error "Could not create Makefile due to some reason, probably lack of necessary libraries and/or headers", you may need to install Postgres, which on Ubuntu/Debian linux can be done with the following:
+
+sudo apt install postgresql-server-dev-all
+
+# You can then install Postgress natively:
+
+gem install pg -v '1.2.3' --source 'https://rubygems.org/'
+
 ```
 
 ### Dory / Host file
@@ -285,7 +294,7 @@ docker attach hyku_addons_web_1
 
 ### Updating the internal test app
 
-Hyku Addons uses a custom version of Hyku that we call `hyku_base` which is added as a Git submodule. It is a fork of Hyku 2, just before Hyku 3 without the user elevation plus newer commits that have been cherry-picked. 
+Hyku Addons uses a custom version of Hyku that we call `hyku_base` which is added as a Git submodule. It is a fork of Hyku 2, just before Hyku 3 without the user elevation plus newer commits that have been cherry-picked.
 In order to apply new commits that have been made into Hyrax/Hyku, we need to bring them first into `hyku_base` as [described here](https://github.com/ubiquitypress/hyku_base#updating-the-app) and then update the git submodule.
 
 Make sure you have a clean internal test app before doing the `git add`, otherwise Git will not add the submodule as it will consider it dirty.
@@ -297,9 +306,9 @@ The process is:
 3. [Run the tests](https://github.com/ubiquitypress/hyku_addons#testing)
 4. When the tests pass, run git diff to see the new revision number of the submodule, which will be prefixed by "-dirty".
    This happens because of additional files generated in step 2
-5. Some of the changes that `hyku_addons:install` makes are modifications of existing files instead and others are just new files. 
+5. Some of the changes that `hyku_addons:install` makes are modifications of existing files instead and others are just new files.
    The modified files needs to be restored to their original state using `git restore`, the new ones should be deleted.
-6. Running `git diff` again should show the new submodule revision number without appending "-dirty" to the end. 
+6. Running `git diff` again should show the new submodule revision number without appending "-dirty" to the end.
 7. You can now add your changes: `git add spec/internal_test_hyku`
 8. And commit them: `git commit`
 
