@@ -87,14 +87,14 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
           [
             [{
               "creator_organization_name" => "",
-               "creator_given_name" => "Bertie",
-               "creator_family_name" => "Wooles",
-               "creator_name_type" => "Personal",
-               "creator_orcid" => "0000 1111 2222 3333",
-               "creator_isni" => "",
-               "creator_ror" => "",
-               "creator_grid" => "",
-               "creator_wikidata" => ""
+              "creator_given_name" => "Bertie",
+              "creator_family_name" => "Wooles",
+              "creator_name_type" => "Personal",
+              "creator_orcid" => "0000 1111 2222 3333",
+              "creator_isni" => "",
+              "creator_ror" => "",
+              "creator_grid" => "",
+              "creator_wikidata" => ""
             }].to_json
           ]
         end
