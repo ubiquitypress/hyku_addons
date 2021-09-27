@@ -20,6 +20,9 @@ require 'ammeter/init'
 # Optional execution of specs for examples that fail randomly on CI
 require File.expand_path('support/optional_example', __dir__)
 
+# Try and suppress depreciation warnings
+ActiveSupport::Deprecation.silenced = true
+
 if ENV['CI']
   # Capybara config copied over from Hyrax
   Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
