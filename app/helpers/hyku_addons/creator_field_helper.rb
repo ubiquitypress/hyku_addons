@@ -35,7 +35,6 @@ module HykuAddons
     end
 
     def add_denver_creator_organisational_fields(array, service_options)
-      array.append(field_type: :text, field_slug: :creator_isni)
       array.append(field_type: :select, field_slug: :creator_role, select_options: service_options, field_args: { include_blank: "Please Select..." })
       array
     end
