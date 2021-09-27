@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe 'Proprietor New Account Page', type: :system do
   let(:user) { FactoryBot.create(:admin) }
-  let!(:account) { create(:account) }
+  let(:full_account) { create(:account) }
+  let!(:account) { create(:account, search_only: true) }
   let(:routes) { Rails.application.routes.url_helpers }
 
   before do
@@ -14,16 +15,22 @@ RSpec.describe 'Proprietor New Account Page', type: :system do
   end
 
   describe 'shared search checkbox' do
-    xit 'can display checkbox for shared_search' do
+    it 'can display checkbox for shared_search' do
       visit routes.new_proprietor_account_url
       expect(page).to have_content('Search only')
-      expect(find_field(id: 'account_settings_shared_search')).not_to be_checked
+      expect(find_field(id: 'account_search_only')).not_to be_checked
     end
 
-    xit 'can check shared_search checkbox' do
+    it 'can check shared_search checkbox' do
       visit routes.new_proprietor_account_url
-      check "account[settings][shared_search]"
-      expect(find_field(id: 'account_settings_shared_search')).to be_checked
+      check 'account_search_only'
+      expect(find_field(id: 'account_search_only')).to be_checked
+    end
+
+    it 'can display add to account text' do
+      visit routes.new_proprietor_account_url
+      check 'account_search_only'
+      expect(page).to have_content('Add account to search')
     end
   end
 end
