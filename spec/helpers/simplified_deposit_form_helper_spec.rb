@@ -4,18 +4,13 @@ require "rails_helper"
 
 RSpec.describe HykuAddons::SimplifiedDepositFormHelper do
   include Devise::Test::ControllerHelpers
-
-  let(:user) { create(:user) }
-  let(:work) { GenericWork.new(title: ["Moomin"], depositor: user.user_key) }
-  let(:form) { Hyrax::GenericWorkForm.new(work, nil, nil) }
   let(:helper) { _view }
 
+  let(:work) { GenericWork.new(title: ["Moomin"]) }
+  let(:form) { Hyrax::GenericWorkForm.new(work, nil, nil) }
+
   before do
-    # NOTE:
-    # This seems to be required or the following error is received:
-    # Please stub a default value first if message might be received with other args as well.
     allow(Flipflop).to receive(:enabled?).and_call_original
-    allow(Flipflop).to receive(:enabled?).with(:simplified_deposit_form).and_return(false)
   end
 
   describe "#form_tabs_for" do

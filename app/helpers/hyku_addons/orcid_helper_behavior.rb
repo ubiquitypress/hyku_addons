@@ -1,11 +1,9 @@
 # frozen_string_literal: true
-# frozen_string_literals: true
 
+# Hyrax::Orcid::HelperBehavior is included in Hyrax::Helper
 module HykuAddons
   module OrcidHelperBehavior
     extend ActiveSupport::Concern
-
-    include Hyrax::Orcid::HelperBehavior
 
     # Override the Hyrax::Orcid JSON Fields creator/contributor helper, method which uses different participant name keys
     def participant_to_string(type, participants)
