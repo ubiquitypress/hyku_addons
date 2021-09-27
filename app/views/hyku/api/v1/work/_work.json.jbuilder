@@ -2,7 +2,7 @@
 # FIXME: many attributes here left nil so specs will pass
 json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.member_of_collection_ids & collection_docs.pluck('id')] do
   json.uuid work.id
-  json.testing ""
+
   json.abstract work.try(:solr_document)&.dig('abstract_tesim')&.first
   json.adapted_from work.try(:solr_document)&.dig('adapted_from_tesim')
   json.additional_info work.try(:solr_document)&.dig('add_info_tesim')
