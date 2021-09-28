@@ -81,6 +81,7 @@ PATH
     hyku_addons (0.1.0)
       blacklight_oai_provider (~> 6.1)
       bolognese
+      cocoon (~> 1.2, >= 1.2.9)
       config (>= 3.0)
       google-cloud-pubsub (~> 2.6.1)
       google-cloud-storage (~> 1.31)
@@ -89,7 +90,6 @@ PATH
       hyrax-orcid
       postrank-uri (>= 1.0.24)
       public_suffix (~> 2.0.2)
-      rails (~> 5.2.4, >= 5.2.4.3)
 
 GEM
   remote: https://rubygems.org/
@@ -308,6 +308,7 @@ GEM
       citeproc (~> 1.0, >= 1.0.9)
       csl (~> 1.6)
     clipboard-rails (1.7.1)
+    cocoon (1.2.15)
     codemirror-rails (5.16.0)
       railties (>= 3.0, < 6.0)
     coderay (1.1.3)
