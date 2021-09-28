@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Customer organization account
 module HykuAddons
   module AccountBehavior
     extend ActiveSupport::Concern
@@ -14,20 +13,24 @@ module HykuAddons
     PRIVATE_SETTINGS = %w[smtp_settings].freeze
 
     included do
-      scope :not_cross_search_tenants_new_list, -> { where.not('settings @> ?', { shared_search: true }.to_json) }
-      scope :not_cross_search_excluding, ->(id) { not_cross_search_tenants_new_list.where.not(id: id) }
-      belongs_to :datacite_endpoint, dependent: :delete
-      has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :nullify, inverse_of: :parent
-      belongs_to :parent, class_name: "Account", inverse_of: :parent, foreign_key: "parent_id", optional: true
+      # Added for shared search
+      scope :full_accounts, -> { where(search_only: false) }
+      has_many :full_account_cross_searches, class_name: 'AccountCrossSearch', dependent: :destroy, foreign_key: 'search_account_id'
+      has_many :full_accounts, class_name: 'Account', through: :full_account_cross_searches
+      has_many :search_account_cross_searches, class_name: 'AccountCrossSearch', dependent: :destroy, foreign_key: 'full_account_id'
+      has_many :search_accounts, class_name: 'Account', through: :search_account_cross_searches
+      accepts_nested_attributes_for :full_accounts
+      accepts_nested_attributes_for :full_account_cross_searches, allow_destroy: true
 
-      store_accessor :data, :is_parent
-      store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
+      belongs_to :datacite_endpoint, dependent: :delete
+      accepts_nested_attributes_for :datacite_endpoint, update_only: true
+
+      store_accessor :data, :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
                      :google_scholarly_work_types, :gtm_id, :shared_login, :email_format,
                      :allow_signup, :oai_admin_email, :file_size_limit, :enable_oai_metadata, :oai_prefix,
                      :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id, :smtp_settings,
-                     :shared_search, :tenant_list, :hyrax_orcid_settings
+                     :hyrax_orcid_settings
 
-      accepts_nested_attributes_for :datacite_endpoint, update_only: true
       after_initialize :initialize_settings
 
       validates :gtm_id, format: { with: /GTM-[A-Z0-9]{4,7}/, message: "Invalid GTM ID" }, allow_blank: true
@@ -114,27 +117,6 @@ module HykuAddons
       Flipflop.enabled?(:cross_tenant_shared_search)
     end
 
-    def shared_search_tenant?
-      ActiveModel::Type::Boolean.new.cast(shared_search)
-    end
-
-    def add_parent_id_to_child
-      create_child_parent_association_from_submitted_tenant_ids
-      settings['tenant_list'] = []
-      save
-    end
-
-    def remove_existing_child_records
-      return self unless children.present?
-      children.each { |child| child&.update(parent_id: nil) }
-    end
-
-    def tenants_not_in_search
-      @list_for_unsaved_record = self.class.not_cross_search_tenants_new_list #- children
-      @list_without_record_under_edit = self.class.not_cross_search_excluding(id) - children
-      new_record? ? @list_for_unsaved_record : @list_without_record_under_edit
-    end
-
     private
 
       def validate_email_format
@@ -159,8 +141,6 @@ module HykuAddons
         set_jsonb_allow_signup_default
         set_smtp_settings
         set_hyrax_orcid_settings
-        set_shared_search_default
-        set_default_tenant_list
       end
 
       def set_jsonb_allow_signup_default
@@ -187,22 +167,6 @@ module HykuAddons
           config.client_id = settings.dig("hyrax_orcid_settings", "client_id")
           config.client_secret = settings.dig("hyrax_orcid_settings", "client_secret")
           config.authorization_redirect_url = settings.dig("hyrax_orcid_settings", "redirect")
-        end
-      end
-
-      def set_shared_search_default
-        return if settings['shared_search'].present?
-        self.shared_search ||= false
-      end
-
-      def set_default_tenant_list
-        return if settings['tenant_list'].present?
-        self.tenant_list ||= []
-      end
-
-      def create_child_parent_association_from_submitted_tenant_ids
-        tenant_list.each do |tenant|
-          self.class.find_by(tenant: tenant)&.update(parent_id: id)
         end
       end
   end
