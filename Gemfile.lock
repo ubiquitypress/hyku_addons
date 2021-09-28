@@ -10,6 +10,7 @@ GIT
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
   revision: 82dffb267c382c3f096c1337ee09a084c9f0335e
+  ref: 82dffb267c382c3f096c1337ee09a084c9f0335e
   specs:
     bulkrax (0.1.0)
       bagit (~> 0.4)
@@ -69,11 +70,13 @@ PATH
     hyku_addons (0.1.0)
       blacklight_oai_provider (~> 6.1)
       bolognese (~> 1.9, >= 1.9.7)
+      cocoon (~> 1.2, >= 1.2.9)
       config (>= 3.0)
       google-cloud-pubsub (~> 2.6.1)
       google-cloud-storage (~> 1.31)
       hyrax (~> 2.8)
       hyrax-doi
+      lograge
       maremma (< 4.8)
       postrank-uri (>= 1.0.24)
       public_suffix (~> 2.0.2)
@@ -296,6 +299,7 @@ GEM
       citeproc (~> 1.0, >= 1.0.9)
       csl (~> 1.5)
     clipboard-rails (1.7.1)
+    cocoon (1.2.15)
     codemirror-rails (5.16.0)
       railties (>= 3.0, < 6.0)
     coderay (1.1.3)
