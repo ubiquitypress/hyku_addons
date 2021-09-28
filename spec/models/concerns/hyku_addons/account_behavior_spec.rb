@@ -164,12 +164,6 @@ RSpec.describe HykuAddons::AccountBehavior do
         expect(account.settings['email_format']).to include('@pacificu.edu')
       end
     end
-
-    context 'data jsonb keys' do
-      it "has value in is_parent" do
-        expect(account.is_parent).to be_falsey
-      end
-    end
   end
 
   describe "valid?" do
