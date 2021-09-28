@@ -89,7 +89,6 @@ PATH
       hyrax-doi
       hyrax-orcid
       lograge
-      maremma (< 4.8)
       postrank-uri (>= 1.0.24)
       public_suffix (~> 2.0.2)
 
