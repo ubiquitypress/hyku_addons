@@ -41,6 +41,8 @@ Gem::Specification.new do |spec|
   # Pins to help bundler resolve
   spec.add_dependency 'postrank-uri', '>= 1.0.24'
   spec.add_dependency 'public_suffix', '~> 2.0.2'
+  spec.add_dependency 'bolognese', '~> 1.9', '>= 1.9.7'
+  spec.add_dependency 'lograge'
   # Added for shared search nested attributes
   spec.add_dependency 'cocoon', '~> 1.2', '>= 1.2.9'
 
