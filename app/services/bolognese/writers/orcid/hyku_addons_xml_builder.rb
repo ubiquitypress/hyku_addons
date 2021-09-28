@@ -1,11 +1,11 @@
 # frozen_string_literal: true
+
 module Bolognese
   module Writers
     module Orcid
       class HykuAddonsXmlBuilder < HyraxXmlBuilder
         # Fields guide:
         # https://github.com/ORCID/ORCID-Source/blob/master/orcid-api-web/tutorial/works.md#work-fields
-        # rubocop:disable Metrics/MethodLength
         def build
           @xml[:work].title do
             @xml[:common].title @metadata.titles.first.dig("title")
@@ -24,12 +24,8 @@ module Bolognese
             xml_external_identifiers
           end
 
-          @xml[:work].contributors do
-            xml_creators
-            xml_contributors
-          end
+          xml_collaborators
         end
-        # rubocop:enable Metrics/MethodLength
 
         protected
 
@@ -57,6 +53,13 @@ module Bolognese
               %i[year month day].each do |interval|
                 @xml[:common].send(interval, published_date.send(interval))
               end
+            end
+          end
+
+          def xml_collaborators
+            @xml[:work].contributors do
+              xml_creators
+              xml_contributors
             end
           end
 
