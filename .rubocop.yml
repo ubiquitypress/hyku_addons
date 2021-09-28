@@ -9,6 +9,7 @@ AllCops:
     - 'db/migrate/*.hyrax.rb'
     - 'spec/internal_test_hyku/**/*'
     - 'vendor/**/*'
+    - 'config/**/*'
 
 Metrics/ClassLength:
   Exclude:

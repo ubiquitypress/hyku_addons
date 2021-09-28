@@ -7,9 +7,8 @@ module HykuAddons
 
     def perform(account)
       name = account.tenant.parameterize
-      if account.shared_search_tenant? && account.tenant_list.present?
+      if account.search_only?
         perform_for_cross_search_tenant(account, name)
-        account.add_parent_id_to_child
       else
         perform_for_normal_tenant(account, name)
       end
@@ -43,25 +42,22 @@ module HykuAddons
       end
 
       def perform_for_cross_search_tenant(account, name)
-        tenant_list = account.tenant_list.join(',')
+        return unless account.full_accounts.present?
 
-        remove_any_existing_shared_solr_collection(account, name)
-        account.remove_existing_child_records
-
-        create_shared_search_collection(tenant_list, name)
-        add_solr_endpoint_to_account(account, name)
-      end
-
-      def remove_any_existing_shared_solr_collection(account, name)
-        return if account.solr_endpoint.class == ::NilSolrEndpoint
-
-        solr_config = account.solr_endpoint.connection_options.dup
-        RemoveSolrCollectionJob.perform_now(name, solr_config, 'cross_search_tenant')
-        account&.solr_endpoint&.destroy
+        if account.saved_changes&.[]('created_at').present?
+          create_shared_search_collection(account.full_accounts.map(&:tenant).uniq, name)
+          account.create_solr_endpoint(url: collection_url(name), collection: name)
+        else
+          solr_options = account.solr_endpoint.connection_options.dup
+          RemoveSolrCollectionJob.perform_now(name, solr_options, 'cross_search_tenant')
+          create_shared_search_collection(account.full_accounts.map(&:tenant).uniq, name)
+          account.solr_endpoint.update(url: collection_url(name), collection: name)
+        end
       end
 
       def create_shared_search_collection(tenant_list, name)
         return self if collection_exists? name
+
         client.get '/solr/admin/collections', params: collection_options.merge(action: 'CREATEALIAS',
                                                                                name: name, collections: tenant_list)
       end

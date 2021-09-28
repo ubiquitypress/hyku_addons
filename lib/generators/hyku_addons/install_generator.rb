@@ -11,6 +11,7 @@ module HykuAddons
         6. Injects CSS
         7. Injects helpers
         8. Installs workflows
+        9. Install Coccon
     EOS
 
     source_root File.expand_path('templates', __dir__)
@@ -21,6 +22,10 @@ module HykuAddons
 
     def install_hyrax_hirmeos
       generate 'hyrax:hirmeos:install'
+    end
+
+    def install_cocoon
+      generate 'cocoon:install'
     end
 
     def inject_overrides_into_curation_concerns

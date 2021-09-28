@@ -6,7 +6,7 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     def create_defaults
-      return if account.shared_search_tenant?
+      return if account.search_only?
 
       Hyrax::CollectionType.find_or_create_default_collection_type
       Hyrax::CollectionType.find_or_create_admin_set_type

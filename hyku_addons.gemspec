@@ -41,6 +41,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'public_suffix', '~> 2.0.2'
   spec.add_dependency 'bolognese', '~> 1.9', '>= 1.9.7'
 	spec.add_dependency 'lograge'
+  # Added for shared search nested attributes
+  spec.add_dependency 'cocoon', '~> 1.2', '>= 1.2.9'
 
   spec.add_development_dependency 'ammeter'
   spec.add_development_dependency "bixby"
