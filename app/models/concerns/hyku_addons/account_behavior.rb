@@ -24,10 +24,8 @@ module HykuAddons
       accepts_nested_attributes_for :full_account_cross_searches, allow_destroy: true
 
       belongs_to :datacite_endpoint, dependent: :delete
-      has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :nullify, inverse_of: :parent
-      belongs_to :parent, class_name: "Account", inverse_of: :parent, foreign_key: "parent_id", optional: true
 
-      store_accessor :data, :is_parent
+      store_accessor :data
       store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
                      :google_scholarly_work_types, :gtm_id, :shared_login, :email_format,
                      :allow_signup, :oai_admin_email, :file_size_limit, :enable_oai_metadata, :oai_prefix,
