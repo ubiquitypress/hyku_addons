@@ -87,7 +87,6 @@ PATH
       google-cloud-storage (~> 1.31)
       hyrax (~> 2.8)
       hyrax-doi
-      hyrax-orcid
       lograge
       postrank-uri (>= 1.0.24)
       public_suffix (~> 2.0.2)
