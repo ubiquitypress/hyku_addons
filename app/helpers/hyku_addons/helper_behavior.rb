@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-#
+
 module HykuAddons
   module HelperBehavior
     include HykuAddons::MultipleMetadataFieldsHelper
@@ -9,6 +9,7 @@ module HykuAddons
     include HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper
     include HykuAddons::SimplifiedDepositFormHelper
     include HykuAddons::NotesTabFormHelper
+    include HykuAddons::OrcidHelperBehavior
     include HykuAddons::CrossTenantSharedSearchHelper
   end
 end

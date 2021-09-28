@@ -8,7 +8,7 @@ module HykuAddons
 
     ARRAY_SETTINGS = %w[weekly_email_list monthly_email_list yearly_email_list email_format].freeze
     BOOLEAN_SETTINGS = %w[allow_signup shared_login bulkrax_validations].freeze
-    HASH_SETTINGS = %w[smtp_settings].freeze
+    HASH_SETTINGS = %w[smtp_settings hyrax_orcid_settings].freeze
     TEXT_SETTINGS = %w[contact_email gtm_id oai_admin_email oai_prefix oai_sample_identifier google_analytics_id].freeze
 
     PRIVATE_SETTINGS = %w[smtp_settings].freeze
@@ -24,14 +24,14 @@ module HykuAddons
       accepts_nested_attributes_for :full_account_cross_searches, allow_destroy: true
 
       belongs_to :datacite_endpoint, dependent: :delete
+      accepts_nested_attributes_for :datacite_endpoint, update_only: true
 
       store_accessor :data
       store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
                      :google_scholarly_work_types, :gtm_id, :shared_login, :email_format,
                      :allow_signup, :oai_admin_email, :file_size_limit, :enable_oai_metadata, :oai_prefix,
-                     :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id, :smtp_settings
-
-      accepts_nested_attributes_for :datacite_endpoint, update_only: true
+                     :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id, :smtp_settings,
+                     :hyrax_orcid_settings
 
       after_initialize :initialize_settings
 
@@ -68,6 +68,7 @@ module HykuAddons
         Settings.switch!(name: locale_name, settings: settings)
         switch_host!(cname)
         setup_tenant_cache(cache_api?)
+        switch_hyrax_orcid_credentials!
       end
 
       def reset!
@@ -122,6 +123,7 @@ module HykuAddons
 
       def validate_email_format
         return unless settings['email_format'].present?
+
         settings['email_format'].each do |email|
           errors.add(:email_format) unless email.match?(/@\S*\.\S*/)
         end
@@ -130,6 +132,7 @@ module HykuAddons
       def validate_contact_emails
         ['weekly_email_list', 'monthly_email_list', 'yearly_email_list'].each do |key|
           next unless settings[key].present?
+
           settings[key].each do |email|
             errors.add(:"#{key}") unless email.match?(URI::MailTo::EMAIL_REGEXP)
           end
@@ -139,18 +142,34 @@ module HykuAddons
       def initialize_settings
         set_jsonb_allow_signup_default
         set_smtp_settings
+        set_hyrax_orcid_settings
       end
 
       def set_jsonb_allow_signup_default
         return if settings['allow_signup'].present?
+
         self.allow_signup = 'true'
       end
 
       def set_smtp_settings
         current_smtp_settings = settings["smtp_settings"].presence || {}
+
         self.smtp_settings = current_smtp_settings.with_indifferent_access.reverse_merge!(
           HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h
         )
+      end
+
+      def set_hyrax_orcid_settings
+        defaults = { "client_id" => "", "client_secret" => "", "redirect" => "" }
+        self.hyrax_orcid_settings = settings["hyrax_orcid_settings"].presence || defaults
+      end
+
+      def switch_hyrax_orcid_credentials!
+        Hyrax::Orcid.configure do |config|
+          config.client_id = settings.dig("hyrax_orcid_settings", "client_id")
+          config.client_secret = settings.dig("hyrax_orcid_settings", "client_secret")
+          config.authorization_redirect_url = settings.dig("hyrax_orcid_settings", "redirect")
+        end
       end
   end
 end

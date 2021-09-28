@@ -141,6 +141,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
 
       it 'returns work json' do
         get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
+
         expect(response.status).to eq(200)
         expect(json_response).to include("abstract" => nil,
                                          "adapted_from" => nil,
@@ -257,6 +258,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
         it 'returns work json' do
           work.save!
           get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
+
           expect(json_response).to include("abstract" => "Swedish comic about the adventures of the residents of Moominvalley.",
                                            "adapted_from" => nil,
                                            "additional_info" => ["Nothing to report"],

@@ -35,7 +35,8 @@ module HykuAddons
                      :shared_login, :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,
                      :bulkrax_validations, :google_analytics_id,
                      google_scholarly_work_types: [], email_format: [], weekly_email_list: [], monthly_email_list: [],
-                     yearly_email_list: [], smtp_settings: HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields]
+                     yearly_email_list: [], smtp_settings: HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields,
+                     hyrax_orcid_settings: [:client_id, :client_secret, :redirect]]
         )
       end
 
@@ -47,6 +48,7 @@ module HykuAddons
         keys = %w[email_format weekly_email_list monthly_email_list yearly_email_list]
         keys.each do |key|
           next if params['account']['settings'][key].blank?
+
           params['account']['settings'][key].map! { |str| str.split(' ') }.flatten!
         end
       end

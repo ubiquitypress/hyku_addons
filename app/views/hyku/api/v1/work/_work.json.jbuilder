@@ -165,7 +165,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
     json.thumbnail_url nil
   end
 
-  json.table_of_contents work.try(:solr_document)&.to_h&.dig('table_of_contents_tesim')
+  json.table_of_contents work.try(:solr_document)&.dig('table_of_contents_tesim')
   json.title work.title.first
   json.type "work"
   json.version work.try(:solr_document)&.to_h&.dig('version_number_tesim')

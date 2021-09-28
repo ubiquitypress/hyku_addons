@@ -96,7 +96,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       select('Personal', from: 'generic_work_creator__creator_name_type')
       fill_in('generic_work_creator__creator_family_name', with: 'Hawking')
       fill_in('generic_work_creator__creator_given_name', with: 'Stephen')
-      fill_in('generic_work_creator__creator_orcid', with: '0000-0002-9079-593X')
+      fill_in('generic_work_creator__creator_orcid', with: '000000029079593X')
       select('Staff member', from: 'generic_work_creator__creator_institutional_relationship')
       fill_in('generic_work_creator__creator_isni', with: '0000 0001 2103 4996')
 
@@ -127,7 +127,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       # Creator
       expect(page).to have_content('Hawking, Stephen')
-      expect(page).to have_link('', href: 'https://orcid.org/000000029079593X')
+      expect(page).to have_link('', href: 'https://orcid.org/0000-0002-9079-593X')
       expect(page).to have_link('', href: 'https://isni.org/isni/0000000121034996')
 
       # Resource type
@@ -172,7 +172,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
       select('Personal', from: 'generic_work_creator__creator_name_type')
       fill_in('generic_work_creator__creator_family_name', with: 'Hawking')
       fill_in('generic_work_creator__creator_given_name', with: 'Stephen')
-      fill_in('generic_work_creator__creator_orcid', with: '0000-0002-9079-593X')
+      fill_in('generic_work_creator__creator_orcid', with: '000000029079593X')
       select('Staff member', from: 'generic_work_creator__creator_institutional_relationship')
       fill_in('generic_work_creator__creator_isni', with: '0000 0001 2103 4996')
 
@@ -340,7 +340,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       # Creator
       expect(page).to have_content('Hawking, Stephen')
-      expect(page).to have_link('', href: 'https://orcid.org/000000029079593X')
+      expect(page).to have_link('', href: 'https://orcid.org/0000-0002-9079-593X')
       expect(page).to have_link('', href: 'https://isni.org/isni/0000000121034996')
 
       # Resource type
@@ -395,7 +395,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       # Editor
       expect(page).to have_link('', href: 'https://isni.org/isni/0000000121035000')
-      expect(page).to have_link('', href: 'https://orcid.org/000000029079600X')
+      expect(page).to have_link('', href: 'https://orcid.org/0000-0002-9079-600X')
       expect(page).to have_content('Curry, Timothy')
 
       # Journal title

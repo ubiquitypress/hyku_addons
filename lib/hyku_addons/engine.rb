@@ -75,7 +75,13 @@ module HykuAddons
     ## In engine development mode (ENGINE_ROOT defined) handle specific generators as app-only by setting destintation_root appropriately
     initializer 'hyku_addons.app_generators' do
       if defined?(ENGINE_ROOT)
-        APP_GENERATORS = ['HykuAddons::InstallGenerator', 'Hyrax::DOI::InstallGenerator', 'Hyrax::DOI::AddToWorkTypeGenerator', 'Hyrax::Hirmeos::InstallGenerator'].freeze
+        APP_GENERATORS = [
+          'HykuAddons::InstallGenerator',
+          'Hyrax::DOI::InstallGenerator',
+          'Hyrax::DOI::AddToWorkTypeGenerator',
+          'Hyrax::Hirmeos::InstallGenerator',
+          'Hyrax::Orcid::InstallGenerator'
+        ].freeze
 
         Rails::Generators::Base.class_eval do
           def initialize(args, options, config)
@@ -504,6 +510,11 @@ module HykuAddons
       # Insert at the end of the actor chain
       Hyrax::CurationConcern.actor_factory.use HykuAddons::Actors::TaskMaster::WorkActor
 
+      # Remove the Hyrax Orcid JSON Actor as we have our own
+      Hyrax::CurationConcern.actor_factory.middlewares.delete(::Hyrax::Actors::Orcid::JSONFieldsActor)
+      # Remove the Hyrax Orcid pipeline as its not required within HykuAddons
+      ::Blacklight::Rendering::Pipeline.operations.delete(Hyrax::Orcid::Blacklight::Rendering::PipelineJsonExtractor)
+
       User.include HykuAddons::UserEmailFormat
       Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
       ::Bolognese::Writers::RisWriter.include ::Bolognese::Writers::RisWriterBehavior
@@ -553,6 +564,7 @@ module HykuAddons
           email
         end
       end
+
       Hyrax::Workflow::AbstractNotification.class_eval do
         private
 
