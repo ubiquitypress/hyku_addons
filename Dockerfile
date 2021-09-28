@@ -66,7 +66,6 @@ RUN         useradd -m -U app \
          && su -s /bin/bash -c "mkdir -p /home/app" app
 WORKDIR     /home/app
 
-
 # Build devevelopment image
 FROM        base as dev
 
