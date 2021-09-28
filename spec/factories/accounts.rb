@@ -24,7 +24,7 @@ FactoryBot.modify do
       }
     end
     data do
-      { is_parent: false }
+      {}
     end
   end
 end

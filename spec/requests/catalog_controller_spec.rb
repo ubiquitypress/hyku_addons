@@ -10,7 +10,12 @@ RSpec.describe CatalogController, type: :request, clean: true, multitenant: true
   let(:sample_solr_connection) { RSolr.connect url: 'http://solr:8983/solr/hydra-sample' }
 
   let(:cross_search_solr) { create(:solr_endpoint, url: "http://solr:8983/solr/hydra-cross-search-tenant") }
-  let!(:cross_search_tenant_account) { create(:account, name: 'cross_serch', solr_endpoint: cross_search_solr, fcrepo_endpoint: nil) }
+  let!(:cross_search_tenant_account) do
+    create(:account,
+           name: 'cross_serch',
+           solr_endpoint: cross_search_solr,
+           fcrepo_endpoint: nil)
+  end
 
   before do
     WebMock.disable!
@@ -38,9 +43,17 @@ RSpec.describe CatalogController, type: :request, clean: true, multitenant: true
   end
 
   describe 'Cross Tenant Search' do
-    let(:cross_tenant_solr_options) { { read_timeout: 120, open_timeout: 120, url: 'http://solr:8983/solr/hydra-cross-search-tenant', adapter: "solr" } }
+    let(:cross_tenant_solr_options) do
+      {
+        "read_timeout" => 120,
+        "open_timeout" => 120,
+        "url" => "http://solr:8983/solr/hydra-cross-search-tenant",
+        "adapter" => "solr"
+      }
+    end
 
     let(:black_light_config) { Blacklight::Configuration.new(connection_config: cross_tenant_solr_options) }
+
     let(:blacklight_solr_repository) { instance_double(Blacklight::Solr::Repository) }
 
     before do
@@ -49,7 +62,8 @@ RSpec.describe CatalogController, type: :request, clean: true, multitenant: true
 
     context 'can fetch data from other tenants' do
       xit 'cross-search-tenant can fetch all record in child tenants' do
-        allow(blacklight_solr_repository).to receive(:build_connection).and_return(RSolr.connect(url: 'http://solr:8983/solr/hydra-cross-search-tenant'))
+        connection = RSolr.connect(url: 'http://solr:8983/solr/hydra-cross-search-tenant')
+        allow(blacklight_solr_repository).to receive(:build_connection).and_return(connection)
         allow(CatalogController).to receive(:blacklight_config).and_return(black_light_config)
 
         get search_catalog_url, params: { locale: 'en', q: 'test' }
