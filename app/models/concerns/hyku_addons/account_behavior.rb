@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Customer organization account
 module HykuAddons
   module AccountBehavior
     extend ActiveSupport::Concern
@@ -13,7 +14,7 @@ module HykuAddons
     PRIVATE_SETTINGS = %w[smtp_settings].freeze
 
     included do
-      # Added for shared search
+      # added forshared search
       scope :full_accounts, -> { where(search_only: false) }
       has_many :full_account_cross_searches, class_name: 'AccountCrossSearch', dependent: :destroy, foreign_key: 'search_account_id'
       has_many :full_accounts, class_name: 'Account', through: :full_account_cross_searches
@@ -25,7 +26,8 @@ module HykuAddons
       belongs_to :datacite_endpoint, dependent: :delete
       accepts_nested_attributes_for :datacite_endpoint, update_only: true
 
-      store_accessor :data, :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
+      store_accessor :data
+      store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
                      :google_scholarly_work_types, :gtm_id, :shared_login, :email_format,
                      :allow_signup, :oai_admin_email, :file_size_limit, :enable_oai_metadata, :oai_prefix,
                      :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id, :smtp_settings,
