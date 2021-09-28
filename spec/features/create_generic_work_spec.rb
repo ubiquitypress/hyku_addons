@@ -69,6 +69,7 @@ RSpec.describe 'Create a GenericWork', js: true, clean: true do
 
       login_as user
     end
+
     it 'persists a new work with only required fields' do
       visit '/dashboard'
       click_link "Works"
