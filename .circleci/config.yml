@@ -37,6 +37,7 @@ jobs:
       CFLAGS: -Wno-error=format-overflow
       # Enable bulkrax to avoid test failures due to odd view path order
       SETTINGS__BULKRAX__ENABLED: true
+      RUBYOPT: "-W:no-deprecated -W:no-experimental"
 
     steps:
       - run:
@@ -79,7 +80,7 @@ jobs:
             fi
       - run:
           command: ./cc-test-reporter before-build
-          
+
       # - samvera/parallel_rspec
       - run:
           name: Run rspec in parallel
