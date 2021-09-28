@@ -282,6 +282,10 @@ class UbiquityTemplateWork < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
+  property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
+    index.as :stored_searchable
+  end
+
   self.json_fields += %i[editor current_he_institution]
   self.date_fields += %i[event_date related_exhibition_date]
 
