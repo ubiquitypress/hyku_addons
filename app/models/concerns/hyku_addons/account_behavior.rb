@@ -161,9 +161,9 @@ module HykuAddons
 
       # If any settings are added, also add the param inside HykuAddons::AccountSettingsController
       def set_hyrax_orcid_settings
-        defaults = { "client_id" => "", "client_secret" => "", "auth_redirect" => "", "environment" => "sandbox" }
+        orcid_defaults = { "client_id" => "", "client_secret" => "", "auth_redirect" => "", "environment" => "sandbox" }
 
-        self.hyrax_orcid_settings = defaults.merge(settings["hyrax_orcid_settings"])
+        self.hyrax_orcid_settings = orcid_defaults.merge((settings.presence || {}).dig("hyrax_orcid_settings"))
       end
 
       def switch_hyrax_orcid_credentials!
