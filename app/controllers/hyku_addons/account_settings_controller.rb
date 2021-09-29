@@ -31,12 +31,14 @@ module HykuAddons
 
       def account_params
         params.require(:account).permit(
-          settings: [:contact_email, :gtm_id, :file_size_limit, :enable_oai_metadata, :locale_name,
-                     :shared_login, :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,
-                     :bulkrax_validations, :google_analytics_id,
-                     google_scholarly_work_types: [], email_format: [], weekly_email_list: [], monthly_email_list: [],
-                     yearly_email_list: [], smtp_settings: HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields,
-                     hyrax_orcid_settings: [:client_id, :client_secret, :redirect]]
+          settings: [
+            :contact_email, :gtm_id, :file_size_limit, :enable_oai_metadata, :locale_name,
+            :shared_login, :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,
+            :bulkrax_validations, :google_analytics_id,
+            google_scholarly_work_types: [], email_format: [], weekly_email_list: [], monthly_email_list: [],
+            yearly_email_list: [], smtp_settings: HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields,
+            hyrax_orcid_settings: [:client_id, :client_secret, :auth_redirect, :environment]
+          ]
         )
       end
 
