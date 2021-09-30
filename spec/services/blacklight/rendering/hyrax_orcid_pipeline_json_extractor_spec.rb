@@ -7,4 +7,3 @@ RSpec.describe Hyrax::Orcid::Blacklight::Rendering::PipelineJsonExtractor do
     expect(Blacklight::Rendering::Pipeline.operations).not_to include(described_class)
   end
 end
-
