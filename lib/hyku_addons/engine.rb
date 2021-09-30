@@ -510,8 +510,8 @@ module HykuAddons
       # Insert at the end of the actor chain
       Hyrax::CurationConcern.actor_factory.use HykuAddons::Actors::TaskMaster::WorkActor
 
-      # Remove the Hyrax Orcid JSON Actor as we have our own
-      Hyrax::CurationConcern.actor_factory.middlewares.delete(::Hyrax::Actors::Orcid::JSONFieldsActor)
+      # Remove the Hyrax Orcid JSON Actor as we have our own - this should not be namespaced
+      Hyrax::CurationConcern.actor_factory.middlewares.delete(Hyrax::Actors::Orcid::JSONFieldsActor)
       # Remove the Hyrax Orcid pipeline as its not required within HykuAddons
       ::Blacklight::Rendering::Pipeline.operations.delete(Hyrax::Orcid::Blacklight::Rendering::PipelineJsonExtractor)
 
