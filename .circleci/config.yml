@@ -38,6 +38,7 @@ jobs:
       # Enable bulkrax to avoid test failures due to odd view path order
       SETTINGS__BULKRAX__ENABLED: true
       RUBYOPT: "-W:no-deprecated -W:no-experimental"
+      REDIS_NAMESPACE_QUIET: "true"
 
     steps:
       - run:
