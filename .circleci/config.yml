@@ -13,9 +13,6 @@ jobs:
       rails_version:
         type: string
         default: 5.2.4.3
-      parallelism:
-        type: integer
-        default: 4
 
     executor:
       name: 'samvera/ruby_fcrepo_solr_redis_postgres'
@@ -70,6 +67,7 @@ jobs:
       - samvera/install_solr_core:
           solr_config_path: 'spec/internal_test_hyku/solr/config'
 
+      # Setup hyku_addons and hyrax-doi
       - run: bundle exec rails g hyku_addons:install
 
       - run: bundle exec rake app:db:create app:db:migrate app:zookeeper:upload
