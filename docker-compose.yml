@@ -119,7 +119,9 @@ services:
       GCLOUD_ZONE: 1233465
       GCLOUD_PROJECT_ID: ABCDEFG
       PUBSUB_SERVICEACCOUNT_KEY:
+      # Try to calm the deprecation warnings that make logs unparseable
       RUBYOPT: "-W:no-deprecated -W:no-experimental"
+      REDIS_NAMESPACE_QUIET: "true"
     volumes:
       - app:/home/app/spec/internal_test_hyku/tmp/uploads
       - assets:/home/app/spec/internal_test_hyku/public/assets
