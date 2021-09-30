@@ -91,7 +91,7 @@ RSpec.feature 'Create a DenverMultimedia', js: false do
       end
     end
 
-    it "renders other complex fields" do
+    it "renders complex identifier fields" do
       worktype_complex_fields = %w[alternate_identifier related_identifier]
       worktype_complex_fields.each do |field|
         expect(page).to have_field("#{work_type}_#{field}__#{field}")
