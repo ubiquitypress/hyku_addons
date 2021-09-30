@@ -23,9 +23,21 @@
           <%= f.input :cname, readonly: true %>
 
           <h3><%= t(".account_settings") %></h3>
-          <%# current_account.live_settings.each do |key, value| %>
-            <%# render 'shared/settings', f: f, key: key, value: value %>
-          <%# end %>
+          <%= f.fields_for :settings do |s| %>
+						<div class="form-group">
+							<%= s.label "file_size_limit", required: false %><br>
+							<%= s.text_field 'file_size_limit', value: @account.settings['file_size_limit'], class: 'form-control' %>
+							<p class="help-block"><%= t("settings.helptexts.file_size_limit") %></p>
+						</div>
+					<% end %>
+
+					<%= f.fields_for :settings do |s| %>
+						<div class="form-group">
+							<%= s.label "locale_name", required: false %><br>
+							<%= s.text_field 'locale_name', value: @account.settings['locale_name'], class: "form-control" %>
+							<p class="help-block"><%= t("settings.helptexts.locale_name") %></p>
+						</div>
+					<% end %>
 
           <% if @account.shared_search_enabled? & @account.search_only? %>
             <h3><%= t('.accounts_to_search') %></h3>
