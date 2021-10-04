@@ -12,4 +12,7 @@ Hyrax::Orcid.configure do |config|
   # HykuAddons doesn't need either of these actors/pipelines as they are already implemented or redundant
   config.hyrax_json_actor = nil
   config.blacklight_pipeline_actor = nil
+
+  # Override the work types as we don't need either of the Orcid Behaviors in HykuAddons
+  config.work_types = []
 end
