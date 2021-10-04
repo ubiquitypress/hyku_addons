@@ -78,7 +78,6 @@ RSpec.feature 'Create a AnschutzWork', js: false do
                                   time part_of rights_statement qualification_subject_text qualification_grantor qualification_level
                                   qualification_name is_format_of source_identifier]
       worktype_simple_fields.each do |field|
-        puts "Checking #{field}"
         expect(page).to have_field("#{work_type}_#{field}")
       end
     end
