@@ -19,6 +19,7 @@ jobs:
       ruby_version: << parameters.ruby_version >>
 
     parallelism: 4
+    resource_class: "medium"
 
     environment:
       RAILS_VERSION: << parameters.rails_version >>
@@ -110,6 +111,7 @@ jobs:
 
   # Upload coverage to CodeClimate
   upload_coverage:
+    resource_class: "medium"
     parameters:
       parallelism:
         type: integer
