@@ -72,8 +72,9 @@ RSpec.feature 'Create a RedlandsOpenEducationalResource', js: false do
 
     it "renders all simple worktype fields" do
       worktype_simple_fields = %w[title alt_title resource_type alt_email abstract keyword subject
-                                  org_unit language license event_location official_link location
-                                  longitude latitude add_info]
+                                  org_unit audience language license table_of_contents publisher place_of_publication
+                                  edition pagination official_link adapted_from related_material location longitude latitude
+                                  prerequisites suggested_student_reviewers suggested_reviewers add_info]
       worktype_simple_fields.each do |field|
         expect(page).to have_field("#{work_type}_#{field}")
       end
