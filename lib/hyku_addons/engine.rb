@@ -510,11 +510,6 @@ module HykuAddons
       # Insert at the end of the actor chain
       Hyrax::CurationConcern.actor_factory.use HykuAddons::Actors::TaskMaster::WorkActor
 
-      # Remove the Hyrax Orcid JSON Actor as we have our own - this should not be namespaced
-      Hyrax::CurationConcern.actor_factory.middlewares.delete(Hyrax::Actors::Orcid::JSONFieldsActor)
-      # Remove the Hyrax Orcid pipeline as its not required within HykuAddons
-      ::Blacklight::Rendering::Pipeline.operations.delete(Hyrax::Orcid::Blacklight::Rendering::PipelineJsonExtractor)
-
       User.include HykuAddons::UserEmailFormat
       Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
       ::Bolognese::Writers::RisWriter.include ::Bolognese::Writers::RisWriterBehavior
@@ -558,6 +553,7 @@ module HykuAddons
       ::Hyrax::Admin::FeaturesController.prepend HykuAddons::FlipflopFeaturesControllerOverride
       ::Flipflop::StrategiesController.prepend HykuAddons::FlipflopStrategiesControllerOverride
       ::Proprietor::AccountsController.prepend HykuAddons::ProprietorControllerOverride
+      ::NilEndpoint.prepend HykuAddons::NilEndpointOverride
 
       User.class_eval do
         def mailboxer_email(_obj)
@@ -607,6 +603,13 @@ module HykuAddons
       initializer 'hyku_addons.blacklight_config override' do
         CatalogController.include HykuAddons::CatalogControllerBehavior
       end
+    end
+
+    config.after_initialize do
+      # Remove the Hyrax Orcid JSON Actor as we have our own - this should not be namespaced
+      Hyrax::CurationConcern.actor_factory.middlewares.delete(Hyrax::Actors::Orcid::JSONFieldsActor)
+      # Remove the Hyrax Orcid pipeline as its not required within HykuAddons
+      ::Blacklight::Rendering::Pipeline.operations.delete(Hyrax::Orcid::Blacklight::Rendering::PipelineJsonExtractor)
     end
   end
 end
