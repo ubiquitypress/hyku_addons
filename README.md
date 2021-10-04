@@ -319,6 +319,34 @@ docker-compose up -d web
 docker attach hyku_addons_web_1
 ```
 
+### Using a local Gem
+
+If you wish to use a local version of a gem, from your host machine, then you will need to make changes in 3 locations. I will use the Hyrax-Oricid Gem as an example below:
+
+In the `Dockerfile` add the following to create a directory where your local Gem will be copied to:
+
+```dockerfile
+RUN mkdir /home/app/hyrax-orcid
+```
+
+In the `docker-compose.yml`, inside of the `&app` configuration block, which is the path to the local gem and the path to the location added above:
+
+```yml
+app: &app
+  #...
+	volumes:
+  #...
+	- /home/paul/Ubiquity/hyrax-orcid:/home/app/hyrax-orcid
+```
+
+In your HykuAddons `Gemfile`:
+
+```ruby
+gem 'hyrax-orcid', path: "/home/app/hyrax-orcid"
+```
+
+Now you can build the app again with `docker-compose build` and then `up` and you should be able to make Gem changes and see them on the next request.
+
 ### Updating the internal test app
 
 Hyku Addons uses a custom version of Hyku that we call `hyku_base` which is added as a Git submodule. It is a fork of Hyku 2, just before Hyku 3 without the user elevation plus newer commits that have been cherry-picked.

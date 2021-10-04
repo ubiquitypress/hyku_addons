@@ -8,4 +8,8 @@ Hyrax::Orcid.configure do |config|
     # The XML builder class that provides the XML body which is sent to Orcid
     xml_builder_class_name: "Bolognese::Writers::Orcid::HykuAddonsXmlBuilder"
   }
+
+  # HykuAddons doesn't need either of these actors/pipelines as they are already implemented or redundant
+  config.hyrax_json_actor = nil
+  config.blacklight_pipeline_actor = nil
 end
