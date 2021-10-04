@@ -4,8 +4,7 @@ include Warden::Test::Helpers
 
 # NOTE: If you generated more than one work, you have to set "js: true"
 RSpec.feature 'Create a PacificUncategorized', js: false do
-
-  let(:user) { User.new( email: 'test@example.com') { |u| u.save(validate: false) } }
+  let(:user) { User.new(email: 'test@example.com') { |u| u.save(validate: false) } }
   let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
   let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
   let(:workflow) { Sipity::Workflow.create!(active: true, name: 'test-workflow', permission_template: permission_template) }
@@ -64,8 +63,6 @@ RSpec.feature 'Create a PacificUncategorized', js: false do
     expect(page).to have_content('Public')
     expect(page).to have_content("Your files are being processed by Hyku in the background.")
   end
-
-
 
   context "when rendering the form" do
     before do
