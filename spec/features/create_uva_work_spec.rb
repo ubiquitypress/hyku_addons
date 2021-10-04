@@ -24,7 +24,7 @@ RSpec.feature 'Create a UvaWork', js: false do
     login_as user
   end
 
-  it 'renders the new Redlands Work page' do
+  it 'renders the new UVA Work page' do
     visit "concern/#{work_type.to_s.pluralize}/new"
     expect(page).to have_content "Add New Uva Work"
   end
