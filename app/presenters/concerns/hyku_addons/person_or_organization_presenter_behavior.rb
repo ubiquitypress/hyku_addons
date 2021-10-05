@@ -90,7 +90,5 @@ module HykuAddons
           PersonOrOrganization.new(name, hash["#{field}_orcid"], hash["#{field}_isni"], hash["#{field}_ror"], hash["#{field}_grid"], hash["#{field}_wikidata"])
         end
       end
-      # This method is the equivilant of the participants method from Hyrax Orcid and so i'm aliasing one to the other
-      alias participants person_or_organization_list
   end
 end
