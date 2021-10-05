@@ -9,6 +9,7 @@ RSpec.feature 'Create a PacificBook', js: false do
   let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
   let(:workflow) { Sipity::Workflow.create!(active: true, name: 'test-workflow', permission_template: permission_template) }
   let(:work_type) { "pacific_book" }
+  let(:new_work_path) { "concern/#{work_type.to_s.pluralize}/new" }
 
   before do
     # Create a single action that can be taken
@@ -25,12 +26,13 @@ RSpec.feature 'Create a PacificBook', js: false do
   end
 
   it 'renders the new Pacific Work page' do
-    visit "concern/#{work_type.to_s.pluralize}/new"
+    visit new_work_path
+
     expect(page).to have_content "Add New Pacific Book"
   end
 
   it 'adds files to work' do
-    visit "concern/#{work_type.to_s.pluralize}/new"
+    visit new_work_path
     click_link "Files"
     expect(page).to have_content "Add files"
     expect(page).to have_content "Add folder"
@@ -41,18 +43,16 @@ RSpec.feature 'Create a PacificBook', js: false do
   end
 
   it 'applys work visibility' do
-    visit "concern/#{work_type.to_s.pluralize}/new"
+    visit new_work_path
     visibility = :open
     find('body').click
     choose("#{work_type}_visibility_#{visibility}")
-    case visibility
-    when :open
-      expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
-    end
+
+    expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
   end
 
   it 'saves the work' do
-    visit "concern/#{work_type.to_s.pluralize}/new"
+    visit new_work_path
     click_link "Descriptions"
     fill_in("#{work_type}_title", with: 'My Test Work')
     select('Organisational', from: "#{work_type}_creator__creator_name_type")
@@ -66,7 +66,7 @@ RSpec.feature 'Create a PacificBook', js: false do
 
   context "when rendering the form" do
     before do
-      visit "concern/#{work_type.to_s.pluralize}/new"
+      visit new_work_path
       click_on "Additional fields"
     end
 
