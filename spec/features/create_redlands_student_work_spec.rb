@@ -3,7 +3,7 @@ require 'rails_helper'
 include Warden::Test::Helpers
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature 'Create a RedlandsStudentWork', js: false do
+RSpec.feature 'Create a RedlandsStudentWork' do
   let(:user) { User.new(email: 'test@example.com') { |u| u.save(validate: false) } }
   let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
   let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
