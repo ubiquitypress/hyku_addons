@@ -23,16 +23,14 @@ RSpec.feature 'Create a DenverMap', js: false do
       access: 'deposit'
     )
     login_as user
+    visit new_work_path
   end
 
   it 'renders the new Denver Work page' do
-    visit new_work_path
-
     expect(page).to have_content "Add New Denver Map"
   end
 
   it 'adds files to work' do
-    visit new_work_path
     click_link "Files"
     expect(page).to have_content "Add files"
     expect(page).to have_content "Add folder"
@@ -43,16 +41,13 @@ RSpec.feature 'Create a DenverMap', js: false do
   end
 
   it 'applys work visibility' do
-    visit new_work_path
     visibility = :open
     find('body').click
     choose("#{work_type}_visibility_#{visibility}")
-
     expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
   end
 
   it 'saves the work' do
-    visit new_work_path
     click_link "Descriptions"
     fill_in("#{work_type}_title", with: 'My Test Work')
     select('Organisational', from: "#{work_type}_creator__creator_name_type")
@@ -66,7 +61,6 @@ RSpec.feature 'Create a DenverMap', js: false do
 
   context "when rendering the form" do
     before do
-      visit new_work_path
       click_on "Additional fields"
     end
 
