@@ -28,7 +28,7 @@ RSpec.shared_context 'create work user context' do
   end
 
   def visit_new_work_page
-    visit new_work_path
+    visit "concern/#{work_type.to_s.pluralize}/new"
     expect(page).to have_content "Add New #{human_work_type_name}"
   end
 
