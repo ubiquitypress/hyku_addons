@@ -54,7 +54,7 @@ RSpec.describe Hyrax::GenericWorkPresenter do
       contributor: [[contributor1].to_json],
       creator: [[creator1, creator2].to_json],
       keyword: [keyword],
-      title: [title],
+      title: [title]
     }
   end
 
@@ -88,7 +88,7 @@ RSpec.describe Hyrax::GenericWorkPresenter do
 
   describe "#creator" do
     let(:work) { GenericWork.new(attributes) }
-    let(:presenter) { Hyrax::GenericWorkPresenter.new(work, nil, nil) }
+    let(:presenter) { described_class.new(work, nil, nil) }
 
     it "returns a JSON string" do
       expect(presenter.creator.first).to be_a(String)
@@ -98,7 +98,7 @@ RSpec.describe Hyrax::GenericWorkPresenter do
 
   describe "#contributor" do
     let(:work) { GenericWork.new(attributes) }
-    let(:presenter) { Hyrax::GenericWorkPresenter.new(work, nil, nil) }
+    let(:presenter) { described_class.new(work, nil, nil) }
 
     it "returns a JSON string" do
       expect(presenter.contributor.first).to be_a(String)
