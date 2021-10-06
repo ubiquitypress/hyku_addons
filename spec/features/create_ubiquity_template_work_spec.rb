@@ -5,7 +5,7 @@ require File.expand_path('../helpers/create_ubiquity_template_user_context', __d
 include Warden::Test::Helpers
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature 'Create a UbiquityTemplateWork', js: false do
+RSpec.feature 'Create a UbiquityTemplateWork' do
   include_context 'ubiquity template user context' do
     let(:work_type) { "ubiquity_template_work" }
 
