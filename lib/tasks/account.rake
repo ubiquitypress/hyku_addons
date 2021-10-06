@@ -20,7 +20,7 @@ namespace :hyku do
     task :create_shared, [:name, :uuid, :cname, :tenant_ids] => [:environment] do |_t, args|
       tenant_list = Array.wrap(args.to_a[3..-1])
 
-      raise StandardError, 'Provide a list of tenants seperated by commas as last argument' if tenant_list.empty?
+      raise ArgumentError, 'Provide a list of tenants seperated by commas as last argument' if tenant_list.empty?
 
       puts "====== instantiating a shared-search account"
 

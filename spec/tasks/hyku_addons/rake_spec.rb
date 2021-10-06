@@ -14,7 +14,7 @@ RSpec.describe "HykuAddons Rake tasks" do
     let(:create_account) { instance_double(CreateAccount) }
 
     it 'raises error with no tenant_list' do
-      expect { run_task('hyku:account:create_shared', 'sample', '', 'sample.hyku.docker') }.to raise_error(StandardError, /Provide a list of tenants seperated by commas as last argument/)
+      expect { run_task('hyku:account:create_shared', 'sample', '', 'sample.hyku.docker') }.to raise_error(ArgumentError, /Provide a list of tenants seperated by commas as last argument/)
     end
 
     it 'creates a shared search tenant' do
