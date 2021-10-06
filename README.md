@@ -46,13 +46,11 @@ If you need to reference a Hyku route using a route helper then you can access i
 
 ### Database Migrations
 
-#### Production
+#### Production - Ubiquity Press specific
 
 Database migraions in production are not currently automatically run when the application is deployed - although this is a feature that should be added.
 
-Because of the current way that migrations are handled it is necessary to deploy your changes, then log into your production environment, manually run `db:migrate` and then remove 2 extra migration files that rails will attempt to run even though they have been previously run.
-
-Below will outline the process of running these migrations:
+Because of the current way that migrations are handled it is necessary to deploy your changes, then log into your production environment, manually run `db:migrate`.
 
 Log into your production environment, which for Google Cloud would be:
 
@@ -60,16 +58,9 @@ Log into your production environment, which for Google Cloud would be:
 kubectl get pods | grep hyku
 
 kubectl exec -it hyku-pod-name -- /bin/bash
+
+bundle exec rails db:migrate
 ```
-
-When you run the migrations the normal way with `bundle exec rails db:migrate`, you will see an error TWICE (once for each file) telling you that a migration has been previously run.
-
-Simply remove the migration file and run the migration again. The that you will have to remove are:
-
-+ 20200911164035_add_data_cite_endpoint_to_account.rb
-+ 20200929084240_add_parent_id_and_data_settings_column_to_account.rb
-
-The path to the files will be within the `hyku_addons` gem file.
 
 #### Development
 
