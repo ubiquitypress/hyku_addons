@@ -23,6 +23,7 @@ RSpec.feature 'Create a DenverMultimedia' do
       access: 'deposit'
     )
     login_as user
+    visit new_work_path
   end
 
   it 'renders the new Denver Work page' do
@@ -40,9 +41,8 @@ RSpec.feature 'Create a DenverMultimedia' do
   end
 
   it 'applys work visibility' do
-    visibility = :open
     find('body').click
-    choose("#{work_type}_visibility_#{visibility}")
+    choose("#{work_type}_visibility_open")
 
     expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
   end

@@ -41,9 +41,9 @@ RSpec.feature 'Create a DenverMap' do
   end
 
   it 'applys work visibility' do
-    visibility = :open
     find('body').click
-    choose("#{work_type}_visibility_#{visibility}")
+    choose("#{work_type}_visibility_open")
+
     expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
   end
 
