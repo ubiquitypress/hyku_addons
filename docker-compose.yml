@@ -65,15 +65,8 @@ services:
     <<: *app
     environment:
       <<: *web_environment
-      PASSENGER_STARTUP_FILE: "spec/internal_test_hyku/config.ru"
-      PASSENGER_ENGINE: "builtin"
-      PASSENGER_APP_TYPE: "rack"
-      PASSENGER_ADDRESS: "0.0.0.0"
-      PASSENGER_PORT: "3000"
-      PASSENGER_FRIENDLY_ERROR_PAGES: "true"
-      PASSENGER_LOG_LEVEL: 3
-    # command: bash -c "rm -f ./spec/internal_test_hyku/tmp/pids/server.pid && bundle install && bundle exec rails s" # Use Puma, not passenger, as it doesn't require more gems
-    command: bash -c "bundle install && passenger start"
+    # NOTE: We are using Puma (default Rails server) as Passenger doesn't allow byebug/webconsole to be run in dev.
+    command: bash -c "rm -f ./spec/internal_test_hyku/tmp/pids/server.pid && bundle install && bundle exec rails s"
     stdin_open: true
     tty: true
     ports:
@@ -183,7 +176,6 @@ services:
       JAVA_OPTS: '${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"'
     networks:
       internal:
-
 
   chrome:
     image: selenium/standalone-chrome:3.141
