@@ -21,7 +21,6 @@ services:
       dockerfile: Dockerfile
       target: DEVELOPMENT_IMAGE
     image: hyku_addons/development_image:latest
-    command: bash -c "rm -f ./spec/internal_test_hyku/tmp/pids/server.pid && bundle install && bundle exec rails s" # Use Puma, not passenger, as it doesn't require more gems
     environment: &web_environment
       HOST: "0.0.0.0" # Docker cannot forward to a containers localhost, so we need to use this IP instead
       DATABASE_ADAPTER: postgresql
@@ -66,6 +65,15 @@ services:
     <<: *app
     environment:
       <<: *web_environment
+      PASSENGER_STARTUP_FILE: "spec/internal_test_hyku/config.ru"
+      PASSENGER_ENGINE: "builtin"
+      PASSENGER_APP_TYPE: "rack"
+      PASSENGER_ADDRESS: "0.0.0.0"
+      PASSENGER_PORT: "3000"
+      PASSENGER_FRIENDLY_ERROR_PAGES: "true"
+      PASSENGER_LOG_LEVEL: 3
+    # command: bash -c "rm -f ./spec/internal_test_hyku/tmp/pids/server.pid && bundle install && bundle exec rails s" # Use Puma, not passenger, as it doesn't require more gems
+    command: bash -c "bundle install && passenger start"
     stdin_open: true
     tty: true
     ports:
