@@ -58,7 +58,7 @@ class UbiquityTemplateWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :time, predicate: ::RDF::Vocab::DC.temporal do |index|
+  property :time, predicate: ::RDF::Vocab::DC.temporal, multiple: false do|index|
     index.as :stored_searchable
   end
 

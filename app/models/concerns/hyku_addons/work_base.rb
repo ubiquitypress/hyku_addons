@@ -26,7 +26,7 @@ module HykuAddons
         index.as :stored_searchable
       end
 
-      property :fndr_project_ref, predicate: ::RDF::Vocab::BF2.awards do |index|
+      property :fndr_project_ref, predicate: ::RDF::Vocab::BF2.awards, multiple: false do |index|
         index.as :stored_searchable
       end
 

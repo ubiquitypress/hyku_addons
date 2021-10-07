@@ -12,7 +12,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.alternative_journal_title work.try(:solr_document)&.to_h&.dig('alternative_journal_title_tesim')
   json.alternative_book_title work.try(:solr_document)&.to_h&.dig('alt_book_title_tesim')
   json.alternative_title work.try(:solr_document)&.to_h&.dig('alt_title_tesim')
-  #                                         "article_number" => nil,
+  json.article_number work.try(:solr_document)&.to_h&.dig('article_num_tesim')
   json.audience work.try(:solr_document)&.to_h&.dig('audience_tesim')
   json.book_title work.try(:solr_document)&.to_h&.dig('book_title_tesim')
   json.buy_book work.try(:solr_document)&.to_h&.dig('buy_book_tesim')
@@ -47,6 +47,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
     json.has_public_files work.file_set_presenters.any? { |fsp| fsp.solr_document.public? }
   end
   json.funder work.try(:solr_document)&.to_h&.dig('funder_tesim')
+  json.funder_project_ref work.try(:solr_document)&.to_h&.dig('fndr_project_ref_tesim')
   json.funding_description work.try(:solr_document)&.to_h&.dig('funding_description_tesim')
   json.georeferenced work.try(:solr_document)&.to_h&.dig('georeferenced_tesim')
   json.institution work.try(:solr_document)&.to_h&.dig('institution_tesim')
@@ -105,6 +106,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.photo_description work.try(:solr_document)&.to_h&.dig('photo_description_tesim')
   json.place_of_publication work.try(:solr_document)&.to_h&.dig('place_of_publication_tesim')
   json.prerequisites work.try(:solr_document)&.to_h&.dig('prerequisites_tesim')
+  json.project_name work.try(:solr_document)&.to_h&.dig('project_name_tesim')
   json.publisher work.publisher
   json.qualification_grantor work.try(:solr_document)&.to_h&.dig('qualification_grantor_tesim')
   json.qualification_level work.try(:solr_document)&.to_h&.dig('qualification_level_tesim')
@@ -140,7 +142,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   end
 
   json.related_material work.try(:solr_document)&.to_h&.dig('related_material_tesim')
-  json.related_url work.related_url
+  json.related_url work.try(:solr_document)&.to_h&.dig('related_url_tesim')
   json.time work.try(:solr_document)&.to_h&.dig('time_tesim')
   json.resource_type work.resource_type
   json.rights_holder work.try(:solr_document)&.to_h&.dig('rights_holder_tesim')
