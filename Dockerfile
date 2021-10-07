@@ -1,26 +1,5 @@
-FROM phusion/passenger-ruby27:2.0.0 as bundle
-
-COPY lib/hyku_addons/version.rb ./lib/hyku_addons/version.rb
-COPY hyku_addons.gemspec ./hyku_addons.gemspec
-COPY Gemfile ./Gemfile
-COPY Gemfile.lock ./Gemfile.lock
-COPY spec/internal_test_hyku/Gemfile ./spec/internal_test_hyku/Gemfile
-COPY spec/internal_test_hyku/Gemfile.lock ./spec/internal_test_hyku/Gemfile.lock
-
-RUN bundle config build.nokogiri --use-system-libraries
-
-
-# Build development gems
-FROM        bundle as bundle-dev
-
-RUN         bundle config set without 'production'
-RUN         bundle config set with 'aws development test postgres'
-ENV         CFLAGS=-Wno-error=format-overflow
-RUN         bundle install --jobs=4 --retry=3
-
-
 # Base stage for building final images
-FROM phusion/passenger-ruby27:2.0.0 as base
+FROM phusion/passenger-ruby27:2.0.0 as BASE_IMAGE
 
 RUN install_clean --allow-unauthenticated \
 	sendmail \
@@ -42,19 +21,33 @@ RUN install_clean --allow-unauthenticated \
 	ffmpeg \
 	vim
 
-RUN apt-get clean \
+RUN apt clean \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # If changes are made to fits version or location, amend `LD_LIBRARY_PATH` in docker-compose.yml accordingly.
 RUN mkdir -p /opt/fits && \
     curl -fSL -o /opt/fits/fits-latest.zip https://projects.iq.harvard.edu/files/fits/files/fits-1.3.0.zip && \
-    cd /opt/fits && unzip fits-latest.zip && chmod +X /opt/fits/fits.sh
+    cd /opt/fits && unzip fits-latest.zip && \
+		chmod +X /opt/fits/fits.sh
+
+# Entry point from the docker-compose - last stage in the build development image
+FROM BASE_IMAGE as DEVELOPMENT_IMAGE
 
 WORKDIR /home/app
 
-# Entry point from the docker-compose - build devevelopment image
-FROM        base as dev
+COPY --chown=app:app . /home/app
+COPY --chown=app:app lib/hyku_addons/version.rb ./lib/hyku_addons/version.rb
+COPY --chown=app:app hyku_addons.gemspec ./hyku_addons.gemspec
+COPY --chown=app:app Gemfile ./Gemfile
+COPY --chown=app:app Gemfile.lock ./Gemfile.lock
+COPY --chown=app:app spec/internal_test_hyku/Gemfile ./spec/internal_test_hyku/Gemfile
+COPY --chown=app:app spec/internal_test_hyku/Gemfile.lock ./spec/internal_test_hyku/Gemfile.lock
 
-COPY        --from=bundle-dev /usr/local/bundle /usr/local/bundle
-ARG         RAILS_ENV=development
+RUN bundle config build.nokogiri --use-system-libraries
+
+RUN bundle config set without 'production'
+RUN bundle config set with 'aws development test postgres'
+
+ENV CFLAGS=-Wno-error=format-overflow
+RUN setuser app bundle install --jobs=4 --retry=3
 
