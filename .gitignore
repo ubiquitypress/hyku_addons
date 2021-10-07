@@ -12,3 +12,5 @@ tmp/
 fits.log
 package.json
 .eslintrc.*
+passenger.*pid*
+passenger.*log

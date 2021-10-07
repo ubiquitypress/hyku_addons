@@ -30,7 +30,7 @@ RUN mkdir -p /opt/fits && \
     cd /opt/fits && unzip fits-latest.zip && \
 		chmod +X /opt/fits/fits.sh
 
-# Entry point from the docker-compose - last stage in the build development image
+# Entry point from the docker-compose - last stage as Docker works backwards
 FROM BASE_IMAGE as DEVELOPMENT_IMAGE
 
 WORKDIR /home/app
@@ -43,11 +43,11 @@ COPY --chown=app:app Gemfile.lock ./Gemfile.lock
 COPY --chown=app:app spec/internal_test_hyku/Gemfile ./spec/internal_test_hyku/Gemfile
 COPY --chown=app:app spec/internal_test_hyku/Gemfile.lock ./spec/internal_test_hyku/Gemfile.lock
 
-RUN bundle config build.nokogiri --use-system-libraries
-
-RUN bundle config set without 'production'
-RUN bundle config set with 'aws development test postgres'
-
 ENV CFLAGS=-Wno-error=format-overflow
-RUN setuser app bundle install --jobs=4 --retry=3
+RUN bundle config build.nokogiri --use-system-libraries \
+	&& bundle config set without 'production' \
+	&& bundle config set with 'aws development test postgres' \
+	&& setuser app bundle install --jobs=4 --retry=3
+
+RUN chmod 777 .bundle/config # Otherwise `app` owns this file and the host cannot run bundler commands
 
