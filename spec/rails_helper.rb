@@ -150,6 +150,8 @@ RSpec.configure do |config|
   # Add support for conditional execution of specs
   config.include OptionalExample
 
+  config.include Capybara::RSpecMatchers
+
   ## Override spec/internal_test_hyku/spec/support/multitenancy_metadata.rb by setting ENV
   # because the mocking of Settings.multitenancy gets overwritten by the Settings reloading
   # that happens in Account#switch!
