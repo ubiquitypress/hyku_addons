@@ -33,7 +33,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.date_submitted work.date_uploaded
   json.degree work.try(:solr_document)&.to_h&.dig('degree_tesim')
   json.dewey work.try(:solr_document)&.to_h&.dig('dewey_tesim')
-  json.doi work.try(:solr_document)&.to_h&.dig('doi_tesim')
+  json.doi work.try(:doi)
   json.duration work.try(:solr_document)&.to_h&.dig('duration_tesim')
   json.edition work.try(:solr_document)&.to_h&.dig('edition_tesim')
   json.eissn work.try(:solr_document)&.to_h&.dig('eissn_tesim')
