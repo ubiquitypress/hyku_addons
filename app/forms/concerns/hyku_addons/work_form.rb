@@ -47,7 +47,8 @@ module HykuAddons
            alt_book_title table_of_contents prerequisites suggested_student_reviewers suggested_reviewers adapted_from audience
            related_material note advisor subject_text mesh journal_frequency funding_description
            citation references extent medium source committee_member time qualification_grantor date_published_text
-           rights_statement_text qualification_subject_text is_format_of part_of georeferenced source_identifier] + hyrax_terms
+           rights_statement_text qualification_subject_text is_format_of part_of
+           georeferenced source_identifier] + hyrax_terms
       end
 
       def hyrax_terms

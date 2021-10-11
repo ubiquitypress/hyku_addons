@@ -17,6 +17,7 @@
 	<% personal_fields = add_uva_contributor_personal_fields(personal_fields) if template.include? "uva" %>
 	<% personal_fields = add_redlands_contributor_personal_fields(personal_fields, contributor_role_options) if template.include? "redlands" %>
 	<% personal_fields = add_denver_contributor_personal_fields(personal_fields, contributor_role_options) if  template.include? "denver" %>
+	<% personal_fields = add_una_contributor_personal_fields(personal_fields, contributor_role_options) if  template.include? "una" %>
 	<% personal_fields.each do |field| %>
 		<% options = { field_group: :contributor, template: template, hash: hash }.merge(field) %>
 		<%= render "records/edit_fields/attribution_partials/#{field[:field_type]}_field", options %>

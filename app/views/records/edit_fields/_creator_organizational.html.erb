@@ -9,6 +9,7 @@
 	] %>
 	<% organisational_fields = remove_redlands_creator_organisational_fields(organisational_fields) if template.include? "redlands" %>
 	<% organisational_fields = add_denver_creator_organisational_fields(organisational_fields, creator_role_options) if template.include? "denver" %>
+	<% organisational_fields = add_una_creator_organisational_fields(organisational_fields, creator_role_options) if template.include? "una" %>
 
 	<% organisational_fields.each do |field| %>
 		<% options = { field_group: :creator, template: template, hash: hash }.merge(field) %>

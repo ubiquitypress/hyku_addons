@@ -456,6 +456,8 @@ module HykuAddons
         config.register_curation_concern :redlands_media
         config.register_curation_concern :redlands_student_work
         config.register_curation_concern :ubiquity_template_work
+        config.register_curation_concern :una_archival_item
+        config.register_curation_concern :una_article
         config.register_curation_concern :uva_work
 
         config.license_service_class = HykuAddons::LicenseService
