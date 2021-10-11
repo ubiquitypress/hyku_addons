@@ -50,7 +50,7 @@ class UnaArticle < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :alt_email, predicate: ::RDF::Vocab::SCHEMA.email, multiple: true do |index|
+  property :alt_email, predicate: ::RDF::Vocab::SCHEMA.email do |index|
     index.as :stored_searchable
   end
 

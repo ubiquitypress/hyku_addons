@@ -3,7 +3,7 @@ module Hyrax
   class UnaArticleForm < Hyrax::Forms::WorkForm
     include ::HykuAddons::WorkForm
 
-    self.model_class = ::NsuArticle
+    self.model_class = ::UnaArticle
     add_terms %i[title resource_type creator alt_email abstract
                  keyword subject date_published journal_title alternative_journal_title
                  journal_frequency volume issue pagination article_num version_number

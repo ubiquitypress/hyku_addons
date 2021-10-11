@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      una_article:     'fa fa-file-text-o'
+    select_type:
+      una_article:
+        description:        "Una Article works"
+        name:               "Una Article"
