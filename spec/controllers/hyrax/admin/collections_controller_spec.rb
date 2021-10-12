@@ -24,4 +24,3 @@ RSpec.describe Hyrax::Dashboard::CollectionsController, type: :controller do
     end
   end
 end
-
