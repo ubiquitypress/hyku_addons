@@ -128,8 +128,11 @@ class UnaArchivalItem < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  self.date_fields += %i[event_date related_exhibition_date]
+  property :fndr_project_ref, predicate: ::RDF::Vocab::BF2.awards, multiple: false do |index|
+    index.as :stored_searchable
+  end
 
+  self.date_fields += %i[event_date related_exhibition_date]
   self.indexer = UnaArchivalItemIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
