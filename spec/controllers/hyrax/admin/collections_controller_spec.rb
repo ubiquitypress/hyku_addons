@@ -20,7 +20,8 @@ RSpec.describe Hyrax::Dashboard::CollectionsController, type: :controller do
 
       expect(response).to render_template(:edit)
       expect(response).to render_template(partial: "records/edit_fields/_default")
-      expect(response.body).to have_selector("span[data-flag=hyrax-orcid-default]")
+      # We are overriding this partial and so we shouldn't find the flag
+      expect(response.body).not_to have_selector("span[data-flag=hyrax-orcid-default]")
     end
   end
 end
