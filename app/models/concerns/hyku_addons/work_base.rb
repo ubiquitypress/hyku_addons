@@ -89,7 +89,7 @@ module HykuAddons
       # This will need to be changed but I am uncomfortable releasing this to US until I have a solution
       # There is a raketask + service in hyrax 3 to change the predicates but I want to
       # test before I run on production.
-      
+
       # property :license, predicate: ::RDF::Vocab::DC.license, multiple: true  do |index|
       #   index.as :stored_searchable
       # end
