@@ -18,8 +18,7 @@ Metrics/ClassLength:
     - 'app/services/hyku_addons/validations/solr_entry_validation_service.rb'
     - 'app/services/hyku_addons/validations/entry_validation_service.rb'
     - 'lib/hyku_addons/engine.rb'
-    - 'app/models/nsu_generic_work.rb'
-    - 'app/models/nsu_article.rb'
+    - 'app/models/*.rb'
 
 Metrics/LineLength:
   Exclude:
