@@ -18,14 +18,16 @@ namespace :hyku do
     # bundle exec rake 'app:hyku:account:create_shared[sample, 1ab4, sample.hyku.docker, 27,29 ]'
     desc 'Create a shared search account'
     task :create_shared, [:name, :uuid, :cname, :tenant_ids] => [:environment] do |_t, args|
-      tenant_list = Array.wrap(args.to_a[3..-1])
+      tenant_list = Array.wrap(args.to_a[3..-1]).compact - ['']
 
-      raise ArgumentError, 'Provide a list of tenants seperated by commas as last argument' if tenant_list.empty?
+      raise ArgumentError, 'Provide a list of tenants seperated by commas as last argument' if tenant_list.blank?
 
       puts "====== instantiating a shared-search account"
 
       account = Account.new(name: args[:name], tenant: args[:uuid].presence, cname: args[:cname].presence,
                             search_only: true, full_account_ids: tenant_list)
+
+      raise StandardError, "The following errors occurred - #{account.errors.messages}" unless account.valid?
 
       CreateAccount.new(account).save
 
