@@ -1,6 +1,10 @@
 version: 2.1
+
 orbs:
+  # For details regarding the commands that are being executed:
+  # https://circleci.com/developer/orbs/orb/samvera/circleci-orb
   samvera: samvera/circleci-orb@0
+
 jobs:
   bundle_lint_test:
     parameters:
@@ -58,6 +62,7 @@ jobs:
       - run: git submodule init && git submodule update
 
       # FIXME: caching is not working
+      # https://circleci.com/developer/orbs/orb/samvera/circleci-orb#commands-bundle
       - samvera/bundle:
           ruby_version: << parameters.ruby_version >>
           bundler_version: << parameters.bundler_version >>
@@ -67,7 +72,7 @@ jobs:
       - samvera/install_solr_core:
           solr_config_path: 'spec/internal_test_hyku/solr/config'
 
-      # Setup hyku_addons and hyrax-doi
+      # Setup hyku_addons and any additional plugins that have been added to the install generator
       - run: bundle exec rails g hyku_addons:install
 
       - run: bundle exec rake app:db:create app:db:migrate app:zookeeper:upload
@@ -82,7 +87,6 @@ jobs:
       - run:
           command: ./cc-test-reporter before-build
 
-      # - samvera/parallel_rspec
       - run:
           name: Run rspec in parallel
           command: |
