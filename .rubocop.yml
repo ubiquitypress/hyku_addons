@@ -5,11 +5,11 @@ AllCops:
   TargetRubyVersion: 2.5
   DisplayCopNames: true
   Exclude:
-    - 'app/jobs/hyku_addons/post_migration_fix_work_job.rb'
-    - 'db/migrate/*.hyrax.rb'
-    - 'spec/internal_test_hyku/**/*'
-    - 'vendor/**/*'
-    - 'config/**/*'
+    - app/jobs/hyku_addons/post_migration_fix_work_job.rb
+    - db/migrate/*.hyrax.rb
+    - spec/internal_test_hyku/**/*
+    - vendor/**/*
+    - config/**/*
 
 Metrics/ClassLength:
   Exclude:
@@ -20,6 +20,8 @@ Metrics/ClassLength:
     - 'lib/hyku_addons/engine.rb'
     - 'app/models/nsu_generic_work.rb'
     - 'app/models/nsu_article.rb'
+    - 'app/models/una_archival_item.rb'
+    - 'app/models/ubiquity_template_work.rb'
 
 Metrics/LineLength:
   Exclude:
@@ -71,8 +73,7 @@ Metrics/MethodLength:
     - 'lib/tasks/account.rake'
     - 'spec/**/*.rb'
     - 'app/controllers/concerns/hyku_addons/search_controller_behavior.rb'
-    - 'app/forms/hyrax/nsu_generic_work_form.rb'
-    - 'app/forms/hyrax/nsu_article_form.rb'
+    - 'app/forms/hyrax/*.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:
