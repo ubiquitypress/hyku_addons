@@ -45,7 +45,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'cocoon', '~> 1.2', '>= 1.2.9'
 
   spec.add_development_dependency 'ammeter'
-	spec.add_development_dependency 'bixby'
+  spec.add_development_dependency 'bixby'
   spec.add_development_dependency 'capybara'
   spec.add_development_dependency 'pg'
   spec.add_development_dependency 'rspec-rails'
