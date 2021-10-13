@@ -3,5 +3,12 @@
 
 <% model = f.object.model.class.to_s.underscore %>
 
-<%= render 'hyku_addons/qualification/qualification', f: f, model: model, qualification_service: qualification_level_service,
-    field_name: 'qualification_level', css_class_name: 'qualification-level'%>
+<% options = {
+    f: f,
+    model: model,
+    qualification_service: qualification_level_service,
+    field_name: 'qualification_level',
+    css_class_name: 'qualification-level'
+} %>
+
+<%=render 'hyku_addons/qualification/qualification', options %>
