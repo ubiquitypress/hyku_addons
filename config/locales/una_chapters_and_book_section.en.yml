@@ -1,8 +1,8 @@
 en:
   hyrax:
     icons:
-      una_chapters_and_book_section:     'fa fa-file-text-o'
+      una_chapters_and_book_section: 'fa fa-file-text-o'
     select_type:
       una_chapters_and_book_section:
-        description:        "Una Chapter and Book Section works"
-        name:               "Una Chapters And Book Section"
+        description: "Una Chapter and Book Section works"
+        name: "Una Chapters And Book Section"

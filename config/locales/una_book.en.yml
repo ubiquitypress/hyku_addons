@@ -1,8 +1,8 @@
 en:
   hyrax:
     icons:
-      una_book:     'fa fa-file-text-o'
+      una_book: 'fa fa-file-text-o'
     select_type:
       una_book:
-        description:        "Una Book works"
-        name:               "Una Book"
+        description: "Una Book works"
+        name: "Una Book"
