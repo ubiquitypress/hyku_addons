@@ -18,9 +18,9 @@ RSpec.feature 'Create a UnaChaptersAndBookSection' do
     # Grant the user access to deposit into the admin set.
     Hyrax::PermissionTemplateAccess.create!(
       permission_template_id: permission_template.id,
-      agent_type: 'user',
+      agent_type: "user",
       agent_id: user.user_key,
-      access: 'deposit'
+      access: "deposit"
     )
     login_as user
     visit new_work_path
