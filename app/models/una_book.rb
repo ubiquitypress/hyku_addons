@@ -19,10 +19,6 @@ class UnaBook < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :location, predicate: ::RDF::Vocab::BF2.physicalLocation, multiple: false do |index|
-    index.as :stored_searchable, :facetable
-  end
-
   property :alt_email, predicate: ::RDF::Vocab::SCHEMA.email do |index|
     index.as :stored_searchable
   end
@@ -62,7 +58,7 @@ class UnaBook < ActiveFedora::Base
   self.indexer = UnaBookIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
-  validates :title, presence: { message: 'Your work must have a title.' }
+  validates :title, presence: { message: "Your work must have a title."}
 
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)

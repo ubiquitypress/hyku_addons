@@ -1,5 +1,5 @@
 <% qualification_level_service = HykuAddons::QualificationLevelService.new %>
-<% selected =  f.object[:qualification_level].empty? ? nil :  f.object[:qualification_level] %>
+<% selected = f.object[:qualification_level].empty? ? nil : f.object[:qualification_level] %>
 
 <% model = f.object.model.class.to_s.underscore %>
 
@@ -7,8 +7,8 @@
     f: f,
     model: model,
     qualification_service: qualification_level_service,
-    field_name: 'qualification_level',
-    css_class_name: 'qualification-level'
+    field_name: "qualification_level",
+    css_class_name: "qualification-level"
 } %>
 
-<%= render 'hyku_addons/qualification/qualification', options %>
+<%= render "hyku_addons/qualification/qualification", options %>

@@ -61,6 +61,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
     }
   end
   let(:eissn) { "1234-5678" }
+  let(:fndr_project_ref) { "test" }
   let(:institution1) { "British Library" }
   let(:isbn) { "9781770460621" }
   let(:issn) { "0987654321" }
@@ -99,6 +100,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
       edition: edition,
       editor: [[editor1].to_json],
       eissn: eissn,
+      fndr_project_ref: [fndr_project_ref],
       institution: [institution1],
       isbn: isbn,
       issn: issn,
@@ -308,7 +310,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "extent" => nil,
                                            "files" => { "has_private_files" => false, "has_public_files" => false, "has_registered_files" => false },
                                            "funder" => nil,
-                                           "funder_project_ref" => nil,
+                                           "funder_project_ref" => ["test"],
                                            "funding_description" => nil,
                                            "georeferenced" => nil,
                                            "institution" => ["British Library"],
