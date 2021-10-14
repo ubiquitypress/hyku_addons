@@ -61,6 +61,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
     }
   end
   let(:eissn) { "1234-5678" }
+  let(:fndr_project_ref) { "test" }
   let(:institution1) { "British Library" }
   let(:isbn) { "9781770460621" }
   let(:issn) { "0987654321" }
@@ -99,6 +100,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
       edition: edition,
       editor: [[editor1].to_json],
       eissn: eissn,
+      fndr_project_ref: [fndr_project_ref],
       institution: [institution1],
       isbn: isbn,
       issn: issn,
@@ -152,6 +154,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                          "alternative_book_title" => nil,
                                          "alternative_journal_title" => nil,
                                          "alternative_title" => nil,
+                                         "article_number" => nil,
                                          "audience" => nil,
                                          "book_title" => nil,
                                          "buy_book" => nil,
@@ -182,6 +185,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "has_public_files" => false
                                          },
                                          "funder" => nil,
+                                         "funder_project_ref" => nil,
                                          "funding_description" => nil,
                                          "georeferenced" => nil,
                                          "institution" => nil,
@@ -215,7 +219,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                          "photo_description" => nil,
                                          "place_of_publication" => nil,
                                          "prerequisites" => nil,
-                                         #  "project_name" => nil,
+                                         "project_name" => nil,
                                          "publisher" => [],
                                          "qualification_grantor" => nil,
                                          "qualification_level" => nil,
@@ -227,7 +231,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                          "related_exhibition_date" => nil,
                                          "related_exhibition_venue" => nil,
                                          "related_material" => nil,
-                                         "related_url" => [],
+                                         "related_url" => nil,
                                          "resource_type" => [],
                                          #  "review_data" => nil,
                                          "rights_holder" => nil,
@@ -268,6 +272,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "alternative_book_title" => nil,
                                            "alternative_journal_title" => nil,
                                            "alternative_title" => ["alt-title"],
+                                           "article_number" => nil,
                                            "audience" => nil,
                                            "book_title" => ["Book Title 1"],
                                            "buy_book" => nil,
@@ -295,7 +300,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "date_submitted" => nil,
                                            "degree" => nil,
                                            "dewey" => nil,
-                                           "doi" => nil,
+                                           "doi" => "https://doi.org/10.18130/v3-k4an-w022",
                                            "duration" => ["duration1"],
                                            "edition" => ["1"],
                                            "eissn" => ["1234-5678"],
@@ -305,6 +310,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "extent" => nil,
                                            "files" => { "has_private_files" => false, "has_public_files" => false, "has_registered_files" => false },
                                            "funder" => nil,
+                                           "funder_project_ref" => ["test"],
                                            "funding_description" => nil,
                                            "georeferenced" => nil,
                                            "institution" => ["British Library"],
@@ -338,6 +344,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "photo_description" => nil,
                                            "place_of_publication" => ["Finland"],
                                            "prerequisites" => nil,
+                                           "project_name" => ["Project name 1"],
                                            "publisher" => ["Schildts"],
                                            "qualification_grantor" => nil,
                                            "qualification_level" => nil,
@@ -349,7 +356,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "related_exhibition_date" => nil,
                                            "related_exhibition_venue" => nil,
                                            "related_material" => nil,
-                                           "related_url" => [],
+                                           "related_url" => nil,
                                            "resource_type" => ["Book"],
                                            "rights_holder" => nil,
                                            "rights_statement" => [],

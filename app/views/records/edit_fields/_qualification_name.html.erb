@@ -1,8 +1,14 @@
 <% qualification_name_service = HykuAddons::QualificationNameService.new %>
-<% selected =  f.object[:qualification_name].empty? ? nil :  f.object[:qualification_name] %>
-<% set_default = selected || 'PhD' %>
+<% selected = f.object[:qualification_name].empty? ? nil : f.object[:qualification_name] %>
 
 <% model = f.object.model.class.to_s.underscore %>
 
-<%= render 'hyku_addons/qualification/qualification', f: f, model: model, qualification_service: qualification_name_service,
-  set_default: set_default, field_name: 'qualification_name', css_class_name: 'qualification-name'%>
+<% options = {
+    f: f,
+    model: model,
+    qualification_service: qualification_name_service,
+    field_name: "qualification_name",
+    css_class_name: "qualification-name"
+} %>
+
+<%= render "hyku_addons/qualification/qualification", options %>

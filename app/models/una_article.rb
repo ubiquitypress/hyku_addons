@@ -122,6 +122,10 @@ class UnaArticle < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  property :fndr_project_ref, predicate: ::RDF::Vocab::BF2.awards, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
   self.indexer = UnaArticleIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []

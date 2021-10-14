@@ -13,6 +13,10 @@ module HykuAddons
       include Hyrax::DOI::DOIBehavior
       include Hyrax::DOI::DataCiteDOIBehavior
 
+      property :fndr_project_ref, predicate: ::RDF::Vocab::BF2.awards do |index|
+        index.as :stored_searchable
+      end
+
       property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
         index.as :stored_searchable
       end
