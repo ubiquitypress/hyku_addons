@@ -7,6 +7,7 @@ class Dataset < ActiveFedora::Base
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
   include ::HykuAddons::AddInfoSingular
+  include ::HykuAddons::FunderProjectRefMultiple
 
   property :version, predicate: ::RDF::Vocab::SCHEMA.version do |index|
     index.as :stored_searchable

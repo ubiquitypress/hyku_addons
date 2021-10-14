@@ -9,6 +9,10 @@ class UbiquityTemplateWork < ActiveFedora::Base
   include ::HykuAddons::AltTitleMultiple
   include ::HykuAddons::AddInfoSingular
 
+  property :fndr_project_ref, predicate: ::RDF::Vocab::BF2.awards do |index|
+    index.as :stored_searchable
+  end
+
   property :location, predicate: ::RDF::Vocab::BF2.physicalLocation, multiple: false do |index|
     index.as :stored_searchable, :facetable
   end

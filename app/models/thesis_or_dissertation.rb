@@ -7,10 +7,7 @@ class ThesisOrDissertation < ActiveFedora::Base
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
   include ::HykuAddons::AddInfoSingular
-
-  self.indexer = ThesisOrDissertationIndexer
-
-  validates :title, presence: { message: 'Your work must have a title.' }
+  include ::HykuAddons::FunderProjectRefMultiple
 
   property :version, predicate: ::RDF::Vocab::SCHEMA.version do |index|
     index.as :stored_searchable
@@ -41,6 +38,9 @@ class ThesisOrDissertation < ActiveFedora::Base
   end
 
   self.json_fields += %i[current_he_institution]
+  self.indexer = ThesisOrDissertationIndexer
+
+  validates :title, presence: { message: 'Your work must have a title.' }
 
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
