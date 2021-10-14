@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      denver_serial_publication:     'fa fa-file-text-o'
+    select_type:
+      denver_serial_publication:
+        description:        "Denver serial_publication works"
+        name:               "Denver Serial Publication"

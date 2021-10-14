@@ -19,14 +19,14 @@ module HykuAddons
       end
 
       property :org_unit, predicate: ::RDF::Vocab::ORG.OrganizationalUnit do |index|
-        index.as :stored_searchable
+        index.as :stored_searchable, :facetable
       end
 
       property :funder, predicate: ::RDF::Vocab::MARCRelators.fnd do |index|
         index.as :stored_searchable
       end
 
-      property :fndr_project_ref, predicate: ::RDF::Vocab::BF2.awards do |index|
+      property :fndr_project_ref, predicate: ::RDF::Vocab::BF2.awards, multiple: false do |index|
         index.as :stored_searchable
       end
 
@@ -83,6 +83,16 @@ module HykuAddons
       property :source_identifier, predicate: ::RDF::Vocab::PROV.wasDerivedFrom, multiple: false do |index|
         index.as :stored_searchable
       end
+
+      # Added from Hyrax 3 BasicMetadata, in Hyrax 2.x licence uses the rights predicate
+      # this is currently causing the rights_Statement_text field to overide licence
+      # This will need to be changed but I am uncomfortable releasing this to US until I have a solution
+      # There is a raketask + service in hyrax 3 to change the predicates but I want to
+      # test before I run on production.
+
+      # property :license, predicate: ::RDF::Vocab::DC.license, multiple: true  do |index|
+      #   index.as :stored_searchable
+      # end
 
       class_attribute :json_fields, :date_fields
       self.json_fields = %i[creator contributor funder alternate_identifier related_identifier]

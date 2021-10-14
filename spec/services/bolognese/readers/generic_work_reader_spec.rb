@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe Bolognese::Readers::GenericWorkReader do
+RSpec.describe Bolognese::Readers::HykuAddonsWorkReader do
   let(:abstract) { "Swedish comic about the adventures of the residents of Moominvalley." }
   let(:add_info) { "Nothing to report" }
   let(:alt_title1) { "alt-title" }
@@ -13,22 +13,20 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:creator1_last_name) { "Hageneuer" }
   let(:creator2_first_name) { "Johnny" }
   let(:creator2_last_name) { "Testing" }
+  let(:creator1_orcid) { "https://sandbox.orcid.org/0000-0003-0652-4625" }
   let(:creator1) do
     {
-      "nameType" => "Personal",
-      "name" => "#{creator1_last_name}, #{creator1_first_name}",
-      "givenName" => creator1_first_name,
-      "familyName" => creator1_last_name
+      creator_name_type: "Personal",
+      creator_given_name: creator1_first_name,
+      creator_family_name: creator1_last_name,
+      creator_orcid: creator1_orcid
     }
   end
   let(:creator2) do
     {
-      "name" => "#{creator2_last_name}, #{creator2_first_name}",
-      "givenName" => creator2_first_name,
-      "familyName" => creator2_last_name,
-      "nameIdentifiers" => [
-        { "nameIdentifier" => "12345678890", "nameIdentifierScheme" => "orcid" }
-      ]
+      creator_name_type: "Personal",
+      creator_given_name: creator2_first_name,
+      creator_family_name: creator2_last_name
     }
   end
   let(:date_accepted) { "2018-01-02" }
@@ -76,7 +74,7 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
       title: [title],
       alt_title: [alt_title1],
       resource_type: [resource_type],
-      creator: [creator1.to_json],
+      creator: [[creator1].to_json],
       contributor: [contributor],
       publisher: [publisher],
       abstract: abstract,
@@ -98,15 +96,20 @@ RSpec.describe Bolognese::Readers::GenericWorkReader do
   let(:model_class) { GenericWork }
   let(:work) { model_class.new(attributes) }
   let(:input) { work.attributes.merge(has_model: work.has_model.first).to_json }
-  let(:metadata) { described_class.new(input: input, from: "work") }
+  let(:metadata_class) do
+    Class.new(Bolognese::Metadata) do
+      include Bolognese::Readers::HykuAddonsWorkReader
+    end
+  end
+  let(:metadata) { metadata_class.new(input: input, from: "hyku_addons_work") }
 
   it "reads a GenericWork" do
     expect(metadata).to be_a(Bolognese::Metadata)
   end
 
-  describe "#read_work" do
+  describe "#read_hyku_addons_work" do
     it "responds to the method" do
-      expect(metadata).to respond_to(:read_work)
+      expect(metadata).to respond_to(:read_hyku_addons_work)
     end
   end
 

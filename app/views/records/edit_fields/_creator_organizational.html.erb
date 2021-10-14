@@ -1,5 +1,6 @@
 <div data-toggleable-group="<%= type %>">
 	<% # TODO: workout why setting the name fields as required causes the deposit form to not register the meta data was entered %>
+	<% creator_role_options = HykuAddons::RoleService.new(model: f.object.model.class).select_active_options %>
 	<% organisational_fields = [
 		{ f: f, field_type: :text, field_slug: :creator_organization_name, field_args: { data: { required: f.object.required?(:creator) } } },
 		{ f: f, field_type: :text, field_slug: :creator_ror },
@@ -7,6 +8,8 @@
 		{ f: f, field_type: :text, field_slug: :creator_wikidata }
 	] %>
 	<% organisational_fields = remove_redlands_creator_organisational_fields(organisational_fields) if template.include? "redlands" %>
+	<% organisational_fields = add_denver_creator_organisational_fields(organisational_fields, creator_role_options) if template.include? "denver" %>
+	<% organisational_fields = add_una_creator_organisational_fields(organisational_fields, creator_role_options) if template.include? "una" %>
 
 	<% organisational_fields.each do |field| %>
 		<% options = { field_group: :creator, template: template, hash: hash }.merge(field) %>

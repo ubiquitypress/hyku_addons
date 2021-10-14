@@ -14,6 +14,26 @@ namespace :hyku do
       end
     end
 
+    # example usage
+    # bundle exec rake 'app:hyku:account:create_shared[sample, 1ab4, sample.hyku.docker, 27,29 ]'
+    desc 'Create a shared search account'
+    task :create_shared, [:name, :uuid, :cname, :tenant_ids] => [:environment] do |_t, args|
+      tenant_list = Array.wrap(args.to_a[3..-1]).compact - ['']
+
+      raise ArgumentError, 'Provide a list of tenants seperated by commas as last argument' if tenant_list.blank?
+
+      puts "====== instantiating a shared-search account"
+
+      account = Account.new(name: args[:name], tenant: args[:uuid].presence, cname: args[:cname].presence,
+                            search_only: true, full_account_ids: tenant_list)
+
+      raise StandardError, "The following errors occurred - #{account.errors.messages}" unless account.valid?
+
+      CreateAccount.new(account).save
+
+      puts "====== shared-search account created"
+    end
+
     desc 'destroy an account and all the data within'
     task :cleanup, [:tenant] => [:environment] do |_t, args|
       account = load_account(args[:tenant])
@@ -65,13 +85,13 @@ WARNING: This process will destroy all data for this tenant in:
 DB: All tables
 Fedora:
 \tConnection: #{ActiveFedora.fedora.build_connection.http.url_prefix}
-\tBase Path: #{account.fcrepo_endpoint.options[:base_path]}
+\tBase Path: #{account.fcrepo_endpoint.options&.fetch(:base_path) unless account.search_only?}
 Solr:
 \tConnection: #{ActiveFedora.solr_config[:url]}
-\tCollection: #{account.solr_endpoint.options[:collection]}
+\tCollection: #{account.solr_endpoint.options&.fetch(:collection)}
 Redis:
 \tConnection: #{Sidekiq.redis { |c| c._client.options.values_at(:host, :port, :db).join(':') }}
-\tNamespace: #{account.redis_endpoint.options[:namespace]}
+\tNamespace: #{account.redis_endpoint.options&.fetch(:namespace)}
 
 Please run `rake hyku:account:cleanup[{tenant}] CONFIRM=yes` to confirm.
     EOC

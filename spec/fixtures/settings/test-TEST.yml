@@ -1,8 +1,1 @@
 google_analytics_id: 'yml-id'
-action_mailer:
-  from: 'test@test.edu'
-  smtp_settings:
-    address: 'test.edu'
-    user_name: username
-    password: password
-    domain: 'test.custom_domain.com'

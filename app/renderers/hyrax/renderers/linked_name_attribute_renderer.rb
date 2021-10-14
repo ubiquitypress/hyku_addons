@@ -5,11 +5,13 @@ module Hyrax
       private
 
         def attribute_value_to_html(value)
-          if microdata_value_attributes(field).present?
-            "<span#{html_attributes(microdata_value_attributes(field))}>#{li_value(value)}</span>" + badges(value)
-          else
-            li_value(value) + badges(value)
-          end
+          attribute_value = if microdata_value_attributes(field).present?
+                              "<span#{html_attributes(microdata_value_attributes(field))}>#{li_value(value)}</span>"
+                            else
+                              li_value(value)
+                            end
+
+          attribute_value + badges(value)
         end
 
         # Assumed that the value is a WorkPresenter::PersonOrOrganization

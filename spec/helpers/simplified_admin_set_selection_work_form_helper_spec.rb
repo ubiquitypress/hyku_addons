@@ -17,7 +17,7 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
     allow(controller).to receive(:current_user) { user }
   end
 
-  describe "#form_tabs_for" do
+  describe "#simplified_admin_set_for_form?" do
     context "when the user is an admin and the feature is enabled" do
       before do
         user.add_role(:admin, Site.instance)
@@ -26,7 +26,7 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
       end
 
       it "shows the tab" do
-        expect(helper.form_tabs_for(form: form)).to include("relationships")
+        expect(helper.simplified_admin_set_for_form?(form: form)).to be_falsey
       end
     end
 
@@ -35,8 +35,8 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
         allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(false)
       end
 
-      it "includes relationships" do
-        expect(helper.form_tabs_for(form: form)).to include("relationships")
+      it "is false" do
+        expect(helper.simplified_admin_set_for_form?(form: form)).to be_falsey
       end
     end
 
@@ -47,8 +47,8 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
         allow(helper).to receive(:depositor?).with(form.depositor).and_return(true)
       end
 
-      it "includes relationships" do
-        expect(helper.form_tabs_for(form: form)).not_to include("relationships")
+      it "is true" do
+        expect(helper.simplified_admin_set_for_form?(form: form)).to be_truthy
       end
     end
 
@@ -59,8 +59,8 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
         allow(helper).to receive(:depositor?).with(form.depositor).and_return(false)
       end
 
-      it "includes relationships" do
-        expect(helper.form_tabs_for(form: form)).to include("relationships")
+      it "is false" do
+        expect(helper.simplified_admin_set_for_form?(form: form)).to be_falsey
       end
     end
   end

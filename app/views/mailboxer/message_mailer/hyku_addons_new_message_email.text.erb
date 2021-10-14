@@ -1,0 +1,3 @@
+<%= @subject %>
+---------------------------------------------
+<%= @message.body.html_safe? ? @message.body : strip_tags(@message.body) %>

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 module HykuAddons
   module CreatorFieldHelper
     def add_pacific_creator_personal_fields(array)
@@ -20,13 +19,34 @@ module HykuAddons
       array[1] = { field_type: :text, field_slug: :creator_given_name }
       array.insert(4, field_type: :select, field_slug: :creator_role, select_options: service_options, field_args: { cloneable: true, include_blank: "Please Select..." })
       array[5] = { field_type: :text, field_slug: :creator_institution, field_args: { cloneable: true } }
-      array.insert(7, field_type: :text, field_slug: :creator_isni)
       array
     end
 
     def remove_redlands_creator_organisational_fields(array)
       array.delete_at(3) # removes wikidata from Redlands worktype
       array.delete_at(2) # removes grid from Redlands worktype
+      array
+    end
+
+    def add_denver_creator_personal_fields(array, service_options)
+      array.delete_at(6) # removes institutional relationship from Denver worktype
+      array.append(field_type: :select, field_slug: :creator_role, select_options: service_options, field_args: { include_blank: "Please Select..." })
+      array
+    end
+
+    def add_denver_creator_organisational_fields(array, service_options)
+      array.append(field_type: :select, field_slug: :creator_role, select_options: service_options, field_args: { include_blank: "Please Select..." })
+      array
+    end
+
+    def add_una_creator_personal_fields(array, service_options)
+      array[1] = { field_type: :text, field_slug: :creator_given_name }
+      array.append(field_type: :select, field_slug: :creator_role, select_options: service_options, field_args: { include_blank: "Please Select..." })
+      array
+    end
+
+    def add_una_creator_organisational_fields(array, service_options)
+      array.append(field_type: :select, field_slug: :creator_role, select_options: service_options, field_args: { include_blank: "Please Select..." })
       array
     end
 

@@ -13,7 +13,7 @@ module Hyrax
                  longitude latitude add_info buy_book]
     self.terms -= %i[rights_statement related_url]
     self.required_fields = %i[title creator alt_email resource_type abstract keyword subject
-                              org_unit language license version_number publisher place_of_publication
+                              org_unit language publisher place_of_publication
                               date_published book_title]
 
     include Hyrax::DOI::DOIFormBehavior

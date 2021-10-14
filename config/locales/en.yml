@@ -197,6 +197,16 @@ en:
       oai_admin_email: OAI endpoint contact email address
 
   hyrax:
+    notifications:
+        workflow:
+          changes_required:
+            message: |-
+                %{link} requires additional changes before approval.
+                 '%{comment}'
+          deposited:
+            message: "%{link} was approved by %{user}. %{comment}"
+          pending_review:
+            message: "%{link} was deposited by %{user} and is awaiting approval %{comment}"
     works:
       form:
         autofill:
@@ -207,8 +217,16 @@ en:
     collections:
       show:
         item_count: Items
+    controls:
+      shared_search: Shared search
   bulkrax:
     validation_issues:
       attribute: "Attribute"
       original_value: "Original value"
       current_value: "Current Value"
+  mailboxer:
+    message_mailer:
+      subject_new: "%{tenant_name}: %{subject}"
+      subject_reply: "%{tenant_name}: %{subject}"
+    notification_mailer:
+      subject: "%{subject}"

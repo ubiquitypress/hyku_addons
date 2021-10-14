@@ -2,13 +2,16 @@ en-ANSCHUTZ:
   simple_form:
     creator:
       creator_name_type:
-        help_text: " "
+        label: Creator as Person(s) or Organization
+        help_text: Choose if the creator is an individual(s) or an organization.
       creator_family_name:
         label: Family Name
       creator_given_name:
         label: First Name
       creator_middle_name:
         label: Middle Name
+        placeholder: " "
+        help_text: Please enter the creator's middle name.
       creator_suffix:
         label: Suffix
       creator_role:
@@ -21,13 +24,10 @@ en-ANSCHUTZ:
         label: ORCiD
         help_text: " "
         placeholder: " "
-      creator_isni:
-        label: ISNI
-        help_text: " "
-        placeholder: " "
       creator_organization_name:
-        label: Organization Name
-        placeholder: " "
+        label: Institution as Creator
+        placeholder: Colorado Clinical & Translational Sciences Institute (CCTSI).
+        help_text: Group or Department responsible for the creation of the work(s).
       creator_ror:
         label: ROR
         placeholder: " "
@@ -37,36 +37,6 @@ en-ANSCHUTZ:
       creator_wikidata:
         label: Wikidata
         placeholder: " "
-    contributor:
-      contributor_name_type:
-        help_text: " "
-      contributor_family_name:
-        label: Family Name
-        help_text: " "
-        placeholder: " "
-      contributor_given_name:
-        label: First Name
-        help_text: " "
-        placeholder: " "
-      contributor_middle_name:
-        label: Middle Name
-        help_text: " "
-        placeholder: " "
-      contributor_role:
-        label: Role
-        placeholder:
-        help_text: " "
-      contributor_isni:
-        label: ISNI
-        help_text: " "
-        placeholder: " "
-      contributor_institution:
-        label: Institution
-        placeholder: " "
-      contributor_orcid:
-        label: ORCiD
-        placeholder: " "
-        help_text: " "
     labels:
       defaults:
         alt_title: Other Title(s)
@@ -84,11 +54,13 @@ en-ANSCHUTZ:
         medium: Format(s)
         library_of_congress_classification: LCSH
         time: Coverage Span
-        rights_statement: DPLA Rights (Pre-Defined)
-        subject: Thesis discipline
-        qualification_level: Thesis Grantor
+        rights_statement: DPLA Rights
+        qualification_subject_text: Thesis Discipline
+        qualification_grantor: Thesis Grantor
         qualification_level: Thesis Level
         qualification_name: Thesis Degree
+        is_format_of: Is Format Of
+        part_of: Is Part Of
     hints:
       defaults:
         abstract: "Abstract or short description of content"
@@ -104,10 +76,13 @@ en-ANSCHUTZ:
         library_of_congress_classification: " "
         medium: Admin Only, please do not define
         table_of_contents: Admin Only, please do not define
+        source_identifier: Admin Only, please do not define
         add_info: Any additional information to be included
         source: If submission is derived from another source.
         subject: " "
+        journal_frequency: Frequency for serials, journals, annual reports, etc.
     placeholders:
       defaults:
         extent: 59 minutes, 30 seconds or 2.5 x 3 cm
         place_of_publication: e.g. Denver, CO
+        journal_frequency: e.g. annual

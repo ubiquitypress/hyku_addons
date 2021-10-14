@@ -9,13 +9,17 @@ AllCops:
     - 'db/migrate/*.hyrax.rb'
     - 'spec/internal_test_hyku/**/*'
     - 'vendor/**/*'
+    - 'config/**/*'
 
 Metrics/ClassLength:
   Exclude:
     - 'app/models/hyku_addons/csv_entry.rb'
     - 'app/services/bolognese/readers/base_work_reader.rb'
     - 'app/services/hyku_addons/validations/solr_entry_validation_service.rb'
+    - 'app/services/hyku_addons/validations/entry_validation_service.rb'
     - 'lib/hyku_addons/engine.rb'
+    - 'app/models/nsu_generic_work.rb'
+    - 'app/models/nsu_article.rb'
 
 Metrics/LineLength:
   Exclude:
@@ -30,6 +34,7 @@ Metrics/ModuleLength:
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
     - 'app/models/concerns/hyku_addons/generic_work_overrides.rb'
     - 'app/models/concerns/hyku_addons/solr_document_behavior.rb'
+    - 'app/models/concerns/hyku_addons/account_behavior.rb'
 
 Metrics/BlockLength:
   Exclude:
@@ -41,15 +46,19 @@ Metrics/BlockLength:
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/models/pacific_article.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
+    - 'app/views/hyku/api/v1/work/_work.json.jbuilder'
+    - 'app/models/concerns/hyku_addons/account_behavior.rb'
     - 'bin/transform_export_batch.rb'
     - 'hyku_addons.gemspec'
     - 'lib/hyku_addons/engine.rb'
     - 'lib/tasks/*.rake'
     - 'spec/**/*.rb'
+    - 'config/features.rb'
 
 Metrics/MethodLength:
   Exclude:
     - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
+    - 'app/controllers/concerns/hyku_addons/importer_controller_behavior.rb'
     - 'app/forms/concerns/hyku_addons/generic_work_form_overrides.rb'
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/models/hyku_addons/csv_entry.rb'
@@ -61,6 +70,10 @@ Metrics/MethodLength:
     - 'lib/hyku_addons/engine.rb'
     - 'lib/tasks/account.rake'
     - 'spec/**/*.rb'
+    - 'app/controllers/concerns/hyku_addons/search_controller_behavior.rb'
+    - 'app/forms/hyrax/nsu_generic_work_form.rb'
+    - 'app/forms/hyrax/nsu_article_form.rb'
+    - 'app/forms/hyrax/una_archival_item_form.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:
@@ -82,6 +95,7 @@ Metrics/AbcSize:
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/models/hyku_addons/csv_entry.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
+    - 'app/controllers/concerns/hyku_addons/importer_controller_behavior.rb'
     - 'bin/transform_export_batch.rb'
     - 'lib/hyku_addons/engine.rb'
 
@@ -92,6 +106,7 @@ RSpec/DescribeClass:
     - 'spec/features/**/*'
     - 'spec/inputs/**/*'
     - 'spec/views/**/*'
+    - 'spec/tasks/hyku_addons/rake_spec.rb'
 
 RSpec/ExampleLength:
   Max: 10

@@ -1,0 +1,25 @@
+terms:
+- id: PhD
+  term: Doctor of Philosophy
+  active: true
+- id: EdD
+  term: Doctor of Education
+  active: true
+- id: DMin
+  term: Doctor of Ministry
+  active: true
+- id: MA
+  term: Master of Arts
+  active: true
+- id: MDiv
+  term: Master of Divinity
+  active: true
+- id: MM
+  term: Master of Music
+  active: true
+- id: MSc
+  term: Master of Science
+  active: true
+- id: MS GIS
+  term: Master of Science in GIS
+  active: true

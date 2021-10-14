@@ -34,6 +34,12 @@ RSpec.describe 'AccountSettings', type: :system do
       expect(page).to have_http_status(:ok)
       expect(page).to have_css("label", text: "Weekly email list")
     end
+
+    it "can display hash fields for edit" do
+      visit hyku_addons.edit_admin_account_setting_url(id: account, partial_name: 'render_hash_settings', field_name: 'smtp_settings')
+      expect(page).to have_http_status(:ok)
+      expect(page).to have_css("label", text: "Smtp settings")
+    end
   end
 
   describe 'Single settings key' do

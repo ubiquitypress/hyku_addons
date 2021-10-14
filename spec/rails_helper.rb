@@ -20,6 +20,9 @@ require 'ammeter/init'
 # Optional execution of specs for examples that fail randomly on CI
 require File.expand_path('support/optional_example', __dir__)
 
+# Try and suppress depreciation warnings
+ActiveSupport::Deprecation.silenced = true
+
 if ENV['CI']
   # Capybara config copied over from Hyrax
   Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
@@ -147,6 +150,8 @@ RSpec.configure do |config|
   # Add support for conditional execution of specs
   config.include OptionalExample
 
+  config.include Capybara::RSpecMatchers
+
   ## Override spec/internal_test_hyku/spec/support/multitenancy_metadata.rb by setting ENV
   # because the mocking of Settings.multitenancy gets overwritten by the Settings reloading
   # that happens in Account#switch!
@@ -174,6 +179,15 @@ RSpec.configure do |config|
     example = RSpec.current_example
     ENV['SETTINGS__MULTITENANCY__ENABLED'] = 'true' if example.metadata[:multitenant] || example.metadata[:faketenant] || example.metadata[:type] == :controller
     ENV['SETTINGS__MULTITENANCY__ENABLED'] = 'false' if example.metadata[:singletenant] || example.metadata[:type] == :feature
+
+    # Ensure that Hirmeos is always enabled or all the feature tests will fail
+    allow(Hyrax::Hirmeos).to receive(:configured?).and_return(true)
+  end
+
+  # in addition to hydra-test, created  2 solr collection for testing cross tenant search
+  config.before(:suite) do
+    CreateSolrCollectionJob.new.without_account('hydra-sample') if ENV['IN_DOCKER']
+    CreateSolrCollectionJob.new.without_account('hydra-cross-search-tenant', 'hydra-test, hydra-sample') if ENV['IN_DOCKER']
   end
   ## End override
 end

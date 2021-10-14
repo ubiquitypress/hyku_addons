@@ -10,13 +10,16 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require proprietor
+//= require cocoon
 //= require_tree .
+//= require hyrax/orcid/application
 
 const SelectWorkType = require("hyku_addons/select_work_type")
 
-const onLoad = function() {
+const hykuAddonsOnLoad = function() {
   // Prevent JS being loaded twice
-  if ($("body").attr("data-js-loaded") === "true") {
+  if ($("body").attr("data-hyku-addons-js-loaded") === "true") {
     return
   }
 
@@ -44,9 +47,9 @@ const onLoad = function() {
   // Reorder the notifications table by date desc by default
   $(".datatable.notifications").find("[aria-label~='Date:']").click()
 
-  $("body").attr("data-js-loaded", "true")
+  $("body").attr("data-hyku-addons-js-loaded", "true")
 }
 
 // Ensure that page load (via turbolinks) and page refresh (via browser request) both load JS
-$(document).ready(onLoad)
-$(document).on("turbolinks:load", onLoad)
+$(document).ready(hykuAddonsOnLoad)
+$(document).on("turbolinks:load", hykuAddonsOnLoad)

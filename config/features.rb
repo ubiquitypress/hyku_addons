@@ -28,4 +28,12 @@ Flipflop.configure do
   feature :notes_tab_form,
           default: false,
           description: "Enables the Notes tab in the deposit form"
+
+  feature :cache_api,
+          default: false,
+          description: "Turns on cache for API endpoints. Experimental"
+
+  feature :cross_tenant_shared_search,
+          default: true,
+          description: "Turns on cross tenant shared search."
 end
