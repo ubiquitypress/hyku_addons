@@ -28,7 +28,7 @@ module HykuAddons
                                     :mime_type, :workflow_state, :human_readable_type, :representative_id, :rendering_ids,
                                     :thumbnail_id, :thumbnail_path, :label, :file_format, :suppressed?, :original_file_id,
                                     :date_modified, :date_uploaded, :create_date, :modified_date, :embargo_release_date,
-                                    :lease_expiration_date, :add_info]
+                                    :lease_expiration_date, :add_info, :work_tenant_cname]
 
       attribute :file_size, SolrDocument::Solr::String, "file_size_lts"
       attribute :extent, SolrDocument::Solr::Array, solr_name('extent')

@@ -5,6 +5,7 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     include HykuAddons::TaskMaster::WorkBehavior
+    include HykuAddons::AddCnameToWorkAndCollectionMetadata
 
     # TODO: Review indexing and switch to mostly _ssim instead of _tesim
     included do

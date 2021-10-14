@@ -8,6 +8,7 @@ module HykuAddons
         solr_doc['creator_display_ssim'] = format_names(:creator) if object.respond_to? :creator
         solr_doc['contributor_display_ssim'] = format_names(:contributor) if object.respond_to? :contributor
         solr_doc['editor_display_ssim'] = format_names(:editor) if object.respond_to? :editor
+        solr_doc[Solrizer.solr_name('work_tenant_url', :stored_searchable)] = HykuAddons::SetWorkTenantUrl.new(object, 'oai_pmh').generate_url.presence
       end
     end
 
