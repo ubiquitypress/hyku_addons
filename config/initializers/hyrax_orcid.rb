@@ -13,6 +13,7 @@ Hyrax::Orcid.configure do |config|
   config.hyrax_json_actor = nil
   config.blacklight_pipeline_actor = nil
   config.presenter_behavior = nil
+  config.active_job_type = :perform_later
 
   # Override the work types as we don't need either of the Orcid Behaviors in HykuAddons
   config.work_types = []

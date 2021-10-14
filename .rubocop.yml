@@ -73,7 +73,10 @@ Metrics/MethodLength:
     - 'lib/tasks/account.rake'
     - 'spec/**/*.rb'
     - 'app/controllers/concerns/hyku_addons/search_controller_behavior.rb'
-    - 'app/forms/hyrax/*.rb'
+    - 'app/forms/hyrax/nsu_generic_work_form.rb'
+    - 'app/forms/hyrax/nsu_article_form.rb'
+    - 'app/forms/hyrax/una_archival_item_form.rb'
+
 
 Metrics/CyclomaticComplexity:
   Exclude:
