@@ -7,6 +7,7 @@ class Article < ActiveFedora::Base
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
   include ::HykuAddons::AddInfoSingular
+  include ::HykuAddons::FunderProjectRefMultiple
 
   self.indexer = HykuAddons::ArticleIndexer
 

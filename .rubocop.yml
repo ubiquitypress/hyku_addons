@@ -20,6 +20,8 @@ Metrics/ClassLength:
     - 'lib/hyku_addons/engine.rb'
     - 'app/models/nsu_generic_work.rb'
     - 'app/models/nsu_article.rb'
+    - 'app/models/una_archival_item.rb'
+    - 'app/models/ubiquity_template_work.rb'
 
 Metrics/LineLength:
   Exclude:
@@ -74,6 +76,7 @@ Metrics/MethodLength:
     - 'app/forms/hyrax/nsu_generic_work_form.rb'
     - 'app/forms/hyrax/nsu_article_form.rb'
     - 'app/forms/hyrax/una_archival_item_form.rb'
+
 
 Metrics/CyclomaticComplexity:
   Exclude:

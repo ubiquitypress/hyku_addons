@@ -7,6 +7,7 @@ class ConferenceItem < ActiveFedora::Base
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
   include ::HykuAddons::AddInfoSingular
+  include ::HykuAddons::FunderProjectRefMultiple
 
   property :series_name, predicate: ::RDF::Vocab::BF2.subseriesOf do |index|
     index.as :stored_searchable, :facetable
