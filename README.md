@@ -84,33 +84,6 @@ Don't forget to run the test migations at the same time:
 RAILS_ENV=test bundle exec rails db:migrate
 ```
 
-If you get errors when performing the migration it might be because your schema is out of date. This means you wil need to manually add the version numbers to the `schema_migration` table inside the database.
-
-For instance:
-
-```bash
-Caused by:
-PG::DuplicateColumn: ERROR:  column "frontend_url" of relation "accounts" already exists
-#...
-/home/app/spec/internal_test_hyku/db/migrate/20210409153318_add_frontend_url_to_account.hyku_addons.rb:5:in `change'
-#...
-```
-
-Use the following to insert the version into the migration table:
-
-```ruby
-sql = "insert into schema_migrations (version) values ('20210409153318')"
-ActiveRecord::Base.connection.execute(sql)
-```
-
-To manually connect to the postgres container, first connect to the `web` container and then:
-
-```bash
-psql --host db --port 5432 --user postgres --dbname hyku
-```
-
-Then enter the password from the `docker-compose.yml` POSTGRES_PASSWORD.
-
 ### Initializers
 
 Initializers that should be run within Hyku can be added to `config/initializers` like in a Rails application.  They can also be added as `initializer` blocks within the `Engine` class, but that should be reserved for code needed to configure the engine infrastructure instead of setup, configuration, and override code that would normally go in `config/initializers` in a Hyku application.  There are additional hooks for different stages of the initialization process available within the `Engine` as described by https://edgeguides.rubyonrails.org/engines.html#available-configuration-hooks.
@@ -402,3 +375,11 @@ To enable updates to a pinned gem, like hyku-api shown above, simply reset it to
 In order to build the hyku_addons application, the hyku_base (currently a fork of hyku 2.x branch) is checked out and the gemfile.plugins file is copied into the Gemfile. Without this extra step, production environments would not have access to rake/rails generators and tasks - which is apparently a Rails quirk that no one properly understands. This also means that gems can be pinned to versions, which isn't possible within a gemspec file, which enforces only rubygems references are used.
 
 The gemfile.lock from hyku_addons is copied into the hyku_base project to override their default Gemfile.lock - this solved an issue where by bundler wasn't able to compute builds correctly and wasn't pulling latest versions.
+
+### Development Environments
+
+If you are a developer looking to build upon Hyku Addons, then you are probably using some kind of development tool, Vim, VS Code etc. Because of the dependency on an older version of Rubocop, you will need to use an older version of the Ruby Language Server Solargraph:
+
+```bash
+gem install solargraph -v 0.39.17
+```
