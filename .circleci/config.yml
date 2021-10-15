@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   # For details regarding the commands that are being executed:
   # https://circleci.com/developer/orbs/orb/samvera/circleci-orb
-  samvera: samvera/circleci-orb@0
+  samvera: samvera/circleci-orb@dev:1fbe2af
 
 jobs:
   bundle_lint_test:
