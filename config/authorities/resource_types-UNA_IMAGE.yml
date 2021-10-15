@@ -1,3 +1,5 @@
 terms:
-  - id: Image
-    term: Image
+  - id: Still Image
+    term: Still Image
+  - id: 3D Image
+    term: 3D Image
