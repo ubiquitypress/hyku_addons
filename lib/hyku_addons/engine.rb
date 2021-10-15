@@ -461,6 +461,7 @@ module HykuAddons
         config.register_curation_concern :una_book
         config.register_curation_concern :una_chapters_and_book_section
         config.register_curation_concern :una_exhibition
+        config.register_curation_concern :una_image
         config.register_curation_concern :uva_work
 
         config.license_service_class = HykuAddons::LicenseService
