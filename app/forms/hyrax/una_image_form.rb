@@ -25,9 +25,16 @@ module Hyrax
     def self.build_permitted_params
       super.tap do |permitted_params|
         permitted_params << common_fields
-        permitted_params << [:alt_title, :alt_email, :edition, :book_title, :org_unit, :subject, :keyword,
-                             :language, :location, :longitude,
-                             :latitude, :license, :event_location]
+        permitted_params << [:title, :alt_title, :resource_type, :creator, :alt_email,
+                             :abstract, :keyword, :subject, :subject_text, :date_published,
+                             :date_published_text, :official_link, :alternate_identifier,
+                             :library_of_congress_classification, :related_identifier,
+                             :event_title, :event_location, :event_date, :related_exhibition,
+                             :related_exhibition_venue, :related_exhibition_date,
+                             :license, :rights_holder, :rights_statement, :rights_statement_text,
+                             :contributor, :medium, :extent, :duration, :is_format_of,
+                             :language, :location, :longitude, :latitude, :georeferenced,
+                             :time, :add_info]
       end
     end
   end
