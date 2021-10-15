@@ -14,6 +14,7 @@ module Hyrax
                  latitude georeferenced time refereed irb_number irb_status add_info]
     self.terms -= %i[source]
     self.required_fields = %i[title resource_type creator]
+
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
