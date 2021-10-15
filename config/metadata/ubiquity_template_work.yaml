@@ -1,0 +1,1160 @@
+---
+attributes:
+  title:
+    type: string
+    predicate: http://purl.org/dc/terms/title
+    multiple: true
+    index_keys:
+    - title_tesim
+    - title_sim
+    form:
+      :required: true
+      :primary: true
+      :multiple: true
+  alt_title:
+    type: string
+    predicate: http://purl.org/dc/terms/alternative
+    multiple: true
+    index_keys:
+    - alt_title_tesim
+    form:
+      :required: false
+      :primary: true
+      :multiple: true
+  resource_type:
+    predicate: http://purl.org/dc/terms/type
+    multiple: true
+    index_keys: []
+    form:
+      :required: true
+      :primary: true
+      :multiple: true
+  creator:
+    predicate: http://purl.org/dc/elements/1.1/creator
+    multiple: true
+    index_keys: []
+    form:
+      :required: true
+      :primary: true
+      :multiple: true
+    subfields:
+      creator_name_type:
+        type: string
+        form:
+          required: true
+          multiple: false
+          type: select
+      creator_family_name:
+        type: string
+        form:
+          required: true
+          multiple: false
+          type: text
+          display_for:
+          - personal
+      creator_given_name:
+        type: string
+        form:
+          required: true
+          multiple: false
+          type: text
+          display_for:
+          - personal
+      creator_orcid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - personal
+      creator_institutional_relationship:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::InstitutionalRelationshipService
+          display_for:
+          - personal
+      creator_organization_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - organizational
+      creator_ror:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - organizational
+      creator_grid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - organizational
+      creator_wikidata:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - organizational
+      creator_isni:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - personal
+          - organizational
+  contributor:
+    predicate: http://purl.org/dc/elements/1.1/contributor
+    multiple: true
+    index_keys: []
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+    subfields:
+      contributor_name_type:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+      contributor_family_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - personal
+      contributor_given_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - personal
+      contributor_orcid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - personal
+      contributor_institutional_relationship:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::ContributorInstitutionalRelationshipService
+          display_for:
+          - personal
+      contributor_organization_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - organizational
+      contributor_ror:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - organizational
+      contributor_grid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - organizational
+      contributor_wikidata:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - organizational
+      contributor_isni:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - personal
+          - organizational
+      contributor_role:
+        type: string
+        form:
+          required: false
+          multiple: true
+          type: select
+          authority: HykuAddons::RoleService
+          display_for:
+          - personal
+          - organizational
+  abstract:
+    type: text
+    predicate: http://purl.org/dc/terms/abstract
+    multiple: false
+    index_keys:
+    - abstract_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  date_published:
+    type: string
+    predicate: http://purl.org/dc/terms/available
+    multiple: false
+    index_keys:
+    - date_published_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+    subfields:
+  media:
+    type: string
+    predicate: http://www.loc.gov/mods/rdf/v1#physicalForm
+    multiple: true
+    index_keys:
+    - media_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  duration:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/duration
+    multiple: true
+    index_keys:
+    - duration_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  institution:
+    type: string
+    predicate: http://www.w3.org/ns/org#organization
+    multiple: true
+    index_keys:
+    - institution_tesim
+    - institution_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  org_unit:
+    type: string
+    predicate: http://www.w3.org/ns/org#OrganizationalUnit
+    multiple: true
+    index_keys:
+    - org_unit_tesim
+    - org_unit_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  project_name:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/CollectiveTitle
+    multiple: true
+    index_keys:
+    - project_name_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  funder:
+    type: string
+    predicate: http://id.loc.gov/vocabulary/relators/fnd
+    multiple: true
+    index_keys:
+    - funder_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  fndr_project_ref:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/awards
+    multiple: true
+    index_keys:
+    - fndr_project_ref_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  event_title:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/Event
+    multiple: true
+    index_keys:
+    - event_title_tesim
+    - event_title_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  event_location:
+    type: string
+    predicate: http://bibframe.org/vocab/eventPlace
+    multiple: true
+    index_keys:
+    - event_location_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  event_date:
+    type: string
+    predicate: http://bibframe.org/vocab/eventDate
+    multiple: true
+    index_keys:
+    - event_date_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  series_name:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/subseriesOf
+    multiple: true
+    index_keys:
+    - series_name_tesim
+    - series_name_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  book_title:
+    type: string
+    predicate: http://purl.org/ontology/bibo/Proceedings
+    multiple: false
+    index_keys:
+    - book_title_tesim
+    - book_title_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  editor:
+    type: string
+    predicate: http://schema.org/Person
+    multiple: true
+    index_keys:
+    - editor_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+    subfields:
+  journal_title:
+    type: string
+    predicate: http://purl.org/ontology/bibo/Journal
+    multiple: false
+    index_keys:
+    - journal_title_tesim
+    - journal_title_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  alternative_journal_title:
+    type: string
+    predicate: http://schema.org/alternativeHeadline
+    multiple: true
+    index_keys:
+    - alternative_journal_title_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  volume:
+    type: string
+    predicate: http://purl.org/ontology/bibo/volume
+    multiple: true
+    index_keys:
+    - volume_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  edition:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/edition
+    multiple: false
+    index_keys:
+    - edition_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  version_number:
+    type: string
+    predicate: http://schema.org/version
+    multiple: true
+    index_keys:
+    - version_number_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  issue:
+    type: string
+    predicate: http://bibframe.org/vocab/Serial
+    multiple: false
+    index_keys:
+    - issue_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  pagination:
+    type: string
+    predicate: http://purl.org/ontology/bibo/numPages
+    multiple: false
+    index_keys:
+    - pagination_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  article_num:
+    type: string
+    predicate: http://purl.org/ontology/bibo/number
+    multiple: false
+    index_keys:
+    - article_num_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  publisher:
+    predicate: http://purl.org/dc/elements/1.1/publisher
+    multiple: true
+    index_keys: []
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  place_of_publication:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/Place
+    multiple: true
+    index_keys:
+    - place_of_publication_tesim
+    - place_of_publication_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  isbn:
+    type: string
+    predicate: http://purl.org/ontology/bibo/isbn
+    multiple: false
+    index_keys:
+    - isbn_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  issn:
+    type: string
+    predicate: http://purl.org/ontology/bibo/issn
+    multiple: false
+    index_keys:
+    - issn_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  eissn:
+    type: string
+    predicate: http://purl.org/ontology/bibo/eissn
+    multiple: false
+    index_keys:
+    - eissn_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  current_he_institution:
+    type: string
+    predicate: http://schema.org/EducationalOrganization
+    multiple: true
+    index_keys:
+    - current_he_institution_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  date_accepted:
+    type: string
+    predicate: http://purl.org/dc/terms/dateAccepted
+    multiple: false
+    index_keys:
+    - date_accepted_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  date_submitted:
+    type: string
+    predicate: http://bibframe.org/vocab/originDate
+    multiple: false
+    index_keys:
+    - date_submitted_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  official_link:
+    type: string
+    predicate: http://schema.org/url
+    multiple: false
+    index_keys:
+    - official_link_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  related_url:
+    predicate: http://www.w3.org/2000/01/rdf-schema#seeAlso
+    multiple: true
+    index_keys: []
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  related_exhibition:
+    type: string
+    predicate: http://schema.org/ExhibitionEvent
+    multiple: true
+    index_keys:
+    - related_exhibition_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  related_exhibition_venue:
+    type: string
+    predicate: http://schema.org/EventVenue
+    multiple: true
+    index_keys:
+    - related_exhibition_venue_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  related_exhibition_date:
+    type: string
+    predicate: http://schema.org/Date
+    multiple: true
+    index_keys:
+    - related_exhibition_date_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  language:
+    predicate: http://purl.org/dc/elements/1.1/language
+    multiple: true
+    index_keys: []
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  license:
+    predicate: http://purl.org/dc/terms/rights
+    multiple: true
+    index_keys: []
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  rights_statement:
+    predicate: http://www.europeana.eu/schemas/edm/rights
+    multiple: true
+    index_keys: []
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  rights_holder:
+    type: string
+    predicate: http://purl.org/dc/terms/rightsHolder
+    multiple: true
+    index_keys:
+    - rights_holder_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  doi:
+    type: string
+    predicate: http://purl.org/ontology/bibo/doi
+    multiple: true
+    index_keys:
+    - doi_ssi
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  qualification_name:
+    type: string
+    predicate: http://schema.org/qualifications
+    multiple: false
+    index_keys:
+    - qualification_name_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  qualification_level:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/degree
+    multiple: false
+    index_keys:
+    - qualification_level_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  alternate_identifier:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/Local
+    multiple: true
+    index_keys:
+    - alternate_identifier_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  related_identifier:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/identifiedBy
+    multiple: true
+    index_keys:
+    - related_identifier_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  refereed:
+    type: string
+    predicate: http://purl.org/ontology/bibo/status/peerReviewed
+    multiple: false
+    index_keys:
+    - refereed_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  keyword:
+    predicate: http://purl.org/dc/elements/1.1/relation
+    multiple: true
+    index_keys: []
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  dewey:
+    type: string
+    predicate: http://schema.org/CategoryCode
+    multiple: false
+    index_keys:
+    - dewey_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  library_of_congress_classification:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/ClassificationLcc
+    multiple: true
+    index_keys:
+    - library_of_congress_classification_tesim
+    - library_of_congress_classification_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  add_info:
+    type: string
+    predicate: http://purl.org/ontology/bibo/Note
+    multiple: false
+    index_keys:
+    - add_info_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  page_display_order_number:
+    type: string
+    predicate: http://schema.org/orderNumber
+    multiple: false
+    index_keys:
+    - page_display_order_number_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  irb_number:
+    type: string
+    predicate: http://purl.org/ontology/bibo/identifier
+    multiple: false
+    index_keys:
+    - irb_number_tesim
+    - irb_number_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  irb_status:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/Status
+    multiple: false
+    index_keys:
+    - irb_status_tesim
+    - irb_status_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  subject:
+    predicate: http://purl.org/dc/elements/1.1/subject
+    multiple: true
+    index_keys: []
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  additional_links:
+    type: string
+    predicate: http://schema.org/significantLinks
+    multiple: false
+    index_keys:
+    - additional_links_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  is_included_in:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/part
+    multiple: false
+    index_keys:
+    - is_included_in_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  buy_book:
+    type: string
+    predicate: http://schema.org/BuyAction
+    multiple: false
+    index_keys:
+    - buy_book_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  challenged:
+    type: string
+    predicate: http://schema.org/quest
+    multiple: false
+    index_keys:
+    - challenged_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  location:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/physicalLocation
+    multiple: false
+    index_keys:
+    - location_tesim
+    - location_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  outcome:
+    type: string
+    predicate: http://schema.org/resultComment
+    multiple: false
+    index_keys:
+    - outcome_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  participant:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/Person
+    multiple: false
+    index_keys:
+    - participant_tesim
+    - participant_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  reading_level:
+    type: string
+    predicate: http://schema.org/proficiencyLevel
+    multiple: false
+    index_keys:
+    - reading_level_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  photo_caption:
+    type: string
+    predicate: http://schema.org/caption
+    multiple: false
+    index_keys:
+    - photo_caption_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  photo_description:
+    type: string
+    predicate: http://schema.org/photo
+    multiple: false
+    index_keys:
+    - photo_description_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  degree:
+    type: string
+    predicate: http://schema.org/evidenceLevel
+    multiple: false
+    index_keys:
+    - degree_tesim
+    - degree_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  longitude:
+    type: string
+    predicate: http://schema.org/longitude
+    multiple: false
+    index_keys:
+    - longitude_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  latitude:
+    type: string
+    predicate: http://schema.org/latitude
+    multiple: false
+    index_keys:
+    - latitude_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  alt_email:
+    type: string
+    predicate: http://schema.org/email
+    multiple: true
+    index_keys:
+    - alt_email_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  alt_book_title:
+    type: string
+    predicate: http://purl.org/ontology/bibo/shortTitle
+    multiple: false
+    index_keys:
+    - alt_book_title_tesim
+    - alt_book_title_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  table_of_contents:
+    type: string
+    predicate: http://bibframe.org/vocab/tableOfContents
+    multiple: false
+    index_keys:
+    - table_of_contents_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  prerequisites:
+    type: string
+    predicate: http://creativecommons.org/ns#Requirement
+    multiple: false
+    index_keys:
+    - prerequisites_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  suggested_student_reviewers:
+    type: string
+    predicate: http://rdf.data-vocabulary.org/#reviewer
+    multiple: false
+    index_keys:
+    - suggested_student_reviewers_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  suggested_reviewers:
+    type: string
+    predicate: http://data-vocabulary.org/reviewer
+    multiple: false
+    index_keys:
+    - suggested_reviewers_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  adapted_from:
+    type: string
+    predicate: http://purl.org/dc/elements/1.1/source
+    multiple: false
+    index_keys:
+    - adapted_from_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  audience:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/IntendedAudience
+    multiple: true
+    index_keys:
+    - audience_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  related_material:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/relatedTo
+    multiple: false
+    index_keys:
+    - related_material_tesim
+    - related_material_sim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  note:
+    type: string
+    predicate: http://www.loc.gov/mods/rdf/v1#note
+    multiple: true
+    index_keys:
+    - note_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  advisor:
+    type: string
+    predicate: http://bibframe.org/vocab/Person
+    multiple: false
+    index_keys:
+    - advisor_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  subject_text:
+    type: string
+    predicate: http://purl.org/dc/terms/subject
+    multiple: true
+    index_keys:
+    - subject_text_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  mesh:
+    type: string
+    predicate: http://purl.org/dc/terms/MESH
+    multiple: true
+    index_keys:
+    - mesh_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  journal_frequency:
+    type: string
+    predicate: http://purl.org/dc/terms/Frequency
+    multiple: false
+    index_keys:
+    - journal_frequency_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  funding_description:
+    type: string
+    predicate: http://id.loc.gov/vocabulary/relators/spn
+    multiple: true
+    index_keys:
+    - funding_description_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  citation:
+    type: string
+    predicate: http://purl.org/dc/terms/bibliographicCitation
+    multiple: true
+    index_keys:
+    - citation_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  references:
+    type: string
+    predicate: http://purl.org/dc/terms/references
+    multiple: true
+    index_keys:
+    - references_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  extent:
+    type: string
+    predicate: http://purl.org/dc/terms/extent
+    multiple: false
+    index_keys:
+    - extent_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  medium:
+    type: string
+    predicate: http://purl.org/dc/terms/medium
+    multiple: true
+    index_keys:
+    - medium_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  source:
+    predicate: http://purl.org/dc/terms/source
+    multiple: true
+    index_keys: []
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  committee_member:
+    type: string
+    predicate: https://www.w3.org/ns/activitystreams#Person
+    multiple: true
+    index_keys:
+    - committee_member_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  time:
+    type: string
+    predicate: http://purl.org/dc/terms/temporal
+    multiple: false
+    index_keys:
+    - time_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  qualification_grantor:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/grantingInstitution
+    multiple: false
+    index_keys:
+    - qualification_grantor_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  date_published_text:
+    type: string
+    predicate: http://purl.org/dc/terms/date
+    multiple: false
+    index_keys:
+    - date_published_text_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  rights_statement_text:
+    type: string
+    predicate: http://purl.org/dc/elements/1.1/rights
+    multiple: false
+    index_keys:
+    - rights_statement_text_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
+  qualification_subject_text:
+    type: string
+    predicate: http://www.w3.org/ns/hydra/core#subject
+    multiple: true
+    index_keys:
+    - qualification_subject_text_tesim
+    form:
+      :required: false
+      :primary: false
+      :multiple: true
+  doi_status_when_public:
+    type: string
+    predicate: http://samvera.org/ns/hyrax/doi#doi_status_when_public
+    multiple: false
+    index_keys:
+    - doi_status_when_public_ssi
+    form:
+      :required: false
+      :primary: false
+      :multiple: false
