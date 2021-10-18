@@ -5,6 +5,10 @@ require "yaml"
 module Hyrax
   class SchemaGenerator
     SUBFIELDS = %i[creator contributor editor date_published].freeze
+    FIELD_TYPE_DEFAULTS = {
+      "select" => %w[resource_type license language],
+      "textarea" => %w[add_info table_of_contents abstract]
+    }.freeze
 
     def initialize(model_name)
       @model = model_name.classify.safe_constantize
@@ -34,9 +38,10 @@ module Hyrax
         term_attributes["multiple"] = config.multiple? if config.respond_to?(:multiple?)
         term_attributes["index_keys"] = index_keys(config.term, config.type, config.behaviors)
         term_attributes["form"] = {
-          required: @form.class.required_fields.include?(term.to_sym),
-          primary: @form.primary_terms.include?(term.to_sym),
-          multiple: config.respond_to?(:multiple?) && config.multiple?
+          "required" => @form.class.required_fields.include?(term.to_sym),
+          "primary" => @form.primary_terms.include?(term.to_sym),
+          "multiple" => config.respond_to?(:multiple?) && config.multiple?,
+          "type" => field_type_for(term)
         }
 
         term_attributes["subfields"] = subfields_for(term) if SUBFIELDS.include?(term.to_sym)
@@ -44,12 +49,33 @@ module Hyrax
         term_attributes
       end
 
+      # This is pretty basic, but there are not that many fields that require anything other than text
+      # and the logic for the field types is in the views, so we can't do much.
+      def field_type_for(term)
+        FIELD_TYPE_DEFAULTS.map { |k,v| k if v.include?(term) }.compact.first || "text"
+      end
+
       def index_keys(term, type, behaviors)
-        Array(behaviors)
-          .map { |behavior| ActiveFedora.index_field_mapper.solr_name(term, behavior, type: type) }
-          .compact
-          .reject(&:blank?)
-          .uniq
+        indexes = Array(behaviors).map do |behavior|
+          ActiveFedora.index_field_mapper.solr_name(term, behavior, type: type)
+        end
+
+        (indexes.presence || backup_index_keys(term, type, behaviors)).compact.reject(&:blank?).uniq
+      end
+
+      # This probably isn't necessary
+      def backup_index_keys(term, type, behaviors)
+        indexes = [::SolrDocument.solr_name(term)]
+
+        Array(behaviors).map do |behavior|
+          indexes << if behavior == :stored_searchable
+                       "#{term}_tesim" if type == :string || type == :text
+                     elsif behavior == :facetable
+                       "#{term}_sim"
+                     end
+        end
+
+        indexes
       end
 
       # Try and find a file containing the subfield YAML
