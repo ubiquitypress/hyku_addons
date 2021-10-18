@@ -49,7 +49,7 @@ module HykuAddons
         end
       end
       parsed_metadata['file'] = file_metadata.pluck('file') if parsed_metadata['file'].blank?
-      parsed_metadata['file'] = parsed_metadata['file'].map { |f| path_to_file(f.tr(' ', '_')) }
+      parsed_metadata['file'] = parsed_metadata['file'].map { |f| path_to_file(f) }
       parsed_metadata['file_set'] = file_metadata
     end
 
@@ -94,6 +94,17 @@ module HykuAddons
       end.compact
     end
 
+    # Removes the replcement of spaces to underscores https://github.com/samvera-labs/bulkrax/blob/master/app/models/bulkrax/csv_entry.rb#L84
+    def add_file
+      parsed_metadata['file'] ||= []
+      if record['file']&.is_a?(String)
+        parsed_metadata['file'] = record['file'].split(/\s*[;|]\s*/)
+      elsif record['file'].is_a?(Array)
+        parsed_metadata['file'] = record['file']
+      end
+      parsed_metadata['file'] = parsed_metadata['file'].map { |f| path_to_file(f) }
+    end
+
     # Override to allow `id` as system identifier field
     def valid_system_id(model_class)
       return true if Bulkrax.system_identifier_field == 'id'
@@ -124,7 +135,7 @@ module HykuAddons
       path ||= importerexporter.parser.path_to_files
       f = File.join(path, file)
       return f if File.exist?(f)
-      raise "File #{f} does not exist"
+      raise "File #{f} does not exist."
     end
 
     ### Exporter overrides
@@ -194,10 +205,10 @@ module HykuAddons
     end
 
     def hyrax_record
-      @hyrax_record ||= begin
-                          super
-                        rescue
-                        end || factory.find
+      begin
+        super
+      rescue
+      end || factory.find
     end
   end
 end

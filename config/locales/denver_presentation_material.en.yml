@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      denver_presentation_material:     'fa fa-file-text-o'
+    select_type:
+      denver_presentation_material:
+        description:        "Denver presentation material works"
+        name:               "Denver Presentation Material"

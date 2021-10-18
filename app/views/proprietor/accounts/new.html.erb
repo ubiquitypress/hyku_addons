@@ -1,0 +1,44 @@
+<% content_for :page_header do %>
+  <h1><span class="fa fa-gears"></span> <%= t('.header') %></h1>
+<% end %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default account-form">
+      <%= simple_form_for @account, url: [:proprietor, @account], html: { class: 'form' } do |f| %>
+        <div class="panel-body">
+            <% if @account.errors.any? %>
+              <div id="error_explanation" class="alert alert-danger">
+                <%= pluralize(@account.errors.count, "error") %> prohibited this repository from being saved:
+                <ul>
+                  <% @account.errors.messages.each do |key, messages| %>
+                    <li><%= key %> &quot;<%= @account.errors.details[key].first[:value] %>&quot; <%= messages.join(' and ') %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <%= f.input :name %>
+
+            <% if @account.shared_search_enabled?  %>
+              <%= f.input :search_only %>
+
+              <div class='hide' id='full_account_cross_container'>
+                <div id='full_acount_cross_searches'>
+                  <%= f.simple_fields_for :full_account_cross_searches do |full_account_cross_search| %>
+                    <%= render 'full_account_cross_search_fields', f: full_account_cross_search %>
+                  <% end %>
+                  <div 'class='links'>
+                    <%= link_to_add_association 'Add account to search', f, :full_account_cross_searches %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+
+            <%= f.submit class: 'btn btn-primary' %>
+            <%= link_to t('simple_form.cancel'), proprietor_accounts_path, class: 'btn btn-link action-cancel' %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>

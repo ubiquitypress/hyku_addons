@@ -9,6 +9,7 @@ RSpec.feature 'Create a Collection', js: false, clean: true do
   let(:collection_type) { Hyrax::CollectionType.create(title: 'test_collection_type') }
 
   before do
+    allow(Flipflop).to receive(:enabled?).and_return(false)
     collection_type
     login_as user
   end
@@ -55,7 +56,7 @@ RSpec.feature 'Create a Collection', js: false, clean: true do
 
     # Creator
     expect(page).to have_content('Hawking, Stephen')
-    expect(page).to have_link('', href: 'https://orcid.org/000000029079593X')
+    expect(page).to have_link('', href: 'https://orcid.org/0000-0002-9079-593X')
     expect(page).to have_link('', href: 'https://isni.org/isni/0000000121034996')
 
     expect(page).not_to have_content('Contributor')
@@ -65,6 +66,7 @@ RSpec.feature 'Create a Collection', js: false, clean: true do
     let(:user) { FactoryBot.create(:user) }
     it "Does not display the collections link when the setting is off" do
       allow(Flipflop).to receive(:enabled?).with(:show_repository_objects_links).and_return(false)
+
       visit '/dashboard'
       expect(page).not_to have_link("Collections")
     end

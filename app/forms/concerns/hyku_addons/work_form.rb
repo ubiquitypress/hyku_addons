@@ -47,7 +47,8 @@ module HykuAddons
            alt_book_title table_of_contents prerequisites suggested_student_reviewers suggested_reviewers adapted_from audience
            related_material note advisor subject_text mesh journal_frequency funding_description
            citation references extent medium source committee_member time qualification_grantor date_published_text
-           rights_statement_text qualification_subject_text] + hyrax_terms
+           rights_statement_text qualification_subject_text is_format_of part_of
+           georeferenced source_identifier] + hyrax_terms
       end
 
       def hyrax_terms
@@ -134,7 +135,7 @@ module HykuAddons
     end
 
     def initialize(model, current_ability, controller)
-      model.admin_set_id = controller.params['admin_set_id'] if Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig('admin_set_id').present?
+      model.admin_set_id = controller.params['admin_set_id'] if simplfied_admin_set?(controller)
 
       super(model, current_ability, controller)
     end
@@ -142,5 +143,11 @@ module HykuAddons
     def editor_list
       person_or_organization_list(:editor)
     end
+
+    protected
+
+      def simplfied_admin_set?(controller)
+        Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig('admin_set_id').present?
+      end
   end
 end

@@ -1,0 +1,72 @@
+en-UNA:
+  simple_form:
+    creator:
+      creator_name_type:
+        label: Creator Name Type
+      creator_family_name:
+        label: Last Name
+      creator_given_name:
+        label: First Name
+      creator_middle_name:
+        label: Middle Name
+        placeholder: " "
+        help_text: Please enter the creator's middle name.
+      creator_suffix:
+        label: Suffix
+      creator_institution:
+        label: Institution
+      creator_orcid:
+        label: ORCiD
+        help_text: " "
+        placeholder: " "
+      creator_organization_name:
+        label: Organization Name
+      creator_ror:
+        label: ROR
+        placeholder: " "
+      creator_grid:
+        label: GRID
+        placeholder: " "
+      creator_wikidata:
+        label: Wikidata
+        placeholder: " "
+      creator_isni:
+        label: Creator ISNI
+      creator_role:
+        label: Creator Role
+    contributor:
+      contributor_organization_name:
+        label: Organization Name
+      contributor_family_name:
+        label: Last Name
+      contributor_given_name:
+        label: First Name
+      contributor_isni:
+        label: ISNI
+      contributor_institution:
+        label: Institution
+        placeholder: " "
+      contributor_orcid:
+        label: ORCiD
+      contributor_ror:
+        label: ROR
+      contributor_wikidata:
+        label: Wikidata
+      contributor_role:
+        label: Role
+      contributor_grid:
+        label: GRID
+  labels:
+    defaults:
+      alt_email: Alternative Email
+      license: Licensing
+      alt_email: Alternative Email
+      official_link: Official URL
+      place_of_publication: Place Published
+      location: Geolocate
+      time: Coverage Span
+      add_info: Notes
+      fndr_project_ref: Funder project reference
+      funding_description: Funding Sources
+      refereed: Peer reviewed?
+      citation: Bibliographic Citation

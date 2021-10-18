@@ -12,7 +12,7 @@ module Hyrax
                  longitude latitude advisor add_info]
     self.terms -= %i[rights_statement related_url]
     self.required_fields = %i[title resource_type creator alt_email abstract keyword subject
-                              org_unit language license publisher date_published]
+                              org_unit language publisher date_published]
 
     include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior

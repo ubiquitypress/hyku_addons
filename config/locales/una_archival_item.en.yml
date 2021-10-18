@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      una_archival_item:     'fa fa-file-text-o'
+    select_type:
+      una_archival_item:
+        description:        "Una archival item works"
+        name:               "Una Archival Item"

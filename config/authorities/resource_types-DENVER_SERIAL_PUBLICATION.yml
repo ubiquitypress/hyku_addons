@@ -1,0 +1,9 @@
+terms:
+  - id: Newspaper
+    term: Newspaper
+  - id: Magazine
+    term: Magazine
+  - id: Newsletter
+    term: Newsletter
+  - id: Other
+    term: Other

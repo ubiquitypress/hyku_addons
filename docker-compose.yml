@@ -15,6 +15,125 @@ networks:
   internal:
 
 services:
+  app: &app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: DEVELOPMENT_IMAGE
+    image: hyku_addons/development_image:latest
+    environment: &web_environment
+      HOST: "0.0.0.0" # Docker cannot forward to a containers localhost, so we need to use this IP instead
+      DATABASE_ADAPTER: postgresql
+      DATABASE_NAME: hyku
+      DATABASE_HOST: db
+      DATABASE_PASSWORD: DatabaseFTW
+      DATABASE_USER: postgres
+      DATABASE_TEST_NAME: hyku_test
+      FEDORA_URL: http://fcrepo:8080/fcrepo/rest
+      LD_LIBRARY_PATH: /opt/fits/tools/mediainfo/linux
+      RAILS_LOG_TO_STDOUT: "true"
+      REDIS_HOST: redis
+      SECRET_KEY_BASE: asdf
+      SETTINGS__ACTIVE_JOB__QUEUE_ADAPTER: sidekiq
+      SETTINGS__BULKRAX__ENABLED: "true"
+      SETTINGS__FITS_PATH: /opt/fits/fits.sh
+      SETTINGS__MULTITENANCY__ADMIN_HOST: hyku.docker
+      SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION: "false"
+      SETTINGS__MULTITENANCY__DEFAULT_HOST: "%{tenant}.hyku.docker"
+      SETTINGS__MULTITENANCY__ROOT_HOST: hyku.docker
+      SETTINGS__MULTITENANCY__ENABLED: "true"
+      SETTINGS__SOLR__URL: http://solr:8983/solr/
+      SETTINGS__ZOOKEEPER__CONNECTION_STR: zookeeper_cluster:2181/configs
+      SOLR_URL: http://solr:8983/solr/
+      PASSENGER_APP_ENV: development
+      GCLOUD_ZONE: 1233465
+      GCLOUD_PROJECT_ID: ABCDEFG
+      PUBSUB_SERVICEACCOUNT_KEY:
+      CHROME_HOSTNAME: chrome # Required for specs setup inside internal_hyku_test rails_helper
+      IN_DOCKER: "true" # Required by internal_test_hyku specs
+      RUBYOPT: "-W:no-deprecated -W:no-experimental" # Turn off Ruby 3.0 deprecation warnings
+      REDIS_NAMESPACE_QUIET: "true" # Turn off Gem deprecations warnings
+    volumes:
+      - app:/home/app/spec/internal_test_hyku/tmp/uploads
+      - assets:/home/app/spec/internal_test_hyku/public/assets
+      - cache:/home/app/spec/internal_test_hyku/tmp/cache
+      - .:/home/app
+    networks:
+      internal:
+
+  web:
+    <<: *app
+    environment:
+      <<: *web_environment
+    # NOTE: We are using Puma (default Rails server) as Passenger doesn't allow byebug/webconsole to be run in dev.
+    command: bash -c "rm -f ./spec/internal_test_hyku/tmp/pids/server.pid && bundle install && bundle exec rails s"
+    stdin_open: true
+    tty: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - solr
+      - fcrepo
+      - redis
+      - zoo1
+      - chrome
+      - initialize_app
+      - db_migrate
+
+  workers:
+    <<: *app
+    command: bash -c "bundle install && bundle exec sidekiq -r spec/internal_test_hyku/"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+      - solr
+      - fcrepo
+      - redis
+      - zoo1
+      - initialize_app
+      - db_migrate
+
+  initialize_app:
+    <<: *app
+    command: bundle exec rails app:zookeeper:upload
+    depends_on:
+      - zoo1
+
+  db_migrate:
+    <<: *app
+    command: bundle exec rails app:db:migrate app:db:test:prepare
+    depends_on:
+      - db
+
+  db: &db
+    image: postgres:10-alpine
+    env_file:
+      - ./spec/internal_test_hyku/.env
+    environment: &db_environment
+      PGDATA: /data
+      POSTGRES_PASSWORD: DatabaseFTW
+      POSTGRES_USER: postgres
+      POSTGRES_MULTIPLE_DATABASES: hyku,hyku_test
+    volumes:
+      - ./.docker-postgres:/docker-entrypoint-initdb.d
+      - db:/data
+    ports:
+      - "5432:5432"
+    networks:
+      internal:
+
+  redis: &redis
+    image: redis:4
+    command: redis-server
+    volumes:
+      - redis:/data
+    networks:
+      internal:
+    expose:
+      - 6379
+
   zoo1: &zoo1
     image: zookeeper:3.4
     environment:
@@ -58,190 +177,8 @@ services:
     networks:
       internal:
 
-  db: &db
-    image: postgres:10-alpine
-    env_file:
-      - ./spec/internal_test_hyku/.env
-    environment: &db_environment
-      PGDATA: /data
-      POSTGRES_PASSWORD: DatabaseFTW
-      POSTGRES_USER: postgres
-      POSTGRES_MULTIPLE_DATABASES: hyku,hyku_test
-    volumes:
-      - ./.docker-postgres:/docker-entrypoint-initdb.d
-      - db:/data
-    ports:
-      - "5432:5432"
-    networks:
-      internal:
-
-  app: &app
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: dev
-    image: hyku_addons/dev:latest
-    command: bash -c "rm -f spec/internal_test_hyku/tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
-    #env_file:
-    #  - ./spec/internal_test_hyku/.env
-    environment: &web_environment
-      #  Copied from ./spec/internal_test_hyku/.env
-      CHROME_HOSTNAME: chrome
-      DATABASE_ADAPTER: postgresql
-      DATABASE_NAME: hyku
-      DATABASE_HOST: db
-      DATABASE_PASSWORD: DatabaseFTW
-      DATABASE_USER: postgres
-      DATABASE_TEST_NAME: hyku_test
-      # End of copy
-      FEDORA_URL: http://fcrepo:8080/fcrepo/rest
-      IN_DOCKER: "true"
-      LD_LIBRARY_PATH: /opt/fits/tools/mediainfo/linux
-      RAILS_LOG_TO_STDOUT: "true"
-      REDIS_HOST: redis
-      SECRET_KEY_BASE: asdf
-      SETTINGS__ACTIVE_JOB__QUEUE_ADAPTER: sidekiq
-      SETTINGS__BULKRAX__ENABLED: "true"
-      SETTINGS__FITS_PATH: /opt/fits/fits.sh
-      # Comment out these 5 for single tenancy / Uncomment for multi
-      SETTINGS__MULTITENANCY__ADMIN_HOST: hyku.docker
-      SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION: "false"
-      SETTINGS__MULTITENANCY__DEFAULT_HOST: "%{tenant}.hyku.docker"
-      SETTINGS__MULTITENANCY__ROOT_HOST: hyku.docker
-      SETTINGS__MULTITENANCY__ENABLED: "true"
-      # Comment out these 2 for multi tenancy / Uncomment for single
-      # SETTINGS__MULTITENANCY__ROOT_HOST: hyku.docker
-      # SETTINGS__MULTITENANCY__ENABLED: false
-      SETTINGS__SOLR__URL: http://solr:8983/solr/
-      SETTINGS__ZOOKEEPER__CONNECTION_STR: zookeeper_cluster:2181/configs
-      SOLR_URL: http://solr:8983/solr/
-      PASSENGER_APP_ENV: development
-      GCLOUD_ZONE: 1233465
-      GCLOUD_PROJECT_ID: ABCDEFG
-      PUBSUB_SERVICEACCOUNT_KEY:
-    volumes:
-      - app:/home/app/spec/internal_test_hyku/tmp/uploads
-      - assets:/home/app/spec/internal_test_hyku/public/assets
-      - cache:/home/app/spec/internal_test_hyku/tmp/cache
-      - .:/home/app
-    networks:
-      internal:
-
-  web:
-    <<: *app
-    environment:
-      <<: *web_environment
-      VIRTUAL_PORT: 3000
-      VIRTUAL_HOST: hyku.docker
-    depends_on:
-      - db
-      - solr
-      - fcrepo
-      - redis
-      - zoo1
-      - chrome
-      - initialize_app
-      - db_migrate
-    # expose:
-      # - 3000
-    stdin_open: true
-    tty: true
-    ports:
-      - 3000:3000 # uncomment this if you dont use dory or another proxy
-
-  workers:
-    <<: *app
-    command: bundle exec sidekiq -r spec/internal_test_hyku/
-    stdin_open: true
-    tty: true
-    depends_on:
-      - db
-      - solr
-      - fcrepo
-      - redis
-      - zoo1
-      - initialize_app
-      - db_migrate
-
-  initialize_app:
-    <<: *app
-    command: bundle exec rails app:zookeeper:upload
-    depends_on:
-      - zoo1
-
-  db_migrate:
-    <<: *app
-    command: bundle exec rails app:db:migrate app:db:test:prepare
-    depends_on:
-      - db
-
-  redis: &redis
-    image: redis:4
-    command: redis-server
-    volumes:
-      - redis:/data
-    networks:
-      internal:
-
   chrome:
     image: selenium/standalone-chrome:3.141
     networks:
       internal:
-
-# Testing containers
-# FIXME: Not working yet
-  test:
-    <<: *app
-    command: bash -c "bundle exec rspec"
-    environment:
-      <<: *web_environment
-      SETTINGS__MULTITENANCY__ADMIN_HOST: hyku.docker
-      DISABLE_REDIS_CLUSTER: "true"
-      RAILS_ENV: test
-      DATABASE_HOST: db-test
-      SETTINGS__SOLR__URL: http://solr-test:8983/solr/
-      SOLR_URL: http://solr-test:8983/solr/
-      FEDORA_URL: http://fcrepo-test:8080/fcrepo/rest
-    depends_on:
-      - db-test
-      - solr-test
-      - fcrepo-test
-      # - redis-test
-      - db_migrate-test
-      - initialize_app-test
-
-  db_migrate-test:
-    <<: *app
-    command: bundle exec rails app:db:migrate
-    depends_on:
-      - db-test
-
-  initialize_app-test:
-    <<: *app
-    command: bundle exec rails app:zookeeper:upload
-    depends_on:
-      - zoo1-test
-
-  redis-test:
-    <<: *redis
-    volumes: []
-
-  solr-test:
-    <<: *solr
-    volumes: []
-
-  fcrepo-test:
-    <<: *fcrepo
-    volumes: []
-
-  zoo1-test:
-    <<: *zoo1
-    volumes: []
-
-  db-test:
-    <<: *db
-    environment:
-      <<: *db_environment
-      POSTGRES_DB: hyku_test
-    volumes: []
 

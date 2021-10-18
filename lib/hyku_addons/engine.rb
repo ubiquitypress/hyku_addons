@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'hyrax/doi/engine'
 require 'bolognese/metadata'
+require 'cocoon'
 
 module HykuAddons
   class Engine < ::Rails::Engine
@@ -30,45 +31,6 @@ module HykuAddons
     initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
       require_dependency 'hyrax/search_state'
 
-      # Cannot do prepend here because it causes it to get loaded before AcitveRecord breaking things
-      Account.class_eval do
-        include HykuAddons::AccountBehavior
-
-        # @return [Account] a placeholder account using the default connections configured by the application
-        def self.single_tenant_default
-          Account.new do |a|
-            a.build_solr_endpoint
-            a.build_fcrepo_endpoint
-            a.build_redis_endpoint
-            a.build_datacite_endpoint
-          end
-        end
-
-        # Make all the account specific connections active
-        def switch!
-          solr_endpoint.switch!
-          fcrepo_endpoint.switch!
-          redis_endpoint.switch!
-          datacite_endpoint.switch!
-          Settings.switch!(name: locale_name, settings: settings)
-          switch_host!(cname)
-        end
-
-        def reset!
-          SolrEndpoint.reset!
-          FcrepoEndpoint.reset!
-          RedisEndpoint.reset!
-          DataCiteEndpoint.reset!
-          Settings.switch!
-          switch_host!(nil)
-        end
-
-        def switch_host!(cname)
-          Rails.application.routes.default_url_options[:host] = cname
-          Hyrax::Engine.routes.default_url_options[:host] = cname
-        end
-      end
-
       Hyku::RegistrationsController.class_eval do
         def new
           return super if current_account&.allow_signup == "true"
@@ -87,19 +49,6 @@ module HykuAddons
 
       # Using a concern doesn't actually override the original method so inlining it here
       Proprietor::AccountsController.include HykuAddons::AccountControllerBehavior
-      Proprietor::AccountsController.class_eval do
-        private
-
-          # Never trust parameters from the scary internet, only allow the allowed list through.
-          def account_params
-            params.require(:account).permit(:name, :cname, :title,
-                                            admin_emails: [],
-                                            solr_endpoint_attributes: %i[id url],
-                                            fcrepo_endpoint_attributes: %i[id url base_path],
-                                            datacite_endpoint_attributes: %i[mode prefix username password],
-                                            settings: %i[file_size_limit locale_name])
-          end
-      end
 
       CreateAccount.class_eval do
         def create_account_inline
@@ -126,7 +75,13 @@ module HykuAddons
     ## In engine development mode (ENGINE_ROOT defined) handle specific generators as app-only by setting destintation_root appropriately
     initializer 'hyku_addons.app_generators' do
       if defined?(ENGINE_ROOT)
-        APP_GENERATORS = ['HykuAddons::InstallGenerator', 'Hyrax::DOI::InstallGenerator', 'Hyrax::DOI::AddToWorkTypeGenerator', 'Hyrax::Hirmeos::InstallGenerator'].freeze
+        APP_GENERATORS = [
+          'HykuAddons::InstallGenerator',
+          'Hyrax::DOI::InstallGenerator',
+          'Hyrax::DOI::AddToWorkTypeGenerator',
+          'Hyrax::Hirmeos::InstallGenerator',
+          'Hyrax::Orcid::InstallGenerator'
+        ].freeze
 
         Rails::Generators::Base.class_eval do
           def initialize(args, options, config)
@@ -154,7 +109,6 @@ module HykuAddons
 
     # Add migrations to parent app paths
     initializer 'hyku_addons.append_migrations' do |app|
-      Hyku::Application.default_url_options[:host] = 'hyku.docker'
       unless app.root.to_s.match?(root.to_s)
         config.paths['db/migrate'].expanded.each do |expanded_path|
           app.config.paths['db/migrate'] << expanded_path
@@ -226,7 +180,19 @@ module HykuAddons
           "alt_email" => { split: '\|' },
           "isbn" => { split: '\|' },
           "audience" => { split: '\|' },
-          "advisor" => { split: '\|' }
+          "advisor" => { split: '\|' },
+          "mesh" => { split: '\|' },
+          "subject_text" => { split: '\|' },
+          "source" => { split: '\|' },
+          "funding_description" => { split: '\|' },
+          "citation" => { split: '\|' },
+          "references" => { split: '\|' },
+          "medium" => { split: '\|' },
+          "committee_member" => { split: '\|' },
+          "time" => { split: '\|' },
+          "add_info" => { split: '\|' },
+          "part_of" => { split: '\|' },
+          "qualification_subject_text" => { split: '\|' }
         }
       end
 
@@ -373,6 +339,8 @@ module HykuAddons
             metadata = visibility_attributes(work_attributes, file_set_attributes)
             uploaded_file.update(file_set_uri: actor.file_set.uri)
             actor.file_set.permissions_attributes = work_permissions
+            # NOTE: The next line is not included in the upstream PR
+            # This line allows the setting of a file's title from a bulkrax import
             actor.file_set.title = Array(file_set_attributes[:title].presence)
             actor.create_metadata(metadata)
             actor.create_content(uploaded_file)
@@ -454,7 +422,19 @@ module HykuAddons
         config.register_curation_concern :book_contribution
         config.register_curation_concern :conference_item
         config.register_curation_concern :dataset
+        config.register_curation_concern :denver_article
+        config.register_curation_concern :denver_book
+        config.register_curation_concern :denver_book_chapter
+        config.register_curation_concern :denver_dataset
+        config.register_curation_concern :denver_image
+        config.register_curation_concern :denver_map
+        config.register_curation_concern :denver_multimedia
+        config.register_curation_concern :denver_presentation_material
+        config.register_curation_concern :denver_serial_publication
+        config.register_curation_concern :denver_thesis_dissertation_capstone
         config.register_curation_concern :exhibition_item
+        config.register_curation_concern :nsu_generic_work
+        config.register_curation_concern :nsu_article
         config.register_curation_concern :report
         config.register_curation_concern :time_based_media
         config.register_curation_concern :thesis_or_dissertation
@@ -475,6 +455,13 @@ module HykuAddons
         config.register_curation_concern :redlands_open_educational_resource
         config.register_curation_concern :redlands_media
         config.register_curation_concern :redlands_student_work
+        config.register_curation_concern :ubiquity_template_work
+        config.register_curation_concern :una_archival_item
+        config.register_curation_concern :una_article
+        config.register_curation_concern :una_book
+        config.register_curation_concern :una_chapters_and_book_section
+        config.register_curation_concern :una_exhibition
+        config.register_curation_concern :una_image
         config.register_curation_concern :uva_work
 
         config.license_service_class = HykuAddons::LicenseService
@@ -496,6 +483,7 @@ module HykuAddons
 
     # Pre-existing Work type overrides and dynamic includes
     def self.dynamically_include_mixins
+      Account.include HykuAddons::AccountBehavior
       GenericWork.include HykuAddons::GenericWorkOverrides
       Image.include HykuAddons::ImageOverrides
       GenericWork.include ::Hyrax::BasicMetadata
@@ -517,6 +505,11 @@ module HykuAddons
       actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
+      # Workflows
+      Hyrax::Workflow::ChangesRequiredNotification.prepend HykuAddons::Workflow::ChangesRequiredNotification
+      Hyrax::Workflow::DepositedNotification.prepend HykuAddons::Workflow::DepositedNotification
+      Hyrax::Workflow::PendingReviewNotification.prepend HykuAddons::Workflow::PendingReviewNotification
+
       # TaskMaster
       Account.include HykuAddons::TaskMaster::AccountBehavior
       FileSet.include HykuAddons::TaskMaster::FileSetBehavior
@@ -525,12 +518,21 @@ module HykuAddons
 
       User.include HykuAddons::UserEmailFormat
       Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
-      Bolognese::Writers::RisWriter.include Bolognese::Writers::RisWriterBehavior
-      Bolognese::Metadata.prepend Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
+      ::Bolognese::Writers::RisWriter.include ::Bolognese::Writers::RisWriterBehavior
+      ::Bolognese::Metadata.prepend ::Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
+      ::Bolognese::Metadata.include ::Bolognese::Readers::HykuAddonsWorkReader
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
+
       Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
+
+      ::Bolognese::Metadata.prepend ::Bolognese::Writers::HyraxWorkWriterBehavior
+      ::Bolognese::Metadata.include HykuAddons::Bolognese::JsonFieldsReader
+
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
+      ::Hyku::API::V1::SearchController.prepend HykuAddons::SearchControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
+      ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
+
       ::Hyku::API::V1::HighlightsController.class_eval do
         def index
           @collections = collections(rows: 6)
@@ -543,7 +545,58 @@ module HykuAddons
           @collection_docs = repository.search(collection_search_builder).documents
         end
       end
+      Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
       ::ActiveJob::Base.include HykuAddons::ImportMode
+      ::CleanupAccountJob.prepend HykuAddons::CleanupAccountJobBehavior
+      # Overrides for shared_search.
+      # remove when we start using Hyku-3
+      ::CreateSolrCollectionJob.prepend HykuAddons::CreateSolrCollectionJobOverride
+      ::CreateFcrepoEndpointJob.prepend HykuAddons::CreateFcrepoEndpointJobOverride
+      ::CreateAccount.prepend HykuAddons::CreateAccountOverride
+      ::RemoveSolrCollectionJob.prepend HykuAddons::RemoveSolrCollectionJobOverride
+      ::SolrEndpoint.prepend HykuAddons::SolrEndpointOverride
+      ::ApplicationController.prepend HykuAddons::ApplicationControllerOverride
+      ::Hyrax::Admin::FeaturesController.prepend HykuAddons::FlipflopFeaturesControllerOverride
+      ::Flipflop::StrategiesController.prepend HykuAddons::FlipflopStrategiesControllerOverride
+      ::Proprietor::AccountsController.prepend HykuAddons::ProprietorControllerOverride
+      ::NilEndpoint.prepend HykuAddons::NilEndpointOverride
+
+      User.class_eval do
+        def mailboxer_email(_obj)
+          email
+        end
+      end
+
+      Hyrax::Workflow::AbstractNotification.class_eval do
+        private
+
+          def document_path
+            key = document.model_name.singular_route_key
+            Rails.application.routes.url_helpers.send(key + "_url", document.id, host: Site.instance.account.cname, protocol: :https)
+          end
+      end
+
+      Mailboxer::MessageMailer.class_eval do
+        # Sends an email for indicating a new message for the receiver
+        def new_message_email(message, receiver)
+          @message  = message
+          @receiver = receiver
+          set_subject(message)
+          mail to: receiver.send(Mailboxer.email_method, message),
+               subject: t('mailboxer.message_mailer.subject_new', subject: @subject, tenant_name: Site.instance.application_name),
+               template_name: 'hyku_addons_new_message_email'
+        end
+
+        # Sends an email for indicating a reply in an already created conversation
+        def reply_message_email(message, receiver)
+          @message  = message
+          @receiver = receiver
+          set_subject(message)
+          mail to: receiver.send(Mailboxer.email_method, message),
+               subject: t('mailboxer.message_mailer.subject_reply', subject: @subject, tenant_name: Site.instance.application_name),
+               template_name: 'hyku_addons_reply_message_email'
+        end
+      end
     end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
@@ -556,6 +609,13 @@ module HykuAddons
       initializer 'hyku_addons.blacklight_config override' do
         CatalogController.include HykuAddons::CatalogControllerBehavior
       end
+    end
+
+    config.after_initialize do
+      # Remove the Hyrax Orcid JSON Actor as we have our own - this should not be namespaced
+      Hyrax::CurationConcern.actor_factory.middlewares.delete(Hyrax::Actors::Orcid::JSONFieldsActor)
+      # Remove the Hyrax Orcid pipeline as its not required within HykuAddons
+      ::Blacklight::Rendering::Pipeline.operations.delete(Hyrax::Orcid::Blacklight::Rendering::PipelineJsonExtractor)
     end
   end
 end

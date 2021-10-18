@@ -62,7 +62,7 @@ class AnschutzWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :time, predicate: ::RDF::Vocab::DC.temporal do |index|
+  property :time, predicate: ::RDF::Vocab::DC.temporal, multiple: false do |index|
     index.as :stored_searchable
   end
 
@@ -82,11 +82,19 @@ class AnschutzWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :rights_statement_text, predicate: ::RDF::Vocab::DC.term(:RightsStatement), multiple: false do |index|
+  property :qualification_subject_text, predicate: ::RDF::Vocab::HYDRA.subject, multiple: true do |index|
     index.as :stored_searchable
   end
 
-  property :qualification_subject_text, predicate: ::RDF::Vocab::HYDRA.subject, multiple: true do |index|
+  property :advisor, predicate: ::RDF::Vocab::Bibframe.Person do |index|
+    index.as :stored_searchable
+  end
+
+  property :part_of, predicate: ::RDF::Vocab::DC.term(:partOf), multiple: true do |index|
+    index.as :stored_searchable
+  end
+
+  property :is_format_of, predicate: ::RDF::Vocab::DC.isFormatOf, multiple: true do |index|
     index.as :stored_searchable
   end
 

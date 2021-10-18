@@ -4,7 +4,7 @@ require "rails_helper"
 RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
   describe "#hyku_addons_work" do
     it "responds to the method" do
-      expect(Bolognese::Metadata.new).to respond_to(:hyku_addons_work_form_fields)
+      expect(Bolognese::Metadata.new).to respond_to(:hyku_addons_work_form_fields_writer)
     end
   end
 
@@ -47,7 +47,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
     end
     let(:meta) { Bolognese::Metadata.new(input: fixture) }
     let(:curation_concern) { "generic_work" }
-    let(:result) { meta.hyku_addons_work_form_fields(curation_concern: curation_concern) }
+    let(:result) { meta.hyku_addons_work_form_fields_writer(curation_concern: curation_concern) }
 
     describe "an article" do
       let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.5334-as.1.xml") }

@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 RSpec.describe Account, type: :model do
+  describe "The injected methods" do
+    subject(:account) { described_class.create(name: 'example', tenant: 'example', cname: 'example.com') }
+
+    it { described_class.respond_to?(:single_tenant_default) }
+    it { account.respond_to?(:switch!) }
+    it { account.respond_to?(:switch_host!) }
+    it { account.respond_to?(:reset!) }
+  end
+
   describe 'Settings' do
     let!(:account) { described_class.create(name: 'example', tenant: 'example', cname: 'example.com') }
 

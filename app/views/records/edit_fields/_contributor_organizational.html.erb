@@ -1,12 +1,14 @@
 <div data-toggleable-group="<%= type %>">
+	<% contributor_role_options = HykuAddons::RoleService.new(model: f.object.model.class).select_active_options %>
 	<% organisational_fields = [
 		{ field_type: :text, field_slug: :contributor_organization_name },
 		{ field_type: :text, field_slug: :contributor_ror },
 		{ field_type: :text, field_slug: :contributor_grid },
-		{ field_type: :text, field_slug: :contributor_wikidata },
-		{ field_type: :text, field_slug: :contributor_isni }
-		] %>
+		{ field_type: :text, field_slug: :contributor_wikidata }
+  ] %>
 	<% organisational_fields = remove_redlands_contributor_organisational_fields(organisational_fields) if template.include? "redlands" %>
+	<% organisational_fields = add_denver_contributor_organisational_fields(organisational_fields, contributor_role_options) if template.include? "denver" %>
+	<% organisational_fields = add_una_contributor_organisational_fields(organisational_fields, contributor_role_options) if template.include? "una" %>
 
 	<% organisational_fields.each do |field| %>
 		<% options = { field_group: :contributor, template: template, hash: hash }.merge(field) %>

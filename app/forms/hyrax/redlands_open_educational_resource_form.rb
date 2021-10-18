@@ -13,7 +13,7 @@ module Hyrax
                  prerequisites suggested_student_reviewers suggested_reviewers add_info]
     self.terms -= %i[rights_statement related_url]
     self.required_fields = %i[title creator alt_email resource_type abstract keyword subject
-                              org_unit language license version_number table_of_contents publisher
+                              org_unit language license table_of_contents publisher
                               place_of_publication date_published audience]
 
     include Hyrax::DOI::DOIFormBehavior

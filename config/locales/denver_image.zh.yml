@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      denver_image:     'fa fa-file-text-o'
+    select_type:
+      denver_image:
+        # TODO: translate `human_name` into Chinese
+        description:        "Denver image 作品"
+        name:               "Denver Image"
+        # TODO: translate `human_name` into Chinese

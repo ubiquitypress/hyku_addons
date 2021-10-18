@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      denver_book_chapter:     'fa fa-file-text-o'
+    select_type:
+      denver_book_chapter:
+        description:        "Denver book chapter works"
+        name:               "Denver Book Chapter"
