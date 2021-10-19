@@ -22,4 +22,19 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 # gem 'mini_racer'
 
-eval_gemfile File.expand_path('spec/internal_test_hyku/Gemfile', File.dirname(__FILE__))
+# Try and update Rubocop/bixby and related Gems locks in 2018
+gem 'rubocop', require: false
+gem 'rubocop-performance', require: false
+gem 'rubocop-rails', require: false
+gem 'rubocop-rspec', require: false
+
+file_name = File.expand_path('spec/internal_test_hyku/Gemfile', File.dirname(__FILE__))
+text = File.read(file_name)
+new_contents = text.gsub(/gem 'rubocop', '~> 0.50', '<= 0.52.1'/, "")
+                   .gsub(/gem 'rubocop-rspec', '~> 1.22', '<= 1.22.2'/, "")
+                   .gsub(/gem 'parser', '~> 2.5.3'/, "")
+
+File.open(file_name, "w") { |file| file.puts new_contents }
+
+# Eval the ammended Gemfile from Hyku Base.
+eval_gemfile file_name
