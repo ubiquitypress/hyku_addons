@@ -1,8 +1,8 @@
 en:
   hyrax:
     icons:
-      una_presentation:     'fa fa-file-text-o'
+      una_presentation: 'fa fa-file-text-o'
     select_type:
       una_presentation:
-        description:        "A poster, slides, or other tools used in a speech or talk"
-        name:               "Una Presentation"
+        description: "A poster, slides, or other tools used in a speech or talk"
+        name: "Una Presentation"
