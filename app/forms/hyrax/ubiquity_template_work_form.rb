@@ -3,7 +3,7 @@
 module Hyrax
   class UbiquityTemplateWorkForm < Hyrax::Forms::WorkForm
     include ::HykuAddons::Schema::WorkForm
-    include Hyax::FormFields(:ubiquity_template_work)
+    include Hyrax::FormFields(:ubiquity_template_work)
 
     self.model_class = ::UbiquityTemplateWork
   end
