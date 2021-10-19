@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-RSpec.describe "CollectionIndexerOverride" do
+RSpec.describe CollectionIndexer do
   subject(:solr_document) { service.generate_solr_document }
-  let(:service) { CollectionIndexer.new(collection) }
+  let(:service) { described_class.new(collection) }
   let(:collection) { create(:collection) }
 
   context "account_cname_tesim" do
