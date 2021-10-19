@@ -533,6 +533,7 @@ module HykuAddons
         end
       end
       Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
+      Bulkrax::ExportersController.include HykuAddons::ExportersControllerOverride
       ::ActiveJob::Base.include HykuAddons::ImportMode
       ::CleanupAccountJob.prepend HykuAddons::CleanupAccountJobBehavior
       # Overrides for shared_search.
