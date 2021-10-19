@@ -1,0 +1,23 @@
+---
+date_published_year:
+  type: string
+  form:
+    required: true
+    multiple: false
+    type: select
+    authority: HykuAddons::DateYearService
+date_published_month:
+  type: string
+  form:
+    required: true
+    multiple: false
+    type: select
+    authority: HykuAddons::DateMonthService
+date_published_day:
+  type: string
+  form:
+    required: true
+    multiple: false
+    type: select
+    authority: HykuAddons::DateDayService
+

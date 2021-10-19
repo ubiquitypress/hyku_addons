@@ -4,7 +4,7 @@ require "yaml"
 
 module Hyrax
   class SchemaGenerator
-    SUBFIELDS = %i[creator contributor editor date_published].freeze
+    SUBFIELDS = %i[creator contributor editor date_published date_submitted event_date related_exhibition_date].freeze
     FIELD_TYPE_DEFAULTS = {
       "select" => %w[resource_type license language],
       "textarea" => %w[add_info table_of_contents abstract]
@@ -46,7 +46,18 @@ module Hyrax
 
         term_attributes["subfields"] = subfields_for(term) if SUBFIELDS.include?(term.to_sym)
 
-        term_attributes
+        term_attributes.compact.reject { |k, v| v.nil? }
+      end
+
+      # Try and find a file containing the subfield YAML, inside the config/schema/partials folder.
+      # The name of the file should match the name of the term and contain an array of subfields.
+      def subfields_for(term)
+        return unless @model.respond_to?(:json_fields) && @model.json_fields.present?
+
+        file = File.open(HykuAddons::Engine.root.join("config", "metadata", "partials", "#{term}.yaml"))
+        YAML.safe_load(file)
+      rescue Errno::ENOENT
+        nil
       end
 
       # This is pretty basic, but there are not that many fields that require anything other than text
@@ -76,16 +87,6 @@ module Hyrax
         end
 
         indexes
-      end
-
-      # Try and find a file containing the subfield YAML
-      def subfields_for(term)
-        return unless @model.respond_to?(:json_fields) && @model.json_fields.present?
-
-        file = File.open(HykuAddons::Engine.root.join("config", "metadata", "partials", "#{term}.yaml"))
-        YAML.safe_load(file)
-      rescue Errno::ENOENT
-        nil
       end
   end
 end
