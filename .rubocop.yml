@@ -1,5 +1,4 @@
-inherit_gem:
-  bixby: bixby_default.yml
+inherit_from: bixby_default.yml
 
 AllCops:
   TargetRubyVersion: 2.5
@@ -139,7 +138,11 @@ Style/SymbolProc:
 Style/StructInheritance:
   Enabled: false
 
-Style/MethodMissing:
+Style/MissingSuper:
+  Exclude:
+    - 'lib/hyku_addons/engine.rb'
+
+Style/MissingRespondToMissing:
   Exclude:
     - 'lib/hyku_addons/engine.rb'
 
@@ -172,6 +175,6 @@ Naming/FileName:
     - 'config/initializers/hydra-derivatives.rb'
     - 'Gemfile'
 
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Exclude:
     - 'app/models/hyku_addons/csv_entry.rb'
