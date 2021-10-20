@@ -11,10 +11,6 @@ class UnaExhibition < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :location, predicate: ::RDF::Vocab::BF2.physicalLocation, multiple: false do |index|
-    index.as :stored_searchable, :facetable
-  end
-
   property :alt_email, predicate: ::RDF::Vocab::SCHEMA.email do |index|
     index.as :stored_searchable
   end
