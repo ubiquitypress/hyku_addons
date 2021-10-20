@@ -8,10 +8,6 @@ class UnaArchivalItem < ActiveFedora::Base
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AddInfoSingular
 
-  property :alt_email, predicate: ::RDF::Vocab::SCHEMA.email do |index|
-    index.as :stored_searchable
-  end
-
   property :issn, predicate: ::RDF::Vocab::BIBO.issn, multiple: false do |index|
     index.as :stored_searchable
   end
