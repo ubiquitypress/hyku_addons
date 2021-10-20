@@ -10,7 +10,7 @@ module Hyrax
                  additional_links related_material related_url place_of_publication
                  citation license rights_holder rights_statement rights_statement_text
                  language location longitude latitude georeferenced add_info]
-
+    self.terms -= %i[publisher source]
     self.required_fields = %i[title resource_type creator qualification_name qualification_level]
 
     include Hyrax::DOI::DOIFormBehavior
