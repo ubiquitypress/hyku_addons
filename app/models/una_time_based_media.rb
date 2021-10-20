@@ -1,30 +1,40 @@
 # frozen_string_literal: true
-class UnaThesisOrDissertation < ActiveFedora::Base
+class UnaTimeBasedMedia < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
-  # Adds behaviors for hyrax-doi plugin.
   include Hyrax::DOI::DOIBehavior
-  # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
   include Hyrax::DOI::DataCiteDOIBehavior
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AddInfoSingular
 
-  property :additional_links, predicate: ::RDF::Vocab::SCHEMA.significantLinks, multiple: false do |index|
+  property :duration, predicate: ::RDF::Vocab::BF2.duration, multiple: true do |index|
     index.as :stored_searchable
   end
 
-  property :degree, predicate: ::RDF::Vocab::SCHEMA.evidenceLevel, multiple: false do |index|
+  property :event_title, predicate: ::RDF::Vocab::BF2.term(:Event) do |index|
     index.as :stored_searchable, :facetable
   end
 
-  property :qualification_grantor, predicate: ::RDF::Vocab::BF2.grantingInstitution, multiple: false do |index|
+  property :event_location, predicate: ::RDF::Vocab::Bibframe.eventPlace do |index|
     index.as :stored_searchable
   end
 
-  property :qualification_name, predicate: ::RDF::Vocab::SCHEMA.qualifications, multiple: false do |index|
+  property :event_date, predicate: ::RDF::Vocab::Bibframe.eventDate do |index|
     index.as :stored_searchable
   end
 
-  property :qualification_level, predicate: ::RDF::Vocab::BF2.degree, multiple: false do |index|
+  property :related_exhibition, predicate: ::RDF::Vocab::SCHEMA.term(:ExhibitionEvent) do |index|
+    index.as :stored_searchable
+  end
+
+  property :related_exhibition_venue, predicate: ::RDF::Vocab::SCHEMA.EventVenue, multiple: true do |index|
+    index.as :stored_searchable
+  end
+
+  property :related_exhibition_date, predicate: ::RDF::Vocab::SCHEMA.term(:Date) do |index|
+    index.as :stored_searchable
+  end
+
+  property :rights_statement_text, predicate: ::RDF::Vocab::DC11.rights, multiple: false do |index|
     index.as :stored_searchable
   end
 
@@ -32,24 +42,16 @@ class UnaThesisOrDissertation < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :committee_member, predicate: ::RDF::Vocab::AS.term(:Person) do |index|
+  property :additional_links, predicate: ::RDF::Vocab::SCHEMA.significantLinks, multiple: false do |index|
     index.as :stored_searchable
   end
 
-  property :advisor, predicate: ::RDF::Vocab::Bibframe.Person, multiple: false do |index|
-    index.as :stored_searchable
-  end
-
-  property :place_of_publication, predicate: ::RDF::Vocab::BF2.term(:Place) do |index|
+  property :irb_status, predicate: ::RDF::Vocab::BF2.Status, multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
 
-  property :citation, predicate: ::RDF::Vocab::DC.term(:bibliographicCitation) do |index|
-    index.as :stored_searchable
-  end
-
-  property :rights_statement_text, predicate: ::RDF::Vocab::DC11.rights, multiple: false do |index|
-    index.as :stored_searchable
+  property :irb_number, predicate: ::RDF::Vocab::BIBO.identifier, multiple: false do |index|
+    index.as :stored_searchable, :facetable
   end
 
   property :related_material, predicate: ::RDF::Vocab::BF2.term(:relatedTo), multiple: false do |index|
@@ -72,7 +74,13 @@ class UnaThesisOrDissertation < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  self.indexer = UnaThesisOrDissertationIndexer
+  property :time, predicate: ::RDF::Vocab::DC.temporal, multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+  self.date_fields += %i[event_date related_exhibition_date]
+
+  self.indexer = UnaTimeBasedMediaIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }

@@ -3,12 +3,12 @@ require 'rails_helper'
 include Warden::Test::Helpers
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature 'Create a UnaThesisOrDissertation' do
+RSpec.feature 'Create a UnaTimeBasedMedia' do
   let(:user) { User.new(email: 'test@example.com') { |u| u.save(validate: false) } }
   let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
   let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
   let(:workflow) { Sipity::Workflow.create!(active: true, name: 'test-workflow', permission_template: permission_template) }
-  let(:work_type) { "una_thesis_or_dissertation" }
+  let(:work_type) { "una_time_based_media" }
   let(:new_work_path) { "concern/#{work_type.to_s.pluralize}/new" }
 
   before do
@@ -27,7 +27,7 @@ RSpec.feature 'Create a UnaThesisOrDissertation' do
   end
 
   it 'renders the new Una Work page' do
-    expect(page).to have_content "Add New Una Thesis Or Dissertation"
+    expect(page).to have_content "Add New Una Time Based Media"
   end
 
   it 'adds files to work' do
@@ -66,19 +66,20 @@ RSpec.feature 'Create a UnaThesisOrDissertation' do
 
     it "renders all simple worktype fields" do
       worktype_simple_fields = %w[title resource_type alt_email abstract keyword subject
-                                  degree qualification_level qualification_name
-                                  qualification_grantor advisor committee_member
-                                  org_unit additional_links related_material
-                                  related_url place_of_publication citation license
-                                  rights_holder rights_statement rights_statement_text
-                                  language location longitude latitude georeferenced add_info]
+                                  org_unit additional_links
+                                  related_material related_url event_title event_location
+                                  related_exhibition related_exhibition_venue
+                                  license rights_holder
+                                  rights_statement rights_statement_text
+                                  duration language location longitude latitude
+                                  georeferenced time irb_number irb_status add_info]
       worktype_simple_fields.each do |field|
         expect(page).to have_field("#{work_type}_#{field}")
       end
     end
 
     it "renders complex name fields" do
-      worktype_complex_name_fields = %w[creator]
+      worktype_complex_name_fields = %w[creator contributor]
       worktype_complex_name_fields.each do |field|
         expect(page).to have_field("#{work_type}_#{field}__#{field}_family_name")
         expect(page).to have_field("#{work_type}_#{field}__#{field}_given_name")
@@ -93,7 +94,7 @@ RSpec.feature 'Create a UnaThesisOrDissertation' do
     end
 
     it "renders all date fields" do
-      worktype_date_fields = %w[date_published]
+      worktype_date_fields = %w[date_published event_date related_exhibition_date]
       worktype_date_fields.each do |field|
         expect(page).to have_field("#{work_type}_#{field}__#{field}_year")
         expect(page).to have_field("#{work_type}_#{field}__#{field}_month")

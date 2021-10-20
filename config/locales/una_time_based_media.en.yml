@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      una_time_based_media: 'fa fa-file-text-o'
+    select_type:
+      una_time_based_media:
+        description: "Time based media works"
+        name: "Una Time Based Media"
