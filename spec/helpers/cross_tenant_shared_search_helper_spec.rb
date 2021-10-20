@@ -47,7 +47,7 @@ RSpec.describe HykuAddons::CrossTenantSharedSearchHelper do
 
       let(:uuid) { SecureRandom.uuid }
       let(:request) { instance_double(ActionDispatch::Request, port: 3000, protocol: "https://", host: account.cname) }
-      let(:attributes_hash) { { id: uuid, has_model_ssim: ['GenericWork'], account_cname_tesim: account.cname } }
+      let(:attributes_hash) { { "id" => uuid, "has_model_ssim" => ['GenericWork'], "account_cname_tesim" => account.cname } }
 
       it "returns #generate_work_url for production" do
         allow(Rails.env).to receive(:development?).and_return(false)
@@ -68,7 +68,7 @@ RSpec.describe HykuAddons::CrossTenantSharedSearchHelper do
 
         it "set correct url in development" do
           account.cname = "hyku.docker"
-          attributes_hash[:has_model_ssim] = collection_klass
+          attributes_hash["has_model_ssim"] = collection_klass
           url = "#{request.protocol}#{account.cname}:#{request.port}/collections/#{uuid}"
 
           expect(helper.generate_work_url(attributes_hash, request)).to eq(url)
@@ -78,7 +78,7 @@ RSpec.describe HykuAddons::CrossTenantSharedSearchHelper do
           allow(Rails.env).to receive(:development?).and_return(false)
           allow(Rails.env).to receive(:test?).and_return(false)
 
-          attributes_hash[:has_model_ssim] = collection_klass
+          attributes_hash["has_model_ssim"] = collection_klass
 
           url = "#{request.protocol}#{account.cname}/collections/#{uuid}"
           expect(helper.generate_work_url(attributes_hash, request)).to eq(url)

@@ -4,13 +4,10 @@
 module HykuAddons
   module CrossTenantSharedSearchHelper
     def generate_work_url(model, request)
-      # returns a symbol for id and string for other attributes
-      model = model.with_indifferent_access
-
       cname = model["account_cname_tesim"]
       account_cname = Array.wrap(cname).first
       has_model = model["has_model_ssim"].first.underscore.pluralize
-      id = model[:id]
+      id = model["id"]
 
       request_params = %i[protocol host port].map { |method| ["request_#{method}".to_sym, request.send(method)] }.to_h
       set_url(id: id, request: request_params, account_cname: account_cname, has_model: has_model)
