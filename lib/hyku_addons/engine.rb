@@ -564,6 +564,8 @@ module HykuAddons
       ::Flipflop::StrategiesController.prepend HykuAddons::FlipflopStrategiesControllerOverride
       ::Proprietor::AccountsController.prepend HykuAddons::ProprietorControllerOverride
       ::NilEndpoint.prepend HykuAddons::NilEndpointOverride
+      ::Hyrax::CollectionIndexer.prepend HykuAddons::CollectionIndexerOverride
+      ::Hyrax::CollectionPresenter.prepend HykuAddons::CollectionPresenterOverride
 
       User.class_eval do
         def mailboxer_email(_obj)

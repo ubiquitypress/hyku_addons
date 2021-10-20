@@ -110,6 +110,7 @@ RSpec/DescribeClass:
     - 'spec/inputs/**/*'
     - 'spec/views/**/*'
     - 'spec/tasks/hyku_addons/rake_spec.rb'
+    - 'spec/indexers/collection_indexer_override_spec.rb'
 
 RSpec/ExampleLength:
   Max: 10
