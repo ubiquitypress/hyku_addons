@@ -1,0 +1,6 @@
+<%# OVERRIDE Hyrax 2.9 to support shared search %>
+
+<div class="search-results-title-row">
+  <h3 class="search-result-title"><%= link_to document.title_or_label, generate_work_url(document.to_h, request) %></h3>
+  <%= Hyrax::CollectionPresenter.new(document, current_ability).collection_type_badge %>
+</div>
