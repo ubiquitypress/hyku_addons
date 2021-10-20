@@ -1,8 +1,15 @@
 # frozen_string_literal: true
 module HykuAddons
   class ReindexAvailableWorksJob < ApplicationJob
-    def perform(array_of_cname)
-      array_of_cname.each do |cname|
+    rescue_from Ldp::Gone, RSolr::Error::Http, RSolr::Error::ConnectionRefused do |exception|
+      Rails.logger.debug exception.inspect
+      retry_job(wait: 5.minutes)
+    end
+
+    # cnames is an array
+    def perform(cnames)
+      cnames.each do |name|
+        cname = cnames.delete(name)
         fetch_work_save_cname(cname)
       end
     end
@@ -18,7 +25,7 @@ module HykuAddons
           contains_work = klass.count.positive?
 
           Rails.logger.debug "==== Queue ReindexModelJob for #{klass} ===" if contains_work
-          HykuAddons::ReindexModelJob.perform_now(model_class, cname) if contains_work
+          HykuAddons::ReindexModelJob.perform_later(model_class, cname) if contains_work
         end
       end
   end
