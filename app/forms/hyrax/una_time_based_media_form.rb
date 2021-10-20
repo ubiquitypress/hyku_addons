@@ -12,7 +12,7 @@ module Hyrax
                  rights_statement rights_statement_text contributor duration
                  language location longitude latitude georeferenced time irb_number
                  irb_status add_info]
-
+    self.terms -= %i[publisher source]
     self.required_fields = %i[title resource_type creator date_published]
 
     include Hyrax::DOI::DOIFormBehavior

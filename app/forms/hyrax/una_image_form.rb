@@ -11,7 +11,7 @@ module Hyrax
                  related_exhibition_date license rights_holder rights_statement
                  rights_statement_text contributor medium extent duration is_format_of
                  language location longitude latitude georeferenced time add_info]
-    self.terms -= %i[publisher]
+    self.terms -= %i[publisher related_url source]
     self.required_fields = %i[title resource_type creator]
 
     include Hyrax::DOI::DOIFormBehavior
