@@ -33,7 +33,6 @@ module Hyrax
                              :place_of_publication, :citation, :license, :rights_holder,
                              :rights_statement, :rights_statement_text, :language,
                              :location, :longitude, :latitude, :georeferenced, :add_info]
-
       end
     end
   end

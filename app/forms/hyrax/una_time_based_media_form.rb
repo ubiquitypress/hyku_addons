@@ -33,7 +33,6 @@ module Hyrax
                              :rights_statement, :rights_statement_text, :contributor,
                              :duration, :language, :location, :longitude, :latitude,
                              :georeferenced, :time, :irb_number, :irb_status, :add_info]
-
       end
     end
   end
