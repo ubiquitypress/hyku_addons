@@ -16,8 +16,8 @@ module Hyrax
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def primary_terms
-      %i[title creator resource_type alt_email abstract keyword subject org_unit
-         language license publisher date_published event_location] | super
+      %i[title alt_title resource_type creator alt_email abstract keyword
+         subject org_unit language license publisher date_published] | super
     end
 
     def self.build_permitted_params
