@@ -94,10 +94,6 @@ RSpec.feature 'Create a UnaExhibition' do
       end
     end
 
-    it "renders current_he_institution field" do
-      expect(page).to have_field("#{work_type}_current_he_institution__current_he_institution_name")
-    end
-
     it "renders all date fields" do
       worktype_date_fields = %w[event_date related_exhibition_date]
       worktype_date_fields.each do |field|

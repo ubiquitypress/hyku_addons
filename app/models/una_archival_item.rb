@@ -108,6 +108,10 @@ class UnaArchivalItem < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  property :related_exhibition_venue, predicate: ::RDF::Vocab::SCHEMA.EventVenue, multiple: true do |index|
+    index.as :stored_searchable
+  end
+
   property :rights_statement_text, predicate: ::RDF::Vocab::DC11.rights, multiple: false do |index|
     index.as :stored_searchable
   end

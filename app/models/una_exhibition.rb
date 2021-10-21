@@ -111,7 +111,6 @@ class UnaExhibition < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
-  self.json_fields += %i[current_he_institution]
   self.date_fields += %i[event_date related_exhibition_date]
 
   self.indexer = UnaExhibitionIndexer
