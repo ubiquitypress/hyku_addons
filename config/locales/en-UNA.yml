@@ -56,17 +56,33 @@ en-UNA:
         label: Role
       contributor_grid:
         label: GRID
-  labels:
-    defaults:
-      alt_email: Alternative Email
-      license: Licensing
-      alt_email: Alternative Email
-      official_link: Official URL
-      place_of_publication: Place Published
-      location: Geolocate
-      time: Coverage Span
-      add_info: Notes
-      fndr_project_ref: Funder project reference
-      funding_description: Funding Sources
-      refereed: Peer reviewed?
-      citation: Bibliographic Citation
+    labels:
+      defaults:
+        alt_title: Alternative Title
+        alt_email: Alternative Email
+        resource_type: Document Type
+        keyword: Keywords
+        adapted_from: Adapted From
+        additional_links: Additional Links
+        related_material: Related Material
+        license: Licensing
+        alt_email: Alternative Email
+        official_link: Official URL
+        place_of_publication: Place Published
+        location: Geolocate
+        time: Coverage Span
+        add_info: Notes
+        fndr_project_ref: Funder project reference
+        funding_description: Funding Sources
+        refereed: Peer reviewed?
+        citation: Bibliographic Citation
+        medium: Format(s)
+        extent: Content Length or Size
+        language: Language(s)
+        org_unit: Department
+        version_number: Document Version
+        official_link: Link to Full Text
+        series_name: Series Title
+        book_title: Title of Book
+        alt_book_title: Alternative Book Title
+        pagination: Page Numbers

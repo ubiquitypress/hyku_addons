@@ -462,6 +462,9 @@ module HykuAddons
         config.register_curation_concern :una_chapters_and_book_section
         config.register_curation_concern :una_exhibition
         config.register_curation_concern :una_image
+        config.register_curation_concern :una_presentation
+        config.register_curation_concern :una_thesis_or_dissertation
+        config.register_curation_concern :una_time_based_media
         config.register_curation_concern :uva_work
 
         config.license_service_class = HykuAddons::LicenseService
@@ -546,6 +549,7 @@ module HykuAddons
         end
       end
       Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
+      Bulkrax::ExportersController.include HykuAddons::ExportersControllerOverride
       ::ActiveJob::Base.include HykuAddons::ImportMode
       ::CleanupAccountJob.prepend HykuAddons::CleanupAccountJobBehavior
       # Overrides for shared_search.

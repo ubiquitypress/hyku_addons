@@ -10,11 +10,11 @@ module Hyrax
                  adapted_from additional_links related_material related_url source
                  isbn issn eissn publisher place_of_publication citation funder
                  project_name fndr_project_ref funding_description event_title
-                 event_location event_date related_exhibition related_exhibition_date
-                 license rights_holder rights_statement rights_statement_text contributor
-                 medium extent duration is_format_of language prerequisites
-                 location longitude latitude georeferenced time irb_number irb_status
-                 add_info]
+                 event_location event_date related_exhibition related_exhibition_venue
+                 related_exhibition_date license rights_holder rights_statement
+                 rights_statement_text contributor medium extent duration is_format_of
+                 language prerequisites location longitude latitude georeferenced
+                 time irb_number irb_status add_info]
 
     self.required_fields = %i[title resource_type creator]
     include Hyrax::DOI::DOIFormBehavior
@@ -39,7 +39,8 @@ module Hyrax
                              :rights_statement, :rights_statement_text, :contributor,
                              :medium, :extent, :duration, :is_format_of, :language,
                              :prerequisites, :location, :longitude, :latitude,
-                             :georeferenced, :time, :irb_number, :irb_status, :add_info]
+                             :georeferenced, :time, :irb_number, :irb_status,
+                             :related_exhibition_venue, :add_info]
       end
     end
   end
