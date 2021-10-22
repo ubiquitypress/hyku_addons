@@ -44,9 +44,21 @@ module Hyrax
           "type" => field_type_for(term)
         }
 
+        if field_type_for(term) == "select"
+          term_attributes["form"]["authority"] = authority_for(term)
+          term_attributes["form"]["include_blank"] = true
+        end
+
         term_attributes["subfields"] = subfields_for(term) if SUBFIELDS.include?(term.to_sym)
 
         term_attributes.compact.reject { |k, v| v.nil? }
+      end
+
+      # Try and guess at the authority for selects
+      def authority_for(term)
+        return unless field_type_for(term) == "select"
+
+        "HykuAddons::#{term.classity}Service".safe_constantize&.name
       end
 
       # Try and find a file containing the subfield YAML, inside the config/schema/partials folder.
