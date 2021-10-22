@@ -13,8 +13,8 @@ module HykuAddons
         def self.build_permitted_params
           super.tap do |permitted_params|
             model_class.json_fields.each do |field, field_config|
-              subfields = field_config['subfields'].keys.map do |subfield|
-                            if field_config['subfields'][subfield]['form']['multiple']
+              subfields = field_config["subfields"].keys.map do |subfield|
+                            if field_config["subfields"][subfield]["form"]["multiple"]
                               { subfield.to_sym => [] }
                             else
                               subfield.to_sym
@@ -41,7 +41,7 @@ module HykuAddons
       end
 
       def initialize(model, current_ability, controller)
-        model.admin_set_id = controller.params['admin_set_id'] if Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig('admin_set_id').present?
+        model.admin_set_id = controller.params["admin_set_id"] if Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig("admin_set_id").present?
 
         super(model, current_ability, controller)
       end
