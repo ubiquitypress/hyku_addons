@@ -15,14 +15,15 @@ module HykuAddons
       private
 
         def serialize_note_field(env)
+          return unless env.curation_concern.respond_to?(:note)
+
           if env.attributes[:note].present?
             @email = env.user.email
-            env.attributes[:note] =
-              if env.curation_concern.note.present?
-                env.curation_concern.note + Array(process_note_hash(env.attributes[:note]).to_json)
-              else
-                Array(process_note_hash(env.attributes[:note]).to_json)
-              end
+            env.attributes[:note] = if env.curation_concern.note.present?
+                                      env.curation_concern.note + Array(process_note_hash(env.attributes[:note]).to_json)
+                                    else
+                                      Array(process_note_hash(env.attributes[:note]).to_json)
+                                    end
           else
             env.attributes[:note] = env.curation_concern.note
           end
