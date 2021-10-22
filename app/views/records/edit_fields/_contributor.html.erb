@@ -30,14 +30,14 @@
 			<%= render "records/edit_fields/attribution_partials/select_field", field_options %>
 
 			<% types.each do |type| %>
-				<% if f.object.respond_to?(:field_configs) %>
+				<% if f.object.schema_driven? %>
 					<%= render "records/edit_fields/contributor_subfields", f: f, type: type["id"], template: template, hash: hash %>
 				<% else %>
 					<%= render "records/edit_fields/contributor_#{type["id"].downcase}", f: f, type: type["id"], template: template, hash: hash %>
 				<% end %>
 			<% end %>
 
-			<% unless f.object.respond_to?(:field_configs) %>
+			<% unless f.object.schema_driven? %>
 				<% # FIXME: This condition should be moved to the model/form %>
 				<% unless template.include?("pacific") || template.include?("uva") || template.include?("redlands") || template.include?("anschutz") || template.include?("denver") %>
 					<% model = f.object.model.class %>
