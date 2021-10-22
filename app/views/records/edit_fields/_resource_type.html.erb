@@ -1,5 +1,16 @@
-<% model_name = f.object.model.class %>
-<%= f.input :resource_type, as: :select,
-            collection: HykuAddons::ResourceTypesService.new(model: model_name).select_active_options,
-            include_blank: true,
-            input_html: { name: "#{model_name.to_s.underscore}[resource_type][]", class: 'form-control' } %>
+<% if f.object.schema_driven? %>
+  <% config = f.object.field_configs[:resource_type] %>
+  <% model = f.object.model.class %>
+
+  <%= f.input :resource_type, as: :select,
+    collection: config[:authority].safe_constantize&.new(model: model)&.select_active_options,
+    include_blank: config[:include_blank],
+    input_html: { name: "#{model.to_s.underscore}[resource_type][]", class: "form-control", required: config[:required] } %>
+
+<% else %>
+  <% model_name = f.object.model.class %>
+  <%= f.input :resource_type, as: :select,
+    collection: HykuAddons::ResourceTypesService.new(model: model_name).select_active_options,
+    include_blank: true,
+    input_html: { name: "#{model_name.to_s.underscore}[resource_type][]", class: 'form-control' } %>
+<% end %>
