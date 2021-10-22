@@ -13,13 +13,25 @@ module HykuAddons
         def self.build_permitted_params
           super.tap do |permitted_params|
             model_class.json_fields.each do |field, field_config|
-              permitted_params << { field => field_config['subfields'].keys.map { |subfield| field_config['subfields'][subfield]['form']['multiple'] ? { subfield.to_sym => [] } : subfield.to_sym } }
+              subfields = field_config['subfields'].keys.map do |subfield|
+                            if field_config['subfields'][subfield]['form']['multiple']
+                              { subfield.to_sym => [] }
+                            else
+                              subfield.to_sym
+                            end
+                          end
+              permitted_params << { field => subfields }
             end
+
             model_class.date_fields.each do |field|
               permitted_params << { field => ["#{field}_year".to_sym, "#{field}_month".to_sym, "#{field}_day".to_sym] }
             end
           end
         end
+      end
+
+      def schema_driven?
+        true
       end
 
       def primary_terms
