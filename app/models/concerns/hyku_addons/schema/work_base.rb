@@ -13,6 +13,10 @@ module HykuAddons
         self.json_fields = {}
         self.date_fields = []
       end
+
+      def schema_driven?
+        true
+      end
     end
   end
 end
