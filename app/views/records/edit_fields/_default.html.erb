@@ -1,13 +1,39 @@
-<% if f.object.multiple? key %>
-  <%= f.input key,
-    as: :multi_value,
-    input_html: { class: 'form-control' },
-    required: f.object.required?(key),
-    placeholder: lambda {
-      key = "simple_form.placeholders.defaults.#{key}"
-      I18n.exists?(key) ? t(key) : ''
-    }.call
-  %>
+<% if f.object.schema_driven? %>
+	<% config = f.object.field_configs[key] || {} %>
+
+	<% options = {
+		required: config[:required],
+		input_html: { class: "form-control", data: config.dig("form", "data") },
+		placeholder: I18n.t("simple_form.placeholders.defaults.#{key}", default: "")
+	} %>
+
+	<% # Doesn't look like textareas work with multiple fields %>
+	<% options.merge!(as: :multi_value) if config[:multiple] %>
+
+	<% # TODO: Is there a better way of doing this? Maybe an input class. %>
+	<% if config[:type] == "textarea" %>
+		<% options.merge!(as: :text) %>
+		<% options[:input_html].merge!(rows: 7, cols: 80, type: "textarea") %>
+	<% end %>
+
+	<% # Allow us to override the input if we really need to %>
+	<% options.merge!(as: config[:simple_form_input]) if config[:simple_form_input] %>
+
+	<!-- _default <%= key %> -->
+	<%= f.input key, options %>
+
 <% else %>
-  <%= f.input key, required: f.object.required?(key) %>
+	<% if f.object.multiple? key %>
+		<%= f.input key,
+			as: :multi_value,
+			input_html: { class: "form-control" },
+			required: f.object.required?(key),
+			placeholder: lambda {
+				key = "simple_form.placeholders.defaults.#{key}"
+				I18n.exists?(key) ? t(key) : ""
+			}.call
+		%>
+	<% else %>
+		<%= f.input key, required: f.object.required?(key) %>
+	<% end %>
 <% end %>
