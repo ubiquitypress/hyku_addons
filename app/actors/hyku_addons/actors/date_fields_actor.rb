@@ -13,6 +13,8 @@ module HykuAddons
       private
 
         def serialize_date_fields(env)
+          return if env.curation_concern.schema_driven?
+
           env.curation_concern.class.date_fields.each do |field|
             next unless env.attributes[field].present?
             env.attributes[field] = Array(env.attributes[field]).collect { |date_hash| transform_date(date_hash, field) }

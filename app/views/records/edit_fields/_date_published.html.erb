@@ -1,2 +1,15 @@
-<% date_published = f.object[:date_published] %>
-<%= render 'hyku_addons/dates/date_published', f: f, date_published: date_published %>
+<% if f.object.schema_driven? %>
+  <%= f.input key,
+    as: :hyku_date,
+    start_year: (Date.today.year + 6),
+    end_year: 1750,
+    order: [:year, :month, :day],
+    use_month_numbers: true,
+    prompt: true,
+    selected: f.object.send(key).presence,
+    wrapper_html: { class: "form-inline" }
+  %>
+
+<% else %>
+  <%= render 'hyku_addons/dates/date_published', f: f, date_published: f.object[:date_published] %>
+<% end %>
