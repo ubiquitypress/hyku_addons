@@ -7,6 +7,8 @@ require 'hyrax/doi/engine'
 require 'bolognese/metadata'
 require 'cocoon'
 
+# Without this include, the presenter will be dropped by the autoloading each time a change is made to the codebase.
+require '../../app/presenters/hyku_addons/schema/presenter.rb'
 module HykuAddons
   class Engine < ::Rails::Engine
     isolate_namespace HykuAddons
