@@ -13,7 +13,7 @@ module HykuAddons
       private
 
         def serialize_date_fields(env)
-          return if env.curation_concern.schema_driven?
+          return true if env.curation_concern.schema_driven?
 
           env.curation_concern.class.date_fields.each do |field|
             next unless env.attributes[field].present?
