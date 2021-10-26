@@ -17,7 +17,7 @@
 	<% end %>
 
 	<% # Allow us to override the input if we really need to %>
-	<% options.merge!(as: config[:simple_form_input]) if config[:simple_form_input] %>
+	<% options.merge!(as: config[:input]) if config[:input] %>
 
 	<!-- _default <%= key %> -->
 	<%= f.input key, options %>

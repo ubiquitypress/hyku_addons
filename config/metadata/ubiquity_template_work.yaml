@@ -12,6 +12,7 @@ attributes:
       primary: true
       multiple: true
       type: text
+      input: single_multi_value
   alt_title:
     type: string
     predicate: http://purl.org/dc/terms/alternative
@@ -246,7 +247,7 @@ attributes:
     - date_published_tesim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: false
       type: date
   media:
