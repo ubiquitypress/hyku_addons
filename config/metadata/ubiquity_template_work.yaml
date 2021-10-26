@@ -239,7 +239,7 @@ attributes:
       multiple: false
       type: textarea
   date_published:
-    type: string
+    type: date
     predicate: http://purl.org/dc/terms/available
     multiple: false
     index_keys:
@@ -248,29 +248,7 @@ attributes:
       required: false
       primary: false
       multiple: false
-      type: text
-    subfields:
-      date_published_year:
-        type: string
-        form:
-          required: true
-          multiple: false
-          type: select
-          authority: HykuAddons::DateYearService
-      date_published_month:
-        type: string
-        form:
-          required: true
-          multiple: false
-          type: select
-          authority: HykuAddons::DateMonthService
-      date_published_day:
-        type: string
-        form:
-          required: true
-          multiple: false
-          type: select
-          authority: HykuAddons::DateDayService
+      type: date
   media:
     type: string
     predicate: http://www.loc.gov/mods/rdf/v1#physicalForm

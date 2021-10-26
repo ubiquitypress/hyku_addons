@@ -16,7 +16,7 @@ module Hyrax
   # @note `Valkyrie::Resources`/`Hyrax::Resources` are not required to use this
   # interface, and may define custom attributes using the base
   # `Valkyrie::Resource.attribute` interface. This mechanism is provided to
-  # allow schemas to be defined in a unified way that don't require programmer
+  # allow schemas to be defined in a unified way that don"t require programmer
   # intervention ("configurable schemas"). While the default usage defines
   # schemas in application configuration, they could also be held in repository
   # storage, an external schema service, etc... by using a custom schema loader.
@@ -86,8 +86,8 @@ module Hyrax
         super
         attributes_config.each do |name, config|
           descendant.property(name, config.symbolize_keys)
-          descendant.json_fields[name] = config if config['subfields'].present?
-          descendant.date_fields += [name] if config['type'] == 'date'
+          descendant.json_fields[name] = config if config["subfields"].present?
+          descendant.date_fields += [name] if config["type"] == "date"
         end
       end
   end
