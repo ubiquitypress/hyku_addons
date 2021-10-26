@@ -40,6 +40,10 @@ class UnaPresentation < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
+  property :mentor, predicate: ::RDF::Vocab::V.term(:Person) do |index|
+    index.as :stored_searchable
+  end
+
   self.date_fields += %i[event_date]
 
   self.indexer = UnaPresentationIndexer

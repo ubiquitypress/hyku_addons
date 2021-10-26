@@ -34,7 +34,8 @@
 			<% end %>
 
 			<% # FIXME: This condition should be moved to the model/form %>
-			<% unless template.include?("pacific") || template.include?("uva") || template.include?("redlands") || template.include?("anschutz") || template.include?("denver") %>
+			<% unless template.include?("pacific") || template.include?("uva") || template.include?("redlands") ||
+								template.include?("anschutz") || template.include?("denver") || template.include?("una") %>
 				<% model = f.object.model.class %>
 				<% field_options = {
 					field_slug: :contributor_type,

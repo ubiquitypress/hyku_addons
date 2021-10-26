@@ -126,6 +126,7 @@ module HykuAddons
       attribute :is_format_of, SolrDocument::Solr::Array, solr_name('is_format_of')
       attribute :part_of, SolrDocument::Solr::Array, solr_name('part_of')
       attribute :georeferenced, SolrDocument::Solr::Array, solr_name('georeferenced')
+      attribute :mentor, SolrDocument::Solr::Array, solr_name('mentor')
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(
