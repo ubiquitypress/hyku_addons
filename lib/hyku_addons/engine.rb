@@ -7,11 +7,13 @@ require 'hyrax/doi/engine'
 require 'bolognese/metadata'
 require 'cocoon'
 
-# Without this include, the presenter will be dropped by the autoloading each time a change is made to the codebase.
-require '../../app/presenters/hyku_addons/schema/presenter.rb'
 module HykuAddons
   class Engine < ::Rails::Engine
     isolate_namespace HykuAddons
+
+    # Without this include, the presenter will be dropped by the autoloading each time a change is made to the codebase.
+    # Because of the way the app is structured, we need to include it here to have the console and server use the same location.
+    require HykuAddons::Engine.root.join("app/presenters/hyku_addons/schema/presenter.rb")
 
     config.before_initialize do
       # Eager load required for overrides in the initializer below
