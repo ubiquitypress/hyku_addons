@@ -67,7 +67,7 @@ RSpec.feature 'Create a UnaPresentation' do
     it "renders all simple worktype fields" do
       worktype_simple_fields = %w[title alt_title resource_type alt_email abstract keyword
                                   subject org_unit language license publisher event_location
-                                  official_link location longitude latitude add_info
+                                  official_link mentor location longitude latitude add_info
                                   event_title event_location]
       worktype_simple_fields.each do |field|
         expect(page).to have_field("#{work_type}_#{field}")

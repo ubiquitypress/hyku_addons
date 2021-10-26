@@ -48,7 +48,7 @@ module HykuAddons
            related_material note advisor subject_text mesh journal_frequency funding_description
            citation references extent medium source committee_member time qualification_grantor date_published_text
            rights_statement_text qualification_subject_text is_format_of part_of
-           georeferenced source_identifier] + hyrax_terms
+           georeferenced source_identifier mentor] + hyrax_terms
       end
 
       def hyrax_terms

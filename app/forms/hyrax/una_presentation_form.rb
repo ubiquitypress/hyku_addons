@@ -6,7 +6,7 @@ module Hyrax
     self.model_class = ::UnaPresentation
     add_terms %i[title alt_title resource_type creator alt_email abstract keyword
                  subject org_unit language license publisher date_published event_location
-                 official_link contributor location longitude latitude add_info
+                 official_link mentor contributor location longitude latitude add_info
                  event_title event_location event_date]
     self.terms -= %i[rights_statement related_url source]
     self.required_fields = %i[title creator resource_type alt_email abstract keyword
@@ -27,7 +27,7 @@ module Hyrax
                              :abstract, :keyword, :subject, :org_unit, :language,
                              :license, :publisher, :date_published, :event_location,
                              :official_link, :contributor, :location, :longitude,
-                             :latitude, :add_info, :event_title, :event_date]
+                             :latitude, :add_info, :event_title, :event_date, :mentor]
       end
     end
   end

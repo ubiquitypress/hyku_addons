@@ -1,85 +1,39 @@
-terms:
-- id: PhD
-  term: Doctor of Philosophy
+- id: MA-English
+  term: Master of Arts in English
+  active: true
+- id: MA-History
+  term: Master of Arts in History
+  active: true
+- id: MA-PublicHistory
+  term: Master of Arts in Public History
+  active: true
+- id: MSc-GeospatialScience
+  term: Master of Science in Geospatial Science
+  active: true
+- id: MPrS
+  term: Master of Professional Studies
+  active: true
+- id: MSc-CriminalJustice
+  term: Master of Science in Criminal Justice
+  active: true
+- id: MSc-FamilyAndCommunityServices
+  term: Master of Science in Family and Community Services
+  active: true
+- id: MSc-FamilyStudies
+  term: Master of Science in Family Studies
+  active: true
+- id: MSc-HealthAndHumanPerformance
+  term: Master of Science in Health and Human Performance
+  active: true
+- id: MSc-SportAndRecreationalManagement
+  term: Master of Science in Sport and Recreation Management
+  active: true
+- id: MSc-InstructionalTechnologyAndDesign
+  term: Master of Science in Instructional Technology and Design
   active: true
 - id: DBA
-  term: Doctor of Business Administration
+  term: Doctorate of Business Admin
   active: true
-- id: DClinPsy
-  term: Doctor of Clinical Psychology
-  active: true
-- id: DDS
-  term: Doctor of Dental Surgery
-  active: true
-- id: EdD
-  term: Doctor of Education
-  active: true
-- id: DEdPsy
-  term: Doctor of Educational Psychology
-  active: true
-- id: EngD
-  term: Doctor of Engineering
-  active: true
-- id: DHRes
-  term: Doctor of Health Research
-  active: true
-- id: HScD
-  term: Doctor of Health Science
-  active: true
-- id: DLitt
-  term: Doctor of Letters
-  active: true
-- id: DMin
-  term: Doctor of Ministry
-  active: true
-- id: MD
-  term: Doctor of Medicine
-  active: true
-- id: DMus
-  term: Doctor of Music
-  active: true
-- id: DPhil
-  term: Doctor of Philosophy
-  active: false
-- id: DPT
-  term: Doctor of Physical Therapy
-  active: true
-- id: DrPH
-  term: Doctor of Public Health
-  active: true
-- id: DSc
-  term: Doctor of Science
-  active: true
-- id: DSocSci
-  term: Doctor of Social Science
-  active: true
-- id: ProfDoc
-  term: Doctor of Professional Studies
-  active: true
-- id: ThD
-  term: Doctor of Theology
-  active: true
-- id: MA
-  term: Master of Arts
-  active: true
-- id: MBA
-  term: Master of Business Administration
-  active: true
-- id: MLitt
-  term: Master of Letters
-  active: true
-- id: MM
-  term: Master of Music
-  active: true
-- id: MRes
-  term: Master of Research
-  active: true
-- id: MSc
-  term: Master of Science
-  active: true
-- id: MSt
-  term: Master of Studies
-  active: true
-- id: MA
-  term: Master of Arts in English
+- id: PhD-ExerciseScienceAndHealthPromotion
+  term: Doctor of Philosophy in Exercise Science and Health Promotion
   active: true

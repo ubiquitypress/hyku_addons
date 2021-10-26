@@ -94,6 +94,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.latitude work.try(:solr_document)&.to_h&.dig('latitude_tesim')
   json.longitude work.try(:solr_document)&.to_h&.dig('longitude_tesim')
   json.medium work.try(:solr_document)&.to_h&.dig('medium_tesim')
+  json.mentor work.try(:solr_document)&.to_h&.dig('mentor_tesim')
   json.mesh work.try(:solr_document)&.to_h&.dig('mesh_tesim')
   json.official_url work.try(:solr_document)&.to_h&.dig('official_url_tesim')
   json.official_link work.try(:solr_document)&.to_h&.dig('official_link_tesim')
