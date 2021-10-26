@@ -5,6 +5,7 @@ creator_name_type:
     required: true
     multiple: false
     type: select
+    authority: HykuAddons::NameTypeService
 creator_family_name:
   type: string
   form:

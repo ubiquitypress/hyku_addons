@@ -33,6 +33,8 @@ attributes:
       primary: true
       multiple: true
       type: select
+      authority: HykuAddons::ResourceTypesService
+      include_blank: true
   creator:
     predicate: http://purl.org/dc/elements/1.1/creator
     multiple: true
