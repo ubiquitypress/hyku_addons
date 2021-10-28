@@ -535,6 +535,7 @@ module HykuAddons
       ::Hyku::API::V1::SearchController.prepend HykuAddons::SearchControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
       ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
+      Hyrax::Dashboard::ProfilesController.prepend HykuAddons::ProfilesControllerBehavior
 
       ::Hyku::API::V1::HighlightsController.class_eval do
         def index
