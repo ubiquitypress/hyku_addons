@@ -1,4 +1,16 @@
-<%= f.input :rights_statement, as: :select,
-            collection: HykuAddons::RightsStatementService.new(model: f.object.model.class).select_active_options,
-            include_blank: true,
-            input_html: { class: 'form-control' } %>
+<!-- _rights_statement -->
+<% if f.object.schema_driven? %>
+	<% config = f.object.field_configs[:rights_statement] %>
+	<% model = f.object.model.class %>
+
+	<%= f.input :rights_statement, as: :select,
+		collection: config[:authority].safe_constantize&.new(model: model)&.select_active_options,
+		include_blank: config[:include_blank],
+		input_html: { name: "#{model.to_s.underscore}[rights_statement][]", class: "form-control", required: config[:required] } %>
+
+<% else %>
+	<%= f.input :rights_statement, as: :select,
+		collection: HykuAddons::RightsStatementService.new(model: f.object.model.class).select_active_options,
+		include_blank: true,
+		input_html: { class: 'form-control' } %>
+<% end %>

@@ -7,14 +7,13 @@
 		placeholder: I18n.t("simple_form.placeholders.defaults.#{key}", default: "")
 	} %>
 
-	<% # Doesn't look like textareas work with multiple fields %>
-	<% options.merge!(as: :multi_value) if config[:multiple] %>
-
 	<% # TODO: Is there a better way of doing this? Maybe an input class. %>
 	<% if config[:type] == "textarea" %>
 		<% options.merge!(as: :text) %>
-		<% options[:input_html].merge!(rows: 7, cols: 80, type: "textarea") %>
+		<% options[:input_html].merge!(rows: 7, type: "textarea") %>
 	<% end %>
+
+	<% options.merge!(as: :multi_value) if config[:multiple] %>
 
 	<% # Allow us to override the input if we really need to %>
 	<% options.merge!(as: config[:input]) if config[:input] %>

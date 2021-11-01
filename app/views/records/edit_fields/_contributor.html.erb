@@ -1,6 +1,7 @@
 <% template = f.object.model.class.to_s.underscore %>
 <% types = HykuAddons::NameTypeService.new.active_elements %>
 
+<!-- _contributor -->
 <div
 	class="<%= template %>_contributor"
 	data-cloneable
@@ -16,7 +17,7 @@
 				field_slug: :contributor_name_type,
 				select_options: types.map { |t| t.slice("label", "id").values },
 				field_args: {
-					class: 'form-control',
+					class: "form-control contributor_name_type #{template}_contributor_contributor_name_type", # Required for specs
 					data: {
 						toggleable_control: true,
 						on_change: :toggleable_group,
@@ -31,8 +32,10 @@
 
 			<% types.each do |type| %>
 				<% if f.object.schema_driven? %>
+					<!-- schema driven -->
 					<%= render "records/edit_fields/contributor_subfields", f: f, type: type["id"], template: template, hash: hash %>
 				<% else %>
+					<!-- legacy -->
 					<%= render "records/edit_fields/contributor_#{type["id"].downcase}", f: f, type: type["id"], template: template, hash: hash %>
 				<% end %>
 			<% end %>

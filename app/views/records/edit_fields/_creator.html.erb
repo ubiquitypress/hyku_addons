@@ -1,6 +1,7 @@
 <% template = f.object.model.class.to_s.underscore %>
 <% types = HykuAddons::NameTypeService.new.active_elements %>
 
+<!-- _creator -->
 <div
 	class="<%= template %>_creator"
 	data-cloneable
@@ -17,7 +18,7 @@
 				select_options: types.map { |t| t.slice("label", "id").values },
 				required: template != "collection",
 				field_args: {
-					class: 'form-control creator_name_type',
+					class: "form-control creator_name_type #{template}_creator_creator_name_type",
 					data: {
 						toggleable_control: true,
 						on_change: :toggleable_group,
@@ -30,19 +31,21 @@
 			} %>
 			<%= render "records/edit_fields/attribution_partials/select_field", field_options %>
 
-                        <% types.each do |type| %>
-                                <% if f.object.respond_to?(:field_configs) %>
-                                  <%= render "records/edit_fields/creator_subfields", f: f, type: type["id"], template: template, hash: hash %>
-                                <% else %>
-                                  <%= render "records/edit_fields/creator_#{type["id"].downcase}", f: f, type: type["id"], template: template, hash: hash %>
-                                <% end %>
+			<% types.each do |type| %>
+				<% if f.object.schema_driven? %>
+					<!-- _creator_subfields -->
+					<%= render "records/edit_fields/creator_subfields", f: f, type: type["id"], template: template, hash: hash %>
+				<% else %>
+					<!-- creator_<%= type["id"] %> -->
+					<%= render "records/edit_fields/creator_#{type["id"].downcase}", f: f, type: type["id"], template: template, hash: hash %>
+				<% end %>
 			<% end %>
 
-                        <% unless f.object.respond_to?(:field_configs) %>
-                                <% unless template.include?("redlands") || template.include?("anschutz") %>
-                                        <% field_options = { field_slug: :creator_isni, required: false, field_group: :creator, template: template, hash: hash } %>
-                                        <%= render "records/edit_fields/attribution_partials/text_field", field_options %>
-                                <% end %>
+			<% unless f.object.schema_driven? %>
+				<% unless template.include?("redlands") || template.include?("anschutz") %>
+					<% field_options = { field_slug: :creator_isni, required: false, field_group: :creator, template: template, hash: hash } %>
+					<%= render "records/edit_fields/attribution_partials/text_field", field_options %>
+				<% end %>
 			<% end %>
 
 			<div class="form-group">
