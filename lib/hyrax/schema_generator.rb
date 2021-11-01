@@ -4,10 +4,11 @@ require "yaml"
 
 module Hyrax
   class SchemaGenerator
-    SUBFIELDS = %i[creator contributor editor date_published date_submitted event_date related_exhibition_date].freeze
+    SUBFIELDS = %i[creator contributor editor].freeze
     FIELD_TYPE_DEFAULTS = {
       "select" => %w[resource_type license language],
-      "textarea" => %w[add_info table_of_contents abstract]
+      "textarea" => %w[add_info table_of_contents abstract],
+      "date" => %w[date_published date_submitted event_date related_exhibition_date]
     }.freeze
 
     def initialize(model_name)

@@ -353,7 +353,7 @@ attributes:
       multiple: true
       type: text
   event_date:
-    type: string
+    type: date
     predicate: http://bibframe.org/vocab/eventDate
     multiple: true
     index_keys:
@@ -362,29 +362,7 @@ attributes:
       required: false
       primary: false
       multiple: true
-      type: text
-    subfields:
-      event_date_year:
-        type: string
-        form:
-          required: true
-          multiple: false
-          type: select
-          authority: HykuAddons::DateYearService
-      event_date_month:
-        type: string
-        form:
-          required: true
-          multiple: false
-          type: select
-          authority: HykuAddons::DateMonthService
-      event_date_day:
-        type: string
-        form:
-          required: true
-          multiple: false
-          type: select
-          authority: HykuAddons::DateDayService
+      type: date
   series_name:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/subseriesOf
@@ -633,7 +611,7 @@ attributes:
       multiple: true
       type: text
   date_accepted:
-    type: string
+    type: date
     predicate: http://purl.org/dc/terms/dateAccepted
     multiple: false
     index_keys:
@@ -642,9 +620,9 @@ attributes:
       required: false
       primary: false
       multiple: false
-      type: text
+      type: date
   date_submitted:
-    type: string
+    type: date
     predicate: http://bibframe.org/vocab/originDate
     multiple: false
     index_keys:
@@ -653,29 +631,7 @@ attributes:
       required: false
       primary: false
       multiple: false
-      type: text
-    subfields:
-      date_submitted_year:
-        type: string
-        form:
-          required: true
-          multiple: false
-          type: select
-          authority: HykuAddons::DateYearService
-      date_submitted_month:
-        type: string
-        form:
-          required: true
-          multiple: false
-          type: select
-          authority: HykuAddons::DateMonthService
-      date_submitted_day:
-        type: string
-        form:
-          required: true
-          multiple: false
-          type: select
-          authority: HykuAddons::DateDayService
+      type: date
   official_link:
     type: string
     predicate: http://schema.org/url
@@ -720,7 +676,7 @@ attributes:
       multiple: true
       type: text
   related_exhibition_date:
-    type: string
+    type: date
     predicate: http://schema.org/Date
     multiple: true
     index_keys:
@@ -729,29 +685,7 @@ attributes:
       required: false
       primary: false
       multiple: true
-      type: text
-    subfields:
-      related_exhibition_date_year:
-        type: string
-        form:
-          required: true
-          multiple: false
-          type: select
-          authority: HykuAddons::DateYearService
-      related_exhibition_date_month:
-        type: string
-        form:
-          required: true
-          multiple: false
-          type: select
-          authority: HykuAddons::DateMonthService
-      related_exhibition_date_day:
-        type: string
-        form:
-          required: true
-          multiple: false
-          type: select
-          authority: HykuAddons::DateDayService
+      type: date
   language:
     predicate: http://purl.org/dc/elements/1.1/language
     multiple: true
@@ -782,6 +716,7 @@ attributes:
       primary: false
       multiple: true
       type: text
+      authority: HykuAddons::RightsStatementService
   rights_holder:
     type: string
     predicate: http://purl.org/dc/terms/rightsHolder
