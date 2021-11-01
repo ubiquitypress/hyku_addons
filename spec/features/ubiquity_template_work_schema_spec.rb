@@ -35,7 +35,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:contributor) do
     [
       { contributor_name_type: "Personal", contributor_family_name: contributor_family_name1, contributor_given_name: contributor_given_name1 },
-      { contributor_name_type: "Organisational", contributor_given_name: contributor_organization_name }
+      { contributor_name_type: "Organisational", contributor_organization_name: contributor_organization_name }
     ]
   end
 
@@ -44,6 +44,10 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:date_submitted) { { year: "2019", month: "03", day: "03" } }
   let(:date_accepted) { { year: "2018", month: "04", day: "04" } }
   let(:source) { ["source 1", "Source 2"] }
+  let(:description) { ["This is the first text description", "This is the second text description"] }
+  let(:keyword) { ["keyword1", "keyword2"] }
+  let(:license) { HykuAddons::LicenseService.new.active_elements.map { |h| h["label"] }.first(2) }
+  let(:rights_statement) { HykuAddons::RightsStatementService.new.active_elements.map { |h| h["label"] }.first }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -53,10 +57,10 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
     visit new_work_path
   end
 
-  it "renders the new work page" do
-    page.save_screenshot
-    expect(page).to have_content "Add New Ubiquity Template Work"
-  end
+  # it "renders the new work page" do
+  #   page.save_screenshot
+  #   expect(page).to have_content "Add New Ubiquity Template Work"
+  # end
 
   context "when the form is filled out" do
     before do
@@ -65,26 +69,27 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
 
       fill_in_title(title)
       fill_in_alt_title(alt_title)
-      fill_in_resource_type(resource_type)
-      fill_in_creator(creator)
-      fill_in_date_published(date_published)
-      fill_in_date_submitted(date_submitted)
-      fill_in_date_accepted(date_accepted)
-      fill_in_contributor(contributor)
+      fill_in_select(:resource_type, resource_type)
+      fill_in_date_field(:date_published, date_published)
+      fill_in_date_field(:date_submitted, date_submitted)
+      fill_in_date_field(:date_accepted, date_accepted)
+      fill_in_cloneable(:creator, creator)
+      fill_in_cloneable(:contributor, contributor)
+      fill_in_multiple_textareas(:description, description)
+      fill_in_multiple_text_fields(:keyword, keyword)
+      fill_in_multiple_text_fields(:source, source)
+      fill_in_multiple_selects(:license, license)
+      fill_in_select(:rights_statement, rights_statement)
 
 
-      fill_in_source(source)
+      ss
     end
 
     describe "date_published" do
       let(:field) { "date_published" }
 
       it "contains the date_published fields" do
-        page.save_screenshot
-      end
-
-      context "" do
-
+        ss
       end
     end
   end
