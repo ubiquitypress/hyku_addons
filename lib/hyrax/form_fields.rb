@@ -16,13 +16,14 @@ module Hyrax
   #
   # @see .FormFields
   class FormFields < Module
+    # NOTE: This can result in duplicate fields, but i'm leaving the code commented out incase i need it.
     # These are the internal fields that Hyrax uses to create its forms, however they also set
     # a bunch of actual input fields, which we may not want and can't remove later.
-    INTERNAL_FIELDS = %i[representative_id thumbnail_id rendering_ids files
-                    visibility_during_embargo embargo_release_date visibility_after_embargo
-                    visibility_during_lease lease_expiration_date visibility_after_lease
-                    visibility ordered_member_ids source in_works_ids
-                    member_of_collection_ids admin_set_id].freeze
+    # INTERNAL_FIELDS = %i[representative_id thumbnail_id rendering_ids files
+    #                 visibility_during_embargo embargo_release_date visibility_after_embargo
+    #                 visibility_during_lease lease_expiration_date visibility_after_lease
+    #                 visibility ordered_member_ids source in_works_ids
+    #                 member_of_collection_ids admin_set_id].freeze
 
     attr_reader :name
 
@@ -66,13 +67,14 @@ module Hyrax
 
         # Reset the fields as we might not want all fo the Hyrax defaults.
         # To reset the default behavior and default fields, remove this line.
-        descendant.terms = INTERNAL_FIELDS
+        # descendant.terms = INTERNAL_FIELDS
 
-        form_field_definitions.each do |field_name, options|
-          descendant.terms += [field_name.to_sym]
-          descendant.required_fields += [field_name.to_sym] if options[:required]
-          descendant.primary_fields += [field_name.to_sym] if options[:primary]
-          descendant.field_configs[field_name.to_sym] = options
+        form_field_definitions.symbolize_keys.each do |field_name, options|
+          # Ensure we don't get duplicate entries
+          descendant.terms += [field_name] unless descendant.terms.include?(field_name)
+          descendant.required_fields += [field_name] if options[:required]
+          descendant.primary_fields += [field_name] if options[:primary]
+          descendant.field_configs[field_name] = options
         end
       end
   end
