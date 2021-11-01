@@ -84,6 +84,7 @@ module Hyrax
       # @api private
       def included(descendant)
         super
+
         attributes_config.each do |name, config|
           descendant.property(name, config.symbolize_keys)
           descendant.json_fields[name] = config if config["subfields"].present?

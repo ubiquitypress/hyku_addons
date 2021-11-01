@@ -794,6 +794,7 @@ attributes:
       primary: false
       multiple: false
       type: text
+      authority: HykuAddons::RefereedService
   keyword:
     predicate: http://purl.org/dc/elements/1.1/relation
     multiple: true
