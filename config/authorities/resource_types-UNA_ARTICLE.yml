@@ -5,9 +5,11 @@ terms:
     term: Book review
   - id: Editorial
     term: Editorial
+  - id: Full issue
+    term: Full issue
   - id: Newspaper article
     term: Newspaper article
-  - id: Conference Paper
-    term: Conference Paper
+  - id: Conference paper
+    term: Conference paper
   - id: Data paper
     term: Data paper

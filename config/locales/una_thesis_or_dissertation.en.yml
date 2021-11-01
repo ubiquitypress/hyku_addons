@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      una_thesis_or_dissertation: 'fa fa-file-text-o'
+    select_type:
+      una_thesis_or_dissertation:
+        description: "A research document submitted to support candidature for a degree"
+        name: "Una Thesis Or Dissertation"

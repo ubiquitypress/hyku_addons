@@ -1,0 +1,19 @@
+terms:
+  - id: Administrator
+    term: Administrator
+    active: true
+  - id: Faculty
+    term: Faculty
+    active: true
+  - id: Graduate Assistant
+    term: Graduate Assistant
+    active: true
+  - id: Research Associate
+    term: Research Associate
+    active: true
+  - id: Staff Member
+    term: Staff Member
+    active: true
+  - id: Student Employee
+    term: Student Employee
+    active: true
