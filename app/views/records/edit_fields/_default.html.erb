@@ -22,6 +22,7 @@
 	<%= f.input key, options %>
 
 <% else %>
+  <!-- legacy - _default -->
 	<% if f.object.multiple? key %>
 		<%= f.input key,
 			as: :multi_value,

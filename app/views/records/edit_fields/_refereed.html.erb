@@ -1,6 +1,17 @@
-<%= f.input :refereed, as: :select,
-            collection: HykuAddons::RefereedService.new.select_active_options,
-            include_blank: true,
-            input_html: { class: 'form-control' } %>
+<!-- _refereed -->
+<% if f.object.schema_driven? %>
+  <% config = f.object.field_configs[:refereed] %>
+  <% model = f.object.model.class %>
 
+  <%= f.input :refereed, as: :select,
+    collection: config[:authority].safe_constantize&.new(model: model)&.select_active_options,
+    include_blank: config[:include_blank],
+    input_html: { class: "form-control", required: config[:required] } %>
+
+<% else %>
+  <%= f.input :refereed, as: :select,
+    collection: HykuAddons::RefereedService.new.select_active_options,
+    include_blank: true,
+    input_html: { class: 'form-control' } %>
+<% end %>
 
