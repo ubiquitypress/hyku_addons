@@ -1,13 +1,21 @@
 # frozen_string_literal: true;
 
-def fill_in_title(value)
-  fill_in("Title", with: value)
+# Fill in a single text field
+def fill_in_text_field(field, value)
+  fill_in_field(field, value, :input)
 end
 
-def fill_in_alt_title(value)
-  fill_in_multiple_text_fields(:alt_title, value)
+# Fill in a single textarea
+def fill_in_textarea(field, value)
+  fill_in_field(field, value, :textarea)
 end
 
+# Fill in a single select field
+def fill_in_select(field, value)
+  fill_in_field(field, value, :select)
+end
+
+# Fill in a date field from a hash containing :year, :month, :day keys
 def fill_in_date_field(field, hash)
   hash.each do |type, value|
     field_id = "#{work_type}[#{field}][][#{field}_#{type}]"
@@ -17,6 +25,7 @@ def fill_in_date_field(field, hash)
   end
 end
 
+# Fill in a cloneable element like Creator/Contributor
 def fill_in_cloneable(field, value)
   values = Array.wrap(value)
 
@@ -37,10 +46,7 @@ def fill_in_cloneable(field, value)
   end
 end
 
-def fill_in_select(field, value)
-  find("div.#{work_type}_#{field} select").find(:option, value).select_option
-end
-
+# FIll in a multiple select field
 def fill_in_multiple_selects(field, value)
   values = Array.wrap(value)
 
@@ -57,7 +63,18 @@ def fill_in_multiple_selects(field, value)
   end
 end
 
-# Helper to dry up entering arrays of value for multiple text fields
+# Fill in a field of a specified type
+def fill_in_field(field, value, type)
+  field = find("div.#{work_type}_#{field} #{type}")
+
+  if type == :select
+    field.find(:option, value).select_option
+  else
+    field.fill_in(with: value)
+  end
+end
+
+# Fill in a multiple text field
 def fill_in_multiple_text_fields(field, value)
   fill_in_multiple_fields(:input, field, value)
 end
@@ -75,6 +92,21 @@ def fill_in_multiple_fields(type, field, value)
 
       click_on "Add another" if index+1 < values.size
     end
+  end
+end
+
+# Funder uses the legacy multiple json values so needs its own helper method
+def fill_in_funder(value)
+  values = Array.wrap(value)
+
+  values.each_with_index do |funder, index|
+    group = all("div.#{work_type}_funder")[index]
+
+    funder.each do |subfield, val|
+      group.find("input[name='ubiquity_template_work[funder][][#{subfield}]']").fill_in(with: val)
+    end
+
+    group.find_link("Add another Funder").click if index+1 < values.size
   end
 end
 
