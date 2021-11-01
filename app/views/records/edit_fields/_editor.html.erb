@@ -1,28 +1,25 @@
 <% template = f.object.model.class.to_s.underscore %>
 <% types = HykuAddons::NameTypeService.new.active_elements %>
 
-<% f.object.editor_list.each do |hash| %>
-	<div
-		data-toggleable
-		data-cloneable="editor"
-		data-after-clone="clear_inputs"
-		data-cloneable-min="1"
-	>
-		<% field_options = {
-			field_slug: :editor_name_type,
-			select_options: types.map { |t| t.slice("label", "id").values },
-			field_args: {
-				class: 'form-control',
-				data: {
-					toggleable_control: true,
-					on_change: :toggleable_group,
-					after_toggleable_hidden: :clear_inputs,
-				}
-			},
-			field_group: :editor,
-			template: template,
-			hash: hash
-		} %>
+<!-- _editor -->
+<div class="<%= template %>_editor" data-cloneable data-cloneable-min="1">
+	<% f.object.editor_list.each do |hash| %>
+		<div data-toggleable data-cloneable-group="<%= template %>_editor" data-cloneable-after-action="clear_inputs clear_cloned">
+			<% field_options = {
+				field_slug: :editor_name_type,
+				select_options: types.map { |t| t.slice("label", "id").values },
+				field_args: {
+					class: "form-control editor_name_type #{template}_editor_editor_name_type", # Required for specs
+					data: {
+						toggleable_control: true,
+						on_change: :toggleable_group,
+						after_toggleable_hidden: :clear_inputs,
+					}
+				},
+				field_group: :editor,
+				template: template,
+				hash: hash
+			} %>
 		<%= render "records/edit_fields/attribution_partials/select_field", field_options %>
 
 		<% types.each do |type| %>
@@ -33,15 +30,17 @@
 		<%= render "records/edit_fields/attribution_partials/text_field", field_options %>
 
 		<div class="form-group">
-			<a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_parent">
+			<a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_group" data-cloneable-target="<%= template %>_editor">
 				<span class="glyphicon glyphicon-remove"></span>
-				<span class="controls-remove-text">Remove</span>
+				<span class="controls-remove-text"><%= t("simple_form.deposit_form.form_controls.remove.text") %></span>
 			</a>
 			|
-			<a href="#" data-turbolinks="false" data-on-click="clone_parent">Add another</a>
+			<a href="#" data-turbolinks="false" data-cloneable-target="<%= template %>_editor" data-on-click="clone_group">
+				<%= t("simple_form.deposit_form.form_controls.add.text") %>
+			</a>
 		</div>
 
 		<hr>
-	</div>
-<% end %>
-
+		</div>
+	<% end %>
+</div>
