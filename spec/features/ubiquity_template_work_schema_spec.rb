@@ -48,8 +48,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:license) { HykuAddons::LicenseService.new.active_elements.map { |h| h["label"] }.first(2) }
   let(:rights_statement) { HykuAddons::RightsStatementService.new.active_elements.map { |h| h["label"] }.first }
   let(:publisher) { ["publisher1", "publisher2"] }
-  let(:subject) { HykuAddons::SubjectService.new.active_elements.map { |h| h["label"] }.first }
-  let(:language) { HykuAddons::LanguageService.new.active_elements.map { |h| h["label"] }.first }
+  let(:subject) { HykuAddons::SubjectService.new.active_elements.map { |h| h["label"] }.first(2) }
+  let(:language) { HykuAddons::LanguageService.new.active_elements.map { |h| h["label"] }.first(2) }
   let(:identifier) { "Work Identifier" }
   let(:related_url) { ["http://test.com", "https://www.test123.com"] }
   let(:source) { ["Source1", "Source2"] }
@@ -121,7 +121,31 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:latitude) { "1.345678" }
   let(:alt_email) { ["email@test.com", "another@test.com"] }
   let(:alt_book_title) { "Another title" }
+  let(:table_of_contents) { "table_of_contents" }
+  let(:prerequisites) { "prerequisites" }
+  let(:suggested_student_reviewers) { "suggested_student_reviewers" }
+  let(:suggested_reviewers) { "suggested_reviewers" }
+  let(:adapted_from) { "adapted_from" }
+  let(:audience) { HykuAddons::AudienceService.new.active_elements.map { |h| h["label"] }.first(2) }
+  let(:related_material) { "related_material" }
 
+  let(:note) { ["note1", "note2"] }
+  let(:advisor) { "advisor" }
+  let(:subject_text) { ["subject1", "subject2"] }
+  let(:mesh) { ["mesh1", "mesh2"] }
+  let(:journal_frequency) { "journal_frequency" }
+  let(:funding_description) { ["Funding descrption 1", "Funding descrption 2"] }
+  let(:citation) { ["citation1", "citation2"] }
+  let(:references) { ["references1", "references2"] }
+  let(:extent) { "extent" }
+  let(:medium) { ["medium1", "medium2"] }
+  let(:committee_member) { ["Commitee member 1", "Commitee member 2"] }
+  let(:time) { "time" }
+  let(:qualification_grantor) { "qualification_grantor" }
+  let(:date_published_text) { "date_published_text" }
+  let(:rights_statement_text) { "rights_statement_text" }
+  let(:qualification_subject_text) { ["Qualification statement text 1", "Qualification statement text 2"] }
+  let(:georeferenced) { HykuAddons::GeoreferencedService.new.active_elements.map { |h| h["label"] }.first }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -236,20 +260,30 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_text_field(:latitude, latitude)
       fill_in_multiple_text_fields(:alt_email, alt_email)
       fill_in_text_field(:alt_book_title, alt_book_title)
-
-# table_of_contents **
-# prerequisites **
-# suggested_student_reviewers **
-# suggested_reviewers **
-# adapted_from **
-# audience **
-# related_material **
-
-
-
-
-
-
+      fill_in_textarea(:table_of_contents, table_of_contents)
+      fill_in_textarea(:prerequisites, prerequisites)
+      fill_in_textarea(:suggested_student_reviewers, suggested_student_reviewers)
+      fill_in_textarea(:suggested_reviewers, suggested_reviewers)
+      fill_in_textarea(:adapted_from, adapted_from)
+      fill_in_multiple_selects(:audience, audience)
+      fill_in_textarea(:related_material, related_material)
+      fill_in_multiple_text_fields(:note, note)
+      fill_in_text_field(:advisor, advisor)
+      fill_in_multiple_text_fields(:subject_text, subject_text)
+      fill_in_multiple_text_fields(:mesh, mesh)
+      fill_in_text_field(:journal_frequency, journal_frequency)
+      fill_in_multiple_text_fields(:funding_description, funding_description)
+      fill_in_multiple_text_fields(:citation, citation)
+      fill_in_multiple_text_fields(:references, references)
+      fill_in_text_field(:extent, extent)
+      fill_in_multiple_text_fields(:medium, medium)
+      fill_in_multiple_text_fields(:committee_member, committee_member)
+      fill_in_text_field(:time, time)
+      fill_in_text_field(:qualification_grantor, qualification_grantor)
+      fill_in_text_field(:date_published_text, date_published_text)
+      fill_in_text_field(:rights_statement_text, rights_statement_text)
+      fill_in_multiple_text_fields(:qualification_subject_text, qualification_subject_text)
+      fill_in_select(:georeferenced, georeferenced)
     end
 
     describe "date_published" do

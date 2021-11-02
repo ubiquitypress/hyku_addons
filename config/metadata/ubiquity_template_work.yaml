@@ -283,7 +283,8 @@ attributes:
       required: false
       primary: false
       multiple: true
-      type: text
+      type: select
+      authority: HykuAddons::InstitutionService
   org_unit:
     type: string
     predicate: http://www.w3.org/ns/org#OrganizationalUnit
@@ -610,6 +611,14 @@ attributes:
       primary: false
       multiple: true
       type: text
+    subfields:
+      current_he_institution_name:
+        type: string
+        form:
+          required: true
+          multiple: false
+          type: select
+          authority: HykuAddons::CurrentHeInstitutionService
   date_accepted:
     type: date
     predicate: http://purl.org/dc/terms/dateAccepted
@@ -696,6 +705,7 @@ attributes:
       primary: false
       multiple: true
       type: select
+      authority: HykuAddons::LanguageService
   license:
     predicate: http://purl.org/dc/terms/rights
     multiple: true
@@ -706,6 +716,7 @@ attributes:
       primary: false
       multiple: true
       type: select
+      authority: HykuAddons::LicenseService
   rights_statement:
     predicate: http://www.europeana.eu/schemas/edm/rights
     multiple: true
@@ -715,7 +726,7 @@ attributes:
       required: false
       primary: false
       multiple: true
-      type: text
+      type: select
       authority: HykuAddons::RightsStatementService
   rights_holder:
     type: string
@@ -749,7 +760,8 @@ attributes:
       required: false
       primary: false
       multiple: false
-      type: text
+      type: select
+      authority: HykuAddons::QualificationNameService
   qualification_level:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/degree
@@ -760,7 +772,8 @@ attributes:
       required: false
       primary: false
       multiple: false
-      type: text
+      type: select
+      authority: HykuAddons::QualificationLevelService
   alternate_identifier:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/Local
@@ -793,8 +806,19 @@ attributes:
       required: false
       primary: false
       multiple: false
-      type: text
+      type: select
       authority: HykuAddons::RefereedService
+  description:
+    type: text
+    predicate: http://purl.org/dc/terms/description
+    multiple: true
+    index_keys:
+    - abstract_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: textarea
   keyword:
     predicate: http://purl.org/dc/elements/1.1/relation
     multiple: true
@@ -873,7 +897,8 @@ attributes:
       required: false
       primary: false
       multiple: false
-      type: text
+      type: select
+      authority: HykuAddons::IrbStatusService
   subject:
     predicate: http://purl.org/dc/elements/1.1/subject
     multiple: true
@@ -883,7 +908,8 @@ attributes:
       required: false
       primary: false
       multiple: true
-      type: text
+      type: select
+      authority: HykuAddons::SubjectService
   additional_links:
     type: string
     predicate: http://schema.org/significantLinks
@@ -1074,7 +1100,7 @@ attributes:
       required: false
       primary: false
       multiple: false
-      type: text
+      type: textarea
   suggested_student_reviewers:
     type: string
     predicate: http://rdf.data-vocabulary.org/#reviewer
@@ -1085,7 +1111,7 @@ attributes:
       required: false
       primary: false
       multiple: false
-      type: text
+      type: textarea
   suggested_reviewers:
     type: string
     predicate: http://data-vocabulary.org/reviewer
@@ -1096,7 +1122,7 @@ attributes:
       required: false
       primary: false
       multiple: false
-      type: text
+      type: textarea
   adapted_from:
     type: string
     predicate: http://purl.org/dc/elements/1.1/source
@@ -1107,7 +1133,7 @@ attributes:
       required: false
       primary: false
       multiple: false
-      type: text
+      type: textarea
   audience:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/IntendedAudience
@@ -1118,7 +1144,8 @@ attributes:
       required: false
       primary: false
       multiple: true
-      type: text
+      type: select
+      authority: HykuAddons::AudienceService
   related_material:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/relatedTo
@@ -1130,7 +1157,7 @@ attributes:
       required: false
       primary: false
       multiple: false
-      type: text
+      type: textarea
   note:
     type: string
     predicate: http://www.loc.gov/mods/rdf/v1#note
@@ -1317,6 +1344,17 @@ attributes:
       primary: false
       multiple: true
       type: text
+  georeferenced:
+    predicate: http://ogp.me/ns/class#boolean_str
+    multiple: false
+    index_keys:
+    - resource_type_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: select
+      authority: HykuAddons::GeoreferencedService
   doi_status_when_public:
     type: string
     predicate: http://samvera.org/ns/hyrax/doi#doi_status_when_public

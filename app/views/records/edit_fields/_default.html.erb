@@ -1,22 +1,31 @@
 <% if f.object.schema_driven? %>
 	<% config = f.object.field_configs[key] || {} %>
 
+  <% # Set default input options %>
 	<% options = {
 		required: config[:required],
 		input_html: { class: "form-control", data: config.dig("form", "data") },
-		placeholder: I18n.t("simple_form.placeholders.defaults.#{key}", default: "")
+    placeholder: I18n.t("simple_form.placeholders.defaults.#{key}", default: ""),
+    as: config[:multiple] ? :multi_value : nil
 	} %>
 
-	<% # TODO: Is there a better way of doing this? Maybe an input class. %>
-	<% if config[:type] == "textarea" %>
-		<% options.merge!(as: :text) %>
-		<% options[:input_html].merge!(rows: 7, type: "textarea") %>
+  <% # Set input type specific configuration %>
+  <% case config[:type] %>
+    <% when "textarea" %>
+      <% options[:input_html].merge!(rows: 7, type: "textarea") %>
+      <% options.merge!(as: config[:multiple] ? :multi_value : :text) %>
+
+    <% when "select" %>
+      <% options.merge!({
+        as: config[:multiple] ? :multi_value_select : :select,
+        collection: config[:authority].safe_constantize&.new(model: f.object.model.class)&.select_active_options,
+        # If include_blank is not set, or is present then use that value if available, or use empty string
+        include_blank: config[:include_blank].nil? || config[:include_blank].present? ? (config[:include_blank] || true) : false,
+      }) %>
 	<% end %>
 
-	<% options.merge!(as: :multi_value) if config[:multiple] %>
-
-	<% # Allow us to override the input if we really need to %>
-	<% options.merge!(as: config[:input]) if config[:input] %>
+	<% # If input type is specified in the schema that takes priority, otherwise, use the calculated input type %>
+	<% options.merge!(as: config[:input]) if config[:input].present? %>
 
 	<!-- _default <%= key %> -->
 	<%= f.input key, options %>

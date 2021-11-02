@@ -1,12 +1,6 @@
-<!-- _resource_type -->
+<!-- _<%= key %> -->
 <% if f.object.schema_driven? %>
-  <% config = f.object.field_configs[:resource_type] %>
-  <% model = f.object.model.class %>
-
-  <%= f.input :resource_type, as: :select,
-    collection: config[:authority].safe_constantize&.new(model: model)&.select_active_options,
-    include_blank: config[:include_blank],
-    input_html: { name: "#{model.to_s.underscore}[resource_type][]", class: "form-control", required: config[:required] } %>
+  <%= render "records/edit_fields/default", f: f, key: key %>
 
 <% else %>
   <% model_name = f.object.model.class %>
