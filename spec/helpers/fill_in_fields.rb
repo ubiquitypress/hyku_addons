@@ -38,12 +38,20 @@ def fill_in_cloneable(field, value)
       group.select(name_type, from: "#{work_type}_#{field}__#{field}_name_type")
 
       hash.each do |subfield, val|
-        group.find("input.#{work_type}_#{subfield}").set(val)
+        field_type = field_config.dig(:creator, "subfields", subfield.to_s, "type")
+
+        case field_type
+        when "select"
+          group.find("select.#{work_type}_#{subfield}").find(:option, val).select_option
+        else
+          group.find("input.#{work_type}_#{subfield}").set(val)
+        end
       end
 
       click_on "Add another" if index+1 < values.size
     end
   end
+  ss
 end
 
 # FIll in a multiple select field

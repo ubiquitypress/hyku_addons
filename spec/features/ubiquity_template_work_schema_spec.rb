@@ -8,6 +8,7 @@ include Warden::Test::Helpers
 
 RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:work_type) { "ubiquity_template_work" }
+  let(:field_config) { "hyrax/#{work_type}_form".classify.constantize.field_configs }
 
   let(:user) { User.new(email: "test@example.com") { |u| u.save(validate: false) } }
   let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
@@ -20,22 +21,30 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
 
   let(:title) { "Ubiquity Template Work Item" }
   let(:alt_title) { ["Alt Title 1", "Alt Title 2"] }
-  let(:creator_given_name) { "Johnny" }
-  let(:creator_family_name) { "Smithy" }
   let(:creator) do
-    {
-      creator_name_type: "Personal",
-      creator_family_name: creator_family_name,
-      creator_given_name: creator_given_name
-    }
+    [
+      {
+        creator_name_type: "Personal",
+        creator_family_name: "Johnny" ,
+        creator_given_name: "Smithy",
+        creator_orcid: "0000-0000-1111-2222",
+        creator_institutional_relationship: "Research associate",
+        creator_isni: "56273930281"
+      },
+      {
+        creator_name_type: "Organisational",
+        creator_organization_name: "A Test Company Name",
+        creator_ror: "ror.org/123456",
+        creator_grid: "grid.org/098765",
+        creator_wikidata: "wiki.com/123",
+        creator_isni: "1234567890"
+      }
+    ]
   end
-  let(:contributor_given_name1) { "Johnny" }
-  let(:contributor_family_name1) { "Smithy" }
-  let(:contributor_organization_name) { "A Test Company Name" }
   let(:contributor) do
     [
-      { contributor_name_type: "Personal", contributor_family_name: contributor_family_name1, contributor_given_name: contributor_given_name1 },
-      { contributor_name_type: "Organisational", contributor_organization_name: contributor_organization_name }
+      { contributor_name_type: "Personal", contributor_family_name: "Johnny" , contributor_given_name: "Smithy"  },
+      { contributor_name_type: "Organisational", contributor_organization_name: "A Test Company Name"  }
     ]
   end
   let(:resource_type) { "Other" }
