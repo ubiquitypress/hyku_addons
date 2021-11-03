@@ -69,7 +69,7 @@ module Hyrax
         # To reset the default behavior and default fields, remove this line.
         # descendant.terms = INTERNAL_FIELDS
 
-        form_field_definitions.symbolize_keys.each do |field_name, options|
+        form_field_definitions.deep_symbolize_keys.each do |field_name, options|
           # Ensure we don't get duplicate entries
           descendant.terms += [field_name] unless descendant.terms.include?(field_name)
           descendant.required_fields += [field_name] if options[:required]

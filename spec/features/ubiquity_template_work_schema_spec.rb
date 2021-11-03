@@ -119,7 +119,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:is_included_in) { "1" }
   let(:buy_book) { "1" }
   let(:challenged) { "1" }
-  let(:location) { "Location" }
   let(:outcome) { "Outcome" }
   let(:participant) { "Participant" }
   let(:reading_level) { "Adult" }
@@ -180,11 +179,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
     visit new_work_path
   end
 
-  # it "renders the new work page" do
-  #   page.save_screenshot
-  #   expect(page).to have_content "Add New Ubiquity Template Work"
-  # end
-
   context "when the form is filled out" do
     before do
       click_link "Descriptions"
@@ -207,7 +201,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_text_field(:identifier, identifier)
       fill_in_multiple_text_fields(:related_url, related_url)
       fill_in_multiple_text_fields(:source, source)
-      # TODO - Location
+      # NOTE: based_near uses select2 which cannot be tested with capybara
+      # fill_in_multiple_select2(:based_near, based_near)
       fill_in_textarea(:abstract, abstract)
       fill_in_multiple_text_fields(:media, media)
       fill_in_multiple_text_fields(:duration, duration)
@@ -258,7 +253,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_text_field(:is_included_in, is_included_in)
       fill_in_text_field(:buy_book, buy_book)
       fill_in_text_field(:challenged, challenged)
-      fill_in_text_field(:location, location)
       fill_in_text_field(:outcome, outcome)
       fill_in_text_field(:participant, participant)
       fill_in_text_field(:reading_level, reading_level)
@@ -293,6 +287,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_text_field(:rights_statement_text, rights_statement_text)
       fill_in_multiple_text_fields(:qualification_subject_text, qualification_subject_text)
       fill_in_select(:georeferenced, georeferenced)
+
     end
 
     describe "date_published" do
