@@ -4,9 +4,10 @@
   <% # Set default input options %>
 	<% options = {
 		required: config[:required],
-		input_html: { class: "form-control", data: config.dig("form", "data") },
+		input_html: { class: "form-control", data: config[:data] },
     placeholder: I18n.t("simple_form.placeholders.defaults.#{key}", default: ""),
-    as: config[:multiple] ? :multi_value : nil
+    as: config[:multiple] ? :multi_value : nil,
+    wrapper_html: config[:wrapper_html],
 	} %>
 
   <% # Set input type specific configuration %>
@@ -18,7 +19,7 @@
     <% when "select" %>
       <% options.merge!({
         as: config[:multiple] ? :multi_value_select : :select,
-        collection: config[:authority].safe_constantize&.new(model: f.object.model.class)&.select_active_options,
+        collection: config[:authority]&.safe_constantize&.new(model: f.object.model.class)&.select_active_options,
         # If include_blank is not set, or is present then use that value if available, or use empty string
         include_blank: config[:include_blank].nil? || config[:include_blank].present? ? (config[:include_blank] || true) : false,
       }) %>
