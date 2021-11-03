@@ -291,8 +291,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
     end
 
     describe "date_published" do
-      let(:field) { "date_published" }
-
       it "contains the date_published fields" do
         ss
       end
