@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
-# require File.expand_path("../helpers/create_ubiquity_template_user_context", __dir__)
 require "rails_helper"
 require HykuAddons::Engine.root.join("spec", "helpers", "fill_in_fields.rb").to_s
-
-include Warden::Test::Helpers
 
 RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:work_type) { "ubiquity_template_work" }
@@ -324,4 +321,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
     end
   end
 end
+
+
 
