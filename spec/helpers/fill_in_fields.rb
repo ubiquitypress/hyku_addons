@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # frozen_string_literal: true;
 
 # Fill in a single text field
@@ -40,7 +41,7 @@ def fill_in_cloneable_date_field(field, value)
         group.select(value, from: field_id)
       end
 
-      click_on "Add another" if index+1 < values.size && field_config.dig(field, :multiple)
+      click_on "Add another" if index + 1 < values.size && field_config.dig(field, :multiple)
     end
   end
 end
@@ -68,7 +69,7 @@ def fill_in_cloneable(field, value)
         end
       end
 
-      click_on "Add another" if index+1 < values.size
+      click_on "Add another" if index + 1 < values.size
     end
   end
 end
@@ -79,13 +80,13 @@ def fill_in_multiple_selects(field, value)
 
   within "div.#{work_type}_#{field}" do
     values.each_with_index do |val, index|
-      group = find("ul li:nth-of-type(#{index+1})")
+      group = find("ul li:nth-of-type(#{index + 1})")
 
       input = group.find("select.#{work_type}_#{field}")
 
       input.find(:option, val).select_option
 
-      click_on "Add another" if index+1 < values.size
+      click_on "Add another" if index + 1 < values.size
     end
   end
 end
@@ -115,9 +116,9 @@ def fill_in_multiple_fields(type, field, value)
 
   within "div.#{work_type}_#{field}" do
     values.each_with_index do |val, index|
-      find("ul li:nth-of-type(#{index+1})").find("#{type}.#{work_type}_#{field}").set(val)
+      find("ul li:nth-of-type(#{index + 1})").find("#{type}.#{work_type}_#{field}").set(val)
 
-      click_on "Add another" if index+1 < values.size
+      click_on "Add another" if index + 1 < values.size
     end
   end
 end
@@ -133,7 +134,7 @@ def fill_in_funder(value)
       group.find("input[name='ubiquity_template_work[funder][][#{subfield}]']").fill_in(with: val)
     end
 
-    group.find_link("Add another Funder").click if index+1 < values.size
+    group.find_link("Add another Funder").click if index + 1 < values.size
   end
 end
 

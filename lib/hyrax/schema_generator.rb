@@ -52,7 +52,7 @@ module Hyrax
 
         term_attributes["subfields"] = subfields_for(term) if SUBFIELDS.include?(term.to_sym)
 
-        term_attributes.compact.reject { |k, v| v.nil? }
+        term_attributes.compact.reject { |_k, v| v.nil? }
       end
 
       # Try and guess at the authority for selects
@@ -76,7 +76,7 @@ module Hyrax
       # This is pretty basic, but there are not that many fields that require anything other than text
       # and the logic for the field types is in the views, so we can't do much.
       def field_type_for(term)
-        FIELD_TYPE_DEFAULTS.map { |k,v| k if v.include?(term) }.compact.first || "text"
+        FIELD_TYPE_DEFAULTS.map { |k, v| k if v.include?(term) }.compact.first || "text"
       end
 
       def index_keys(term, type, behaviors)
