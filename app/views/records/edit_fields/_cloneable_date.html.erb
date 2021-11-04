@@ -1,15 +1,20 @@
 <!-- _cloneable_date -->
 <% template = f.object.model.class.to_s.underscore %>
-<% event_dates = f.object[field_slug] %>
+<% dates = f.object[field_slug] %>
+<% required = f.object.field_configs[field_slug][:required] %>
 
 <label class="control-label" for="<%= field_slug %>"><%= t("simple_form.#{field_slug}.label") %></label>
+
+<% if required %>
+  <span class="label label-info required-tag">required</span>
+<% end %>
 
 <div
   class="ubiquity-meta-event-date <%= "#{template}_#{field_slug}" %>"
   data-cloneable
   data-cloneable-min="1"
 >
-  <% event_dates.each do |date| %>
+  <% dates.each do |date| %>
     <% # The original file used .to_s instead of .first, but this returned an array with a Triple instance %>
     <% date_value = date.split('-') %>
 
@@ -38,6 +43,7 @@
       </div>
 
       <div class="form-group">
+        <br>
         <a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_group" data-cloneable-target="<%= "#{template}_#{field_slug}" %>">
           <span class="glyphicon glyphicon-remove"></span>
           <span class="controls-remove-text"><%= t("simple_form.deposit_form.form_controls.remove.text") %></span>

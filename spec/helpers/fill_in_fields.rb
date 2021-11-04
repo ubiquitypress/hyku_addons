@@ -15,13 +15,33 @@ def fill_in_select(field, value)
   fill_in_field(field, value, :select)
 end
 
-# Fill in a date field from a hash containing :year, :month, :day keys
-def fill_in_date_field(field, hash)
-  hash.each do |type, value|
+# Fill in a date field from a hash, or array of hashes, containing :year, :month, :day keys
+def fill_in_date_field(field, value)
+  value.each do |type, value|
     field_id = "#{work_type}[#{field}][][#{field}_#{type}]"
 
     expect(page).to have_field(field_id)
     select(value, from: field_id)
+  end
+end
+
+def fill_in_cloneable_date_field(field, value)
+  values = Array.wrap(value)
+
+  within "div.#{work_type}_#{field}[data-cloneable]" do
+    values.each_with_index do |hash, index|
+      groups = all("[data-cloneable-group=#{work_type}_#{field}]")
+      group = groups[index]
+
+      hash.each do |type, value|
+        field_id = "#{work_type}[#{field}][][#{field}_#{type}]"
+
+        expect(page).to have_field(field_id)
+        group.select(value, from: field_id)
+      end
+
+      click_on "Add another" if index+1 < values.size && field_config.dig(field, :multiple)
+    end
   end
 end
 

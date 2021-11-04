@@ -77,6 +77,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:fndr_project_ref) { ["Ref1", "Ref2"] }
   let(:event_title) { ["Event1", "Event2"] }
   let(:event_location) { ["Location1", "Location2"] }
+  let(:event_date) { [{ year: "2022", month: "02", day: "02" }, { year: "2023", month: "03", day: "03" }] }
   let(:series_name) { ["Series1", "Series2"] }
   let(:book_title) { "The book title" }
   let(:editor_given_name1) { "Joanna" }
@@ -213,7 +214,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_multiple_text_fields(:fndr_project_ref, fndr_project_ref)
       fill_in_multiple_text_fields(:event_title, event_title)
       fill_in_multiple_text_fields(:event_location, event_location)
-      # TODO - Event Date, the JS seems broken
+      fill_in_cloneable_date_field(:event_date, event_date)
       fill_in_multiple_text_fields(:series_name, series_name)
       fill_in_text_field(:book_title, book_title)
       fill_in_cloneable(:editor, editor)
@@ -290,8 +291,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
 
     end
 
-    describe "date_published" do
-      it "contains the date_published fields" do
+    describe "filling in the form" do
+      it "fills in each field" do
         ss
       end
     end
