@@ -1,10 +1,14 @@
-<% if  f.object.model.new_record?  %>
-  <%= render "hyku_addons/related_identifier/new_form", f: f %>
+<% template = f.object.model.class.to_s.underscore %>
 
-<% else %>
-  <% data = get_model(f.object.model.related_identifier, f.object.model.class,  'related_identifier') || [{}] %>
-  <%= render "hyku_addons/related_identifier/edit_form", f: f, array_of_hash: data  %>
-<% end %>
+<!-- _related_identifier -->
+<div class="legacy-cloneable <%= template %>_related_identifier" data-legacy-cloneable>
+  <% if  f.object.model.new_record?  %>
+    <%= render "hyku_addons/related_identifier/new_form", f: f %>
 
-<%= render "hyku_addons/related_identifier/related_identifier_js" %>
+  <% else %>
+    <% data = get_model(f.object.model.related_identifier, f.object.model.class,  'related_identifier') || [{}] %>
+    <%= render "hyku_addons/related_identifier/edit_form", f: f, array_of_hash: data  %>
+  <% end %>
 
+  <%= render "hyku_addons/related_identifier/related_identifier_js" %>
+</div>

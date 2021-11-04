@@ -1,0 +1,13 @@
+---
+alternate_identifier:
+  type: string
+  form:
+    multiple: false
+    required: false
+    type: text
+alternate_identifier_type:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: text

@@ -138,6 +138,48 @@ def fill_in_funder(value)
   end
 end
 
+# Fields like current_he_institution need to be updated as they are legacy from hyku1
+def fill_in_legacy_json_field(field, value)
+  within "div.#{work_type}_#{field}" do
+    value.each do |subfield, val|
+      field_type = field_config.dig(field, :subfields, subfield, :type)
+
+      case field_type
+      when "select"
+        find("select.#{work_type}_#{subfield}").find(:option, val).select_option
+      else
+        find("input.#{work_type}_#{subfield}").set(val)
+      end
+    end
+  end
+  ss
+end
+
+# Some fields have not been updated for years, alternative_identifier/related_identifier for example
+def fill_in_legacy_cloneable_field(field, value)
+  values = Array.wrap(value)
+
+  within "div.#{work_type}_#{field}[data-legacy-cloneable]" do
+    values.each_with_index do |hash, index|
+      groups = all("[data-legacy-cloneable-group]")
+      group = groups[index]
+
+      hash.each do |subfield, val|
+        field_type = field_config.dig(field, :subfields, subfield, :type)
+
+        case field_type
+        when "select"
+          group.find("select.#{work_type}_#{subfield}").find(:option, val).select_option
+        else
+          group.find("input.#{work_type}_#{subfield}").set(val)
+        end
+      end
+
+      click_on "Add another" if index + 1 < values.size
+    end
+  end
+end
+
 def ss
   page.save_screenshot
 end

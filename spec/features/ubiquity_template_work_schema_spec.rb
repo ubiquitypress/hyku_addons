@@ -25,7 +25,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
     [
       {
         creator_name_type: "Personal",
-        creator_family_name: "Johnny",
+        creator_family_name: "Johnny" ,
         creator_given_name: "Smithy",
         creator_orcid: "0000-0000-1111-2222",
         creator_institutional_relationship: "Research associate",
@@ -43,8 +43,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   end
   let(:contributor) do
     [
-      { contributor_name_type: "Personal", contributor_family_name: "Johnny", contributor_given_name: "Smithy" },
-      { contributor_name_type: "Organisational", contributor_organization_name: "A Test Company Name" }
+      { contributor_name_type: "Personal", contributor_family_name: "Johnny" , contributor_given_name: "Smithy"  },
+      { contributor_name_type: "Organisational", contributor_organization_name: "A Test Company Name"  }
     ]
   end
   let(:resource_type) { "Other" }
@@ -71,7 +71,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:funder) do
     [
       { funder_name: "A funder", funder_doi: "doi.org/123456", funder_isni: "0987654321", funder_ror: "ror.org/123456678" },
-      { funder_name: "Another funder", funder_doi: "doi.org/098765", funder_isni: "1234567890", funder_ror: "ror.org/345678976543" }
+      { funder_name: "Another funder", funder_doi: "doi.org/098765", funder_isni: "1234567890", funder_ror: "ror.org/345678976543" },
     ]
   end
   let(:fndr_project_ref) { ["Ref1", "Ref2"] }
@@ -102,13 +102,38 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:issn) { "0987654321" }
   let(:eissn) { "e-1234567890" }
   let(:official_link) { "http://test312.com" }
-  let(:current_he_institution) { HykuAddons::CurrentHeInstitutionService.new.active_elements.map { |h| h["label"] }.first(2) }
+  let(:current_he_institution) do
+    {
+      current_he_institution_name: HykuAddons::CurrentHeInstitutionService.new.active_elements.map { |h| h["label"] }.sample
+    }
+  end
   let(:related_exhibition) { ["Exhibition1", "Exhibition2"] }
   let(:related_exhibition_venue) { ["Exhibition venue 1", "Exhibition venue 2"] }
+  let(:related_exhibition_date) { [{ year: "2022", month: "02", day: "02" }, { year: "2023", month: "03", day: "03" }] }
   let(:rights_holder) { ["Holder1", "Holder2"] }
   let(:doi) { ["doi.org/something", "doi.org/something-esle"] }
   let(:qualification_name) { HykuAddons::QualificationNameService.new.active_elements.map { |h| h["label"] }.first }
   let(:qualification_level) { HykuAddons::QualificationLevelService.new.active_elements.map { |h| h["label"] }.first }
+  let(:alternate_identifier) do
+    [
+      { alternate_identifier: "123456", alternate_identifier_type: "Alt Ident." },
+      { alternate_identifier: "098765", alternate_identifier_type: "Alt Ident. 2" }
+    ]
+  end
+  let(:related_identifier) do
+    [
+      {
+        related_identifier: "123456",
+        related_identifier_type: HykuAddons::RelatedIdentifierTypeService.new.active_elements.map { |h| h["label"] }.sample,
+        relation_type: HykuAddons::RelationTypeService.new.active_elements.map { |h| h["label"] }.sample
+      },
+      {
+        related_identifier: "098765",
+        related_identifier_type: HykuAddons::RelatedIdentifierTypeService.new.active_elements.map { |h| h["label"] }.sample,
+        relation_type: HykuAddons::RelationTypeService.new.active_elements.map { |h| h["label"] }.sample
+       }
+    ]
+  end
   let(:refereed) { HykuAddons::RefereedService.new.active_elements.map { |h| h["label"] }.first }
   let(:dewey) { "A Dewey Value" }
   let(:library_of_congress_classification) { ["1234", "5678"] }
@@ -162,18 +187,18 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
 
     stub_request(:get, "http://api.crossref.org/funders?query=A%20funder")
       .with(headers: {
-              "Accept" => "application/json",
-              "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-              "User-Agent" => "Faraday v0.17.4"
-            })
+        "Accept"=>"application/json",
+        "Accept-Encoding"=>"gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+        "User-Agent"=>"Faraday v0.17.4"
+      })
       .to_return(status: 200, body: "", headers: {})
 
     stub_request(:get, "http://api.crossref.org/funders?query=Another%20funder")
       .with(headers: {
-              "Accept" => "application/json",
-              "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-              "User-Agent" => "Faraday v0.17.4"
-            })
+        "Accept"=>"application/json",
+        "Accept-Encoding"=>"gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+        "User-Agent"=>"Faraday v0.17.4"
+      })
       .to_return(status: 200, body: "", headers: {})
 
     login_as user
@@ -230,19 +255,20 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_text_field(:isbn, isbn)
       fill_in_text_field(:issn, issn)
       fill_in_text_field(:eissn, eissn)
-      # TODO: - current_he_institution is a legacy JSON field and needs updating
-      # fill_in_select(:current_he_institution, current_he_institution)
+      fill_in_legacy_json_field(:current_he_institution, current_he_institution)
       fill_in_date_field(:date_accepted, date_accepted)
       fill_in_date_field(:date_submitted, date_submitted)
       fill_in_text_field(:official_link, official_link)
       fill_in_multiple_text_fields(:related_exhibition, related_exhibition)
       fill_in_multiple_text_fields(:related_exhibition_venue, related_exhibition_venue)
-      # TODO: - related Exhibition date
+      fill_in_cloneable_date_field(:related_exhibition_date, related_exhibition_date)
       fill_in_multiple_text_fields(:rights_holder, rights_holder)
       fill_in_multiple_text_fields(:related_exhibition_venue, related_exhibition_venue)
       fill_in_multiple_text_fields(:doi, doi)
       fill_in_select(:qualification_name, qualification_name)
       fill_in_select(:qualification_level, qualification_level)
+      fill_in_legacy_cloneable_field(:alternate_identifier, alternate_identifier)
+      fill_in_legacy_cloneable_field(:related_identifier, related_identifier)
       fill_in_select(:refereed, refereed)
       fill_in_text_field(:dewey, dewey)
       fill_in_multiple_text_fields(:library_of_congress_classification, library_of_congress_classification)
@@ -288,6 +314,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_text_field(:rights_statement_text, rights_statement_text)
       fill_in_multiple_text_fields(:qualification_subject_text, qualification_subject_text)
       fill_in_select(:georeferenced, georeferenced)
+
     end
 
     describe "filling in the form" do
@@ -297,3 +324,4 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
     end
   end
 end
+

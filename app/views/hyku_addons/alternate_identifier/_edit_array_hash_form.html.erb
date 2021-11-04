@@ -2,7 +2,7 @@
 
 <% array_of_hash.each_with_index do |hash, index| %>
 
-  <div class="ubiquity-meta-alternate-identifier" >
+  <div class="ubiquity-meta-alternate-identifier" data-legacy-cloneable-group>
 
     <label class="control-label multi_value optional" for="<% template %>_alternate_identifier">Alternate identifier</label>
     <p class="help-block">May be used for local identifiers such as project codes, e.g. XTE12.</p>
@@ -20,7 +20,7 @@
 
 
     <%= text_field_tag "#{template}[alternate_identifier][][alternate_identifier_type]", hash.dig("alternate_identifier_type"),
-                       class: "#{template}_alternate_identifier form-control multi-text-field multi_value",
+                       class: "#{template}_alternate_identifier_type form-control multi-text-field multi_value",
                        name: "#{template}[alternate_identifier][][alternate_identifier_type]"
     %>
 

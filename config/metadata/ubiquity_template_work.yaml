@@ -615,7 +615,7 @@ attributes:
       current_he_institution_name:
         type: string
         form:
-          required: true
+          required: false
           multiple: false
           type: select
           authority: HykuAddons::CurrentHeInstitutionService
@@ -785,6 +785,19 @@ attributes:
       primary: false
       multiple: true
       type: text
+    subfields:
+      alternate_identifier:
+        type: string
+        form:
+          multiple: false
+          required: false
+          type: text
+      alternate_identifier_type:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
   related_identifier:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/identifiedBy
@@ -796,6 +809,29 @@ attributes:
       primary: false
       multiple: true
       type: text
+    subfields:
+      related_identifier:
+        type: string
+        form:
+          multiple: false
+          required: false
+          type: text
+      related_identifier_type:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::RelatedIdentifierTypeService
+          include_blank: true
+      relation_type:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::RelationTypeService
+          include_blank: true
   refereed:
     type: string
     predicate: http://purl.org/ontology/bibo/status/peerReviewed
