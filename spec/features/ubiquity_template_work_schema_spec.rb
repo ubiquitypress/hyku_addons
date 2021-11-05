@@ -2,6 +2,7 @@
 
 require "rails_helper"
 require HykuAddons::Engine.root.join("spec", "helpers", "fill_in_fields.rb").to_s
+require HykuAddons::Engine.root.join("spec", "helpers", "work_form_helpers.rb").to_s
 
 RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:work_type) { "ubiquity_template_work" }
@@ -22,7 +23,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
     [
       {
         creator_name_type: "Personal",
-        creator_family_name: "Johnny" ,
+        creator_family_name: "Johnny",
         creator_given_name: "Smithy",
         creator_orcid: "0000-0000-1111-2222",
         creator_institutional_relationship: "Research associate",
@@ -40,8 +41,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   end
   let(:contributor) do
     [
-      { contributor_name_type: "Personal", contributor_family_name: "Johnny" , contributor_given_name: "Smithy"  },
-      { contributor_name_type: "Organisational", contributor_organization_name: "A Test Company Name"  }
+      { contributor_name_type: "Personal", contributor_family_name: "Johnny", contributor_given_name: "Smithy" },
+      { contributor_name_type: "Organisational", contributor_organization_name: "A Test Company Name" }
     ]
   end
   let(:resource_type) { "Other" }
@@ -54,7 +55,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:license) { HykuAddons::LicenseService.new.active_elements.map { |h| h["label"] }.first(2) }
   let(:rights_statement) { HykuAddons::RightsStatementService.new.active_elements.map { |h| h["label"] }.first }
   let(:publisher) { ["publisher1", "publisher2"] }
-  let(:subject) { HykuAddons::SubjectService.new.active_elements.map { |h| h["label"] }.first(2) }
+  let(:subject_field) { HykuAddons::SubjectService.new.active_elements.map { |h| h["label"] }.first(2) }
   let(:language) { HykuAddons::LanguageService.new.active_elements.map { |h| h["label"] }.first(2) }
   let(:identifier) { "Work Identifier" }
   let(:related_url) { ["http://test.com", "https://www.test123.com"] }
@@ -68,7 +69,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:funder) do
     [
       { funder_name: "A funder", funder_doi: "doi.org/123456", funder_isni: "0987654321", funder_ror: "ror.org/123456678" },
-      { funder_name: "Another funder", funder_doi: "doi.org/098765", funder_isni: "1234567890", funder_ror: "ror.org/345678976543" },
+      { funder_name: "Another funder", funder_doi: "doi.org/098765", funder_isni: "1234567890", funder_ror: "ror.org/345678976543" }
     ]
   end
   let(:fndr_project_ref) { ["Ref1", "Ref2"] }
@@ -128,7 +129,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         related_identifier: "098765",
         related_identifier_type: HykuAddons::RelatedIdentifierTypeService.new.active_elements.map { |h| h["label"] }.sample,
         relation_type: HykuAddons::RelationTypeService.new.active_elements.map { |h| h["label"] }.sample
-       }
+      }
     ]
   end
   let(:refereed) { HykuAddons::RefereedService.new.active_elements.map { |h| h["label"] }.first }
@@ -184,18 +185,18 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
 
     stub_request(:get, "http://api.crossref.org/funders?query=A%20funder")
       .with(headers: {
-        "Accept"=>"application/json",
-        "Accept-Encoding"=>"gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-        "User-Agent"=>"Faraday v0.17.4"
-      })
+              "Accept" => "application/json",
+              "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+              "User-Agent" => "Faraday v0.17.4"
+            })
       .to_return(status: 200, body: "", headers: {})
 
     stub_request(:get, "http://api.crossref.org/funders?query=Another%20funder")
       .with(headers: {
-        "Accept"=>"application/json",
-        "Accept-Encoding"=>"gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-        "User-Agent"=>"Faraday v0.17.4"
-      })
+              "Accept" => "application/json",
+              "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+              "User-Agent" => "Faraday v0.17.4"
+            })
       .to_return(status: 200, body: "", headers: {})
 
     login_as user
@@ -219,7 +220,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_multiple_selects(:license, license)
       fill_in_select(:rights_statement, rights_statement)
       fill_in_multiple_text_fields(:publisher, publisher)
-      fill_in_multiple_selects(:subject, subject)
+      fill_in_multiple_selects(:subject, subject_field)
       fill_in_multiple_selects(:language, language)
       fill_in_text_field(:identifier, identifier)
       fill_in_multiple_text_fields(:related_url, related_url)
@@ -311,7 +312,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_text_field(:rights_statement_text, rights_statement_text)
       fill_in_multiple_text_fields(:qualification_subject_text, qualification_subject_text)
       fill_in_select(:georeferenced, georeferenced)
-
     end
 
     describe "filling in the form" do
@@ -321,6 +321,3 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
     end
   end
 end
-
-
-

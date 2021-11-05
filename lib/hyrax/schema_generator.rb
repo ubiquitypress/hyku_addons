@@ -31,6 +31,8 @@ module Hyrax
 
     protected
 
+      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/MethodLength
       def build_term_attributes(term, config)
         term_attributes = {}
 
@@ -54,6 +56,8 @@ module Hyrax
 
         term_attributes.compact.reject { |_k, v| v.nil? }
       end
+      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/MethodLength
 
       # Try and guess at the authority for selects
       def authority_for(term)

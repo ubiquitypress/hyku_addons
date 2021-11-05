@@ -1,24 +1,36 @@
 # frozen_string_literal: true
-# frozen_string_literal: true;
 
 # Fill in a single text field
+#
+# @param field [Symbol] the field that we wish to target
+# @param value [String] the value being set
 def fill_in_text_field(field, value)
   fill_in_field(field, value, :input)
 end
 
 # Fill in a single textarea
+#
+# @param field [Symbol] the field that we wish to target
+# @param value [String] the value being set
 def fill_in_textarea(field, value)
   fill_in_field(field, value, :textarea)
 end
 
 # Fill in a single select field
+#
+# @param field [Symbol] the field that we wish to target
+# @param value [String] the value being set
 def fill_in_select(field, value)
   fill_in_field(field, value, :select)
 end
 
 # Fill in a date field from a hash, or array of hashes, containing :year, :month, :day keys
-def fill_in_date_field(field, value)
-  value.each do |type, value|
+#
+# @param field [Symbol] the field that we wish to target
+# @param values [Hash, Array] the hash (or array of hashes) where each key is the name of the subfield
+#   i.e. { year: "2023", month: "03", day: "03" }
+def fill_in_date_field(field, values)
+  values.each do |type, value|
     field_id = "#{work_type}[#{field}][][#{field}_#{type}]"
 
     expect(page).to have_field(field_id)
@@ -26,8 +38,13 @@ def fill_in_date_field(field, value)
   end
 end
 
-def fill_in_cloneable_date_field(field, value)
-  values = Array.wrap(value)
+# Complete a cloneable form date field
+#
+# @param field [Symbol] the field that we wish to target
+# @param values [Hash, Array] the hash (or array of hashes) must contain year, month, day
+#   i.e. { year: "2023", month: "03", day: "03" }
+def fill_in_cloneable_date_field(field, values)
+  values = Array.wrap(values)
 
   within "div.#{work_type}_#{field}[data-cloneable]" do
     values.each_with_index do |hash, index|
@@ -46,9 +63,12 @@ def fill_in_cloneable_date_field(field, value)
   end
 end
 
-# Fill in a cloneable element like Creator/Contributor
-def fill_in_cloneable(field, value)
-  values = Array.wrap(value)
+# Fill in a cloneable element like Creator/Contributor/Editor
+#
+# @param field [Symbol] the field that we wish to target
+# @param values [Hash, Array] the hash (or array of hashes) where each key is the name of the subfield
+def fill_in_cloneable(field, values)
+  values = Array.wrap(values)
 
   within "div.#{work_type}_#{field}[data-cloneable]" do
     values.each_with_index do |hash, index|
@@ -75,16 +95,19 @@ def fill_in_cloneable(field, value)
 end
 
 # FIll in a multiple select field
-def fill_in_multiple_selects(field, value)
-  values = Array.wrap(value)
+#
+# @param field [Symbol] the field that we wish to target
+# @param values [Array] the values to be added as an array of Strings
+def fill_in_multiple_selects(field, values)
+  values = Array.wrap(values)
 
   within "div.#{work_type}_#{field}" do
-    values.each_with_index do |val, index|
+    values.each_with_index do |value, index|
       group = find("ul li:nth-of-type(#{index + 1})")
 
       input = group.find("select.#{work_type}_#{field}")
 
-      input.find(:option, val).select_option
+      input.find(:option, value).select_option
 
       click_on "Add another" if index + 1 < values.size
     end
@@ -92,6 +115,10 @@ def fill_in_multiple_selects(field, value)
 end
 
 # Fill in a field of a specified type
+#
+# @param field [Symbol] the field that we wish to target
+# @param value [String] the value to be added
+# @param type  [Symbol] the input type being targeted, i.e. :select
 def fill_in_field(field, value, type)
   field = find("div.#{work_type}_#{field} #{type}")
 
@@ -102,17 +129,29 @@ def fill_in_field(field, value, type)
   end
 end
 
-# Fill in a multiple text field
-def fill_in_multiple_text_fields(field, value)
-  fill_in_multiple_fields(:input, field, value)
+# A wrapper function to fill in a multiple text fields
+#
+# @param field [Symbol] the field that we wish to target
+# @param values [Array] the values to be added
+def fill_in_multiple_text_fields(field, values)
+  fill_in_multiple_fields(field, values, :input)
 end
 
-def fill_in_multiple_textareas(field, value)
-  fill_in_multiple_fields(:textarea, field, value)
+# A wrapper function to fill in a multiple text fields
+#
+# @param field [Symbol] the field that we wish to target
+# @param values [Array] the values to be added
+def fill_in_multiple_textareas(field, values)
+  fill_in_multiple_fields(field, values, :textarea)
 end
 
-def fill_in_multiple_fields(type, field, value)
-  values = Array.wrap(value)
+# A method to add set an array of values on a multiple field
+#
+# @param field [Symbol] the field that we wish to target
+# @param values [Array] the values to be added
+# @param type  [Symbol] the input type being targeted, i.e. :select
+def fill_in_multiple_fields(field, values, type)
+  values = Array.wrap(values)
 
   within "div.#{work_type}_#{field}" do
     values.each_with_index do |val, index|
@@ -152,7 +191,6 @@ def fill_in_legacy_json_field(field, value)
       end
     end
   end
-  ss
 end
 
 # Some fields have not been updated for years, alternative_identifier/related_identifier for example
@@ -178,8 +216,4 @@ def fill_in_legacy_cloneable_field(field, value)
       click_on "Add another" if index + 1 < values.size
     end
   end
-end
-
-def ss
-  page.save_screenshot
 end

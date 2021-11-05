@@ -8,7 +8,7 @@ editor_name_type:
 editor_family_name:
   type: string
   form:
-    required: true
+    required: false
     multiple: false
     type: text
     display_for:
@@ -16,7 +16,7 @@ editor_family_name:
 editor_given_name:
   type: string
   form:
-    required: true
+    required: false
     multiple: false
     type: text
     display_for:
