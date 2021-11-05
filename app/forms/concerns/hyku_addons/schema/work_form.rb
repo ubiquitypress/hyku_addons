@@ -12,14 +12,11 @@ module HykuAddons
 
         def self.build_permitted_params
           super.tap do |permitted_params|
-            model_class.json_fields.each do |field, field_config|
-              subfields = field_config["subfields"].keys.map do |subfield|
-                if field_config["subfields"][subfield]["form"]["multiple"]
-                  { subfield.to_sym => [] }
-                else
-                  subfield.to_sym
-                end
+            model_class.json_fields.deep_symbolize_keys.each do |field, field_config|
+              subfields = field_config[:subfields].keys.map do |subfield|
+                field_config.dig(:subfields, subfield, :form, :multiple) ? { subfield.to_sym => [] } : subfield.to_sym
               end
+
               permitted_params << { field => subfields }
             end
 
