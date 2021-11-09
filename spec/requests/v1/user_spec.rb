@@ -21,7 +21,7 @@ RSpec.describe Hyku::API::V1::UserController, type: :request, clean: true, multi
 
     context "When user does not want to be publically avalible" do
       it "Does not display user json" do
-        get "/api/v1/tenant/#{account.tenant}/user/#{user.id}"
+        get "/api/v1/tenant/#{account.tenant}/user/#{user.email}"
         expect(json_response).to include('message' => "This User is private")
       end
     end
@@ -30,14 +30,11 @@ RSpec.describe Hyku::API::V1::UserController, type: :request, clean: true, multi
       it "Displays user JSON" do
         user.display_profile = true
         user.save!
-        get "/api/v1/tenant/#{account.tenant}/user/#{user.id}"
+        get "/api/v1/tenant/#{account.tenant}/user/#{user.email}"
         expect(response.status).to eq(200)
-        puts json_response
         expect(json_response).to include(
                                        "email"=>"#{user.email}",
-                                       "given_name"=>nil,
-                                       "middle_names"=>nil,
-                                       "family_name"=>nil,
+                                       "display_name"=>nil,
                                        "facebook_handle"=>nil,
                                        "twitter_handle"=>nil,
                                        "googleplus_handle"=>nil,

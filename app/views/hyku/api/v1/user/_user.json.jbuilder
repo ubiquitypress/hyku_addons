@@ -3,9 +3,7 @@
 # Elisa or Tom if they want to allow users to set any of these fields for the Frontend Profile
 json.id user.id
 json.email user.email
-json.given_name user.given_name
-json.middle_names user.middle_names
-json.family_name user.family_name
+json.display_name user.display_name
 json.facebook_handle user.facebook_handle
 json.twitter_handle user.twitter_handle
 json.googleplus_handle user.googleplus_handle

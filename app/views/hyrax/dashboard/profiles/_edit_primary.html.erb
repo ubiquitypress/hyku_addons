@@ -33,26 +33,20 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :given_name, t(".given_name").html_safe, class: 'col-xs-4 control-label' %>
+    <%= f.label :title, t(".title").html_safe, class: 'col-xs-4 control-label' %>
     <div class="col-xs-8">
-       <%= f.text_field :given_name, class: "form-control" %>
+       <%= f.text_field :title, class: "form-control" %>
     </div>
   </div><!-- .form-group -->
 
   <div class="form-group">
-    <%= f.label :middle_names, t(".middle_names").html_safe, class: 'col-xs-4 control-label' %>
+    <%= f.label :display_name, t(".display_name").html_safe, class: 'col-xs-4 control-label' %>
     <div class="col-xs-8">
-       <%= f.text_field :middle_names, class: "form-control" %>
+       <%= f.text_field :display_name, class: "form-control" %>
+       <span class="help-block"><%= t('.help_name') %></span>
     </div>
   </div><!-- .form-group -->
-
-  <div class="form-group">
-    <%= f.label :family_name, t(".family_name").html_safe, class: 'col-xs-4 control-label' %>
-    <div class="col-xs-8">
-       <%= f.text_field :family_name, class: "form-control" %>
-    </div>
-  </div><!-- .form-group -->
-  <br>
+  
   <div class="form-group">
     <%= f.label :orcid, class: 'col-xs-4 control-label' do %>
       <%= orcid_label %>
