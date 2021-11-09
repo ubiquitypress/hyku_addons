@@ -8,6 +8,8 @@ HykuAddons::Engine.routes.draw do
     end
   end
 
+  get "/api/v1/tenant/:tenant_id/user/:email", to: "/hyku/api/v1/user#show", param: :email, constraints: { email: /.*/ }, defaults: { format: :json }
+
   get "/api/v1/tenant/:tenant_id/files/:id/work", to: "/hyku/api/v1/files#work"
   get "/api/v1/tenant/:tenant_id/files/:id/download", to: "/hyku/api/v1/files#download"
 

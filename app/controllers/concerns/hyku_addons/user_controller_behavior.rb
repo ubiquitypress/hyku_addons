@@ -6,7 +6,7 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     def show
-      user = User.find(params[:id])
+      user = User.find_by(email: params[:email])
       @user = user if user.display_profile == true
       render json: { status: 404, code: 'not_found', message: "This User is private" } if @user.nil?
     rescue ActiveRecord::RecordNotFound
