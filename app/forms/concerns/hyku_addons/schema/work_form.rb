@@ -14,7 +14,7 @@ module HykuAddons
           super.tap do |permitted_params|
             model_class.json_fields.deep_symbolize_keys.each do |field, field_config|
               subfields = field_config[:subfields].keys.map do |subfield|
-                field_config.dig(:subfields, subfield, :form, :multiple) ? { subfield.to_sym => [] } : subfield.to_sym
+                field_config.dig(:subfields, subfield, :form, :multiple) ? { subfield => [] } : subfield
               end
 
               permitted_params << { field => subfields }

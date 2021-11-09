@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Helper method to add files to the work
+#
+# @return [void]
 def add_files
   click_link "Files" # switch tab
   expect(page).to have_content "Add files"
@@ -10,20 +13,50 @@ def add_files
   end
 end
 
+# Helper method to set the work form visibility
+#
+# @param visibility [Symbol] the work visibility, :open, :restricted, :lease, :authenticated, :embargo
+# @return [void]
 def add_visibility(visibility = :open)
   find("body").click
   choose("#{work_type}_visibility_#{visibility}")
 end
 
+# Helper method to check the agreement checkbox
+#
+# @return [void]
 def add_agreement
-  check("agreement")
+  within(".panel-footer") do
+    find("#agreement").check
+  end
 end
 
+# Helper method to submit the form
+#
+# @return [void]
 def submit
-  click_on("Save")
+  within(".panel-footer") do
+    ss
+    find("[name=save_with_files]").click
+  end
 end
 
-# Screenshots will be saved to spec/internal_test_hyku/tmp/capybara
+# Helper method to save a screenshot. Screenshots will be saved to spec/internal_test_hyku/tmp/capybara
+#
+# @return [void]
 def ss
   page.save_screenshot
+end
+
+# Concert from zero prefixed to non-zero prefixed
+#
+# @param value [Array, Hash] the Hash or Array of hashes to be conerted
+# @return [Array]
+def normalize_dates(value)
+  dates = Array.wrap(value)
+
+  dates.map do |date|
+    date = Date.new(*date.values.map(&:to_i))
+    [date.year, date.month, date.day].join("-")
+  end
 end
