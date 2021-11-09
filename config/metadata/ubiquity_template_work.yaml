@@ -719,13 +719,13 @@ attributes:
       authority: HykuAddons::LicenseService
   rights_statement:
     predicate: http://www.europeana.eu/schemas/edm/rights
-    multiple: true
+    multiple: false
     index_keys:
     - rights_statement_tesim
     form:
       required: false
       primary: false
-      multiple: true
+      multiple: false
       type: select
       authority: HykuAddons::RightsStatementService
   rights_holder:
