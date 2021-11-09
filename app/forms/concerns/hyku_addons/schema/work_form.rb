@@ -5,10 +5,11 @@ module HykuAddons
       extend ActiveSupport::Concern
 
       included do
-        class_attribute :primary_fields, :field_configs
+        class_attribute :primary_fields, :field_configs, :internal_terms
         self.primary_fields = []
         self.required_fields = []
         self.field_configs = {}
+        self.internal_terms = [] # Internal hyrax terms which don't require form fields
 
         def self.build_permitted_params
           super.tap do |permitted_params|

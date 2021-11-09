@@ -1,4 +1,7 @@
 <% if f.object.schema_driven? %>
+  <% # Avoid internal hyrax fields being presented as fields on the form %>
+  <% return if f.object.class.internal_terms.include?(key) %>
+
 	<% config = f.object.field_configs[key] || {} %>
 
   <% # Set default input options %>
