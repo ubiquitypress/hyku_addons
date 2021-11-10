@@ -48,11 +48,19 @@ def ss
   page.save_screenshot
 end
 
+# Scroll the page by a given amount
+#
+# @param by [Integer] the amount to scroll by
+# @return [void]
+def scroll(by = 1000)
+  page.execute_script "window.scrollBy(0,#{by})"
+end
+
 # Concert from zero prefixed to non-zero prefixed
 #
 # @param value [Array, Hash] the Hash or Array of hashes to be conerted
 # @return [Array]
-def normalize_dates(value)
+def normalize_date(value)
   dates = Array.wrap(value)
 
   dates.map do |date|
