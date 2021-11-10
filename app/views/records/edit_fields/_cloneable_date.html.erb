@@ -1,7 +1,7 @@
 <!-- _cloneable_date -->
 <% template = f.object.model.class.to_s.underscore %>
 <% dates = f.object[field_slug] %>
-<% required = f.object.field_configs[field_slug][:required] %>
+<% required = f.object.respond_to?(:field_configs) && f.object&.field_configs&.dig(field_slug, :required) %>
 
 <label class="control-label" for="<%= field_slug %>"><%= t("simple_form.#{field_slug}.label") %></label>
 
