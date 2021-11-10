@@ -2,8 +2,6 @@
 # Generated via
 #  `rails generate hyrax:work AnschutzWork`
 class AnschutzWorkIndexer < Hyrax::WorkIndexer
-  include Hyrax::Indexer(:anschutz_work)
-
   # This indexes the default metadata. You can remove it if you want to
   # provide your own metadata and indexing.
   include Hyrax::IndexesBasicMetadata
