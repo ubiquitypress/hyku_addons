@@ -75,10 +75,13 @@ def fill_in_cloneable(field, values)
       groups = all("[data-cloneable-group=#{work_type}_#{field}]")
       group = groups[index]
 
-      name_type = hash.delete("#{field}_name_type".to_sym) || "Personal"
+      name_type = hash["#{field}_name_type".to_sym] || "Personal"
       group.select(name_type, from: "#{work_type}_#{field}__#{field}_name_type")
 
       hash.each do |subfield, val|
+        # We can't delete the name type or it is removed from the object entirely
+        next if subfield == "#{field}_name_type".to_sym
+
         field_type = field_config.dig(:creator, :subfields, subfield, :type)
 
         case field_type
@@ -117,9 +120,11 @@ end
 # Fill in a field of a specified type
 #
 # @param field [Symbol] the field that we wish to target
-# @param value [String] the value to be added
+# @param value [String, Array] the value to be added
 # @param type  [Symbol] the input type being targeted, i.e. :select
 def fill_in_field(field, value, type)
+  # We can allow let values to be arrays for easier comparison by doing this
+  value = Array.wrap(value).first
   field = find("div.#{work_type}_#{field} #{type}")
 
   if type == :select
@@ -179,6 +184,9 @@ end
 
 # Fields like current_he_institution need to be updated as they are legacy from hyku1
 def fill_in_legacy_json_field(field, value)
+  # Allow array to be passed, using only the first element, to make comparing values easier in expectations
+  value = Array.wrap(value).first
+
   within "div.#{work_type}_#{field}" do
     value.each do |subfield, val|
       field_type = field_config.dig(field, :subfields, subfield, :type)
