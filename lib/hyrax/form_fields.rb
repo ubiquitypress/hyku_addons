@@ -66,6 +66,12 @@ module Hyrax
           descendant.primary_fields += [field_name] if options[:primary]
           descendant.field_configs[field_name] = options
         end
+
+        # Changes to these configurations will be maintained until the server is restarted, so should never happen
+        descendant.terms.freeze
+        descendant.required_fields.freeze
+        descendant.primary_fields.freeze
+        descendant.field_configs.freeze
       end
   end
 end
