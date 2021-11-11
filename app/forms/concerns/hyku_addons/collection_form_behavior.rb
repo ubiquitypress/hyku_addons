@@ -36,5 +36,10 @@ module HykuAddons
         end
       end
     end
+
+    # User collections will error without this, as _title is used in for works and collections
+    def schema_driven?
+      false
+    end
   end
 end
