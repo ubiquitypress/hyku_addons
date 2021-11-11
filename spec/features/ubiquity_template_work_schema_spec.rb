@@ -101,8 +101,20 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:project_name) { ["Project1", "Project2"] }
   let(:funder) do
     [
-      { funder_name: "A funder", funder_doi: "doi.org/123456", funder_isni: "0987654321", funder_ror: "ror.org/123456678" },
-      { funder_name: "Another funder", funder_doi: "doi.org/098765", funder_isni: "1234567890", funder_ror: "ror.org/345678976543" }
+      {
+        funder_name: "A funder",
+        funder_doi: "doi.org/123456",
+        funder_isni: "0987654321",
+        funder_ror: "ror.org/123456678",
+        funder_award: ["Award1"]
+      },
+      {
+        funder_name: "Another funder",
+        funder_doi: "doi.org/098765",
+        funder_isni: "1234567890",
+        funder_ror: "ror.org/345678976543",
+        funder_award: ["Award2"]
+      }
     ]
   end
   let(:fndr_project_ref) { ["Ref1", "Ref2"] }
@@ -386,15 +398,13 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         expect(work.institution).to eq(institution_options.map { |h| h["id"] })
         expect(work.org_unit).to eq(org_unit)
         expect(work.project_name).to eq(project_name)
-        # TODO: funder is not saving
-        # expect(work.funder).to eq([funder.to_json])
+        expect(work.funder).to eq([funder.to_json])
         expect(work.fndr_project_ref).to eq(fndr_project_ref)
         expect(work.event_title).to eq(event_title)
         expect(work.event_location).to eq(event_location)
         expect(work.event_date).to eq(event_date.map { |date| normalize_date(date) }.flatten)
         expect(work.series_name).to eq(series_name)
         expect(work.book_title).to eq(book_title)
-
         expect(work.journal_title).to eq(journal_title)
         expect(work.alternative_journal_title).to eq(alternative_journal_title)
         expect(work.volume).to eq(volume)

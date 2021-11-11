@@ -321,6 +321,37 @@ attributes:
       primary: false
       multiple: true
       type: text
+    subfields:
+      funder_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+      funder_doi:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+      funder_isni:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+      funder_ror:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+      funder_award:
+        type: string
+        form:
+          required: false
+          multiple: true
+          type: text
   fndr_project_ref:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/awards

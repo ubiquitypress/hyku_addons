@@ -173,7 +173,8 @@ def fill_in_funder(value)
     group = all("div.#{work_type}_funder")[index]
 
     funder.each do |subfield, val|
-      group.find("input[name='ubiquity_template_work[funder][][#{subfield}]']").fill_in(with: val)
+      # We are using an Array wrap here as awards are treated differently in the data
+      group.find("input.ubiquity_#{subfield}").fill_in(with: Array.wrap(val).first)
     end
 
     group.find_link("Add another Funder").click if index + 1 < values.size
