@@ -26,6 +26,11 @@ class Eventable {
       let eventName = $(this).data("on-blur")
       $("body").trigger(eventName, [$(this)])
     })
+
+    // Whenever the form is submitted, allow listeners to perform registered actions
+    $("body").on("submit", "form[data-behavior='work-form']", function(_event){
+      $("body").trigger("work-form-submit", [$(this)])
+    })
   }
 
   // So that our listeners know when all events have been

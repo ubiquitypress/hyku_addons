@@ -55,7 +55,7 @@
     <% shared_fields = groups.values.flatten.group_by { |k| k }.select { |k, arr| arr.size > 1 }.keys %>
 
     <% groups.each do |group, subfields| %>
-      <div data-toggleable-group="<%= group %>">
+      <div data-toggleable-remove-on-submit data-toggleable-group="<%= group %>">
         <% subfields.each do |subfield| %>
           <% next if shared_fields.include?(subfield) %>
 
