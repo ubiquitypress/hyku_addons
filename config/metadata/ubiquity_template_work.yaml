@@ -53,6 +53,7 @@ attributes:
           required: true
           multiple: false
           type: select
+          authority: HykuAddons::NameTypeService
       creator_family_name:
         type: string
         form:
@@ -60,7 +61,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - personal
+          - Personal
       creator_given_name:
         type: string
         form:
@@ -68,7 +69,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - personal
+          - Personal
       creator_orcid:
         type: string
         form:
@@ -76,7 +77,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - personal
+          - Personal
       creator_institutional_relationship:
         type: string
         form:
@@ -85,7 +86,7 @@ attributes:
           type: select
           authority: HykuAddons::InstitutionalRelationshipService
           display_for:
-          - personal
+          - Personal
       creator_organization_name:
         type: string
         form:
@@ -93,7 +94,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - organizational
+          - Organizational
       creator_ror:
         type: string
         form:
@@ -101,7 +102,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - organizational
+          - Organizational
       creator_grid:
         type: string
         form:
@@ -109,7 +110,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - organizational
+          - Organizational
       creator_wikidata:
         type: string
         form:
@@ -117,7 +118,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - organizational
+          - Organizational
       creator_isni:
         type: string
         form:
@@ -125,8 +126,8 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - personal
-          - organizational
+          - Personal
+          - Organizational
   contributor:
     predicate: http://purl.org/dc/elements/1.1/contributor
     multiple: true
@@ -144,6 +145,7 @@ attributes:
           required: false
           multiple: false
           type: select
+          authority: HykuAddons::NameTypeService
       contributor_family_name:
         type: string
         form:
@@ -151,7 +153,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - personal
+          - Personal
       contributor_given_name:
         type: string
         form:
@@ -159,7 +161,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - personal
+          - Personal
       contributor_orcid:
         type: string
         form:
@@ -167,7 +169,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - personal
+          - Personal
       contributor_institutional_relationship:
         type: string
         form:
@@ -176,7 +178,7 @@ attributes:
           type: select
           authority: HykuAddons::ContributorInstitutionalRelationshipService
           display_for:
-          - personal
+          - Personal
       contributor_organization_name:
         type: string
         form:
@@ -184,7 +186,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - organizational
+          - Organizational
       contributor_ror:
         type: string
         form:
@@ -192,7 +194,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - organizational
+          - Organizational
       contributor_grid:
         type: string
         form:
@@ -200,7 +202,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - organizational
+          - Organizational
       contributor_wikidata:
         type: string
         form:
@@ -208,7 +210,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - organizational
+          - Organizational
       contributor_isni:
         type: string
         form:
@@ -216,8 +218,8 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - personal
-          - organizational
+          - Personal
+          - Organizational
       contributor_role:
         type: string
         form:
@@ -226,8 +228,8 @@ attributes:
           type: select
           authority: HykuAddons::RoleService
           display_for:
-          - personal
-          - organizational
+          - Personal
+          - Organizational
   abstract:
     type: text
     predicate: http://purl.org/dc/terms/abstract
@@ -406,6 +408,7 @@ attributes:
           required: false
           multiple: false
           type: select
+          authority: HykuAddons::NameTypeService
       editor_family_name:
         type: string
         form:
@@ -413,7 +416,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - personal
+          - Personal
       editor_given_name:
         type: string
         form:
@@ -421,7 +424,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - personal
+          - Personal
       editor_orcid:
         type: string
         form:
@@ -429,7 +432,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - personal
+          - Personal
       editor_institutional_relationship:
         type: string
         form:
@@ -438,7 +441,7 @@ attributes:
           type: select
           authority: HykuAddons::InstitutionalRelationshipService
           display_for:
-          - personal
+          - Personal
       editor_organization_name:
         type: string
         form:
@@ -446,7 +449,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - organizational
+          - Organizational
       editor_isni:
         type: string
         form:
@@ -454,8 +457,8 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - personal
-          - organizational
+          - Personal
+          - Organizational
   journal_title:
     type: string
     predicate: http://purl.org/ontology/bibo/Journal

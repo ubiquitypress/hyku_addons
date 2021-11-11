@@ -13,7 +13,7 @@ creator_family_name:
     multiple: false
     type: text
     display_for:
-      - personal
+      - Personal
 creator_given_name:
   type: string
   form:
@@ -21,7 +21,7 @@ creator_given_name:
     multiple: false
     type: text
     display_for:
-      - personal
+      - Personal
 creator_orcid:
   type: string
   form:
@@ -29,7 +29,7 @@ creator_orcid:
     multiple: false
     type: text
     display_for:
-      - personal
+      - Personal
 creator_institutional_relationship:
   type: string
   form:
@@ -38,7 +38,7 @@ creator_institutional_relationship:
     type: select
     authority: HykuAddons::InstitutionalRelationshipService
     display_for:
-      - personal
+      - Personal
 creator_organization_name:
   type: string
   form:
@@ -46,7 +46,7 @@ creator_organization_name:
     multiple: false
     type: text
     display_for:
-      - organizational
+      - Organizational
 creator_ror:
   type: string
   form:
@@ -54,7 +54,7 @@ creator_ror:
     multiple: false
     type: text
     display_for:
-      - organizational
+      - Organizational
 creator_grid:
   type: string
   form:
@@ -62,7 +62,7 @@ creator_grid:
     multiple: false
     type: text
     display_for:
-      - organizational
+      - Organizational
 creator_wikidata:
   type: string
   form:
@@ -70,7 +70,7 @@ creator_wikidata:
     multiple: false
     type: text
     display_for:
-      - organizational
+      - Organizational
 creator_isni:
   type: string
   form:
@@ -78,6 +78,6 @@ creator_isni:
     multiple: false
     type: text
     display_for:
-      - personal
-      - organizational
+      - Personal
+      - Organizational
 

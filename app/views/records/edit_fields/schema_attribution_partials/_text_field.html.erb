@@ -1,0 +1,58 @@
+<% cloneable = local_assigns.dig(:field_args, :cloneable) %>
+<% cloneable_name ="cloneable-#{template}-#{field_slug}" %>
+
+<!-- _text_field -->
+<div
+	class="<%= local_assigns["group_class"] || "form-group #{field_slug}-group #{template}_#{field_slug}" %>"
+	<% if cloneable %>
+		data-cloneable
+		data-cloneable-min="1"
+	<% end %>
+>
+	<% options = { class: "control-label multi_value optional" } %>
+	<%= label_tag "#{template}_#{field_slug}", t("simple_form.#{field_group}.#{field_slug}.label"), options %>
+
+	<% Array.wrap(hash.fetch(field_slug.to_s, "")).each do |value| %>
+		<% defaults = {
+			class: "#{template}_#{field_group} #{template}_#{field_slug} form-control multi-text-field multi_value",
+			placeholder: t("simple_form.#{field_group}.#{field_slug}.placeholder"),
+			data: { field_name: "ubiquity_#{field_slug}", template: template, field_group: field_group },
+			required: local_assigns[:required]
+		}.merge(local_assigns[:field_args] || {}) %>
+
+		<div
+			<% if cloneable %>
+				class="input-group"
+				data-cloneable-group="<%= cloneable_name %>"
+				data-cloneable-after-action="clear_inputs"
+			<% end %>
+		>
+			<%= text_field_tag "#{template}[#{field_group}][][#{field_slug}]#{cloneable ? '[]' : ''}", value, defaults %>
+
+			<% if cloneable %>
+				<div class="input-group-addon">
+					<a href="" class="remove text-danger" data-on-click="remove_group" data-cloneable-target="<%= cloneable_name %>">
+						<span class="glyphicon glyphicon-remove"></span>
+						<span class="controls-remove-text">Remove</span>
+					</a>
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+
+	<% help_key = "simple_form.#{field_group}.#{field_slug}.help_text"  %>
+	<% if I18n.exists?(help_key) %>
+		<p class="help-block"><%= t(help_key) %></p>
+	<% end%>
+
+	<% if local_assigns[:required] %>
+		<div class="text-danger error"><%= t("deposit_form.required.label") %></div>
+	<% end %>
+
+	<% if cloneable %>
+		<button type="button" class="btn btn-link add" data-on-click="clone_group" data-cloneable-target="<%= cloneable_name %>">
+			<span class="glyphicon glyphicon-plus"></span>
+			<span class="controls-add-text">Add another</span>
+		</button>
+	<% end %>
+</div>

@@ -1,0 +1,55 @@
+<% cloneable = local_assigns.dig(:field_args, :cloneable) %>
+<% cloneable_name ="cloneable-#{template}-#{field_slug}" %>
+
+<!-- _select_field -->
+<div
+	class="<%= local_assigns["group_class"] || "form-group #{field_slug}-group #{template}_#{field_slug}" %>"
+	<% if cloneable %>
+		data-cloneable
+		data-cloneable-min="1"
+	<% end %>
+>
+	<% options = { class: "control-label multi_value optional" } %>
+	<%= label_tag "#{template}_#{field_slug}", options do %>
+		<%= t("simple_form.#{field_group}.#{field_slug}.label") %>
+
+		<% if local_assigns[:required] %>
+			<span class="label label-info required-tag">required</span>
+		<% end %>
+	<% end %>
+
+	<% Array.wrap(hash.fetch(field_slug.to_s, "")).each do |value| %>
+		<div
+			<% if cloneable %>
+				class="input-group"
+				data-cloneable-group="<%= cloneable_name %>"
+				data-cloneable-after-action="clear_inputs"
+			<% end %>
+		>
+			<% opts = options_for_select(select_options, selected: value) %>
+			<% field_params = { class: "form-control #{template}_#{field_slug} #{template}_#{field_group}_#{field_slug}" }.merge(local_assigns[:field_args] || {}) %>
+			<%= select_tag "#{template}[#{field_group}][][#{field_slug}]#{cloneable ? '[]' : ''}", opts, field_params %>
+
+			<% if cloneable %>
+				<div class="input-group-addon">
+					<a href="" class="remove text-danger" data-on-click="remove_group" data-cloneable-target="<%= cloneable_name %>">
+						<span class="glyphicon glyphicon-remove"></span>
+						<span class="controls-remove-text">Remove</span>
+					</a>
+				</div>
+			<% end %>
+		</div>
+	<% end%>
+
+	<% help_key = "simple_form.#{field_group}.#{field_slug}.help_text"  %>
+	<% if I18n.exists?(help_key) %>
+		<p class="help-block"><%= t(help_key) %></p>
+	<% end%>
+
+	<% if cloneable %>
+		<button type="button" class="btn btn-link add" data-on-click="clone_group" data-cloneable-target="<%= cloneable_name %>">
+			<span class="glyphicon glyphicon-plus"></span>
+			<span class="controls-add-text">Add another</span>
+		</button>
+	<% end %>
+</div>
