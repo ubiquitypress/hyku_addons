@@ -82,9 +82,7 @@ def fill_in_cloneable(field, values)
         # We can't delete the name type or it is removed from the object entirely
         next if subfield == "#{field}_name_type".to_sym
 
-        field_type = field_config.dig(:creator, :subfields, subfield, :type)
-
-        case field_type
+        case field_config.dig(field, :subfields, subfield, :type)
         when "select"
           group.find("select.#{work_type}_#{subfield}").find(:option, val).select_option
         else
