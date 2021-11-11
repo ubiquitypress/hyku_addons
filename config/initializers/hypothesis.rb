@@ -1,0 +1,1 @@
+HYPOTHESIS_URL = Rails.env.development? ? "http://localhost:8000".freeze : 'https://via.hypothes.is'.freeze 
