@@ -36,6 +36,7 @@ attributes:
       type: select
       authority: HykuAddons::ResourceTypesService
       include_blank: true
+      input: single_multi_value_select
   creator:
     predicate: http://purl.org/dc/elements/1.1/creator
     multiple: true
@@ -66,6 +67,22 @@ attributes:
         type: string
         form:
           required: true
+          multiple: false
+          type: text
+          display_for:
+          - Personal
+      creator_middle_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - Personal
+      creator_suffix:
+        type: string
+        form:
+          required: false
           multiple: false
           type: text
           display_for:

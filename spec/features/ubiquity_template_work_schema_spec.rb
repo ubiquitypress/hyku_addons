@@ -371,6 +371,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         expect(page).to have_selector("span", text: "Public")
         expect(page).to have_content("Your files are being processed by Hyku in the background.")
 
+        # expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
+
         current_uri = URI.parse(page.current_url)
         work_id = current_uri.path.split("/").last
         work = work_type.classify.constantize.find(work_id)
@@ -476,6 +478,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         expect(work.rights_statement_text).to eq(rights_statement_text)
         expect(work.qualification_subject_text).to eq(qualification_subject_text)
         expect(work.georeferenced).to eq(georeferenced_options.map { |h| h["id"] }.first.to_s)
+
       end
     end
   end
