@@ -11,8 +11,8 @@ RSpec.describe UbiquityTemplateWorkIndexer do
 
   let(:title) { "Moomin" }
   let(:alt_title) { "alt title" }
+  let(:keyword) { "the keyword" }
   let(:resource_type) { "Book" }
-  let(:keyword) { "keyword" }
   let(:creator1_first_name) { "Sebastian" }
   let(:creator1_last_name) { "Hageneuer" }
   let(:creator1_orcid) { "https://sandbox.orcid.org/0000-0003-0652-4625" }
@@ -30,12 +30,12 @@ RSpec.describe UbiquityTemplateWorkIndexer do
       alt_title: [alt_title],
       resource_type: [resource_type],
       creator: [[creator1].to_json],
-      keyword: [keyword],
+      keyword: [keyword]
     }
   end
 
   it "indexes the correct fields" do
-    attributes.keys.each do |key|
+    attributes.each_key do |key|
       index_key = Array.wrap(schema.dig(key, "index_keys")).first
 
       expect(solr_document[index_key]).to eq attributes[key]
@@ -47,7 +47,7 @@ RSpec.describe UbiquityTemplateWorkIndexer do
     let(:model_name) { :generic_work }
 
     it "indexes the correct fields" do
-      attributes.keys.each do |key|
+      attributes.each_key do |key|
         index_key = ::SolrDocument.solr_name(key)
 
         expect(solr_document[index_key]).to eq attributes[key]

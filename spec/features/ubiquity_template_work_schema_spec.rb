@@ -478,7 +478,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         expect(work.rights_statement_text).to eq(rights_statement_text)
         expect(work.qualification_subject_text).to eq(qualification_subject_text)
         expect(work.georeferenced).to eq(georeferenced_options.map { |h| h["id"] }.first.to_s)
-
       end
     end
   end

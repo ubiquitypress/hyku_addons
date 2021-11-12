@@ -37,10 +37,10 @@ module Hyrax
     private
 
       def included(descendant)
-        method_name = :generate_solr_document
         descendant.alias_method(:resource, :object)
         rules = @rules
-        define_method method_name do |*args|
+
+        define_method :generate_solr_document do |*args|
           super(*args).tap do |document|
             Array(rules).each do |index_key, method|
               document[index_key] = resource.try(method)
