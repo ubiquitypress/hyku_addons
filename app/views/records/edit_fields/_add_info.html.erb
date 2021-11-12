@@ -1,9 +1,8 @@
 <% # This file can be removed when the schema migration has been completed %>
 <!-- _add_info -->
 <% if f.object.schema_driven? %>
-	<%= render "records/edit_fields/default", f: f, key: key %>
+  <%= render "records/edit_fields/default", f: f, key: key %>
 
 <% else %>
-	<%= f.input :add_info, as: :text, input_html: { rows: 7, cols: 80 }, required: f.object.required?(key) %>
+  <%= f.input :add_info, as: :text, input_html: { rows: 7, cols: 80 }, required: f.object.required?(key) %>
 <% end %>
-

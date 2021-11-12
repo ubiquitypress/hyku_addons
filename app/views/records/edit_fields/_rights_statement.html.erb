@@ -3,8 +3,8 @@
   <%= render "records/edit_fields/default", f: f, key: key %>
 
 <% else %>
-	<%= f.input :rights_statement, as: :select,
-		collection: HykuAddons::RightsStatementService.new(model: f.object.model.class).select_active_options,
-		include_blank: true,
-		input_html: { class: 'form-control' } %>
+  <%= f.input :rights_statement, as: :select,
+    collection: HykuAddons::RightsStatementService.new(model: f.object.model.class).select_active_options,
+    include_blank: true,
+    input_html: { class: 'form-control' } %>
 <% end %>
