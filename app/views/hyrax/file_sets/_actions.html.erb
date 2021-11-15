@@ -1,4 +1,4 @@
-<% if can?(:edit, file_set.id) || can?(:destroy, file_set.id) %>
+<% if can?(:edit, file_set.id) || can?(:destroy, file_set.id) || can?(:download, file_set.id)  %>
   <div class="btn-group">
     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button" id="dropdownMenu_<%= file_set.id %>" aria-haspopup="true" aria-expanded="false">
       <span class="sr-only"><%= t('.press_to') %> </span>
@@ -17,12 +17,6 @@
           <%= link_to t('.versions'),  edit_polymorphic_path([main_app, file_set], anchor: 'versioning_display'),
             { title: t('.versions_title'), id: "file_versions" } %>
         </li>
-
-        <% if file_set.pdf? %>
-          <li role="menuitem" tabindex="-1">
-            <%= link_to t('.read_and_annotate'),  "#{HYPOTHESIS_URL}/viewer/web/viewer.html?#{hyrax.download_url(file_set.id)}",  { title: 'Annotate', id: "file_read" } %>
-          </li>
-        <% end %>
       <% end %>
 
       <% if can?(:destroy, file_set.id) %>
@@ -44,15 +38,13 @@
                       id: "file_download",
                       data: { label: file_set.id } %>
         </li>
+
+        <% if file_set.pdf? %>
+          <li role="menuitem" tabindex="-1">
+            <%= link_to t('.read_and_annotate'), "#{HYPOTHESIS_URL}/viewer/web/viewer.html?#{hyrax.download_url(file_set.id)}",  { title: 'Annotate', id: "file_read", target: "_blank" } %>
+          </li>
+        <% end %>
       <% end %>
     </ul>
   </div>
-<% elsif can?(:download, file_set.id)  %>
-  <%= link_to t('.download'),
-              hyrax.download_path(file_set),
-              class: 'btn btn-default btn-sm',
-              title: t('.download_title', file_set: file_set),
-              target: "_blank",
-              id: "file_download",
-              data: { label: file_set.id } %>
 <% end %>
