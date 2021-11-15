@@ -1042,26 +1042,6 @@ attributes:
       primary: false
       multiple: false
       type: text
-  based_near:
-    type: string
-    predicate: http://id.loc.gov/ontologies/bibframe/physicalLocation
-    multiple: true
-    index_keys:
-    - location_tesim
-    - location_sim
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: select
-      input: controlled_vocabulary
-      data:
-        autocomplete-url: /authorities/search/geonames
-        autocomplete: based_near
-      wrapper_html:
-        data:
-          autocomplete-url: /authorities/search/geonames
-          field-name: based_near
   outcome:
     type: string
     predicate: http://schema.org/resultComment
