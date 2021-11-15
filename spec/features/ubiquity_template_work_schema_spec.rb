@@ -25,6 +25,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         creator_name_type: "Personal",
         creator_family_name: "Johnny",
         creator_given_name: "Smithy",
+        creator_middle_name: "J.",
+        creator_suffix: "Mr",
         creator_orcid: "0000-0000-1111-2222",
         creator_institutional_relationship: "Research associate",
         creator_isni: "56273930281"
