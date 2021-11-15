@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
-RSpec.describe UbiquityTemplateWorkIndexer do
+RSpec.describe GenericWorkIndexer do
   subject(:solr_document) { service.generate_solr_document }
+  let(:model_name) { :generic_work }
   let(:service) { described_class.new(work) }
-  let(:model_name) { :ubiquity_template_work }
   let(:model_class) { model_name.to_s.classify.constantize }
   let(:work) { model_class.new(attributes) }
-
-  let(:schema_loader) { Hyrax::SimpleSchemaLoader.new }
-  let(:schema_attributes) { schema_loader.attributes_config_for(schema: model_name) }
 
   let(:title) { "Moomin" }
   let(:alt_title) { "alt title" }
@@ -31,32 +28,22 @@ RSpec.describe UbiquityTemplateWorkIndexer do
       alt_title: [alt_title],
       resource_type: [resource_type],
       creator: [[creator1].to_json],
-      keyword: [keyword]
+      keyword: [keyword],
     }
   end
 
-  xit "indexes the correct fields" do
-    attributes.each_key do |key|
-      index_key = Array.wrap(schema_attributes.dig(key, "index_keys")).first
-
-      expect(solr_document.keys).to include(index_key)
-      expect(solr_document[index_key]).to eq attributes[key]
-    end
-  end
-
-  context "when the work is saved" do
+  # Sanity check to make sure its working elsewhere
+  context "when the work is not schema driven" do
     let(:solr_document) { work.to_solr }
 
     before do
       work.save
-      work.update_index
     end
 
     it "indexes the correct fields" do
       attributes.each_key do |key|
-        index_key = Array.wrap(schema_attributes.dig(key, "index_keys")).first
+        index_key = ::SolrDocument.solr_name(key)
 
-        expect(solr_document.keys).to include(index_key)
         expect(solr_document[index_key]).to eq attributes[key]
       end
     end
