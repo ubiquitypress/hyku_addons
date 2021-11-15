@@ -28,7 +28,8 @@ attributes:
     predicate: http://purl.org/dc/terms/type
     multiple: true
     index_keys:
-    - resource_type_tesim
+      - resource_type_sim
+      - resource_type_tesim
     form:
       required: true
       primary: true

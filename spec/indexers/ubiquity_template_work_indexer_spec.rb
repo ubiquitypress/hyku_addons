@@ -6,8 +6,9 @@ RSpec.describe UbiquityTemplateWorkIndexer do
   let(:model_name) { :ubiquity_template_work }
   let(:model_class) { model_name.to_s.classify.constantize }
   let(:work) { model_class.new(attributes) }
-  let(:schema) { Hyrax::SimpleSchemaLoader.new.attributes_config_for(schema: model_name) }
-  let(:index_keys) { schema.values.map { |h| h["index_keys"] }.flatten.sort }
+
+  let(:schema_loader) { Hyrax::SimpleSchemaLoader.new }
+  let(:schema_attributes) { schema_loader.attributes_config_for(schema: model_name) }
 
   let(:title) { "Moomin" }
   let(:alt_title) { "alt title" }
@@ -36,8 +37,9 @@ RSpec.describe UbiquityTemplateWorkIndexer do
 
   it "indexes the correct fields" do
     attributes.each_key do |key|
-      index_key = Array.wrap(schema.dig(key, "index_keys")).first
+      index_key = Array.wrap(schema_attributes.dig(key, "index_keys")).first
 
+      expect(solr_document.keys).to include(index_key)
       expect(solr_document[index_key]).to eq attributes[key]
     end
   end
