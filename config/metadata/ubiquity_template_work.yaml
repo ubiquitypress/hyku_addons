@@ -28,8 +28,8 @@ attributes:
     predicate: http://purl.org/dc/terms/type
     multiple: true
     index_keys:
-      - resource_type_sim
       - resource_type_tesim
+      - resource_type_sim
     form:
       required: true
       primary: true
@@ -1424,7 +1424,7 @@ attributes:
     predicate: http://ogp.me/ns/class#boolean_str
     multiple: false
     index_keys:
-    - resource_type_tesim
+    - georeferenced_tesim
     form:
       required: false
       primary: false
