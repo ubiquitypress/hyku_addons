@@ -1,4 +1,4 @@
-<% if can?(:edit, file_set.id) || can?(:destroy, file_set.id) || can?(:download, file_set.id)  %>
+<% if can?(:edit, file_set.id) || can?(:destroy, file_set.id) || (Flipflop.enabled?(:annotation) && can?(:download, file_set.id)) %>
   <div class="btn-group">
     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button" id="dropdownMenu_<%= file_set.id %>" aria-haspopup="true" aria-expanded="false">
       <span class="sr-only"><%= t('.press_to') %> </span>
@@ -47,4 +47,11 @@
       <% end %>
     </ul>
   </div>
+<% elsif can?(:download, file_set.id) %>
+  <%= link_to t('.download'),
+    hyrax.download_path(file_set),
+    title: t('.download_title', file_set: file_set),
+    target: "_blank",
+    id: "file_download",
+    data: { label: file_set.id } %>
 <% end %>
