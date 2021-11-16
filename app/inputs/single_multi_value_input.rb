@@ -18,4 +18,8 @@ class SingleMultiValueInput < MultiValueInput
       build_field(value, index)
     end
   end
+
+  def collection
+    @collection ||= Array(object.send(attribute_name)).reject { |v| v.to_s.strip.blank? }.presence || [""]
+  end
 end

@@ -8,4 +8,8 @@ class SingleMultiValueSelectInput < MultiValueSelectInput
   def input_type
     "single_multi_value"
   end
+
+  def collection
+    @collection ||= Array(object.send(attribute_name)).reject { |v| v.to_s.strip.blank? }.presence || [""]
+  end
 end
