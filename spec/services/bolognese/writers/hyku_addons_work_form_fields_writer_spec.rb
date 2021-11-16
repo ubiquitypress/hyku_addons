@@ -26,23 +26,23 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
 
     it { expect(meta.send(:validate_funder_doi, "10.13039/100000050")).to eq "https://doi.org/10.13039/100000050" }
     it { expect(meta.send(:validate_funder_doi, "10.13039/100006492")).to eq "https://doi.org/10.13039/100006492" }
-    it { expect(meta.send(:validate_funder_doi, 'http://handle.test.datacite.org/10.13039/100000080')).to eq "https://doi.org/10.13039/100000080" }
-    it { expect(meta.send(:validate_funder_doi, 'https://doi.org/10.13039/100000001')).to eq "https://doi.org/10.13039/100000001" }
-    it { expect(meta.send(:validate_funder_doi, 'http://doi.org/10.13039/501100001711')).to eq "https://doi.org/10.13039/501100001711" }
-    it { expect(meta.send(:validate_funder_doi, 'https://dx.doi.org/10.13039/501100001711')).to eq "https://doi.org/10.13039/501100001711" }
-    it { expect(meta.send(:validate_funder_doi, 'doi:10.13039/501100001711')).to eq "https://doi.org/10.13039/501100001711" }
-    it { expect(meta.send(:validate_funder_doi, '10.13039/501100001711')).to eq "https://doi.org/10.13039/501100001711" }
-    it { expect(meta.send(:validate_funder_doi, '501100001711')).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, "http://handle.test.datacite.org/10.13039/100000080")).to eq "https://doi.org/10.13039/100000080" }
+    it { expect(meta.send(:validate_funder_doi, "https://doi.org/10.13039/100000001")).to eq "https://doi.org/10.13039/100000001" }
+    it { expect(meta.send(:validate_funder_doi, "http://doi.org/10.13039/501100001711")).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, "https://dx.doi.org/10.13039/501100001711")).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, "doi:10.13039/501100001711")).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, "10.13039/501100001711")).to eq "https://doi.org/10.13039/501100001711" }
+    it { expect(meta.send(:validate_funder_doi, "501100001711")).to eq "https://doi.org/10.13039/501100001711" }
     it { expect(meta.send(:validate_funder_doi, "https://doi.org/10.13039/5monkeymonkey")).to be_nil }
-    it { expect(meta.send(:validate_funder_doi, '10.13039/5monkeymonkey')).to be_nil }
+    it { expect(meta.send(:validate_funder_doi, "10.13039/5monkeymonkey")).to be_nil }
   end
 
   context "Hyku Addons Writer" do
     let(:faraday_headers) do
       {
-        'Accept' => '*/*',
-        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-        'User-Agent' => 'Faraday v0.17.4'
+        "Accept" => "*/*",
+        "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+        "User-Agent" => "Faraday v0.17.4"
       }
     end
     let(:meta) { Bolognese::Metadata.new(input: fixture) }
@@ -71,7 +71,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
     end
 
     describe "a journal doi with multiple complete creators" do
-      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", '10.7554-elife.63646.xml') }
+      let(:fixture) { File.read Rails.root.join("..", "fixtures", "doi", "10.7554-elife.63646.xml") }
       let(:json_501100001349) { File.read Rails.root.join("..", "fixtures", "ror", "501100001349.json") }
       let(:json_501100001441) { File.read Rails.root.join("..", "fixtures", "ror", "501100001441.json") }
       let(:json_501100001352) { File.read Rails.root.join("..", "fixtures", "ror", "501100001352.json") }

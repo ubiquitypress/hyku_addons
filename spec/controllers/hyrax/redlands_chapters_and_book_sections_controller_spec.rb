@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Hyrax::RedlandsChaptersAndBookSectionsController, type: :controller do
-  let!(:work) { RedlandsChaptersAndBookSection.create(title: ['Test'], visibility: "open") }
+  let!(:work) { RedlandsChaptersAndBookSection.create(title: ["Test"], visibility: "open") }
 
   describe "responds to" do
     it "responds to html by default" do

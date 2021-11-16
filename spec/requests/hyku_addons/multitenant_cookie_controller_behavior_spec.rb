@@ -5,9 +5,9 @@ require "rails_helper"
 RSpec.describe HykuAddons::MultitenantCookieControllerBehavior, type: :request, multitenant: true do
   let(:main_app) { Rails.application.routes.url_helpers }
   let(:user) { create(:user) }
-  let(:account) { create(:account, cname: 'foo.bar', frontend_url: 'bar') }
+  let(:account) { create(:account, cname: "foo.bar", frontend_url: "bar") }
   let(:work) { create(:work, user: user) }
-  let(:cookie_details) { cookies.send(:hash_for, nil).fetch('_hyku_session', nil) }
+  let(:cookie_details) { cookies.send(:hash_for, nil).fetch("_hyku_session", nil) }
 
   before do
     login_as(user, scope: :user)
