@@ -92,6 +92,11 @@ jobs:
           command: |
             mkdir /tmp/test-results
             bundle exec rspec $(circleci tests glob "spec/**/*_spec.rb" | grep -v "internal_test_hyku" | circleci tests split --split-by=timings)
+      
+      - run:
+          name: Re-run flaky tests
+          command: |
+            bundle exec rspec $(circleci tests glob "spec/**/*_spec.rb" | grep -v "internal_test_hyku" | circleci tests split --split-by=timings) --only-failures
 
       # collect reports
       - store_test_results:
