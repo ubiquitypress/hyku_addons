@@ -35,7 +35,11 @@ RSpec.describe UbiquityTemplateWorkIndexer do
     }
   end
 
-  xit "indexes the correct fields" do
+  it "is set on the work" do
+    expect(model_class.indexer).to eq(described_class)
+  end
+
+  it "indexes the correct fields" do
     attributes.each_key do |key|
       index_key = Array.wrap(schema_attributes.dig(key, "index_keys")).first
 
@@ -47,10 +51,7 @@ RSpec.describe UbiquityTemplateWorkIndexer do
   context "when the work is saved" do
     let(:solr_document) { work.to_solr }
 
-    before do
-      work.save
-      work.update_index
-    end
+    before { work.save }
 
     it "indexes the correct fields" do
       attributes.each_key do |key|

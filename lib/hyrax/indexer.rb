@@ -42,9 +42,7 @@ module Hyrax
 
         define_method :generate_solr_document do |*args|
           super(*args).tap do |document|
-            Array(rules).each do |index_key, method|
-              document[index_key.to_s] = resource.try(method)
-            end
+            Array(rules).each { |index_key, method| document[index_key.to_s] = resource.try(method) }
           end
         end
       end

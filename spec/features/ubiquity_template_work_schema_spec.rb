@@ -373,8 +373,15 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         expect(page).to have_selector("span", text: "Public")
         expect(page).to have_content("Your files are being processed by Hyku in the background.")
 
-        # expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
+        expect(page).to have_content(resource_type.map { |h| h["id"] }.first)
+        alt_title.each { |at| expect(page).to have_content(at) }
+        expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
+        expect(page).to have_content("#{contributor.first.dig(:contributor_family_name)}, #{contributor.first.dig(:contributor_given_name)}")
+        %i[published accepted submitted].each { |d| expect(page).to have_content(normalize_date(send("date_#{d}".to_sym)).first) }
+        duration.each { |at| expect(page).to have_content(at) }
+        description.each { |at| expect(page).to have_content(at) }
 
+        # Get the actual work from the URL param
         current_uri = URI.parse(page.current_url)
         work_id = current_uri.path.split("/").last
         work = work_type.classify.constantize.find(work_id)
