@@ -32,6 +32,9 @@ terms:
  - id: Health and Kinesiology
    term: Health and Kinesiology
    active: true
+ - id: Health Professions
+   term: Health Professions
+   active: true
  - id: Hospitality and Tourism
    term: Hospitality and Tourism
    active: true

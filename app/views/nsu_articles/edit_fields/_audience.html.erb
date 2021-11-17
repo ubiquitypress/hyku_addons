@@ -1,0 +1,4 @@
+<%= f.input :audience, as: :multi_value_select,
+            collection: HykuAddons::AudienceService.new(model: f.object.model.class).select_active_options,
+            include_blank: false,
+            input_html: { class: 'form-control' } %>
