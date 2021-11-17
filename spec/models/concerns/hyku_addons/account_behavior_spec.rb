@@ -56,7 +56,6 @@ RSpec.describe HykuAddons::AccountBehavior do
   end
 
   describe "#switch" do
-    let!(:previous_datacite_mode) { Hyrax::DOI::DataCiteRegistrar.mode }
     let!(:previous_datacite_prefix) { Hyrax::DOI::DataCiteRegistrar.prefix }
     let!(:previous_datacite_username) { Hyrax::DOI::DataCiteRegistrar.username }
     let!(:previous_datacite_password) { Hyrax::DOI::DataCiteRegistrar.password }
@@ -87,7 +86,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       account.switch do
         # no-op
       end
-      expect(Hyrax::DOI::DataCiteRegistrar.mode).to eq previous_datacite_mode
+      expect(Hyrax::DOI::DataCiteRegistrar.mode).to eq "test"
       expect(Hyrax::DOI::DataCiteRegistrar.prefix).to eq previous_datacite_prefix
       expect(Hyrax::DOI::DataCiteRegistrar.username).to eq previous_datacite_username
       expect(Hyrax::DOI::DataCiteRegistrar.password).to eq previous_datacite_password
