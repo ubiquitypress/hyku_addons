@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Hyrax::DenverThesisDissertationCapstonesController, type: :controller do
-  let!(:work) { DenverThesisDissertationCapstone.create(title: ['Test'], visibility: "open") }
+  let!(:work) { DenverThesisDissertationCapstone.create(title: ["Test"], visibility: "open") }
 
   describe "responds to" do
     it "responds to html by default" do

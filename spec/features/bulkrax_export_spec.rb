@@ -140,23 +140,23 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
       end
     end
 
-    context 'file visibility' do
-      let(:import_batch_file) { 'spec/fixtures/csv/generic_work.file_set.csv' }
+    context "file visibility" do
+      let(:import_batch_file) { "spec/fixtures/csv/generic_work.file_set.csv" }
       let(:export_source) { "GenericWork" }
 
-      it 'imports files' do
+      it "imports files" do
         entry = exporter.entries.first
         expect(entry).to be_present
-        expect(entry.parsed_metadata['visibility']).to eq 'open'
-        expect(entry.parsed_metadata['file_1']).to end_with 'nypl-hydra-of-lerna.jpg'
-        expect(entry.parsed_metadata['file_visibility_1']).to eq 'restricted'
-        expect(entry.parsed_metadata['file_2']).to end_with 'nypl-hydra-of-lerna.jpg'
-        expect(entry.parsed_metadata['file_visibility_2']).to eq 'open'
-        expect(entry.parsed_metadata['file_3']).to end_with 'nypl-hydra-of-lerna.jpg'
-        expect(entry.parsed_metadata['file_visibility_3']).to eq 'embargo'
-        expect(entry.parsed_metadata['file_embargo_release_date_3']).to eq '2029-07-01'
-        expect(entry.parsed_metadata['file_visibility_during_embargo_3']).to eq 'authenticated'
-        expect(entry.parsed_metadata['file_visibility_after_embargo_3']).to eq 'open'
+        expect(entry.parsed_metadata["visibility"]).to eq "open"
+        expect(entry.parsed_metadata["file_1"]).to end_with "nypl-hydra-of-lerna.jpg"
+        expect(entry.parsed_metadata["file_visibility_1"]).to eq "restricted"
+        expect(entry.parsed_metadata["file_2"]).to end_with "nypl-hydra-of-lerna.jpg"
+        expect(entry.parsed_metadata["file_visibility_2"]).to eq "open"
+        expect(entry.parsed_metadata["file_3"]).to end_with "nypl-hydra-of-lerna.jpg"
+        expect(entry.parsed_metadata["file_visibility_3"]).to eq "embargo"
+        expect(entry.parsed_metadata["file_embargo_release_date_3"]).to eq "2029-07-01"
+        expect(entry.parsed_metadata["file_visibility_during_embargo_3"]).to eq "authenticated"
+        expect(entry.parsed_metadata["file_visibility_after_embargo_3"]).to eq "open"
       end
     end
   end

@@ -13,7 +13,7 @@ RSpec.describe CatalogController do
       it "is successful" do
         get :oai
         expect(response).to be_successful
-        expect(response.content_type).to eq 'text/xml'
+        expect(response.content_type).to eq "text/xml"
       end
     end
 
@@ -21,7 +21,7 @@ RSpec.describe CatalogController do
       let(:oai_enabled) { false }
 
       it "is raises a routing error" do
-        expect { get :oai }.to raise_error(ActionController::RoutingError, 'Enable the OAI Endpoint feature first')
+        expect { get :oai }.to raise_error(ActionController::RoutingError, "Enable the OAI Endpoint feature first")
       end
     end
   end

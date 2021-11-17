@@ -3,24 +3,24 @@
 require "spec_helper"
 
 RSpec.describe CatalogController, type: :request, clean: true, multitenant: true do
-  let(:user) { create(:user, email: 'test_user@repo-sample.edu') }
-  let(:work) { build(:work, title: ['welcome test'], id: SecureRandom.uuid, user: user) }
+  let(:user) { create(:user, email: "test_user@repo-sample.edu") }
+  let(:work) { build(:work, title: ["welcome test"], id: SecureRandom.uuid, user: user) }
 
-  let(:hyku_sample_work) { build(:work, title: ['sample test'], id: SecureRandom.uuid, user: user) }
-  let(:sample_solr_connection) { RSolr.connect url: 'http://solr:8983/solr/hydra-sample' }
+  let(:hyku_sample_work) { build(:work, title: ["sample test"], id: SecureRandom.uuid, user: user) }
+  let(:sample_solr_connection) { RSolr.connect url: "http://solr:8983/solr/hydra-sample" }
 
   let(:cross_search_solr) { create(:solr_endpoint, url: "http://solr:8983/solr/hydra-cross-search-tenant") }
   let!(:cross_search_tenant_account) do
     create(:account,
-           name: 'cross_serch',
+           name: "cross_serch",
            solr_endpoint: cross_search_solr,
            fcrepo_endpoint: nil)
   end
 
   before do
     WebMock.disable!
-    allow(AccountElevator).to receive(:switch!).with(cross_search_tenant_account.cname).and_return('public')
-    allow(Apartment::Tenant.adapter).to receive(:connect_to_new).and_return('')
+    allow(AccountElevator).to receive(:switch!).with(cross_search_tenant_account.cname).and_return("public")
+    allow(Apartment::Tenant.adapter).to receive(:connect_to_new).and_return("")
     ActiveFedora::SolrService.instance.conn = sample_solr_connection
     ActiveFedora::SolrService.add(hyku_sample_work.to_solr)
     ActiveFedora::SolrService.commit
@@ -42,7 +42,7 @@ RSpec.describe CatalogController, type: :request, clean: true, multitenant: true
     ActiveFedora::SolrService.commit
   end
 
-  describe 'Cross Tenant Search' do
+  describe "Cross Tenant Search" do
     let(:cross_tenant_solr_options) do
       {
         "read_timeout" => 120,
@@ -60,13 +60,13 @@ RSpec.describe CatalogController, type: :request, clean: true, multitenant: true
       host! cross_search_tenant_account.cname
     end
 
-    context 'can fetch data from other tenants' do
-      xit 'cross-search-tenant can fetch all record in child tenants' do
-        connection = RSolr.connect(url: 'http://solr:8983/solr/hydra-cross-search-tenant')
+    context "can fetch data from other tenants" do
+      xit "cross-search-tenant can fetch all record in child tenants" do
+        connection = RSolr.connect(url: "http://solr:8983/solr/hydra-cross-search-tenant")
         allow(blacklight_solr_repository).to receive(:build_connection).and_return(connection)
         allow(CatalogController).to receive(:blacklight_config).and_return(black_light_config)
 
-        get search_catalog_url, params: { locale: 'en', q: 'test' }
+        get search_catalog_url, params: { locale: "en", q: "test" }
         expect(response.status).to eq(200)
       end
     end

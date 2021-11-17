@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Hyrax::AnschutzWorksController, type: :controller do
-  let!(:work) { AnschutzWork.create(title: ['Test'], visibility: "open") }
+  let!(:work) { AnschutzWork.create(title: ["Test"], visibility: "open") }
 
   describe "responds to" do
     it "responds to html by default" do

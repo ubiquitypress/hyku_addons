@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe HykuAddons::WorkForm do
   let(:form) { form_class.new(work, nil, nil) }
@@ -11,7 +11,7 @@ RSpec.describe HykuAddons::WorkForm do
 
     it { is_expected.not_to include :admin_set_id }
 
-    context 'with simplified_admin_set_selection enabled' do
+    context "with simplified_admin_set_selection enabled" do
       before do
         allow(Flipflop).to receive(:enabled?).and_call_original
         allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(true)
@@ -20,13 +20,13 @@ RSpec.describe HykuAddons::WorkForm do
       it { is_expected.to include :admin_set_id }
     end
 
-    context 'with RedlandsArticle' do
+    context "with RedlandsArticle" do
       let(:form_class) { Hyrax::RedlandsArticleForm }
       let(:work) { RedlandsArticle.new }
 
       it { is_expected.not_to include :admin_set_id }
 
-      context 'with simplified_admin_set_selection enabled' do
+      context "with simplified_admin_set_selection enabled" do
         before do
           allow(Flipflop).to receive(:enabled?).and_call_original
           allow(Flipflop).to receive(:enabled?).with(:simplified_admin_set_selection).and_return(true)
