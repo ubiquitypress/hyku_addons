@@ -21,16 +21,5 @@ FactoryBot.modify do
     data do
       {}
     end
-
-    trait(:with_datacite_endpoint) do
-      transient do
-        datacite_endpoint
-      end
-
-      after(:create) do |account|
-        account.create_datacite_endpoint(account.datacite_endpoint.options)
-        account.save
-      end
-    end
   end
 end

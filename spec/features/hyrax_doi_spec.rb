@@ -34,26 +34,18 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
     )
   end
 
-  let(:prefix) { datacite_endpoint.options["prefix"] }
+  let(:prefix) { "10.23716" }
   let(:cname) { "123456789" }
 
-  let(:datacite_endpoint) do
-    create(:datacite_endpoint, options:
-      {
-        mode: :test,
-        prefix: "10.23716",
-        username: "VJKA.JCRXZG-LOCAL",
-        password: "password"
-      })
-  end
-
-  let!(:account) { create(:account, :with_datacite_endpoint, datacite_endpoint: datacite_endpoint, cname: cname) }
+  let!(:account) { create(:account, cname: cname) }
   let!(:site) { Site.create(account: account) }
 
   before do
     allow(Site).to receive(:instance).and_return(site)
     allow(Flipflop).to receive(:enabled?).and_call_original
     allow(Flipflop).to receive(:enabled?).with(:doi_minting).and_return(true)
+
+    account.build_datacite_endpoint(mode: "test", prefix: prefix, username: "VJKA.JCRXZG-LOCAL", password: "password")
 
     # NOTE: Because Hyrax::DOI is build for Hyrax and not a multitenant environment, the datacite_endpoint data is
     # assigned in class varibles when switch! is called in the engine. Because I can"t seem to mock those varibles
