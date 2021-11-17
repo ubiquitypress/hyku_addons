@@ -94,13 +94,13 @@ RSpec.describe HykuAddons::AccountBehavior do
       expect(Rails.application.routes.default_url_options[:host]).to eq previous_account_cname
     end
 
-    xcontext 'with missing endpoint' do
+    context 'with missing endpoint' do
       it 'returns a NilDataCiteEndpoint' do
         account.datacite_endpoint = nil
         expect(account.datacite_endpoint).to be_kind_of NilDataCiteEndpoint
         expect(account.datacite_endpoint.persisted?).to eq false
         account.switch do
-          expect(Hyrax::DOI::DataCiteRegistrar.mode).to eq nil
+          expect(Hyrax::DOI::DataCiteRegistrar.mode).to eq :test
           expect(Hyrax::DOI::DataCiteRegistrar.prefix).to eq nil
           expect(Hyrax::DOI::DataCiteRegistrar.password).to eq nil
           expect(Hyrax::DOI::DataCiteRegistrar.username).to eq nil

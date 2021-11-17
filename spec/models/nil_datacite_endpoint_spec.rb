@@ -18,7 +18,7 @@ RSpec.describe NilDataCiteEndpoint do
   describe "#mode" do
     subject { instance.mode }
 
-    it { is_expected.to eq nil }
+    it { is_expected.to eq :test }
   end
 
   describe "#prefix" do
