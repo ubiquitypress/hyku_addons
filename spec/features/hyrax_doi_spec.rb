@@ -4,7 +4,6 @@ require "rails_helper"
 
 RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true do
   let(:user) { create(:user) }
-  let!(:account) { create(:account) }
   let(:attributes) do
     {
       title: ["Work title"],
@@ -36,6 +35,7 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
   end
 
   let(:prefix) { "10.23716" }
+
   let(:datacite_endpoint_attributes) do
     {
       mode: :test,
@@ -44,12 +44,14 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
       password: "password"
     }
   end
-  let(:account) do
+
+  let!(:account) do
     account = create(:account)
     account.create_datacite_endpoint(datacite_endpoint_attributes)
     account.save
     account
   end
+
   let(:site) { Site.create(account: account) }
 
   before do
