@@ -94,7 +94,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       expect(Rails.application.routes.default_url_options[:host]).to eq previous_account_cname
     end
 
-    context 'with missing endpoint' do
+    xcontext 'with missing endpoint' do
       it 'returns a NilDataCiteEndpoint' do
         account.datacite_endpoint = nil
         expect(account.datacite_endpoint).to be_kind_of NilDataCiteEndpoint
