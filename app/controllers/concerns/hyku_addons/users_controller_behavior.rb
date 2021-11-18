@@ -6,7 +6,7 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     def index
-      @users = User.where("display_profile" == true)
+      @users = User.where(display_profile: true)
       @user_count = @users.count
     end
 
