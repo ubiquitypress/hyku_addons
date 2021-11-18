@@ -6,7 +6,7 @@ module HykuAddons
       work.title = resource.title
       work.uri = [{ uri: resource_url(resource) },
                   { uri: frontend_resource_url(resource) },
-                  { uri: "urn:uuid:#{resource.id}", canonical: true  }]
+                  { uri: "urn:uuid:#{resource.id}", canonical: true }]
       work.type = "repository-work"
       work
     end
