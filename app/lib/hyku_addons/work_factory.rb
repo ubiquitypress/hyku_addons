@@ -4,9 +4,9 @@ module HykuAddons
     def self.for(resource:)
       work = Hyrax::Hirmeos::Client::Work.new
       work.title = resource.title
-      work.uri = [{ uri: resource_url(resource), canonical: true },
+      work.uri = [{ uri: resource_url(resource) },
                   { uri: frontend_resource_url(resource) },
-                  { uri: "urn:uuid:#{resource.id}" }]
+                  { uri: "urn:uuid:#{resource.id}", canonical: true }]
       work.type = "repository-work"
       work
     end
