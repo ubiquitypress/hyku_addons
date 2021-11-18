@@ -176,3 +176,24 @@ Naming/FileName:
 Lint/HandleExceptions:
   Exclude:
     - 'app/models/hyku_addons/csv_entry.rb'
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+  Exclude:
+    - 'app/**/*'
+    - 'config/**/*'
+    - 'lib/**/*'
+    - 'db/**/*'
+    - 'bin/**/*'
+    - '**/*.gemfile'
+    - '**/*.gemspec'
+    - '**/*.rake'
+    - '**/*.ru'
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - 'spec/internal_test_hyku/**/*'
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'

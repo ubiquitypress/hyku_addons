@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-require 'hyku_addons/work_factory'
-require 'rails_helper'
+require "hyku_addons/work_factory"
+require "rails_helper"
 
 RSpec.describe HykuAddons::WorkFactory do
   WebMock.allow_net_connect!
@@ -8,7 +8,7 @@ RSpec.describe HykuAddons::WorkFactory do
   let(:account) { build(:account) }
 
   before do
-    Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+    Rails.application.routes.default_url_options[:host] = "localhost:3000"
     allow(Site).to receive(:account).and_return(account)
   end
 

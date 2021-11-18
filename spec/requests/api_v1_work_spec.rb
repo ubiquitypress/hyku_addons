@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multitenant: true do
   let(:account) { create(:account) }
@@ -138,10 +138,10 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
   describe "/work/:id" do
     let(:json_response) { JSON.parse(response.body) }
 
-    context 'when repository has content' do
-      let(:work) { create(:work, visibility: 'open') }
+    context "when repository has content" do
+      let(:work) { create(:work, visibility: "open") }
 
-      it 'returns work json' do
+      it "returns work json" do
         get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
 
         expect(response.status).to eq(200)
@@ -257,9 +257,9 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                          "workflow_status" => nil)
       end
 
-      context 'with data when it exists' do
+      context "with data when it exists" do
         let(:work) { GenericWork.new(attributes) }
-        it 'returns work json' do
+        it "returns work json" do
           work.save!
           get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
 

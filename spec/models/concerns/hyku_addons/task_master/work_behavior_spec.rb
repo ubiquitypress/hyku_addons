@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe HykuAddons::TaskMaster::WorkBehavior do
   subject(:work) { create(:task_master_work, :with_one_file) }

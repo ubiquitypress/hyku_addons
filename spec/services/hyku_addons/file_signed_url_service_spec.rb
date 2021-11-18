@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 # NOTE:
 # I've disabled the following rule as Google Cloud is hard enough to test without Rubocop harrassing me.

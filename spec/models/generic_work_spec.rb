@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'hyrax/doi/spec/shared_specs'
+require "spec_helper"
+require "hyrax/doi/spec/shared_specs"
 
 RSpec.describe GenericWork do
   let(:work) { described_class.new }
   let(:fully_described_work) { build(:fully_described_work) }
 
-  it_behaves_like 'a DOI-enabled model'
-  it_behaves_like 'a DataCite DOI-enabled model'
+  it_behaves_like "a DOI-enabled model"
+  it_behaves_like "a DataCite DOI-enabled model"
 
-  describe 'additional properties' do
+  describe "additional properties" do
     let(:additional_properties) do
       [
         :volume, :pagination, :issn, :eissn, :official_link, :series_name, :edition,
@@ -43,15 +43,15 @@ RSpec.describe GenericWork do
       ]
     end
 
-    it 'defines additional property accessors' do
+    it "defines additional property accessors" do
       additional_properties.each { |property| expect(work.respond_to?(property)).to eq true }
     end
 
-    it 'defines additional property writers' do
+    it "defines additional property writers" do
       additional_properties.each { |property| expect(work.respond_to?("#{property}=".to_sym)).to eq true }
     end
 
-    it 'indexes additional properties' do
+    it "indexes additional properties" do
       expect(fully_described_work.to_solr.symbolize_keys.keys).to include(*additional_property_index_keys)
     end
   end

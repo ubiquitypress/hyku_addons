@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'hyrax/doi/spec/shared_specs'
+require "spec_helper"
+require "hyrax/doi/spec/shared_specs"
 
 RSpec.describe Hyrax::ImageForm do
   let(:work) { GenericWork.new }
   let(:form) { described_class.new(work, nil, nil) }
 
-  it_behaves_like 'a DOI-enabled form'
-  it_behaves_like 'a DataCite DOI-enabled form'
+  it_behaves_like "a DOI-enabled form"
+  it_behaves_like "a DataCite DOI-enabled form"
 
   describe ".required_fields" do
     subject { form.required_fields }
@@ -51,35 +51,35 @@ RSpec.describe Hyrax::ImageForm do
     let(:params) { ActionController::Parameters.new(attributes) }
     let(:attributes) do
       {
-        title: ['foo'],
-        rendering_ids: ['file-set-id'],
-        abstract: 'abstract'
+        title: ["foo"],
+        rendering_ids: ["file-set-id"],
+        abstract: "abstract"
       }
     end
 
-    it 'permits parameters' do
-      expect(model_attributes['title']).to eq ['foo']
-      expect(model_attributes['rendering_ids']).to eq ['file-set-id']
-      expect(model_attributes['abstract']).to eq 'abstract'
+    it "permits parameters" do
+      expect(model_attributes["title"]).to eq ["foo"]
+      expect(model_attributes["rendering_ids"]).to eq ["file-set-id"]
+      expect(model_attributes["abstract"]).to eq "abstract"
     end
 
-    context '.model_attributes' do
+    context ".model_attributes" do
       let(:params) do
         ActionController::Parameters.new(
-          title: [''],
-          abstract: '',
-          keyword: [''],
-          license: [''],
-          on_behalf_of: 'Melissa'
+          title: [""],
+          abstract: "",
+          keyword: [""],
+          license: [""],
+          on_behalf_of: "Melissa"
         )
       end
 
-      it 'removes blank parameters' do
-        expect(model_attributes['title']).to be_empty
-        expect(model_attributes['abstract']).to be_nil
-        expect(model_attributes['license']).to be_empty
-        expect(model_attributes['keyword']).to be_empty
-        expect(model_attributes['on_behalf_of']).to eq 'Melissa'
+      it "removes blank parameters" do
+        expect(model_attributes["title"]).to be_empty
+        expect(model_attributes["abstract"]).to be_nil
+        expect(model_attributes["license"]).to be_empty
+        expect(model_attributes["keyword"]).to be_empty
+        expect(model_attributes["on_behalf_of"]).to eq "Melissa"
       end
     end
   end

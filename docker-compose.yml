@@ -14,57 +14,54 @@ volumes:
 networks:
   internal:
 
-services:
-  app: &app
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: DEVELOPMENT_IMAGE
-    image: hyku_addons/development_image:latest
-    environment: &web_environment
-      HOST: "0.0.0.0" # Docker cannot forward to a containers localhost, so we need to use this IP instead
-      DATABASE_ADAPTER: postgresql
-      DATABASE_NAME: hyku
-      DATABASE_HOST: db
-      DATABASE_PASSWORD: DatabaseFTW
-      DATABASE_USER: postgres
-      DATABASE_TEST_NAME: hyku_test
-      FEDORA_URL: http://fcrepo:8080/fcrepo/rest
-      LD_LIBRARY_PATH: /opt/fits/tools/mediainfo/linux
-      RAILS_LOG_TO_STDOUT: "true"
-      REDIS_HOST: redis
-      SECRET_KEY_BASE: asdf
-      SETTINGS__ACTIVE_JOB__QUEUE_ADAPTER: sidekiq
-      SETTINGS__BULKRAX__ENABLED: "true"
-      SETTINGS__FITS_PATH: /opt/fits/fits.sh
-      SETTINGS__MULTITENANCY__ADMIN_HOST: hyku.docker
-      SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION: "false"
-      SETTINGS__MULTITENANCY__DEFAULT_HOST: "%{tenant}.hyku.docker"
-      SETTINGS__MULTITENANCY__ROOT_HOST: hyku.docker
-      SETTINGS__MULTITENANCY__ENABLED: "true"
-      SETTINGS__SOLR__URL: http://solr:8983/solr/
-      SETTINGS__ZOOKEEPER__CONNECTION_STR: zookeeper_cluster:2181/configs
-      SOLR_URL: http://solr:8983/solr/
-      PASSENGER_APP_ENV: development
-      GCLOUD_ZONE: 1233465
-      GCLOUD_PROJECT_ID: ABCDEFG
-      PUBSUB_SERVICEACCOUNT_KEY:
-      CHROME_HOSTNAME: chrome # Required for specs setup inside internal_hyku_test rails_helper
-      IN_DOCKER: "true" # Required by internal_test_hyku specs
-      RUBYOPT: "-W:no-deprecated -W:no-experimental" # Turn off Ruby 3.0 deprecation warnings
-      REDIS_NAMESPACE_QUIET: "true" # Turn off Gem deprecations warnings
-    volumes:
-      - app:/home/app/spec/internal_test_hyku/tmp/uploads
-      - assets:/home/app/spec/internal_test_hyku/public/assets
-      - cache:/home/app/spec/internal_test_hyku/tmp/cache
-      - .:/home/app
-    networks:
-      internal:
+x-app: &app
+  build:
+    context: .
+    dockerfile: Dockerfile
+    target: development_image
+  image: hyku_addons/development_image:latest
+  environment:
+    HOST: "0.0.0.0" # Docker cannot forward to a containers localhost, so we need to use this IP instead
+    DATABASE_ADAPTER: postgresql
+    DATABASE_NAME: hyku
+    DATABASE_HOST: db
+    DATABASE_PASSWORD: DatabaseFTW
+    DATABASE_USER: postgres
+    DATABASE_TEST_NAME: hyku_test
+    FEDORA_URL: http://fcrepo:8080/fcrepo/rest
+    LD_LIBRARY_PATH: /opt/fits/tools/mediainfo/linux
+    RAILS_LOG_TO_STDOUT: "true"
+    SECRET_KEY_BASE: asdf
+    SETTINGS__ACTIVE_JOB__QUEUE_ADAPTER: sidekiq
+    SETTINGS__BULKRAX__ENABLED: "true"
+    SETTINGS__FITS_PATH: /opt/fits/fits.sh
+    SETTINGS__MULTITENANCY__ADMIN_HOST: hyku.docker
+    SETTINGS__MULTITENANCY__ADMIN_ONLY_TENANT_CREATION: "false"
+    SETTINGS__MULTITENANCY__DEFAULT_HOST: "%{tenant}.hyku.docker"
+    SETTINGS__MULTITENANCY__ROOT_HOST: hyku.docker
+    SETTINGS__MULTITENANCY__ENABLED: "true"
+    SETTINGS__SOLR__URL: http://solr:8983/solr/
+    SETTINGS__ZOOKEEPER__CONNECTION_STR: zookeeper_cluster:2181/configs
+    SOLR_URL: http://solr:8983/solr/
+    PASSENGER_APP_ENV: development
+    GCLOUD_ZONE: 1233465
+    GCLOUD_PROJECT_ID: ABCDEFG
+    PUBSUB_SERVICEACCOUNT_KEY:
+    CHROME_HOSTNAME: chrome # Required for specs setup inside internal_hyku_test rails_helper
+    IN_DOCKER: "true" # Required by internal_test_hyku specs
+    RUBYOPT: "-W:no-deprecated -W:no-experimental" # Turn off Ruby 3.0 deprecation warnings
+    REDIS_NAMESPACE_QUIET: "true" # Turn off Gem deprecations warnings
+  volumes:
+    - app:/home/app/spec/internal_test_hyku/tmp/uploads
+    - assets:/home/app/spec/internal_test_hyku/public/assets
+    - cache:/home/app/spec/internal_test_hyku/tmp/cache
+    - .:/home/app
+  networks:
+    internal:
 
+services:
   web:
     <<: *app
-    environment:
-      <<: *web_environment
     # NOTE: We are using Puma (default Rails server) as Passenger doesn't allow byebug/webconsole to be run in dev.
     command: bash -c "rm -f ./spec/internal_test_hyku/tmp/pids/server.pid && bundle install && bundle exec rails s"
     stdin_open: true
@@ -77,9 +74,10 @@ services:
       - fcrepo
       - redis
       - zoo1
-      - chrome
       - initialize_app
       - db_migrate
+      - workers
+      - chrome
 
   workers:
     <<: *app
@@ -107,11 +105,11 @@ services:
     depends_on:
       - db
 
-  db: &db
+  db:
     image: postgres:10-alpine
     env_file:
       - ./spec/internal_test_hyku/.env
-    environment: &db_environment
+    environment:
       PGDATA: /data
       POSTGRES_PASSWORD: DatabaseFTW
       POSTGRES_USER: postgres
@@ -124,7 +122,7 @@ services:
     networks:
       internal:
 
-  redis: &redis
+  redis:
     image: redis:4
     command: redis-server
     volumes:
@@ -134,7 +132,7 @@ services:
     expose:
       - 6379
 
-  zoo1: &zoo1
+  zoo1:
     image: zookeeper:3.4
     environment:
       ZOO_MY_ID: 1
@@ -151,7 +149,7 @@ services:
        aliases:
          - zookeeper_cluster
 
-  solr: &solr
+  solr:
     image: solr:7.5
     command: solr -c -f -z zoo1:2181
     depends_on:
@@ -164,7 +162,7 @@ services:
     networks:
       internal:
 
-  fcrepo: &fcrepo
+  fcrepo:
     image: cbeer/fcrepo4:4.7
     env_file:
       - ./spec/internal_test_hyku/.env

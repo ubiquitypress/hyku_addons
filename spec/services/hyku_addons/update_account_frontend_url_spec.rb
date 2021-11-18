@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe HykuAddons::UpdateAccountFrontendUrl do
   let(:service) { described_class.new(account, frontend_url) }
-  let(:account) { create(:account, name: 'tenant') }
+  let(:account) { create(:account, name: "tenant") }
 
   describe "save" do
     let(:frontend_url) { "example.com/frontend" }

@@ -4,7 +4,6 @@ require "rails_helper"
 
 RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true do
   let(:user) { create(:user) }
-  let!(:account) { create(:account) }
   let(:attributes) do
     {
       title: ["Work title"],
@@ -36,26 +35,17 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
   end
 
   let(:prefix) { "10.23716" }
-  let(:datacite_endpoint_attributes) do
-    {
-      mode: :test,
-      prefix: prefix,
-      username: "VJKA.JCRXZG-LOCAL",
-      password: "password"
-    }
-  end
-  let(:account) do
-    account = create(:account)
-    account.create_datacite_endpoint(datacite_endpoint_attributes)
-    account.save
-    account
-  end
-  let(:site) { Site.create(account: account) }
+  let(:cname) { "123456789" }
+
+  let!(:account) { create(:account, cname: cname) }
+  let!(:site) { Site.create(account: account) }
 
   before do
     allow(Site).to receive(:instance).and_return(site)
     allow(Flipflop).to receive(:enabled?).and_call_original
     allow(Flipflop).to receive(:enabled?).with(:doi_minting).and_return(true)
+
+    account.build_datacite_endpoint(mode: "test", prefix: prefix, username: "VJKA.JCRXZG-LOCAL", password: "password")
 
     # NOTE: Because Hyrax::DOI is build for Hyrax and not a multitenant environment, the datacite_endpoint data is
     # assigned in class varibles when switch! is called in the engine. Because I can"t seem to mock those varibles
@@ -113,8 +103,8 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
     )
 
     # Ensure that the _url methods have a host when creating XML data
-    Capybara.default_host = "http://#{account.cname}"
-    default_url_options[:host] = "http://#{account.cname}"
+    Capybara.default_host = "http://#{cname}"
+    default_url_options[:host] = "http://#{cname}"
 
     login_as user
   end
@@ -174,7 +164,7 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
 
         # Register the URL
         stub_request(:put, "https://mds.test.datacite.org/doi/#{doi}")
-          .with(body: "doi=#{doi}\nurl=http://#{account.cname}/concern/generic_works/#{work.id}", headers: text_headers)
+          .with(body: "doi=#{doi}\nurl=http://#{cname}/concern/generic_works/#{work.id}", headers: text_headers)
           .to_return(status: 201, body: "", headers: {})
       end
 
