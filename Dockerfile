@@ -44,10 +44,10 @@ COPY --chown=app:app spec/internal_test_hyku/Gemfile ./spec/internal_test_hyku/G
 COPY --chown=app:app spec/internal_test_hyku/Gemfile.lock ./spec/internal_test_hyku/Gemfile.lock
 
 ENV CFLAGS=-Wno-error=format-overflow
+
 RUN bundle config build.nokogiri --use-system-libraries && \
     bundle config set without "production" && \
     bundle config set with "aws development test postgres" && \
-    setuser app bundle install --jobs=4 --retry=3
-
-RUN chmod 777 .bundle/config # Otherwise `app` owns this file and the host cannot run bundler commands
+    setuser app bundle install --jobs=4 --retry=3 && \
+    chmod 777  -R .bundle/*  # Otherwise `app` owns this file and the host cannot run bundler commands
 
