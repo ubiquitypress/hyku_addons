@@ -51,25 +51,25 @@ RSpec.describe Hyku::API::V1::UsersController, type: :request, clean: true, mult
         user.save!
         get "/api/v1/tenant/#{account.tenant}/users/#{user.email}"
         expect(response.status).to eq(200)
-        expect(json_response).to include(
-                                       "email"=>"#{user.email}",
-                                       "display_name"=>nil,
-                                       "facebook_handle"=>nil,
-                                       "twitter_handle"=>nil,
-                                       "googleplus_handle"=>nil,
-                                       "linkedin_handle"=>nil,
-                                       "orcid"=>nil,
-                                       "address"=>nil,
-                                       "department"=>nil,
-                                       "title"=>nil, "office"=>nil,
-                                       "chat_id"=>nil,
-                                       "website"=>nil,
-                                       "affiliation"=>nil,
-                                       "telephone"=>nil,
-                                       "avatar_file_name"=>nil,
-                                       "avatar_content_type"=>nil,
-                                       "avatar_file_size"=>nil,
-                                       "avatar_updated_at"=>nil)
+        expect(json_response).to include("email" => user.email.to_s,
+                                         "display_name" => nil,
+                                         "facebook_handle" => nil,
+                                         "twitter_handle" => nil,
+                                         "googleplus_handle" => nil,
+                                         "linkedin_handle" => nil,
+                                         "orcid" => nil,
+                                         "address" => nil,
+                                         "department" => nil,
+                                         "title" => nil,
+                                         "office" => nil,
+                                         "chat_id" => nil,
+                                         "website" => nil,
+                                         "affiliation" => nil,
+                                         "telephone" => nil,
+                                         "avatar_file_name" => nil,
+                                         "avatar_content_type" => nil,
+                                         "avatar_file_size" => nil,
+                                         "avatar_updated_at" => nil)
       end
     end
   end

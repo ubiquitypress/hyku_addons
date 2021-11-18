@@ -5,10 +5,10 @@ module HykuAddons
 
     private
 
-    def user_params
-      params.require(:user).permit(:avatar, :facebook_handle, :twitter_handle,
-                                   :googleplus_handle, :linkedin_handle, :remove_avatar,
-                                   :orcid, :display_profile, :display_name)
-    end
+      def user_params
+        params.require(:user).permit(:avatar, :facebook_handle, :twitter_handle,
+                                     :googleplus_handle, :linkedin_handle, :remove_avatar,
+                                     :orcid, :display_profile, :display_name)
+      end
   end
 end
