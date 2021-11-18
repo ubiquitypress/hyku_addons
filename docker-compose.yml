@@ -57,6 +57,8 @@ x-app: &app
     - assets:/home/app/spec/internal_test_hyku/public/assets
     - cache:/home/app/spec/internal_test_hyku/tmp/cache
     - .:/home/app
+  stdin_open: true
+  tty: true
   networks:
     internal:
 
@@ -65,8 +67,6 @@ services:
     <<: *app
     # NOTE: We are using Puma (default Rails server) as Passenger doesn't allow byebug/webconsole to be run in dev.
     command: bash -c "rm -f ./spec/internal_test_hyku/tmp/pids/server.pid && bundle install && bundle exec rails s"
-    stdin_open: true
-    tty: true
     ports:
       - "3000:3000"
     depends_on:
@@ -83,8 +83,6 @@ services:
   workers:
     <<: *app
     command: bash -c "bundle install && bundle exec sidekiq -r spec/internal_test_hyku/"
-    stdin_open: true
-    tty: true
     depends_on:
       - db
       - solr
