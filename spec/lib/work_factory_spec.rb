@@ -19,14 +19,14 @@ RSpec.describe HykuAddons::WorkFactory do
       ],
       "uri": [
         {
-          "uri": "http://localhost:3000/concern/generic_works/#{work.id}",
-          "canonical": true
+          "uri": "http://localhost:3000/concern/generic_works/#{work.id}"
         },
         {
           "uri": "https://#{account.frontend_url}/work/ns/#{work.id}"
         },
         {
-          "uri": "urn:uuid:#{work.id}"
+          "uri": "urn:uuid:#{work.id}",
+          "canonical": true
         }
       ],
       "type": "repository-work",
