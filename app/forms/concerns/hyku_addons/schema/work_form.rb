@@ -39,7 +39,7 @@ module HykuAddons
       end
 
       def initialize(model, current_ability, controller)
-        model.admin_set_id = controller.params["admin_set_id"] if Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig("admin_set_id").present?
+        model.admin_set_id = controller.params["admin_set_id"] if simplified_admin_set?(controller)
 
         super(model, current_ability, controller)
       end
@@ -58,6 +58,10 @@ module HykuAddons
       end
 
       private
+
+        def simplified_admin_set?(controller)
+          Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig("admin_set_id").present?
+        end
 
         def person_or_organization_list(field)
           # Return empty hash to ensure that it gets rendered at least once
