@@ -2,8 +2,13 @@
 
 # Overrides Hyku API user show method to allow users to take into account of added setting
 module HykuAddons
-  module UserControllerBehavior
+  module UsersControllerBehavior
     extend ActiveSupport::Concern
+
+    def index
+      @users = User.where("display_profile" == true)
+      @user_count = @users.count
+    end
 
     def show
       user = User.find_by(email: params[:email])
