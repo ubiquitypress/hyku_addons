@@ -44,6 +44,7 @@ x-app: &app
     SETTINGS__ZOOKEEPER__CONNECTION_STR: zookeeper_cluster:2181/configs
     SOLR_URL: http://solr:8983/solr/
     PASSENGER_APP_ENV: development
+    REDIS_HOST: redis
     GCLOUD_ZONE: 1233465
     GCLOUD_PROJECT_ID: ABCDEFG
     PUBSUB_SERVICEACCOUNT_KEY:
