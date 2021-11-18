@@ -65,19 +65,18 @@ module HykuAddons
       end
     end
 
+    # Prepend our views so they have precedence. This was being done with prepend_view_path but
+    # seemed to result in the orcid gem's _default partial being show when editing forms
     config.after_initialize do
-      # Prepend our views so they have precedence
-      ActionController::Base.prepend_view_path(paths['app/views'].existent)
-      # Append our locales so they have precedence
-      I18n.load_path += Dir[HykuAddons::Engine.root.join('config', 'locales', '*.{rb,yml}')]
+      paths = ActionController::Base.view_paths.collect(&:to_s)
+      paths.insert(0,  HykuAddons::Engine.root.to_s + "/app/views")
 
-      # # Append per-tenant settings to dashboard
-      # Hyrax::DashboardController.class_eval do
-      #   class_attribute :sidebar_partials
-      #   self.sidebar_partials = {}
-      # end
-      # Hyrax::DashboardController.sidebar_partials[:configuration] ||= []
-      # Hyrax::DashboardController.sidebar_partials[:configuration] << "hyrax/dashboard/sidebar/per_tenant_settings"
+      ActionController::Base.view_paths = paths
+    end
+
+    # Append our locales so they have precedence
+    config.after_initialize do
+      I18n.load_path += Dir[HykuAddons::Engine.root.join('config', 'locales', '*.{rb,yml}')]
     end
 
     ## In engine development mode (ENGINE_ROOT defined) handle specific generators as app-only by setting destintation_root appropriately
