@@ -28,7 +28,7 @@ RSpec.describe GenericWorkIndexer do
       alt_title: [alt_title],
       resource_type: [resource_type],
       creator: [[creator1].to_json],
-      keyword: [keyword],
+      keyword: [keyword]
     }
   end
 

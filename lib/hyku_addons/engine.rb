@@ -69,7 +69,7 @@ module HykuAddons
     # seemed to result in the orcid gem's _default partial being show when editing forms
     config.after_initialize do
       paths = ActionController::Base.view_paths.collect(&:to_s)
-      paths.insert(0,  HykuAddons::Engine.root.to_s + "/app/views")
+      paths.insert(0, HykuAddons::Engine.root.to_s + "/app/views")
 
       ActionController::Base.view_paths = paths
     end
