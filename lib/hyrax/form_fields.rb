@@ -67,11 +67,19 @@ module Hyrax
           descendant.field_configs[field_name] = options
         end
 
+        # Ensure that the terms are ordered by the original definitions after hyrax adds its own in
+        descendant.terms.sort_by!(&field_orderer)
+        descendant.primary_fields.sort_by!(&field_orderer)
+
         # Changes to these configurations will be maintained until the server is restarted, so should never happen
         descendant.terms.freeze
         descendant.required_fields.freeze
         descendant.primary_fields.freeze
         descendant.field_configs.freeze
+      end
+
+      def field_orderer
+        -> (term) { form_field_definitions.keys.index(term) || Float::INFINITY }
       end
   end
 end
