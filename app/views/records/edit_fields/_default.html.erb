@@ -7,7 +7,7 @@
   <% # Set default input options %>
   <% options = {
     required: config[:required],
-    input_html: { class: "form-control", data: config[:data] },
+    input_html: { class: "form-control" }.merge(config[:attributes] || {}),
     placeholder: I18n.t("simple_form.placeholders.defaults.#{key}", default: ""),
     as: config[:multiple] ? :multi_value : nil,
     wrapper_html: config[:wrapper_html],

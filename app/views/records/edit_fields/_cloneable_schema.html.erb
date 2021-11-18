@@ -9,7 +9,7 @@
     f: f,
     field_type: config[:type],
     field_slug: subfield,
-    field_args: { data: { required: config[:required], cloneable: config[:multiple] }.merge(config[:data] || {}) }
+    field_args: { data: { required: config[:required], cloneable: config[:multiple] } }.merge(config[:attributes] || {})
   } %>
 
   <% if config[:type] == "select" %>
@@ -35,7 +35,7 @@
         field_args: {
           class: "form-control #{name_type_key} #{template}_#{key}_#{name_type_key}", # Required for specs
           data: { toggleable_control: true, on_change: :toggleable_group, after_toggleable_hidden: :clear_inputs }
-        },
+        }.merge(config[:attributes] || {}),
         field_group: key,
         template: template,
         hash: hash,
@@ -57,6 +57,7 @@
     <% groups.each do |group, subfields| %>
       <div data-toggleable-remove-on-submit data-toggleable-group="<%= group %>">
         <% subfields.each do |subfield| %>
+          <% # Skip any shared fields as they are handled below %>
           <% next if shared_fields.include?(subfield) %>
 
           <% form_field_proc.call(key, template, subfield, hash) %>

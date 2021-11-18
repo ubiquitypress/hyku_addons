@@ -103,6 +103,8 @@ attributes:
           multiple: false
           type: select
           authority: HykuAddons::InstitutionalRelationshipService
+          attributes:
+            multiple: multiple
           display_for:
           - Personal
       creator_organization_name:
@@ -195,6 +197,8 @@ attributes:
           multiple: false
           type: select
           authority: HykuAddons::ContributorInstitutionalRelationshipService
+          attributes:
+            multiple: multiple
           display_for:
           - Personal
       contributor_organization_name:

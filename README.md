@@ -114,6 +114,35 @@ There are many approaches to overriding and which to use will depend on the cont
 
 When behavior that is tested in Hyku changes, copy the relevant test files from the internal test hyku into the engine at the same path as the original.  This will cause rspec to skip the original tests in favor of the engine's copy of them.
 
+### Defining Work Schema
+
+Hyku Addons uses a port of the Hyrax 3.0 Schema YAML to define work types, whilst trying to maintain backwards compatability for older works already defined.
+
+Your Schema should be defined in `config/metadata` as a `.yaml` file that matches the underscored name of your work type. So the UbiquityTemplateWork has a file called `ubiquity_template_work.yaml`.
+
+
+#### Adding field attributes
+
+To define a multiple select (the traditional HTML multiple select) you can add the `multiple` key to the attributes array:
+
+```yaml
+      creator_institutional_relationship:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::InstitutionalRelationshipService
+          attributes: # The attributes array can contain any of the field attributes you want inserted into the field markup
+            multiple: multiple
+            data:
+              foo: bar
+          display_for:
+          - Personal
+```
+
+Be careful when defining your own attributes and data arrays, as this will override the default for that field, if it requires a custom template or its configuration is based on legacy requirements and could not be merged into the default view partial.
+
 ## Development
 
 The rails server will be running at http://hyku.docker and tenants will be subdomains like http://tenant1.hyku.docker.
