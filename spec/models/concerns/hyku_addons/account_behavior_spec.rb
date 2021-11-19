@@ -10,7 +10,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       account.build_solr_endpoint(url: "http://example.com/solr/")
       account.build_fcrepo_endpoint(url: "http://example.com/fedora", base_path: "/dev")
       account.build_redis_endpoint(namespace: "foobaz")
-      account.build_datacite_endpoint(mode: "test", prefix: "10.1234", username: "user123", password: "pass123")
+      account.build_datacite_endpoint(mode: :test, prefix: "10.1234", username: "user123", password: "pass123")
       allow(Flipflop).to receive(:enabled?).with(:cache_api).and_return(cache_enabled)
       allow(Redis.current).to receive(:id).and_return "redis://localhost:6379/0"
       account.switch!
@@ -21,7 +21,7 @@ RSpec.describe HykuAddons::AccountBehavior do
     end
 
     it "switches the DataCite connection" do
-      expect(Hyrax::DOI::DataCiteRegistrar.mode).to eq "test"
+      expect(Hyrax::DOI::DataCiteRegistrar.mode).to eq :test
       expect(Hyrax::DOI::DataCiteRegistrar.prefix).to eq "10.1234"
       expect(Hyrax::DOI::DataCiteRegistrar.username).to eq "user123"
       expect(Hyrax::DOI::DataCiteRegistrar.password).to eq "pass123"
@@ -56,7 +56,6 @@ RSpec.describe HykuAddons::AccountBehavior do
   end
 
   describe "#switch" do
-    let!(:previous_datacite_mode) { Hyrax::DOI::DataCiteRegistrar.mode }
     let!(:previous_datacite_prefix) { Hyrax::DOI::DataCiteRegistrar.prefix }
     let!(:previous_datacite_username) { Hyrax::DOI::DataCiteRegistrar.username }
     let!(:previous_datacite_password) { Hyrax::DOI::DataCiteRegistrar.password }
@@ -66,7 +65,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       account.build_solr_endpoint(url: "http://example.com/solr/")
       account.build_fcrepo_endpoint(url: "http://example.com/fedora", base_path: "/dev")
       account.build_redis_endpoint(namespace: "foobaz")
-      account.build_datacite_endpoint(mode: "test", prefix: "10.1234", username: "user123", password: "pass123")
+      account.build_datacite_endpoint(mode: :test, prefix: "10.1234", username: "user123", password: "pass123")
     end
 
     after do
@@ -75,7 +74,7 @@ RSpec.describe HykuAddons::AccountBehavior do
 
     it "switches to the account-specific connection" do
       account.switch do
-        expect(Hyrax::DOI::DataCiteRegistrar.mode).to eq "test"
+        expect(Hyrax::DOI::DataCiteRegistrar.mode).to eq :test
         expect(Hyrax::DOI::DataCiteRegistrar.prefix).to eq "10.1234"
         expect(Hyrax::DOI::DataCiteRegistrar.username).to eq "user123"
         expect(Hyrax::DOI::DataCiteRegistrar.password).to eq "pass123"
@@ -87,7 +86,7 @@ RSpec.describe HykuAddons::AccountBehavior do
       account.switch do
         # no-op
       end
-      expect(Hyrax::DOI::DataCiteRegistrar.mode).to eq previous_datacite_mode
+      expect(Hyrax::DOI::DataCiteRegistrar.mode).to eq :test
       expect(Hyrax::DOI::DataCiteRegistrar.prefix).to eq previous_datacite_prefix
       expect(Hyrax::DOI::DataCiteRegistrar.username).to eq previous_datacite_username
       expect(Hyrax::DOI::DataCiteRegistrar.password).to eq previous_datacite_password
