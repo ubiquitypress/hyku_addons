@@ -10,7 +10,7 @@
 <% end %>
 
 <div
-  class="ubiquity-meta-event-date <%= "#{template}_#{field_slug}" %>"
+  class="ubiquity-meta-<%= field_slug %> <%= "#{template}_#{field_slug}" %>"
   data-cloneable
   data-cloneable-min="1"
 >
@@ -23,19 +23,19 @@
       data-cloneable-after-action="clear_inputs clear_cloned"
     >
       <div class="form-inline">
-        <div class="form-group">
+        <div class="form-group <%= "#{template}_#{field_slug}_year" %>">
           <% opts = { start_year: (Date.today.year + 6), end_year: (Date.today.year - 159), prompt: t("simple_form.date_fields.year.label") } %>
           <% params = { id: "#{template}_#{field_slug}__#{field_slug}_year", name: "#{template}[#{field_slug}][][#{field_slug}_year]", class: 'form-control ubiquity-date-input' } %>
           <%= select_year(date_value[0].to_i, opts, params) %>
         </div>
 
-        <div class="form-group">
+        <div class="form-group <%= "#{template}_#{field_slug}_month" %>">
           <% opts = { use_two_digit_numbers: true, prompt: t("simple_form.date_fields.month.label") } %>
           <% params = { id: "#{template}_#{field_slug}__#{field_slug}_month", name: "#{template}[#{field_slug}][][#{field_slug}_month]", class: 'form-control ubiquity-date-input' } %>
           <%= select_month(date_value[1].to_i, opts, params) %>
         </div>
 
-        <div class="form-group">
+        <div class="form-group <%= "#{template}_#{field_slug}_day" %>">
           <% opts = { use_two_digit_numbers: true, prompt: t("simple_form.date_fields.day.label") } %>
           <% params = { id: "#{template}_#{field_slug}__#{field_slug}_day", name: "#{template}[#{field_slug}][][#{field_slug}_day]", class: 'form-control ubiquity-date-input' } %>
           <%= select_day(date_value[2].to_i, opts, params) %>
