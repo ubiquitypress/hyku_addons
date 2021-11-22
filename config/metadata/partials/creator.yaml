@@ -22,6 +22,22 @@ creator_given_name:
     type: text
     display_for:
       - Personal
+creator_middle_name:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: text
+    display_for:
+      - Personal
+creator_suffix:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: text
+    display_for:
+      - Personal
 creator_orcid:
   type: string
   form:
@@ -37,12 +53,14 @@ creator_institutional_relationship:
     multiple: false
     type: select
     authority: HykuAddons::InstitutionalRelationshipService
+    attributes:
+      multiple: multiple
     display_for:
       - Personal
 creator_organization_name:
   type: string
   form:
-    required: false
+    required: true
     multiple: false
     type: text
     display_for:
@@ -80,4 +98,3 @@ creator_isni:
     display_for:
       - Personal
       - Organizational
-

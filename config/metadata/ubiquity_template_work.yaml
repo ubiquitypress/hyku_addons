@@ -110,7 +110,7 @@ attributes:
       creator_organization_name:
         type: string
         form:
-          required: false
+          required: true
           multiple: false
           type: text
           display_for:

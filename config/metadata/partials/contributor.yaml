@@ -22,6 +22,22 @@ contributor_given_name:
     type: text
     display_for:
       - Personal
+contributor_middle_name:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: text
+    display_for:
+      - Personal
+contributor_suffix:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: text
+    display_for:
+      - Personal
 contributor_orcid:
   type: string
   form:
@@ -37,6 +53,8 @@ contributor_institutional_relationship:
     multiple: false
     type: select
     authority: HykuAddons::ContributorInstitutionalRelationshipService
+    attributes:
+      multiple: multiple
     display_for:
       - Personal
 contributor_organization_name:
@@ -90,4 +108,3 @@ contributor_role:
     display_for:
       - Personal
       - Organizational
-
