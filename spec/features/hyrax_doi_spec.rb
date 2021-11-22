@@ -35,6 +35,8 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
   end
 
   let(:prefix) { "10.23716" }
+  let(:username) { "VJKA.JCRXZG-LOCAL" }
+  let(:password) { "password" }
   let(:cname) { "123456789" }
 
   let!(:account) { create(:account, cname: cname) }
@@ -45,28 +47,12 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
     allow(Flipflop).to receive(:enabled?).and_call_original
     allow(Flipflop).to receive(:enabled?).with(:doi_minting).and_return(true)
 
-    account.build_datacite_endpoint(mode: "test", prefix: prefix, username: "VJKA.JCRXZG-LOCAL", password: "password")
+    allow(Hyrax::DOI::DataCiteRegistrar).to receive(:username).and_return(username)
+    allow(Hyrax::DOI::DataCiteRegistrar).to receive(:password).and_return(password)
+    allow(Hyrax::DOI::DataCiteRegistrar).to receive(:prefix).and_return(prefix)
+    allow(Hyrax::DOI::DataCiteRegistrar).to receive(:mode).and_return("test")
 
-    # NOTE: Because Hyrax::DOI is build for Hyrax and not a multitenant environment, the datacite_endpoint data is
-    # assigned in class varibles when switch! is called in the engine. Because I can"t seem to mock those varibles
-    # here and have the app see that, this is a hack to update them when they nil inside the class.
-    Hyrax::DOI::DataCiteClient.class_eval do
-      def username
-        @username ||= Site.account.datacite_endpoint.username
-      end
-
-      def password
-        @password ||= Site.account.datacite_endpoint.password
-      end
-
-      def prefix
-        @prefix ||= Site.account.datacite_endpoint.prefix
-      end
-
-      def mode
-        @mode ||= Site.account.datacite_endpoint.mode
-      end
-    end
+    account.build_datacite_endpoint(mode: "test", prefix: prefix, username: username, password: password)
 
     # NOTE: The default method from Bolognese isn"t sorting the identifiers, so they are returned in a random order,
     # which makes mocking the response impossible as WebMock thinks its a new request.
@@ -104,7 +90,6 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
 
     # Ensure that the _url methods have a host when creating XML data
     Capybara.default_host = "http://#{cname}"
-    default_url_options[:host] = "http://#{cname}"
 
     login_as user
   end
