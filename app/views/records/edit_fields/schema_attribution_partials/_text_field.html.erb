@@ -47,7 +47,7 @@
   <% if cloneable %>
     <button type="button" class="btn btn-link add" data-on-click="clone_group" data-cloneable-target="<%= cloneable_name %>">
       <span class="glyphicon glyphicon-plus"></span>
-      <span class="controls-add-text">Add another</span>
+      <span class="controls-add-text"><%= "Add another #{field_slug.to_s.humanize.singularize.downcase}" %></span>
     </button>
   <% end %>
 </div>

@@ -75,12 +75,18 @@ def fill_in_cloneable(field, values)
       groups = all("[data-cloneable-group=#{work_type}_#{field}]")
       group = groups[index]
 
-      name_type = hash["#{field}_name_type".to_sym] || "Personal"
-      group.select(name_type, from: "#{work_type}_#{field}__#{field}_name_type")
+      # Incase cloneable isn't toggleable, like funder
+      if (name_type = hash["#{field}_name_type".to_sym]).present?
+        group.select(name_type, from: "#{work_type}_#{field}__#{field}_name_type")
+      end
 
       hash.each do |subfield, val|
         # We can't delete the name type or it is removed from the object entirely
         next if subfield == "#{field}_name_type".to_sym
+
+        # HACK: This should be temporary, to get around funder awards being an array but this not yet supporting
+        # the nested cloneable subfields and clicking links which that would require.
+        val = Array.wrap(val).first
 
         case field_config.dig(field, :subfields, subfield, :type)
         when "select"
@@ -162,22 +168,6 @@ def fill_in_multiple_fields(field, values, type)
 
       click_on "Add another" if index + 1 < values.size
     end
-  end
-end
-
-# Funder uses the legacy multiple json values so needs its own helper method
-def fill_in_funder(value)
-  values = Array.wrap(value)
-
-  values.each_with_index do |funder, index|
-    group = all("div.#{work_type}_funder")[index]
-
-    funder.each do |subfield, val|
-      # We are using an Array wrap here as awards are treated differently in the data
-      group.find("input.ubiquity_#{subfield}").fill_in(with: Array.wrap(val).first)
-    end
-
-    group.find_link("Add another Funder").click if index + 1 < values.size
   end
 end
 

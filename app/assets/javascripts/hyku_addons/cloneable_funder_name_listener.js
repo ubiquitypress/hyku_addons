@@ -1,12 +1,8 @@
-// A specific cloneable listener for the funder name form field.
-// This should really be more generic, but for now I am just trying to replicate
-// legacy functionality and condence it into a smaller area so that it can be
-// more easily refactored later.
+// Listener to attach the Funder name look up on clone
 class CloneableFunderNameListener {
   constructor(){
-    this.eventName = "clone_group"
+    this.eventName = "attach_funder_name_autocomplete"
     this.targetSelector = ".funder_name"
-    this.cloneableGroupName = "cloneable-funder"
 
     this.onLoad()
     this.registerListeners()
@@ -22,19 +18,10 @@ class CloneableFunderNameListener {
     $("body").on(this.eventName, this.onEvent.bind(this))
   }
 
-  onEvent(_event, clicked) {
-    let $clicked = $(clicked)
+  onEvent(_event, target) {
+    let $input = $(target).find(".funder_name")
 
-    if ($clicked.data("cloneable-target") !== this.cloneableGroupName) {
-      return
-    }
-
-    let $target = $clicked
-      .closest("[data-cloneable]")
-      .find(`[data-cloneable-group='${this.cloneableGroupName}']:last`)
-      .find(".funder_name")
-
-    this.attachFunderAutoComplete($target)
+    this.attachFunderAutoComplete($input)
   }
 
   attachFunderAutoComplete($target) {

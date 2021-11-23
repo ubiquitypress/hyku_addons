@@ -279,7 +279,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_multiple_text_fields(:org_unit, org_unit)
       fill_in_multiple_text_fields(:project_name, project_name)
 
-      fill_in_funder(funder)
+      fill_in_cloneable(:funder, funder)
       fill_in_multiple_text_fields(:fndr_project_ref, fndr_project_ref)
       fill_in_multiple_text_fields(:event_title, event_title)
       fill_in_multiple_text_fields(:event_location, event_location)
