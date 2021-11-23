@@ -340,7 +340,7 @@ attributes:
     - funder_tesim
     form:
       required: false
-      primary: true
+      primary: false
       multiple: true
       type: text
     subfields:
