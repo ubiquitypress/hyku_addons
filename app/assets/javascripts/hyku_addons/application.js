@@ -30,6 +30,7 @@ const hykuAddonsOnLoad = function() {
   new RequiredFieldListener()
   new RequiredGroupFieldListener()
   new CloneableListener()
+  new CloneableFunderNameListener()
   // We have onload methods here so this needs to be called last,
   // or it might try and trigger an event not being listened to
   new ChangeToggleableListener()

@@ -1,4 +1,4 @@
-<% cloneable = local_assigns.dig(:field_args, :cloneable) %>
+<% cloneable = local_assigns.dig(:field_args, :data, :cloneable) %>
 <% cloneable_name ="cloneable-#{template}-#{field_slug}" %>
 
 <!-- _text_field -->
@@ -9,24 +9,24 @@
     data-cloneable-min="1"
   <% end %>
 >
-  <% options = { class: "control-label multi_value optional" } %>
-  <%= label_tag "#{template}_#{field_slug}", t("simple_form.#{field_group}.#{field_slug}.label"), options %>
+  <%= label_tag "#{template}_#{field_slug}", { class: "control-label multi_value optional" } do %>
+    <%== t("simple_form.#{field_group}.#{field_slug}.label") %>
+  <% end %>
+
+  <% help_key = "simple_form.#{field_group}.#{field_slug}.help_text"  %>
+  <% if I18n.exists?(help_key) %>
+    <p class="help-block"><%== t(help_key) %></p>
+  <% end%>
 
   <% Array.wrap(hash.fetch(field_slug.to_s, "")).each do |value| %>
     <% defaults = {
-      class: "#{template}_#{field_group} #{template}_#{field_slug} form-control multi-text-field multi_value",
+      class: "#{template}_#{field_group} #{template}_#{field_slug} #{field_slug} form-control multi-text-field multi_value",
       placeholder: t("simple_form.#{field_group}.#{field_slug}.placeholder"),
       data: { field_name: "ubiquity_#{field_slug}", template: template, field_group: field_group },
       required: local_assigns[:required]
     }.merge(local_assigns[:field_args] || {}) %>
 
-    <div
-      <% if cloneable %>
-        class="input-group"
-        data-cloneable-group="<%= cloneable_name %>"
-        data-cloneable-after-action="clear_inputs"
-      <% end %>
-    >
+    <div <% if cloneable %> class="input-group" data-cloneable-group="<%= cloneable_name %>" data-cloneable-after-action="clear_inputs" <% end %>>
       <%= text_field_tag "#{template}[#{field_group}][][#{field_slug}]#{cloneable ? '[]' : ''}", value, defaults %>
 
       <% if cloneable %>
@@ -39,11 +39,6 @@
       <% end %>
     </div>
   <% end %>
-
-  <% help_key = "simple_form.#{field_group}.#{field_slug}.help_text"  %>
-  <% if I18n.exists?(help_key) %>
-    <p class="help-block"><%= t(help_key) %></p>
-  <% end%>
 
   <% if local_assigns[:required] %>
     <div class="text-danger error"><%= t("deposit_form.required.label") %></div>

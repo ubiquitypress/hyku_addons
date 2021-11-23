@@ -57,6 +57,10 @@ module HykuAddons
         person_or_organization_list(:editor)
       end
 
+      def funder_list
+        person_or_organization_list(:funder)
+      end
+
       private
 
         def simplified_admin_set?(controller)

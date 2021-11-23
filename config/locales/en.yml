@@ -179,6 +179,34 @@ en:
         label: Editor ISNI
         placeholder: e.g. 0000 1234 5678 9101
         help_text: Please enter the editor's ISNI
+    funder:
+      label: Funder
+      funder_name:
+        label: Funder name
+        placeholder: e.g. Arts and Humanities Research Council
+        help_text: |
+          Please start typing the funder's name, then select from the dropdown list
+      funder_doi:
+        label: Funder DOI
+        placeholder: |
+          eg: 10.1093/ajae/aaq063
+        help_text: |
+          Please enter the Funder DOI
+      funder_isni:
+        label: Funder ISNI
+        placeholder: e.g. 1234567899999799
+        help_text: |
+          Please enter the Funder <a href="https://isni.org/" target="_blank">ISNI</a>
+      funder_ror:
+        label: Funder ROR
+        placeholder: e.g. 1234567899999799
+        help_text: |
+          Please enter the Funder <a href="https://ror.org/" target="_blank">ROR</a>
+      funder_award:
+        label: Funder Awards
+        placeholder: e.g. 20201099
+        help_text: |
+          Please enter the award number
 
   settings:
     helptexts:

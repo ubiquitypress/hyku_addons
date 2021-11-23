@@ -22,7 +22,7 @@
 <% end %>
 
 <!-- _cloneable_schema - <%= key %> -->
-<div class="form-group <%= target %>" data-cloneable data-cloneable-min="1">
+<div class="<%= target %>" data-cloneable data-cloneable-min="1">
   <% f.object.send("#{key}_list".to_sym).each do |hash| %>
     <div data-toggleable data-cloneable-group="<%= target %>" data-cloneable-after-action="clear_inputs clear_cloned">
 

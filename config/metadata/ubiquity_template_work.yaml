@@ -340,7 +340,7 @@ attributes:
     - funder_tesim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: true
       type: text
     subfields:
@@ -350,6 +350,12 @@ attributes:
           required: false
           multiple: false
           type: text
+          input: controlled_vocabulary
+          attributes:
+            data:
+              field_name: ubiquity_funder_name
+              autocomplete-url: /authorities/search/crossref/funders
+              autocomplete: funder
       funder_doi:
         type: string
         form:

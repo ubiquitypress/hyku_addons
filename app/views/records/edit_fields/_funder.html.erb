@@ -1,14 +1,19 @@
-<% if  f.object.model.new_record? %>
-  <%= render "hyku_addons/funder/new_form", f: f %>
+<!-- funder -->
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/funder_schema", f: f, key: key %>
 <% else %>
-  <% array_of_hash = get_model(f.object.model.funder, f.object.model.class.to_s, 'funder', nil) %>
-  <!--
-    Clicking edit button returns an error it is something other than an array of hash
-    it will throw either ActionView::Template::Error (undefined method `each_with_index' for nil:NilClass)
-    or
-    ActionView::Template::Error (undefined method `dig' for "null":String):
-    The line below fixes that
-  -->
-  <% array_of_hash = array_of_hash || [{}] %>
-  <%= render "hyku_addons/funder/edit_array_hash_form", array_of_hash: array_of_hash, f: f %>
+	<% if  f.object.model.new_record? %>
+		<%= render "hyku_addons/funder/new_form", f: f %>
+	<% else %>
+		<% array_of_hash = get_model(f.object.model.funder, f.object.model.class.to_s, 'funder', nil) %>
+		<!--
+			Clicking edit button returns an error it is something other than an array of hash
+			it will throw either ActionView::Template::Error (undefined method `each_with_index' for nil:NilClass)
+			or
+			ActionView::Template::Error (undefined method `dig' for "null":String):
+			The line below fixes that
+		-->
+		<% array_of_hash = array_of_hash || [{}] %>
+		<%= render "hyku_addons/funder/edit_array_hash_form", array_of_hash: array_of_hash, f: f %>
+	<% end %>
 <% end %>
