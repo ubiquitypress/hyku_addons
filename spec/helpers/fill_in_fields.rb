@@ -62,11 +62,10 @@ def fill_in_cloneable_date_field(field, values)
     end
   end
 end
-
 # Fill in a cloneable element like Creator/Contributor/Editor
-#
 # @param field [Symbol] the field that we wish to target
 # @param values [Hash, Array] the hash (or array of hashes) where each key is the name of the subfield
+# rubocop:disable Metrics/AbcSize
 def fill_in_cloneable(field, values)
   values = Array.wrap(values)
 
@@ -100,6 +99,7 @@ def fill_in_cloneable(field, values)
     end
   end
 end
+# rubocop:enable Metrics/AbcSize
 
 # FIll in a multiple select field
 #
