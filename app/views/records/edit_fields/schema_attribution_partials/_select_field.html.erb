@@ -18,6 +18,11 @@
     <% end %>
   <% end %>
 
+  <% help_key = "simple_form.#{field_group}.#{field_slug}.help_text"  %>
+  <% if I18n.exists?(help_key) %>
+    <p class="help-block"><%= t(help_key) %></p>
+  <% end%>
+
   <% Array.wrap(hash.fetch(field_slug.to_s, "")).each do |value| %>
     <div
       <% if cloneable %>
@@ -39,11 +44,6 @@
         </div>
       <% end %>
     </div>
-  <% end%>
-
-  <% help_key = "simple_form.#{field_group}.#{field_slug}.help_text"  %>
-  <% if I18n.exists?(help_key) %>
-    <p class="help-block"><%= t(help_key) %></p>
   <% end%>
 
   <% if cloneable %>

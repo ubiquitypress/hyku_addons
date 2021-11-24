@@ -207,7 +207,30 @@ en:
         placeholder: e.g. 20201099
         help_text: |
           Please enter the award number
-
+    related_identifier:
+      related_identifier:
+        label: Related identifier
+        placeholder: ""
+        help_text: Globally unique identifiers, such as ISNI, ARK etc. For ISBN, ISSN and EISSN, use the separate fields.
+      related_identifier_type:
+        label: Type of related identifier
+        placeholder:
+        help_text: If you have listed a related identifier, then please select what type.
+      relation_type:
+        label: Relationship of related identifier
+        placeholder:
+        help_text: If you have listed a related identifier, then state its relationship to the work, e.g. cites or continues the work
+    alternate_identifier:
+      alternate_identifier:
+        label: Alternate identifier
+        placeholder: ""
+        help_text: |
+          May be used for local identifiers such as project codes, e.g. XTE12. <br>
+          Please include a prefix e.g. 'Project ID = XTE12' so a reader can distinguish between multiple identifiers
+      alternate_identifier_type:
+        label: Type of alternate identifier
+        placeholder: ""
+        help_text: State the type of alternate identifier.
   settings:
     helptexts:
       gtm_id: The ID of your Google Tag Manager account

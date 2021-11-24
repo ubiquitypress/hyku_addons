@@ -138,9 +138,23 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:issn) { "0987654321" }
   let(:eissn) { "e-1234567890" }
   let(:official_link) { "http://test312.com" }
-  let(:current_he_institution) do
+  let(:current_he_institution_service) { HykuAddons::CurrentHeInstitutionService.new }
+  let(:current_he_institution_element) { current_he_institution_service.active_elements.sample }
+  let(:current_he_institution_index) { current_he_institution_service.active_elements.index(current_he_institution_element) }
+  let(:current_he_institution_input) do
     [
-      { current_he_institution_name: HykuAddons::CurrentHeInstitutionService.new.active_elements.map { |h| h["label"] }.sample }
+      {
+        current_he_institution_name: current_he_institution_element["label"]
+      }
+    ]
+  end
+  let(:current_he_institution_data) do
+    [
+      {
+        current_he_institution_name: current_he_institution_element["label"],
+        current_he_institution_ror: current_he_institution_service.select_active_options_ror[current_he_institution_index],
+        current_he_institution_isni: current_he_institution_service.select_active_options_isni[current_he_institution_index],
+      }
     ]
   end
   let(:related_exhibition) { ["Exhibition1", "Exhibition2"] }
@@ -278,7 +292,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_multiple_selects(:institution, institution_options.map { |h| h["label"] })
       fill_in_multiple_text_fields(:org_unit, org_unit)
       fill_in_multiple_text_fields(:project_name, project_name)
-
       fill_in_cloneable(:funder, funder)
       fill_in_multiple_text_fields(:fndr_project_ref, fndr_project_ref)
       fill_in_multiple_text_fields(:event_title, event_title)
@@ -299,7 +312,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_text_field(:isbn, isbn)
       fill_in_text_field(:issn, issn)
       fill_in_text_field(:eissn, eissn)
-      fill_in_legacy_json_field(:current_he_institution, current_he_institution)
+      fill_in_legacy_json_field(:current_he_institution, current_he_institution_input)
       fill_in_date_field(:date_accepted, date_accepted)
       fill_in_date_field(:date_submitted, date_submitted)
       fill_in_text_field(:official_link, official_link)
@@ -310,8 +323,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_multiple_text_fields(:related_exhibition_venue, related_exhibition_venue)
       fill_in_select(:qualification_name, qualification_name_options.map { |h| h["label"] }.first)
       fill_in_select(:qualification_level, qualification_level_options.map { |h| h["label"] }.first)
-      fill_in_legacy_cloneable_field(:alternate_identifier, alternate_identifier)
-      fill_in_legacy_cloneable_field(:related_identifier, related_identifier_label)
+      fill_in_cloneable(:alternate_identifier, alternate_identifier)
+      fill_in_cloneable(:related_identifier, related_identifier_label)
       fill_in_select(:refereed, refereed_options.map { |h| h["label"] }.first)
       fill_in_text_field(:dewey, dewey)
       fill_in_multiple_text_fields(:library_of_congress_classification, library_of_congress_classification)
@@ -429,7 +442,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         expect(work.issn).to eq(issn)
         expect(work.eissn).to eq(eissn)
         # We need to test the first item or an ActiveTripple::Relation is returned
-        expect(work.current_he_institution.first).to eq(current_he_institution.to_json)
+        expect(work.current_he_institution.first).to eq(current_he_institution_data.to_json)
         expect(work.date_accepted).to eq(normalize_date(date_accepted).first)
         expect(work.date_submitted).to eq(normalize_date(date_submitted).first)
         expect(work.official_link).to eq(official_link)

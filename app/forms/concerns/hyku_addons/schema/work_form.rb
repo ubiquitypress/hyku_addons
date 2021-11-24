@@ -61,6 +61,11 @@ module HykuAddons
         person_or_organization_list(:funder)
       end
 
+      # A generic method to avoid needing a custom method for all JSON fields
+      def json_field_list(field)
+        person_or_organization_list(field.to_sym)
+      end
+
       private
 
         def simplified_admin_set?(controller)
@@ -70,6 +75,7 @@ module HykuAddons
         def person_or_organization_list(field)
           # Return empty hash to ensure that it gets rendered at least once
           return [{}] unless respond_to?(field) && send(field)&.first.present?
+
           JSON.parse(send(field).first)
         end
     end

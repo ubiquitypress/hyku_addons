@@ -1,6 +1,6 @@
-<!-- creator -->
+<!-- _creator -->
 <% if f.object.schema_driven? %>
-  <%= render "records/edit_fields/cloneable_schema", f: f, key: key %>
+  <%= render "records/edit_fields/cloneable_toggleable_schema", f: f, key: key %>
 <% else %>
   <%= render "records/edit_fields/creator_legacy", f: f %>
 <% end %>
