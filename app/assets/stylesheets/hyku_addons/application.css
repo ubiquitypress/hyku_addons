@@ -13,5 +13,6 @@
  *= require_tree .
  *= require_self
  *= require hyrax/orcid/application
+ *= stub 'hyku_addons/pdf_viewer'
  */
 

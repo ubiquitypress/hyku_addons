@@ -75,7 +75,7 @@ RSpec.describe "hyrax/file_sets/_actions.html.erb", type: :view do
           render "hyrax/file_sets/actions", file_set: file_set
 
           expect(rendered).to have_css("a#file_read")
-          expect(rendered).to have_selector("a[href=\"https://via.hypothes.is/viewer/web/viewer.html?http://test.host/downloads/file_set_id\"]")
+          expect(rendered).to have_selector("a[href=\"viewer/web/viewer.html?file=http://test.host/downloads/file_set_id\"]")
         end
       end
 
