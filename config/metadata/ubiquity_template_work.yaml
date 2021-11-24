@@ -21,7 +21,7 @@ attributes:
     - alt_title_tesim
     form:
       required: false
-      primary: true
+      primary: false
       multiple: true
       type: text
   resource_type:

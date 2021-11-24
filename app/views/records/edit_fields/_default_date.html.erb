@@ -1,4 +1,5 @@
-<!-- _cloneable_date -->
+<% # All schema driven date fields should use this partial as it will take care of everything for you %>
+<!-- _default_date -->
 <% template = f.object.model.class.to_s.underscore %>
 <% dates = f.object[key] %>
 <% required = f.object.field_configs.dig(key, :required) %>

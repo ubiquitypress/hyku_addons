@@ -24,12 +24,23 @@ def fill_in_select(field, value)
   fill_in_field(field, value, :select)
 end
 
+# Fill in a date field, delegating to either single or cloneable helper methoods is multiple set in config
+#
+# @param field [Symbol] the field that we wish to target
+# @param values [Hash, Array] the hash (or array of hashes) where each key is the name of the subfield
+#   i.e. { year: "2023", month: "03", day: "03" }
+def fill_in_date(field, values)
+  method = field_config.dig(field, :multiple).present? ? :fill_in_cloneable_date_field : :fill_in_singular_date_field
+
+  send(method, field, values)
+end
+
 # Fill in a date field from a hash, or array of hashes, containing :year, :month, :day keys
 #
 # @param field [Symbol] the field that we wish to target
 # @param values [Hash, Array] the hash (or array of hashes) where each key is the name of the subfield
 #   i.e. { year: "2023", month: "03", day: "03" }
-def fill_in_date_field(field, values)
+def fill_in_singular_date_field(field, values)
   values.each do |type, value|
     field_id = "#{work_type}[#{field}][][#{field}_#{type}]"
 
