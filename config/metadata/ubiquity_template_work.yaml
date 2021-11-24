@@ -662,6 +662,7 @@ attributes:
       primary: false
       multiple: false
       type: text
+  # Current HE Institution needs mutiple fields, all of which require a different key from the authority service.
   current_he_institution:
     type: string
     predicate: http://schema.org/EducationalOrganization
@@ -680,7 +681,18 @@ attributes:
           required: false
           multiple: false
           type: select
-          authority: HykuAddons::CurrentHeInstitutionService
+      current_he_institution_ror:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+      current_he_institution_isni:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
   date_accepted:
     type: date
     predicate: http://purl.org/dc/terms/dateAccepted

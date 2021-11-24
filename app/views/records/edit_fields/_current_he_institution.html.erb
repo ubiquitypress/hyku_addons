@@ -1,4 +1,8 @@
 <!-- legacy - _current_he_institution -->
+
+<% # Current HE Institution needs mutiple fields, all of which require a different key from the authority service. %>
+<% # It will require a new endpoint created to query the authorities and return the requested entry data %>
+<% # a new field listener could then be added to any form field to listen to onChange events and updte the subfields accordingly %>
 <% template = f.object.model.class.to_s.underscore %>
 
 <div class="<%= template %>_current_he_institution">
