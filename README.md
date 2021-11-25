@@ -118,60 +118,21 @@ When behavior that is tested in Hyku changes, copy the relevant test files from 
 
 Hyku Addons uses a port of the Hyrax 3.0 Schema YAML to define work types, whilst trying to maintain backwards compatability for older works already defined.
 
-#### Adding the required concerns
-
-This is done by adding a number of concerns to specific related to the work being created/migrated - check the Ubiquity Template Work for a complete example:
-
-The work modal:
-
-```ruby
-class UbiquityTemplateWork < ActiveFedora::Base
-	# ...
-  include HykuAddons::Schema::WorkBase
-  include Hyrax::Schema(:ubiquity_template_work)
-  self.indexer = UbiquityTemplateWorkIndexer
-	# ...
-```
-The Work Form:
-
-```ruby
-module Hyrax
-  class UbiquityTemplateWorkForm < Hyrax::Forms::WorkForm
-    include ::HykuAddons::Schema::WorkForm
-    include Hyrax::FormFields(:ubiquity_template_work)
-		# ...
-```
-
-The Indexer:
-
-```ruby
-class UbiquityTemplateWorkIndexer < Hyrax::WorkIndexer
-  include Hyrax::Indexer(:ubiquity_template_work)
-	# ...
-```
-
-The presenter:
-
-```ruby
-module Hyrax
-  class UbiquityTemplateWorkPresenter < Hyrax::WorkShowPresenter
-		# ...
-    include ::HykuAddons::Schema::Presenter(:ubiquity_template_work)
-    include ::HykuAddons::PresenterDelegatable
-		# ...
-  end
-end
-```
-
 #### Defining the Schema
+
+##### For new works
 
 Your Schema should be defined in `config/metadata` as a `.yaml` file that matches the underscored name of your work type. So the UbiquityTemplateWork has a file called `ubiquity_template_work.yaml`.
 
-If you are migrating an existing schema, there is a rake task you can run which will attampt to generate the schema from the exising work properties and uses a set of default configurations for JSON and other complicated fields:
+##### For existing works
+
+If you are migrating an existing work, there is a rake task you can run which will attampt to generate the schema from the exising work properties and uses a set of default configurations for JSON and other complicated fields:
 
 ```bash
 docker-compose exec web bundle exec rails app:hyku_addons:model:generate_schema[ubiquity_template_work]
 ```
+
+Once the task has run, make sure that the permissions on the generated file allow you to make changes (`chmod 777 config/metadata/ubiqiuty_template_work.yaml` or something similar), then you can compare the generated fields to the required fields within the dashboard.
 
 ##### Schema Examples
 
@@ -181,14 +142,13 @@ Below are a set of example fields that illustrate how to define different types 
 ---
 # Starts with an attributes hash
 attributes:
-
 	# Multiple text field example
   alt_title:
     type: string
     predicate: http://purl.org/dc/terms/alternative
     multiple: true
     index_keys:
-    - alt_title_tesim
+			- alt_title_tesim
     form:
       required: false
       primary: false
@@ -201,8 +161,8 @@ attributes:
     predicate: http://purl.org/dc/terms/title
     multiple: true
     index_keys:
-    - title_tesim
-    - title_sim
+			- title_tesim
+			- title_sim
 		# The form hash defines how the field will be presented in the form
     form:
 			# Browser required, but not backend validated
@@ -221,7 +181,7 @@ attributes:
     predicate: http://purl.org/dc/terms/abstract
     multiple: true
     index_keys:
-    - abstract_tesim
+			- abstract_tesim
     form:
       required: false
       primary: false
@@ -233,7 +193,7 @@ attributes:
     predicate: http://purl.org/dc/elements/1.1/subject
     multiple: true
     index_keys:
-    - subject_tesim
+			- subject_tesim
     form:
       required: false
       primary: false
@@ -248,7 +208,7 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/identifiedBy
     multiple: true
     index_keys:
-    - related_identifier_tesim
+			- related_identifier_tesim
     form:
       required: false
       primary: false
@@ -288,8 +248,66 @@ attributes:
 				multiple: multiple
 				data:
 					foo: bar
-
 ```
+
+#### Adding the required concerns
+
+Once the schema has been created you can add the Schema Concerns to your model, form, presenter and indexer.
+
+The work modal:
+
+```ruby
+class UbiquityTemplateWork < ActiveFedora::Base
+	# ...
+  include HykuAddons::Schema::WorkBase
+  include Hyrax::Schema(:ubiquity_template_work)
+  self.indexer = UbiquityTemplateWorkIndexer
+	# ...
+```
+
+The Work Form:
+
+```ruby
+module Hyrax
+  class UbiquityTemplateWorkForm < Hyrax::Forms::WorkForm
+    include ::HykuAddons::Schema::WorkForm
+    include Hyrax::FormFields(:ubiquity_template_work)
+		# ...
+```
+
+The Indexer:
+
+```ruby
+class UbiquityTemplateWorkIndexer < Hyrax::WorkIndexer
+  include Hyrax::Indexer(:ubiquity_template_work)
+	# ...
+```
+
+The presenter:
+
+```ruby
+module Hyrax
+  class UbiquityTemplateWorkPresenter < Hyrax::WorkShowPresenter
+		# ...
+    include ::HykuAddons::Schema::Presenter(:ubiquity_template_work)
+    include ::HykuAddons::PresenterDelegatable
+		# ...
+  end
+end
+```
+
+#### Checking its worked
+
+If you restart your Rails server or Docker containers and create the new work within the Hyku Addons dashabord you will be able to check the generated page source within the browser debugger. If everything has worked properly the field divs should be preceeded by an HTML comment indicating which view partial was included to generate the field:
+
+```html
+<!-- _resource_type -->
+<!-- schema - _default - resource_type -->
+<div class="form-group single_multi_value required uva_work_resource_type">
+//...
+```
+
+This pattern is used as much as possible to indicate which partials are being used, first `_resource_type` is found, which delegate to the `_default`. `schema` indicates that the field is passing through the schema rendering within the partials. Eventually this can all be removed along with all of the delegating partials, leaving just `_default`, but for now we need to maintain backwards compatability for older work types.
 
 ## Development
 
