@@ -1,8 +1,7 @@
 <% # This is a generic cloneable (without the extra logic for the toggleable creator/contributor or date fields %>
-<%# It simply requires the key and form object and it will generate the fields from the schema %>
-<%# render "records/edit_fields/cloneable_schema", f: f, key: key %>
+<% # It simply requires the key and form object and it will generate the fields from the schema %>
 
-<!-- _cloneable -->
+<!-- schema - _cloneable_schema - <%= key %> -->
 <% template = f.object.model.class.to_s.underscore %>
 <% target = "#{template}_#{key}" %>
 

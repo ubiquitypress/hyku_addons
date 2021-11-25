@@ -1,5 +1,6 @@
 <% # All schema driven date fields should use this partial as it will take care of everything for you %>
-<!-- _default_date -->
+
+<!-- schema - _default_date - <%= key %> -->
 <% template = f.object.model.class.to_s.underscore %>
 <% dates = f.object[key] %>
 <% required = f.object.field_configs.dig(key, :required) %>
@@ -7,21 +8,18 @@
 <% # Define a block which can be reused below %>
 <% date_fields = Proc.new do |date_value, required| %>
   <div class="form-inline">
-    <!-- class required for DOI autocomplete -->
     <div class="form-group <%= "#{template}_#{key}_year" %>">
       <% opts = { start_year: (Date.today.year + 6), end_year: (Date.today.year - 159), prompt: t("simple_form.date_fields.year.label") } %>
       <% params = { id: "#{template}_#{key}__#{key}_year", name: "#{template}[#{key}][][#{key}_year]", class: "form-control ubiquity-date-input", required: required } %>
       <%= select_year(date_value[0].to_i, opts, params) %>
     </div>
 
-    <!-- class required for DOI autocomplete -->
     <div class="form-group <%= "#{template}_#{key}_month" %>">
       <% opts = { use_two_digit_numbers: true, prompt: t("simple_form.date_fields.month.label") } %>
       <% params = { id: "#{template}_#{key}__#{key}_month", name: "#{template}[#{key}][][#{key}_month]", class: "form-control ubiquity-date-input" } %>
       <%= select_month(date_value[1].to_i, opts, params) %>
     </div>
 
-    <!-- class required for DOI autocomplete -->
     <div class="form-group <%= "#{template}_#{key}_day" %>">
       <% opts = { use_two_digit_numbers: true, prompt: t("simple_form.date_fields.day.label") } %>
       <% params = { id: "#{template}_#{key}__#{key}_day", name: "#{template}[#{key}][][#{key}_day]", class: "form-control ubiquity-date-input" } %>

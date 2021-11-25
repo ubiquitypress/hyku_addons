@@ -21,7 +21,7 @@
   <%= render "records/edit_fields/schema_attribution_partials/#{field[:field_type]}_field", options %>
 <% end %>
 
-<!-- _cloneable_toggleable_schema - <%= key %> -->
+<!-- schema - _cloneable_toggleable_schema - <%= key %> -->
 <div class="<%= target %>" data-cloneable data-cloneable-min="1">
   <% f.object.send("#{key}_list".to_sym).each do |hash| %>
     <div data-toggleable data-cloneable-group="<%= target %>" data-cloneable-after-action="clear_inputs clear_cloned">

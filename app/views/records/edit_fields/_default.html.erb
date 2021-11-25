@@ -31,7 +31,7 @@
   <% # If input type is specified in the schema that takes priority, otherwise, use the calculated input type %>
   <% options.merge!(as: config[:input]) if config[:input].present? %>
 
-  <!-- _default <%= key %> -->
+  <!-- schema - _default - <%= key %> -->
   <%= f.input key, options %>
 
 <% else %>
