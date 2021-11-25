@@ -5,11 +5,13 @@ module HykuAddons
       attr_accessor :email
 
       def create(env)
-        serialize_note_field(env) && next_actor.create(env)
+        serialize_note_field(env)
+        next_actor.create(env)
       end
 
       def update(env)
-        serialize_note_field(env) && next_actor.update(env)
+        serialize_note_field(env)
+        next_actor.update(env)
       end
 
       private
@@ -19,6 +21,7 @@ module HykuAddons
 
           if env.attributes[:note].present?
             @email = env.user.email
+
             env.attributes[:note] = if env.curation_concern.note.present?
                                       env.curation_concern.note + Array(process_note_hash(env.attributes[:note]).to_json)
                                     else
