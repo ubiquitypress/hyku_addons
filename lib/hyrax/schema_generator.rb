@@ -4,7 +4,7 @@ require "yaml"
 
 module Hyrax
   class SchemaGenerator
-    SUBFIELDS = %i[creator contributor editor].freeze
+    SUBFIELDS = %i[creator contributor editor funder].freeze
     FIELD_TYPE_DEFAULTS = {
       "select" => %w[resource_type license language],
       "textarea" => %w[add_info table_of_contents abstract],
