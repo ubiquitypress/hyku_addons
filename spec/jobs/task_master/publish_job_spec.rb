@@ -17,8 +17,6 @@ RSpec.describe HykuAddons::TaskMaster::PublishJob do
   end
 
   describe ".perform_later" do
-    before { ActiveJob::Base.queue_adapter = :test }
-
     it "enqueues the job" do
       expect { described_class.perform_later(type, action, json) }
         .to enqueue_job(described_class)

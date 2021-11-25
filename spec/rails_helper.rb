@@ -79,8 +79,6 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-ActiveJob::Base.queue_adapter = :test
-
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -134,17 +132,8 @@ RSpec.configure do |config|
   #   ActiveJob::Base.queue_adapter.filter = [JobClass]
   #
 
-  config.around(:example, :perform_enqueued) do |example|
-    ActiveJob::Base.queue_adapter.filter =
-      example.metadata[:perform_enqueued].try(:to_a)
-    ActiveJob::Base.queue_adapter.perform_enqueued_jobs    = true
-    ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = true
-
-    example.run
-
-    ActiveJob::Base.queue_adapter.filter = nil
-    ActiveJob::Base.queue_adapter.perform_enqueued_jobs    = false
-    ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = false
+  config.before do
+    ActiveJob::Base.queue_adapter = :test
   end
 
   # Add support for conditional execution of specs

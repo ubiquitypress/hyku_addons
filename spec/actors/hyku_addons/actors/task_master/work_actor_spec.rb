@@ -30,8 +30,6 @@ RSpec.describe HykuAddons::Actors::TaskMaster::WorkActor do
   end
 
   before do
-    ActiveJob::Base.queue_adapter = :test
-
     allow(Site).to receive(:instance).and_return(site)
     allow(Flipflop).to receive(:enabled?).and_call_original
     allow(Flipflop).to receive(:enabled?).with(flipflop_name).and_return(flipflop_enabled)

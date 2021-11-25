@@ -6,7 +6,6 @@ RSpec.describe HykuAddons::ReindexAvailableWorksJob, perform_enqueued_jobs: true
   let(:site) { instance_double(Site) }
 
   before do
-    ActiveJob::Base.queue_adapter = :test
     allow(site).to receive(:available_works).and_return([work.class.to_s])
 
     allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
@@ -22,7 +21,6 @@ RSpec.describe HykuAddons::ReindexAvailableWorksJob, perform_enqueued_jobs: true
   end
 
   it "#perform_now can enqueue model for reindex" do
-    ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
     expect { described_class.perform_now([account.cname]) }.not_to have_enqueued_job(described_class)
   end
 end

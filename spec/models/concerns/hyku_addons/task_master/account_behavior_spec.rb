@@ -17,8 +17,6 @@ RSpec.describe HykuAddons::TaskMaster::AccountBehavior do
   let(:flipflop_enabled) { true }
 
   before do
-    ActiveJob::Base.queue_adapter = :test
-
     allow(Flipflop).to receive(:enabled?).and_call_original
     allow(Flipflop).to receive(:enabled?).with(flipflop_name).and_return(flipflop_enabled)
   end
