@@ -23,7 +23,7 @@ module Hyrax
       properties = @model.properties.slice(*@form.terms.map(&:to_s))
 
       properties.each do |term, config|
-        @attributes[term] = build_term_attributes(term, config)
+        @attributes[term] = field_partial_for(term) || build_term_attributes(term, config)
       end
 
       { "attributes" => @attributes }.to_yaml
@@ -63,7 +63,7 @@ module Hyrax
       def authority_for(term)
         return unless field_type_for(term) == "select"
 
-        "HykuAddons::#{term.classity}Service".safe_constantize&.name
+        "HykuAddons::#{term.classify}Service".safe_constantize&.name
       end
 
       # Try and find a file containing the subfield YAML, inside the config/schema/partials folder.
@@ -71,7 +71,11 @@ module Hyrax
       def subfields_for(term)
         return unless @model.respond_to?(:json_fields) && @model.json_fields.present?
 
-        file = File.open(HykuAddons::Engine.root.join("config", "metadata", "partials", "#{term}.yaml"))
+        field_partial_for("#{term}_subfields")
+      end
+
+      def field_partial_for(file_name)
+        file = File.open(HykuAddons::Engine.root.join("config", "metadata", "partials", "#{file_name}.yaml"))
         YAML.safe_load(file)
       rescue Errno::ENOENT
         nil

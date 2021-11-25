@@ -21,4 +21,3 @@ relation_type:
     type: select
     authority: HykuAddons::RelationTypeService
     include_blank: true
-

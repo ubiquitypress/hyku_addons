@@ -1,110 +1,100 @@
 ---
-contributor_name_type:
+creator_name_type:
   type: string
   form:
-    required: false
+    required: true
     multiple: false
     type: select
     authority: HykuAddons::NameTypeService
-contributor_family_name:
+creator_family_name:
+  type: string
+  form:
+    required: true
+    multiple: false
+    type: text
+    display_for:
+    - Personal
+creator_given_name:
+  type: string
+  form:
+    required: true
+    multiple: false
+    type: text
+    display_for:
+    - Personal
+creator_middle_name:
   type: string
   form:
     required: false
     multiple: false
     type: text
     display_for:
-      - Personal
-contributor_given_name:
+    - Personal
+creator_suffix:
   type: string
   form:
     required: false
     multiple: false
     type: text
     display_for:
-      - Personal
-contributor_middle_name:
+    - Personal
+creator_orcid:
   type: string
   form:
     required: false
     multiple: false
     type: text
     display_for:
-      - Personal
-contributor_suffix:
-  type: string
-  form:
-    required: false
-    multiple: false
-    type: text
-    display_for:
-      - Personal
-contributor_orcid:
-  type: string
-  form:
-    required: false
-    multiple: false
-    type: text
-    display_for:
-      - Personal
-contributor_institutional_relationship:
+    - Personal
+creator_institutional_relationship:
   type: string
   form:
     required: false
     multiple: false
     type: select
-    authority: HykuAddons::ContributorInstitutionalRelationshipService
+    authority: HykuAddons::InstitutionalRelationshipService
     attributes:
       multiple: multiple
     display_for:
-      - Personal
-contributor_organization_name:
+    - Personal
+creator_organization_name:
+  type: string
+  form:
+    required: true
+    multiple: false
+    type: text
+    display_for:
+    - Organizational
+creator_ror:
   type: string
   form:
     required: false
     multiple: false
     type: text
     display_for:
-      - Organizational
-contributor_ror:
+    - Organizational
+creator_grid:
   type: string
   form:
     required: false
     multiple: false
     type: text
     display_for:
-      - Organizational
-contributor_grid:
+    - Organizational
+creator_wikidata:
   type: string
   form:
     required: false
     multiple: false
     type: text
     display_for:
-      - Organizational
-contributor_wikidata:
+    - Organizational
+creator_isni:
   type: string
   form:
     required: false
     multiple: false
     type: text
     display_for:
-      - Organizational
-contributor_isni:
-  type: string
-  form:
-    required: false
-    multiple: false
-    type: text
-    display_for:
-      - Personal
-      - Organizational
-contributor_role:
-  type: string
-  form:
-    required: false
-    multiple: true
-    type: select
-    authority: HykuAddons::RoleService
-    display_for:
-      - Personal
-      - Organizational
+    - Personal
+    - Organizational
