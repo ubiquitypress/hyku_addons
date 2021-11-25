@@ -114,34 +114,182 @@ There are many approaches to overriding and which to use will depend on the cont
 
 When behavior that is tested in Hyku changes, copy the relevant test files from the internal test hyku into the engine at the same path as the original.  This will cause rspec to skip the original tests in favor of the engine's copy of them.
 
-### Defining Work Schema
+### Work Schema
 
 Hyku Addons uses a port of the Hyrax 3.0 Schema YAML to define work types, whilst trying to maintain backwards compatability for older works already defined.
 
+#### Adding the required concerns
+
+This is done by adding a number of concerns to specific related to the work being created/migrated - check the Ubiquity Template Work for a complete example:
+
+The work modal:
+
+```ruby
+class UbiquityTemplateWork < ActiveFedora::Base
+	# ...
+  include HykuAddons::Schema::WorkBase
+  include Hyrax::Schema(:ubiquity_template_work)
+  self.indexer = UbiquityTemplateWorkIndexer
+	# ...
+```
+The Work Form:
+
+```ruby
+module Hyrax
+  class UbiquityTemplateWorkForm < Hyrax::Forms::WorkForm
+    include ::HykuAddons::Schema::WorkForm
+    include Hyrax::FormFields(:ubiquity_template_work)
+		# ...
+```
+
+The Indexer:
+
+```ruby
+class UbiquityTemplateWorkIndexer < Hyrax::WorkIndexer
+  include Hyrax::Indexer(:ubiquity_template_work)
+	# ...
+```
+
+The presenter:
+
+```ruby
+module Hyrax
+  class UbiquityTemplateWorkPresenter < Hyrax::WorkShowPresenter
+		# ...
+    include ::HykuAddons::Schema::Presenter(:ubiquity_template_work)
+    include ::HykuAddons::PresenterDelegatable
+		# ...
+  end
+end
+```
+
+#### Defining the Schema
+
 Your Schema should be defined in `config/metadata` as a `.yaml` file that matches the underscored name of your work type. So the UbiquityTemplateWork has a file called `ubiquity_template_work.yaml`.
 
+If you are migrating an existing schema, there is a rake task you can run which will attampt to generate the schema from the exising work properties and uses a set of default configurations for JSON and other complicated fields:
 
-#### Adding field attributes
+```bash
+docker-compose exec web bundle exec rails app:hyku_addons:model:generate_schema[ubiquity_template_work]
+```
 
-To define a multiple select (the traditional HTML multiple select) you can add the `multiple` key to the attributes array:
+##### Schema Examples
+
+Below are a set of example fields that illustrate how to define different types of fields:
 
 ```yaml
-      creator_institutional_relationship:
+---
+# Starts with an attributes hash
+attributes:
+
+	# Multiple text field example
+  alt_title:
+    type: string
+    predicate: http://purl.org/dc/terms/alternative
+    multiple: true
+    index_keys:
+    - alt_title_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+
+	# Custom input type example
+  title:
+    type: string
+    predicate: http://purl.org/dc/terms/title
+    multiple: true
+    index_keys:
+    - title_tesim
+    - title_sim
+		# The form hash defines how the field will be presented in the form
+    form:
+			# Browser required, but not backend validated
+      required: true
+			# Should the field be above the fold
+      primary: true
+      multiple: true
+      type: text
+			# If you have a field that needs custom behavior, you can define a SimpleForm Input class and add it here,
+			# in this case, `title` is a multiple field (for hyrax compatability) but only shows a single text input.
+      input: single_multi_value
+
+	# Textarea field example
+  abstract:
+    type: text
+    predicate: http://purl.org/dc/terms/abstract
+    multiple: true
+    index_keys:
+    - abstract_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: textarea
+
+	# Select field example
+  subject:
+    predicate: http://purl.org/dc/elements/1.1/subject
+    multiple: true
+    index_keys:
+    - subject_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+			# For select fields an authority class is required, which will constantized in the form
+      type: select
+      authority: HykuAddons::SubjectService
+
+	# JSON field example
+  related_identifier:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/identifiedBy
+    multiple: true
+    index_keys:
+    - related_identifier_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+    subfields:
+      related_identifier:
+        type: string
+        form:
+          multiple: false
+          required: false
+          type: text
+      related_identifier_type:
         type: string
         form:
           required: false
           multiple: false
           type: select
-          authority: HykuAddons::InstitutionalRelationshipService
-          attributes: # The attributes array can contain any of the field attributes you want inserted into the field markup
-            multiple: multiple
-            data:
-              foo: bar
-          display_for:
-          - Personal
-```
+          authority: HykuAddons::RelatedIdentifierTypeService
+          include_blank: true
+      relation_type:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::RelationTypeService
+          include_blank: true
 
-Be careful when defining your own attributes and data arrays, as this will override the default for that field, if it requires a custom template or its configuration is based on legacy requirements and could not be merged into the default view partial.
+	# Custom field attributes example
+	creator_institutional_relationship:
+		# ...
+		form:
+			# ...
+			# The attributes array can contain any of the field attributes you want inserted into the field markup
+			attributes:
+				multiple: multiple
+				data:
+					foo: bar
+
+```
 
 ## Development
 
