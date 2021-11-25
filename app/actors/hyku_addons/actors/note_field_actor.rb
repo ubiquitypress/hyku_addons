@@ -21,7 +21,7 @@ module HykuAddons
         end
 
         def next_note(env)
-          env.curation_concern.note || []
+          env.curation_concern&.note || []
         end
 
         def previous_note(env)
