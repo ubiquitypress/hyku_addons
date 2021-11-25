@@ -13,20 +13,6 @@ attributes:
       multiple: true
       type: text
       input: single_multi_value
-  resource_type:
-    predicate: http://purl.org/dc/terms/type
-    multiple: true
-    index_keys:
-    - resource_type_tesim
-    - resource_type_sim
-    form:
-      required: true
-      primary: true
-      multiple: true
-      type: select
-      authority: HykuAddons::ResourceTypesService
-      include_blank: true
-      input: single_multi_value_select
   creator:
     predicate: http://purl.org/dc/elements/1.1/creator
     multiple: true
@@ -45,6 +31,14 @@ attributes:
           multiple: false
           type: select
           authority: HykuAddons::NameTypeService
+      creator_computing_id:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - Personal
       creator_family_name:
         type: string
         form:
@@ -77,7 +71,7 @@ attributes:
           type: text
           display_for:
           - Personal
-      creator_orcid:
+      creator_department:
         type: string
         form:
           required: false
@@ -85,15 +79,20 @@ attributes:
           type: text
           display_for:
           - Personal
-      creator_institutional_relationship:
+      creator_institution:
         type: string
         form:
           required: false
           multiple: false
-          type: select
-          authority: HykuAddons::InstitutionalRelationshipService
-          attributes:
-            multiple: multiple
+          type: text
+          display_for:
+          - Personal
+      creator_orcid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
           display_for:
           - Personal
       creator_organization_name:
@@ -137,6 +136,20 @@ attributes:
           display_for:
           - Personal
           - Organizational
+  resource_type:
+    predicate: http://purl.org/dc/terms/type
+    multiple: true
+    index_keys:
+    - resource_type_tesim
+    - resource_type_sim
+    form:
+      required: true
+      primary: true
+      multiple: false
+      type: select
+      authority: HykuAddons::ResourceTypesService
+      include_blank: true
+      input: single_multi_value_select
   abstract:
     type: text
     predicate: http://purl.org/dc/terms/abstract
@@ -160,6 +173,16 @@ attributes:
       type: select
       authority: HykuAddons::LicenseService
       include_blank: true
+  publisher:
+    predicate: http://purl.org/dc/elements/1.1/publisher
+    multiple: true
+    index_keys:
+    - publisher_tesim
+    form:
+      required: true
+      primary: true
+      multiple: true
+      type: text
   keyword:
     predicate: http://purl.org/dc/elements/1.1/relation
     multiple: true
@@ -171,7 +194,7 @@ attributes:
       multiple: true
       type: text
   contributor:
-    predicate: http://purl.org/dc/elements/1.1/contributor
+    predicate: http://purl.org/dc/elements/1.1/creator
     multiple: true
     index_keys:
     - contributor_tesim
@@ -184,10 +207,18 @@ attributes:
       contributor_name_type:
         type: string
         form:
-          required: false
+          required: true
           multiple: false
           type: select
           authority: HykuAddons::NameTypeService
+      contributor_computing_id:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - Personal
       contributor_family_name:
         type: string
         form:
@@ -204,7 +235,7 @@ attributes:
           type: text
           display_for:
           - Personal
-      contributor_orcid:
+      contributor_middle_name:
         type: string
         form:
           required: false
@@ -212,15 +243,36 @@ attributes:
           type: text
           display_for:
           - Personal
-      contributor_institutional_relationship:
+      contributor_suffix:
         type: string
         form:
           required: false
           multiple: false
-          type: select
-          authority: HykuAddons::ContributorInstitutionalRelationshipService
-          attributes:
-            multiple: multiple
+          type: text
+          display_for:
+          - Personal
+      contributor_department:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - Personal
+      contributor_institution:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - Personal
+      contributor_orcid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
           display_for:
           - Personal
       contributor_organization_name:
@@ -264,16 +316,6 @@ attributes:
           display_for:
           - Personal
           - Organizational
-      contributor_role:
-        type: string
-        form:
-          required: false
-          multiple: true
-          type: select
-          authority: HykuAddons::RoleService
-          display_for:
-          - Personal
-          - Organizational
   language:
     predicate: http://purl.org/dc/elements/1.1/language
     multiple: true
@@ -286,16 +328,6 @@ attributes:
       type: select
       authority: HykuAddons::LanguageService
       include_blank: true
-  publisher:
-    predicate: http://purl.org/dc/elements/1.1/publisher
-    multiple: true
-    index_keys:
-    - publisher_tesim
-    form:
-      required: true
-      primary: true
-      multiple: true
-      type: text
   date_published:
     type: string
     predicate: http://purl.org/dc/terms/available
@@ -328,6 +360,43 @@ attributes:
       primary: false
       multiple: true
       type: text
+    subfields:
+      funder_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          input: controlled_vocabulary
+          attributes:
+            data:
+              field_name: ubiquity_funder_name
+              autocomplete-url: /authorities/search/crossref/funders
+              autocomplete: funder
+      funder_doi:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+      funder_isni:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+      funder_ror:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+      funder_award:
+        type: string
+        form:
+          required: false
+          multiple: true
+          type: text
   add_info:
     type: string
     predicate: http://purl.org/ontology/bibo/Note
