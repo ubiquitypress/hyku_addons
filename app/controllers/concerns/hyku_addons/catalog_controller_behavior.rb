@@ -120,7 +120,7 @@ module HykuAddons
           all_names = config.show_fields.values.map(&:field).join(" ")
           title_name = solr_name("title", :stored_searchable)
           field.solr_parameters = {
-            qf: "#{all_names} file_format_tesim all_text_timv alt_title_tesim^4.15 editor_display_ssim",
+            qf: "#{all_names} account_cname_tesim, file_format_tesim all_text_timv alt_title_tesim^4.15 editor_display_ssim",
             pf: title_name.to_s
           }
         end
