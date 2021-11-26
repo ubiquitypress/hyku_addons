@@ -15,6 +15,7 @@ module HykuAddons
         def serialize_date_fields(env)
           env.curation_concern.class.date_fields.each do |field|
             next unless env.attributes[field].present?
+
             env.attributes[field] = Array(env.attributes[field]).collect { |date_hash| transform_date(date_hash, field) }
             env.attributes[field] = env.attributes[field].first unless env.curation_concern.class.multiple?(field)
           end

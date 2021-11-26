@@ -8,7 +8,7 @@ module Hyrax
     FIELD_TYPE_DEFAULTS = {
       "select" => %w[resource_type license language],
       "textarea" => %w[add_info table_of_contents abstract],
-      "date" => %w[date_published date_submitted event_date related_exhibition_date]
+      "date" => %w[date_accepted date_published date_submitted event_date related_exhibition_date]
     }.freeze
 
     def initialize(model_name)

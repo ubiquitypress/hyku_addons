@@ -264,7 +264,7 @@ attributes:
       multiple: false
       type: textarea
   date_published:
-    type: date
+    type: string
     predicate: http://purl.org/dc/terms/available
     multiple: false
     index_keys:
@@ -415,7 +415,7 @@ attributes:
       multiple: true
       type: text
   event_date:
-    type: date
+    type: string
     predicate: http://bibframe.org/vocab/eventDate
     multiple: true
     index_keys:
@@ -694,7 +694,7 @@ attributes:
           multiple: false
           type: select
   date_accepted:
-    type: date
+    type: string
     predicate: http://purl.org/dc/terms/dateAccepted
     multiple: false
     index_keys:
@@ -705,7 +705,7 @@ attributes:
       multiple: false
       type: date
   date_submitted:
-    type: date
+    type: string
     predicate: http://bibframe.org/vocab/originDate
     multiple: false
     index_keys:
@@ -759,7 +759,7 @@ attributes:
       multiple: true
       type: text
   related_exhibition_date:
-    type: date
+    type: string
     predicate: http://schema.org/Date
     multiple: true
     index_keys:

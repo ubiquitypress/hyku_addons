@@ -160,7 +160,7 @@ RSpec.feature "Create a UvaWork", js: true do
         expect(page).to have_content(resource_type.map { |h| h["id"] }.first)
         expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
         expect(page).to have_content("#{contributor.first.dig(:contributor_family_name)}, #{contributor.first.dig(:contributor_given_name)}")
-        # expect(page).to have_content(normalize_date(date_published.first))
+        expect(page).to have_content(normalize_date(date_published).first)
 
         # Get the actual work from the URL param
         current_uri = URI.parse(page.current_url)
@@ -176,7 +176,7 @@ RSpec.feature "Create a UvaWork", js: true do
         expect(work.keyword).to eq(keyword)
         expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
         expect(work.language).to eq(language_options.map { |h| h["id"] })
-        # expect(work.date_published).to eq(normalize_date(date_published).first)
+        expect(work.date_published).to eq(normalize_date(date_published).first)
         expect(work.related_url).to eq(related_url)
         expect(work.funder).to eq([funder.to_json])
         expect(work.add_info).to eq(add_info)

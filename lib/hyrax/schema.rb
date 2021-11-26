@@ -90,7 +90,7 @@ module Hyrax
 
           descendant.property(name, config)
           descendant.json_fields[name] = config if config[:subfields].present?
-          descendant.date_fields += [name] if config[:type] == "date"
+          descendant.date_fields += [name] if config.dig(:form, :type) == "date"
         end
       end
   end
