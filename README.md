@@ -309,6 +309,24 @@ If you restart your Rails server or Docker containers and create the new work wi
 
 This pattern is used as much as possible to indicate which partials are being used, first `_resource_type` is found, which delegate to the `_default`. `schema` indicates that the field is passing through the schema rendering within the partials. Eventually this can all be removed along with all of the delegating partials, leaving just `_default`, but for now we need to maintain backwards compatability for older work types.
 
+#### Specs
+
+There is a (pretty much) complete test for the Ubiquity Template Work (`spec/features/ubiquity_template_work_form_spec.rb`), which confirms that the actual form fields can be completed, that the form is submitted and then that the data is saved to the Fedora record. For new work types you should be able to duplicate from that spec and remove the fields that are not relevant, or using the form field helps, add new fields as required.
+
+The only way to know if a work type is working for the user is if there are specs.
+
+Whereever possible the Authorities or dynamic data should be used, this is to ensure that the spec works for more than the single example provided.
+
+```ruby
+# Get an array of two random elements from the authority
+let(:license_options) { HykuAddons::LicenseService.new.active_elements.sample(2) }
+
+# Use the labels to fillin the form field using the `fill_in_` helpers.
+fill_in_multiple_selects(:license, license_options.map { |h| h["label"] })
+
+# Confirm that the IDs were saved to the work record
+expect(work.license).to eq(license_options.map { |h| h["id"] })
+```
 ## Development
 
 The rails server will be running at http://hyku.docker and tenants will be subdomains like http://tenant1.hyku.docker.

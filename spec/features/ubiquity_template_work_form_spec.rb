@@ -6,8 +6,9 @@ require HykuAddons::Engine.root.join("spec", "helpers", "work_form_helpers.rb").
 
 RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:work_type) { "ubiquity_template_work" }
-  let(:field_config) { "hyrax/#{work_type}_form".classify.constantize.field_configs }
 
+  let(:model) { work_type.classify.constantize }
+  let(:field_config) { "hyrax/#{work_type}_form".classify.constantize.field_configs }
   let(:user) { User.new(email: "test@example.com") { |u| u.save(validate: false) } }
   let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
   let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
@@ -16,6 +17,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:permission_options) do
     { permission_template_id: permission_template.id, agent_type: "user", agent_id: user.user_key, access: "deposit" }
   end
+  # The organisation option changes depending on the local, so we need to use this to ensure we select the right one
+  let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
 
   let(:title) { "Ubiquity Template Work Item" }
   let(:alt_title) { ["Alt Title 1", "Alt Title 2"] }
@@ -23,8 +26,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
     [
       {
         creator_name_type: "Personal",
-        creator_family_name: "Johnny",
-        creator_given_name: "Smithy",
+        creator_family_name: "Smithy",
+        creator_given_name: "Johnny",
         creator_middle_name: "J.",
         creator_suffix: "Mr",
         creator_orcid: "0000-0000-1111-2222",
@@ -45,8 +48,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
     [
       {
         contributor_name_type: "Personal",
-        contributor_family_name: "Johnny",
-        contributor_given_name: "Smithy",
+        contributor_family_name: "Smithy",
+        contributor_given_name: "Johnny",
         contributor_orcid: "0000-1111-2222-3333",
         contributor_institutional_relationship: "Staff member",
         contributor_isni: "1234567890"
@@ -64,7 +67,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:editor_given_name1) { "Joanna" }
   let(:editor_family_name1) { "Smithy" }
   let(:editor_organization_name) { "A Test Company Name" }
-  let(:organisation_option) { HykuAddons::NameTypeService.new.active_elements.last }
   let(:editor) do
     [
       {
@@ -82,23 +84,23 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       }
     ]
   end
-  let(:resource_type) { HykuAddons::ResourceTypesService.new.active_elements.sample(1) }
+  let(:resource_type) { HykuAddons::ResourceTypesService.new(model: model).active_elements.sample(1) }
   let(:date_published) { { year: "2020", month: "02", day: "02" } }
   let(:date_submitted) { { year: "2019", month: "03", day: "03" } }
   let(:date_accepted) { { year: "2018", month: "04", day: "04" } }
   let(:source_data) { ["source 1", "Source 2"] }
   let(:description) { ["This is the first text description", "This is the second text description"] }
   let(:keyword) { ["keyword1", "keyword2"] }
-  let(:license_options) { HykuAddons::LicenseService.new.active_elements.sample(2) }
-  let(:rights_statement_options) { HykuAddons::RightsStatementService.new.active_elements.sample(1) }
+  let(:license_options) { HykuAddons::LicenseService.new(model: model).active_elements.sample(2) }
+  let(:rights_statement_options) { HykuAddons::RightsStatementService.new(model: model).active_elements.sample(1) }
   let(:publisher) { ["publisher1", "publisher2"] }
-  let(:subject_options) { HykuAddons::SubjectService.new.active_elements.sample(2) }
-  let(:language_options) { HykuAddons::LanguageService.new.active_elements.sample(2) }
+  let(:subject_options) { HykuAddons::SubjectService.new(model: model).active_elements.sample(2) }
+  let(:language_options) { HykuAddons::LanguageService.new(model: model).active_elements.sample(2) }
   let(:related_url) { ["http://test.com", "https://www.test123.com"] }
   let(:abstract) { "This is the abstract text" }
   let(:media) { ["Audio", "Video"] }
   let(:duration) { ["1 minute", "7 hours"] }
-  let(:institution_options) { HykuAddons::InstitutionService.new.active_elements.sample(2) }
+  let(:institution_options) { HykuAddons::InstitutionService.new(model: model).active_elements.sample(2) }
   let(:org_unit) { ["Unit1", "Unit2"] }
   let(:project_name) { ["Project1", "Project2"] }
   let(:funder) do
@@ -138,7 +140,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:issn) { "0987654321" }
   let(:eissn) { "e-1234567890" }
   let(:official_link) { "http://test312.com" }
-  let(:current_he_institution_service) { HykuAddons::CurrentHeInstitutionService.new }
+  let(:current_he_institution_service) { HykuAddons::CurrentHeInstitutionService.new(model: model) }
   let(:current_he_institution_element) { current_he_institution_service.active_elements.sample }
   let(:current_he_institution_index) { current_he_institution_service.active_elements.index(current_he_institution_element) }
   let(:current_he_institution_input) do
@@ -161,8 +163,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:related_exhibition_venue) { ["Exhibition venue 1", "Exhibition venue 2"] }
   let(:related_exhibition_date) { [{ year: "2022", month: "02", day: "02" }, { year: "2023", month: "03", day: "03" }] }
   let(:rights_holder) { ["Holder1", "Holder2"] }
-  let(:qualification_name_options) { HykuAddons::QualificationNameService.new.active_elements.sample(1) }
-  let(:qualification_level_options) { HykuAddons::QualificationLevelService.new.active_elements.sample(1) }
+  let(:qualification_name_options) { HykuAddons::QualificationNameService.new(model: model).active_elements.sample(1) }
+  let(:qualification_level_options) { HykuAddons::QualificationLevelService.new(model: model).active_elements.sample(1) }
   let(:alternate_identifier) do
     [
       { alternate_identifier: "123456", alternate_identifier_type: "Alt Ident." },
@@ -171,8 +173,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   end
   # NOTE: related_identifier isn't great, but the nested hash is difficult to store and refer to different hash values
   let(:related_identifier) { "123456" }
-  let(:related_identifier_type_options) { HykuAddons::RelatedIdentifierTypeService.new.active_elements.sample(1) }
-  let(:relation_type_options) { HykuAddons::RelationTypeService.new.active_elements.sample(1) }
+  let(:related_identifier_type_options) { HykuAddons::RelatedIdentifierTypeService.new(model: model).active_elements.sample(1) }
+  let(:relation_type_options) { HykuAddons::RelationTypeService.new(model: model).active_elements.sample(1) }
   let(:related_identifier_label) do
     [
       {
@@ -191,13 +193,13 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       }
     ]
   end
-  let(:refereed_options) { HykuAddons::RefereedService.new.active_elements.sample(1) }
+  let(:refereed_options) { HykuAddons::RefereedService.new(model: model).active_elements.sample(1) }
+  let(:add_info) { "Some additional information" }
   let(:dewey) { "A Dewey Value" }
   let(:library_of_congress_classification) { ["1234", "5678"] }
-  let(:add_info) { "Some additional information" }
   let(:page_display_order_number) { "1" }
   let(:irb_number) { "123" }
-  let(:irb_status_options) { HykuAddons::IrbStatusService.new.active_elements.sample(1) }
+  let(:irb_status_options) { HykuAddons::IrbStatusService.new(model: model).active_elements.sample(1) }
   let(:additional_links) { "http://link.com" }
   let(:is_included_in) { "1" }
   let(:buy_book) { "1" }
@@ -217,7 +219,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:suggested_student_reviewers) { "suggested_student_reviewers" }
   let(:suggested_reviewers) { "suggested_reviewers" }
   let(:adapted_from) { "adapted_from" }
-  let(:audience_options) { HykuAddons::AudienceService.new.active_elements.sample(2) }
+  let(:audience_options) { HykuAddons::AudienceService.new(model: model).active_elements.sample(2) }
   let(:related_material) { "related_material" }
   let(:note) { ["note1", "note2"] }
   let(:advisor) { "advisor" }
@@ -235,7 +237,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:date_published_text) { "date_published_text" }
   let(:rights_statement_text) { "rights_statement_text" }
   let(:qualification_subject_text) { ["Qualification statement text 1", "Qualification statement text 2"] }
-  let(:georeferenced_options) { HykuAddons::GeoreferencedService.new.active_elements.sample(1) }
+  let(:georeferenced_options) { HykuAddons::GeoreferencedService.new(model: model).active_elements.sample(1) }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
