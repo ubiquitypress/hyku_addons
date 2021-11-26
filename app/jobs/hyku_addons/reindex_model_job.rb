@@ -3,12 +3,15 @@ module HykuAddons
   class ReindexModelJob < ApplicationJob
     queue_as :reindex
 
-    rescue_from Ldp::Gone, Ldp::HttpError, RSolr::Error::Http, RSolr::Error::ConnectionRefused do |exception|
+    rescue_from Hyrax::DOI::DataCiteClient::Error, Ldp::Gone, Ldp::HttpError, RSolr::Error::Http, RSolr::Error::ConnectionRefused do |exception|
       Rails.logger.debug exception.inspect
       retry_job(wait: 5.minutes)
     end
 
-    def perform(klass, cname, limit: 35, page: 1)
+    def perform(klass, cname, limit: 35, page: 1, cname_doi_mint: [])
+      # for whatever in private methods reason without assigning it to instamce variable it throws undefined local variable
+      @cname_doi_mint = cname_doi_mint
+      @cname = cname
       AccountElevator.switch!(cname)
 
       Rails.logger.debug "=== Starting to reindex #{klass} in #{cname} ==="
@@ -34,7 +37,19 @@ module HykuAddons
     private
 
       def reindex_works(works)
-        works.each(&:update_index)
+        # works.each(&:update_index)
+        works.each do |work|
+          mint_doi(work) if @cname_doi_mint.present? && @cname_doi_mint.include?(@cname)
+          work.update_index
+        end
+      end
+
+      def mint_doi(work)
+        return if work.doi.present?
+
+        work.update(doi_status_when_public: "findable")
+        register_doi = Hyrax::DOI::DataCiteRegistrar.new.register!(object: work)
+        work.update(doi: [register_doi.identifier])
       end
   end
 end
