@@ -86,6 +86,7 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
 
     before do
       ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
+      stub_request(:any, "#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/works")
       stub_request(:get, Addressable::Template.new("#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}")).to_return(status: 200)
       allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
       allow(Hyrax::Hirmeos::HirmeosFileSetRegistrationJob).to receive(:perform_later)
@@ -145,7 +146,7 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
       let(:import_batch_file) { "spec/fixtures/csv/generic_work.file_set.csv" }
       let(:export_source) { "GenericWork" }
 
-      it "imports files" do
+      it "exports files" do
         entry = exporter.entries.first
         expect(entry).to be_present
         expect(entry.parsed_metadata["visibility"]).to eq "open"
