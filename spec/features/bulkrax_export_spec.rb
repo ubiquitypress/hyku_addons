@@ -88,6 +88,7 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
       ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
       stub_request(:get, Addressable::Template.new("#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}")).to_return(status: 200)
       allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
+      allow(Hyrax::Hirmeos::HirmeosFileSetRegistrationJob).to receive(:perform_later)
       importer.import_collections
       importer.import_works
       exporter.export

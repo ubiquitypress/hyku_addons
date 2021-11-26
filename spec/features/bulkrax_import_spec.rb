@@ -28,6 +28,7 @@ RSpec.describe "Bulkrax import", clean: true, perform_enqueued: true do
     AdminSet.find_or_create_default_admin_set_id
     stub_request(:get, Addressable::Template.new("#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}")).to_return(status: 200)
     allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
+    allow(Hyrax::Hirmeos::HirmeosFileSetRegistrationJob).to receive(:perform_later)
   end
 
   describe "import works" do
