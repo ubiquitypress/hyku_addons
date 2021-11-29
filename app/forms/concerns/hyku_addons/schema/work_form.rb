@@ -57,10 +57,6 @@ module HykuAddons
         person_or_organization_list(:editor)
       end
 
-      def funder_list
-        person_or_organization_list(:funder)
-      end
-
       # A generic method to avoid needing a custom method for all JSON fields
       def json_field_list(field)
         person_or_organization_list(field.to_sym)
