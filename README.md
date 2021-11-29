@@ -142,73 +142,73 @@ Below are a set of example fields that illustrate how to define different types 
 ---
 # Starts with an attributes hash
 attributes:
-	# Multiple text field example
+  # Multiple text field example
   alt_title:
     type: string
     predicate: http://purl.org/dc/terms/alternative
     multiple: true
     index_keys:
-			- alt_title_tesim
+      - alt_title_tesim
     form:
       required: false
       primary: false
       multiple: true
       type: text
 
-	# Custom input type example
+  # Custom input type example
   title:
     type: string
     predicate: http://purl.org/dc/terms/title
     multiple: true
     index_keys:
-			- title_tesim
-			- title_sim
-		# The form hash defines how the field will be presented in the form
+      - title_tesim
+      - title_sim
+    # The form hash defines how the field will be presented in the form
     form:
-			# Browser required, but not backend validated
+      # Browser required, but not backend validated
       required: true
-			# Should the field be above the fold
+      # Should the field be above the fold
       primary: true
       multiple: true
       type: text
-			# If you have a field that needs custom behavior, you can define a SimpleForm Input class and add it here,
-			# in this case, `title` is a multiple field (for hyrax compatability) but only shows a single text input.
+      # If you have a field that needs custom behavior, you can define a SimpleForm Input class and add it here,
+      # in this case, `title` is a multiple field (for hyrax compatability) but only shows a single text input.
       input: single_multi_value
 
-	# Textarea field example
+  # Textarea field example
   abstract:
     type: text
     predicate: http://purl.org/dc/terms/abstract
     multiple: true
     index_keys:
-			- abstract_tesim
+      - abstract_tesim
     form:
       required: false
       primary: false
       multiple: true
       type: textarea
 
-	# Select field example
+  # Select field example
   subject:
     predicate: http://purl.org/dc/elements/1.1/subject
     multiple: true
     index_keys:
-			- subject_tesim
+      - subject_tesim
     form:
       required: false
       primary: false
       multiple: true
-			# For select fields an authority class is required, which will constantized in the form
+      # For select fields an authority class is required, which will constantized in the form
       type: select
       authority: HykuAddons::SubjectService
 
-	# JSON field example
+  # JSON field example
   related_identifier:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/identifiedBy
     multiple: true
     index_keys:
-			- related_identifier_tesim
+      - related_identifier_tesim
     form:
       required: false
       primary: false
@@ -238,16 +238,16 @@ attributes:
           authority: HykuAddons::RelationTypeService
           include_blank: true
 
-	# Custom field attributes example
-	creator_institutional_relationship:
-		# ...
-		form:
-			# ...
-			# The attributes array can contain any of the field attributes you want inserted into the field markup
-			attributes:
-				multiple: multiple
-				data:
-					foo: bar
+  # Custom field attributes example
+  creator_institutional_relationship:
+    # ...
+    form:
+      # ...
+      # The attributes array can contain any of the field attributes you want inserted into the field markup
+      attributes:
+        multiple: multiple
+        data:
+          foo: bar
 ```
 
 #### Adding the required concerns
@@ -258,11 +258,11 @@ The work modal:
 
 ```ruby
 class UbiquityTemplateWork < ActiveFedora::Base
-	# ...
+  # ...
   include HykuAddons::Schema::WorkBase
   include Hyrax::Schema(:ubiquity_template_work)
   self.indexer = UbiquityTemplateWorkIndexer
-	# ...
+  # ...
 ```
 
 The Work Form:
@@ -272,7 +272,7 @@ module Hyrax
   class UbiquityTemplateWorkForm < Hyrax::Forms::WorkForm
     include ::HykuAddons::Schema::WorkForm
     include Hyrax::FormFields(:ubiquity_template_work)
-		# ...
+    # ...
 ```
 
 The Indexer:
@@ -280,7 +280,7 @@ The Indexer:
 ```ruby
 class UbiquityTemplateWorkIndexer < Hyrax::WorkIndexer
   include Hyrax::Indexer(:ubiquity_template_work)
-	# ...
+  # ...
 ```
 
 The presenter:
@@ -288,10 +288,10 @@ The presenter:
 ```ruby
 module Hyrax
   class UbiquityTemplateWorkPresenter < Hyrax::WorkShowPresenter
-		# ...
+    # ...
     include ::HykuAddons::Schema::Presenter(:ubiquity_template_work)
     include ::HykuAddons::PresenterDelegatable
-		# ...
+    # ...
   end
 end
 ```
@@ -513,9 +513,9 @@ In the `docker-compose.yml`, inside of the `&app` configuration block, which is 
 ```yml
 app: &app
   #...
-	volumes:
+  volumes:
   #...
-	- /home/paul/Ubiquity/hyrax-orcid:/home/app/hyrax-orcid
+  - /home/paul/Ubiquity/hyrax-orcid:/home/app/hyrax-orcid
 ```
 
 In your HykuAddons `Gemfile`:
