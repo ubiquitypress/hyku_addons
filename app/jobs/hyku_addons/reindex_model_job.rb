@@ -8,7 +8,7 @@ module HykuAddons
       retry_job(wait: 5.minutes)
     end
 
-    def perform(klass, cname, limit: 35, page: 1, cname_doi_mint: [])
+    def perform(klass, cname, limit: 25, page: 1, cname_doi_mint: [])
       # for whatever in private methods reason without assigning it to instamce variable it throws undefined local variable
       @cname_doi_mint = cname_doi_mint
       @cname = cname
@@ -40,7 +40,11 @@ module HykuAddons
         # works.each(&:update_index)
         works.each do |work|
           mint_doi(work) if @cname_doi_mint.present? && @cname_doi_mint.include?(@cname)
-          work.update_index
+
+          # We have temporarily replaced work.update_index with a  save to kill two birds with
+          # one stone, as in re_index and also update member_of_collections_ssim to store
+          # collection names instead of id caused by wrong bulkrax import
+          work.save
         end
       end
 
