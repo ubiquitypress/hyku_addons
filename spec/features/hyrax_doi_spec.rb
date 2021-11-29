@@ -146,24 +146,11 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
     end
   end
 
-  describe "when a user views a work with a minted DOI" do
-    let(:attributes) do
-      {
-        title: ["Work title"],
-        doi: [doi],
-        visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC,
-        user: user,
-        creator: [
-          [{
-            creator_name_type: "Personal",
-            creator_given_name: "Johnny",
-            creator_family_name: "Testison"
-          }].to_json
-        ],
-        institution: ["University of Virginia"],
-        resource_type: ["Blog post"]
-      }
-    end
+      it "mints a DOI" do
+        perform_enqueued_jobs(only: Hyrax::DOI::RegisterDOIJob) do
+          choose "Findable"
+          choose "generic_work_visibility_open"
+          check "agreement"
 
     let(:doi) { "10.18130/v3-k4an-w022" }
 
