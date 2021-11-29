@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Bulkrax import", clean: true, perform_enqueued: true do
+RSpec.describe "Bulkrax import", clean: true do
   let(:user) { create(:user, email: "test@example.com") }
   # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
   let!(:depositor) { create(:user, email: "batchuser@example.com") }
@@ -113,12 +113,14 @@ RSpec.describe "Bulkrax import", clean: true, perform_enqueued: true do
       end
 
       it "imports files" do
-        # For some reason this has to be explictly set here and the meta tag in the top-most describe isn't sticking
-        ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
-        importer.import_works
+        perform_enqueued_jobs(only: AttachFilesToWorkJob) do
+          importer.import_works
+        end
+
         work = PacificArticle.find("c109b1ff-6d9a-4498-b86c-190e7dcbe2e0")
+
         expect(work.file_sets.size).to eq 1
-        expect(work.file_sets.first.original_file.file_name).to eq ["nypl-hydra-of-lerna.jpg"]
+        expect(work.file_sets.first.title).to eq ["nypl-hydra-of-lerna.jpg"]
         expect(work.file_sets.first.visibility).to eq "open"
       end
 
@@ -142,12 +144,14 @@ RSpec.describe "Bulkrax import", clean: true, perform_enqueued: true do
         end
 
         it "imports files" do
-          # For some reason this has to be explictly set here and the meta tag in the top-most describe isn't sticking
-          ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
-          importer.import_works
+          perform_enqueued_jobs(only: AttachFilesToWorkJob) do
+            importer.import_works
+          end
+
           work = PacificArticle.find("c109b1ff-6d9a-4498-b86c-190e7dcbe2e0")
+
           expect(work.file_sets.size).to eq 1
-          expect(work.file_sets.first.original_file.file_name).to eq ["nypl-hydra-of-lerna.jpg"]
+          expect(work.file_sets.first.title).to eq ["nypl-hydra-of-lerna.jpg"]
         end
       end
 
@@ -155,9 +159,10 @@ RSpec.describe "Bulkrax import", clean: true, perform_enqueued: true do
         let(:import_batch_file) { "spec/fixtures/csv/generic_work.file_set.csv" }
 
         it "imports files" do
-          # For some reason this has to be explictly set here and the meta tag in the top-most describe isn't sticking
-          ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
-          importer.import_works
+          perform_enqueued_jobs(only: AttachFilesToWorkJob) do
+            importer.import_works
+          end
+
           work = GenericWork.first
           expect(work.visibility).to eq "open"
           expect(work.file_sets.size).to eq 3
