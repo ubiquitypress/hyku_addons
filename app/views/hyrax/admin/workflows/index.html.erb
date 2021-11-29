@@ -71,7 +71,7 @@
                           <%= link_to document, [main_app, document] %>
                         </td>
                         <td>
-                          <%= @presenter.display_creator(document.creator).try(:to_sentence) %>
+                          <%= document.creator_display.try(:to_sentence) %>
                         </td>
                         <td>
                           <%= document.date_modified %>
