@@ -1,7 +1,7 @@
 // Listener to attach the Funder name look up on clone
-class CloneableFunderNameListener {
+class AfterCloneFunderListener {
   constructor(){
-    this.eventName = "attach_funder_name_autocomplete"
+    this.eventName = "after_clone_funder"
     this.targetSelector = ".funder_name"
 
     this.onLoad()

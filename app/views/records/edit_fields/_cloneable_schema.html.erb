@@ -14,7 +14,8 @@
 
 <div class="<%= target %>" data-cloneable data-cloneable-min="1">
   <% f.object.json_field_list(key).each do |hash| %>
-    <div data-cloneable-group="<%= target %>" data-cloneable-after-action="clear_inputs clear_cloned">
+		<% # You can attach to the after clone event of any field by listening to after_clone_<field_name>, grep for after_clone_funder for an example %>
+		<div data-cloneable-group="<%= target %>" data-cloneable-after-action="clear_inputs clear_cloned after_clone_<%= key %>">
       <% f.object.field_configs.dig(key, :subfields).each do |subfield, config| %>
         <% field = {
           f: f,
