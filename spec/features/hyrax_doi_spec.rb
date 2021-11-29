@@ -169,7 +169,7 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
       end
 
       it "mints a DOI" do
-        perform_enqueued_jobs do
+        perform_enqueued_jobs(only: Hyrax::DOI::RegisterDOIJob) do
           choose "Findable"
           choose "generic_work_visibility_open"
           check "agreement"

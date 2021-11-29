@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe HykuAddons::ReindexAvailableWorksJob, perform_enqueued_jobs: true do
+RSpec.describe HykuAddons::ReindexAvailableWorksJob do
   let(:account) { create(:account) }
   let(:work) { create(:work) }
   let(:site) { instance_double(Site) }
@@ -22,7 +22,6 @@ RSpec.describe HykuAddons::ReindexAvailableWorksJob, perform_enqueued_jobs: true
   end
 
   it "#perform_now can enqueue model for reindex" do
-    ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
     expect { described_class.perform_now([account.cname]) }.not_to have_enqueued_job(described_class)
   end
 end
