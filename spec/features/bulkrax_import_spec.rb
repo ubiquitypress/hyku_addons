@@ -113,14 +113,14 @@ RSpec.describe "Bulkrax import", clean: true do
       end
 
       it "imports files" do
-        perform_enqueued_jobs(only: AttachFilesToWorkJob) do
+        perform_enqueued_jobs(only: [AttachFilesToWorkJob, IngestJob, FileSetAttachedEventJob]) do
           importer.import_works
         end
 
         work = PacificArticle.find("c109b1ff-6d9a-4498-b86c-190e7dcbe2e0")
 
         expect(work.file_sets.size).to eq 1
-        expect(work.file_sets.first.title).to eq ["nypl-hydra-of-lerna.jpg"]
+        expect(work.file_sets.first.original_file.file_name).to eq ["nypl-hydra-of-lerna.jpg"]
         expect(work.file_sets.first.visibility).to eq "open"
       end
 
@@ -144,14 +144,14 @@ RSpec.describe "Bulkrax import", clean: true do
         end
 
         it "imports files" do
-          perform_enqueued_jobs(only: AttachFilesToWorkJob) do
+          perform_enqueued_jobs(only: [AttachFilesToWorkJob, IngestJob, FileSetAttachedEventJob]) do
             importer.import_works
           end
 
           work = PacificArticle.find("c109b1ff-6d9a-4498-b86c-190e7dcbe2e0")
 
           expect(work.file_sets.size).to eq 1
-          expect(work.file_sets.first.title).to eq ["nypl-hydra-of-lerna.jpg"]
+          expect(work.file_sets.first.original_file.file_name).to eq ["nypl-hydra-of-lerna.jpg"]
         end
       end
 
@@ -159,7 +159,7 @@ RSpec.describe "Bulkrax import", clean: true do
         let(:import_batch_file) { "spec/fixtures/csv/generic_work.file_set.csv" }
 
         it "imports files" do
-          perform_enqueued_jobs(only: AttachFilesToWorkJob) do
+          perform_enqueued_jobs(only: [AttachFilesToWorkJob, IngestJob, FileSetAttachedEventJob]) do
             importer.import_works
           end
 
