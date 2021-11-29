@@ -813,17 +813,6 @@ attributes:
       primary: false
       multiple: true
       type: text
-  doi:
-    type: string
-    predicate: http://purl.org/ontology/bibo/doi
-    multiple: true
-    index_keys:
-    - doi_ssi
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: text
   qualification_name:
     type: string
     predicate: http://schema.org/qualifications
@@ -1453,14 +1442,3 @@ attributes:
       multiple: false
       type: select
       authority: HykuAddons::GeoreferencedService
-  doi_status_when_public:
-    type: string
-    predicate: http://samvera.org/ns/hyrax/doi#doi_status_when_public
-    multiple: false
-    index_keys:
-    - doi_status_when_public_ssi
-    form:
-      required: false
-      primary: false
-      multiple: false
-      type: text

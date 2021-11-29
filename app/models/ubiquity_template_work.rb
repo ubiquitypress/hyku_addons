@@ -8,10 +8,10 @@ class UbiquityTemplateWork < ActiveFedora::Base
   include HykuAddons::Schema::WorkBase
   include Hyrax::Schema(:ubiquity_template_work)
 
+  # Included after other field definitions
+  include Hyrax::BasicMetadata
+
   self.indexer = UbiquityTemplateWorkIndexer
 
   validates :title, presence: { message: 'Your work must have a title.' }
-
-  # This must be included at the end, because it finalizes the metadata schema
-  include Hyrax::BasicMetadata
 end
