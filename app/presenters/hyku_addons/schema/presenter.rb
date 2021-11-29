@@ -20,6 +20,7 @@ module HykuAddons
 
         def included(descendant)
           rules = @rules
+
           descendant.define_singleton_method :delegated_methods do |*_args|
             rules.values.uniq
           end
