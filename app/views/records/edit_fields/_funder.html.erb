@@ -1,6 +1,6 @@
 <!-- funder -->
 <% if f.object.schema_driven? %>
-  <%= render "records/edit_fields/funder_schema", f: f, key: key %>
+  <%= render "records/edit_fields/cloneable_schema", f: f, key: key %>
 <% else %>
 	<% if  f.object.model.new_record? %>
 		<%= render "hyku_addons/funder/new_form", f: f %>
