@@ -7,11 +7,6 @@
 
 <hr>
 
-<% help_key = "simple_form.#{key}.label"  %>
-<% if I18n.exists?(help_key) %>
-  <label class="control-label" for="<%= key %>"><%= t(help_key) %></label>
-<% end%>
-
 <div class="<%= target %>" data-cloneable data-cloneable-min="1">
   <% f.object.json_field_list(key).each do |hash| %>
 		<% # You can attach to the after clone event of any field by listening to after_clone_<field_name>, grep for after_clone_funder for an example %>
