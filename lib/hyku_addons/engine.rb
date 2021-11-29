@@ -65,13 +65,9 @@ module HykuAddons
       end
     end
 
-    # Prepend our views so they have precedence. This was being done with prepend_view_path but
-    # seemed to result in the orcid gem's _default partial being show when editing forms
+    # Prepend our views so they have precedence
     config.after_initialize do
-      paths = ActionController::Base.view_paths.collect(&:to_s)
-      paths.insert(0, HykuAddons::Engine.root.to_s + "/app/views")
-
-      ActionController::Base.view_paths = paths
+      ActionController::Base.prepend_view_path(paths['app/views'].existent)
     end
 
     # Append our locales so they have precedence
