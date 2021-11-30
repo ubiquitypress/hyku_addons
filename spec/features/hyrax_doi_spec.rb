@@ -4,23 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true do
   let(:user) { create(:user) }
-  let(:attributes) do
-    {
-      title: ["Work title"],
-      doi_status_when_public: nil,
-      visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC,
-      user: user,
-      creator: [
-        [{
-          creator_name_type: "Personal",
-          creator_given_name: "Johnny",
-          creator_family_name: "Testison"
-        }].to_json
-      ],
-      institution: ["University of Virginia"],
-      resource_type: ["Blog post"]
-    }
-  end
+
   let!(:work) { create(:work, attributes) }
   let(:work_type) { work.class.name.underscore }
 
@@ -110,6 +94,24 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
   end
 
   describe "when the user edits a work without a minted DOI" do
+    let(:attributes) do
+      {
+        title: ["Work title"],
+        doi_status_when_public: nil,
+        visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC,
+        user: user,
+        creator: [
+          [{
+            creator_name_type: "Personal",
+            creator_given_name: "Johnny",
+            creator_family_name: "Testison"
+          }].to_json
+        ],
+        institution: ["University of Virginia"],
+        resource_type: ["Blog post"]
+      }
+    end
+
     before do
       visit "/concern/#{work_type.to_s.pluralize}/#{work.id}/edit"
     end
@@ -141,6 +143,34 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
       it "enqueues a job to mint the DOI" do
         expect { fill_in_form(new_title) }.to have_enqueued_job(Hyrax::DOI::RegisterDOIJob).with(work.reload, registrar: "datacite", registrar_opts: {})
       end
+    end
+  end
+
+  describe "when a user views a work with a minted DOI" do
+    let(:attributes) do
+      {
+        title: ["Work title"],
+        doi: [doi],
+        visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC,
+        user: user,
+        creator: [
+          [{
+            creator_name_type: "Personal",
+            creator_given_name: "Johnny",
+            creator_family_name: "Testison"
+          }].to_json
+        ],
+        institution: ["University of Virginia"],
+        resource_type: ["Blog post"]
+      }
+    end
+
+    let(:doi) { "10.18130/v3-k4an-w022" }
+
+    it "has a link to the DOI" do
+      visit "/concern/#{work_type.to_s.pluralize}/#{work.id}"
+
+      expect(page).to have_selector("a", text: "https://doi.org/#{doi}")
     end
   end
 
