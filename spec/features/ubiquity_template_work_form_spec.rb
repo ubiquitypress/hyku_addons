@@ -286,8 +286,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_multiple_selects(:language, language_options.map { |h| h["label"] })
       fill_in_multiple_text_fields(:related_url, related_url)
       fill_in_multiple_text_fields(:source, source_data)
-      # # NOTE: based_near uses select2 which cannot be tested with capybara
-      # fill_in_multiple_select2(:based_near, based_near)
       fill_in_textarea(:abstract, abstract)
       fill_in_multiple_text_fields(:media, media)
       fill_in_multiple_text_fields(:duration, duration)
@@ -372,6 +370,9 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_text_field(:rights_statement_text, rights_statement_text)
       fill_in_multiple_text_fields(:qualification_subject_text, qualification_subject_text)
       fill_in_select(:georeferenced, georeferenced_options.map { |h| h["label"] }.first)
+
+      click_link "Files"
+      fill_in_files
     end
 
     describe "submitting the form" do
