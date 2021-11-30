@@ -1,4 +1,3 @@
-<% @presenter =  HykuAddons::CreatorPresenter.new %>
 <% provide :page_header do %>
   <h1><span class="glyphicon glyphicon-ok-circle"></span> <%= t('.header') %></h1>
 <% end %>
@@ -35,7 +34,7 @@
                           <%= link_to document, [main_app, document] %>
                         </td>
                         <td>
-                          <%= @presenter.display_creator(document.creator).try(:to_sentence) %>
+                          <%= document.creator_display.try(:to_sentence) %>
                         </td>
                         <td>
                           <%= document.date_modified %>
