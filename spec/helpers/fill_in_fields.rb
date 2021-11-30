@@ -6,6 +6,7 @@ def fill_in_files
     attach_file("files[]", Rails.root.join("spec", "fixtures", "hyrax", "jp2_fits.xml"), visible: false)
   end
 end
+
 # Fill in a single text field
 #
 # @param field [Symbol] the field that we wish to target
