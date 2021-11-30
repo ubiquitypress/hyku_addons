@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
-def fill_in_files
+# Fillin the form files
+#
+# @param wait [Integer] the period we should wait for
+def fill_in_files(wait = 10)
   within("span#addfiles") do
     attach_file("files[]", Rails.root.join("spec", "fixtures", "hyrax", "image.jp2"), visible: false)
     attach_file("files[]", Rails.root.join("spec", "fixtures", "hyrax", "jp2_fits.xml"), visible: false)
   end
+
+  # We need to do this anyway, so lets just keep it here rather than everyonewhere else
+  within(".files") { have_selector("button.delete", count: 2, wait: wait) } if wait.positive?
 end
 
 # Fill in a single text field
