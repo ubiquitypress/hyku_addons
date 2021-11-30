@@ -143,7 +143,7 @@ RSpec.feature "Create a UvaWork", js: true do
       fill_in_multiple_text_fields(:source, source_data)
 
       click_link "Files"
-      fill_in_files
+      fill_in_files(20)
     end
 
     describe "submitting the form" do
