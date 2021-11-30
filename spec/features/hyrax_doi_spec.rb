@@ -146,21 +146,6 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
     end
   end
 
-      it "mints a DOI" do
-        perform_enqueued_jobs(only: Hyrax::DOI::RegisterDOIJob) do
-          choose "Findable"
-          choose "generic_work_visibility_open"
-          check "agreement"
-
-    let(:doi) { "10.18130/v3-k4an-w022" }
-
-    it "has a link to the DOI" do
-      visit "/concern/#{work_type.to_s.pluralize}/#{work.id}"
-
-      expect(page).to have_selector("a", text: "https://doi.org/#{doi}")
-    end
-  end
-
   private
 
     def fill_in_form(title)
