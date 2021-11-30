@@ -7,8 +7,7 @@ module HykuAddons
     def collection_type
       work_cname = @solr_document.to_h["account_cname_tesim"]
       account_cname = Array.wrap(work_cname).first
-      @check_cname_exists = Account.exists?(cname: account_cname)
-      return super unless @check_cname_exists.present?
+      return super unless Account.exists?(cname: account_cname)
 
       AccountElevator.switch!(account_cname) if account_cname.present?
       @collection_type ||= Hyrax::CollectionType.find_by_gid!(collection_type_gid)
