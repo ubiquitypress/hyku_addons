@@ -278,7 +278,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "buy_book" => nil,
                                            "challenged" => nil,
                                            "citation" => nil,
-                                           "cname" => account.cname,
+                                           "cname" => (account.search_only? ? work.to_solr.dig("account_cname_tesim") : account.cname),
                                            "collections" => [],
                                            "committee_member" => nil,
                                            "contributor" => [{ "contributor_family_name" => "Gnitset",
