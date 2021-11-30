@@ -136,6 +136,10 @@ RSpec.configure do |config|
     ActiveJob::Base.queue_adapter = :test
   end
 
+  config.after do
+    clear_enqueued_jobs
+  end
+
   # Add support for conditional execution of specs
   config.include OptionalExample
 
