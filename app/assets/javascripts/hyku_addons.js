@@ -1,3 +1,3 @@
 // HykuAddons JS assets
-//= require_tree .
+//= require_directory .
 //= require hyku_addons/application

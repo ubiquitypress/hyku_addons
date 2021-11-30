@@ -1,5 +1,1 @@
-//= require 'hyku_addons/pdf_viewer/build/pdf'
-//= require 'hyku_addons/pdf_viewer/build/pdf_worker'
-//= require 'hyku_addons/pdf_viewer/build/pdf_sandbox'
-//= require 'hyku_addons/pdf_viewer/web/viewer'
-//= require 'hyku_addons/pdf_viewer/web/pdfjs-init'
+//= require_tree .

@@ -41,7 +41,7 @@
 
         <% if file_set.pdf? %>
           <li role="menuitem" tabindex="-1">
-            <%= link_to t('.read_and_annotate'), "/viewer/web/viewer.html?file=#{hyrax.download_url(file_set.id)}",  { title: 'Annotate', id: "file_read", target: "_blank" } %>
+            <%= link_to t('.read_and_annotate'), hyku_addons.pdf_viewer_path(hyrax.download_url(file_set.id)),  { title: 'Annotate', id: "file_read", target: "_blank" } %>
           </li>
         <% end %>
       <% end %>
