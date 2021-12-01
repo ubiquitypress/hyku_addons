@@ -31,7 +31,7 @@ jobs:
       DATABASE_USER: postgres
       DATABASE_TEST_NAME: circle_test
       BUNDLE_PATH: vendor/bundle
-      COVERALLS_PARALLEL: true
+      COVERALLS_PARALLEL: "true"
       BUNDLE_JOBS: 4
       BUNDLE_RETRY: 3
       RAILS_ENV: test
@@ -40,7 +40,7 @@ jobs:
       SPEC_OPTS: --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec.xml --format progress
       CFLAGS: -Wno-error=format-overflow
       # Enable bulkrax to avoid test failures due to odd view path order
-      SETTINGS__BULKRAX__ENABLED: true
+      SETTINGS__BULKRAX__ENABLED: "true"
       RUBYOPT: "-W:no-deprecated -W:no-experimental"
       REDIS_NAMESPACE_QUIET: "true"
 
@@ -80,7 +80,7 @@ jobs:
         # Ensure that CI matches development setup for ImageMagick policy for PostScript file types
       - run:
           command: |
-            sed -i '/disable ghostscript format types/,+6d' /etc/ImageMagick-6/policy.xml
+            sudo sed -i '/disable ghostscript format types/,+6d' /etc/ImageMagick-6/policy.xml
 
       # Setup CodeClimate
       - run:
