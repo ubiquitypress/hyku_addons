@@ -79,6 +79,7 @@ jobs:
 
         # Ensure that CI matches development setup for ImageMagick policy for PostScript file types
       - run:
+          name: Update ImageMagick policy
           command: |
             sudo sed -i '/disable ghostscript format types/,+6d' /etc/ImageMagick-6/policy.xml
 
