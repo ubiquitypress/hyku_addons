@@ -51,5 +51,5 @@ RUN bundle config build.nokogiri --use-system-libraries && \
     setuser app bundle install --jobs=4 --retry=3 && \
     chmod 777  -R .bundle/*  # Otherwise `app` owns this file and the host cannot run bundler commands
 
+# Remove PostScript policy rules from local environment, without this PDFs thumbnails cannot be processed
 RUN sed -i '/disable ghostscript format types/,+6d' /etc/ImageMagick-6/policy.xml
-
