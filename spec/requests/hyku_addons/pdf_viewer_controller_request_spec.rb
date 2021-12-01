@@ -2,13 +2,13 @@
 
 require "rails_helper"
 
-RSpec.describe "::HykuAddons::PdfViewerController", type: :request do
+RSpec.describe "::HykuAddons::PdfViewerController", type: :request, js: true do
   let(:user) { FactoryBot.create(:admin) }
   let!(:account) { create(:account) }
 
   let!(:work) { create :work_with_one_file, user: user }
   let(:file_set) { work.ordered_members.to_a.first }
-  let(:pdf_path) { hyrax.download_url(file_set.id) }
+  let(:pdf_path) { hyrax.download_url(file_set.id).split("/")&.last&.split("?")&.first }
 
   before do
     login_as(user, scope: :user)
@@ -18,7 +18,6 @@ RSpec.describe "::HykuAddons::PdfViewerController", type: :request do
       block.call
     end
     host! account.cname
-    default_url_options[:host] = "http://#{account.cname}"
   end
 
   after do

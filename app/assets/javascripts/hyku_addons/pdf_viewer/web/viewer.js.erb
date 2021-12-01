@@ -1274,18 +1274,8 @@ var PDFViewerApplication = {
 
               parameters = Object.create(null);
 
-              if (typeof file === "string") {
-                _this7.setTitleUsingUrl(file);
-
-                parameters.url = file;
-              } else if (file && "byteLength" in file) {
-                parameters.data = file;
-              } else if (file.url && file.originalUrl) {
-                _this7.setTitleUsingUrl(file.originalUrl);
-
-                parameters.url = file.url;
-              }
-
+              const download_id = location.pathname.split('/')[2]
+              parameters.url = "/downloads/" + download_id
               apiParameters = _app_options.AppOptions.getAll(_app_options.OptionKind.API);
 
               for (_key in apiParameters) {
