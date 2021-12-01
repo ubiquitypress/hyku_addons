@@ -5,9 +5,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <link rel="resource" type="application/l10n" href="hyku_addons/pdf_viewer/locale/en-US/viewer.properties">
-    <%= stylesheet_link_tag  "hyku_addons/pdf_viewer" %>
-    <%= javascript_include_tag  "hyku_addons/pdf_viewer/base" %>
+    <link rel="resource" type="application/l10n" href="locale/en-US/viewer.properties">
+    <%= stylesheet_link_tag "pdf_viewer" %>
+    <%= javascript_include_tag  "pdf_viewer/base" %>
   </head>
   <body>
     <%= yield %>

@@ -29,7 +29,7 @@ module HykuAddons
     end
 
     initializer "hyku_addons.pdf_viewer" do
-      Rails.application.config.assets.precompile += ["hyku_addons/pdf_viewer.css", "hyku_addons/pdf_viewer/base.js"]
+      Rails.application.config.assets.precompile += ["pdf_viewer.css", "pdf_viewer/base.js"]
     end
 
     initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
