@@ -77,6 +77,11 @@ jobs:
 
       - run: bundle exec rake app:db:create app:db:migrate app:zookeeper:upload
 
+        # Ensure that CI matches development setup for ImageMagick policy for PostScript file types
+      - run:
+          command: |
+            sed -i '/disable ghostscript format types/,+6d' /etc/ImageMagick-6/policy.xml
+
       # Setup CodeClimate
       - run:
           command: |
