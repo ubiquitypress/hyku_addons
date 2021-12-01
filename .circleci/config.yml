@@ -81,11 +81,10 @@ jobs:
       - samvera/install_solr_core:
           solr_config_path: 'spec/internal_test_hyku/solr/config'
 
-      # Setup hyku_addons and any additional plugins that have been added to the install generator
       - run: 
-        name: Install Hyku Addons 
-        command: |
-          bundle exec rails g hyku_addons:install
+          name: Install Hyku Addons and Additional Plugins
+          command: |
+            bundle exec rails g hyku_addons:install
 
       - run: 
           name: Migrate Database/Persistance
