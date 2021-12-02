@@ -2,24 +2,24 @@
 FROM phusion/passenger-ruby27:2.0.0 as base_image
 
 RUN apt-get update && \
-		install_clean --allow-unauthenticated \
-			sendmail \
-			libxml2-dev \
-			libxslt-dev \
-			dumb-init \
-			default-jre \
-			ghostscript \
-			libpq-dev \
-			libreoffice \
-			libsasl2-dev \
-			netcat \
-			postgresql-client \
-			rsync \
-			zip \
-			unzip \
-			gnupg2 \
-			ffmpeg \
-			vim
+    install_clean --allow-unauthenticated \
+      sendmail \
+      libxml2-dev \
+      libxslt-dev \
+      dumb-init \
+      default-jre \
+      ghostscript \
+      libpq-dev \
+      libreoffice \
+      libsasl2-dev \
+      netcat \
+      postgresql-client \
+      rsync \
+      zip \
+      unzip \
+      gnupg2 \
+      ffmpeg \
+      vim
 
 RUN apt clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
