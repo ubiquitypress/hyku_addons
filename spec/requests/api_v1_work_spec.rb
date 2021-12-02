@@ -137,7 +137,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
 
   describe "/work/:id" do
     let(:json_response) { JSON.parse(response.body) }
-    let(:cname) { (account.search_only? ? work.to_solr.dig("account_cname_tesim").first : account.cname) }
+    let(:cname) { (account.search_only? ? work.to_solr.dig("account_cname_tesim")&.first : account.cname) }
     context "when repository has content" do
       let(:work) { create(:work, visibility: "open") }
 

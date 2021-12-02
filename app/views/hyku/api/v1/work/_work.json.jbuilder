@@ -18,7 +18,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.buy_book work.try(:solr_document)&.to_h&.dig('buy_book_tesim')
   json.challenged work.try(:solr_document)&.to_h&.dig('challenged_tesim')
   json.citation work.try(:solr_document)&.to_h&.dig('citation_tesim')
-  json.cname @account.search_only? ? work.try(:solr_document)&.to_h&.dig("account_cname_tesim").first : @account.cname
+  json.cname @account.search_only? ? work.try(:solr_document)&.to_h&.dig("account_cname_tesim")&.first : @account.cname
   json.committee_member work.try(:solr_document)&.to_h&.dig('committee_member_tesim')
 
   creator = work.creator.try(:first)
