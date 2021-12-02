@@ -45,19 +45,6 @@ jobs:
       REDIS_NAMESPACE_QUIET: "true"
 
     steps:
-        # Ensure that CI matches development setup for ImageMagick policy for PostScript file types
-      - run:
-          name: Update ImageMagick policy
-          command: |
-            cd /tmp
-            curl -fsSL -o ImageMagick.tar.gz https://www.imagemagick.org/download/ImageMagick.tar.gz
-            DIR_NAME=$(tar -tf ImageMagick.tar.gz | head -1 | cut -f1 -d"/")
-            tar xzvf ImageMagick.tar.gz
-            cd $DIR_NAME
-            ./configure --with-rsvg --with-modules
-            make install
-            ldconfig /usr/local/lib
-
       - run:
           name: Install the FITS
           command: |
