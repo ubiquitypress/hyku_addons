@@ -4,23 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true do
   let(:user) { create(:user) }
-  let(:attributes) do
-    {
-      title: ["Work title"],
-      doi_status_when_public: nil,
-      visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC,
-      user: user,
-      creator: [
-        [{
-          creator_name_type: "Personal",
-          creator_given_name: "Johnny",
-          creator_family_name: "Testison"
-        }].to_json
-      ],
-      institution: ["University of Virginia"],
-      resource_type: ["Blog post"]
-    }
-  end
+
   let!(:work) { create(:work, attributes) }
   let(:work_type) { work.class.name.underscore }
 
@@ -110,6 +94,24 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
   end
 
   describe "when the user edits a work without a minted DOI" do
+    let(:attributes) do
+      {
+        title: ["Work title"],
+        doi_status_when_public: nil,
+        visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC,
+        user: user,
+        creator: [
+          [{
+            creator_name_type: "Personal",
+            creator_given_name: "Johnny",
+            creator_family_name: "Testison"
+          }].to_json
+        ],
+        institution: ["University of Virginia"],
+        resource_type: ["Blog post"]
+      }
+    end
+
     before do
       visit "/concern/#{work_type.to_s.pluralize}/#{work.id}/edit"
     end
@@ -130,60 +132,57 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
 
     context "when the user selects `findable`" do
       let(:new_title) { "New work title" }
-      let(:doi) { "#{prefix}/kgkc-nn31" }
 
-      let(:response_fixture) { File.read Rails.root.join("..", "fixtures", "datacite", "put_metadata.xml") }
-      let(:common_headers) do
-        {
-          "Accept": "*/*",
-          "Accept-Encoding": "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-          "Authorization": "Basic VkpLQS5KQ1JYWkctTE9DQUw6cGFzc3dvcmQ=",
-          "User-Agent": "Faraday v0.17.4"
-        }
-      end
-      let(:json_headers) do
-        common_headers.merge("Content-Type": "application/vnd.api+json")
-      end
-      let(:xml_headers) do
-        common_headers.merge("Content-Type": "application/xml;charset=UTF-8")
-      end
-      let(:text_headers) do
-        common_headers.merge("Content-Type": "text/plain;charset=UTF-8")
+      it "redirects the user to the works page" do
+        fill_in_form(new_title)
+
+        expect(page).to have_selector("h1", text: "Work", wait: 10)
+        expect(page).to have_selector("h2", text: new_title)
       end
 
-      before do
-        # The initial request to create_draft_doi
-        stub_request(:post, "https://api.test.datacite.org/dois")
-          .with(body: { "data": { "type": "dois", "attributes": { "prefix": prefix } } }.to_json, headers: json_headers)
-          .to_return(status: 201, body: { "data": { "id": doi, "type": "dois", "attributes": {} } }.to_json, headers: {})
-
-        # Send the work data to datacite
-        stub_request(:put, "https://mds.test.datacite.org/metadata/#{doi}")
-          .with(body: response_fixture, headers: xml_headers)
-          .to_return(status: 201, body: "", headers: {})
-
-        # Register the URL
-        stub_request(:put, "https://mds.test.datacite.org/doi/#{doi}")
-          .with(body: "doi=#{doi}\nurl=http://#{cname}/concern/generic_works/#{work.id}", headers: text_headers)
-          .to_return(status: 201, body: "", headers: {})
-      end
-
-      it "mints a DOI" do
-        perform_enqueued_jobs do
-          choose "Findable"
-          choose "generic_work_visibility_open"
-          check "agreement"
-
-          find("a[role=tab]", text: "Description").click
-          fill_in("Title", with: new_title)
-          find("input[type=submit]").click
-
-          # Ensure we end up on the right page
-          expect(page).to have_selector("h1", text: "Work", wait: 10)
-          expect(page).to have_selector("h2", text: new_title)
-          expect(page).to have_selector("a", text: "https://doi.org/#{doi}")
-        end
+      it "enqueues a job to mint the DOI" do
+        expect { fill_in_form(new_title) }.to have_enqueued_job(Hyrax::DOI::RegisterDOIJob).with(work.reload, registrar: "datacite", registrar_opts: {})
       end
     end
   end
+
+  describe "when a user views a work with a minted DOI" do
+    let(:attributes) do
+      {
+        title: ["Work title"],
+        doi: [doi],
+        visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC,
+        user: user,
+        creator: [
+          [{
+            creator_name_type: "Personal",
+            creator_given_name: "Johnny",
+            creator_family_name: "Testison"
+          }].to_json
+        ],
+        institution: ["University of Virginia"],
+        resource_type: ["Blog post"]
+      }
+    end
+
+    let(:doi) { "10.18130/v3-k4an-w022" }
+
+    it "has a link to the DOI" do
+      visit "/concern/#{work_type.to_s.pluralize}/#{work.id}"
+
+      expect(page).to have_selector("a", text: "https://doi.org/#{doi}")
+    end
+  end
+
+  private
+
+    def fill_in_form(title)
+      choose "Findable"
+      choose "generic_work_visibility_open"
+      check "agreement"
+
+      find("a[role=tab]", text: "Description").click
+      fill_in("Title", with: title)
+      find("input[type=submit]").click
+    end
 end
