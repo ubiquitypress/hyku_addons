@@ -2,7 +2,7 @@
 
 namespace :hyku_addons do
   namespace :file_set do
-    # Usage:  dce:web:rails app:hyku_addons:file_set:regenerate_pdf_thumbnails["repo.hyku.docker"]
+    # Usage: app:hyku_addons:file_set:regenerate_pdf_thumbnails["repo.hyku.docker"]
     desc "Regenerate thumbnails for works with grayscale thumbnails"
     task :regenerate_pdf_thumbnails, [:cname] => :environment do |_t, args|
       AccountElevator.switch!(args[:cname])
