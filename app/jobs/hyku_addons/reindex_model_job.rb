@@ -17,6 +17,7 @@ module HykuAddons
       Rails.logger.debug "=== Starting to reindex #{klass} in #{cname} ==="
 
       offset = (page - 1) * limit
+
       # When the offset becomes too large, no records would be found
       works =  klass.constantize.where("title_tesim:*").limit(limit).offset(offset)
 
@@ -24,11 +25,10 @@ module HykuAddons
       if works.to_a.any?
         reindex_works(works)
 
-        # increment page number
         new_page_count = page.to_i + 1
 
-        # re-enqueue
-        ReindexModelJob.perform_later(klass, cname, limit: 1, page: new_page_count)
+        # Re-enqueue
+        ReindexModelJob.perform_later(klass, cname, page: new_page_count)
       end
 
       Rails.logger.debug "=== Completed reindex of #{klass} in #{cname} ==="

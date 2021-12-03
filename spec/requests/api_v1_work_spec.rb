@@ -137,7 +137,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
 
   describe "/work/:id" do
     let(:json_response) { JSON.parse(response.body) }
-
+    let(:cname) { (account.search_only? ? work.to_solr.dig("account_cname_tesim")&.first : account.cname) }
     context "when repository has content" do
       let(:work) { create(:work, visibility: "open") }
 
@@ -160,7 +160,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                          "buy_book" => nil,
                                          "challenged" => nil,
                                          "citation" => nil,
-                                         "cname" => account.cname,
+                                         "cname" => cname,
                                          "collections" => [],
                                          "committee_member" => nil,
                                          "contributor" => [],
@@ -263,6 +263,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
           work.save!
           get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
 
+          expect(json_response["cname"]).to be_a(String)
           expect(json_response).to include("abstract" => "Swedish comic about the adventures of the residents of Moominvalley.",
                                            "adapted_from" => nil,
                                            "additional_info" => ["Nothing to report"],
@@ -278,7 +279,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "buy_book" => nil,
                                            "challenged" => nil,
                                            "citation" => nil,
-                                           "cname" => (account.search_only? ? work.to_solr.dig("account_cname_tesim") : account.cname),
+                                           "cname" => cname,
                                            "collections" => [],
                                            "committee_member" => nil,
                                            "contributor" => [{ "contributor_family_name" => "Gnitset",
