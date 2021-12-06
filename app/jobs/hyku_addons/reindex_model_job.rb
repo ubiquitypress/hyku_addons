@@ -47,7 +47,7 @@ module HykuAddons
         return if work.doi.present?
 
         Rails.logger.debug "=== about to mint doi for #{work.title} ==== "
-        work.update(doi_status_when_public: "findable", visibility: "open")
+        work.update(doi_status_when_public: "findable")
         register_doi = Hyrax::DOI::DataCiteRegistrar.new.register!(object: work)
         work.update(doi: [register_doi.identifier])
       end
