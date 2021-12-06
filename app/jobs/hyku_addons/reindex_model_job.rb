@@ -71,11 +71,8 @@ module HykuAddons
         # with calling to_a it always returns true, even when no records found
         reindex_works(works)
 
-        new_page_count = @page.to_i + 1
-
         # Re-enqueue
-        ReindexModelJob.perform_later(@klass, @cname, @limit, page: new_page_count, cname_doi_mint: @cname_doi_mint)
-        sleep(0.5)
+        ReindexModelJob.perform_later(@klass, @cname, @limit, page: @page.to_i + 1, cname_doi_mint: @cname_doi_mint)
         Rails.logger.debug "=== Completed reindex of #{@klass} in #{@cname} ==="
       end
   end

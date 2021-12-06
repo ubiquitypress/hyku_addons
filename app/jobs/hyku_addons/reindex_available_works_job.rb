@@ -12,8 +12,7 @@ module HykuAddons
       @cname_doi_mint = cname_doi_mint
 
       cnames.each do |name|
-        cname = cnames.delete(name)
-        reindex(cname)
+        reindex(cnames.delete(name))
       end
     end
 
@@ -29,8 +28,7 @@ module HykuAddons
           next unless klass.count.positive?
 
           Rails.logger.debug "==== Queue ReindexModelJob for #{klass} ==="
-          HykuAddons::ReindexModelJob.perform_later(model_class, cname, options: { cname_doi_mint: @cname_doi_mint }) if @cname_doi_mint.include?(cname)
-          HykuAddons::ReindexModelJob.perform_later(model_class, cname) unless @cname_doi_mint.include?(cname)
+          HykuAddons::ReindexModelJob.perform_later(model_class, cname, options: { cname_doi_mint: @cname_doi_mint })
         end
       end
   end
