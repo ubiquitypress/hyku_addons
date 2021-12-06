@@ -4,7 +4,7 @@ require File.expand_path("../support/shared_contexts/create_work_user_context", 
 
 include Warden::Test::Helpers
 
-RSpec.describe "autofilling the form from DOI", js: true do
+RSpec.describe "autofilling the form from DOI", js: true, slow: true do
   let(:request_headers) do
     {
       "Accept" => "text/html,application/json,application/xml;q=0.9, text/plain;q=0.8,image/png,*/*;q=0.5",

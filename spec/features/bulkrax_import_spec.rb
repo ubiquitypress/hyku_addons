@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Bulkrax import", clean: true do
+RSpec.describe "Bulkrax import", clean: true, slow: true do
   let(:user) { create(:user, email: "test@example.com") }
   # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
   let!(:depositor) { build_stubbed(:user, email: "batchuser@example.com") }
