@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe HykuAddons::Validations::SolrEntryValidationService, type: :model do
   let(:entry)   { instance_double(HykuAddons::CsvEntry, status: "Complete", id: 1, identifier: "123") }
-  let(:account) { create(:account, name: "tenant", cname: "example.com") }
+  let(:account) { build_stubbed(:account, name: "tenant", cname: "example.com") }
 
   let(:valid_service_attrs) do
     {

@@ -8,7 +8,7 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
   let(:work_type) { work.class.name.underscore }
 
   let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
-  let(:account) { create(:account, cname: "123456789") }
+  let(:account) { build_stubbed(:account, cname: "123456789") }
 
   before do
     allow(Flipflop).to receive(:enabled?).and_call_original

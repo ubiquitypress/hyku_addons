@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Bulkrax import", clean: true do
   let(:user) { create(:user, email: "test@example.com") }
   # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
-  let!(:depositor) { create(:user, email: "batchuser@example.com") }
+  let!(:depositor) { build_stubbed(:user, email: "batchuser@example.com") }
   let(:importer) do
     create(:bulkrax_importer_csv,
            user: user,
@@ -25,22 +25,30 @@ RSpec.describe "Bulkrax import", clean: true do
 
   before do
     # Make sure default admin set exists
-    AdminSet.find_or_create_default_admin_set_id
     stub_request(:get, Addressable::Template.new("#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}")).to_return(status: 200)
     allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
   end
 
   describe "import works" do
     before do
-      importer.import_collections
+      perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+        importer.import_collections
+      end
     end
 
     it "imports works" do
-      expect { importer.import_works }.to change { PacificArticle.count }.by(2)
+      expect do
+        perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+          importer.import_works
+        end
+      end.to change { PacificArticle.count }.by(2)
     end
 
     it "populates all fields" do
-      importer.import_works
+      perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+        importer.import_works
+      end
+
       work = PacificArticle.find("c109b1ff-6d9a-4498-b86c-190e7dcbe2e0")
       expect(work.title).to eq ["Bourdieu's Art"]
       expect(work.date_published).to eq "2010-1-1"
@@ -62,7 +70,7 @@ RSpec.describe "Bulkrax import", clean: true do
     end
 
     context "for an articles" do
-      let(:account) { FactoryBot.create(:account, locale_name: "anschutz") }
+      let(:account) { build_stubbed(:account, locale_name: "anschutz") }
       let(:import_batch_file) { "spec/fixtures/csv/anschutz.csv" }
 
       before do
@@ -70,7 +78,10 @@ RSpec.describe "Bulkrax import", clean: true do
       end
 
       it "populates the fields" do
-        importer.import_works
+        perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+          importer.import_works
+        end
+
         work = AnschutzWork.last
         %w[advisor mesh subject_text citation references medium comittee_member time qualification_subject_text add_info].each do |field|
           next unless (val = work.try(field))
@@ -83,24 +94,42 @@ RSpec.describe "Bulkrax import", clean: true do
       let(:import_batch_file) { "spec/fixtures/csv/generic_work.csv" }
 
       it "populates resource_type" do
-        importer.import_works
+        perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+          importer.import_works
+        end
+
         work = GenericWork.last
         expect(work.resource_type).to eq ["Interactive resource"]
       end
     end
 
     context "language" do
-      let(:account) { FactoryBot.create(:account, locale_name: "redlands") }
+      let(:account) { build_stubbed(:account, locale_name: "redlands") }
       let(:import_batch_file) { "spec/fixtures/csv/redlands_article.csv" }
 
       before do
+        AdminSet.find_or_create_default_admin_set_id
         Site.update(account: account)
       end
 
       it "populates language" do
-        importer.import_works
+        perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+          importer.import_works
+        end
         work = RedlandsArticle.last
         expect(work.language).to eq ["eng", "ara", "zho", "fra", "rus", "spa", "Other"]
+      end
+    end
+  end
+
+  describe "import works eith files" do
+    let!(:depositor) { create(:user, email: "batchuser@example.com") }
+
+    before do
+      # Make sure default admin set exists
+      AdminSet.find_or_create_default_admin_set_id
+      perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+        importer.import_collections
       end
     end
 
@@ -180,14 +209,20 @@ RSpec.describe "Bulkrax import", clean: true do
 
   describe "import collections" do
     it "creates collections" do
-      importer.import_collections
+      perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+        importer.import_collections
+      end
       expect(Collection.exists?("e51dbdd3-11bd-47f6-b00a-8aace969f2ab")).to eq true
     end
   end
 
   describe "full import" do
     it "creates collections and works" do
-      expect { Bulkrax::ImporterJob.perform_now(importer.id) }.to change { Collection.count }.by(2).and change { PacificArticle.count }.by(2)
+      expect do
+        perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+          Bulkrax::ImporterJob.perform_now(importer.id)
+        end
+      end.to change { Collection.count }.by(2).and change { PacificArticle.count }.by(2)
       # Check that created works are in created collection
       collection = Collection.find("e51dbdd3-11bd-47f6-b00a-8aace969f2ab")
       work = PacificArticle.find("c109b1ff-6d9a-4498-b86c-190e7dcbe2e0")
@@ -204,7 +239,14 @@ RSpec.describe "Bulkrax import", clean: true do
       let(:import_batch_file) { "spec/fixtures/csv/pacific_articles.admin_set.csv" }
 
       it "imports admin sets, collections, and works" do
-        expect { Bulkrax::ImporterJob.perform_now(importer.id) }.to change { Collection.count }.by(2).and change { AdminSet.count }.by(1).and change { PacificArticle.count }.by(2)
+        AdminSet.find_or_create_default_admin_set_id
+
+        expect do
+          perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+            Bulkrax::ImporterJob.perform_now(importer.id)
+          end
+        end.to change { Collection.count }.by(2).and change { AdminSet.count }.by(1).and change { PacificArticle.count }.by(2)
+
         expect(AdminSet.where(title: "Default Admin Set").count).to eq 1
         expect(AdminSet.where(title: "History").count).to eq 1
         # Check that created works are in created collection
@@ -228,7 +270,11 @@ RSpec.describe "Bulkrax import", clean: true do
       let(:source_identifier) { "external-id-1" }
 
       it "mints a new id" do
-        expect { Bulkrax::ImporterJob.perform_now(importer.id) }.to change { GenericWork.count }.by(1)
+        expect do
+          perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+            Bulkrax::ImporterJob.perform_now(importer.id)
+          end
+        end.to change { GenericWork.count }.by(1)
         work = GenericWork.where(source_identifier: source_identifier).first
         expect(work.id).not_to eq source_identifier
       end
@@ -238,7 +284,10 @@ RSpec.describe "Bulkrax import", clean: true do
   describe "hyrax_record" do
     context "with identifiers" do
       it "returns the work created" do
-        Bulkrax::ImporterJob.perform_now(importer.id)
+        perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+          Bulkrax::ImporterJob.perform_now(importer.id)
+        end
+
         importer.entries.each do |entry|
           next unless entry.is_a?(HykuAddons::CsvEntry)
           work = PacificArticle.find(entry.identifier)
@@ -252,7 +301,10 @@ RSpec.describe "Bulkrax import", clean: true do
       let(:source_identifier) { "external-id-1" }
 
       it "return the work imported" do
-        Bulkrax::ImporterJob.perform_now(importer.id)
+        perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+          Bulkrax::ImporterJob.perform_now(importer.id)
+        end
+
         importer.entries.each do |entry|
           next unless entry.is_a?(HykuAddons::CsvEntry)
           work = GenericWork.all.first

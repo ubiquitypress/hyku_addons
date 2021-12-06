@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe HykuAddons::CrossTenantSharedSearchHelper do
+RSpec.describe HykuAddons::CrossTenantSharedSearchHelper, type: :helper do
   include Devise::Test::ControllerHelpers
 
   let(:helper) { _view }

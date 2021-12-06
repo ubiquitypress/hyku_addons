@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe HykuAddons::AccountBehavior do
+RSpec.describe HykuAddons::AccountBehavior, type: :model do
   subject(:account) { Account.new }
   let(:cache_enabled) { false }
   describe "#switch!" do
