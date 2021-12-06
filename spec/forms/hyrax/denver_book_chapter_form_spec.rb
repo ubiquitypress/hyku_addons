@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require File.expand_path("../../helpers/work_forms_context", __dir__)
+require File.expand_path("../../support/shared_contexts/work_forms_context", __dir__)
 
 RSpec.describe Hyrax::DenverBookChapterForm do
   include_context "work forms context" do

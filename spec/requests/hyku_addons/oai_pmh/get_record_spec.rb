@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require "spec_helper"
-require File.expand_path("../../../helpers/user_with_work_context.rb", __dir__)
+require File.expand_path("../../../support/shared_contexts/user_with_work_context.rb", __dir__)
 
 RSpec.describe CatalogController, multitenant: true, type: :request do
   include_context "user with work context"
