@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Hyku::API::V1::TenantController, type: :request, clean: true, multitenant: true do
-  let(:account) { create(:account, name: 'test') }
+  let(:account) { create(:account, name: "test") }
   let(:json_response) { JSON.parse(response.body) }
   let(:work_types) { ["Article", "Book", "ThesisOrDissertation", "BookChapter"] }
 
@@ -37,7 +37,7 @@ RSpec.describe Hyku::API::V1::TenantController, type: :request, clean: true, mul
     context "with private settings do" do
       before do
         Account.private_settings.each do |setting|
-          account.settings[setting] = { foo: 'bar' }
+          account.settings[setting] = { foo: "bar" }
         end
         account.save
       end

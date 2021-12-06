@@ -2,8 +2,8 @@
 require "rails_helper"
 
 RSpec.describe HykuAddons::Validations::CsvEntryValidationService, type: :model do
-  let(:entry)   { instance_double(HykuAddons::CsvEntry, status: 'Complete', id: 1, identifier: '123') }
-  let(:account) { create(:account, name: 'tenant', cname: 'example.com') }
+  let(:entry)   { instance_double(HykuAddons::CsvEntry, status: "Complete", id: 1, identifier: "123") }
+  let(:account) { create(:account, name: "tenant", cname: "example.com") }
 
   let(:service) { described_class.new(account, entry) }
 
@@ -26,18 +26,18 @@ RSpec.describe HykuAddons::Validations::CsvEntryValidationService, type: :model 
   # rubocop:disable RSpec/EmptyExampleGroup
   describe "validate" do
     context "with a correctly imported CSV file" do
-      let(:user) { create(:user, email: 'test@example.com') }
+      let(:user) { create(:user, email: "test@example.com") }
       # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
-      let(:depositor) { create(:user, email: 'batchuser@example.com') }
+      let(:depositor) { create(:user, email: "batchuser@example.com") }
       let(:importer) do
         create(:bulkrax_importer_csv,
                user: user,
                field_mapping: Bulkrax.field_mappings["HykuAddons::CsvParser"],
                parser_klass: "HykuAddons::CsvParser",
-               parser_fields: { 'import_file_path' => import_batch_file },
+               parser_fields: { "import_file_path" => import_batch_file },
                limit: 0)
       end
-      let(:import_batch_file) { 'spec/fixtures/csv/pacific_articles.metadata.csv' }
+      let(:import_batch_file) { "spec/fixtures/csv/pacific_articles.metadata.csv" }
     end
   end
   # rubocop:enable RSpec/EmptyExampleGroup

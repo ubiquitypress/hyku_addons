@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
+RSpec.describe "Bulkrax export", clean: true do
   let(:user) { create(:user, email: "test@example.com") }
   # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
   let!(:depositor) { create(:user, email: "batchuser@example.com") }
@@ -85,13 +85,15 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
     let(:export_source) { "PacificArticle" }
 
     before do
-      ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
       stub_request(:get, Addressable::Template.new("#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}")).to_return(status: 200)
       allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
-      importer.import_collections
-      importer.import_works
-      exporter.export
-      exporter.write
+
+      perform_enqueued_jobs(only: [AttachFilesToWorkJob, IngestJob, FileSetAttachedEventJob]) do
+        importer.import_collections
+        importer.import_works
+        exporter.export
+        exporter.write
+      end
     end
 
     it "exports all fields" do
@@ -140,23 +142,23 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
       end
     end
 
-    context 'file visibility' do
-      let(:import_batch_file) { 'spec/fixtures/csv/generic_work.file_set.csv' }
+    context "file visibility" do
+      let(:import_batch_file) { "spec/fixtures/csv/generic_work.file_set.csv" }
       let(:export_source) { "GenericWork" }
 
-      it 'imports files' do
+      it "imports files" do
         entry = exporter.entries.first
         expect(entry).to be_present
-        expect(entry.parsed_metadata['visibility']).to eq 'open'
-        expect(entry.parsed_metadata['file_1']).to end_with 'nypl-hydra-of-lerna.jpg'
-        expect(entry.parsed_metadata['file_visibility_1']).to eq 'restricted'
-        expect(entry.parsed_metadata['file_2']).to end_with 'nypl-hydra-of-lerna.jpg'
-        expect(entry.parsed_metadata['file_visibility_2']).to eq 'open'
-        expect(entry.parsed_metadata['file_3']).to end_with 'nypl-hydra-of-lerna.jpg'
-        expect(entry.parsed_metadata['file_visibility_3']).to eq 'embargo'
-        expect(entry.parsed_metadata['file_embargo_release_date_3']).to eq '2029-07-01'
-        expect(entry.parsed_metadata['file_visibility_during_embargo_3']).to eq 'authenticated'
-        expect(entry.parsed_metadata['file_visibility_after_embargo_3']).to eq 'open'
+        expect(entry.parsed_metadata["visibility"]).to eq "open"
+        expect(entry.parsed_metadata["file_1"]).to end_with "nypl-hydra-of-lerna.jpg"
+        expect(entry.parsed_metadata["file_visibility_1"]).to eq "restricted"
+        expect(entry.parsed_metadata["file_2"]).to end_with "nypl-hydra-of-lerna.jpg"
+        expect(entry.parsed_metadata["file_visibility_2"]).to eq "open"
+        expect(entry.parsed_metadata["file_3"]).to end_with "nypl-hydra-of-lerna.jpg"
+        expect(entry.parsed_metadata["file_visibility_3"]).to eq "embargo"
+        expect(entry.parsed_metadata["file_embargo_release_date_3"]).to eq "2029-07-01"
+        expect(entry.parsed_metadata["file_visibility_during_embargo_3"]).to eq "authenticated"
+        expect(entry.parsed_metadata["file_visibility_after_embargo_3"]).to eq "open"
       end
     end
   end

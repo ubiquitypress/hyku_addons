@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe HykuAddons::TaskMaster::AccountBehavior do
   subject(:account) { model_class.new(name: "example", tenant: tenant, cname: cname) }

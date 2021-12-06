@@ -4,7 +4,7 @@ require "rails_helper"
 RSpec.describe HykuAddons::CacheExpirationService do
   let(:service) { described_class.new }
   let(:account) do
-    account = create(:account, name: 'tenant')
+    account = create(:account, name: "tenant")
     account.create_redis_endpoint!
     account
   end

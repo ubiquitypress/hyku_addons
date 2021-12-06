@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 # Generated via
 #  `rails generate hyrax:work BookContribution`
-require 'rails_helper'
-require File.expand_path('../../helpers/work_forms_context', __dir__)
+require "rails_helper"
+require File.expand_path("../../helpers/work_forms_context", __dir__)
 
 RSpec.describe Hyrax::DatasetForm do
-  include_context 'work forms context' do
+  include_context "work forms context" do
     describe "#required_fields" do
       subject { form.required_fields }
 
@@ -31,12 +31,12 @@ RSpec.describe Hyrax::DatasetForm do
       let(:params) { ActionController::Parameters.new(attributes) }
       let(:attributes) do
         {
-          version_number: 'version_number',
-          place_of_publication: 'place_of_publication'
+          version_number: "version_number",
+          place_of_publication: "place_of_publication"
         }.merge(common_params)
       end
 
-      it 'permits parameters' do
+      it "permits parameters" do
         check_common_fields_presence
         %w[version_number place_of_publication].each do |attr|
           expect(model_attributes[attr]).to eq attr

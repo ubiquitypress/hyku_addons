@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'rails_helper'
+require "rails_helper"
 # Generators are not automatically loaded by Rails
-require 'generators/hyku_addons/install_generator'
+require "generators/hyku_addons/install_generator"
 
 RSpec.describe HykuAddons::InstallGenerator, type: :generator do
   # Tell the generator where to put its output (what it thinks of as Rails.root)
@@ -12,7 +12,7 @@ RSpec.describe HykuAddons::InstallGenerator, type: :generator do
     prepare_destination
   end
 
-  it 'runs' do
+  it "runs" do
     run_generator
   end
 end

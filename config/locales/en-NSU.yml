@@ -5,8 +5,10 @@ en-NSU:
         label: Creator Name Type
       creator_family_name:
         label: Last Name
+        placeholder: e.g. Vaughan
       creator_given_name:
         label: First Name
+        placeholder: e.g. John
       creator_middle_name:
         label: Middle Name
         placeholder: " "
@@ -56,8 +58,8 @@ en-NSU:
         label: GRID
   labels:
     defaults:
-      alt_email: Alternative Email
-      org_unit: Organisational Unit
+      alt_email: Non-NSU email
+      org_unit: Organizational Unit
       buy_book: Link to Buy Book
       official_link: Official URL
       source: Original Source
@@ -71,3 +73,10 @@ en-NSU:
       suggested_reviewers: Possible Peer Reviewers
       suggested_student_reviewers: Possible Peer Reviewers
       add_info: Notes
+      mesh: MeSH
+      related_identifier: Globally unique identifiers, such as ISNI, ARK etc. For ISBN, ISSN and EISSN, use the specific fields below.
+  hints:
+    defaults:
+      alt_email: Email addresses which can be used by the depositor to receive statistics and communication about the work after leaving the institution - not made public.
+      edition: For books/reports, if this is not the first edition, please specify in the format e.g. 2nd.
+      extent: The extent (size, number, etc.) of the work.

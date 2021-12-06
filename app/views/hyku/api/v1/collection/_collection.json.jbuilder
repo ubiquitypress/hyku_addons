@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 # FIXME: many attributes here left nil so specs will pass
+# rubocop:disable Metrics/BlockLength
 json.cache! [@account, :collections, collection.id, collection.solr_document[:_version_]] do
   json.uuid collection.id
-  json.cname @account.cname
+  json.cname @account.search_only? ? collection.try(:solr_document)&.to_h&.dig("account_cname_tesim")&.first : @account.cname
   json.date_created collection.date_created&.first
   json.date_published nil
   json.description collection.description&.first
