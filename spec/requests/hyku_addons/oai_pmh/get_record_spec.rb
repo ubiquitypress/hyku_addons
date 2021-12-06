@@ -2,7 +2,7 @@
 require "spec_helper"
 require File.expand_path("../../../helpers/user_with_work_context.rb", __dir__)
 
-RSpec.describe CatalogController, multitenant: true do
+RSpec.describe CatalogController, multitenant: true, type: :request do
   include_context "user with work context"
   describe "GetRecord" do
     let(:params) do

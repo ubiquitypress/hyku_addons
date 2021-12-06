@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-RSpec.shared_context "ubiquity template user context" do
+RSpec.shared_context "ubiquity template user context", type: :helper do
   let(:user_attributes) do
     { email: "test@example.com" }
   end

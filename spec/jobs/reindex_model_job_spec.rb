@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe HykuAddons::ReindexModelJob do
+RSpec.describe HykuAddons::ReindexModelJob, type: :job do
   let(:account) { create(:account) }
-  let(:work) { create(:work) }
+  let(:work) { build_stubbed(:work) }
 
   before do
     allow(work.class).to receive(:reindex_everything)

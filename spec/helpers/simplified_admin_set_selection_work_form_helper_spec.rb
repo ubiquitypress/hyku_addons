@@ -2,10 +2,10 @@
 
 require "rails_helper"
 
-RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
+RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper, type: :helper do
   include Devise::Test::ControllerHelpers
 
-  let(:user) { create(:user) }
+  let(:user) { build_stubbed(:user) }
   let(:work) { GenericWork.new(title: ["Moomin"], depositor: user.user_key) }
   let(:form) { Hyrax::GenericWorkForm.new(work, nil, nil) }
   let(:helper) { _view }
@@ -79,7 +79,7 @@ RSpec.describe HykuAddons::SimplifiedAdminSetSelectionWorkFormHelper do
     end
 
     context "when the depositor is not signed in" do
-      let(:admin) { create(:admin) }
+      let(:admin) { build_stubbed(:admin) }
 
       before do
         allow(controller).to receive(:current_user) { admin }

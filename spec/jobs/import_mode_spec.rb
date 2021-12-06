@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe HykuAddons::ImportMode do
+RSpec.describe HykuAddons::ImportMode, type: :job do
   before do
     allow(Apartment::Tenant).to receive(:current).and_return("x")
     allow(Account).to receive(:find_by).with(tenant: "x").and_return(account)

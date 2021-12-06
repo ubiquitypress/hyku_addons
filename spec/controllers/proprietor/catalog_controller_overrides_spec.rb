@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe CatalogController do
+RSpec.describe CatalogController, type: :controller do
   describe "GET /oai" do
     before do
       allow(Flipflop).to receive(:enabled?).with(:oai_endpoint).and_return(oai_enabled)

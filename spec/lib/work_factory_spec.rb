@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe HykuAddons::WorkFactory do
   WebMock.allow_net_connect!
-  let(:work) { create(:work) }
-  let(:account) { build(:account) }
+  let(:work) { build_stubbed(:work) }
+  let(:account) { build_stubbed(:account) }
 
   before do
     Rails.application.routes.default_url_options[:host] = "localhost:3000"

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe HykuAddons::SimplifiedDepositFormHelper do
+RSpec.describe HykuAddons::SimplifiedDepositFormHelper, type: :helper do
   include Devise::Test::ControllerHelpers
   let(:helper) { _view }
 

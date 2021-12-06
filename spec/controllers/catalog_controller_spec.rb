@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe CatalogController, clean: true do
-  let!(:work) { PacificArticle.create(title: ["Test"], official_link: official_link, doi_status_when_public: doi_status) }
-  let!(:file_set) { create(:file_set, visibility: file_visibility) }
+RSpec.describe CatalogController, clean: true, type: :controller do
+  let!(:work) { PacificArticle.new(title: ["Test"], official_link: official_link, doi_status_when_public: doi_status) }
+  let(:file_set) { create(:file_set, visibility: file_visibility) }
+  let(:user) { create(:admin) }
   let(:official_link) { nil }
   let(:doi_status) { nil }
   let(:file_visibility) { "restricted" }
@@ -12,7 +13,7 @@ RSpec.describe CatalogController, clean: true do
     work.ordered_members << file_set
     work.save!
 
-    sign_in create(:admin)
+    sign_in user
   end
 
   describe "file availability facet" do

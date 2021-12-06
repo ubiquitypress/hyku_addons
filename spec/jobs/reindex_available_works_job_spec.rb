@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe HykuAddons::ReindexAvailableWorksJob do
+RSpec.describe HykuAddons::ReindexAvailableWorksJob, type: :job do
   let(:account) { create(:account) }
-  let(:work) { create(:work) }
+  let(:work) { build_stubbed(:work) }
   let(:site) { instance_double(Site) }
 
   before do

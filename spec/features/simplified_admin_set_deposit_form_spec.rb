@@ -83,8 +83,8 @@ RSpec.feature "Simplfied AdminSet deposit form", js: true do
       create(:work, params)
     end
     let(:manager) { create(:user) }
-    let(:depositor) { create(:user) }
-    let(:admin_set) { FactoryBot.create(:admin_set, title: ["Private Admin Set"]) }
+    let(:depositor) { build_stubbed(:user) }
+    let(:admin_set) { create(:admin_set, title: ["Private Admin Set"]) }
     let(:permission_template) do
       options = {
         source_id: admin_set.id,

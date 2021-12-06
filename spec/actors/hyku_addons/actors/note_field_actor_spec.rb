@@ -7,7 +7,7 @@ RSpec.describe HykuAddons::Actors::NoteFieldActor do
   let(:attributes) { {} }
   let(:user) { build(:user) }
   let(:ability) { ::Ability.new(user) }
-  let(:work) { create(:generic_work) }
+  let(:work) { build(:generic_work) }
   let(:env_class) { Hyrax::Actors::Environment }
   let(:env) { env_class.new(work, ability, attributes) }
   let(:terminator) { Hyrax::Actors::Terminator.new }
