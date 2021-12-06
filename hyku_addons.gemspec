@@ -48,6 +48,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'ammeter'
   spec.add_development_dependency "bixby"
+  spec.add_development_dependency 'bootsnap'
   spec.add_development_dependency 'capybara'
   spec.add_development_dependency "pg"
   spec.add_development_dependency "rspec-rails"
