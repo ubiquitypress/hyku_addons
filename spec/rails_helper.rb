@@ -140,9 +140,7 @@ RSpec.configure do |config|
     clear_enqueued_jobs
   end
 
-  unless ENV['CI']
-    config.filter_run_excluding :slow => true
-  end
+  config.filter_run_excluding slow: true unless ENV['CI']
 
   # Add support for conditional execution of specs
   config.include OptionalExample
