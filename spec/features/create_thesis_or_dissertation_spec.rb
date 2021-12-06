@@ -2,7 +2,7 @@
 # Generated via
 #  `rails generate hyrax:work ThesisOrDissertation`
 require "rails_helper"
-require File.expand_path("../helpers/create_work_user_context", __dir__)
+require File.expand_path("../support/shared_contexts/create_work_user_context", __dir__)
 
 include Warden::Test::Helpers
 

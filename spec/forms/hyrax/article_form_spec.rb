@@ -2,7 +2,7 @@
 # Generated via
 #  `rails generate hyrax:work Article`
 require "rails_helper"
-require File.expand_path("../../helpers/work_forms_context", __dir__)
+require File.expand_path("../../support/shared_contexts/work_forms_context", __dir__)
 
 RSpec.describe Hyrax::ArticleForm do
   include_context "work forms context" do

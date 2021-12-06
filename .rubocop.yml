@@ -2,6 +2,7 @@ inherit_gem:
   bixby: bixby_default.yml
 
 AllCops:
+  UseCache: true
   TargetRubyVersion: 2.5
   DisplayCopNames: true
   Exclude:
