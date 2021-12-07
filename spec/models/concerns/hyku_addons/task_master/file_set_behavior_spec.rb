@@ -3,9 +3,9 @@
 require "spec_helper"
 
 RSpec.describe HykuAddons::TaskMaster::FileSetBehavior, type: :model do
-  subject(:file_set) { build_stubbed(:file_set, user: user, title: ["A Contained PDF FileSet"], label: "filename.pdf") }
+  subject(:file_set) { create(:file_set, user: user, title: ["A Contained PDF FileSet"], label: "filename.pdf") }
   let(:user) { build_stubbed(:user) }
-  let(:work) { build_stubbed(:task_master_work) }
+  let(:work) { create(:task_master_work) }
   let(:account) { build_stubbed(:account) }
   let(:site) { Site.new(account: account) }
 
