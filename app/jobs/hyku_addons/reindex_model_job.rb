@@ -13,7 +13,7 @@ module HykuAddons
 
     # rubocop:disable Metrics/MethodLength
     def perform(klass, cname, limit: 25, page: 1, options: {})
-      options ||= options || { cname_doi_mint: [], use_work_ids: [] }
+      options = options.presence || { cname_doi_mint: [], use_work_ids: [] }
       # for whatever in private methods reason without assigning it to instamce variable it throws undefined local variable
       @cname_doi_mint = options[:cname_doi_mint]
       @use_work_ids = options[:use_work_ids]
