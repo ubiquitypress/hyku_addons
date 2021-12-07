@@ -258,8 +258,7 @@ Tests are run automatically on CircleCI with rubocop and codeclimate.  These tes
 To run the tests locally inside docker run:
 
 ```bash
-docker-compose exec web /bin/bash
-bundle exec rspec
+docker-compose exec web bin/rspec
 ```
 
 To run the tests locally outside of docker do the following with each line in its own shell from the root of the engine:
