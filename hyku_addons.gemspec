@@ -41,6 +41,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'postrank-uri', '>= 1.0.24'
   spec.add_dependency 'public_suffix', '~> 2.0.2'
   spec.add_dependency 'lograge'
+  spec.add_dependency 'devise-i18n', '~> 1.10.0'
+  spec.add_dependency 'devise-guests', '<= 0.7.0'
   # Added for shared search nested attributes
   spec.add_dependency 'cocoon', '~> 1.2', '>= 1.2.9'
 

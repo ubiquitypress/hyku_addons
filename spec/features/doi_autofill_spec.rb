@@ -9,7 +9,7 @@ RSpec.describe "autofilling the form from DOI", js: true do
     {
       "Accept" => "text/html,application/json,application/xml;q=0.9, text/plain;q=0.8,image/png,*/*;q=0.5",
       "Accept-Encoding" => "gzip,deflate",
-      "User-Agent" => "Mozilla/5.0 (compatible; Maremma/4.9.5; mailto:info@datacite.org)",
+      "User-Agent" => "Mozilla/5.0 (compatible; Maremma/4.9.6; mailto:info@datacite.org)",
       "Host" => "doi.org"
     }
   end
