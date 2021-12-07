@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-# call with
 #  use_work_ids an array is just for testing a few ids
-# HykuAddons::ReindexModelJob.perform_now("GenericWork", "repo.hyku.docker", limit: 1, options: { cname_doi_mint: ["repo.hyku.docker"], use_work_ids: ["15b3c16b-8183-4d2a-86ef-d144176fa0c8"]} )
-#
-# HykuAddons::ReindexAvailableWorksJob.perform_later(["repo.hyku.docker"], options: { cname_doi_mint: ["repo.hyku.docker"]} )
+#  HykuAddons::ReindexModelJob.perform_now("GenericWork", "repo.hyku.docker", limit: 1, options: { cname_doi_mint: ["repo.hyku.docker"], use_work_ids: ["15b3c16b-8183-4d2a-86ef-d144176fa0c8"]} )
+#  HykuAddons::ReindexAvailableWorksJob.perform_later(["repo.hyku.docker"], options: { cname_doi_mint: ["repo.hyku.docker"]} )
 
 module HykuAddons
   class ReindexModelJob < ApplicationJob
@@ -13,6 +11,7 @@ module HykuAddons
       retry_job(wait: 5.minutes)
     end
 
+    # rubocop:disable Metrics/MethodLength
     def perform(klass, cname, limit: 25, page: 1, options: {})
       options ||= options || { cname_doi_mint: [], use_work_ids: [] }
       # for whatever in private methods reason without assigning it to instamce variable it throws undefined local variable
@@ -23,17 +22,21 @@ module HykuAddons
       @page = page
       @klass = klass
       AccountElevator.switch!(cname)
-
       offset = (page - 1) * @limit
       work_class = klass.constantize
-      fetch_work_using_ids(work_class) if @use_work_ids.present?
-      reindex_and_mint_work(work_class, offset) unless @use_work_ids.present?
+
+      if @use_work_ids.present?
+        fetch_work_using_ids(work_class)
+      else
+        reindex_and_mint_work(work_class, offset)
+      end
     end
 
     private
 
       def mint_doi(work)
         return if work.doi.present?
+
         Rails.logger.debug "=== about to mint doi for #{work.title} ==== "
         work.update(doi_status_when_public: "findable")
         register_doi = Hyrax::DOI::DataCiteRegistrar.new.register!(object: work)

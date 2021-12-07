@@ -3,14 +3,12 @@
 RSpec.describe HykuAddons::ReindexModelJob do
   let(:account) { create(:account, cname: cname) }
   let(:work) { create(:work, doi: []) }
-  let(:second_work) { create(:work, title: ["another work"], doi: []) }
   let(:prefix) { "10.1234" }
   let(:cname) { "123abc" }
   let(:response_body) { File.read(HykuAddons::Engine.root.join("spec", "fixtures", "doi", "mint_doi_return_body.json")) }
   let(:options) { { cname_doi_mint: [account.cname], use_work_ids: [work.id] } }
 
   before do
-    GenericWork.all.map(&:destroy)
     Hyrax::DOI::DataCiteRegistrar.username = "username"
     Hyrax::DOI::DataCiteRegistrar.password = "password"
     Hyrax::DOI::DataCiteRegistrar.prefix = prefix
@@ -30,9 +28,7 @@ RSpec.describe HykuAddons::ReindexModelJob do
   end
 
   it "sets doi_status_when_public to findable" do
-    expect(work.doi).to be_empty
     described_class.perform_now(work.class.to_s, account.cname, limit: 1, options: options)
-    work.reload
-    expect(work.doi_status_when_public).to eq "findable"
+    expect(work.reload.doi_status_when_public).to eq "findable"
   end
 end
