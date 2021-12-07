@@ -16,11 +16,10 @@ namespace :hyku_addons do
 
         pages.times do |page|
           work_type.limit(per_page).offset(page * per_page).each do |work|
-            work.file_sets.each do |file_set|
-              next unless file_set.mime_type.match?(/^(.)+\/pdf$/)
+            next if work.thumbnail.blank?
+            next unless work.thumbnail.mime_type.match?(/^(.)+\/pdf$/)
 
-              CreateDerivativesJob.set(wait: rand(3600)).perform_later(file_set, file_set.original_file.id)
-            end
+            CreateDerivativesJob.set(wait: rand(3600)).perform_later(work.thumbnail, work.thumbnail.original_file.id)
           end
 
           sleep(10) # Don't kill Fedora
