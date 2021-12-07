@@ -32,20 +32,8 @@ module HykuAddons
 
     private
 
-      def reindex_works(works)
-        works.each do |work|
-          mint_doi(work) if @cname_doi_mint.present? && @cname_doi_mint.include?(@cname)
-
-          # We have temporarily replaced work.update_index with a  save to kill two birds with
-          # one stone, as in re_index and also update member_of_collections_ssim to store
-          # collection names instead of id caused by wrong bulkrax import
-          work.save
-        end
-      end
-
       def mint_doi(work)
         return if work.doi.present?
-
         Rails.logger.debug "=== about to mint doi for #{work.title} ==== "
         work.update(doi_status_when_public: "findable")
         register_doi = Hyrax::DOI::DataCiteRegistrar.new.register!(object: work)
@@ -61,10 +49,21 @@ module HykuAddons
         end
       end
 
+      def reindex_works(works)
+        works.each do |work|
+          mint_doi(work) if @cname_doi_mint.present? && @cname_doi_mint.include?(@cname)
+
+          # We have temporarily replaced work.update_index with a  save to kill two birds with
+          # one stone, as in re_index and also update member_of_collections_ssim to store
+          # collection names instead of id caused by wrong bulkrax import
+          work.save
+        end
+      end
+
       # When the offset becomes too large, no records would be found
       def reindex_and_mint_work(work_class, offset)
-        works = work_class.where("title_tesim:*").limit(@limit).offset(offset)
-        return unless works&.to_a&.any?
+        works = work_class.where("title_tesim:*").limit(@limit).offset(offset)&.to_a
+        return unless works&.any?
 
         Rails.logger.debug "=== Starting to reindex #{@klass} in #{@cname} ==="
 
