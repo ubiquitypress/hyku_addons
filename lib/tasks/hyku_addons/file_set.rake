@@ -16,8 +16,7 @@ namespace :hyku_addons do
 
         pages.times do |page|
           work_type.limit(per_page).offset(page * per_page).each do |work|
-            next if work.thumbnail.blank?
-            next unless work.thumbnail.mime_type.match?(/^(.)+\/pdf$/)
+            next if work.thumbnail.blank? || work.thumbnail.mime_type !~ /^(.)+\/pdf$/
 
             CreateDerivativesJob.set(wait: rand(3600)).perform_later(work.thumbnail, work.thumbnail.original_file.id)
           end
