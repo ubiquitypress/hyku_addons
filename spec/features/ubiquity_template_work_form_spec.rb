@@ -369,9 +369,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_text_field(:rights_statement_text, rights_statement_text)
       fill_in_multiple_text_fields(:qualification_subject_text, qualification_subject_text)
       fill_in_select(:georeferenced, georeferenced_options.map { |h| h["label"] }.first)
-
-      click_link "Files"
-      fill_in_files
     end
 
     describe "submitting the form" do
