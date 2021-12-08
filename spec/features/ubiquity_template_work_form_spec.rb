@@ -153,8 +153,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
     [
       {
         current_he_institution_name: current_he_institution_element["label"],
-        current_he_institution_ror: current_he_institution_service.select_active_options_ror[current_he_institution_index],
-        current_he_institution_isni: current_he_institution_service.select_active_options_isni[current_he_institution_index]
+        current_he_institution_ror: current_he_institution_service.select_active_options_ror[current_he_institution_index].to_s,
+        current_he_institution_isni: current_he_institution_service.select_active_options_isni[current_he_institution_index].to_s
       }
     ]
   end
