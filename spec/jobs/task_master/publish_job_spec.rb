@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe HykuAddons::TaskMaster::PublishJob do
+RSpec.describe HykuAddons::TaskMaster::PublishJob, type: :job do
   let(:work) { create(:work) }
   let(:service_class) { HykuAddons::TaskMaster::PublishService }
   let(:service) { service_class.new(type, action, json) }
@@ -17,8 +17,6 @@ RSpec.describe HykuAddons::TaskMaster::PublishJob do
   end
 
   describe ".perform_later" do
-    before { ActiveJob::Base.queue_adapter = :test }
-
     it "enqueues the job" do
       expect { described_class.perform_later(type, action, json) }
         .to enqueue_job(described_class)

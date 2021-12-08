@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Hyrax::ContactMailer, clean: true, multitenant: true do
+RSpec.describe Hyrax::ContactMailer, clean: true, multitenant: true, type: :mailer do
   let(:contact_form) do
     Hyrax::ContactForm.new(
       email: "test@example.com",

@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe NilDataCiteEndpoint do
+RSpec.describe NilDataCiteEndpoint, type: :model do
   let(:instance) { described_class.new }
 
   describe "#ping" do

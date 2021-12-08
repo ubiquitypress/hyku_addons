@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require "rails_helper"
-require File.expand_path("../helpers/create_ubiquity_template_user_context", __dir__)
+require File.expand_path("../support/shared_contexts/create_ubiquity_template_user_context", __dir__)
 
 include Warden::Test::Helpers
 
