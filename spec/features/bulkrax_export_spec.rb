@@ -6,9 +6,7 @@ RSpec.describe "Bulkrax export", clean: true, type: :feature, slow: true do
   let(:user) { create(:user, email: "test@example.com") }
   # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
   let!(:depositor) { build_stubbed(:user, email: "batchuser@example.com") }
-
   let(:export_source) { work.class.to_s }
-  let(:limit) { 0 }
 
   let(:exporter) do
     create(:bulkrax_exporter_worktype,
@@ -16,14 +14,10 @@ RSpec.describe "Bulkrax export", clean: true, type: :feature, slow: true do
            field_mapping: Bulkrax.field_mappings["HykuAddons::CsvParser"],
            parser_klass: "HykuAddons::CsvParser",
            export_source: export_source,
-           limit: limit)
+           limit: 0)
   end
 
   let(:account) { build_stubbed(:account) }
-
-  after do
-    # TODO: cleanup export files and path
-  end
 
   describe "export job" do
     let(:work) { create(:fully_described_work, user: depositor.email) }
