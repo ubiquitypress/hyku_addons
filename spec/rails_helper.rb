@@ -142,7 +142,13 @@ RSpec.configure do |config|
 
   unless ENV['CI']
     config.filter_run_excluding slow: true
-    config.filter_run_excluding customer: true
+    config.filter_run_excluding anschutz: true
+    config.filter_run_excluding denver: true
+    config.filter_run_excluding nsu: true
+    config.filter_run_excluding pacific: true
+    config.filter_run_excluding redlands: true
+    config.filter_run_excluding una: true
+    config.filter_run_excluding uva: true
   end
 
   # Add support for conditional execution of specs
