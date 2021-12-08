@@ -19,7 +19,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   end
   # The organisation option changes depending on the local, so we need to use this to ensure we select the right one
   let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
-
   let(:title) { "Ubiquity Template Work Item" }
   let(:alt_title) { ["Alt Title 1", "Alt Title 2"] }
   let(:creator) do
@@ -384,8 +383,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
 
       it "redirects to the work show page" do
         # Ensure the basic data is being prenented and we're on the right page
-        expect(page).to have_selector("h1", text: work_type.titleize, wait: 5)
-        expect(page).to have_selector("h2", text: title, wait: 5)
+        expect(page).to have_selector("h1", text: work_type.titleize, wait: 10)
+        expect(page).to have_selector("h2", text: title, wait: 10)
         expect(page).to have_selector("span", text: "Public")
         expect(page).to have_content("Your files are being processed by Hyku in the background.")
 
