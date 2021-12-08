@@ -155,8 +155,8 @@ RSpec.feature "Create a UvaWork", js: true do
 
       it "redirects to the work show page" do
         # Ensure the basic data is being prenented and we're on the right page
-        expect(page).to have_selector("h1", text: work_type.titleize, wait: 10)
-        expect(page).to have_selector("h2", text: title, wait: 10)
+        expect(page).to have_selector("h1", text: work_type.titleize, wait: 20)
+        expect(page).to have_selector("h2", text: title, wait: 20)
         expect(page).to have_selector("span", text: "Public")
         expect(page).to have_content("Your files are being processed by Hyku in the background.")
 
