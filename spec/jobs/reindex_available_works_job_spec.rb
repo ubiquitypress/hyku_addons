@@ -16,11 +16,14 @@ RSpec.describe HykuAddons::ReindexAvailableWorksJob do
     Apartment::Tenant.switch!(account.tenant) { work }
   end
 
-  it "#perform_later can enqueue available works job" do
-    expect { described_class.perform_later([account.cname]) }.to have_enqueued_job(described_class)
+  it "can enqueue job with correct parameters" do
+    expect { described_class.perform_later([account.cname]) }.to have_enqueued_job(described_class).with([account.cname])
   end
 
-  it "#perform_now will enqueue each model for reindex" do
-    expect { described_class.perform_now([account.cname]) }.to have_enqueued_job(HykuAddons::ReindexModelJob).at_least(:once)
+  it "can enqueue ReindexModelJob with correct paramters" do
+    expect do
+      described_class.perform_now([account.cname], cname_doi_mint: [account.cname])
+    end.to have_enqueued_job(HykuAddons::ReindexModelJob).at_least(:once)
+                                                         .with(work.class.to_s, account.cname, options: { cname_doi_mint: [account.cname] })
   end
 end
