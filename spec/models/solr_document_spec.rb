@@ -3,7 +3,7 @@
 require "spec_helper"
 require "hyrax/doi/spec/shared_specs"
 
-RSpec.describe SolrDocument do
+RSpec.describe SolrDocument, type: :model do
   let(:document) { described_class.new }
   let(:additional_properties) do
     [

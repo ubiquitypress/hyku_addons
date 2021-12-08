@@ -2,12 +2,11 @@
 
 require "spec_helper"
 
-RSpec.describe HykuAddons::TaskMaster::AccountBehavior do
+RSpec.describe HykuAddons::TaskMaster::AccountBehavior, type: :model do
   subject(:account) { model_class.new(name: "example", tenant: tenant, cname: cname) }
   let(:tenant) { SecureRandom.uuid }
   let(:cname) { "example.com" }
   let(:model_class) do
-    # rubocop:disable RSpec/DescribedClass
     Account.class_eval do
       include HykuAddons::TaskMaster::AccountBehavior
     end
@@ -17,8 +16,6 @@ RSpec.describe HykuAddons::TaskMaster::AccountBehavior do
   let(:flipflop_enabled) { true }
 
   before do
-    ActiveJob::Base.queue_adapter = :test
-
     allow(Flipflop).to receive(:enabled?).and_call_original
     allow(Flipflop).to receive(:enabled?).with(flipflop_name).and_return(flipflop_enabled)
   end
@@ -116,7 +113,7 @@ RSpec.describe HykuAddons::TaskMaster::AccountBehavior do
         end
 
         it "creates a job" do
-          expect { account.save }.not_to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
+          expect { account.destroy }.not_to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)
         end
       end
     end

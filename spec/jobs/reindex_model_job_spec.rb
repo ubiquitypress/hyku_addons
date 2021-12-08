@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe HykuAddons::ReindexModelJob do
+RSpec.describe HykuAddons::ReindexModelJob, type: :job do
   let(:account) { create(:account, cname: cname) }
   let(:work) { create(:work, doi: []) }
   let(:prefix) { "10.1234" }

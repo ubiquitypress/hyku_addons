@@ -3,7 +3,7 @@
 require "spec_helper"
 require "hyrax/doi/spec/shared_specs"
 
-RSpec.describe GenericWork do
+RSpec.describe GenericWork, type: :model do
   let(:work) { described_class.new }
   let(:fully_described_work) { build(:fully_described_work) }
 
