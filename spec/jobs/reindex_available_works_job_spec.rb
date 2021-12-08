@@ -2,7 +2,7 @@
 
 RSpec.describe HykuAddons::ReindexAvailableWorksJob, type: :job do
   let(:account) { create(:account) }
-  let(:work) { build_stubbed(:work) }
+  let(:work) { create(:work) }
   let(:site) { instance_double(Site) }
 
   before do
