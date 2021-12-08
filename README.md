@@ -268,13 +268,6 @@ Use the following command to run them locally:
 docker-compose exec web bin/rspec --tag @slow
 ```
 
-There are also very slow running feature tests which are specific to some customers.  To run these use the following command, 
-where `customer_name` is the name of the particular customer's tests you would like to run
-
-```bash
-docker-compose exec web bin/rspec --tag @customer_name
-```
-
 To run the tests locally outside of docker do the following with each line in its own shell from the root of the engine:
 
 ```bash
