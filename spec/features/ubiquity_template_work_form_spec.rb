@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require HykuAddons::Engine.root.join("spec", "helpers", "fill_in_fields.rb").to_s
-require HykuAddons::Engine.root.join("spec", "helpers", "work_form_helpers.rb").to_s
+require HykuAddons::Engine.root.join("spec", "support", "fill_in_fields.rb").to_s
+require HykuAddons::Engine.root.join("spec", "support", "work_form_helpers.rb").to_s
 
 RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:work_type) { "ubiquity_template_work" }
