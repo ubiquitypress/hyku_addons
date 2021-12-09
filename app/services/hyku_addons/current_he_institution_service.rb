@@ -16,10 +16,10 @@ module HykuAddons
 
     protected
 
-    # This method accesses a private method on the authority which returns the raw yaml data as an array of hashes
-    # without removing elements. This means we can increase the speed with which we get different sets of keys
-    def quick_active_elements
-      authority.send(:terms).select { |a| a["active"] == true }
-    end
+      # This method accesses a private method on the authority which returns the raw yaml data as an array of hashes
+      # without removing elements. This means we can increase the speed with which we get different sets of keys
+      def quick_active_elements
+        authority.send(:terms).select { |a| a["active"] == true }
+      end
   end
 end
