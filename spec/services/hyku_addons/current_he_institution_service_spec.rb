@@ -4,19 +4,10 @@ require "rails_helper"
 RSpec.describe HykuAddons::CurrentHeInstitutionService do
   subject(:authority) { described_class.new(model: model) }
   let(:model) { UbiquityTemplateWork }
-
-  let(:account) { build(:account, name: "tenant") }
-  let(:site) { Site.new(account: account) }
+  let(:fixtures_path) { HykuAddons::Engine.root.join("spec", "fixtures", "yaml").to_s }
 
   before do
-    allow(Site).to receive(:instance).and_return(site)
-
-    # Override the path/filename to use our fixture
-    Qa::Authorities::Local::FileBasedAuthority.class_eval do
-      def subauthority_filename
-        File.join(HykuAddons::Engine.root.join("spec", "fixtures", "yaml"), "#{subauthority}.yml")
-      end
-    end
+    allow(Qa::Authorities::Local).to receive(:subauthorities_path).and_return(fixtures_path)
   end
 
   describe "#select_active_options_isni" do
