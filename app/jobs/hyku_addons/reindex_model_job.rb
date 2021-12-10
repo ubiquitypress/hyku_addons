@@ -35,13 +35,17 @@ module HykuAddons
     private
 
       def mint_doi(work)
-        return if work.doi.present? || work.visibility != "open" || workflow_state(work)&.workflow_state_name != "deposited"
+        return if can_mint_for?(work)
 
         Rails.logger.debug "=== about to mint doi for #{work.title} ==== "
 
         work.update(doi_status_when_public: "findable")
         register_doi = Hyrax::DOI::DataCiteRegistrar.new.register!(object: work)
         work.update(doi: [register_doi.identifier])
+      end
+
+      def can_mint_for?(work)
+        work.doi.present? || work.visibility != "open" || workflow_state(work)&.workflow_state_name != "deposited"
       end
 
       def workflow_state(work)

@@ -16,6 +16,7 @@ RSpec.describe HykuAddons::ReindexModelJob, type: :job do
   let(:permission_template) { instance_double(Hyrax::PermissionTemplate, id: random_id) }
   let(:sipity_workflow_state) { instance_double(Sipity::WorkflowState, id: random_id, workflow: workflow, name: "deposited") }
   let(:object) { OpenStruct.new(to_sipity_entity: sipity_entity, workflow_state_name: "deposited") }
+  let(:sipity_entity) { instance_double(Sipity::Entity, proxy_for_global_id: gid, workflow_id: workflow.id, workflow_state: sipity_workflow_state) }
 
   before do
     Hyrax::DOI::DataCiteRegistrar.username = "username"
@@ -41,7 +42,7 @@ RSpec.describe HykuAddons::ReindexModelJob, type: :job do
   end
 
   context "mint doi" do
-    let(:sipity_entity) { instance_double(Sipity::Entity, proxy_for_global_id: "gid://hyku/#{work.class}/#{work.id}", workflow_id: workflow.id, workflow_state: sipity_workflow_state) }
+    let(:gid) { "gid://hyku/#{work.class}/#{work.id}" }
 
     it "when work visibility is public & doi is not present" do
       allow(Sipity::Entity).to receive(:find_by) { object }
@@ -51,7 +52,7 @@ RSpec.describe HykuAddons::ReindexModelJob, type: :job do
   end
 
   context "skip doi minting" do
-    let(:sipity_entity) { instance_double(Sipity::Entity, proxy_for_global_id: "gid://hyku/#{pending_review_work.class}/#{pending_review_work.id}", workflow_id: workflow.id, workflow_state: sipity_workflow_state) }
+    let(:gid) { "gid://hyku/#{pending_review_work.class}/#{pending_review_work.id}" }
 
     it "when work is private" do
       options[:use_work_ids] = [private_work.id]
