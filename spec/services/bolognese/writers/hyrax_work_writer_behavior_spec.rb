@@ -33,7 +33,7 @@ RSpec.describe Bolognese::Writers::HyraxWorkWriterBehavior do
       creator: [[creator].to_json],
       contributor: [[contributor].to_json],
       resource_type: [resource_type, ""],
-      title: [title],
+      title: [title]
     }
   end
   let(:work) { GenericWork.new(attributes) }
@@ -45,9 +45,9 @@ RSpec.describe Bolognese::Writers::HyraxWorkWriterBehavior do
     context "when a personal creator is present" do
       it "returns the correct result" do
         creator_result = [{
-          "name"=>"#{creator_last_name}, #{creator_first_name}",
-          "givenName"=>"#{creator_first_name}",
-          "familyName"=>"#{creator_last_name}",
+          "name" => "#{creator_last_name}, #{creator_first_name}",
+          "givenName" => creator_first_name.to_s,
+          "familyName" => creator_last_name.to_s,
           "nameIdentifiers" => [{ "nameIdentifier" => "https://sandbox.orcid.org/#{creator_orcid}", "nameIdentifierScheme" => "orcid" }]
         }]
         expect(meta.creators).to eq(creator_result)
@@ -74,9 +74,9 @@ RSpec.describe Bolognese::Writers::HyraxWorkWriterBehavior do
     context "when a personal contributor is present" do
       it "returns the correct result" do
         contributor_result = [{
-          "name"=>"#{contributor_last_name}, #{contributor_first_name}",
-          "givenName"=>"#{contributor_first_name}",
-          "familyName"=>"#{contributor_last_name}",
+          "name" => "#{contributor_last_name}, #{contributor_first_name}",
+          "givenName" => contributor_first_name.to_s,
+          "familyName" => contributor_last_name.to_s,
           "nameIdentifiers" => [{ "nameIdentifier" => "https://orcid.org/#{contributor_orcid}", "nameIdentifierScheme" => "orcid" }]
         }]
         expect(meta.contributors).to eq(contributor_result)
