@@ -12,4 +12,6 @@ HykuAddons::Engine.routes.draw do
   get "/api/v1/tenant/:tenant_id/files/:id/download", to: "/hyku/api/v1/files#download"
 
   get "/importers/:id/validation", to: "/hyku_addons/importer_validations#show", as: :importer_validation
+
+  get "/pdf_viewer(/:download_id)", to: "/hyku_addons/pdf_viewer#pdf", as: :pdf_viewer
 end
