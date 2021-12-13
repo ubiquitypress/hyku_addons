@@ -30,8 +30,6 @@ RSpec.describe Hyku::API::V1::CollectionController, type: :request, clean: true,
   context "when repository has content" do
     let(:collection_branding_info) { class_double("CollectionBrandingInfo") }
     let(:json_response) { JSON.parse(response.body) }
-    let(:banner_url) { json_response.dig("collection_banner_url") || "" }
-    let(:collection_banner_url) { URI.parse(banner_url) }
 
     before do
       allow(CollectionBrandingInfo).to receive(:where).with(collection_id: collection.id) { collection_branding_list }
