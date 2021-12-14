@@ -20,7 +20,7 @@ RSpec.describe HykuAddons::ReindexAvailableWorksJob, type: :job do
     expect { described_class.perform_later([account.cname]) }.to have_enqueued_job(described_class).with([account.cname])
   end
 
-  it "can enqueue ReindexModelJob with correct paramters" do
+  it "can enqueue ReindexModelJob with correct parameters" do
     expect do
       described_class.perform_now([account.cname], cname_doi_mint: [account.cname])
     end.to have_enqueued_job(HykuAddons::ReindexModelJob).at_least(:once)
