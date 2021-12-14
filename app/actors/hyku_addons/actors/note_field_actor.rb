@@ -15,7 +15,7 @@ module HykuAddons
       private
 
         def serialize_note_field(env)
-          @email = env.user.email unless previous_note(env).empty?
+          @email = env.user.email if previous_note(env).present?
 
           env.attributes[:note] = previous_note(env).push(*next_note(env))
         end
@@ -25,11 +25,9 @@ module HykuAddons
         end
 
         def previous_note(env)
-          return [] unless env.attributes[:note].present?
+          return [] if env.attributes[:note].blank?
 
-          Array(
-            { email: email, timestamp: Time.zone.now.to_s, note: env.attributes[:note] }.to_json
-          )
+          [{ email: email, timestamp: Time.zone.now.to_s, note: env.attributes[:note] }.to_json]
         end
     end
   end
