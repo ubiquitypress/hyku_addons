@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Hyku::API::V1::UsersController, type: :request, clean: true, multitenant: true do
   let(:account) { create(:account) }
@@ -29,9 +29,9 @@ RSpec.describe Hyku::API::V1::UsersController, type: :request, clean: true, mult
       user3.save!
 
       get "/api/v1/tenant/#{account.tenant}/users"
-      expect(json_response['total']).to eq(2)
-      expect(json_response['items']).to include(a_hash_including("id" => user.id))
-      expect(json_response['items']).to include(a_hash_including("id" => user3.id))
+      expect(json_response["total"]).to eq(2)
+      expect(json_response["items"]).to include(a_hash_including("id" => user.id))
+      expect(json_response["items"]).to include(a_hash_including("id" => user3.id))
     end
   end
 
@@ -41,7 +41,7 @@ RSpec.describe Hyku::API::V1::UsersController, type: :request, clean: true, mult
     context "When user does not want to be publically avalible" do
       it "Does not display user json" do
         get "/api/v1/tenant/#{account.tenant}/users/#{user.email}"
-        expect(json_response).to include('message' => "This User is either private or not found")
+        expect(json_response).to include("message" => "This User is either private or not found")
       end
     end
 
