@@ -69,4 +69,14 @@ RSpec.describe HykuAddons::ReindexModelJob, type: :job do
       expect(pending_review_work.reload.doi_status_when_public).to be_nil
     end
   end
+
+  context "should requeue" do
+    it "self(ReindexModelJob) with valid parameters" do
+      new_options = options.slice(:cname_doi_mint)
+      expect do
+        described_class.perform_now(work.class.to_s, account.cname, limit: 1, options: new_options)
+      end.to have_enqueued_job(HykuAddons::ReindexModelJob).at_least(:once)
+                                                           .with(work.class.to_s, account.cname, limit: 1, page: 2, options: { cname_doi_mint: [account.cname] })
+    end
+  end
 end

@@ -13,10 +13,10 @@ module HykuAddons
 
     # rubocop:disable Metrics/MethodLength
     def perform(klass, cname, limit: 25, page: 1, options: {})
-      options = options.presence || { cname_doi_mint: [], use_work_ids: [] }
+      @options = options.presence || { cname_doi_mint: [], use_work_ids: [] }
       # for whatever in private methods reason without assigning it to instamce variable it throws undefined local variable
-      @cname_doi_mint = options[:cname_doi_mint]
-      @use_work_ids = options[:use_work_ids]
+      @cname_doi_mint = @options[:cname_doi_mint]
+      @use_work_ids = @options[:use_work_ids]
       @cname = cname
       @limit = limit
       @page = page
@@ -83,7 +83,7 @@ module HykuAddons
         reindex_works(works)
 
         # Re-enqueue
-        ReindexModelJob.perform_later(@klass, @cname, @limit, page: @page.to_i + 1, cname_doi_mint: @cname_doi_mint)
+        ReindexModelJob.perform_later(@klass, @cname, limit: @limit, page: @page.to_i + 1, options: @options)
         Rails.logger.debug "=== Completed reindex of #{@klass} in #{@cname} ==="
       end
   end
