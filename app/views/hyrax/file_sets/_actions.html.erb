@@ -1,4 +1,4 @@
-<% if can?(:edit, file_set.id) || can?(:destroy, file_set.id) || (Flipflop.enabled?(:annotation) && can?(:download, file_set.id)) %>
+<% if can?(:edit, file_set.id) || can?(:destroy, file_set.id) || Flipflop.enabled?(:annotation) && file_set.pdf? && can?(:download, file_set.id) %>
   <div class="btn-group">
     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button" id="dropdownMenu_<%= file_set.id %>" aria-haspopup="true" aria-expanded="false">
       <span class="sr-only"><%= t('.press_to') %> </span>
@@ -39,7 +39,7 @@
                       data: { label: file_set.id } %>
         </li>
 
-        <% if file_set.pdf? %>
+        <% if Flipflop.enabled?(:annotation) && file_set.pdf? %>
           <li role="menuitem" tabindex="-1">
             <%= link_to t('.read_and_annotate'), hyku_addons.pdf_viewer_path(hyrax.download_url(file_set.id).split('/')&.last&.split('?')&.first),  { title: 'Annotate', id: "file_read", target: "_blank" } %>
           </li>
@@ -47,10 +47,18 @@
       <% end %>
     </ul>
   </div>
+<% elsif Flipflop.enabled?(:annotation) && file_set.pdf? %>
+  <%= link_to t('.read_and_annotate'), 
+  hyku_addons.pdf_viewer_path(hyrax.download_url(file_set.id).split('/')&.last&.split('?')&.first),  
+  title: 'Annotate', 
+  id: "file_read", 
+  target: "_blank",
+  class: 'btn btn-default btn-sm' %>
 <% elsif can?(:download, file_set.id) %>
   <%= link_to t('.download'),
     hyrax.download_path(file_set),
     title: t('.download_title', file_set: file_set),
+    class: 'btn btn-default btn-sm',
     target: "_blank",
     id: "file_download",
     data: { label: file_set.id } %>

@@ -98,12 +98,47 @@ RSpec.describe "hyrax/file_sets/_actions.html.erb", type: :view do
   end
 
   context "with no permission" do
-    before do
-      render "hyrax/file_sets/actions", file_set: file_set
+    context "with annotation disabled" do
+      before do
+        allow(Flipflop).to receive(:enabled?).with(:annotation).and_return(false)
+        allow(file_set).to receive(:pdf?).and_return(true)
+        render "hyrax/file_sets/actions", file_set: file_set
+      end
+
+      it "renders nothing" do
+        expect(rendered).to eq("")
+      end
     end
 
-    it "renders nothing" do
-      expect(rendered).to eq("")
+    context "with annotation enabled" do
+      before do
+        allow(Flipflop).to receive(:enabled?).with(:annotation).and_return(true)
+      end
+
+      context "when the file is a pdf" do
+        before do
+          allow(file_set).to receive(:pdf?).and_return(true)
+          render "hyrax/file_sets/actions", file_set: file_set
+        end
+
+        it "allows the user to read and annotate the file" do
+          render "hyrax/file_sets/actions", file_set: file_set
+
+          expect(rendered).to have_css("a#file_read")
+          expect(rendered).to have_selector("a[href=\"#{hyku_addons.pdf_viewer_path('file_set_id')}\"]")
+        end
+      end
+
+      context "when the file is a not pdf" do
+        before do
+          allow(file_set).to receive(:pdf?).and_return(false)
+          render "hyrax/file_sets/actions", file_set: file_set
+        end
+
+        it "renders nothing" do
+          expect(rendered).to eq("")
+        end
+      end
     end
   end
 end

@@ -11,7 +11,7 @@ RSpec.describe "::HykuAddons::PdfViewerController", type: :request, js: true do
   let(:pdf_path) { hyrax.download_url(file_set.id).split("/")&.last&.split("?")&.first }
 
   before do
-    login_as(user, scope: :user)
+    # This feature is accessible to all users, including those not logged in
 
     Site.update(account: account)
     allow(Apartment::Tenant).to receive(:switch).with(account.tenant) do |&block|
