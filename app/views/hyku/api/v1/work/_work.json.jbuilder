@@ -47,7 +47,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
     json.has_public_files work.file_set_presenters.any? { |fsp| fsp.solr_document.public? }
   end
 
-  funder = work.try(:solr_document)&.to_h&.dig('funder_tesim')
+  funder = work.try(:solr_document)&.to_h&.dig('funder_tesim').try(:first)
   json.funder funder.present? ? JSON.parse(funder) : []
 
   json.funder_project_ref work.try(:solr_document)&.to_h&.dig('fndr_project_ref_tesim')
