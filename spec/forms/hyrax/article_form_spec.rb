@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 # Generated via
 #  `rails generate hyrax:work Article`
-require 'rails_helper'
-require File.expand_path('../../helpers/work_forms_context', __dir__)
+require "rails_helper"
+require File.expand_path("../../support/shared_contexts/work_forms_context", __dir__)
 
 RSpec.describe Hyrax::ArticleForm do
-  include_context 'work forms context' do
+  include_context "work forms context" do
     describe "#required_fields" do
       subject { form.required_fields }
 
@@ -33,7 +33,7 @@ RSpec.describe Hyrax::ArticleForm do
         common_params
       end
 
-      it 'permits parameters' do
+      it "permits parameters" do
         check_common_fields_presence
       end
     end

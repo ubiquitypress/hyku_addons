@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Hyrax::PacificThesisOrDissertationsController, type: :controller do
-  let!(:work) { PacificThesisOrDissertation.create(title: ['Test'], visibility: "open") }
+  let!(:work) { PacificThesisOrDissertation.create(title: ["Test"], visibility: "open") }
 
   describe "responds to" do
     it "responds to html by default" do

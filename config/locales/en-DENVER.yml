@@ -1,4 +1,39 @@
 en-DENVER:
+  hyrax:
+    select_type:
+      denver_article:
+        name: Article
+        description: ""
+      denver_book:
+        name: Book
+        description: ""
+      denver_book_chapter:
+        name: Book Chapter
+        description: ""
+      denver_dataset:
+        name: Dataset
+        description: ""
+      denver_image:
+        name: Image
+        description: ""
+      denver_map:
+        name: Map
+        description: ""
+      denver_multimedia:
+        name: Multimedia
+        description: ""
+      denver_presentation_material:
+        name: Presentation Material
+        description: ""
+      denver_serial_publication:
+        name: Serial Publication
+        description: ""
+      denver_thesis_dissertation_capstone:
+        name: Thesis Dissertation Capstone
+        description: ""
+  work_type_modal:
+    admin_set:
+      title: Select Collection
   simple_form:
     creator:
       creator_name_type:
@@ -58,8 +93,6 @@ en-DENVER:
         label: Role
       contributor_grid:
         label: GRID
-      contributor_role:
-        label: Role
     editor:
       editor_family_name:
         label: Editor Last Name
@@ -78,7 +111,6 @@ en-DENVER:
         keyword: Keywords
         org_unit: Organisational Unit
         mesh: MeSH
-        language: Language(s)
         refereed: Peer reviewed?
         medium: Format(s)
         time: Coverage Span

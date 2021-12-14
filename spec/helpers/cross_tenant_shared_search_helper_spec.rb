@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe HykuAddons::CrossTenantSharedSearchHelper do
+RSpec.describe HykuAddons::CrossTenantSharedSearchHelper, type: :helper do
   include Devise::Test::ControllerHelpers
 
   let(:helper) { _view }
@@ -12,7 +12,7 @@ RSpec.describe HykuAddons::CrossTenantSharedSearchHelper do
   end
 
   describe "cross_tenant_shared_search_helper" do
-    context '#feature_for_display_in_proprietor_account_ui' do
+    context "#feature_for_display_in_proprietor_account_ui" do
       let(:proprietor_account_flipflop_features_list) { helper.feature_for_display_in_proprietor_account_ui }
 
       it "returns truthy" do
@@ -47,7 +47,7 @@ RSpec.describe HykuAddons::CrossTenantSharedSearchHelper do
 
       let(:uuid) { SecureRandom.uuid }
       let(:request) { instance_double(ActionDispatch::Request, port: 3000, protocol: "https://", host: account.cname) }
-      let(:attributes_hash) { { "id" => uuid, "has_model_ssim" => ['GenericWork'], "account_cname_tesim" => account.cname } }
+      let(:attributes_hash) { { "id" => uuid, "has_model_ssim" => ["GenericWork"], "account_cname_tesim" => account.cname } }
 
       it "returns #generate_work_url for production" do
         allow(Rails.env).to receive(:development?).and_return(false)

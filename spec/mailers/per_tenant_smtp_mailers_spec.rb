@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe Hyrax::ContactMailer, clean: true, multitenant: true do
+RSpec.describe Hyrax::ContactMailer, clean: true, multitenant: true, type: :mailer do
   let(:contact_form) do
     Hyrax::ContactForm.new(
-      email: 'test@example.com',
-      category: 'Test',
-      subject: 'Test',
-      name: 'Test Tester',
-      message: 'This is a test'
+      email: "test@example.com",
+      category: "Test",
+      subject: "Test",
+      name: "Test Tester",
+      message: "This is a test"
     )
   end
   let(:mail_from) { "test@test.edu" }
@@ -17,23 +17,23 @@ RSpec.describe Hyrax::ContactMailer, clean: true, multitenant: true do
   describe "reset_password_instructions" do
     context "with per tenant SMTP" do
       let(:account) do
-        Account.create(name: 'test', cname: 'test.lvh.me', locale_name: 'test',
+        Account.create(name: "test", cname: "test.lvh.me", locale_name: "test",
                        settings: { smtp_settings: smtp_settings })
       end
       let(:mail) { described_class.contact(contact_form) }
       let(:smtp_settings) do
         {
-          from: 'test@test.edu',
-          address: 'test.edu',
-          user_name: 'username',
-          password: 'password',
-          authentication: 'login',
-          domain: 'test.custom_domain.com'
+          from: "test@test.edu",
+          address: "test.edu",
+          user_name: "username",
+          password: "password",
+          authentication: "login",
+          domain: "test.custom_domain.com"
         }
       end
 
       before do
-        allow(Site).to receive(:contact_email).and_return('me@example.com')
+        allow(Site).to receive(:contact_email).and_return("me@example.com")
 
         Settings.instance_eval do
           def smtp_settings; end
@@ -70,18 +70,18 @@ RSpec.describe Hyrax::ContactMailer, clean: true, multitenant: true do
       context "with a custom from alias" do
         let(:smtp_settings) do
           {
-            from: 'test@test.edu',
-            from_alias: 'Me',
-            address: 'test.edu',
-            user_name: 'username',
-            password: 'password',
-            authentication: 'login',
-            domain: 'test.custom_domain.com'
+            from: "test@test.edu",
+            from_alias: "Me",
+            address: "test.edu",
+            user_name: "username",
+            password: "password",
+            authentication: "login",
+            domain: "test.custom_domain.com"
           }
         end
 
         it "replaces the email headers" do
-          from_field = mail.header.fields.select { |f| f.name == 'From' }.first
+          from_field = mail.header.fields.select { |f| f.name == "From" }.first
           expect(from_field.value).to eq "Me <test@test.edu>"
         end
       end

@@ -2,34 +2,31 @@
 
 require "rails_helper"
 
-RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
+RSpec.describe "Bulkrax export", clean: true, type: :feature, slow: true do
   let(:user) { create(:user, email: "test@example.com") }
   # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
-  let!(:depositor) { create(:user, email: "batchuser@example.com") }
+  let!(:depositor) { build_stubbed(:user, email: "batchuser@example.com") }
+  let(:export_source) { work.class.to_s }
+
   let(:exporter) do
     create(:bulkrax_exporter_worktype,
            user: user,
            field_mapping: Bulkrax.field_mappings["HykuAddons::CsvParser"],
            parser_klass: "HykuAddons::CsvParser",
-           export_source: work.class.to_s,
+           export_source: export_source,
            limit: 0)
   end
-  let(:work) { create(:fully_described_work, user: depositor.email) }
-  let(:account) { create(:account) }
 
-  before do
-    # Make sure default admin set exists
-    AdminSet.find_or_create_default_admin_set_id
-  end
-
-  after do
-    # TODO: cleanup export files and path
-  end
+  let(:account) { build_stubbed(:account) }
 
   describe "export job" do
+    let(:work) { create(:fully_described_work, user: depositor.email) }
+
     before do
       work
-      Bulkrax::ExporterJob.perform_now(exporter.id)
+      perform_enqueued_jobs(only: Bulkrax::ExporterJob) do
+        Bulkrax::ExporterJob.perform_now(exporter.id)
+      end
     end
 
     it "creates csv and zip" do
@@ -41,11 +38,14 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
 
   describe "single object export" do
     subject(:parsed_metadata) { entry.parsed_metadata }
+    let(:work) { create(:fully_described_work, user: depositor.email) }
     let(:entry) { exporter.entries.first }
 
     before do
       work
-      exporter.export
+      perform_enqueued_jobs(only: Bulkrax::ExporterJob) do
+        exporter.export
+      end
     end
 
     it "populates all fields" do
@@ -63,15 +63,7 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
   end
 
   describe "round-tripping" do
-    let(:exporter) do
-      create(:bulkrax_exporter_worktype,
-             user: user,
-             field_mapping: Bulkrax.field_mappings["HykuAddons::CsvParser"],
-             parser_klass: "HykuAddons::CsvParser",
-             export_source: export_source,
-             limit: nil)
-    end
-
+    let(:work) { build_stubbed(:fully_described_work, user: depositor.email) }
     let(:importer) do
       create(:bulkrax_importer_csv,
              user: user,
@@ -85,13 +77,16 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
     let(:export_source) { "PacificArticle" }
 
     before do
-      ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
+      AdminSet.find_or_create_default_admin_set_id
       stub_request(:get, Addressable::Template.new("#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}")).to_return(status: 200)
       allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
-      importer.import_collections
-      importer.import_works
-      exporter.export
-      exporter.write
+
+      perform_enqueued_jobs(only: [AttachFilesToWorkJob, IngestJob, FileSetAttachedEventJob]) do
+        importer.import_collections
+        importer.import_works
+        exporter.export
+        exporter.write
+      end
     end
 
     it "exports all fields" do
@@ -140,23 +135,24 @@ RSpec.describe "Bulkrax export", clean: true, perform_enqueued: true do
       end
     end
 
-    context 'file visibility' do
-      let(:import_batch_file) { 'spec/fixtures/csv/generic_work.file_set.csv' }
+    context "file visibility" do
+      let(:depositor) { create(:user, email: "batchuser@example.com") }
+      let(:import_batch_file) { "spec/fixtures/csv/generic_work.file_set.csv" }
       let(:export_source) { "GenericWork" }
 
-      it 'imports files' do
+      it "imports files" do
         entry = exporter.entries.first
         expect(entry).to be_present
-        expect(entry.parsed_metadata['visibility']).to eq 'open'
-        expect(entry.parsed_metadata['file_1']).to end_with 'nypl-hydra-of-lerna.jpg'
-        expect(entry.parsed_metadata['file_visibility_1']).to eq 'restricted'
-        expect(entry.parsed_metadata['file_2']).to end_with 'nypl-hydra-of-lerna.jpg'
-        expect(entry.parsed_metadata['file_visibility_2']).to eq 'open'
-        expect(entry.parsed_metadata['file_3']).to end_with 'nypl-hydra-of-lerna.jpg'
-        expect(entry.parsed_metadata['file_visibility_3']).to eq 'embargo'
-        expect(entry.parsed_metadata['file_embargo_release_date_3']).to eq '2029-07-01'
-        expect(entry.parsed_metadata['file_visibility_during_embargo_3']).to eq 'authenticated'
-        expect(entry.parsed_metadata['file_visibility_after_embargo_3']).to eq 'open'
+        expect(entry.parsed_metadata["visibility"]).to eq "open"
+        expect(entry.parsed_metadata["file_1"]).to end_with "nypl-hydra-of-lerna.jpg"
+        expect(entry.parsed_metadata["file_visibility_1"]).to eq "restricted"
+        expect(entry.parsed_metadata["file_2"]).to end_with "nypl-hydra-of-lerna.jpg"
+        expect(entry.parsed_metadata["file_visibility_2"]).to eq "open"
+        expect(entry.parsed_metadata["file_3"]).to end_with "nypl-hydra-of-lerna.jpg"
+        expect(entry.parsed_metadata["file_visibility_3"]).to eq "embargo"
+        expect(entry.parsed_metadata["file_embargo_release_date_3"]).to eq "2029-07-01"
+        expect(entry.parsed_metadata["file_visibility_during_embargo_3"]).to eq "authenticated"
+        expect(entry.parsed_metadata["file_visibility_after_embargo_3"]).to eq "open"
       end
     end
   end

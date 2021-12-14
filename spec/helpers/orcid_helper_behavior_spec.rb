@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe HykuAddons::OrcidHelperBehavior do
+RSpec.describe HykuAddons::OrcidHelperBehavior, type: :helper do
   include Devise::Test::ControllerHelpers
 
   it "is loaded" do
@@ -64,7 +64,7 @@ RSpec.describe HykuAddons::OrcidHelperBehavior do
         visibility: "open"
       }
     end
-    let(:work) { create(:work, work_attributes) }
+    let(:work) { build_stubbed(:work, work_attributes) }
 
     it "reads the creators" do
       expect(helper.participant_to_string(:creator, work.creator)).to eq "Sebastian Hageneuer, Johnny Testing"

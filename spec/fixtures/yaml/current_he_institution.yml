@@ -1,0 +1,22 @@
+terms:
+  - id: Bognor Regis University
+    term: Bognor Regis University
+    isni: 1234 5678 9012 3456
+    ror: https://ror.org/bognor1
+    active: true
+  - id: Aberystwyth University
+    term: Aberystwyth University
+    isni: 0000 0001 2168 2483
+    ror: https://ror.org/015m2p889
+    active: true
+  - id: Anglia Ruskin University
+    term: Anglia Ruskin University
+    isni: 0000 0001 2299 5510
+    ror: https://ror.org/0009t4v78
+    active: true
+  - id: Bangor University
+    term: Bangor University
+    isni: 0000 0001 1882 0937
+    ror: https://ror.org/006jb1a24
+    active: false
+

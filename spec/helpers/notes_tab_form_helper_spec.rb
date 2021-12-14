@@ -2,10 +2,10 @@
 
 require "rails_helper"
 
-RSpec.describe HykuAddons::NotesTabFormHelper do
+RSpec.describe HykuAddons::NotesTabFormHelper, type: :helper do
   include Devise::Test::ControllerHelpers
 
-  let(:user) { create(:user) }
+  let(:user) { build_stubbed(:user) }
   let(:work) { GenericWork.new(title: ["Moomin"], depositor: user.user_key) }
   let(:form) { Hyrax::GenericWorkForm.new(work, nil, nil) }
   let(:helper) { _view }

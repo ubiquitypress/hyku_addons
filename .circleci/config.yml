@@ -31,7 +31,7 @@ jobs:
       DATABASE_USER: postgres
       DATABASE_TEST_NAME: circle_test
       BUNDLE_PATH: vendor/bundle
-      COVERALLS_PARALLEL: true
+      COVERALLS_PARALLEL: "true"
       BUNDLE_JOBS: 4
       BUNDLE_RETRY: 3
       RAILS_ENV: test
@@ -40,7 +40,7 @@ jobs:
       SPEC_OPTS: --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec.xml --format progress
       CFLAGS: -Wno-error=format-overflow
       # Enable bulkrax to avoid test failures due to odd view path order
-      SETTINGS__BULKRAX__ENABLED: true
+      SETTINGS__BULKRAX__ENABLED: "true"
       RUBYOPT: "-W:no-deprecated -W:no-experimental"
       REDIS_NAMESPACE_QUIET: "true"
 
@@ -59,7 +59,10 @@ jobs:
 
       - samvera/cached_checkout
 
-      - run: git submodule init && git submodule update
+      - run:
+          name: Install Hyku Base
+          command: |
+            git submodule init && git submodule update
 
       # FIXME: caching is not working
       # https://circleci.com/developer/orbs/orb/samvera/circleci-orb#commands-bundle
@@ -72,23 +75,29 @@ jobs:
       - samvera/install_solr_core:
           solr_config_path: 'spec/internal_test_hyku/solr/config'
 
-      # Setup hyku_addons and any additional plugins that have been added to the install generator
-      - run: bundle exec rails g hyku_addons:install
-
-      - run: bundle exec rake app:db:create app:db:migrate app:zookeeper:upload
-
-      # Setup CodeClimate
       - run:
+          name: Install Hyku Addons and Additional Plugins
+          command: |
+            bundle exec rails g hyku_addons:install
+
+      - run:
+          name: Migrate Database/Persistance
+          command: |
+            bundle exec rake app:db:create app:db:migrate app:zookeeper:upload
+
+      - run:
+          name: Setup CodeClimate
           command: |
             if [[ $(command -v cc-test-reporter) == "" ]]; then
               curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-0.7.0-linux-amd64 > ./cc-test-reporter
               chmod +x ./cc-test-reporter
             fi
+
       - run:
           command: ./cc-test-reporter before-build
 
       - run:
-          name: Run rspec in parallel
+          name: Run RSpec in Parallel
           command: |
             mkdir /tmp/test-results
             bundle exec rspec $(circleci tests glob "spec/**/*_spec.rb" | grep -v "internal_test_hyku" | circleci tests split --split-by=timings)
@@ -101,9 +110,10 @@ jobs:
           path: /tmp/test-results
           destination: test-results
 
-      # Save coverage results for CodeClimate
       - run:
+          name: Save Coverage Results for CodeClimate
           command: ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
+
       - persist_to_workspace:
           root: coverage
           paths:

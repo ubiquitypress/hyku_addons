@@ -28,6 +28,10 @@ module HykuAddons
       Settings.switch!
     end
 
+    initializer "hyku_addons.pdf_viewer" do
+      Rails.application.config.assets.precompile += ["pdf_viewer.css", "pdf_viewer/base.js", "pdf_viewer/locale/*"]
+    end
+
     initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
       require_dependency 'hyrax/search_state'
 

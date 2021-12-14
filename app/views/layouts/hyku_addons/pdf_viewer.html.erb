@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hyku addons</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="resource" type="application/l10n" href="<%= asset_path("pdf_viewer/locale/#{I18n.locale}/viewer.properties")%>">
+    <%= stylesheet_link_tag "pdf_viewer" %>
+    <%= javascript_include_tag  "pdf_viewer/base" %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
+

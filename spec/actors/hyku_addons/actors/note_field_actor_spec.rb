@@ -24,7 +24,7 @@ RSpec.describe HykuAddons::Actors::NoteFieldActor do
 
   describe "#create" do
     context "when the note attribute is present" do
-      let(:attributes) { { note: 'this is a note' } }
+      let(:attributes) { { note: "this is a note" } }
 
       before do
         allow(terminator).to receive(:create).with(env)
@@ -49,7 +49,7 @@ RSpec.describe HykuAddons::Actors::NoteFieldActor do
         note: ["{\"email\":\"email-1@test.com\",\"timestamp\":\"2021-05-27 23:15:23 UTC\",\"note\":\"first note\"}"]
       )
     end
-    let(:attributes) { { note: 'this is a new note' } }
+    let(:attributes) { { note: "this is a new note" } }
 
     context "when the note attribute is present" do
       before do
@@ -86,7 +86,7 @@ RSpec.describe HykuAddons::Actors::NoteFieldActor do
         note_content_ary = work.note.map do |note|
           JSON.parse(note)["note"]
         end
-        expect(note_content_ary).to include('first note')
+        expect(note_content_ary).to include("first note")
       end
     end
   end

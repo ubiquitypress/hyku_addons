@@ -2,8 +2,8 @@
 require "rails_helper"
 
 RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
-  let(:entry)   { instance_double(HykuAddons::CsvEntry, status: 'Complete', id: 1, identifier: '123') }
-  let(:account) { create(:account, name: 'tenant', cname: 'example.com') }
+  let(:entry)   { instance_double(HykuAddons::CsvEntry, status: "Complete", id: 1, identifier: "123") }
+  let(:account) { build_stubbed(:account, name: "tenant", cname: "example.com") }
 
   let(:source_metadata) do
     {
@@ -45,7 +45,7 @@ RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
     end
 
     context "with a non complete entry" do
-      let(:entry) { instance_double(HykuAddons::CsvEntry, status: 'Pending') }
+      let(:entry) { instance_double(HykuAddons::CsvEntry, status: "Pending") }
 
       it "raise an Argument Error" do
         expect { service }.to raise_error(ArgumentError, "You must pass a valid HykuAddons::CsvEntry with  successfully imported items")
@@ -54,7 +54,7 @@ RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
   end
 
   describe "validate" do
-    context 'with no validation errors' do
+    context "with no validation errors" do
       before do
         [:left_differences, :right_differences, :merged_fields_differences].each do |validation_method|
           allow(service).to receive(validation_method).and_return([])
@@ -71,9 +71,9 @@ RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
       end
     end
 
-    context 'with validation errors' do
+    context "with validation errors" do
       let(:entry) do
-        instance_double(HykuAddons::CsvEntry, status: 'Complete', id: 1, current_status: instance_double(Bulkrax::Status, update: true))
+        instance_double(HykuAddons::CsvEntry, status: "Complete", id: 1, current_status: instance_double(Bulkrax::Status, update: true))
       end
 
       before do
@@ -92,14 +92,14 @@ RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
         expect(service.errors.first).to eq(foo: :bar)
       end
 
-      it 'updates the current status' do
+      it "updates the current status" do
         service.validate
         expect(entry.current_status).to have_received(:update).with(error_backtrace: service.errors)
       end
     end
   end
 
-  describe 'difference matchers' do
+  describe "difference matchers" do
     before do
       allow(service).to receive(:source_metadata).and_return(source_metadata)
       allow(service).to receive(:source_metadata_after_transforms).and_return(source_metadata)
@@ -107,7 +107,7 @@ RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
       allow(service).to receive(:destination_metadata_after_transforms).and_return(destination_metadata)
     end
 
-    describe 'left' do
+    describe "left" do
       it "returns :remove diffs for items on the left only" do
         expect(service.left_differences).to eq(
           [{ dest_v: nil, op: :remove, path: :left_only, source_v: true, t_dest_v: nil, t_source_v: true }]
@@ -115,7 +115,7 @@ RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
       end
     end
 
-    describe 'right' do
+    describe "right" do
       it "returns :add items for the items on the right only" do
         expect(service.right_differences).to eq(
           [{ dest_v: true, op: :add, path: :right_only, source_v: nil, t_dest_v: true, t_source_v: nil }]
@@ -123,27 +123,27 @@ RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
       end
     end
 
-    describe 'merged_fields' do
+    describe "merged_fields" do
       it "returns :change items for the items appearing on both lists" do
         expect(service.merged_fields_differences).to eq(
           [{ dest_v: false, op: :change, path: :common, source_v: true, t_dest_v: false, t_source_v: true }]
         )
       end
 
-      context 'with non stripped metadata' do
+      context "with non stripped metadata" do
         before do
           source_metadata[:stripped] = " stripped"
           destination_metadata[:stripped] = "stripped "
         end
 
         it "returns :change items for the items appearing on both lists" do
-          expect(service.merged_fields_differences).not_to include(op: :change, path: :stripped, value: 'stripped')
+          expect(service.merged_fields_differences).not_to include(op: :change, path: :stripped, value: "stripped")
         end
       end
     end
   end
 
-  describe 'source_metadata_after_transforms' do
+  describe "source_metadata_after_transforms" do
     before do
       allow(service).to receive(:source_metadata).and_return(data: :something)
       allow(service).to receive(:processable_fields).and_call_original
@@ -159,7 +159,7 @@ RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
     end
   end
 
-  describe 'destination_metadata_after_transforms' do
+  describe "destination_metadata_after_transforms" do
     before do
       allow(service).to receive(:destination_metadata).and_return(data: :something)
       allow(service).to receive(:processable_fields).and_call_original
@@ -175,19 +175,19 @@ RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
     end
   end
 
-  describe 'filter_out_excluded_fields' do
+  describe "filter_out_excluded_fields" do
     let(:metadata) do
       {
         foo: :bar,
         bar: :baz,
         empty_string: "",
         empty_string_array: [""],
-        exclude: 'true',
-        include: 'true'
+        exclude: "true",
+        include: "true"
       }
     end
     let(:excluded_fields) { [:bar] }
-    let(:excluded_fields_with_value) { { exclude: 'true', include: 'false' } }
+    let(:excluded_fields_with_value) { { exclude: "true", include: "false" } }
     let(:result) { service.send(:processable_fields, metadata) }
 
     before do
@@ -195,12 +195,12 @@ RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
       allow(described_class).to receive(:excluded_fields_with_value).and_return(excluded_fields_with_value)
     end
 
-    it 'removes the excluded fields from the hash param based on EXCLUDED_FIELDS' do
+    it "removes the excluded fields from the hash param based on EXCLUDED_FIELDS" do
       expect(result.keys).to include(:foo)
       expect(result.keys).not_to include(:bar)
     end
 
-    it 'removes the excluded fields from the hash param based on EXCLUDED_FIELDS_WITH_VALUES' do
+    it "removes the excluded fields from the hash param based on EXCLUDED_FIELDS_WITH_VALUES" do
       expect(result.keys).not_to include(:exclude)
     end
 
@@ -208,13 +208,13 @@ RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
       expect(result.keys).to include(:include)
     end
 
-    it 'removes empty fields and empty strings' do
+    it "removes empty fields and empty strings" do
       expect(result.keys).not_to include(:empty_string)
       expect(result.keys).not_to include(:empty_string_array)
     end
   end
 
-  describe 'rename_fields' do
+  describe "rename_fields" do
     let(:metadata) { { foo: :bar, bar: :baz } }
     let(:renamed_fields) { { foo: :fooz, bar: :barz } }
 
@@ -222,7 +222,7 @@ RSpec.describe HykuAddons::Validations::EntryValidationService, type: :model do
       allow(described_class).to receive(:renamed_fields).and_return(renamed_fields)
     end
 
-    it 'renames the fields using the RENAMED_FIELDS map' do
+    it "renames the fields using the RENAMED_FIELDS map" do
       result = service.send(:rename_fields, metadata)
       expect(result).to eq(fooz: :bar, barz: :baz)
     end

@@ -41,15 +41,21 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'postrank-uri', '>= 1.0.24'
   spec.add_dependency 'public_suffix', '~> 2.0.2'
   spec.add_dependency 'lograge'
+  spec.add_dependency 'devise-i18n', '~> 1.10.0'
+  spec.add_dependency 'devise-guests', '<= 0.7.0'
   # Added for shared search nested attributes
   spec.add_dependency 'cocoon', '~> 1.2', '>= 1.2.9'
 
   spec.add_development_dependency 'ammeter'
   spec.add_development_dependency "bixby"
+  spec.add_development_dependency 'bootsnap'
   spec.add_development_dependency 'capybara'
   spec.add_development_dependency "pg"
   spec.add_development_dependency "rspec-rails"
   spec.add_development_dependency 'rspec_junit_formatter'
   spec.add_development_dependency 'shoulda-matchers'
   spec.add_development_dependency 'webdrivers', '~> 4.0'
+  spec.add_development_dependency 'test-prof'
+  spec.add_development_dependency 'stackprof'
+  spec.add_development_dependency 'ruby-prof'
 end

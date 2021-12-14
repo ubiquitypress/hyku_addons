@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe HykuAddons::Actors::TaskMaster::WorkActor do
-  subject(:work) { create(:task_master_work, :with_one_file) }
+  subject(:work) { build_stubbed(:task_master_work, :with_one_file) }
   let(:account) { create(:account) }
   let(:site) { Site.new(account: account) }
   let(:job_class) { HykuAddons::TaskMaster::PublishJob }
@@ -16,7 +16,7 @@ RSpec.describe HykuAddons::Actors::TaskMaster::WorkActor do
 
   # Middleware Setup
   let(:attributes) { {} }
-  let(:user) { create(:user) }
+  let(:user) { build_stubbed(:user) }
   let(:ability) { ::Ability.new(user) }
   let(:env_class) { Hyrax::Actors::Environment }
   let(:env) { env_class.new(work, ability, attributes) }
@@ -30,8 +30,6 @@ RSpec.describe HykuAddons::Actors::TaskMaster::WorkActor do
   end
 
   before do
-    ActiveJob::Base.queue_adapter = :test
-
     allow(Site).to receive(:instance).and_return(site)
     allow(Flipflop).to receive(:enabled?).and_call_original
     allow(Flipflop).to receive(:enabled?).with(flipflop_name).and_return(flipflop_enabled)

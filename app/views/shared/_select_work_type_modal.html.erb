@@ -35,7 +35,10 @@
 								</div>
 								<div class="select-work-description">
 									<h3 class="work-type-title"><%= row_presenter.name %></h3>
-									<p><%= row_presenter.description %></p>
+
+									<% if (description = row_presenter.description).present? %>
+										<p><%= description %></p>
+									<% end %>
 								</div>
 						</label>
 					</div>

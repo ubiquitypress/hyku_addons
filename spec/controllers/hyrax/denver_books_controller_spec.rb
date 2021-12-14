@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Hyrax::DenverBooksController, type: :controller do
-  let!(:work) { DenverBook.create(title: ['Test'], visibility: "open") }
+  let!(:work) { DenverBook.create(title: ["Test"], visibility: "open") }
 
   describe "responds to" do
     it "responds to html by default" do

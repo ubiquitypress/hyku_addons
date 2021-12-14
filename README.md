@@ -126,6 +126,9 @@ git submodule update --remote
 bundle install
 bundle exec rails g hyku_addons:install
 
+# Start the containers
+docker-compose up --build
+
 # If you are using Docker, you will need to do the `hyku_addons:install` within the container
 docker-compose exec web bundle exec rails g hyku_addons:install
 
@@ -172,8 +175,7 @@ You will need to add each new tenant cname to your host file when a new account 
 Running a docker development environment is possible by running:
 
 ```
-docker-compose build
-docker-compose up web workers
+docker-compose up --build
 ```
 
 Attaching to the hyku container to run commands can be done by running:
@@ -256,8 +258,14 @@ Tests are run automatically on CircleCI with rubocop and codeclimate.  These tes
 To run the tests locally inside docker run:
 
 ```bash
-docker-compose exec web /bin/bash
-bundle exec rspec `find spec -name *_spec.rb | grep -v internal_test_hyku`
+docker-compose exec web bin/rspec
+```
+
+In order to make local development more practical, slow tests are not run by default. All these tests slow tests are run on CI by default.  
+Use the following command to run them locally:
+
+```bash
+docker-compose exec web bin/rspec --tag @slow
 ```
 
 To run the tests locally outside of docker do the following with each line in its own shell from the root of the engine:
@@ -279,7 +287,7 @@ Note that at this time the application must be run in test mode due to a bug in 
 Byebug is installed and can be used in tests and the running rails server. You will need to start your web containers in 'detached' mode and then attach to the container to interact with byebug:
 
 ```bash
-docker-compose up -d web
+docker-compose up -d
 docker attach hyku_addons_web_1
 ```
 
