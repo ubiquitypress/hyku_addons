@@ -32,8 +32,20 @@ json.cache! [@account, :collections, collection.id, collection.solr_document[:_v
   json.visibility collection.visibility
   json.volumes nil
   json.total_works @total_works
+
+  banner = ::HykuAddons::CollectionBrandingFetcher.collection_banner(collection.id)
+  if banner.present?
+    components = {
+      scheme: Rails.application.routes.default_url_options.fetch(:protocol, 'http'),
+      host: @account.cname,
+      path: "/" + banner.first.local_path.split("/")[-4..-1].join("/"),
+      alt_text: banner.first.alt_text
+    }
+    json.collection_banner_url URI::Generic.build(components).to_s
+  else
+    json.collection_banner_url nil
+  end
 end
-# rubocop:enable Metrics/BlockLength
 
 if local_assigns[:include_works]
   json.works do
