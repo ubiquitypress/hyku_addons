@@ -12,7 +12,7 @@ module HykuAddons
 
     def show
       @user = User.find_by(email: params[:email], display_profile: true)
-      render json: { status: 403, code: 'forbidden', message: t("errors.users_forbidden") } if @user.nil?
+      render json: { status: 403, code: 'forbidden', message: t("errors.users_forbidden") } if @user.blank?
     end
   end
 end

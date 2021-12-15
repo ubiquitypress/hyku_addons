@@ -26,7 +26,7 @@
        <% end %>
      </div>
    </div>
- </div><!-- .form-group -->
+ </div>
 
   <% if Hyrax.config.arkivo_api? %>
     <%= render partial: 'zotero', locals: { f: f, user: @user } %>
@@ -37,7 +37,7 @@
     <div class="col-xs-8">
        <%= f.text_field :title, class: "form-control" %>
     </div>
-  </div><!-- .form-group -->
+  </div>
 
   <div class="form-group">
     <%= f.label :display_name, t(".display_name").html_safe, class: 'col-xs-4 control-label' %>
@@ -45,8 +45,16 @@
        <%= f.text_field :display_name, class: "form-control" %>
        <span class="help-block"><%= t('.help_name') %></span>
     </div>
-  </div><!-- .form-group -->
-  
+  </div>
+
+  <div class="form-group">
+    <%= f.label :department, t(".department").html_safe, class: 'col-xs-4 control-label' %>
+    <div class="col-xs-8">
+       <%= f.text_field :department, class: "form-control" %>
+       <span class="help-block"><%= t('.help_department') %></span>
+    </div>
+  </div>
+
   <div class="form-group">
     <%= f.label :orcid, class: 'col-xs-4 control-label' do %>
       <%= orcid_label %>
@@ -54,28 +62,36 @@
     <div class="col-xs-8">
        <%= f.text_field :orcid, class: "form-control" %>
     </div>
-  </div><!-- .form-group -->
+  </div>
+
+  <div class="form-group">
+    <%= f.label :biography, t(".bio").html_safe, class: 'col-xs-4 control-label' %>
+    <div class="col-xs-8">
+       <%= f.text_area :biography, class: "form-control" %>
+       <span class="help-block"><%= t('.help_bio') %></span>
+    </div>
+  </div>
 
   <div class="form-group">
     <%= f.label :twitter_handle, t(".twitter_handle").html_safe, class: 'col-xs-4 control-label' %>
     <div class="col-xs-8">
        <%= f.text_field :twitter_handle, class: "form-control" %>
     </div>
-  </div><!-- .form-group -->
+  </div>
 
   <div class="form-group">
     <%= f.label :facebook_handle, t(".facebook_handle").html_safe, class: 'col-xs-4 control-label' %>
     <div class="col-xs-8">
        <%= f.text_field :facebook_handle, class: "form-control" %>
     </div>
-  </div><!-- .form-group -->
+  </div>
 
   <div class="form-group">
     <%= f.label :googleplus_handle, t(".google_handle").html_safe, class: 'col-xs-4 control-label' %>
     <div class="col-xs-8">
        <%= f.text_field :googleplus_handle, class: "form-control" %>
     </div>
-  </div><!-- .form-group -->
+  </div>
 
   <%= render 'trophy_edit', trophies: @trophies %>
 
