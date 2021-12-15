@@ -11,11 +11,8 @@ module HykuAddons
       # Eager load required for overrides in the initializer below
       # There is probably a better solution for this but I don't think it is worth the time
       # tinkering with it since this works and doesn't cause too much of a slowdown
-      if Rails.env.development?
-        Rails.application.configure do
-          config.eager_load = true
-        end
-      end
+      Rails.application.configure { config.eager_load = true } if Rails.env.development?
+
       HykuAddons::I18nMultitenant.configure(I18n)
     end
 
@@ -29,11 +26,13 @@ module HykuAddons
       Hyku::RegistrationsController.class_eval do
         def new
           return super if current_account&.allow_signup == "true"
+
           redirect_to root_path, alert: t(:'hyku.account.signup_disabled')
         end
 
         def create
           return super if current_account&.allow_signup == "true"
+
           redirect_to root_path, alert: t(:'hyku.account.signup_disabled')
         end
 
@@ -65,30 +64,6 @@ module HykuAddons
       # end
       # Hyrax::DashboardController.sidebar_partials[:configuration] ||= []
       # Hyrax::DashboardController.sidebar_partials[:configuration] << "hyrax/dashboard/sidebar/per_tenant_settings"
-    end
-
-    ## In engine development mode (ENGINE_ROOT defined) handle specific generators as app-only by setting destintation_root appropriately
-    initializer 'hyku_addons.app_generators' do
-      if defined?(ENGINE_ROOT)
-        APP_GENERATORS = [
-          'HykuAddons::InstallGenerator',
-          'Hyrax::DOI::InstallGenerator',
-          'Hyrax::DOI::AddToWorkTypeGenerator',
-          'Hyrax::Hirmeos::InstallGenerator',
-          'Hyrax::Orcid::InstallGenerator'
-        ].freeze
-
-        Rails::Generators::Base.class_eval do
-          def initialize(args, options, config)
-            # Force the destination root to be the rails application and not this engine when doing development
-            # See https://github.com/rails/rails/blob/fb852668dff2786a4cfb30ad923830da9eed2476/railties/lib/rails/commands/generate/generate_command.rb#L26
-            # and https://github.com/rails/rails/blob/9d44519afc5290eab8479db851f09653cf0a916f/railties/lib/rails/command.rb#L75-L82
-
-            config[:destination_root] = Pathname.new(File.expand_path("../..", APP_PATH)) if self.class.name.in?(APP_GENERATORS)
-            super
-          end
-        end
-      end
     end
 
     # NOTE: This issue only seems to present in development, and not consistently.
