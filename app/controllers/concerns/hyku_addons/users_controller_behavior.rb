@@ -11,11 +11,8 @@ module HykuAddons
     end
 
     def show
-      user = User.find_by(email: params[:email])
-      @user = user if user.present? && user.display_profile == true
-      render json: { status: 404, code: 'not_found', message: "This User is either private or not found" } if @user.nil?
-    rescue ActiveRecord::RecordNotFound
-      render json: { error: { status: '400', code: 'not_found', message: "Could not find user with 'email'=#{params[:email]}" } }
+      @user = User.find_by(email: params[:email], display_profile: true)
+      render json: { status: 403, code: 'forbidden', message: t("errors.users_forbidden")} if @user.nil?
     end
   end
 end

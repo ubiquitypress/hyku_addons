@@ -3,9 +3,9 @@ require "rails_helper"
 
 RSpec.describe Hyku::API::V1::UsersController, type: :request, clean: true, multitenant: true do
   let(:account) { create(:account) }
-  let(:user) { create(:user) }
-  let(:user2) { create(:user) }
-  let(:user3) { create(:user) }
+  let(:public_user) { create(:user, display_profile: true) }
+  let(:public_user_2) { create(:user, display_profile: true) }
+  let(:private_user) { create(:user) }
 
   before do
     allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
@@ -14,24 +14,19 @@ RSpec.describe Hyku::API::V1::UsersController, type: :request, clean: true, mult
 
     Apartment::Tenant.switch!(account.tenant) do
       Site.update(account: account)
-      user
-      user2
-      user3
+      public_user
+      public_user_2
+      private_user
     end
   end
 
   describe "/users" do
     let(:json_response) { JSON.parse(response.body) }
     it "Only displays users that allow public display" do
-      user.display_profile = true
-      user3.display_profile = true
-      user.save!
-      user3.save!
-
       get "/api/v1/tenant/#{account.tenant}/users"
       expect(json_response["total"]).to eq(2)
-      expect(json_response["items"]).to include(a_hash_including("id" => user.id))
-      expect(json_response["items"]).to include(a_hash_including("id" => user3.id))
+      expect(json_response["items"]).to include(a_hash_including("id" => public_user.id))
+      expect(json_response["items"]).to include(a_hash_including("id" => public_user_2.id))
     end
   end
 
@@ -40,18 +35,16 @@ RSpec.describe Hyku::API::V1::UsersController, type: :request, clean: true, mult
 
     context "When user does not want to be publically avalible" do
       it "Does not display user json" do
-        get "/api/v1/tenant/#{account.tenant}/users/#{user.email}"
-        expect(json_response).to include("message" => "This User is either private or not found")
+        get "/api/v1/tenant/#{account.tenant}/users/#{private_user.email}"
+        expect(json_response).to include("message" => "This User is either private or does not exist")
       end
     end
 
     context "When user allows public display of profile" do
       it "Displays user JSON" do
-        user.display_profile = true
-        user.save!
-        get "/api/v1/tenant/#{account.tenant}/users/#{user.email}"
+        get "/api/v1/tenant/#{account.tenant}/users/#{public_user.email}"
         expect(response.status).to eq(200)
-        expect(json_response).to include("email" => user.email.to_s,
+        expect(json_response).to include("email" => public_user.email.to_s,
                                          "display_name" => nil,
                                          "facebook_handle" => nil,
                                          "twitter_handle" => nil,

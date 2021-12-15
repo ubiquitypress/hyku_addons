@@ -1,4 +1,6 @@
 en:
+  errors:
+    users_forbidden: This User is either private or does not exist
   work_type_modal:
     admin_set:
       title: Admin Set
