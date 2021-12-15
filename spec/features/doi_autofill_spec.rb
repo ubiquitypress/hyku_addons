@@ -34,30 +34,70 @@ RSpec.describe "autofilling the form from DOI", js: true, slow: true do
           .to_return(status: 200, body: fixture, headers: {})
       end
 
-      scenario do
-        visit_new_work_page
-        fill_in "#{work_type}_doi", with: doi
-
-        accept_confirm do
-          click_link "doi-autofill-btn"
+      context "when the doi tab is enabled" do
+        before do
+          allow(Flipflop).to receive(:enabled?).and_call_original
+          allow(Flipflop).to receive(:enabled?).with(:doi_tab).and_return(true)
         end
 
-        click_on "Descriptions"
-        click_on "Additional fields"
+        scenario do
+          visit_new_work_page
+          fill_in "#{work_type}_doi", with: doi
 
-        # expect form fields have been filled in
-        expect(page).to have_content("The following fields were auto-populated", wait: wait)
-        expect(page).to have_field("#{work_type}_title", with: "Eating your own Dog Food", wait: wait)
-        expect(page).to have_field("#{work_type}_creator__creator_family_name", with: "Fenner", wait: wait)
-        expect(page).to have_field("#{work_type}_creator__creator_given_name", with: "Martin", wait: wait)
-        expect(page).to have_field("#{work_type}_abstract", with: "Eating your own dog food is a slang term to describe that an organization "\
-                                                                  "should itself use the products and services it provides. For DataCite this "\
-                                                                  "means that we should use DOIs with appropriate metadata and strategies for "\
-                                                                  "long-term preservation for...", wait: wait)
-        expect(page).to have_field("#{work_type}_keyword", with: "datacite", wait: wait)
-        expect(page).to have_field("#{work_type}_keyword", with: "doi", wait: wait)
-        expect(page).to have_field("#{work_type}_keyword", with: "metadata", wait: wait)
-        expect(page).to have_field("#{work_type}_publisher", with: "DataCite", wait: wait)
+          accept_confirm do
+            click_link "doi-autofill-btn"
+          end
+
+          click_on "Descriptions"
+          click_on "Additional fields"
+
+          # expect form fields have been filled in
+          expect(page).to have_content("The following fields were auto-populated", wait: wait)
+          expect(page).to have_field("#{work_type}_title", with: "Eating your own Dog Food", wait: wait)
+          expect(page).to have_field("#{work_type}_creator__creator_family_name", with: "Fenner", wait: wait)
+          expect(page).to have_field("#{work_type}_creator__creator_given_name", with: "Martin", wait: wait)
+          expect(page).to have_field("#{work_type}_abstract", with: "Eating your own dog food is a slang term to describe that an organization "\
+                                                                    "should itself use the products and services it provides. For DataCite this "\
+                                                                    "means that we should use DOIs with appropriate metadata and strategies for "\
+                                                                    "long-term preservation for...", wait: wait)
+          expect(page).to have_field("#{work_type}_keyword", with: "datacite", wait: wait)
+          expect(page).to have_field("#{work_type}_keyword", with: "doi", wait: wait)
+          expect(page).to have_field("#{work_type}_keyword", with: "metadata", wait: wait)
+          expect(page).to have_field("#{work_type}_publisher", with: "DataCite", wait: wait)
+        end
+      end
+
+      context "when the doi tab is disabled" do
+        before do
+          allow(Flipflop).to receive(:enabled?).and_call_original
+          allow(Flipflop).to receive(:enabled?).with(:doi_tab).and_return(false)
+        end
+
+        scenario do
+          visit_new_work_page
+          fill_in "doi-search", with: doi
+
+          accept_confirm do
+            click_link "doi-autofill-btn"
+          end
+
+          click_on "Descriptions"
+          click_on "Additional fields"
+
+          # expect form fields have been filled in
+          expect(page).to have_content("The following fields were auto-populated", wait: wait)
+          expect(page).to have_field("#{work_type}_title", with: "Eating your own Dog Food", wait: wait)
+          expect(page).to have_field("#{work_type}_creator__creator_family_name", with: "Fenner", wait: wait)
+          expect(page).to have_field("#{work_type}_creator__creator_given_name", with: "Martin", wait: wait)
+          expect(page).to have_field("#{work_type}_abstract", with: "Eating your own dog food is a slang term to describe that an organization "\
+                                                                    "should itself use the products and services it provides. For DataCite this "\
+                                                                    "means that we should use DOIs with appropriate metadata and strategies for "\
+                                                                    "long-term preservation for...", wait: wait)
+          expect(page).to have_field("#{work_type}_keyword", with: "datacite", wait: wait)
+          expect(page).to have_field("#{work_type}_keyword", with: "doi", wait: wait)
+          expect(page).to have_field("#{work_type}_keyword", with: "metadata", wait: wait)
+          expect(page).to have_field("#{work_type}_publisher", with: "DataCite", wait: wait)
+        end
       end
     end
 
@@ -79,49 +119,108 @@ RSpec.describe "autofilling the form from DOI", js: true, slow: true do
           .to_return(status: 200, body: fixture, headers: {})
       end
 
-      scenario do
-        visit_new_work_page
-        fill_in "#{work_type}_doi", with: doi
-
-        accept_confirm do
-          click_link "doi-autofill-btn"
+      context "when the doi tab is enabled" do
+        before do
+          allow(Flipflop).to receive(:enabled?).and_call_original
+          allow(Flipflop).to receive(:doi_tab?).and_return(true)
         end
 
-        click_on "Descriptions"
-        click_on "Additional fields"
+        scenario do
+          visit_new_work_page
+          fill_in "#{work_type}_doi", with: doi
 
-        expect(page).to have_content("The following fields were auto-populated", wait: wait)
-        expect(page).to have_field("#{work_type}_title", with: "Information School academics and the value of their personal digital archives", wait: wait)
+          accept_confirm do
+            click_link "doi-autofill-btn"
+          end
 
-        expect(page).to have_field("#{work_type}_creator__creator_family_name", with: "Drosopoulou", wait: wait)
-        expect(page).to have_field("#{work_type}_creator__creator_given_name", with: "Loukia", wait: wait)
+          click_on "Descriptions"
+          click_on "Additional fields"
 
-        expect(page).to have_field("#{work_type}_creator__creator_family_name", with: "Cox", wait: wait)
-        expect(page).to have_field("#{work_type}_creator__creator_given_name", with: "Andrew M.", wait: wait)
+          expect(page).to have_content("The following fields were auto-populated", wait: wait)
+          expect(page).to have_field("#{work_type}_title", with: "Information School academics and the value of their personal digital archives", wait: wait)
 
-        expect(page).to have_field("#{work_type}_creator__creator_organization_name", with: "British Library, London, United Kingdom", wait: wait)
-        expect(page).to have_field("#{work_type}_creator__creator_organization_name", with: "Information School, University of Sheffield, United Kingdom", wait: wait)
+          expect(page).to have_field("#{work_type}_creator__creator_family_name", with: "Drosopoulou", wait: wait)
+          expect(page).to have_field("#{work_type}_creator__creator_given_name", with: "Loukia", wait: wait)
 
-        expect(page).to have_field("#{work_type}_date_published__date_published_year", with: 2020)
-        expect(page).to have_field("#{work_type}_date_published__date_published_month", with: 1)
-        expect(page).to have_field("#{work_type}_date_published__date_published_day", with: 1)
+          expect(page).to have_field("#{work_type}_creator__creator_family_name", with: "Cox", wait: wait)
+          expect(page).to have_field("#{work_type}_creator__creator_given_name", with: "Andrew M.", wait: wait)
 
-        expect(page).to have_field("#{work_type}_abstract", with: "Introduction.This paper explores the value that academics in an information school assign "\
-                                                                  "to their digital files and how this relates to their personal information management and "\
-                                                                  "personal digital archiving practices. Method. An interpretivist qualitative approach was "\
-                                                                  "adopted with data from in-depth interviews and participant-led tours of their digital "\
-                                                                  "storage space. Analysis. The approach taken was thematic analysis. Results. Participants "\
-                                                                  "placed little value on their digital material beyond the value of its immediate use. They did "\
-                                                                  "not attach worth to their digital files for reuse by others, for sentiment, to project their "\
-                                                                  "identity or for the study of the development of the discipline or the study of the creative "\
-                                                                  "process. This was reflected in storage and file-naming practices, and the lack of curatorial "\
-                                                                  "activity. Conclusions. This paper is one of the first to investigate academics' personal "\
-                                                                  "information management and personal digital archiving practices, especially to focus on the "\
-                                                                  "value of digital possessions. The paper begins to uncover the importance of wider contextual "\
-                                                                  "factors in shaping such practices. Institutions need to do more to encourage academics to "\
-                                                                  "recognise the diverse types of value in the digital material they create.")
+          expect(page).to have_field("#{work_type}_creator__creator_organization_name", with: "British Library, London, United Kingdom", wait: wait)
+          expect(page).to have_field("#{work_type}_creator__creator_organization_name", with: "Information School, University of Sheffield, United Kingdom", wait: wait)
 
-        expect(page).to have_field("#{work_type}_publisher", with: "University of Boras, Faculty of Librarianship, Information, Education and IT", wait: wait)
+          expect(page).to have_field("#{work_type}_date_published__date_published_year", with: 2020)
+          expect(page).to have_field("#{work_type}_date_published__date_published_month", with: 1)
+          expect(page).to have_field("#{work_type}_date_published__date_published_day", with: 1)
+
+          expect(page).to have_field("#{work_type}_abstract", with: "Introduction.This paper explores the value that academics in an information school assign "\
+                                                                    "to their digital files and how this relates to their personal information management and "\
+                                                                    "personal digital archiving practices. Method. An interpretivist qualitative approach was "\
+                                                                    "adopted with data from in-depth interviews and participant-led tours of their digital "\
+                                                                    "storage space. Analysis. The approach taken was thematic analysis. Results. Participants "\
+                                                                    "placed little value on their digital material beyond the value of its immediate use. They did "\
+                                                                    "not attach worth to their digital files for reuse by others, for sentiment, to project their "\
+                                                                    "identity or for the study of the development of the discipline or the study of the creative "\
+                                                                    "process. This was reflected in storage and file-naming practices, and the lack of curatorial "\
+                                                                    "activity. Conclusions. This paper is one of the first to investigate academics' personal "\
+                                                                    "information management and personal digital archiving practices, especially to focus on the "\
+                                                                    "value of digital possessions. The paper begins to uncover the importance of wider contextual "\
+                                                                    "factors in shaping such practices. Institutions need to do more to encourage academics to "\
+                                                                    "recognise the diverse types of value in the digital material they create.")
+
+          expect(page).to have_field("#{work_type}_publisher", with: "University of Boras, Faculty of Librarianship, Information, Education and IT", wait: wait)
+        end
+      end
+
+      context "when the doi tab is disabled" do
+        before do
+          allow(Flipflop).to receive(:enabled?).and_call_original
+          allow(Flipflop).to receive(:doi_tab?).and_return(false)
+        end
+
+        scenario do
+          visit_new_work_page
+          fill_in "doi-search", with: doi
+
+          accept_confirm do
+            click_link "doi-autofill-btn"
+          end
+
+          click_on "Descriptions"
+          click_on "Additional fields"
+
+          expect(page).to have_content("The following fields were auto-populated", wait: wait)
+          expect(page).to have_field("#{work_type}_title", with: "Information School academics and the value of their personal digital archives", wait: wait)
+
+          expect(page).to have_field("#{work_type}_creator__creator_family_name", with: "Drosopoulou", wait: wait)
+          expect(page).to have_field("#{work_type}_creator__creator_given_name", with: "Loukia", wait: wait)
+
+          expect(page).to have_field("#{work_type}_creator__creator_family_name", with: "Cox", wait: wait)
+          expect(page).to have_field("#{work_type}_creator__creator_given_name", with: "Andrew M.", wait: wait)
+
+          expect(page).to have_field("#{work_type}_creator__creator_organization_name", with: "British Library, London, United Kingdom", wait: wait)
+          expect(page).to have_field("#{work_type}_creator__creator_organization_name", with: "Information School, University of Sheffield, United Kingdom", wait: wait)
+
+          expect(page).to have_field("#{work_type}_date_published__date_published_year", with: 2020)
+          expect(page).to have_field("#{work_type}_date_published__date_published_month", with: 1)
+          expect(page).to have_field("#{work_type}_date_published__date_published_day", with: 1)
+
+          expect(page).to have_field("#{work_type}_abstract", with: "Introduction.This paper explores the value that academics in an information school assign "\
+                                                                    "to their digital files and how this relates to their personal information management and "\
+                                                                    "personal digital archiving practices. Method. An interpretivist qualitative approach was "\
+                                                                    "adopted with data from in-depth interviews and participant-led tours of their digital "\
+                                                                    "storage space. Analysis. The approach taken was thematic analysis. Results. Participants "\
+                                                                    "placed little value on their digital material beyond the value of its immediate use. They did "\
+                                                                    "not attach worth to their digital files for reuse by others, for sentiment, to project their "\
+                                                                    "identity or for the study of the development of the discipline or the study of the creative "\
+                                                                    "process. This was reflected in storage and file-naming practices, and the lack of curatorial "\
+                                                                    "activity. Conclusions. This paper is one of the first to investigate academics' personal "\
+                                                                    "information management and personal digital archiving practices, especially to focus on the "\
+                                                                    "value of digital possessions. The paper begins to uncover the importance of wider contextual "\
+                                                                    "factors in shaping such practices. Institutions need to do more to encourage academics to "\
+                                                                    "recognise the diverse types of value in the digital material they create.")
+
+          expect(page).to have_field("#{work_type}_publisher", with: "University of Boras, Faculty of Librarianship, Information, Education and IT", wait: wait)
+        end
       end
     end
   end

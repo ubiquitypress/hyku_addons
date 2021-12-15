@@ -39,35 +39,74 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
       }
     end
 
-    before do
-      visit "/concern/#{work_type.to_s.pluralize}/#{work.id}/edit"
-    end
-
-    it "Sets up the page correctly" do
-      expect(page).to have_content "Edit Work"
-
-      find("a[role=tab]", text: "DOI").click
-
-      expect(find_field("DOI").value).to be_empty
-      expect(find(:radio_button, "generic_work[doi_status_when_public]", checked: true).value).to be_empty
-      expect(find(:radio_button, "generic_work[visibility]", checked: true).value).to eq "open"
-
-      find("a[role=tab]", text: "Description").click
-      expect(page).to have_field("Title", with: work.title.first)
-    end
-
-    context "when the user selects `findable`" do
-      let(:new_title) { "New work title" }
-
-      it "redirects the user to the works page" do
-        fill_in_form(new_title)
-
-        expect(page).to have_selector("h1", text: "Work", wait: 10)
-        expect(page).to have_selector("h2", text: new_title)
+    context "when the doi tab is disabled" do
+      before do
+        allow(Flipflop).to receive(:doi_tab?).and_return(false)
+        visit "/concern/#{work_type.to_s.pluralize}/#{work.id}/edit"
       end
 
-      it "enqueues a job to mint the DOI" do
-        expect { fill_in_form(new_title) }.to have_enqueued_job(Hyrax::DOI::RegisterDOIJob).with(work.reload, registrar: "datacite", registrar_opts: {})
+      it "Sets up the page correctly" do
+        expect(page).to have_content "Edit Work"
+        expect(page).not_to have_selector "a[role=tab]", text: "DOI"
+        expect(page).to have_selector "#doi-search"
+
+        expect(find_field("DOI").value).to be_empty
+        expect(find(:radio_button, "generic_work[doi_status_when_public]", checked: true).value).to be_empty
+        expect(find(:radio_button, "generic_work[visibility]", checked: true).value).to eq "open"
+
+        expect(page).to have_field("Title", with: work.title.first)
+      end
+
+      context "when the user selects `findable`" do
+        let(:new_title) { "New work title" }
+
+        it "redirects the user to the works page" do
+          fill_in_form(new_title)
+
+          expect(page).to have_selector("h1", text: "Work", wait: 10)
+          expect(page).to have_selector("h2", text: new_title)
+        end
+
+        it "enqueues a job to mint the DOI" do
+          expect { fill_in_form(new_title) }.to have_enqueued_job(Hyrax::DOI::RegisterDOIJob).with(work.reload, registrar: "datacite", registrar_opts: {})
+        end
+      end
+    end
+
+    context "when the doi tab is enabled" do
+      before do
+        allow(Flipflop).to receive(:doi_tab?).and_return(true)
+        visit "/concern/#{work_type.to_s.pluralize}/#{work.id}/edit"
+      end
+
+      it "Sets up the page correctly" do
+        expect(page).to have_content "Edit Work"
+        expect(page).to have_selector "a[role=tab]", text: "DOI"
+        expect(page).not_to have_selector "#doi-search"
+
+        find("a[role=tab]", text: "DOI").click
+
+        expect(find_field("DOI").value).to be_empty
+        expect(find(:radio_button, "generic_work[doi_status_when_public]", checked: true).value).to be_empty
+        expect(find(:radio_button, "generic_work[visibility]", checked: true).value).to eq "open"
+
+        find("a[role=tab]", text: "Description").click
+        expect(page).to have_field("Title", with: work.title.first)
+      end
+
+      context "when the user selects `findable`" do
+        let(:new_title) { "New work title" }
+
+        it "redirects the user to the works page" do
+          fill_in_form(new_title)
+
+          expect(page).to have_selector("h1", text: "Work", wait: 10)
+          expect(page).to have_selector("h2", text: new_title)
+        end
+
+        it "enqueues a job to mint the DOI" do
+          expect { fill_in_form(new_title) }.to have_enqueued_job(Hyrax::DOI::RegisterDOIJob).with(work.reload, registrar: "datacite", registrar_opts: {})
+        end
       end
     end
   end
