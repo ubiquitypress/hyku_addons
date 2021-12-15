@@ -552,6 +552,7 @@ module HykuAddons
       ::Hyrax::CollectionPresenter.prepend HykuAddons::CollectionPresenterOverride
       Hyrax::Workflow::AbstractNotification.include HykuAddons::WorkflowBehavior
       Mailboxer::MessageMailer.prepend HykuAddons::MailboxerMessageMailerBehavior
+    end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
     # This might slow down every request so only do it in development environment
