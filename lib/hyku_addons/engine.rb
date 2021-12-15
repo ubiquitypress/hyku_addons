@@ -538,7 +538,9 @@ module HykuAddons
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
       ::Hyku::API::V1::SearchController.prepend HykuAddons::SearchControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
+      ::Hyku::API::V1::UsersController.prepend HykuAddons::UsersControllerBehavior
       ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
+      Hyrax::Dashboard::ProfilesController.prepend HykuAddons::ProfilesControllerBehavior
 
       ::Hyku::API::V1::HighlightsController.class_eval do
         def index
