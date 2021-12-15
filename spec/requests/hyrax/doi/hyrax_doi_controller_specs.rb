@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe Hyrax::DOI::HyraxDOIController, type: :request, multitenant: true, clean_repo: true do
-  let(:user) { create(:user, email: 'user@pacificu.edu') }
+  let(:user) { create(:user, email: "user@pacificu.edu") }
   let!(:account) { create(:account) }
 
   let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
@@ -11,7 +11,7 @@ RSpec.describe Hyrax::DOI::HyraxDOIController, type: :request, multitenant: true
   let(:workflow) do
     Sipity::Workflow.create!(
       active: true,
-      name: 'test-workflow',
+      name: "test-workflow",
       permission_template: permission_template
     )
   end
@@ -22,12 +22,12 @@ RSpec.describe Hyrax::DOI::HyraxDOIController, type: :request, multitenant: true
 
   before do
     # Required to set deposit permissions for the user or the request will see a Not Authorized exception
-    Sipity::WorkflowAction.create!(name: 'submit', workflow: workflow)
+    Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
     Hyrax::PermissionTemplateAccess.create!(
       permission_template_id: permission_template.id,
-      agent_type: 'user',
+      agent_type: "user",
       agent_id: user.user_key,
-      access: 'deposit'
+      access: "deposit"
     )
 
     login_as user

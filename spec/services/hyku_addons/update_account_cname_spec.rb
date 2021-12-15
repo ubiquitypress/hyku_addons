@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe HykuAddons::UpdateAccountCname do
   let(:service) { described_class.new(account, cname) }
-  let(:account) { create(:account, name: 'tenant', cname: 'example.com') }
+  let(:account) { create(:account, name: "tenant", cname: "example.com") }
 
   describe "save" do
     let(:cname) { "foo.example.com" }

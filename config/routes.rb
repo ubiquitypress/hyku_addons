@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 HykuAddons::Engine.routes.draw do
   resources :account_settings, path: "/admin/account_settings", controller: 'account_settings', as: 'admin_account_settings' do
     member do
@@ -11,4 +12,6 @@ HykuAddons::Engine.routes.draw do
   get "/api/v1/tenant/:tenant_id/files/:id/download", to: "/hyku/api/v1/files#download"
 
   get "/importers/:id/validation", to: "/hyku_addons/importer_validations#show", as: :importer_validation
+
+  get "/pdf_viewer(/:download_id)", to: "/hyku_addons/pdf_viewer#pdf", as: :pdf_viewer
 end

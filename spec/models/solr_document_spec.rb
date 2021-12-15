@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'hyrax/doi/spec/shared_specs'
+require "spec_helper"
+require "hyrax/doi/spec/shared_specs"
 
-RSpec.describe SolrDocument do
+RSpec.describe SolrDocument, type: :model do
   let(:document) { described_class.new }
   let(:additional_properties) do
     [
@@ -21,11 +21,11 @@ RSpec.describe SolrDocument do
   end
 
   let(:solr_document_class) { described_class }
-  it_behaves_like 'a DOI-enabled solr document'
-  it_behaves_like 'a DataCite DOI-enabled solr document'
+  it_behaves_like "a DOI-enabled solr document"
+  it_behaves_like "a DataCite DOI-enabled solr document"
 
-  describe 'accessors' do
-    it 'defines accessors' do
+  describe "accessors" do
+    it "defines accessors" do
       additional_properties.each { |property| expect(document).to respond_to(property) }
     end
   end

@@ -15,8 +15,10 @@ module HykuAddons
     # TODO: Add view_context and use link_to and image_tag instead of <%== in the view
     # TODO: Need to normalize ids in the work model in  order for these methods to work in all cases (and stay simple)
     class PersonOrOrganization < Struct.new(:display_name, :orcid, :isni, :ror, :grid, :wikidata)
+      include Hyrax::Orcid::OrcidHelper
+
       def orcid_url
-        "https://orcid.org/#{orcid.gsub(/[^a-z0-9X]/, '')}" if orcid.present?
+        "https://orcid.org/#{validate_orcid(orcid)}" if orcid.present?
       end
 
       def orcid_logo
@@ -81,9 +83,9 @@ module HykuAddons
     private
 
       def person_or_organization_list(field)
-        return [] unless send(field)&.first.present?
+        return if (field_value = solr_document.public_send(field).first.presence || "[]").blank?
 
-        JSON.parse(send(field).first).collect do |hash|
+        JSON.parse(field_value).collect do |hash|
           name = hash.slice("#{field}_family_name", "#{field}_given_name", "#{field}_organization_name").values.map(&:presence).compact.join(', ')
           PersonOrOrganization.new(name, hash["#{field}_orcid"], hash["#{field}_isni"], hash["#{field}_ror"], hash["#{field}_grid"], hash["#{field}_wikidata"])
         end

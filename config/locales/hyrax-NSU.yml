@@ -1,0 +1,6 @@
+en-NSU:
+  simple_form:
+    hints:
+      defaults:
+        doi: >
+           If your item already has a persistent digital object identifier, then enter it here in the following format: 10.21250/tcq. This will allow the system to populate some fields for you.

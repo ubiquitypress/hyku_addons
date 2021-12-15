@@ -26,10 +26,6 @@ module HykuAddons
         index.as :stored_searchable
       end
 
-      property :fndr_project_ref, predicate: ::RDF::Vocab::BF2.awards do |index|
-        index.as :stored_searchable
-      end
-
       # FIXME: Dates should be indexed as dates or at least _ssim not _tesim
       property :date_published, predicate: ::RDF::Vocab::DC.available, multiple: false do |index|
         index.as :stored_searchable

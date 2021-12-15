@@ -1,15 +1,13 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
-RSpec.describe HykuAddons::TaskMaster::WorkBehavior do
-  subject(:work) { create(:task_master_work, :with_one_file) }
-  let(:account) { create(:account) }
+RSpec.describe HykuAddons::TaskMaster::WorkBehavior, type: :model do
+  subject(:work) { build_stubbed(:task_master_work, :with_one_file) }
+  let(:account) { build_stubbed(:account) }
   let(:site) { Site.new(account: account) }
 
   before do
-    ActiveJob::Base.queue_adapter = :test
-
     allow(Site).to receive(:instance).and_return(site)
     allow(Flipflop).to receive(:enabled?).and_call_original
     allow(Flipflop).to receive(:enabled?).with(:task_master).and_return(true)
@@ -47,6 +45,8 @@ RSpec.describe HykuAddons::TaskMaster::WorkBehavior do
 
   describe "Callbacks" do
     context "when the work is destroyed" do
+      subject(:work) { create(:task_master_work, :with_one_file) }
+
       it "creates a job" do
         expect { work.destroy }
           .to have_enqueued_job(HykuAddons::TaskMaster::PublishJob)

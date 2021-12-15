@@ -126,6 +126,7 @@ module HykuAddons
       attribute :is_format_of, SolrDocument::Solr::Array, solr_name('is_format_of')
       attribute :part_of, SolrDocument::Solr::Array, solr_name('part_of')
       attribute :georeferenced, SolrDocument::Solr::Array, solr_name('georeferenced')
+      attribute :mentor, SolrDocument::Solr::Array, solr_name('mentor')
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(
@@ -138,13 +139,6 @@ module HykuAddons
         rights: 'license_tesim',
         subject: 'keyword_tesim'
       )
-    end
-
-    # Work out the reader class from the solr document model
-    def meta_reader_class
-      "::Bolognese::Readers::#{@model.instance_variable_get(:@model)}Reader".constantize
-    rescue NameError
-      ::Bolognese::Readers::GenericWorkReader
     end
   end
 end

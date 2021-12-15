@@ -3,7 +3,7 @@
 # Later we could make a PR to expose them in Bulkrax so we don't have to copy them anymore
 
 FactoryBot.define do
-  factory :bulkrax_exporter, class: 'Bulkrax::Exporter' do
+  factory :bulkrax_exporter, class: "Bulkrax::Exporter" do
     name { "Export from Importer" }
     user { FactoryBot.build(:base_user) }
     export_type { "metadata" }

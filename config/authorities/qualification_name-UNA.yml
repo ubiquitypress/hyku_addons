@@ -1,0 +1,40 @@
+terms:
+- id: MA-English
+  term: Master of Arts in English
+  active: true
+- id: MA-History
+  term: Master of Arts in History
+  active: true
+- id: MA-PublicHistory
+  term: Master of Arts in Public History
+  active: true
+- id: MSc-GeospatialScience
+  term: Master of Science in Geospatial Science
+  active: true
+- id: MPrS
+  term: Master of Professional Studies
+  active: true
+- id: MSc-CriminalJustice
+  term: Master of Science in Criminal Justice
+  active: true
+- id: MSc-FamilyAndCommunityServices
+  term: Master of Science in Family and Community Services
+  active: true
+- id: MSc-FamilyStudies
+  term: Master of Science in Family Studies
+  active: true
+- id: MSc-HealthAndHumanPerformance
+  term: Master of Science in Health and Human Performance
+  active: true
+- id: MSc-SportAndRecreationalManagement
+  term: Master of Science in Sport and Recreation Management
+  active: true
+- id: MSc-InstructionalTechnologyAndDesign
+  term: Master of Science in Instructional Technology and Design
+  active: true
+- id: DBA
+  term: Doctorate of Business Admin
+  active: true
+- id: PhD-ExerciseScienceAndHealthPromotion
+  term: Doctor of Philosophy in Exercise Science and Health Promotion
+  active: true

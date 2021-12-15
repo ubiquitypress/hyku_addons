@@ -193,7 +193,7 @@ module HykuAddons
         parsed_metadata["file_visibility_#{index}"] = "embargo"
         parsed_metadata["file_visibility_during_embargo_#{index}"] = fs.visibility_during_embargo
         parsed_metadata["file_visibility_after_embargo_#{index}"] = fs.visibility_after_embargo
-        parsed_metadata["file_embargo_release_date_#{index}"] = fs.embargo_release_date.to_date.to_s
+        parsed_metadata["file_embargo_release_date_#{index}"] = fs.embargo_release_date&.to_date&.to_s
       end
     end
 

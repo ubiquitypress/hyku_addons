@@ -4,7 +4,7 @@ require "spec_helper"
 
 RSpec.describe Hyrax::GenericWorksController, type: :request, multitenant: true do
   let(:main_app) { Rails.application.routes.url_helpers }
-  let(:user) { create(:user, email: 'user@pacificu.edu') }
+  let(:user) { create(:user, email: "user@pacificu.edu") }
   let(:work) { create(:work, user: user) }
   let!(:account) { create(:account) }
 

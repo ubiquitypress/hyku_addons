@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'hyrax/doi/engine'
 require 'bolognese/metadata'
+require 'cocoon'
 
 module HykuAddons
   class Engine < ::Rails::Engine
@@ -16,6 +17,10 @@ module HykuAddons
         end
       end
       HykuAddons::I18nMultitenant.configure(I18n)
+    end
+
+    initializer "hyku_addons.pdf_viewer" do
+      Rails.application.config.assets.precompile += ["pdf_viewer.css", "pdf_viewer/base.js", "pdf_viewer/locale/*"]
     end
 
     initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
@@ -39,19 +44,6 @@ module HykuAddons
 
       # Using a concern doesn't actually override the original method so inlining it here
       Proprietor::AccountsController.include HykuAddons::AccountControllerBehavior
-      Proprietor::AccountsController.class_eval do
-        private
-
-          # Never trust parameters from the scary internet, only allow the allowed list through.
-          def account_params
-            params.require(:account).permit(:name, :cname, :title,
-                                            admin_emails: [],
-                                            solr_endpoint_attributes: %i[id url],
-                                            fcrepo_endpoint_attributes: %i[id url base_path],
-                                            datacite_endpoint_attributes: %i[mode prefix username password],
-                                            settings: %i[file_size_limit locale_name])
-          end
-      end
 
       CreateAccount.class_eval do
         def create_account_inline
@@ -78,7 +70,13 @@ module HykuAddons
     ## In engine development mode (ENGINE_ROOT defined) handle specific generators as app-only by setting destintation_root appropriately
     initializer 'hyku_addons.app_generators' do
       if defined?(ENGINE_ROOT)
-        APP_GENERATORS = ['HykuAddons::InstallGenerator', 'Hyrax::DOI::InstallGenerator', 'Hyrax::DOI::AddToWorkTypeGenerator', 'Hyrax::Hirmeos::InstallGenerator'].freeze
+        APP_GENERATORS = [
+          'HykuAddons::InstallGenerator',
+          'Hyrax::DOI::InstallGenerator',
+          'Hyrax::DOI::AddToWorkTypeGenerator',
+          'Hyrax::Hirmeos::InstallGenerator',
+          'Hyrax::Orcid::InstallGenerator'
+        ].freeze
 
         Rails::Generators::Base.class_eval do
           def initialize(args, options, config)
@@ -421,7 +419,10 @@ module HykuAddons
         config.register_curation_concern :dataset
         config.register_curation_concern :denver_article
         config.register_curation_concern :denver_book
+        config.register_curation_concern :denver_book_chapter
+        config.register_curation_concern :denver_dataset
         config.register_curation_concern :denver_image
+        config.register_curation_concern :denver_map
         config.register_curation_concern :denver_multimedia
         config.register_curation_concern :denver_presentation_material
         config.register_curation_concern :denver_serial_publication
@@ -450,6 +451,15 @@ module HykuAddons
         config.register_curation_concern :redlands_media
         config.register_curation_concern :redlands_student_work
         config.register_curation_concern :ubiquity_template_work
+        config.register_curation_concern :una_archival_item
+        config.register_curation_concern :una_article
+        config.register_curation_concern :una_book
+        config.register_curation_concern :una_chapters_and_book_section
+        config.register_curation_concern :una_exhibition
+        config.register_curation_concern :una_image
+        config.register_curation_concern :una_presentation
+        config.register_curation_concern :una_thesis_or_dissertation
+        config.register_curation_concern :una_time_based_media
         config.register_curation_concern :uva_work
 
         config.license_service_class = HykuAddons::LicenseService
@@ -493,6 +503,11 @@ module HykuAddons
       actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
+      # Workflows
+      Hyrax::Workflow::ChangesRequiredNotification.prepend HykuAddons::Workflow::ChangesRequiredNotification
+      Hyrax::Workflow::DepositedNotification.prepend HykuAddons::Workflow::DepositedNotification
+      Hyrax::Workflow::PendingReviewNotification.prepend HykuAddons::Workflow::PendingReviewNotification
+
       # TaskMaster
       Account.include HykuAddons::TaskMaster::AccountBehavior
       FileSet.include HykuAddons::TaskMaster::FileSetBehavior
@@ -503,6 +518,7 @@ module HykuAddons
       Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
       ::Bolognese::Writers::RisWriter.include ::Bolognese::Writers::RisWriterBehavior
       ::Bolognese::Metadata.prepend ::Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
+      ::Bolognese::Metadata.include ::Bolognese::Readers::HykuAddonsWorkReader
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
 
       Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
@@ -514,13 +530,28 @@ module HykuAddons
       ::Hyku::API::V1::SearchController.prepend HykuAddons::SearchControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
       ::Hyku::API::V1::HighlightsController.prepend HykuAddons::HighlightsControllerBehavior
+      ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
       Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
+      Bulkrax::ExportersController.include HykuAddons::ExportersControllerOverride
       ::ActiveJob::Base.include HykuAddons::ImportMode
       ::CleanupAccountJob.prepend HykuAddons::CleanupAccountJobBehavior
 
+      # Overrides for shared_search.
+      # remove when we start using Hyku-3
+      ::CreateSolrCollectionJob.prepend HykuAddons::CreateSolrCollectionJobOverride
+      ::CreateFcrepoEndpointJob.prepend HykuAddons::CreateFcrepoEndpointJobOverride
+      ::CreateAccount.prepend HykuAddons::CreateAccountOverride
+      ::RemoveSolrCollectionJob.prepend HykuAddons::RemoveSolrCollectionJobOverride
+      ::SolrEndpoint.prepend HykuAddons::SolrEndpointOverride
+      ::ApplicationController.prepend HykuAddons::ApplicationControllerOverride
+      ::Hyrax::Admin::FeaturesController.prepend HykuAddons::FlipflopFeaturesControllerOverride
+      ::Flipflop::StrategiesController.prepend HykuAddons::FlipflopStrategiesControllerOverride
+      ::Proprietor::AccountsController.prepend HykuAddons::ProprietorControllerOverride
+      ::NilEndpoint.prepend HykuAddons::NilEndpointOverride
+      ::Hyrax::CollectionIndexer.prepend HykuAddons::CollectionIndexerOverride
+      ::Hyrax::CollectionPresenter.prepend HykuAddons::CollectionPresenterOverride
       Hyrax::Workflow::AbstractNotification.include HykuAddons::WorkflowBehavior
       Mailboxer::MessageMailer.prepend HykuAddons::MailboxerMessageMailerBehavior
-    end
 
     # Use #to_prepare because it reloads where after_initialize only runs once
     # This might slow down every request so only do it in development environment
@@ -532,6 +563,13 @@ module HykuAddons
       initializer 'hyku_addons.blacklight_config override' do
         CatalogController.include HykuAddons::CatalogControllerBehavior
       end
+    end
+
+    config.after_initialize do
+      # Remove the Hyrax Orcid JSON Actor as we have our own - this should not be namespaced
+      Hyrax::CurationConcern.actor_factory.middlewares.delete(Hyrax::Actors::Orcid::JSONFieldsActor)
+      # Remove the Hyrax Orcid pipeline as its not required within HykuAddons
+      ::Blacklight::Rendering::Pipeline.operations.delete(Hyrax::Orcid::Blacklight::Rendering::PipelineJsonExtractor)
     end
   end
 end

@@ -10,10 +10,6 @@ class DenverSerialPublication < ActiveFedora::Base
   include ::HykuAddons::AddInfoSingular
   include ::HykuAddons::InstitutionSingular
 
-  property :place_of_publication, predicate: ::RDF::Vocab::BF2.term(:Place) do |index|
-    index.as :stored_searchable, :facetable
-  end
-
   property :extent, predicate: ::RDF::Vocab::DC.extent, multiple: false do |index|
     index.as :stored_searchable
   end
@@ -22,7 +18,7 @@ class DenverSerialPublication < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :time, predicate: ::RDF::Vocab::DC.temporal do |index|
+  property :time, predicate: ::RDF::Vocab::DC.temporal, multiple: false do |index|
     index.as :stored_searchable
   end
 

@@ -11,7 +11,7 @@ RSpec.describe "OAI PMH Support", type: :feature do
     work
   end
 
-  context 'oai interface with works present' do
+  context "oai interface with works present" do
     it "shows extended metadata"
   end
 end

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe Mailboxer::MessageMailer, clean: true, multitenant: true do
+RSpec.describe Mailboxer::MessageMailer, clean: true, multitenant: true, type: :mailer do
   let(:account) do
-    Account.create(name: 'test', cname: 'test.lvh.me', locale_name: 'test')
+    Account.create(name: "test", cname: "test.lvh.me", locale_name: "test")
   end
   let(:user) { create :user }
 

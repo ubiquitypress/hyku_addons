@@ -14,6 +14,7 @@
 	<% personal_fields = add_denver_creator_personal_fields(personal_fields, creator_role_options) if template.include? "denver" %>
 	<% personal_fields = add_redlands_creator_personal_fields(personal_fields, creator_role_options) if template.include? "redlands" %>
 	<% personal_fields = add_anschutz_creator_personal_fields(personal_fields, creator_role_options) if template.include? "anschutz" %>
+	<% personal_fields = add_una_creator_personal_fields(personal_fields, creator_role_options) if template.include? "una" %>
 
 	<% personal_fields.each do |field| %>
 		<% options = { field_group: :creator, template: template, hash: hash }.merge(field) %>

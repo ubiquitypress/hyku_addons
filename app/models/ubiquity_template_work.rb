@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 # Generated via
 #  `rails generate hyrax:work TemplateWork`
-# rubocop:disable  Metrics/ClassLength
 class UbiquityTemplateWork < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include Hyrax::DOI::DOIBehavior
@@ -9,6 +8,10 @@ class UbiquityTemplateWork < ActiveFedora::Base
   include ::HykuAddons::WorkBase
   include ::HykuAddons::AltTitleMultiple
   include ::HykuAddons::AddInfoSingular
+
+  property :fndr_project_ref, predicate: ::RDF::Vocab::BF2.awards do |index|
+    index.as :stored_searchable
+  end
 
   property :location, predicate: ::RDF::Vocab::BF2.physicalLocation, multiple: false do |index|
     index.as :stored_searchable, :facetable
@@ -58,7 +61,7 @@ class UbiquityTemplateWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :time, predicate: ::RDF::Vocab::DC.temporal do |index|
+  property :time, predicate: ::RDF::Vocab::DC.temporal, multiple: false do |index|
     index.as :stored_searchable
   end
 
@@ -78,7 +81,7 @@ class UbiquityTemplateWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :rights_statement_text, predicate: ::RDF::Vocab::DC.rights, multiple: false do |index|
+  property :rights_statement_text, predicate: ::RDF::Vocab::DC11.rights, multiple: false do |index|
     index.as :stored_searchable
   end
 
@@ -280,6 +283,10 @@ class UbiquityTemplateWork < ActiveFedora::Base
 
   property :related_material, predicate: ::RDF::Vocab::BF2.term(:relatedTo), multiple: false do |index|
     index.as :stored_searchable, :facetable
+  end
+
+  property :volume, predicate: ::RDF::Vocab::BIBO.volume do |index|
+    index.as :stored_searchable
   end
 
   self.json_fields += %i[editor current_he_institution]

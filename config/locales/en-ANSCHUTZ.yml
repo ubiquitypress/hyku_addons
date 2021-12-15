@@ -76,6 +76,7 @@ en-ANSCHUTZ:
         library_of_congress_classification: " "
         medium: Admin Only, please do not define
         table_of_contents: Admin Only, please do not define
+        source_identifier: Admin Only, please do not define
         add_info: Any additional information to be included
         source: If submission is derived from another source.
         subject: " "

@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 require "rails_helper"
-require File.expand_path("../helpers/create_work_user_context", __dir__)
+require File.expand_path("../support/shared_contexts/create_work_user_context", __dir__)
 
 include Warden::Test::Helpers
 
-RSpec.describe "autofilling the form from DOI", js: true do
+RSpec.describe "autofilling the form from DOI", js: true, slow: true do
   let(:request_headers) do
     {
       "Accept" => "text/html,application/json,application/xml;q=0.9, text/plain;q=0.8,image/png,*/*;q=0.5",
-      "User-Agent" => "Mozilla/5.0 (compatible; Maremma/4.7.4; mailto:info@datacite.org)",
+      "Accept-Encoding" => "gzip,deflate",
+      "User-Agent" => "Mozilla/5.0 (compatible; Maremma/4.9.6; mailto:info@datacite.org)",
       "Host" => "doi.org"
     }
   end
@@ -74,7 +75,7 @@ RSpec.describe "autofilling the form from DOI", js: true do
         # # Second request returns the DOI metadata
         # # NOTE: The headers are for XML, but the request returns JSON; goto the URL to download the JSON response to stub
         stub_request(:get, "https://api.crossref.org/works/#{doi}/transform/application/vnd.crossref.unixsd+xml")
-          .with(headers: request_headers.merge("Host" => "api.crossref.org", "Accept" => "text/xml"))
+          .with(headers: request_headers.merge("Host" => "api.crossref.org", "Accept" => "text/xml;charset=utf-8"))
           .to_return(status: 200, body: fixture, headers: {})
       end
 

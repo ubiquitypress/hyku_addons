@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Hyrax::BookPresenter do
   let(:presenter) { described_class.new(solrdoc, nil, nil) }
@@ -10,11 +10,6 @@ RSpec.describe Hyrax::BookPresenter do
   describe "accessors" do
     it "delegates methods to the presenter" do
       described_class.delegated_methods.each { |property| expect(presenter).to respond_to(property) }
-    end
-
-    it "doesn't respond to generic work delegated methods" do
-      difference = Hyrax::GenericWorkPresenter.delegated_methods - presenter.class.delegated_methods
-      difference.each { |property| expect(presenter).not_to respond_to(property) }
     end
   end
 end

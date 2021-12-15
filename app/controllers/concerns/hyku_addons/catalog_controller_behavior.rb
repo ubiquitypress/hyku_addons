@@ -7,6 +7,8 @@ module HykuAddons
       append_before_action :routing_error_unless_feature_enabled, only: :oai
 
       configure_blacklight do |config|
+        config.repository_class = Blacklight::Solr::Repository
+
         # Re-configure facet fields
         config.facet_fields = {}
         config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 5
@@ -120,7 +122,7 @@ module HykuAddons
           all_names = config.show_fields.values.map(&:field).join(" ")
           title_name = solr_name("title", :stored_searchable)
           field.solr_parameters = {
-            qf: "#{all_names} file_format_tesim all_text_timv alt_title_tesim^4.15 editor_display_ssim",
+            qf: "#{all_names} account_cname_tesim file_format_tesim all_text_timv alt_title_tesim^4.15 editor_display_ssim",
             pf: title_name.to_s
           }
         end

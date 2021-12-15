@@ -8,23 +8,31 @@ module HykuAddons
 
     ARRAY_SETTINGS = %w[weekly_email_list monthly_email_list yearly_email_list email_format].freeze
     BOOLEAN_SETTINGS = %w[allow_signup shared_login bulkrax_validations].freeze
-    HASH_SETTINGS = %w[smtp_settings].freeze
+    HASH_SETTINGS = %w[smtp_settings hyrax_orcid_settings].freeze
     TEXT_SETTINGS = %w[contact_email gtm_id oai_admin_email oai_prefix oai_sample_identifier google_analytics_id].freeze
 
     PRIVATE_SETTINGS = %w[smtp_settings].freeze
 
     included do
-      belongs_to :datacite_endpoint, dependent: :delete
-      has_many :children, class_name: "Account", foreign_key: "parent_id", dependent: :destroy, inverse_of: :parent
-      belongs_to :parent, class_name: "Account", inverse_of: :parent, foreign_key: "parent_id", optional: true
+      # added forshared search
+      scope :full_accounts, -> { where(search_only: false) }
+      has_many :full_account_cross_searches, class_name: 'AccountCrossSearch', dependent: :destroy, foreign_key: 'search_account_id'
+      has_many :full_accounts, class_name: 'Account', through: :full_account_cross_searches
+      has_many :search_account_cross_searches, class_name: 'AccountCrossSearch', dependent: :destroy, foreign_key: 'full_account_id'
+      has_many :search_accounts, class_name: 'Account', through: :search_account_cross_searches
+      accepts_nested_attributes_for :full_accounts
+      accepts_nested_attributes_for :full_account_cross_searches, allow_destroy: true
 
-      store_accessor :data, :is_parent
+      belongs_to :datacite_endpoint, dependent: :delete
+      accepts_nested_attributes_for :datacite_endpoint, update_only: true
+
+      store_accessor :data
       store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
                      :google_scholarly_work_types, :gtm_id, :shared_login, :email_format,
                      :allow_signup, :oai_admin_email, :file_size_limit, :enable_oai_metadata, :oai_prefix,
-                     :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id, :smtp_settings
+                     :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id, :smtp_settings,
+                     :hyrax_orcid_settings
 
-      accepts_nested_attributes_for :datacite_endpoint, update_only: true
       after_initialize :initialize_settings
 
       validates :gtm_id, format: { with: /GTM-[A-Z0-9]{4,7}/, message: "Invalid GTM ID" }, allow_blank: true
@@ -60,6 +68,7 @@ module HykuAddons
         Settings.switch!(name: locale_name, settings: settings)
         switch_host!(cname)
         setup_tenant_cache(cache_api?)
+        switch_hyrax_orcid_credentials!
       end
 
       def reset!
@@ -106,10 +115,15 @@ module HykuAddons
       settings.reject { |k, _v| Account.private_settings.include?(k.to_s) }
     end
 
+    def shared_search_enabled?
+      Flipflop.enabled?(:cross_tenant_shared_search)
+    end
+
     private
 
       def validate_email_format
         return unless settings['email_format'].present?
+
         settings['email_format'].each do |email|
           errors.add(:email_format) unless email.match?(/@\S*\.\S*/)
         end
@@ -118,6 +132,7 @@ module HykuAddons
       def validate_contact_emails
         ['weekly_email_list', 'monthly_email_list', 'yearly_email_list'].each do |key|
           next unless settings[key].present?
+
           settings[key].each do |email|
             errors.add(:"#{key}") unless email.match?(URI::MailTo::EMAIL_REGEXP)
           end
@@ -127,18 +142,42 @@ module HykuAddons
       def initialize_settings
         set_jsonb_allow_signup_default
         set_smtp_settings
+        set_hyrax_orcid_settings
       end
 
       def set_jsonb_allow_signup_default
         return if settings['allow_signup'].present?
+
         self.allow_signup = 'true'
       end
 
       def set_smtp_settings
         current_smtp_settings = settings["smtp_settings"].presence || {}
+
         self.smtp_settings = current_smtp_settings.with_indifferent_access.reverse_merge!(
           HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h
         )
+      end
+
+      # If any settings are added, also add the param inside HykuAddons::AccountSettingsController
+      def set_hyrax_orcid_settings
+        orcid_defaults = { "client_id" => "", "client_secret" => "", "auth_redirect" => "", "environment" => "sandbox" }
+
+        self.hyrax_orcid_settings = orcid_defaults.merge(hyrax_orcid_settings || {})
+      end
+
+      def switch_hyrax_orcid_credentials!
+        return if (orcid = settings["hyrax_orcid_settings"]).blank?
+
+        Hyrax::Orcid.configure do |config|
+          config.environment = orcid["environment"]
+
+          config.auth = {
+            client_id: orcid["client_id"],
+            client_secret: orcid["client_secret"],
+            redirect_url: orcid["auth_redirect"]
+          }
+        end
       end
   end
 end

@@ -2,6 +2,7 @@ inherit_gem:
   bixby: bixby_default.yml
 
 AllCops:
+  UseCache: true
   TargetRubyVersion: 2.5
   DisplayCopNames: true
   Exclude:
@@ -9,6 +10,7 @@ AllCops:
     - 'db/migrate/*.hyrax.rb'
     - 'spec/internal_test_hyku/**/*'
     - 'vendor/**/*'
+    - 'config/**/*'
 
 Metrics/ClassLength:
   Exclude:
@@ -19,6 +21,8 @@ Metrics/ClassLength:
     - 'lib/hyku_addons/engine.rb'
     - 'app/models/nsu_generic_work.rb'
     - 'app/models/nsu_article.rb'
+    - 'app/models/una_archival_item.rb'
+    - 'app/models/ubiquity_template_work.rb'
 
 Metrics/LineLength:
   Exclude:
@@ -52,6 +56,7 @@ Metrics/BlockLength:
     - 'lib/hyku_addons/engine.rb'
     - 'lib/tasks/*.rake'
     - 'spec/**/*.rb'
+    - 'config/features.rb'
 
 Metrics/MethodLength:
   Exclude:
@@ -71,6 +76,8 @@ Metrics/MethodLength:
     - 'app/controllers/concerns/hyku_addons/search_controller_behavior.rb'
     - 'app/forms/hyrax/nsu_generic_work_form.rb'
     - 'app/forms/hyrax/nsu_article_form.rb'
+    - 'app/forms/hyrax/una_archival_item_form.rb'
+
 
 Metrics/CyclomaticComplexity:
   Exclude:
@@ -103,6 +110,8 @@ RSpec/DescribeClass:
     - 'spec/features/**/*'
     - 'spec/inputs/**/*'
     - 'spec/views/**/*'
+    - 'spec/tasks/hyku_addons/rake_spec.rb'
+    - 'spec/indexers/collection_indexer_override_spec.rb'
 
 RSpec/ExampleLength:
   Max: 10
@@ -168,3 +177,24 @@ Naming/FileName:
 Lint/HandleExceptions:
   Exclude:
     - 'app/models/hyku_addons/csv_entry.rb'
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+  Exclude:
+    - 'app/**/*'
+    - 'config/**/*'
+    - 'lib/**/*'
+    - 'db/**/*'
+    - 'bin/**/*'
+    - '**/*.gemfile'
+    - '**/*.gemspec'
+    - '**/*.rake'
+    - '**/*.ru'
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - 'spec/internal_test_hyku/**/*'
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'

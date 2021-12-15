@@ -20,6 +20,9 @@ require 'ammeter/init'
 # Optional execution of specs for examples that fail randomly on CI
 require File.expand_path('support/optional_example', __dir__)
 
+# Try and suppress depreciation warnings
+ActiveSupport::Deprecation.silenced = true
+
 if ENV['CI']
   # Capybara config copied over from Hyrax
   Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
@@ -76,8 +79,6 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-ActiveJob::Base.queue_adapter = :test
-
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -131,21 +132,20 @@ RSpec.configure do |config|
   #   ActiveJob::Base.queue_adapter.filter = [JobClass]
   #
 
-  config.around(:example, :perform_enqueued) do |example|
-    ActiveJob::Base.queue_adapter.filter =
-      example.metadata[:perform_enqueued].try(:to_a)
-    ActiveJob::Base.queue_adapter.perform_enqueued_jobs    = true
-    ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = true
-
-    example.run
-
-    ActiveJob::Base.queue_adapter.filter = nil
-    ActiveJob::Base.queue_adapter.perform_enqueued_jobs    = false
-    ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = false
+  config.before do
+    ActiveJob::Base.queue_adapter = :test
   end
+
+  config.after do
+    clear_enqueued_jobs
+  end
+
+  config.filter_run_excluding slow: true unless ENV['CI']
 
   # Add support for conditional execution of specs
   config.include OptionalExample
+
+  config.include Capybara::RSpecMatchers
 
   ## Override spec/internal_test_hyku/spec/support/multitenancy_metadata.rb by setting ENV
   # because the mocking of Settings.multitenancy gets overwritten by the Settings reloading
@@ -177,6 +177,12 @@ RSpec.configure do |config|
 
     # Ensure that Hirmeos is always enabled or all the feature tests will fail
     allow(Hyrax::Hirmeos).to receive(:configured?).and_return(true)
+  end
+
+  # in addition to hydra-test, created  2 solr collection for testing cross tenant search
+  config.before(:suite) do
+    CreateSolrCollectionJob.new.without_account('hydra-sample') if ENV['IN_DOCKER']
+    CreateSolrCollectionJob.new.without_account('hydra-cross-search-tenant', 'hydra-test, hydra-sample') if ENV['IN_DOCKER']
   end
   ## End override
 end

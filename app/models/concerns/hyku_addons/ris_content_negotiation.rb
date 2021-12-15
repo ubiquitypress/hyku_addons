@@ -11,7 +11,7 @@ module HykuAddons
     def export_as_ris
       json = attributes.merge("has_model" => to_model.model_name.name).to_json
 
-      meta_reader_class.new(input: json, from: "work").ris
+      ::Bolognese::Metadata.new(input: json, from: "hyku_addons_work").ris
     end
   end
 end

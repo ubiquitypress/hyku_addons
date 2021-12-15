@@ -1,0 +1,5 @@
+en-REDLANDS:
+  simple_form:
+    labels:
+      una_presentation:
+        date_published: "Presentation Date"

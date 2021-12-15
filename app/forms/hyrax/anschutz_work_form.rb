@@ -11,7 +11,7 @@ module Hyrax
                  journal_frequency funding_description citation table_of_contents
                  references extent medium library_of_congress_classification committee_member
                  time part_of rights_statement qualification_subject_text qualification_grantor qualification_level
-                 qualification_name is_format_of]
+                 qualification_name is_format_of source_identifier]
     self.terms -= %i[related_url keyword subject contributor]
     self.required_fields = %i[title resource_type creator date_published abstract license]
 
