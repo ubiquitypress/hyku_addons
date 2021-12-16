@@ -9,7 +9,11 @@ en:
           delete_picture_data_original_title: Delete Picture
           allow_public_display: Allow user profile and information to be visable to the public.
           display_name: Name
-          help_name: Enter your name as you would like it displayed on the Author profile page 
+          help_name: Enter your name as you would like it displayed on the Author profile page
+          department: Department
+          help_department: " "
+          bio: Personal Biography
+          help_bio: " "
   simple_form:
     hints:
       defaults:

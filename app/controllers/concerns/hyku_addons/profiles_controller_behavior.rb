@@ -8,7 +8,8 @@ module HykuAddons
       def user_params
         params.require(:user).permit(:avatar, :facebook_handle, :twitter_handle,
                                      :googleplus_handle, :linkedin_handle, :remove_avatar,
-                                     :orcid, :display_profile, :display_name)
+                                     :orcid, :display_profile, :display_name, :department,
+                                     :biography)
       end
   end
 end
