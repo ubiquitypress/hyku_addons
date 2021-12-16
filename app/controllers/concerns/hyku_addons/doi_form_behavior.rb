@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 module HykuAddons
   module DOIFormBehavior
-
     extend ActiveSupport::Concern
 
     included do
@@ -11,7 +10,7 @@ module HykuAddons
     end
 
     def primary_terms
-      (!Flipflop.doi_tab? && Flipflop.doi_minting?) ? super << :doi : super
+      !Flipflop.doi_tab? && Flipflop.doi_minting? ? super << :doi : super
     end
 
     def secondary_terms

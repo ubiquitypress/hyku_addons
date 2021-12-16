@@ -26,8 +26,9 @@
         <div class="panel panel-default">
           <div class="form-tab-content">
             <%# Non form input for the DOI search %>
-            <input type="text" id="doi-search" name="doi-search"><br><br> 
-            <%= link_to "Autofill form",
+            <p class="help-block"><%= t("hyrax.works.form.autofill.searchbox.hint") %></p>
+            <input type="text" id="doi-search" name="doi-search" class="form-control" placeholder="<%= t("hyrax.works.form.autofill.searchbox.placeholder") %>" ><br />
+            <%= link_to t("hyrax.works.form.autofill.button.long_text"),
               Hyrax::DOI::Engine.routes.url_helpers.autofill_path,
               remote: true,
               method: :get,
