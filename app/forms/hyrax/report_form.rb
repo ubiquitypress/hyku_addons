@@ -12,7 +12,7 @@ module Hyrax
                  refereed keyword dewey library_of_congress_classification add_info pagination rendering_ids]
     self.required_fields = %i[title resource_type creator institution date_published]
 
-    include Hyrax::DOI::DOIFormBehavior
+    include HykuAddons::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
   end
 end

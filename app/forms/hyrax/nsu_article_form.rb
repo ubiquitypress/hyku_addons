@@ -18,7 +18,7 @@ module Hyrax
                  suggested_student_reviewers irb_number irb_status add_info]
 
     self.required_fields = %i[title resource_type creator keywords subject]
-    include Hyrax::DOI::DOIFormBehavior
+    include HykuAddons::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def primary_terms

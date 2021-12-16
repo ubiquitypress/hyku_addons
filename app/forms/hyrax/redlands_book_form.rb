@@ -15,7 +15,7 @@ module Hyrax
                               org_unit language table_of_contents publisher
                               place_of_publication date_published book_title]
 
-    include Hyrax::DOI::DOIFormBehavior
+    include HykuAddons::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def primary_terms

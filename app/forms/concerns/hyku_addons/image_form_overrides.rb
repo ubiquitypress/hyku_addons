@@ -16,7 +16,7 @@ module HykuAddons
       self.required_fields = %i[title resource_type creator institution date_published]
 
       # These must be added after the terms are defined
-      include Hyrax::DOI::DOIFormBehavior
+      include HykuAddons::DOIFormBehavior
       include Hyrax::DOI::DataCiteDOIFormBehavior
     end
   end

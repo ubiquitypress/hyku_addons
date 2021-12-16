@@ -16,7 +16,7 @@ module Hyrax
 
     self.terms -= %i[source contributor rights_statement language]
     self.required_fields = %i[title resource_type creator journal_title]
-    include Hyrax::DOI::DOIFormBehavior
+    include HykuAddons::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def primary_terms

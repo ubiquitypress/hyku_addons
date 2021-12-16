@@ -12,7 +12,7 @@ module Hyrax
     self.terms -= %i[rights_statement subject]
     self.required_fields = %i[title creator resource_type abstract license publisher]
 
-    include Hyrax::DOI::DOIFormBehavior
+    include HykuAddons::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def self.build_permitted_params

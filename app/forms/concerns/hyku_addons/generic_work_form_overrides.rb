@@ -19,7 +19,7 @@ module HykuAddons
       self.required_fields = %i[title resource_type creator institution date_published]
 
       # These includes are after add_terms because they add terms
-      include Hyrax::DOI::DOIFormBehavior
+      include HykuAddons::DOIFormBehavior
       include Hyrax::DOI::DataCiteDOIFormBehavior
 
       def primary_terms

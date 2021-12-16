@@ -13,7 +13,7 @@ module Hyrax
                  add_info]
     self.required_fields = %i[title resource_type creator date_published institution journal_title]
 
-    include Hyrax::DOI::DOIFormBehavior
+    include HykuAddons::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
   end
 end
