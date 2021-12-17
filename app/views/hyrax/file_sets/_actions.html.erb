@@ -1,6 +1,9 @@
-<% view_condition = [can?(:edit, file_set.id), can?(:destroy, file_set.id), can?(:download, file_set.id), (Flipflop.enabled?(:annotation) && file_set.pdf?)] %>
-<% if can?(:edit, file_set.id) || (view_condition.any? && !view_condition.one?)  %>
+<% can_annotate = Flipflop.enabled?(:annotation) && file_set.pdf? %>
+<% user_actions_count = [can?(:edit, file_set.id), can?(:destroy, file_set.id), can?(:download, file_set.id), can_annotate].count(true) %>
+<% list_item_count = can?(:edit, file_set.id) ? user_actions_count + 1 : user_actions_count  %>
+
+<% if list_item_count > 1  %>
   <%= render partial: 'hyrax/file_sets/actions_list', locals: {file_set: file_set} %>
-<% elsif view_condition.one? %>
+<% elsif list_item_count == 1 %>
   <%= render partial: 'hyrax/file_sets/actions_button', locals: {file_set: file_set} %>
 <% end %>
