@@ -13,7 +13,7 @@ module Hyrax
 
     self.required_fields = %i[title resource_type creator abstract org_unit refereed]
     self.terms -= %i[language rights_statement]
-    include HykuAddons::DOIFormBehavior
+    include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def self.build_permitted_params

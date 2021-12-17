@@ -24,7 +24,7 @@ module Hyrax
     add_terms @fields
     self.required_fields = %i[title resource_type creator]
 
-    include HykuAddons::DOIFormBehavior
+    include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def primary_terms

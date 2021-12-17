@@ -14,7 +14,7 @@ module Hyrax
     self.terms -= %i[related_url publisher source]
     self.required_fields = %i[title creator resource_type]
 
-    include HykuAddons::DOIFormBehavior
+    include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def primary_terms

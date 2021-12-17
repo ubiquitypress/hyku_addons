@@ -14,7 +14,7 @@ module Hyrax
     self.required_fields = %i[title resource_type creator date_published institution qualification_level
                               qualification_name]
 
-    include HykuAddons::DOIFormBehavior
+    include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
   end
 end

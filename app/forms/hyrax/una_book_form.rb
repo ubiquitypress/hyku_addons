@@ -14,7 +14,7 @@ module Hyrax
                               keyword subject org_unit language license version_number
                               table_of_contents publisher place_of_publication date_published ]
 
-    include HykuAddons::DOIFormBehavior
+    include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def primary_terms

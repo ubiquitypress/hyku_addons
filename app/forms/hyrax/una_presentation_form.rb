@@ -12,7 +12,7 @@ module Hyrax
     self.required_fields = %i[title creator resource_type alt_email abstract keyword
                               subject org_unit language license publisher date_published]
 
-    include HykuAddons::DOIFormBehavior
+    include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def primary_terms

@@ -20,7 +20,7 @@ module Hyrax
                  irb_status add_info]
 
     self.required_fields = %i[title resource_type creator keywords subject]
-    include HykuAddons::DOIFormBehavior
+    include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
     def primary_terms
