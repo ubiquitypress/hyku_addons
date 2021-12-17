@@ -86,7 +86,7 @@ RAILS_ENV=test bundle exec rails db:migrate
 
 ##### Adding Migrations
 
-When writing migration they must use the `up/down` syntax and check if a table has already been created. This is because migrations might be installed more than one in development, or when tenants are added in production, their migrations need to be run after the initial migration may have been executed.
+When writing migration they must use the `up/down` syntax and check if a table has already been created. This is because migrations might be installed more than one in development, or when tenants are added in production, their migrations need to be run after the initial migration may have been executed.  Checking at a per line level in the migration also assists when re-running a failed migration manually.
 
 ```ruby
 # Example of how to check if a table currently exists
@@ -108,19 +108,26 @@ class CreateAccountCrossSearches < ActiveRecord::Migration[5.2]
 end
 ```
 
-When adding columns you must follow the same pattern:
+When adding columns you must follow the same pattern.  Note that when adding indicies or foreign keys they must be added after column creation, and removed before the columns are removed:
 
 ```ruby
 class AddDisplayProfileToUsers < ActiveRecord::Migration[5.2]
   def self.up
-    add_column :users, :display_profile, :boolean, default: false unless column_exists?(:users, :display_profile)
+    add_column      :users, :display_name, :string      unless column_exists?(:users, :display_name)
+    add_index       :users, :display_name, unique: true unless index_exists?(:users, :display_name, unique: true)
+    add_column      :users, :jobtitle_id, :integer      unless column_exists?(:users, :jobtitle_id)
+    add_foreign_key :users, :jobtitles                  unless foreign_key_exists?(:users, :jobtitles)
   end
 
   def self.down
-    remove_column :users, :display_profile if column_exists?(:users, :display_profile)
+    remove_foreign_key :users, :jobtitles    if foreign_key_exists?(:users, :jobtitles)
+    remove_index       :users, :display_name if index_exists?(:users, :display_name, unique: true)
+    remove_column      :users, :display_name if column_exists?(:users, :display_name)
+    remove_column      :users, :jobtitle_id  if column_exists?(:users, :jobtitle_id)
   end
 end
 ```
+Also note that when checking the existence of an index or foreign key you must correctly specify options such as unique for ActiveRecord to return a match.
 
 ### Initializers
 
