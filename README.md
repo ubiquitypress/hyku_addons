@@ -84,6 +84,44 @@ Don't forget to run the test migations at the same time:
 RAILS_ENV=test bundle exec rails db:migrate
 ```
 
+##### Adding Migrations
+
+When writing migration they must use the `up/down` syntax and check if a table has already been created. This is because migrations might be installed more than one in development, or when tenants are added in production, their migrations need to be run after the initial migration may have been executed.
+
+```ruby
+# Example of how to check if a table currently exists
+class CreateAccountCrossSearches < ActiveRecord::Migration[5.2]
+  def self.up
+    return if table_exists?(:account_cross_searches)
+
+    create_table :account_cross_searches do |t|
+      t.references :search_account, foreign_key: { to_table: :accounts }
+      t.references :full_account, foreign_key: { to_table: :accounts }
+
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table(:account_cross_searches)
+  end
+end
+```
+
+When adding columns you must follow the same pattern:
+
+```ruby
+class AddDisplayProfileToUsers < ActiveRecord::Migration[5.2]
+  def self.up
+    add_column :users, :display_profile, :boolean, default: false unless column_exists?(:users, :display_profile)
+  end
+
+  def self.down
+    remove_column :users, :display_profile if column_exists?(:users, :display_profile)
+  end
+end
+```
+
 ### Initializers
 
 Initializers that should be run within Hyku can be added to `config/initializers` like in a Rails application.  They can also be added as `initializer` blocks within the `Engine` class, but that should be reserved for code needed to configure the engine infrastructure instead of setup, configuration, and override code that would normally go in `config/initializers` in a Hyku application.  There are additional hooks for different stages of the initialization process available within the `Engine` as described by https://edgeguides.rubyonrails.org/engines.html#available-configuration-hooks.
@@ -261,7 +299,7 @@ To run the tests locally inside docker run:
 docker-compose exec web bin/rspec
 ```
 
-In order to make local development more practical, slow tests are not run by default. All these tests slow tests are run on CI by default.  
+In order to make local development more practical, slow tests are not run by default. All these tests slow tests are run on CI by default.
 Use the following command to run them locally:
 
 ```bash
