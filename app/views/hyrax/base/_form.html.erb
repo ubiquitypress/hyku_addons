@@ -20,7 +20,7 @@
     </div>
   <% end %>
 
-  <% if !Flipflop.doi_tab? %>
+  <% if Flipflop.inline_doi? %>
     <div class="row">
       <div class="col-xs-12 col-sm-8">
         <div class="panel panel-default">
@@ -61,7 +61,7 @@
   });
 </script>
 
-<% if !Flipflop.doi_tab? %>
+<% if Flipflop.inline_doi? %>
   <script type="text/javascript">
     // Append the DOI filled in the form to the request
     // Note this uses jQuery since we're using jquery-ujs still

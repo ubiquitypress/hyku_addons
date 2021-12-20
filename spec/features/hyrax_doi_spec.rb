@@ -41,7 +41,7 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
 
     context "when the doi tab is disabled" do
       before do
-        allow(Flipflop).to receive(:doi_tab?).and_return(false)
+        allow(Flipflop).to receive(:inline_doi?).and_return(true)
         visit "/concern/#{work_type.to_s.pluralize}/#{work.id}/edit"
       end
 
@@ -75,7 +75,7 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
 
     context "when the doi tab is enabled" do
       before do
-        allow(Flipflop).to receive(:doi_tab?).and_return(true)
+        allow(Flipflop).to receive(:inline_doi?).and_return(false)
         visit "/concern/#{work_type.to_s.pluralize}/#{work.id}/edit"
       end
 

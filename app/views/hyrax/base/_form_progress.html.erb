@@ -1,4 +1,4 @@
-<% if !Flipflop.doi_tab? && Flipflop.doi_minting? %>
+<% if Flipflop.inline_doi? && Flipflop.doi_minting? %>
   <div class="list-group-item">
     <%# Only show an actionable button if the work doesn't have a DOI already %>
     <% if @curation_concern.doi.blank? %>
@@ -27,7 +27,7 @@
   </div>
   <div>
   
-  <% if !Flipflop.doi_tab? && Flipflop.doi_minting? %>
+  <% if Flipflop.inline_doi? && Flipflop.doi_minting? %>
     <div class="list-group-item">
       <fieldset class="set-doi-status-when-public">
         <label class="control-label">DOI status when work is public</label>

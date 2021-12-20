@@ -37,7 +37,7 @@ RSpec.describe "autofilling the form from DOI", js: true, slow: true do
       context "when the doi tab is enabled" do
         before do
           allow(Flipflop).to receive(:enabled?).and_call_original
-          allow(Flipflop).to receive(:doi_tab?).and_return(true)
+          allow(Flipflop).to receive(:inline_doi?).and_return(false)
         end
 
         scenario do
@@ -70,7 +70,7 @@ RSpec.describe "autofilling the form from DOI", js: true, slow: true do
       context "when the doi tab is disabled" do
         before do
           allow(Flipflop).to receive(:enabled?).and_call_original
-          allow(Flipflop).to receive(:doi_tab?).and_return(false)
+          allow(Flipflop).to receive(:inline_doi?).and_return(true)
         end
 
         scenario do
@@ -122,7 +122,7 @@ RSpec.describe "autofilling the form from DOI", js: true, slow: true do
       context "when the doi tab is enabled" do
         before do
           allow(Flipflop).to receive(:enabled?).and_call_original
-          allow(Flipflop).to receive(:doi_tab?).and_return(true)
+          allow(Flipflop).to receive(:inline_doi?).and_return(false)
         end
 
         scenario do
@@ -174,7 +174,7 @@ RSpec.describe "autofilling the form from DOI", js: true, slow: true do
       context "when the doi tab is disabled" do
         before do
           allow(Flipflop).to receive(:enabled?).and_call_original
-          allow(Flipflop).to receive(:doi_tab?).and_return(false)
+          allow(Flipflop).to receive(:inline_doi?).and_return(true)
         end
 
         scenario do
