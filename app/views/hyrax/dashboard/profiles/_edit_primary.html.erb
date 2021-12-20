@@ -19,12 +19,14 @@
     <br>
     <!-- I would like to move this to the bottom of the form but whenever I try the styling is all
     wrong and I don't want to push the pixels around right now-->
+    <% if current_user.has_role?(:admin, Site.instance) %>
      <div class="checkbox">
        <%= f.label :allow_public_display do %>
         <%= f.check_box :display_profile %>
         <%= t(".allow_public_display") %>
        <% end %>
      </div>
+    <% end %>
    </div>
  </div>
 
