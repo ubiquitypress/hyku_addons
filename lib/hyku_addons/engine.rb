@@ -543,7 +543,6 @@ module HykuAddons
       ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
       Hyrax::Dashboard::ProfilesController.prepend HykuAddons::ProfilesControllerBehavior
 
-
       ::Hyku::API::V1::HighlightsController.class_eval do
         def index
           @collections = collections(rows: 6)
