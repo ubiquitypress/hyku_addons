@@ -531,6 +531,7 @@ module HykuAddons
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
 
       Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
+      Hyrax::DOI::RegisterDOIJob.prepend HykuAddons::RegisterDOIJobOverride
 
       ::Bolognese::Metadata.prepend ::Bolognese::Writers::HyraxWorkWriterBehavior
       ::Bolognese::Metadata.include HykuAddons::Bolognese::JsonFieldsReader
@@ -541,6 +542,7 @@ module HykuAddons
       ::Hyku::API::V1::UsersController.prepend HykuAddons::UsersControllerBehavior
       ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
       Hyrax::Dashboard::ProfilesController.prepend HykuAddons::ProfilesControllerBehavior
+
 
       ::Hyku::API::V1::HighlightsController.class_eval do
         def index
