@@ -10,6 +10,5 @@ module HykuAddons
         retry_job(wait: 5.minutes)
       end
     end
-
   end
 end
