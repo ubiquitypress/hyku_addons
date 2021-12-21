@@ -1,36 +1,33 @@
-<% if Flipflop.inline_doi? && Flipflop.doi_minting? %>
-  <div class="list-group-item">
-    <%# Only show an actionable button if the work doesn't have a DOI already %>
-    <% if @curation_concern.doi.blank? %>
-      <%= link_to "Create draft DOI",
-                  Hyrax::DOI::Engine.routes.url_helpers.create_draft_doi_path,
-                  remote: true,
-                  method: :get,
-                  data: {
-                    disable_with: t("hyrax.works.form.mint.button.disable_with"),
-                    params: {
-                      curation_concern: @curation_concern.class.name.underscore,
-                      attribute: 'doi'
-                    }
-                  },
-                  class: 'btn btn-primary',
-                  id: 'doi-create-draft-btn' %>
-    <% else %>
-      <div id='doi-create-draft-btn' class='btn btn-primary' disabled>Create draft DOI</div>
-    <% end %>
-  </div>
-<% end %>
-
 <aside id="form-progress" class="form-progress panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><%= t("hyrax.works.progress.header") %></h3>
-  </div>
-  <div>
-  
   <% if Flipflop.inline_doi? && Flipflop.doi_minting? %>
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= t("hyrax.works.progress.doi_options") %></h3>
+    </div>
+
+    <div class="list-group-item">
+      <%# Only show an actionable button if the work doesn't have a DOI already %>
+      <% if @curation_concern.doi.blank? %>
+        <%= link_to "Create draft DOI",
+                    Hyrax::DOI::Engine.routes.url_helpers.create_draft_doi_path,
+                    remote: true,
+                    method: :get,
+                    data: {
+                      disable_with: t("hyrax.works.form.mint.button.disable_with"),
+                      params: {
+                        curation_concern: @curation_concern.class.name.underscore,
+                        attribute: 'doi'
+                      }
+                    },
+                    class: 'btn btn-primary',
+                    id: 'doi-create-draft-btn' %>
+      <% else %>
+        <div id='doi-create-draft-btn' class='btn btn-primary' disabled><%= t("hyrax.works.progress.create_draft_DOI") %></div>
+      <% end %>
+    </div>
+
     <div class="list-group-item">
       <fieldset class="set-doi-status-when-public">
-        <label class="control-label">DOI status when work is public</label>
+        <legend class="legend-save-work"><%= t("hyrax.works.progress.doi_status_when_public") %></legend>
 
         <div class="form-group" style="margin-left: 20px">
           <label class="radio" style="font-weight: normal">
@@ -38,45 +35,51 @@
             '', 
             disabled: !@curation_concern.doi_status_when_public.nil?, 
             style: 'margin-top: 0px;' %>
-            Do not mint
+            <%= t("hyrax.works.progress.doi_do_not_mint") %>
           </label>
           <label class="radio" style="font-weight: normal">
             <%= f.radio_button :doi_status_when_public, 
             'draft', 
             disabled: @curation_concern.doi_status_when_public.in?(['registered','findable']), 
             style: 'margin-top: 0px;' %>
-            Draft
+            <%= t("hyrax.works.progress.doi_draft") %>
           </label>
           <label class="radio" style="font-weight: normal">
             <%= f.radio_button :doi_status_when_public, 
             'registered', 
             style: 'margin-top: 0px;' %>
-            Registered
+            <%= t("hyrax.works.progress.doi_registered") %>
           </label>
           <label class="radio" style="font-weight: normal">
             <%= f.radio_button :doi_status_when_public, 
             'findable', 
             style: 'margin-top: 0px;' %>
-            Findable
+            <%= t("hyrax.works.progress.doi_findable") %>
           </label>
         </div>
       </fieldset>
     </div>
   <% end %>
-  <div class="list-group-item">
-    <fieldset>
-      <legend class="legend-save-work"><%= t('.requirements') %></legend>
-      <ul class="requirements">
-        <li class="incomplete" id="required-metadata"><%= t('.required_descriptions') %></li>
-        <% if Hyrax.config.work_requires_files? %>
-          <li class="incomplete" id="required-files"><%= t('.required_files') %></li>
-        <% end %>
-        <% if Flipflop.show_deposit_agreement? && Flipflop.active_deposit_agreement_acceptance? %>
-          <li class="incomplete" id="required-agreement"><%= t('.required_agreement') %></li>
-        <% end %>
-      </ul>
-    </fieldset>
+
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= t("hyrax.works.progress.header") %></h3>
   </div>
+
+  <div>
+    <div class="list-group-item">
+      <fieldset>
+        <legend class="legend-save-work"><%= t('.requirements') %></legend>
+        <ul class="requirements">
+          <li class="incomplete" id="required-metadata"><%= t('.required_descriptions') %></li>
+          <% if Hyrax.config.work_requires_files? %>
+            <li class="incomplete" id="required-files"><%= t('.required_files') %></li>
+          <% end %>
+          <% if Flipflop.show_deposit_agreement? && Flipflop.active_deposit_agreement_acceptance? %>
+            <li class="incomplete" id="required-agreement"><%= t('.required_agreement') %></li>
+          <% end %>
+        </ul>
+      </fieldset>
+    </div>
 
     <div class="set-access-controls list-group-item">
       <%= render 'form_visibility_component', f: f %>
@@ -90,6 +93,7 @@
       <%= render "form_progress_#{section}", f: f %>
     <% end %>
   </div>
+
   <div class="panel-footer text-center">
     <% if ::Flipflop.show_deposit_agreement? %>
       <% if ::Flipflop.active_deposit_agreement_acceptance? %>

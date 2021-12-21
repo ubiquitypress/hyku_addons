@@ -1,5 +1,14 @@
 en:
   hyrax:
+    works:
+      progress:
+        doi_options: DOI Options
+        create_draft_doi: Create Draft DOI
+        doi_status_when_public: DOI status when work is public
+        doi_do_not_mint: Do not mint
+        doi_draft: Draft
+        doi_registered: Registered
+        doi_findable: Findable
     dashboard:
       profiles:
         edit_primary:
