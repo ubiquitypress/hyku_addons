@@ -189,9 +189,9 @@ RSpec.describe HykuAddons::Actors::JSONFieldsActor do
           ],
           editor: [
             [{
-              creator_name_type: "Personal",
-              creator_given_name: "Johnny",
-              creator_family_name: "Testison"
+              editor_name_type: "Personal",
+              editor_given_name: "Johnny",
+              editor_family_name: "Testison"
             }].to_json
           ]
         }
@@ -221,9 +221,9 @@ RSpec.describe HykuAddons::Actors::JSONFieldsActor do
         {
           editor: [
             [{
-              creator_name_type: "Personal",
-              creator_given_name: "Johnny",
-              creator_family_name: "Testison"
+              editor_name_type: "Personal",
+              editor_given_name: "Johnny",
+              editor_family_name: "Testison"
             }].to_json
           ]
         }
