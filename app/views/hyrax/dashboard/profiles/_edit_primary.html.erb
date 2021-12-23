@@ -50,10 +50,23 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :telephone, t(".telephone").html_safe, class: 'col-xs-4 control-label' %>
+    <div class="col-xs-8">
+       <%= f.text_field :telephone, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :website, t(".website").html_safe, class: 'col-xs-4 control-label' %>
+    <div class="col-xs-8">
+       <%= f.text_field :website, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <%= f.label :department, t(".department").html_safe, class: 'col-xs-4 control-label' %>
     <div class="col-xs-8">
        <%= f.text_field :department, class: "form-control" %>
-       <span class="help-block"><%= t('.help_department') %></span>
     </div>
   </div>
 
@@ -61,7 +74,6 @@
     <%= f.label :biography, t(".bio").html_safe, class: 'col-xs-4 control-label' %>
     <div class="col-xs-8">
        <%= f.text_area :biography, cols: 30, rows: 10, class: "form-control" %>
-       <span class="help-block"><%= t('.help_bio') %></span>
     </div>
   </div>
 
@@ -82,16 +94,9 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :facebook_handle, t(".facebook_handle").html_safe, class: 'col-xs-4 control-label' %>
+    <%= f.label :linkedin_handle, t(".linkedin_handle").html_safe, class: 'col-xs-4 control-label' %>
     <div class="col-xs-8">
-       <%= f.text_field :facebook_handle, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :googleplus_handle, t(".google_handle").html_safe, class: 'col-xs-4 control-label' %>
-    <div class="col-xs-8">
-       <%= f.text_field :googleplus_handle, class: "form-control" %>
+       <%= f.text_field :linkedin_handle, class: "form-control" %>
     </div>
   </div>
 
