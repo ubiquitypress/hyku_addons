@@ -4,6 +4,7 @@
 json.id user.id
 json.email user.email
 json.display_name user.display_name
+json.biography user.biography
 json.facebook_handle user.facebook_handle
 json.twitter_handle user.twitter_handle
 json.googleplus_handle user.googleplus_handle
@@ -23,3 +24,7 @@ json.avatar_file_name user.avatar_file_name
 json.avatar_content_type user.avatar_content_type
 json.avatar_file_size user.avatar_file_size
 json.avatar_updated_at user.avatar_updated_at
+
+  json.works do
+    json.partial! 'hyku/api/v1/work/work', collection: @user_works, as: :work, collection_docs: @collection_docs
+  end
