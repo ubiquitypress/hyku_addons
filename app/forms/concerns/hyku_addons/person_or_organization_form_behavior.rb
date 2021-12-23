@@ -13,6 +13,7 @@ module HykuAddons
       person_or_organization_list(:contributor)
     end
 
+    # rubocop:disable Metrics/BlockLength
     class_methods do
       # Group all params here so save on boiler plate
       def build_permitted_params
