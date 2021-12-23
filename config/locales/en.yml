@@ -92,6 +92,10 @@ en:
       creator_role:
         label: Role
         placeholder: " "
+      creator_institutional_email:
+        label: Creator Institutional Email
+        placeholder: " "
+        help_text: Enter the institutional email associated with this creator
     contributor:
       contributor_name_type:
         label: Contributor name type
