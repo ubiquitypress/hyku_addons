@@ -12,7 +12,7 @@ module HykuAddons
 
     def show
       @user = User.find_by(email: params[:email], display_profile: true)
-      render json: { status: 403, code: 'forbidden', message: t("errors.users_forbidden") } if @user.blank?
+      render json: { status: 403, code: 'forbidden', message: t("errors.users_forbidden") } and return if @user.blank?
 
       query_string = "(creator_tesim:\"*#{@user.email}*\") AND visibility_ssi:open"
       @user_document_id_list = ActiveFedora::SolrService.get(query_string, rowy: 1_000_000)['response']['docs'].pluck('id')
