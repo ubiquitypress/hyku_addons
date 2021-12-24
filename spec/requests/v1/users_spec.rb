@@ -62,7 +62,8 @@ RSpec.describe Hyku::API::V1::UsersController, type: :request, clean: true, mult
                                          "avatar_file_name" => nil,
                                          "avatar_content_type" => nil,
                                          "avatar_file_size" => nil,
-                                         "avatar_updated_at" => nil)
+                                         "avatar_updated_at" => nil,
+                                         "works": [])
       end
     end
   end
