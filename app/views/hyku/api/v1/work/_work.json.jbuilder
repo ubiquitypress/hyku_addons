@@ -22,7 +22,13 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.committee_member work.try(:solr_document)&.to_h&.dig('committee_member_tesim')
 
   creator = work.creator.try(:first)
-  json.creator creator.present? ? JSON.parse(creator) : []
+  creator_json = JSON.parse(creator) if creator.present?
+  creator_json.each_with_index do |creator, index|
+    creator_json[index] = creator_json[index].except!("creator_institutional_email") && next unless creator["creator_institutional_email"].present?
+    user = User.find_by(email: creator["creator_institutional_email"])
+    creator_json[index] = creator_json[index].except!("creator_institutional_email") unless user.display_profile
+  end
+  json.creator creator.present? ? creator_json : []
 
   contributor = work.contributor.try(:first)
   json.contributor contributor.present? ? JSON.parse(contributor) : []
