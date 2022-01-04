@@ -1,3 +1,6 @@
+<% # This partial trie to do as much as possible for you, by reading the config from the schema and generating the field %>
+<% # Whilst the majority of cases are covered, more complicated or nuanced fields will still need their own partial %>
+
 <% if f.object.schema_driven? %>
   <% # Avoid internal hyrax fields being presented as fields on the form %>
   <% return if f.object.class.internal_terms.include?(key) %>
