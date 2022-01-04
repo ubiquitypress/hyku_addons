@@ -13,10 +13,10 @@ module HykuAddons
 
     # rubocop:disable Metrics/MethodLength
     def perform(klass, cname, limit: 25, page: 1, options: {})
-      options = options.presence || { cname_doi_mint: [], use_work_ids: [] }
+      @options = options.presence || { cname_doi_mint: [], use_work_ids: [] }
       # for whatever in private methods reason without assigning it to instamce variable it throws undefined local variable
-      @cname_doi_mint = options[:cname_doi_mint]
-      @use_work_ids = options[:use_work_ids]
+      @cname_doi_mint = @options[:cname_doi_mint]
+      @use_work_ids = @options[:use_work_ids]
       @cname = cname
       @limit = limit
       @page = page
@@ -35,12 +35,21 @@ module HykuAddons
     private
 
       def mint_doi(work)
-        return if work.doi.present?
+        return if can_mint_for?(work)
 
         Rails.logger.debug "=== about to mint doi for #{work.title} ==== "
+
         work.update(doi_status_when_public: "findable")
         register_doi = Hyrax::DOI::DataCiteRegistrar.new.register!(object: work)
         work.update(doi: [register_doi.identifier])
+      end
+
+      def can_mint_for?(work)
+        work.doi.present? || work.visibility != "open" || workflow_state(work)&.workflow_state_name != "deposited"
+      end
+
+      def workflow_state(work)
+        @_workflow_state ||= Sipity::Entity.find_by(proxy_for_global_id: "gid://hyku/#{work.class}/#{work.id}")
       end
 
       def fetch_work_using_ids(klass)
@@ -74,7 +83,7 @@ module HykuAddons
         reindex_works(works)
 
         # Re-enqueue
-        ReindexModelJob.perform_later(@klass, @cname, @limit, page: @page.to_i + 1, cname_doi_mint: @cname_doi_mint)
+        ReindexModelJob.perform_later(@klass, @cname, limit: @limit, page: @page.to_i + 1, options: @options)
         Rails.logger.debug "=== Completed reindex of #{@klass} in #{@cname} ==="
       end
   end

@@ -14,12 +14,10 @@ module HykuAddons
         transformed = Array.wrap(obj).map { |cr| cr.transform_keys { |k| k.downcase.gsub(/#{type}_/, "") }.deep_transform_keys { |k| k.camelize(:lower) } }
 
         transformed.each do |t|
-          next unless t["orcid"].present?
+          t["nameIdentifier"] = { "nameIdentifierScheme" => "orcid", "__content__" => t["orcid"].downcase } if t["orcid"].present?
 
-          t["nameIdentifier"] = {
-            "nameIdentifierScheme" => "orcid",
-            "__content__" => t["orcid"].downcase
-          }
+          # ensure that the name key Bolognese is looking for can be found for organizational creators
+          t["#{type}Name"] = t["organizationName"] if t["nameType"] == "Organizational"
         end
 
         transformed.compact

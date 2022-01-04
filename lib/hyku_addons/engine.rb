@@ -36,6 +36,10 @@ module HykuAddons
       Settings.switch!
     end
 
+    initializer "hyku_addons.pdf_viewer" do
+      Rails.application.config.assets.precompile += ["pdf_viewer.css", "pdf_viewer/base.js", "pdf_viewer/locale/*"]
+    end
+
     initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
       require_dependency 'hyrax/search_state'
 
@@ -537,7 +541,9 @@ module HykuAddons
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
       ::Hyku::API::V1::SearchController.prepend HykuAddons::SearchControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
+      ::Hyku::API::V1::UsersController.prepend HykuAddons::UsersControllerBehavior
       ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
+      Hyrax::Dashboard::ProfilesController.prepend HykuAddons::ProfilesControllerBehavior
 
       ::Hyku::API::V1::HighlightsController.class_eval do
         def index

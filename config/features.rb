@@ -36,4 +36,8 @@ Flipflop.configure do
   feature :cross_tenant_shared_search,
           default: true,
           description: "Turns on cross tenant shared search."
+  
+  feature :annotation,
+          default: false,
+          description: "Turns on links to hypothes.is PDF viewer"
 end

@@ -62,6 +62,15 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
   end
   let(:eissn) { "1234-5678" }
   let(:fndr_project_ref) { "test" }
+  let(:funder) do
+    {
+      funder_name: "National Science Foundation",
+      funder_doi: "10.1594",
+      funder_isni: "000000012146438X",
+      funder_ror: "03yrm5c26",
+      funder_award: ["I382u7378348"]
+    }
+  end
   let(:institution1) { "British Library" }
   let(:isbn) { "9781770460621" }
   let(:issn) { "0987654321" }
@@ -101,6 +110,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
       editor: [[editor1].to_json],
       eissn: eissn,
       fndr_project_ref: [fndr_project_ref],
+      funder: [[funder].to_json],
       institution: [institution1],
       isbn: isbn,
       issn: issn,
@@ -184,7 +194,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "has_registered_files" => false,
                                            "has_public_files" => false
                                          },
-                                         "funder" => nil,
+                                         "funder" => [],
                                          "funder_project_ref" => nil,
                                          "funding_description" => nil,
                                          "georeferenced" => nil,
@@ -206,6 +216,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                          "location" => nil,
                                          "longitude" => nil,
                                          "medium" => nil,
+                                         "mentor" => nil,
                                          "mesh" => nil,
                                          "official_link" => nil,
                                          "official_url" => nil,
@@ -310,7 +321,11 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "event_title" => nil,
                                            "extent" => nil,
                                            "files" => { "has_private_files" => false, "has_public_files" => false, "has_registered_files" => false },
-                                           "funder" => nil,
+                                           "funder" => [{ "funder_name" => "National Science Foundation",
+                                                          "funder_doi" => "10.1594",
+                                                          "funder_isni" => "000000012146438X",
+                                                          "funder_ror" => "03yrm5c26",
+                                                          "funder_award" => ["I382u7378348"] }],
                                            "funder_project_ref" => ["test"],
                                            "funding_description" => nil,
                                            "georeferenced" => nil,
@@ -332,6 +347,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "location" => nil,
                                            "longitude" => nil,
                                            "medium" => nil,
+                                           "mentor" => nil,
                                            "mesh" => nil,
                                            "official_link" => ["http://test-url.com"],
                                            "official_url" => nil,
