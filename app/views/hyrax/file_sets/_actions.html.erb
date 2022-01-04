@@ -1,9 +1,9 @@
-<!-- 
-This code checks how many items are in the actions list.  
-If it is exactly one, it renders a button.
-Otherwise it renders a dropdown with all the list items.
-If the user has the edit permission this adds two actions to the list 
--->
+<% 
+# This code checks how many items are in the actions list.  
+# If it is exactly one, it renders a button.
+# Otherwise it renders a dropdown with all the list items.
+# If the user has the edit permission this adds two actions to the list 
+%>
 
 <% can_annotate = Flipflop.enabled?(:annotation) && file_set.pdf? %>
 <% number_of_user_permissions = [can?(:edit, file_set.id), can?(:destroy, file_set.id), can?(:download, file_set.id), can_annotate].count(true) %>
