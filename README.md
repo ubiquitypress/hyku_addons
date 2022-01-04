@@ -243,7 +243,7 @@ attributes:
       required: false
       primary: false
       multiple: true
-      # For select fields an authority class is required, which will constantized in the form
+      # For select fields an authority class is required, which will be constantized in the form
       type: select
       authority: HykuAddons::SubjectService
 
