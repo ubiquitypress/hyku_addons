@@ -47,8 +47,8 @@ GIT
 
 GIT
   remote: https://github.com/ubiquitypress/hyku-api
-  revision: a50d349826e446fc5c6baa1fd3ecb30ee0313f92
-  branch: adds_search_capabilities_to_users_endpoint
+  revision: 4630e248c5aba68259da90538ad9c02899c2abd2
+  branch: main
   specs:
     hyku-api (0.1.0)
       jwt
