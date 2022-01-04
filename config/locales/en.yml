@@ -212,7 +212,11 @@ en:
     works:
       form:
         autofill:
+          searchbox:
+            hint: If you are adding metadata for a work that already has a DOI, then enter the DOI here and press the button, and we will look up the metadata in DataCite and Crossref and populate the description
+            placeholder: 10.1629/uksg.236
           button:
+            long_text: Fetch metadata from CrossRef or DataCite with DOI
             disable_with: Autofilling form...
             confirm: |
               Warning: this operation will replace any existing description fields.

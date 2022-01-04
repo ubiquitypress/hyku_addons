@@ -495,6 +495,10 @@ module HykuAddons
       Image.include HykuAddons::ImageOverrides
       GenericWork.include ::Hyrax::BasicMetadata
       Hyrax::WorkIndexer.include HykuAddons::WorkIndexerBehavior
+
+      # HykuAddons::DOIFormBehavior must be prepended before WorkForm overrides
+      Hyrax::DOI::DOIFormBehavior.prepend HykuAddons::DOIFormBehavior
+
       Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
       Hyrax::ImageForm.include HykuAddons::ImageFormOverrides
       Hyrax::Forms::CollectionForm.include HykuAddons::CollectionFormBehavior
