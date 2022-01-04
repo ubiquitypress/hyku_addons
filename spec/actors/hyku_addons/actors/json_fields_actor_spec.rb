@@ -33,6 +33,10 @@ RSpec.describe HykuAddons::Actors::JSONFieldsActor do
       it "passes non-json fields through" do
         expect(env.attributes[:title]).to eq(transformed_attributes["title"])
       end
+
+      it "sets the attributes of the work" do
+        expect(work.title).to eq(transformed_attributes["title"])
+      end
     end
 
     context "with multiple valid json fields" do
@@ -56,6 +60,11 @@ RSpec.describe HykuAddons::Actors::JSONFieldsActor do
       it "adds them all" do
         expect(env.attributes).to eq(transformed_attributes)
       end
+
+      it "sets the attributes of the work" do
+        expect(work.creator).to eq(transformed_attributes["creator"])
+        expect(work.editor).to eq(transformed_attributes["editor"])
+      end
     end
 
     context "with blank or empty attributes" do
@@ -77,6 +86,11 @@ RSpec.describe HykuAddons::Actors::JSONFieldsActor do
       it "turns fields into null or adds empty arrays" do
         expect(env.attributes).to eq(transformed_attributes)
       end
+
+      it "sets the attributes of the work" do
+        expect(work.creator).to be_empty
+        expect(work.editor).to eq(transformed_attributes["editor"])
+      end
     end
 
     context "with no name type" do
@@ -94,6 +108,10 @@ RSpec.describe HykuAddons::Actors::JSONFieldsActor do
 
       it "adds the attributes" do
         expect(env.attributes).to eq(transformed_attributes)
+      end
+
+      it "sets the attributes of the work" do
+        expect(work.editor).to eq(transformed_attributes["editor"])
       end
     end
 
@@ -121,6 +139,10 @@ RSpec.describe HykuAddons::Actors::JSONFieldsActor do
       it "recurses through them" do
         expect(env.attributes).to eq(transformed_attributes)
       end
+
+      it "sets the attributes of the work" do
+        expect(work.creator).to eq(transformed_attributes["creator"])
+      end
     end
   end
 
@@ -139,6 +161,10 @@ RSpec.describe HykuAddons::Actors::JSONFieldsActor do
 
       it "passes non-json fields through" do
         expect(env.attributes[:title]).to eq(transformed_attributes["title"])
+      end
+
+      it "updates the attributes of the work" do
+        expect(work.title).to eq(transformed_attributes["title"])
       end
     end
 
@@ -175,6 +201,11 @@ RSpec.describe HykuAddons::Actors::JSONFieldsActor do
       it "adds them all" do
         expect(env.attributes).to eq(transformed_attributes)
       end
+
+      it "updates the attributes of the work" do
+        expect(work.creator).to eq(transformed_attributes["creator"])
+        expect(work.editor).to eq(transformed_attributes["editor"])
+      end
     end
 
     context "with blank or empty attributes" do
@@ -214,6 +245,11 @@ RSpec.describe HykuAddons::Actors::JSONFieldsActor do
       it "turns fields into null or adds empty arrays" do
         expect(env.attributes).to eq(transformed_attributes)
       end
+
+      it "updates the attributes of the work" do
+        expect(work.creator).to be_empty
+        expect(work.editor).to eq(transformed_attributes["editor"])
+      end
     end
 
     context "with no name type" do
@@ -242,6 +278,10 @@ RSpec.describe HykuAddons::Actors::JSONFieldsActor do
 
       it "adds the attributes" do
         expect(env.attributes).to eq(transformed_attributes)
+      end
+
+      it "updates the attributes of the work" do
+        expect(work.editor).to eq(transformed_attributes["editor"])
       end
     end
 
@@ -279,6 +319,10 @@ RSpec.describe HykuAddons::Actors::JSONFieldsActor do
 
       it "recurses through them" do
         expect(env.attributes).to eq(transformed_attributes)
+      end
+
+      it "updates the attributes of the work" do
+        expect(work.creator).to eq(transformed_attributes["creator"])
       end
     end
   end
