@@ -66,7 +66,7 @@ RSpec.describe Hyrax::Forms::CollectionForm do
           keyword: ["not_blank"],
           creator: [
             { "creator_name_type" => "Personal", "creator_given_name" => "Alice", "creator_family_name" => "Coltrane" },
-            {} # IS THIS CORRECT ?? IT IS NOT REMOVED
+            {}
           ],
           contributor: [{}]
         )
