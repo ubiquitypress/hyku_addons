@@ -40,4 +40,7 @@ Flipflop.configure do
   feature :annotation,
           default: false,
           description: "Turns on links to hypothes.is PDF viewer"
+  feature :inline_doi,
+          default: false,
+          description: "Toggle layout between a DOI Tab and use of sidebar"
 end
