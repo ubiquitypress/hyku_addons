@@ -224,6 +224,11 @@ en:
     file_sets:
       actions:
         read_and_annotate: Read and annotate
+      actions_button:
+        delete: Delete
+        download: Download
+        edit: Edit
+        read_and_annotate: Read and annotate
   bulkrax:
     validation_issues:
       attribute: "Attribute"

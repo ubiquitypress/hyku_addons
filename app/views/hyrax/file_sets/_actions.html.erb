@@ -5,8 +5,8 @@ Otherwise it renders a dropdown with all the list items.
 If the user has the edit permission this adds two actions to the list 
 -->
 
-<% can_annotate? = Flipflop.enabled?(:annotation) && file_set.pdf? %>
-<% number_of_user_permissions = [can?(:edit, file_set.id), can?(:destroy, file_set.id), can?(:download, file_set.id), can_annotate?].count(true) %>
+<% can_annotate = Flipflop.enabled?(:annotation) && file_set.pdf? %>
+<% number_of_user_permissions = [can?(:edit, file_set.id), can?(:destroy, file_set.id), can?(:download, file_set.id), can_annotate].count(true) %>
 <% number_of_list_items = can?(:edit, file_set.id) ? number_of_user_permissions + 1 : number_of_user_permissions %>
 
 <% if number_of_list_items > 1  %>

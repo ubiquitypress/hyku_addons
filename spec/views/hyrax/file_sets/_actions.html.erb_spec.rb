@@ -106,7 +106,7 @@ RSpec.describe "hyrax/file_sets/_actions.html.erb", type: :view do
       end
 
       it "renders nothing" do
-        expect(rendered.squish).to be_empty
+        expect(strip_tags(rendered).squish).to be_empty
       end
     end
 
@@ -136,7 +136,7 @@ RSpec.describe "hyrax/file_sets/_actions.html.erb", type: :view do
         end
 
         it "renders nothing" do
-          expect(rendered.squish).to be_empty
+          expect(strip_tags(rendered).squish).to be_empty
         end
       end
     end
