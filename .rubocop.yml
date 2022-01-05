@@ -139,10 +139,6 @@ Style/SymbolProc:
   Exclude:
     - 'app/models/concerns/hyku_addons/account_behavior.rb'
 
-Style/AndOr:
-  Exclude:
-    - 'app/controllers/concerns/hyku_addons/users_controller_behavior.rb'
-
 Style/StructInheritance:
   Enabled: false
 
