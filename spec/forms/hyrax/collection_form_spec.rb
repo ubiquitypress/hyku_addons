@@ -78,7 +78,7 @@ RSpec.describe Hyrax::Forms::CollectionForm do
         expect(model_attributes["keyword"]).to eq ["not_blank"]
         expect(model_attributes["related_url"]).to be_empty
         expect(model_attributes["contributor"]).to be_empty
-        expect(model_attributes["creator"]).to eq ["[{\"creator_given_name\":\"Alice\",\"creator_family_name\":\"Coltrane\",\"creator_name_type\":\"Personal\"},{}]"]
+        expect(model_attributes["creator"]).to eq ["[{\"creator_given_name\":\"Alice\",\"creator_family_name\":\"Coltrane\",\"creator_name_type\":\"Personal\"}]"]
       end
     end
   end

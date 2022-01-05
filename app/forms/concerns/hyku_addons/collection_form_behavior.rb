@@ -5,36 +5,22 @@ module HykuAddons
 
     include HykuAddons::PersonOrOrganizationFormBehavior
 
-    # TODO: extract duplicate code (from JSONFieldsActor) out into a service class?
+    included do
+      extend HykuAddons::JsonifyFieldsService
+    end
+
     class_methods do
       def model_attributes(form_params)
-        super.tap do |model_attributes|
-          [:creator, :contributor].each do |field|
-            if name_blank?(field, model_attributes[field]&.map(&:to_h)) || recursive_blank?(model_attributes[field]&.map(&:to_h))
-              model_attributes.delete(field)
-            else
-              model_attributes[field] = model_attributes[field].to_json
-            end
-            model_attributes[field] = Array(model_attributes[field]) if multiple?(field)
-          end
+        super.tap do |attributes|
+          jsonify_fields(attributes, fields, self)
         end
       end
 
-      def name_blank?(field, obj)
-        return false unless field.in? [:creator, :contributor, :editor]
-        recursive_blank?(Array(obj).map { |o| o.reject { |k, _v| k == "#{field}_name_type" } })
-      end
+      private
 
-      def recursive_blank?(obj)
-        case obj
-        when Hash
-          obj.values.all? { |o| recursive_blank?(o) }
-        when Array
-          obj.all? { |o| recursive_blank?(o) }
-        else
-          obj.blank?
+        def fields
+          [:creator, :contributor]
         end
-      end
     end
 
     # User collections will error without this, as _title is used in for works and collections
