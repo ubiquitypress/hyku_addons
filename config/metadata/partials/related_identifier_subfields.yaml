@@ -1,0 +1,23 @@
+---
+related_identifier:
+  type: string
+  form:
+    multiple: false
+    required: false
+    type: text
+related_identifier_type:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: select
+    authority: HykuAddons::RelatedIdentifierTypeService
+    include_blank: true
+relation_type:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: select
+    authority: HykuAddons::RelationTypeService
+    include_blank: true

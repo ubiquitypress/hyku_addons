@@ -1,6 +1,6 @@
 <% template = f.object.model.class.to_s.underscore %>
 
-<div class="ubiquity-meta-alternate-identifier" >
+<div class="ubiquity-meta-alternate-identifier" data-legacy-cloneable-group>
   <label class="control-label multi_value optional" for="<% template %>_alternate_identifier">Alternate identifier</label>
   <%= Hyrax::Renderers::DepositFormFieldHintRenderer.new.hint("alternate_identifier") %>
 
@@ -16,7 +16,7 @@
   <%= Hyrax::Renderers::DepositFormFieldHintRenderer.new.hint("alternate_identifier_type") %>
 
   <%= text_field_tag "#{template}[alternate_identifier][][alternate_identifier_type]", nil,
-                     class: "#{template}_alternate_identifier form-control multi-text-field multi_value",
+                     class: "#{template}_alternate_identifier_type form-control multi-text-field multi_value",
                     #  placeholder: t("simple_form.placeholders.defaults.alternate_identifier_type"),
                      name: "#{template}[alternate_identifier][][alternate_identifier_type]"
   %>

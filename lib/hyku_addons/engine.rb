@@ -1,4 +1,8 @@
 # frozen_string_literal: true
+require 'hyrax/form_fields'
+require 'hyrax/indexer'
+require 'hyrax/schema'
+require 'hyrax/simple_schema_loader'
 require 'hyrax/doi/engine'
 require 'bolognese/metadata'
 require 'cocoon'
@@ -6,6 +10,10 @@ require 'cocoon'
 module HykuAddons
   class Engine < ::Rails::Engine
     isolate_namespace HykuAddons
+
+    # Without this include, the presenter will be dropped by the autoloading each time a change is made to the codebase.
+    # Because of the way the app is structured, we need to include it here to have the console and server use the same location.
+    require HykuAddons::Engine.root.join("app/presenters/hyku_addons/schema/presenter.rb")
 
     config.before_initialize do
       # Eager load required for overrides in the initializer below
@@ -61,19 +69,14 @@ module HykuAddons
       end
     end
 
+    # Prepend our views so they have precedence
     config.after_initialize do
-      # Prepend our views so they have precedence
       ActionController::Base.prepend_view_path(paths['app/views'].existent)
-      # Append our locales so they have precedence
-      I18n.load_path += Dir[HykuAddons::Engine.root.join('config', 'locales', '*.{rb,yml}')]
+    end
 
-      # # Append per-tenant settings to dashboard
-      # Hyrax::DashboardController.class_eval do
-      #   class_attribute :sidebar_partials
-      #   self.sidebar_partials = {}
-      # end
-      # Hyrax::DashboardController.sidebar_partials[:configuration] ||= []
-      # Hyrax::DashboardController.sidebar_partials[:configuration] << "hyrax/dashboard/sidebar/per_tenant_settings"
+    # Append our locales so they have precedence
+    config.after_initialize do
+      I18n.load_path += Dir[HykuAddons::Engine.root.join('config', 'locales', '*.{rb,yml}')]
     end
 
     ## In engine development mode (ENGINE_ROOT defined) handle specific generators as app-only by setting destintation_root appropriately

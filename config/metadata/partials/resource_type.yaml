@@ -1,0 +1,15 @@
+---
+predicate: http://purl.org/dc/terms/type
+multiple: true
+index_keys:
+  - resource_type_tesim
+  - resource_type_sim
+form:
+  required: true
+  primary: true
+  multiple: true
+  type: select
+  authority: HykuAddons::ResourceTypesService
+  include_blank: true
+  input: single_multi_value_select
+

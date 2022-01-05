@@ -1,6 +1,7 @@
 <% cloneable = local_assigns.dig(:field_args, :cloneable) %>
 <% cloneable_name ="cloneable-#{template}-#{field_slug}" %>
 
+<!-- _select_field -->
 <div
 	class="<%= local_assigns["group_class"] || "form-group #{field_slug}-group #{template}_#{field_slug}" %>"
 	<% if cloneable %>
@@ -26,7 +27,7 @@
 			<% end %>
 		>
 			<% opts = options_for_select(select_options, selected: value) %>
-			<% field_params = { class: "form-control #{template}_#{field_slug}" }.merge(local_assigns[:field_args] || {}) %>
+			<% field_params = { class: "form-control #{template}_#{field_slug} #{template}_#{field_group}_#{field_slug}" }.merge(local_assigns[:field_args] || {}) %>
 			<%= select_tag "#{template}[#{field_group}][][#{field_slug}]#{cloneable ? '[]' : ''}", opts, field_params %>
 
 			<% if cloneable %>

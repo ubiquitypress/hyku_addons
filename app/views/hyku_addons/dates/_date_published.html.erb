@@ -1,5 +1,3 @@
-<%# see app/views/records/edit_fields/_date_published.html.erb %>
-<% template = f.object.model.class.to_s.underscore %>
-
-<%= render 'hyku_addons/dates/date_fields', date_type: 'published', template: template, f: f %>
+<!-- legacy - _date_published -->
+<%= render "hyku_addons/dates/date_fields", date_type: "published", template: f.object.model.class.to_s.underscore, f: f %>
 

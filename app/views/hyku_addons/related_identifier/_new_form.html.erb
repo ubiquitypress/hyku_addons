@@ -1,10 +1,11 @@
+<!-- related_identifier/new_form -->
 <% template = f.object.model.class.to_s.underscore  %>
 
-<div class="ubiquity-meta-related-identifier" >
+<div class="ubiquity-meta-related-identifier" data-legacy-cloneable-group>
   <label class="control-label multi_value optional" for="<% template %>_related_identifier">Related identifier</label>
   <p class="help-block">Globally unique identifiers, such as ISNI, ARK etc. For ISBN, ISSN and EISSN, use the separate fields.</p>
   <%= text_field_tag "#{template}[related_identifier][][related_identifier]", nil,
-                     class: "#{template}_related_identifier form-control multi-text-field multi_value related_identifier",
+                     class: "#{template}_related_identifier form-control multi-text-field multi_value #{template}_related_identifier",
                      name: "#{template}[related_identifier][][related_identifier]"
   %>
   <br>
@@ -13,7 +14,7 @@
   <p class="help-block">If you have listed a related identifier, then please select what type.</p>
   <%= select_tag "#{template}[related_identifier][][related_identifier_type]",
       content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select(HykuAddons::RelatedIdentifierTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s),
-      {:class => 'form-control multi-text-field multi_value related_identifier_type'} %>
+      {:class => "form-control multi-text-field multi_value related_identifier_type #{template}_related_identifier_type"} %>
 
   <br>
   <label class="control-label multi_value optional" for="<% template %>_relation_type">
@@ -22,7 +23,7 @@
     continues the work.</p>
   <%= select_tag "#{template}[related_identifier][][relation_type]",
       options_for_select(HykuAddons::RelationTypeService.new.select_active_options.uniq),
-      {:class => 'form-control multi-text-field multi_value related_identifier_relation', prompt: 'select one...'} %>
+      {:class => "form-control multi-text-field multi_value related_identifier_relation #{template}_relation_type", prompt: 'select one...'} %>
 
   <br>
   <a href="#" style="color:red;" class="remove_related_identifier form-group" data-removeUbiquityrelatedIdentifier=".ubiquity-meta-related-identifier">

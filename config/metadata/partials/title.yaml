@@ -1,0 +1,14 @@
+---
+type: string
+predicate: http://purl.org/dc/terms/title
+multiple: true
+index_keys:
+- title_tesim
+- title_sim
+form:
+  required: true
+  primary: true
+  multiple: true
+  type: text
+  input: single_multi_value
+

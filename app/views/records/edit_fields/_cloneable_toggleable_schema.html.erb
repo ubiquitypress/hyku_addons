@@ -1,0 +1,86 @@
+<% # This is a more complex cloneable which adds the ability to toggle elemeents as is used for Creator/Contributor/Editor fields %>
+
+<% template = f.object.model.class.to_s.underscore %>
+<% target = "#{template}_#{key}" %>
+
+<% # Avoid a little field repitiion by using the proc as an inline method %>
+<% form_field_proc = Proc.new do |key, template, subfield, hash| %>
+  <% config = f.object.field_configs.dig(key, :subfields, subfield) %>
+
+  <% field = {
+    f: f,
+    field_type: config[:type],
+    field_slug: subfield,
+    field_args: { data: { required: config[:required], cloneable: config[:multiple] } }.merge(config[:attributes] || {})
+  } %>
+
+  <% if config[:type] == "select" %>
+    <% authority_service = config[:authority]&.safe_constantize %>
+    <% field[:select_options] = authority_service.new(model: f.object.model.class).select_active_options if authority_service %>
+  <% end %>
+
+  <% options = { field_group: key, template: template, hash: hash }.merge(field) %>
+  <%= render "records/edit_fields/schema_attribution_partials/#{field[:field_type]}_field", options %>
+<% end %>
+
+<!-- schema - _cloneable_toggleable_schema - <%= key %> -->
+<div class="<%= target %>" data-cloneable data-cloneable-min="1">
+  <% f.object.send("#{key}_list".to_sym).each do |hash| %>
+    <div data-toggleable data-cloneable-group="<%= target %>" data-cloneable-after-action="clear_inputs clear_cloned">
+
+      <% # Assume that the name type field is present and remove it from the subfields %>
+      <% name_type_key = "#{key}_name_type".to_sym %>
+      <% config = f.object.field_configs.dig(key, :subfields, name_type_key) %>
+
+      <% field_options = {
+        field_slug: name_type_key,
+        field_args: {
+          class: "form-control #{name_type_key} #{template}_#{key}_#{name_type_key}", # Required for specs
+          data: { toggleable_control: true, on_change: :toggleable_group, after_toggleable_hidden: :clear_inputs }
+        }.merge(config[:attributes] || {}),
+        field_group: key,
+        template: template,
+        hash: hash,
+        select_options: config[:authority]&.safe_constantize&.new(model: f.object.model.class)&.select_active_options
+      } %>
+
+    <%= render "records/edit_fields/schema_attribution_partials/select_field", field_options %>
+
+    <% # Group the fields by their `display_for` value %>
+    <% groups = f.object.field_configs.dig(key, :subfields).each_with_object({}) do |(field, config), hash| %>
+      <% next if config[:display_for].blank? %>
+
+      <% config[:display_for].each { |group| (hash[group] ||= []) << field } %>
+    <% end %>
+
+    <% # Find any duplicates that are displayed for all of the groups %>
+    <% shared_fields = groups.values.flatten.group_by { |k| k }.select { |k, arr| arr.size > 1 }.keys %>
+
+    <% groups.each do |group, subfields| %>
+      <div data-toggleable-remove-on-submit data-toggleable-group="<%= group %>">
+        <% subfields.each do |subfield| %>
+          <% # Skip any shared fields as they are handled below %>
+          <% next if shared_fields.include?(subfield) %>
+
+          <% form_field_proc.call(key, template, subfield, hash) %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% shared_fields.each { |subfield| form_field_proc.call(key, template, subfield, hash) } %>
+
+    <div class="form-group">
+      <a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_group" data-cloneable-target="<%= target %>">
+        <span class="glyphicon glyphicon-remove"></span>
+        <span class="controls-remove-text"><%= t("simple_form.deposit_form.form_controls.remove.text") %></span>
+      </a>
+      |
+      <a href="#" data-turbolinks="false" data-cloneable-target="<%= target %>" data-on-click="clone_group">
+        <%= t("simple_form.deposit_form.form_controls.add.text") %>
+      </a>
+    </div>
+
+    <hr>
+    </div>
+  <% end %>
+</div>

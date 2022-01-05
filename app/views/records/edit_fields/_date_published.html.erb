@@ -1,2 +1,8 @@
-<% date_published = f.object[:date_published] %>
-<%= render 'hyku_addons/dates/date_published', f: f, date_published: date_published %>
+<!-- _<%= key %> -->
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/default_date", f: f, key: key %>
+
+<% else %>
+  <%= render "hyku_addons/dates/date_published", f: f, date_published: f.object[:date_published] %>
+<% end %>
+

@@ -159,6 +159,219 @@ There are many approaches to overriding and which to use will depend on the cont
 
 When behavior that is tested in Hyku changes, copy the relevant test files from the internal test hyku into the engine at the same path as the original.  This will cause rspec to skip the original tests in favor of the engine's copy of them.
 
+### Work Schema
+
+Hyku Addons uses a port of the Hyrax 3.0 Schema YAML to define work types, whilst trying to maintain backwards compatability for older works already defined.
+
+#### Defining the Schema
+
+##### For new works
+
+Your Schema should be defined in `config/metadata` as a `.yaml` file that matches the underscored name of your work type. So the UbiquityTemplateWork has a file called `ubiquity_template_work.yaml`.
+
+##### For existing works
+
+If you are migrating an existing work, there is a rake task you can run which will attampt to generate the schema from the exising work properties and uses a set of default configurations for JSON and other complicated fields:
+
+```bash
+docker-compose exec web bundle exec rails app:hyku_addons:model:generate_schema[ubiquity_template_work]
+```
+
+Once the task has run, make sure that the permissions on the generated file allow you to make changes (`chmod 777 config/metadata/ubiqiuty_template_work.yaml` or something similar), then you can compare the generated fields to the required fields within the dashboard.
+
+##### Schema Examples
+
+Below are a set of example fields that illustrate how to define different types of fields:
+
+```yaml
+---
+# Starts with an attributes hash
+attributes:
+  # Multiple text field example
+  alt_title:
+    type: string
+    predicate: http://purl.org/dc/terms/alternative
+    multiple: true
+    index_keys:
+      - alt_title_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+
+  # Custom input type example
+  title:
+    type: string
+    predicate: http://purl.org/dc/terms/title
+    multiple: true
+    index_keys:
+      - title_tesim
+      - title_sim
+    # The form hash defines how the field will be presented in the form
+    form:
+      # Browser required, but not backend validated
+      required: true
+      # Should the field be above the fold
+      primary: true
+      multiple: true
+      type: text
+      # If you have a field that needs custom behavior, you can define a SimpleForm Input class and add it here,
+      # in this case, `title` is a multiple field (for hyrax compatability) but only shows a single text input.
+      input: single_multi_value
+
+  # Textarea field example
+  abstract:
+    type: text
+    predicate: http://purl.org/dc/terms/abstract
+    multiple: true
+    index_keys:
+      - abstract_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: textarea
+
+  # Select field example
+  subject:
+    predicate: http://purl.org/dc/elements/1.1/subject
+    multiple: true
+    index_keys:
+      - subject_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      # For select fields an authority class is required, which will be constantized in the form
+      type: select
+      authority: HykuAddons::SubjectService
+
+  # JSON field example
+  related_identifier:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/identifiedBy
+    multiple: true
+    index_keys:
+      - related_identifier_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+    subfields:
+      related_identifier:
+        type: string
+        form:
+          multiple: false
+          required: false
+          type: text
+      related_identifier_type:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::RelatedIdentifierTypeService
+          include_blank: true
+      relation_type:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::RelationTypeService
+          include_blank: true
+
+  # Custom field attributes example
+  creator_institutional_relationship:
+    # ...
+    form:
+      # ...
+      # The attributes array can contain any of the field attributes you want inserted into the field markup
+      attributes:
+        multiple: multiple
+        data:
+          foo: bar
+```
+
+#### Adding the required concerns
+
+Once the schema has been created you can add the Schema Concerns to your model, form, presenter and indexer.
+
+The work modal:
+
+```ruby
+class UbiquityTemplateWork < ActiveFedora::Base
+  # ...
+  include HykuAddons::Schema::WorkBase
+  include Hyrax::Schema(:ubiquity_template_work)
+  self.indexer = UbiquityTemplateWorkIndexer
+  # ...
+```
+
+The Work Form:
+
+```ruby
+module Hyrax
+  class UbiquityTemplateWorkForm < Hyrax::Forms::WorkForm
+    include ::HykuAddons::Schema::WorkForm
+    include Hyrax::FormFields(:ubiquity_template_work)
+    # ...
+```
+
+The Indexer:
+
+```ruby
+class UbiquityTemplateWorkIndexer < Hyrax::WorkIndexer
+  include Hyrax::Indexer(:ubiquity_template_work)
+  # ...
+```
+
+The presenter:
+
+```ruby
+module Hyrax
+  class UbiquityTemplateWorkPresenter < Hyrax::WorkShowPresenter
+    # ...
+    include ::HykuAddons::Schema::Presenter(:ubiquity_template_work)
+    include ::HykuAddons::PresenterDelegatable
+    # ...
+  end
+end
+```
+
+#### Checking its worked
+
+If you restart your Rails server or Docker containers and create the new work within the Hyku Addons dashabord you will be able to check the generated page source within the browser debugger. If everything has worked properly the field divs should be preceeded by an HTML comment indicating which view partial was included to generate the field:
+
+```html
+<!-- _resource_type -->
+<!-- schema - _default - resource_type -->
+<div class="form-group single_multi_value required uva_work_resource_type">
+//...
+```
+
+This pattern is used as much as possible to indicate which partials are being used, first `_resource_type` is found, which delegate to the `_default`. `schema` indicates that the field is passing through the schema rendering within the partials. Eventually this can all be removed along with all of the delegating partials, leaving just `_default`, but for now we need to maintain backwards compatability for older work types.
+
+#### Specs
+
+There is a (pretty much) complete test for the Ubiquity Template Work (`spec/features/ubiquity_template_work_form_spec.rb`), which confirms that the actual form fields can be completed, that the form is submitted and then that the data is saved to the Fedora record. For new work types you should be able to duplicate from that spec and remove the fields that are not relevant, or using the form field helps, add new fields as required.
+
+The only way to know if a work type is working for the user is if there are specs.
+
+Whereever possible the Authorities or dynamic data should be used, this is to ensure that the spec works for more than the single example provided.
+
+```ruby
+# Get an array of two random elements from the authority
+let(:license_options) { HykuAddons::LicenseService.new.active_elements.sample(2) }
+
+# Use the labels to fillin the form field using the `fill_in_` helpers.
+fill_in_multiple_selects(:license, license_options.map { |h| h["label"] })
+
+# Confirm that the IDs were saved to the work record
+expect(work.license).to eq(license_options.map { |h| h["id"] })
+```
 ## Development
 
 The rails server will be running at http://hyku.docker and tenants will be subdomains like http://tenant1.hyku.docker.
@@ -351,9 +564,9 @@ In the `docker-compose.yml`, inside of the `&app` configuration block, which is 
 ```yml
 app: &app
   #...
-	volumes:
+  volumes:
   #...
-	- /home/paul/Ubiquity/hyrax-orcid:/home/app/hyrax-orcid
+  - /home/paul/Ubiquity/hyrax-orcid:/home/app/hyrax-orcid
 ```
 
 In your HykuAddons `Gemfile`:

@@ -1,3 +1,4 @@
+// Legacy code for funder cloning and autocomplete, should be removed when schema migration complete
 const funderOnload = function() {
   // Prevent JS being loaded twice
   if ($("body").attr("data-funder-js-loaded") === "true") {
@@ -12,7 +13,7 @@ const funderOnload = function() {
           q: request.term
         }, response);
       },
-      select: function(ui, result) {
+      select: function(_ui, result) {
         closest_div = $(this).closest('.ubiquity-meta-funder')
 
         closest_div.find('.ubiquity_funder_doi').val('')

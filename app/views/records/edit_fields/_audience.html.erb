@@ -1,4 +1,12 @@
-<%= f.input :audience, as: :multi_value_select,
-            collection: HykuAddons::AudienceService.new(model: f.object.model.class).select_active_options,
-            include_blank: local_assigns[:include_blank] || false,
-            input_html: { class: 'form-control' } %>
+<% # This file can be removed when the schema migration has been completed %>
+<!-- _audience -->
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/default", f: f, key: key %>
+
+<% else %>
+  <%= f.input :audience, as: :multi_value_select,
+    collection: HykuAddons::AudienceService.new(model: f.object.model.class).select_active_options,
+    include_blank: local_assigns[:include_blank] || false,
+    input_html: { class: "form-control" } %>
+<% end %>
+
