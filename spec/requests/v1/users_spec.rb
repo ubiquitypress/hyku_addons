@@ -45,6 +45,7 @@ RSpec.describe Hyku::API::V1::UsersController, type: :request, clean: true, mult
         get "/api/v1/tenant/#{account.tenant}/users/#{public_user.email}"
         expect(response.status).to eq(200)
         expect(json_response).to include("email" => public_user.email.to_s,
+                                         "id" => public_user.id,
                                          "display_name" => nil,
                                          "facebook_handle" => nil,
                                          "twitter_handle" => nil,
@@ -63,7 +64,8 @@ RSpec.describe Hyku::API::V1::UsersController, type: :request, clean: true, mult
                                          "avatar_content_type" => nil,
                                          "avatar_file_size" => nil,
                                          "avatar_updated_at" => nil,
-                                         "works": [])
+                                         "biography" => nil,
+                                         "works" => [])
       end
     end
   end
