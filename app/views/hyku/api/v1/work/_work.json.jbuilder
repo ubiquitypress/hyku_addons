@@ -29,9 +29,9 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
         creator_json[index] = creator_json[index].except!("creator_institutional_email")
         next
       else
-      user = User.find_by(email: creator["creator_institutional_email"])
-      creator_json[index] = creator_json[index].except!("creator_institutional_email") unless user.present? && user.display_profile # Removes field if the user is not public/not found
-    end
+        user = User.find_by(email: creator["creator_institutional_email"])
+        creator_json[index] = creator_json[index].except!("creator_institutional_email") unless user.present? && user.display_profile # Removes field if the user is not public/not found
+      end
     end
   end
   json.creator creator_hash.present? ? creator_json : []
