@@ -1245,17 +1245,6 @@ attributes:
       primary: false
       multiple: false
       type: textarea
-  note:
-    type: string
-    predicate: http://www.loc.gov/mods/rdf/v1#note
-    multiple: true
-    index_keys:
-    - note_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: text
   advisor:
     type: string
     predicate: http://bibframe.org/vocab/Person

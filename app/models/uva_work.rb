@@ -13,5 +13,5 @@ class UvaWork < ActiveFedora::Base
 
   self.indexer = UbiquityTemplateWorkIndexer
 
-  validates :title, presence: { message: 'Your work must have a title.' }
+  validates :title, presence: { message: "Your work must have a title." }
 end

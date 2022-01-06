@@ -372,6 +372,26 @@ fill_in_multiple_selects(:license, license_options.map { |h| h["label"] })
 # Confirm that the IDs were saved to the work record
 expect(work.license).to eq(license_options.map { |h| h["id"] })
 ```
+
+#### The Note fields
+
+One thing to note is that the `note` field should not be included in the schema. This is because it resides outside of the form fields block in its own tab and because of this should be added to a work/form by including the concerns:
+
+```ruby
+# Model class
+class UvaWork < ActiveFedora::Base
+  include Hyrax::WorkBehavior
+  # ...
+  include HykuAddons::NoteBehavior
+
+# Form class
+module Hyrax
+  class UvaWorkForm < Hyrax::Forms::WorkForm
+    # ...
+    include HykuAddons::NoteFormBehavior
+
+```
+
 ## Development
 
 The rails server will be running at http://hyku.docker and tenants will be subdomains like http://tenant1.hyku.docker.
