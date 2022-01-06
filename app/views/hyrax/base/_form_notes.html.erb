@@ -1,5 +1,3 @@
-<% return unless curation_concern.respond_to?(:note) %>
-
 <div class="previous_notes">
   <% sorted_hash_by_timestamp = sort_note_hash(curation_concern.note)%>
   <% sorted_hash_by_timestamp.each do |note_hash| %>
