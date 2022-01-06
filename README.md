@@ -375,7 +375,7 @@ expect(work.license).to eq(license_options.map { |h| h["id"] })
 
 #### The Note fields
 
-One thing to note is that the `note` field should not be included in the schema. This is because it resides outside of the form fields block in its own tab and because of this should be added to a work/form by including the concerns:
+One thing to note is that the `note` field should not be included in the works schema YAML. This is because it resides outside of the form fields content in its own tab and because of this should be added to a work/form by including the concerns:
 
 ```ruby
 # Model class
@@ -389,7 +389,6 @@ module Hyrax
   class UvaWorkForm < Hyrax::Forms::WorkForm
     # ...
     include HykuAddons::NoteFormBehavior
-
 ```
 
 ## Development
