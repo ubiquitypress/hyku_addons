@@ -5,6 +5,9 @@ module HykuAddons
 
       def jsonify_fields(attributes, fields, field_class)
         fields.each do |field|
+          # This handles the case when field is a key/value pair coming from the yaml schema
+          field = field.first if field.is_a?(Array)
+
           remove_or_transform_field(attributes, field)
           ensure_multiple!(attributes, field, field_class)
         end
