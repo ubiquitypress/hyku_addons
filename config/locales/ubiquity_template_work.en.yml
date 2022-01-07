@@ -1,8 +1,8 @@
 en:
   hyrax:
     icons:
-      template_work:     'fa fa-file-text-o'
+      ubiquity_template_work: "fa fa-file-text-o"
     select_type:
       ubiquity_template_work:
-        description:        "Template work works"
-        name:               "Ubiquity Template Work"
+        description: "Template work works"
+        name: "Ubiquity Template Work"
