@@ -21,7 +21,7 @@
     wrong and I don't want to push the pixels around right now-->
     <% if current_user.has_role?(:admin, Site.instance) %>
      <div class="checkbox">
-       <%= f.label :allow_public_display do %>
+       <%= f.label :display_profile do %>
         <%= f.check_box :display_profile %>
         <%= t(".allow_public_display") %>
        <% end %>
