@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-# FIXME: many attributes here left nil so specs will pass
+# Required to use helpers in the jbuilder context - https://github.com/rails/jbuilder/issues/227#issuecomment-461477721
+extend HyraxHelper
 json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.member_of_collection_ids & collection_docs.pluck('id')] do
   json.uuid work.id
 
