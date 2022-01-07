@@ -11,5 +11,6 @@ module HykuAddons
     include HykuAddons::NotesTabFormHelper
     include HykuAddons::OrcidHelperBehavior
     include HykuAddons::CrossTenantSharedSearchHelper
+    include HykuAddons::ApiWorksHelper
   end
 end
