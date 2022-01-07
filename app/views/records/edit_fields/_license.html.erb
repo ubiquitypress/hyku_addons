@@ -1,0 +1,16 @@
+<% # NOTE: This file needs to stay and include _default or we will miss out on the schema configuration %>
+<% # After the schema migration has been completed, the condition can be removed and the render left %>
+<!-- _<%= key %> -->
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/default", f: f, key: key %>
+
+<% else %>
+  <% license_service = Hyrax.config.license_service_class.new %>
+  <%= f.input :license, as: :multi_value_select,
+      collection: license_service.select_active_options,
+      include_blank: true,
+      item_helper: license_service.method(:include_current_value),
+      input_html: { class: 'form-control' } %>
+<% end %>
+
+

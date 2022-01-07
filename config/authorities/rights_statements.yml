@@ -18,7 +18,7 @@ terms:
   term: "No Copyright - Contractual Restrictions"
   active: true
 - id: http://rightsstatements.org/vocab/NoC-NC/1.0/
-  term: "No Copyright - Non-Commercial Use Only "
+  term: "No Copyright - Non-Commercial Use Only"
   active: true
 - id: http://rightsstatements.org/vocab/NoC-OKLR/1.0/
   term: "No Copyright - Other Known Legal Restrictions"

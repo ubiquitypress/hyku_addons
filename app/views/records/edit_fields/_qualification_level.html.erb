@@ -1,14 +1,19 @@
-<% qualification_level_service = HykuAddons::QualificationLevelService.new %>
-<% selected = f.object[:qualification_level].empty? ? nil : f.object[:qualification_level] %>
+<!-- _<%= key %> -->
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/default", f: f, key: key %>
 
-<% model = f.object.model.class.to_s.underscore %>
+<% else %>
+  <% qualification_level_service = HykuAddons::QualificationLevelService.new %>
+  <% selected = f.object[:qualification_level].empty? ? nil : f.object[:qualification_level] %>
+  <% model = f.object.model.class.to_s.underscore %>
 
-<% options = {
+  <% options = {
     f: f,
     model: model,
     qualification_service: qualification_level_service,
     field_name: "qualification_level",
     css_class_name: "qualification-level"
-} %>
+  } %>
 
-<%= render "hyku_addons/qualification/qualification", options %>
+  <%= render "hyku_addons/qualification/qualification", options %>
+<% end %>

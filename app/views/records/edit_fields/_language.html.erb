@@ -1,4 +1,12 @@
-<%= f.input :language, as: :multi_value_select,
-            collection: HykuAddons::LanguageService.new(model: f.object.model.class).select_active_options,
-            include_blank: "Please Select...",
-            input_html: { class: 'form-control' } %>
+<% # This file can be removed when the schema migration has been completed %>
+<!-- _langauge -->
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/default", f: f, key: key %>
+
+<% else %>
+  <%= f.input :language, as: :multi_value_select,
+    collection: HykuAddons::LanguageService.new(model: f.object.model.class).select_active_options,
+    include_blank: "Please Select...",
+    input_html: { class: 'form-control' } %>
+<% end %>
+

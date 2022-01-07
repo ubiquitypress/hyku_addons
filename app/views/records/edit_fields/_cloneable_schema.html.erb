@@ -1,0 +1,46 @@
+<% # This is a generic cloneable (without the extra logic for the toggleable creator/contributor or date fields %>
+<% # It simply requires the key and form object and it will generate the fields from the schema %>
+
+<!-- schema - _cloneable_schema - <%= key %> -->
+<% template = f.object.model.class.to_s.underscore %>
+<% target = "#{template}_#{key}" %>
+
+<hr>
+
+<div class="<%= target %>" data-cloneable data-cloneable-min="1">
+  <% f.object.json_field_list(key).each do |hash| %>
+    <% # You can attach to the after clone event of any field by listening to after_clone_<field_name>, grep for after_clone_funder for an example %>
+    <div data-cloneable-group="<%= target %>" data-cloneable-after-action="clear_inputs clear_cloned after_clone_<%= key %>">
+      <% f.object.field_configs.dig(key, :subfields).each do |subfield, config| %>
+        <% field = {
+          f: f,
+          field_type: config[:type],
+          field_slug: subfield,
+          field_args: { data: { required: config[:required], cloneable: config[:multiple] } }.merge(config[:attributes] || {})
+        } %>
+
+        <% if config[:type] == "select" %>
+          <% authority_service = config[:authority]&.safe_constantize %>
+          <% field[:select_options] = authority_service.new(model: f.object.model.class).select_active_options if authority_service %>
+          <% field[:field_args][:include_blank] = config[:include_blank] %>
+        <% end %>
+
+        <% options = { field_group: key, template: template, hash: hash }.merge(field) %>
+        <%= render "records/edit_fields/schema_attribution_partials/#{field[:field_type]}_field", options %>
+      <% end %>
+
+      <div class="form-group">
+        <a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_group" data-cloneable-target="<%= target %>">
+          <span class="glyphicon glyphicon-remove"></span>
+          <span class="controls-remove-text"><%= t("simple_form.deposit_form.form_controls.remove.text") %></span>
+        </a>
+        |
+        <a href="#" data-turbolinks="false" data-cloneable-target="<%= target %>" data-on-click="clone_group">
+          <%= t("simple_form.deposit_form.form_controls.add.text") %>
+        </a>
+      </div>
+
+      <hr>
+    </div>
+  <% end %>
+</div>

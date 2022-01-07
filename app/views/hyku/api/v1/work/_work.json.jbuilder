@@ -45,7 +45,10 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.date_submitted work.date_uploaded
   json.degree work.try(:solr_document)&.to_h&.dig('degree_tesim')
   json.dewey work.try(:solr_document)&.to_h&.dig('dewey_tesim')
-  json.doi work.try(:doi)
+
+  doi = work.try(:solr_document)&.to_h&.dig('doi_ssi')
+  json.doi doi.present? ? "https://doi.org/#{doi}" : nil
+
   json.duration work.try(:solr_document)&.to_h&.dig('duration_tesim')
   json.edition work.try(:solr_document)&.to_h&.dig('edition_tesim')
   json.eissn work.try(:solr_document)&.to_h&.dig('eissn_tesim')
@@ -53,6 +56,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.event_location work.try(:solr_document)&.to_h&.dig('event_location_tesim')
   json.extent work.try(:solr_document)&.to_h&.dig('extent_tesim')
   json.event_title work.try(:solr_document)&.to_h&.dig('event_title_tesim')
+
   json.files do
     json.has_private_files work.file_set_presenters.any? { |fsp| fsp.solr_document.private? }
     json.has_registered_files work.file_set_presenters.any? { |fsp| fsp.solr_document.registered? }

@@ -1,10 +1,18 @@
-<% if  f.object.model.new_record?  %>
-  <%= render "hyku_addons/related_identifier/new_form", f: f %>
+<!-- _related_identifier -->
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/cloneable_schema", f: f, key: key %>
 
 <% else %>
-  <% data = get_model(f.object.model.related_identifier, f.object.model.class,  'related_identifier') || [{}] %>
-  <%= render "hyku_addons/related_identifier/edit_form", f: f, array_of_hash: data  %>
-<% end %>
+  <div class="legacy-cloneable <%= f.object.model.class.to_s.underscore %>_related_identifier" data-legacy-cloneable>
+    <% if  f.object.model.new_record?  %>
+      <%= render "hyku_addons/related_identifier/new_form", f: f %>
 
-<%= render "hyku_addons/related_identifier/related_identifier_js" %>
+    <% else %>
+      <% data = get_model(f.object.model.related_identifier, f.object.model.class,  'related_identifier') || [{}] %>
+      <%= render "hyku_addons/related_identifier/edit_form", f: f, array_of_hash: data  %>
+    <% end %>
+
+    <%= render "hyku_addons/related_identifier/related_identifier_js" %>
+  </div>
+<% end %>
 

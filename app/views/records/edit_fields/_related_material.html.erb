@@ -1,1 +1,9 @@
-<%= f.input :related_material, as: :text, input_html: { rows: 7, cols: 80 }, required: f.object.required?(key) %>
+<% # This file can be removed when the schema migration has been completed %>
+<!-- _related_material -->
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/default", f: f, key: key %>
+
+<% else %>
+  <%= f.input :related_material, as: :text, input_html: { rows: 7, cols: 80 }, required: f.object.required?(key) %>
+<% end %>
+

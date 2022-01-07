@@ -1,1 +1,7 @@
-<%= render "records/edit_fields/cloneable_date", field_slug: :event_date, f: f %>
+<!-- _<%= key %> -->
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/default_date", f: f, key: key %>
+
+<% else %>
+  <%= render "records/edit_fields/legacy_cloneable_date", field_slug: :event_date, f: f %>
+<% end %>

@@ -1,0 +1,57 @@
+<% template = f.object.model.class.to_s.underscore %>
+<% types = HykuAddons::NameTypeService.new.active_elements %>
+
+<!-- _creator_legacy -->
+<div
+  class="<%= template %>_creator"
+  data-cloneable
+  data-cloneable-min="1"
+>
+  <% f.object.creator_list.each do |hash| %>
+    <div
+      data-toggleable
+      data-cloneable-group="<%= template %>_creator"
+      data-cloneable-after-action="clear_inputs clear_cloned"
+    >
+      <% field_options = {
+        field_slug: :creator_name_type,
+        select_options: types.map { |t| t.slice("label", "id").values },
+        required: template != "collection",
+        field_args: {
+          class: 'form-control creator_name_type',
+          data: {
+            toggleable_control: true,
+            on_change: :toggleable_group,
+            after_toggleable_hidden: "clear_inputs clear_cloned",
+          }
+        },
+        field_group: :creator,
+        template: template,
+        hash: hash
+      } %>
+      <%= render "records/edit_fields/attribution_partials/select_field", field_options %>
+
+      <% types.each do |type| %>
+        <%= render "records/edit_fields/creator_#{type["id"].downcase}", f: f, type: type["id"], template: template, hash: hash %>
+      <% end %>
+
+      <% unless template.include?("redlands") || template.include?("anschutz") %>
+        <% field_options = { field_slug: :creator_isni, required: false, field_group: :creator, template: template, hash: hash } %>
+        <%= render "records/edit_fields/attribution_partials/text_field", field_options %>
+      <% end %>
+
+      <div class="form-group">
+        <a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_group" data-cloneable-target="<%= template %>_creator">
+          <span class="glyphicon glyphicon-remove"></span>
+          <span class="controls-remove-text"><%= t("simple_form.deposit_form.form_controls.remove.text") %></span>
+        </a>
+        |
+        <a href="#" data-turbolinks="false" data-cloneable-target="<%= template %>_creator" data-on-click="clone_group">
+          <%= t("simple_form.deposit_form.form_controls.add.text") %>
+        </a>
+      </div>
+
+      <hr>
+    </div>
+  <% end %>
+</div>

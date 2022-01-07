@@ -1,5 +1,12 @@
-<%= f.input key, input_html: {
-  name: "#{f.object.model.class.name.underscore}[#{key}][]",
-  value: f.object.send(key)&.first,
-  required: f.object.required?(key)
-} %>
+<% # This file can be removed when the schema migration has been completed %>
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/default", f: f, key: key %>
+
+<% else %>
+  <%= f.input key, input_html: {
+    name: "#{f.object.model.class.name.underscore}[#{key}][]",
+    value: f.object.send(key)&.first,
+    required: f.object.required?(key)
+  } %>
+<% end %>
+

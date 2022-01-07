@@ -1,7 +1,2 @@
-<%# see app/views/records/edit_fields/_date_accepted.html.erb %>
-<% template = f.object.model.class.to_s.underscore %>
-
-
-<%= render 'hyku_addons/dates/date_fields', date_type: 'accepted', template: template, f: f %>
-
-<br/><br/><br/>
+<!-- legacy - _date_accepted -->
+<%= render "hyku_addons/dates/date_fields", date_type: "accepted", template: f.object.model.class.to_s.underscore, f: f %>

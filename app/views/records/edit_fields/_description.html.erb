@@ -1,0 +1,13 @@
+<% # NOTE: This file needs to stay and include _default or we will miss out on the schema configuration %>
+<% # After the schema migration has been completed, the condition can be removed and the render left %>
+<!-- _<%= key %> -->
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/default", f: f, key: key %>
+
+<% else %>
+  <% if f.object.multiple? key %>
+    <%= f.input :description, as: :multi_value, input_html: { rows: "14", type: "textarea" }, required: f.object.required?(key) %>
+  <% else %>
+    <%= f.input :description, as: :text, input_html: { rows: "14" }, required: f.object.required?(key) %>
+  <% end %>
+<% end %>

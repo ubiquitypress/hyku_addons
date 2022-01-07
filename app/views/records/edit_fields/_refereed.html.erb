@@ -1,6 +1,12 @@
-<%= f.input :refereed, as: :select,
-            collection: HykuAddons::RefereedService.new.select_active_options,
-            include_blank: true,
-            input_html: { class: 'form-control' } %>
+<% # This file can be removed when the schema migration has been completed %>
+<!-- _refereed -->
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/default", f: f, key: key %>
 
+<% else %>
+  <%= f.input :refereed, as: :select,
+    collection: HykuAddons::RefereedService.new.select_active_options,
+    include_blank: true,
+    input_html: { class: 'form-control' } %>
+<% end %>
 
