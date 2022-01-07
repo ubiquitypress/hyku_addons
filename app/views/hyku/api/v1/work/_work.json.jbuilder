@@ -1,9 +1,9 @@
 # frozen_string_literal: true
+
 # Required to use helpers in the jbuilder context - https://github.com/rails/jbuilder/issues/227#issuecomment-461477721
 extend HyraxHelper
 json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.member_of_collection_ids & collection_docs.pluck('id')] do
   json.uuid work.id
-
   json.abstract work.try(:solr_document)&.to_h&.dig('abstract_tesim')&.first
   json.adapted_from work.try(:solr_document)&.to_h&.dig('adapted_from_tesim')
   json.additional_info work.try(:solr_document)&.to_h&.dig('add_info_tesim')
@@ -22,17 +22,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.cname @account.search_only? ? work.try(:solr_document)&.to_h&.dig("account_cname_tesim")&.first : @account.cname
   json.committee_member work.try(:solr_document)&.to_h&.dig('committee_member_tesim')
 
-  creator_json = work.creator.try(:first)
-  creator_hash = JSON.parse(creator_json) if creator_json.present?
-  creator_hash.map do |creator|
-    if creator["creator_institutional_email"].blank?
-      creator.delete("creator_institutional_email")
-    else
-      user = User.find_by(email: creator["creator_institutional_email"])
-      creator.delete("creator_institutional_email") unless user.present? && user.display_profile
-    end
-  end
-  json.creator creator_hash.present? ? creator_hash : []
+  json.creator creator_from_json(work.creator.try(:first))
 
   contributor = work.contributor.try(:first)
   json.contributor contributor.present? ? JSON.parse(contributor) : []
