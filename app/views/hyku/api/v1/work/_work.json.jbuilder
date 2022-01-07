@@ -21,20 +21,17 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.cname @account.search_only? ? work.try(:solr_document)&.to_h&.dig("account_cname_tesim")&.first : @account.cname
   json.committee_member work.try(:solr_document)&.to_h&.dig('committee_member_tesim')
 
-  creator_hash = work.creator.try(:first)
-  creator_json = JSON.parse(creator_hash) if creator_hash.present?
-  if creator_json.present?
-    creator_json.each_with_index do |creator, index|
-      if creator["creator_institutional_email"].blank?
-        creator_json[index] = creator_json[index].except!("creator_institutional_email")
-        next
-      else
-        user = User.find_by(email: creator["creator_institutional_email"])
-        creator_json[index] = creator_json[index].except!("creator_institutional_email") unless user.present? && user.display_profile # Removes field if the user is not public/not found
-      end
+  creator_json = work.creator.try(:first)
+  creator_hash = JSON.parse(creator_json) if creator_json.present?
+  creator_hash.map do |creator|
+    if creator["creator_institutional_email"].blank?
+      creator.delete("creator_institutional_email")
+    else
+      user = User.find_by(email: creator["creator_institutional_email"])
+      creator.delete("creator_institutional_email") unless user.present? && user.display_profile
     end
   end
-  json.creator creator_hash.present? ? creator_json : []
+  json.creator creator_hash.present? ? creator_hash : []
 
   contributor = work.contributor.try(:first)
   json.contributor contributor.present? ? JSON.parse(contributor) : []
