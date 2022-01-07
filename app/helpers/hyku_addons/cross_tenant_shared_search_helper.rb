@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# overriding flipflop
 module HykuAddons
   module CrossTenantSharedSearchHelper
     def generate_work_url(model, request)

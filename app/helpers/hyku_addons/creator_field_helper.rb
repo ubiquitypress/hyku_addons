@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module HykuAddons
   module CreatorFieldHelper
     def add_pacific_creator_personal_fields(array)
