@@ -15,13 +15,6 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
            limit: 0)
   end
   let(:import_batch_file) { "spec/fixtures/csv/pacific_articles.metadata.csv" }
-  # let(:field_mapping) do
-  #   {
-  #     "date_published" => { "from" => ["date_published"], "split" => true, "parsed" => true, "if" => nil, "excluded" => false },
-  #     # Is this admin set mapping really necessary?
-  #     # "" => { "from" => ["admin_set"], "split" => false, "parsed" => false, "if" => nil, "excluded" => true }
-  #   }
-  # end
 
   before do
     # Make sure default admin set exists
@@ -122,7 +115,7 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
     end
   end
 
-  describe "import works eith files" do
+  describe "import works with files" do
     let!(:depositor) { create(:user, email: "batchuser@example.com") }
 
     before do
@@ -277,6 +270,153 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
         end.to change { GenericWork.count }.by(1)
         work = GenericWork.where(source_identifier: source_identifier).first
         expect(work.id).not_to eq source_identifier
+      end
+    end
+  end
+
+  describe "doi minting" do
+    let(:import_batch_file) { "spec/fixtures/csv/generic_work_with_doi.csv" }
+    let(:prefix) { "10.1234" }
+    let(:suffix) { "abcdef" }
+    let(:doi) { "#{prefix}/#{suffix}" }
+    let(:response_body) { File.read(HykuAddons::Engine.root.join("spec", "fixtures", "doi", "mint_doi_return_body.json")) }
+
+    before do
+      Rails.application.routes.default_url_options[:host] = "example.com"
+      Hyrax.config.identifier_registrars = { datacite: Hyrax::DOI::DataCiteRegistrar }
+      Hyrax::DOI::DataCiteRegistrar.mode = :test
+      Hyrax::DOI::DataCiteRegistrar.prefix = prefix
+      Hyrax::DOI::DataCiteRegistrar.username = "username"
+      Hyrax::DOI::DataCiteRegistrar.password = "password"
+
+      stub_request(:post, URI.join(Hyrax::DOI::DataCiteClient::TEST_BASE_URL, "dois"))
+        .with(headers: { "Content-Type" => "application/vnd.api+json" },
+              basic_auth: ["username", "password"],
+              body: "{\"data\":{\"type\":\"dois\",\"attributes\":{\"prefix\":\"#{prefix}\"}}}")
+        .to_return(status: 201, body: response_body)
+
+      stub_request(:put, URI.join(Hyrax::DOI::DataCiteClient::TEST_MDS_BASE_URL, "metadata/#{doi}"))
+        .with(headers: { 'Content-Type': "application/xml;charset=UTF-8" },
+              basic_auth: ["username", "password"])
+        .to_return(status: 201, body: "OK (#{doi})")
+
+      stub_request(:put, URI.join(Hyrax::DOI::DataCiteClient::TEST_MDS_BASE_URL, "doi/#{doi}"))
+        .with(headers: { 'Content-Type': "text/plain;charset=UTF-8" },
+              basic_auth: ["username", "password"])
+        .to_return(status: 201, body: "")
+
+      stub_request(:delete, URI.join(Hyrax::DOI::DataCiteClient::TEST_MDS_BASE_URL, "metadata/#{doi}"))
+        .with(
+          headers: {
+            "Accept" => "*/*",
+            "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+            "Authorization" => "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
+            "User-Agent" => "Faraday v0.17.4"
+          }
+        )
+        .to_return(status: 200, body: "", headers: {})
+    end
+
+    context "when the work is created" do
+      it "mints DOIs for all applicable rows" do
+        perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
+          Bulkrax::ImporterJob.perform_now(importer.id)
+        end
+
+        expect(GenericWork.all.pluck(:doi)).to eq([[], ["10.1234/abcdef"], ["10.1234/abcdef"], ["10.1234/abcdef"]])
+        expect(GenericWork.all.pluck(:doi_status_when_public)).to eq([nil, "draft", "registered", "findable"])
+      end
+    end
+
+    context "when the work is updated" do
+      let(:prefix) { "10.5678" }
+      let(:response_body) { File.read(HykuAddons::Engine.root.join("spec", "fixtures", "doi", "mint_doi_return_body2.json")) }
+      let(:body) { "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<resource xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://datacite.org/schema/kernel-4\" xsi:schemaLocation=\"http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd\">\n  <identifier identifierType=\"DOI\"/>\n  <creators>\n    <creator>\n      <creatorName/>\n    </creator>\n    <creator>\n      <creatorName>Poppins, Mary</creatorName>\n      <givenName>Mary</givenName>\n      <familyName>Poppins</familyName>\n    </creator>\n  </creators>\n  <titles>\n    <title>Abstract search test - Mary Poppins</title>\n  </titles>\n  <publisher>:unav</publisher>\n  <publicationYear>2022</publicationYear>\n  <resourceType resourceTypeGeneral=\"Other\">[\"Interactive resource\"]</resourceType>\n  <sizes/>\n  <formats/>\n  <version/>\n</resource>\n" }
+
+      before do
+        stub_request(:put, URI.join(Hyrax::DOI::DataCiteClient::TEST_MDS_BASE_URL, "metadata/#{doi}"))
+          .with(
+            body: body,
+            headers: {
+              "Accept" => "*/*",
+              "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+              "Authorization" => "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
+              "Content-Type" => "application/xml;charset=UTF-8",
+              "User-Agent" => "Faraday v0.17.4"
+            }
+          )
+          .to_return(status: 200, body: "", headers: {})
+      end
+
+      context "when the work already has a DOI" do
+        context "the import does not change the DOI status" do
+          let!(:work_1) { create :work, source_identifier: "external-id-1", doi: nil, doi_status_when_public: nil }
+          let!(:work_2) { create :work, source_identifier: "external-id-2", doi: [doi], doi_status_when_public: "draft" }
+          let!(:work_3) { create :work, source_identifier: "external-id-3", doi: [doi], doi_status_when_public: "registered" }
+          let!(:work_4) { create :work, source_identifier: "external-id-4", doi: [doi], doi_status_when_public: "findable" }
+
+          it "does not mint a new DOI" do
+            perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
+              Bulkrax::ImporterJob.perform_now(importer.id)
+            end
+
+            expect(work_1.reload.doi).to be_empty
+            expect(work_2.reload.doi).to eq([doi])
+            expect(work_3.reload.doi).to eq([doi])
+            expect(work_4.reload.doi).to eq([doi])
+
+            expect(work_1.doi_status_when_public).to be_nil
+            expect(work_2.doi_status_when_public).to eq("draft")
+            expect(work_3.doi_status_when_public).to eq("registered")
+            expect(work_4.doi_status_when_public).to eq("findable")
+          end
+        end
+
+        context "the import changes the DOI status forwards" do
+          let!(:work_1) { create :work, source_identifier: "external-id-1", doi: nil, doi_status_when_public: nil }
+          let!(:work_2) { create :work, source_identifier: "external-id-2", doi: nil, doi_status_when_public: nil }
+          let!(:work_3) { create :work, source_identifier: "external-id-3", doi: [doi], doi_status_when_public: "draft" }
+          let!(:work_4) { create :work, source_identifier: "external-id-4", doi: [doi], doi_status_when_public: "registered" }
+
+          it "changes DOI status and mints only for the correct items" do
+            perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
+              Bulkrax::ImporterJob.perform_now(importer.id)
+            end
+
+            expect(work_1.reload.doi).to be_empty
+            expect(work_2.reload.doi).to eq([doi])
+            expect(work_3.reload.doi).to eq([doi])
+            expect(work_4.reload.doi).to eq([doi])
+
+            expect(work_1.doi_status_when_public).to be_nil
+            expect(work_2.doi_status_when_public).to eq("draft")
+            expect(work_3.doi_status_when_public).to eq("registered")
+            expect(work_4.doi_status_when_public).to eq("findable")
+          end
+        end
+
+        context "the import changes the DOI status backwards" do
+          let!(:work_1) { create :work, source_identifier: "external-id-1", doi: [doi], doi_status_when_public: "draft" }
+          let!(:work_2) { create :work, source_identifier: "external-id-2", doi: [doi], doi_status_when_public: "registered" }
+          let!(:work_3) { create :work, source_identifier: "external-id-3", doi: [doi], doi_status_when_public: "findable" }
+          let!(:work_4) { create :work, source_identifier: "external-id-4", doi: [doi], doi_status_when_public: "findable" }
+
+          it "does not change DOI or status" do
+            perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
+              Bulkrax::ImporterJob.perform_now(importer.id)
+            end
+
+            expect(work_1.reload.doi).to eq([doi])
+            expect(work_2.reload.doi).to eq([doi])
+            expect(work_3.reload.doi).to eq([doi])
+            expect(work_4.reload.doi).to eq([doi])
+
+            expect(work_1.doi_status_when_public).to eq("draft")
+            expect(work_2.doi_status_when_public).to eq("registered")
+            expect(work_3.doi_status_when_public).to eq("findable")
+            expect(work_4.doi_status_when_public).to eq("findable")
+          end
+        end
       end
     end
   end

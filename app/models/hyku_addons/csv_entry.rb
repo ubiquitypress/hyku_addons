@@ -29,6 +29,7 @@ module HykuAddons
       add_local
       add_date_fields
       add_json_fields
+      add_doi_status_field
       add_controlled_vocabulary_field('resource_type', HykuAddons::ResourceTypesService)
       add_controlled_vocabulary_field('subject', HykuAddons::SubjectService)
       add_controlled_vocabulary_field('language', HykuAddons::LanguageService)
@@ -70,6 +71,16 @@ module HykuAddons
         result = matcher.result(self, record[field.to_s])
         parsed_metadata[field] = Array.wrap(result)
       end
+    end
+
+    def add_doi_status_field
+      return unless parsed_metadata["doi_status_when_public"] && current_doi_status
+
+      doi_statuses = [nil] + Hyrax::DOI::DataCiteRegistrar::STATES
+      current_doi_status_id = doi_statuses.index(current_doi_status) || 0
+      new_doi_status_id = doi_statuses.index(record["doi_status_when_public"]) || 0
+
+      parsed_metadata["doi_status_when_public"] = current_doi_status if new_doi_status_id < current_doi_status_id
     end
 
     def add_json_fields
@@ -210,5 +221,14 @@ module HykuAddons
       rescue
       end || factory.find
     end
+
+    private
+
+      def current_doi_status
+        query = { Bulkrax.system_identifier_field => record['source_identifier'] }
+        match = factory_class.where(query).detect { |m| m.send(Bulkrax.system_identifier_field).include?(record['source_identifier']) }
+
+        match&.doi_status_when_public
+      end
   end
 end
