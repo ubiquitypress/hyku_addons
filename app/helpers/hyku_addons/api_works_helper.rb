@@ -8,16 +8,13 @@ module HykuAddons
 
       return if creator_hash.blank?
 
-      key = "creator_institutional_email"
-
       creator_hash.map do |creator|
-        if creator[key] && creator[key].blank?
-          creator.delete(key)
+        if creator["creator_institutional_email"]&.blank?
+          creator.delete("creator_institutional_email")
         else
-          user = User.find_by(email: creator[key])
-          creator.delete(key) unless user.present? && user.display_profile
+          user = User.find_by(email: creator["creator_institutional_email"])
+          creator.delete("creator_institutional_email") unless user.present? && user.display_profile
         end
-
         creator
       end
     end
