@@ -220,7 +220,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:adapted_from) { "adapted_from" }
   let(:audience_options) { HykuAddons::AudienceService.new(model: model).active_elements.sample(2) }
   let(:related_material) { "related_material" }
-  let(:note) { ["note1", "note2"] }
   let(:advisor) { "advisor" }
   let(:subject_text) { ["subject1", "subject2"] }
   let(:mesh) { ["mesh1", "mesh2"] }
@@ -352,7 +351,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_textarea(:adapted_from, adapted_from)
       fill_in_multiple_selects(:audience, audience_options.map { |h| h["label"] })
       fill_in_textarea(:related_material, related_material)
-      fill_in_multiple_text_fields(:note, note)
       fill_in_text_field(:advisor, advisor)
       fill_in_multiple_text_fields(:subject_text, subject_text)
       fill_in_multiple_text_fields(:mesh, mesh)
@@ -482,7 +480,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         expect(work.adapted_from).to eq(adapted_from)
         expect(work.audience).to eq(audience_options.map { |h| h["id"] })
         expect(work.related_material).to eq(related_material)
-        expect(JSON.parse(work.note.first).dig("note")).to eq(note)
         expect(work.advisor).to eq(advisor)
         expect(work.subject_text).to eq(subject_text)
         expect(work.mesh).to eq(mesh)
