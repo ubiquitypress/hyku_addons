@@ -38,6 +38,9 @@ terms:
 - id: DMus
   term: Doctor of Music
   active: true
+- id: OD
+  term: Doctor of Optometry
+  active: true
 - id: DPhil
   term: Doctor of Philosophy
   active: false
@@ -79,6 +82,9 @@ terms:
   active: true
 - id: MSc
   term: Master of Science
+  active: true
+- id: MSN
+  term: Master of Science in Nursing
   active: true
 - id: MSt
   term: Master of Studies
