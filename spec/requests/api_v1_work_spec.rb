@@ -305,11 +305,11 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                                            "creator_given_name" => "Sebastian",
                                                            "creator_name_type" => "Personal",
                                                            "creator_orcid" => "https://sandbox.orcid.org/0000-0003-0652-4625",
-                                                           "creator_institutional_email" => user.email},
+                                                           "creator_institutional_email" => user.email },
 
                                                          { "creator_family_name" => "Testing",
                                                            "creator_given_name" => "Johnny",
-                                                           "creator_name_type" => "Personal"}],
+                                                           "creator_name_type" => "Personal" }],
                                            "date_accepted" => ["2018-01-02"],
                                            "date_published" => ["1946-03-12"],
                                            "date_published_text" => nil,
