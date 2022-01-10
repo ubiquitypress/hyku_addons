@@ -3,6 +3,7 @@ require "rails_helper"
 
 RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multitenant: true do
   let(:account) { create(:account) }
+  let(:user) { create(:user, display_profile: true) }
   let(:work) { nil }
   let(:abstract) { "Swedish comic about the adventures of the residents of Moominvalley." }
   let(:add_info) { "Nothing to report" }
@@ -17,7 +18,8 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
       creator_name_type: "Personal",
       creator_given_name: creator1_first_name,
       creator_family_name: creator1_last_name,
-      creator_orcid: "https://sandbox.orcid.org/#{creator1_orcid}"
+      creator_orcid: "https://sandbox.orcid.org/#{creator1_orcid}",
+      creator_institutional_email: user.email
     }
   end
   let(:creator2_first_name) { "Johnny" }
@@ -26,7 +28,8 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
     {
       creator_name_type: "Personal",
       creator_given_name: creator2_first_name,
-      creator_family_name: creator2_last_name
+      creator_family_name: creator2_last_name,
+      creator_institutional_email: "fake.email@test.com"
     }
   end
   let(:contributor1_first_name) { "Jannet" }
@@ -301,11 +304,12 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "creator" => [{ "creator_family_name" => "Hageneuer",
                                                            "creator_given_name" => "Sebastian",
                                                            "creator_name_type" => "Personal",
-                                                           "creator_orcid" => "https://sandbox.orcid.org/0000-0003-0652-4625" },
+                                                           "creator_orcid" => "https://sandbox.orcid.org/0000-0003-0652-4625",
+                                                           "creator_institutional_email" => user.email},
 
                                                          { "creator_family_name" => "Testing",
                                                            "creator_given_name" => "Johnny",
-                                                           "creator_name_type" => "Personal" }],
+                                                           "creator_name_type" => "Personal"}],
                                            "date_accepted" => ["2018-01-02"],
                                            "date_published" => ["1946-03-12"],
                                            "date_published_text" => nil,
