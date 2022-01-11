@@ -912,7 +912,7 @@ attributes:
     predicate: http://purl.org/dc/terms/description
     multiple: true
     index_keys:
-    - abstract_tesim
+    - description_tesim
     form:
       required: false
       primary: false
