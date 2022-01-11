@@ -163,6 +163,8 @@ Hyku Addons uses a port of the Hyrax 3.0 Schema YAML to define work types, whils
 
 #### Defining the Schema
 
+One important point to note is that currently you cannot define two fields that share a solr key name ("abstract_tesim" for example) with mutliple schema index names, like "description" and "abstract". This will cause issues when writing the work metadata to the solr document and whilst the data will be saved to Fedora, it will not be displayed on the AH work show template or returned in the API JSON.
+
 ##### For new works
 
 Your Schema should be defined in `config/metadata` as a `.yaml` file that matches the underscored name of your work type. So the UbiquityTemplateWork has a file called `ubiquity_template_work.yaml`.
