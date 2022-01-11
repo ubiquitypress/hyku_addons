@@ -104,7 +104,7 @@ RSpec.describe "Create a GenericWork", js: true, clean: true do
       select("Blog post", from: "Resource type")
 
       # Institution
-      select("University of Virginia", from: "Institution")
+      select("Ubiquity Press", from: "Institution")
 
       # With selenium and the chrome driver, focus remains on the
       # select box. Click outside the box so the next line can't find
@@ -134,7 +134,7 @@ RSpec.describe "Create a GenericWork", js: true, clean: true do
       expect(page).to have_link("Blog post", href: /catalog\?f.*Bresource_type_sim.*Blog\+post/)
 
       # Institution
-      expect(page).to have_content("University of Virginia")
+      expect(page).to have_content("Ubiquity Press")
 
       expect(page).not_to have_content("Contributor") # FIXME
       expect(page).not_to have_content("Editor") # FIXME
@@ -204,7 +204,7 @@ RSpec.describe "Create a GenericWork", js: true, clean: true do
       fill_in("Duration", with: "6 minutes")
 
       # Institution
-      select("University of Virginia", from: "Institution")
+      select("Ubiquity Press", from: "Institution")
 
       # Organizational unit
       fill_in("Organisational Unit", with: "Repositories team")
@@ -366,7 +366,7 @@ RSpec.describe "Create a GenericWork", js: true, clean: true do
       expect(page).to have_content("6 minutes")
 
       # Institution
-      expect(page).to have_content("University of Virginia")
+      expect(page).to have_content("Ubiquity Press")
 
       # Organizational unit
       expect(page).to have_content("Repositories team")
