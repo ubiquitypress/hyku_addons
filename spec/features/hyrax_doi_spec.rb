@@ -34,7 +34,7 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
             creator_family_name: "Testison"
           }].to_json
         ],
-        institution: ["University of Virginia"],
+        institution: ["Ubiquity Press"],
         resource_type: ["Blog post"]
       }
     end
