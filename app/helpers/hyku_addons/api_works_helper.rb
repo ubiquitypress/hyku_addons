@@ -11,18 +11,16 @@ module HykuAddons
       key = "creator_institutional_email"
 
       creator_hash.map do |creator|
-        if creator[key].blank?
-          creator.delete(key)
-        else
-          user = find_by_user_email(creator[key])
-          creator.delete(key) unless user.present? && user.display_profile
-        end
-        creator
+        # Use unless to avoid querying the database for each user
+        next unless creator[key].blank? || !display_user_profile?(creator[key])
+        creator.delete(key)
       end
+      creator_hash
     end
 
-    def find_by_user_email(email)
-      User.find_by(email: email)
+    def display_user_profile?(email)
+      user = User.find_by(email: email)
+      user.present? && user.display_profile
     end
   end
 end
