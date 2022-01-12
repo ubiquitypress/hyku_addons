@@ -2,9 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Active Support Inflectors" do
-  let(:options) { { locale: :en, tenant: "Test" } }
-
+RSpec.describe ActiveSupport::Inflector do
   describe "media" do
     it "pluralizes" do
       expect("media".pluralize).to eq "medias"

@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-RSpec.describe "PDF Viewer Assets" do
-  describe "Asset Precompile" do
+RSpec.describe HykuAddons::Engine do
+  describe "Asset Precompile paths" do
     let(:assets) { ["pdf_viewer.css", "pdf_viewer/base.js", "pdf_viewer/locale/*"] }
 
     it "includes the required types" do
