@@ -22,7 +22,8 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.cname @account.search_only? ? work.try(:solr_document)&.to_h&.dig("account_cname_tesim")&.first : @account.cname
   json.committee_member work.try(:solr_document)&.to_h&.dig('committee_member_tesim')
 
-  json.creator creator_from_json(work.creator.try(:first))
+  creator = work.creator.try(:first)
+  json.creator creator.present? ? JSON.parse(creator) : []
 
   contributor = work.contributor.try(:first)
   json.contributor contributor.present? ? JSON.parse(contributor) : []

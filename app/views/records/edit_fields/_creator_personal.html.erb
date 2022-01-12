@@ -9,7 +9,8 @@
 		{ field_type: :text, field_slug: :creator_institution },
 		{ field_type: :text, field_slug: :creator_orcid },
 		{ field_type: :text, field_slug: :creator_institutional_email },
-		{ field_type: :select, field_slug: :creator_institutional_relationship, select_options: creator_inst_rel_options, field_args: { multiple: true } }] %>
+		{ field_type: :select, field_slug: :creator_institutional_relationship, select_options: creator_inst_rel_options, field_args: { multiple: true } },
+		{ field_type: :hidden, field_slug: :display_creator_profile? } ] %>
 	<% personal_fields = add_pacific_creator_personal_fields(personal_fields) if template.include? "pacific" %>
 	<% personal_fields = add_uva_creator_personal_fields(personal_fields) if template.include? "uva" %>
 	<% personal_fields = add_denver_creator_personal_fields(personal_fields, creator_role_options) if template.include? "denver" %>
