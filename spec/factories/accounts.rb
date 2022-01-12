@@ -2,7 +2,7 @@
 
 FactoryBot.modify do
   factory :account do
-    sequence(:cname) { |_n| srand }
+    sequence(:cname) { |_n| ("a".."z").to_a.shuffle.join }
     solr_endpoint
     redis_endpoint
     fcrepo_endpoint
