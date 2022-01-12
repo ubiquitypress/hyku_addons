@@ -36,6 +36,7 @@ RSpec.describe Hyrax::DOI::HyraxDOIController, type: :request, multitenant: true
     WebMock.disable!
 
     Site.update(account: account)
+    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
     allow(Apartment::Tenant).to receive(:switch).with(account.tenant) do |&block|
       block.call
     end

@@ -6,6 +6,7 @@ RSpec.describe HykuAddons::ReindexAvailableWorksJob, type: :job do
   let(:site) { instance_double(Site) }
 
   before do
+    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
     allow(site).to receive(:available_works).and_return([work.class.to_s])
 
     allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|

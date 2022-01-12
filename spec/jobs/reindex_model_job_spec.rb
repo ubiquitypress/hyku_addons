@@ -29,7 +29,7 @@ RSpec.describe HykuAddons::ReindexModelJob, type: :job do
             headers: { "Content-Type" => "application/vnd.api+json" },
             basic_auth: ["username", "password"])
       .to_return(status: 200, body: response_body)
-
+    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
     allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
       block&.call
     end

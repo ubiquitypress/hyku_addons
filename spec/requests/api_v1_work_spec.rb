@@ -135,6 +135,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
   end
 
   before do
+    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
     allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
       block&.call
     end

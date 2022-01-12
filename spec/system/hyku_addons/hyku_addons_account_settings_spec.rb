@@ -9,7 +9,7 @@ RSpec.describe "AccountSettings", type: :system do
   before do
     driven_by(:rack_test)
     login_as(user, scope: :user)
-    puts "I haz account: #{account.cname}"
+    puts "I haz account: #{account.cname}, with tenant #{account.tenant}"
 
     allow(Apartment::Tenant).to receive(:switch).with(account.tenant) do |&block|
       block.call

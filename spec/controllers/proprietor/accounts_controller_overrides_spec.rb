@@ -22,6 +22,7 @@ RSpec.describe Proprietor::AccountsController, type: :controller, multitenant: t
         end
 
         it "updates the requested account" do
+          puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
           allow(Apartment::Tenant).to receive(:switch).with(account.tenant) do |&block|
             block.call
           end

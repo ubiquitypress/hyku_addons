@@ -16,6 +16,7 @@ RSpec.shared_context "user with work context" do
   let(:identifier) { work.id }
 
   before do
+    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
     Site.update(account: account)
     allow(Apartment::Tenant).to receive(:switch).with(account.tenant) do |&block|
       block.call

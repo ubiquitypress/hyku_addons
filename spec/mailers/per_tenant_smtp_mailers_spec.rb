@@ -38,7 +38,7 @@ RSpec.describe Hyrax::ContactMailer, clean: true, multitenant: true, type: :mail
         Settings.instance_eval do
           def smtp_settings; end
         end
-
+        puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
         allow(Settings).to receive(:smtp_settings).and_return(OpenStruct.new(smtp_settings))
         allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
           block&.call
