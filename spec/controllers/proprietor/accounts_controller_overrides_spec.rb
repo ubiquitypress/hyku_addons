@@ -12,7 +12,11 @@ RSpec.describe Proprietor::AccountsController, type: :controller, multitenant: t
     let(:account) { create(:account) }
 
     before do
+      puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
       Site.update(account: account)
+      allow(Apartment::Tenant).to receive(:switch).with(account.tenant) do |&block|
+        block.call
+      end
     end
 
     describe "PUT #update" do
@@ -22,10 +26,6 @@ RSpec.describe Proprietor::AccountsController, type: :controller, multitenant: t
         end
 
         it "updates the requested account" do
-          puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
-          allow(Apartment::Tenant).to receive(:switch).with(account.tenant) do |&block|
-            block.call
-          end
           put :update, params: { id: account.to_param, account: new_attributes }
           account.reload
           expect(account.datacite_endpoint.mode).to eq "production"
