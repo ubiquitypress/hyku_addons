@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 # Override to explicitly call our license service with model
 module Hyrax::Renderers::LicenseAttributeRendererBehavior
