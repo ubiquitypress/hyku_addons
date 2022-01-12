@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 # Override to explicitly call our license service with model
 module Hyrax::Renderers::LicenseAttributeRendererBehavior
   def attribute_value_to_html(value)
@@ -18,4 +19,3 @@ module Hyrax::Renderers::LicenseAttributeRendererBehavior
     end
   end
 end
-
