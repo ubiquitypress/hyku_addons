@@ -1,13 +1,55 @@
-<% if f.object.multiple? key %>
-  <%= f.input key,
-    as: :multi_value,
-    input_html: { class: 'form-control' },
-    required: f.object.required?(key),
-    placeholder: lambda {
-      key = "simple_form.placeholders.defaults.#{key}"
-      I18n.exists?(key) ? t(key) : ''
-    }.call
-  %>
+<% # This partial trie to do as much as possible for you, by reading the config from the schema and generating the field %>
+<% # Whilst the majority of cases are covered, more complicated or nuanced fields will still need their own partial %>
+
+<% if f.object.schema_driven? %>
+  <% # Avoid internal hyrax fields being presented as fields on the form %>
+  <% return if f.object.class.internal_terms.include?(key) %>
+
+  <% config = f.object.field_configs[key] || {} %>
+
+  <% # Set default input options %>
+  <% options = {
+    required: config[:required],
+    input_html: { class: "form-control" }.merge(config[:attributes] || {}),
+    placeholder: I18n.t("simple_form.placeholders.defaults.#{key}", default: ""),
+    as: config[:multiple] ? :multi_value : nil,
+    wrapper_html: config[:wrapper_html],
+  } %>
+
+  <% # Set input type specific configuration %>
+  <% case config[:type] %>
+    <% when "textarea" %>
+      <% options[:input_html].merge!(rows: 7, type: "textarea") %>
+      <% options.merge!(as: config[:multiple] ? :multi_value : :text) %>
+
+    <% when "select" %>
+      <% options.merge!({
+        as: config[:multiple] ? :multi_value_select : :select,
+        collection: config[:authority]&.safe_constantize&.new(model: f.object.model.class)&.select_active_options,
+        # If include_blank is not set, or is present then use that value if available, or use empty string
+        include_blank: config[:include_blank].nil? || config[:include_blank].present? ? (config[:include_blank] || true) : false,
+      }) %>
+  <% end %>
+
+  <% # If input type is specified in the schema that takes priority, otherwise, use the calculated input type %>
+  <% options.merge!(as: config[:input]) if config[:input].present? %>
+
+  <!-- schema - _default - <%= key %> -->
+  <%= f.input key, options %>
+
 <% else %>
-  <%= f.input key, required: f.object.required?(key) %>
+  <!-- legacy - _default -->
+  <% if f.object.multiple? key %>
+    <%= f.input key,
+      as: :multi_value,
+      input_html: { class: "form-control" },
+      required: f.object.required?(key),
+      placeholder: lambda {
+        key = "simple_form.placeholders.defaults.#{key}"
+        I18n.exists?(key) ? t(key) : ""
+      }.call
+    %>
+  <% else %>
+    <%= f.input key, required: f.object.required?(key) %>
+  <% end %>
 <% end %>

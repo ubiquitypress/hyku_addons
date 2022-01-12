@@ -1,9 +1,8 @@
+// Not updating this code for now, just making it more generic
 function populate_isni_ror(){
-  var name = document.getElementById("thesis_or_dissertation_current_he_institution_group__current_he_institution_name");
-  var isni = document.getElementById("thesis_or_dissertation_current_he_institution_group__current_he_institution_isni");
-  var ror = document.getElementById("thesis_or_dissertation_current_he_institution_group__current_he_institution_ror");
-  var index = name.options[name.selectedIndex].index;
-  isni.selectedIndex = index;
-  ror.selectedIndex = index;
+  var index = document.querySelector(".current_he_institution_name").selectedIndex
 
+  document.querySelector(".current_he_institution_isni").selectedIndex = index
+  document.querySelector(".current_he_institution_ror").selectedIndex = index
 }
+

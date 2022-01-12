@@ -397,6 +397,7 @@ terms:
   - id: UCL Institute of Education
     term: UCL Institute of Education
     isni: 0000 0001 2190 6782
+    ror: ""
     active: true
   - id: Ulster University
     term: Ulster University
@@ -673,8 +674,8 @@ terms:
     isni: 0000 0000 8517 0017
     ror: https://ror.org/04cnfrn26
     active: true
-  - id: University of the Highlands & Islands
-    term: University of the Highlands & Islands
+  - id: "University of the Highlands & Islands"
+    term: "University of the Highlands & Islands"
     isni: 0000 0001 2189 1357
     ror: https://ror.org/02s08xt61
     active: true

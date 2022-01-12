@@ -1,0 +1,63 @@
+<% # This is a legacy partial and can be deleted when the schema migration is complete %>
+
+<!-- _legacy_cloneable_date -->
+<% template = f.object.model.class.to_s.underscore %>
+<% target = "#{template}_#{field_slug}" %>
+<% dates = f.object[field_slug] %>
+<% required = f.object.respond_to?(:field_configs) && f.object&.field_configs&.dig(field_slug, :required) %>
+
+<label class="control-label" for="<%= field_slug %>"><%= t("simple_form.#{field_slug}.label") %></label>
+
+<% if required %>
+  <span class="label label-info required-tag">required</span>
+<% end %>
+
+<div
+  class="ubiquity-meta-<%= field_slug %> <%= target %>"
+  data-cloneable
+  data-cloneable-min="1"
+>
+  <% dates.each do |date| %>
+    <% # The original file used .to_s instead of .first, but this returned an array with a Triple instance %>
+    <% date_value = date.split("-") %>
+
+    <div
+      data-cloneable-group="<%= target %>"
+      data-cloneable-after-action="clear_inputs clear_cloned"
+    >
+      <div class="form-inline">
+        <div class="form-group <%= "#{target}_year" %>">
+          <% opts = { start_year: (Date.today.year + 6), end_year: (Date.today.year - 159), prompt: t("simple_form.date_fields.year.label") } %>
+          <% params = { id: "#{target}__#{field_slug}_year", name: "#{template}[#{field_slug}][][#{field_slug}_year]", class: "form-control ubiquity-date-input" } %>
+          <%= select_year(date_value[0].to_i, opts, params) %>
+        </div>
+
+        <div class="form-group <%= "#{target}_month" %>">
+          <% opts = { use_two_digit_numbers: true, prompt: t("simple_form.date_fields.month.label") } %>
+          <% params = { id: "#{target}__#{field_slug}_month", name: "#{template}[#{field_slug}][][#{field_slug}_month]", class: "form-control ubiquity-date-input" } %>
+          <%= select_month(date_value[1].to_i, opts, params) %>
+        </div>
+
+        <div class="form-group <%= "#{target}_day" %>">
+          <% opts = { use_two_digit_numbers: true, prompt: t("simple_form.date_fields.day.label") } %>
+          <% params = { id: "#{target}__#{field_slug}_day", name: "#{template}[#{field_slug}][][#{field_slug}_day]", class: "form-control ubiquity-date-input" } %>
+          <%= select_day(date_value[2].to_i, opts, params) %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <br>
+        <a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_group" data-cloneable-target="<%= target %>">
+          <span class="glyphicon glyphicon-remove"></span>
+          <span class="controls-remove-text"><%= t("simple_form.deposit_form.form_controls.remove.text") %></span>
+        </a>
+        |
+        <a href="#" data-turbolinks="false" data-cloneable-target="<%= target %>" data-on-click="clone_group">
+          <%= t("simple_form.deposit_form.form_controls.add.text") %>
+        </a>
+      </div>
+
+      <hr>
+    </div>
+  <% end %>
+</div>

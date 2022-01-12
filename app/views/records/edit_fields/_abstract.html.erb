@@ -1,5 +1,12 @@
-<% if f.object.multiple? key %>
-  <%= f.input :abstract, as: :multi_value, input_html: { rows: 7, cols: 80, type: 'textarea'}, required: f.object.required?(key) %>
+<% # This file can be removed when the schema migration has been completed %>
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/default", f: f, key: key %>
+
 <% else %>
-  <%= f.input :abstract, as: :text, input_html: { rows: 7, cols: 80 }, required: f.object.required?(key) %>
+  <% if f.object.multiple? key %>
+    <%= f.input :abstract, as: :multi_value, input_html: { rows: 7, cols: 80, type: 'textarea'}, required: f.object.required?(key) %>
+  <% else %>
+    <%= f.input :abstract, as: :text, input_html: { rows: 7, cols: 80 }, required: f.object.required?(key) %>
+  <% end %>
 <% end %>
+

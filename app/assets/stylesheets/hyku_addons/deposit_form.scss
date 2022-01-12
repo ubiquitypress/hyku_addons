@@ -27,3 +27,11 @@
     margin-bottom: 0;
   }
 }
+
+.hyku_date {
+  &.form-inline .form-control {
+    display: inline-block;
+    width: 33%;
+    vertical-align: middle;
+  }
+}

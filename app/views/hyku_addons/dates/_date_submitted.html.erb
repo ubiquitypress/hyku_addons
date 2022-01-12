@@ -1,8 +1,2 @@
-<%# see app/views/records/edit_fields/_date_submitted.html.erb %>
-<% template = f.object.model.class.to_s.underscore %>
-
-<%= render 'hyku_addons/dates/date_fields', date_type: 'submitted', template: template, f: f %>
-
-
-
-<br/><br/><br/>
+<!-- legacy - _date_submitted -->
+<%= render "hyku_addons/dates/date_fields", date_type: "submitted", template: f.object.model.class.to_s.underscore, f: f %>

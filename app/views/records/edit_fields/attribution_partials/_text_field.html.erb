@@ -1,6 +1,7 @@
 <% cloneable = local_assigns.dig(:field_args, :cloneable) %>
 <% cloneable_name ="cloneable-#{template}-#{field_slug}" %>
 
+<!-- _text_field -->
 <div
 	class="<%= local_assigns["group_class"] || "form-group #{field_slug}-group #{template}_#{field_slug}" %>"
 	<% if cloneable %>

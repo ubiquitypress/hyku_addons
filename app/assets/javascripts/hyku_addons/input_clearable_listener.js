@@ -12,7 +12,7 @@ class InputClearableListener {
     $("body").on(this.eventName, this.onEvent.bind(this))
   }
 
-  onEvent(event, target){
+  onEvent(_event, target){
     $(target).find("input").val("")
     $(target).find("select").each(function(){
       // By removing selected, rather than setting the select value to false, we avoid having no visble toggled element

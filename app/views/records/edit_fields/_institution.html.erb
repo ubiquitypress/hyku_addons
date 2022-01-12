@@ -1,4 +1,10 @@
-<%= f.input :institution, as: :multi_value_select,
-            collection: HykuAddons::InstitutionService.new.select_active_options,
-						include_blank: 'Please Select...',
-            input_html: { class: 'form-control ubiquity-institution' } %>
+<!-- _<%= key %> -->
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/default", f: f, key: key %>
+
+<% else %>
+  <%= f.input :institution, as: :multi_value_select,
+    collection: HykuAddons::InstitutionService.new.select_active_options,
+    include_blank: 'Please Select...',
+    input_html: { class: 'form-control ubiquity-institution' } %>
+<% end %>

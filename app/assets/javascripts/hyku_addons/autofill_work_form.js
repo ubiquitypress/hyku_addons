@@ -76,7 +76,8 @@ class AutofillWorkForm {
       return false;
     }
 
-    // Dealing with edgecases by checking for a specific method to process a field
+    // Dealing with edgecases by checking for a specific method to process a field, however this is only used for
+    // legacy funder fields and otherwise should be processed normally with the cloneable code.
     if (this[`process_${field}`]) {
       this[`process_${field}`](value, index)
 
@@ -135,7 +136,6 @@ class AutofillWorkForm {
     // From within the wrapper, find all matching elements and then filter only form fields
     var input = parentElement.find(selector).find(this.targetInputSelector).get(index)
 
-    // Updating the value doesn't automaticaly trigger the onChange event
     $(input).val(value).trigger("change")
   }
 
@@ -153,8 +153,58 @@ class AutofillWorkForm {
     }
   }
 
-  // Funder has subfields that couldn't be properly updated without tracking parent and child indexes
+  // This is gross, but untill the schema migration is complete this is a shim for legacy and cloneable funders.
   process_funder(funders) {
+    if (this.wrapper("funder").data("cloneable") !== undefined) {
+      this.processCloneableFunders(funders)
+    } else {
+      this.processLegacyFunders(funders)
+    }
+  }
+
+  // A slightly modified version to deal with the cloneable element structure,
+  // which should remain after the schema migration has been completed.
+  processCloneableFunders(funders) {
+    this.arrayValuesLength = funders.length
+
+    if (this.arrayValuesLength === 0) {
+      return false
+    }
+
+    funders.forEach((funder, i) => {
+      // Get the top level children only
+      var $wrapper = $(this.wrapper("funder").children("[data-cloneable-group]").get(i))
+
+      Object.entries(funder).forEach(function([childField, childValue]){
+        let setValue = (field, value, index = 0) => {
+          $($wrapper.find($(this.inputSelector(field))).find(this.targetInputSelector).get(index)).val(value)
+        }
+
+        if ($.type(childValue) === "array") {
+          childValue.forEach(function(val, j) {
+            setValue(childField, val, j)
+
+            if (j+1 < childValue.length) {
+              $($wrapper.find($(this.inputSelector(childField))).not(this.targetInputSelector)).find("[data-on-click=clone_group]").click()
+            }
+          }, this)
+
+        } else {
+            setValue(childField, childValue)
+        }
+      }, this)
+
+      if (i+1 < this.arrayValuesLength) {
+        $wrapper.find("[data-on-click=clone_group]").filter(":last").trigger("click")
+      } else {
+        this.setUpdated("funder")
+      }
+    }, this)
+  }
+
+  // TODO: Remove this method when the schema migration has been completed
+  // Funder has subfields that couldn't be properly updated without tracking parent and child indexes
+  processLegacyFunders(funders) {
     this.arrayValuesLength = funders.length
 
     if (this.arrayValuesLength === 0) {

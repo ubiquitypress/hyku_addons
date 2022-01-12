@@ -144,6 +144,10 @@ module HykuAddons
       person_or_organization_list(:editor)
     end
 
+    def schema_driven?
+      false
+    end
+
     protected
 
       def simplfied_admin_set?(controller)

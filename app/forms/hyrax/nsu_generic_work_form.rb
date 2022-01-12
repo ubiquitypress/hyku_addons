@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Hyrax
   # Generated form for NsuGenericWork
   class NsuGenericWorkForm < Hyrax::Forms::WorkForm

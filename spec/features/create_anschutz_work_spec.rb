@@ -31,7 +31,7 @@ RSpec.feature "Create a AnschutzWork", slow: true do
   end
 
   it "adds files to work" do
-    click_link "Files" # switch tab
+    click_link "Files"
     expect(page).to have_content "Add files"
     expect(page).to have_content "Add folder"
     within("span#addfiles") do

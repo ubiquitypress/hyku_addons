@@ -1,4 +1,24 @@
 en:
+  hyrax:
+    works:
+      progress:
+        doi_options: DOI Options
+        create_draft_doi: Create Draft DOI
+        doi_status_when_public: DOI status when work is public
+        doi_do_not_mint: Do not mint
+        doi_draft: Draft
+        doi_registered: Registered
+        doi_findable: Findable
+    dashboard:
+      profiles:
+        edit_primary:
+          help_change_picture_type: JPG, GIF, or PNG (less than 2MB)
+          delete_picture: Delete picture
+          delete_picture_data_content: If you would like to remove your picture entirely, check the box and save your profile.
+          delete_picture_data_original_title: Delete Picture
+          allow_public_display: Allow user profile and information to be visable to the public.
+          display_name: Name
+          help_name: Enter your name as you would like it displayed on the Author profile page 
   simple_form:
     hints:
       defaults:

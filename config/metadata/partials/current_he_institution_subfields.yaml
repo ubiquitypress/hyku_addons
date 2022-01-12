@@ -1,0 +1,20 @@
+---
+current_he_institution_name:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: select
+current_he_institution_ror:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: select
+current_he_institution_isni:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: select
+

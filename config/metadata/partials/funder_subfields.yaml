@@ -1,0 +1,37 @@
+---
+funder_name:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: text
+    input: controlled_vocabulary
+    attributes:
+      data:
+        field_name: ubiquity_funder_name
+        autocomplete-url: /authorities/search/crossref/funders
+        autocomplete: funder
+funder_doi:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: text
+funder_isni:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: text
+funder_ror:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: text
+funder_award:
+  type: string
+  form:
+    required: false
+    multiple: true
+    type: text

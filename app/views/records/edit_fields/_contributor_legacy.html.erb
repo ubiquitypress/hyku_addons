@@ -1,0 +1,71 @@
+<% template = f.object.model.class.to_s.underscore %>
+<% types = HykuAddons::NameTypeService.new.active_elements %>
+
+<!-- _contributor_legacy -->
+<div
+  class="<%= template %>_contributor"
+  data-cloneable
+  data-cloneable-min="1"
+>
+  <% f.object.contributor_list.each do |hash| %>
+    <div
+      data-toggleable
+      data-cloneable-group="<%= template %>_contributor"
+      data-cloneable-after-action="clear_inputs clear_cloned"
+    >
+      <% field_options = {
+        field_slug: :contributor_name_type,
+        select_options: types.map { |t| t.slice("label", "id").values },
+        field_args: {
+          class: 'form-control',
+          data: {
+            toggleable_control: true,
+            on_change: :toggleable_group,
+            after_toggleable_hidden: "clear_inputs clear_cloned",
+          }
+        },
+        field_group: :contributor,
+        template: template,
+        hash: hash
+      } %>
+      <%= render "records/edit_fields/attribution_partials/select_field", field_options %>
+
+      <% types.each do |type| %>
+        <%= render "records/edit_fields/contributor_#{type["id"].downcase}", f: f, type: type["id"], template: template, hash: hash %>
+      <% end %>
+
+      <% # FIXME: This condition should be moved to the model/form %>
+      <% unless template.include?("pacific") || template.include?("uva") || template.include?("redlands") ||
+                template.include?("anschutz") || template.include?("denver") || template.include?("una") %>
+        <% model = f.object.model.class %>
+        <% field_options = {
+          field_slug: :contributor_type,
+          field_group: :contributor,
+          template: template,
+          hash: hash,
+          select_options: HykuAddons::ContributorGroupService.new(model: model).select_active_options.flatten.uniq!,
+          # The class here is a fix to sort out the variation in the contributor field names
+          group_class: "form-group contributor_type-group #{template}_contributor_contributor_type",
+          field_args: { prompt: "Please Select...", class: "form-control #{template}_contributor_contributor_type" }
+        } %>
+        <%= render "records/edit_fields/attribution_partials/select_field", field_options %>
+      <% end %>
+
+      <% options = { field_group: :contributor, template: template, hash: hash, field_slug: :contributor_isni } %>
+      <%= render "records/edit_fields/attribution_partials/text_field", options %>
+
+      <div class="form-group">
+        <a href="#" class="text-danger form-group" data-turbolinks="false" data-on-click="remove_group" data-cloneable-target="<%= template %>_contributor">
+          <span class="glyphicon glyphicon-remove"></span>
+          <span class="controls-remove-text"><%= t("simple_form.deposit_form.form_controls.remove.text") %></span>
+        </a>
+        |
+        <a href="#" data-turbolinks="false" data-cloneable-target="<%= template %>_contributor" data-on-click="clone_group">
+          <%= t("simple_form.deposit_form.form_controls.add.text") %>
+        </a>
+      </div>
+
+      <hr>
+    </div>
+  <% end %>
+</div>

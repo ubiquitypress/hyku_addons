@@ -84,5 +84,9 @@ module HykuAddons
       self.json_fields = %i[creator contributor funder alternate_identifier related_identifier]
       self.date_fields = %i[date_published date_accepted date_submitted]
     end
+
+    def schema_driven?
+      false
+    end
   end
 end
