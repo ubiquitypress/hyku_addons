@@ -7,16 +7,16 @@ module HykuAddons
 
     # Override to add date and json field handling
     def build_metadata
-      raise StandardError, 'Record not found' if record.nil?
+      raise StandardError, "Record not found" if record.nil?
 
       raise StandardError, "Missing required elements, required elements are: #{importerexporter.parser.required_elements.join(', ')}" unless importerexporter.parser.required_elements?(record.keys)
 
       self.parsed_metadata = {}
-      parsed_metadata[Bulkrax.system_identifier_field] = record['source_identifier']
-      parsed_metadata['id'] = record['id'] if record['id'].present?
+      parsed_metadata[Bulkrax.system_identifier_field] = record["source_identifier"]
+      parsed_metadata["id"] = record["id"] if record["id"].present?
 
       record.each do |key, value|
-        next if key == 'collection'
+        next if key == "collection"
         add_metadata(key, value)
       end
 
@@ -30,9 +30,9 @@ module HykuAddons
       add_date_fields
       add_json_fields
       add_doi_status_field
-      add_controlled_vocabulary_field('resource_type', HykuAddons::ResourceTypesService)
-      add_controlled_vocabulary_field('subject', HykuAddons::SubjectService)
-      add_controlled_vocabulary_field('language', HykuAddons::LanguageService)
+      add_controlled_vocabulary_field("resource_type", HykuAddons::ResourceTypesService)
+      add_controlled_vocabulary_field("subject", HykuAddons::SubjectService)
+      add_controlled_vocabulary_field("language", HykuAddons::LanguageService)
 
       parsed_metadata
     end
@@ -46,19 +46,19 @@ module HykuAddons
         if (subfield = match[:subfield].presence)
           file_metadata[file_index][subfield] = v
         else
-          file_metadata[file_index]['file'] = v
+          file_metadata[file_index]["file"] = v
         end
       end
-      parsed_metadata['file'] = file_metadata.pluck('file') if parsed_metadata['file'].blank?
-      parsed_metadata['file'] = parsed_metadata['file'].map { |f| path_to_file(f) }
-      parsed_metadata['file_set'] = file_metadata
+      parsed_metadata["file"] = file_metadata.pluck("file") if parsed_metadata["file"].blank?
+      parsed_metadata["file"] = parsed_metadata["file"].map { |f| path_to_file(f) }
+      parsed_metadata["file_set"] = file_metadata
     end
 
     # Override to use the value in prefer the named admin set provided in the admin_set column then fallback to previous behavior
     def add_admin_set_id
-      parsed_metadata['admin_set_id'] = nil if parsed_metadata['admin_set_id'].blank?
-      parsed_metadata['admin_set_id'] ||= AdminSet.where(title: raw_metadata['admin_set']).first&.id ||
-                                          AdminSet.where(id: raw_metadata['admin_set']).first&.id ||
+      parsed_metadata["admin_set_id"] = nil if parsed_metadata["admin_set_id"].blank?
+      parsed_metadata["admin_set_id"] ||= AdminSet.where(title: raw_metadata["admin_set"]).first&.id ||
+                                          AdminSet.where(id: raw_metadata["admin_set"]).first&.id ||
                                           importerexporter.admin_set_id
     end
 
@@ -73,6 +73,15 @@ module HykuAddons
       end
     end
 
+    # This method ensures that existing records can only have their doi_status changed 
+    # to valid statuses.  Since there is no status for do_not_mint, it adds nil to the list 
+    # of DataCiteRegistrar::STATES then calculates the index in this list for the
+    # current and new status.  If the status has moved forwards it updates, otherwise we 
+    # revert to the original status.
+    # In order to do this we need to fetch the current_doi_status from the factory.  
+    # WARNING: we cannot call find on the factory in this class.  Doing so prevents the work from being
+    # updated because the factory will be initialized with the metadata in the current state
+    # before this code has updated it
     def add_doi_status_field
       return unless parsed_metadata["doi_status_when_public"] && current_doi_status
 
@@ -97,7 +106,7 @@ module HykuAddons
 
     def add_controlled_vocabulary_field(field, service_class)
       return unless parsed_metadata[field].present?
-      service = service_class.new(model: parsed_metadata['model']&.safe_constantize)
+      service = service_class.new(model: parsed_metadata["model"]&.safe_constantize)
       parsed_metadata[field] = parsed_metadata[field].map do |val|
         service.authority.find(val).fetch("id")
       rescue
@@ -107,18 +116,18 @@ module HykuAddons
 
     # Removes the replcement of spaces to underscores https://github.com/samvera-labs/bulkrax/blob/master/app/models/bulkrax/csv_entry.rb#L84
     def add_file
-      parsed_metadata['file'] ||= []
-      if record['file']&.is_a?(String)
-        parsed_metadata['file'] = record['file'].split(/\s*[;|]\s*/)
-      elsif record['file'].is_a?(Array)
-        parsed_metadata['file'] = record['file']
+      parsed_metadata["file"] ||= []
+      if record["file"]&.is_a?(String)
+        parsed_metadata["file"] = record["file"].split(/\s*[;|]\s*/)
+      elsif record["file"].is_a?(Array)
+        parsed_metadata["file"] = record["file"]
       end
-      parsed_metadata['file'] = parsed_metadata['file'].map { |f| path_to_file(f) }
+      parsed_metadata["file"] = parsed_metadata["file"].map { |f| path_to_file(f) }
     end
 
     # Override to allow `id` as system identifier field
     def valid_system_id(model_class)
-      return true if Bulkrax.system_identifier_field == 'id'
+      return true if Bulkrax.system_identifier_field == "id"
       # Collection and AdminSet are handled differently so don't worry about them
       return true if model_class == Collection || model_class == AdminSet
       return true if model_class.properties.keys.include?(Bulkrax.system_identifier_field)
@@ -142,7 +151,7 @@ module HykuAddons
     def path_to_file(file)
       # return if we already have the full file path
       return file if File.exist?(file)
-      path = ENV['BULKRAX_FILE_PATH']
+      path = ENV["BULKRAX_FILE_PATH"]
       path ||= importerexporter.parser.path_to_files
       f = File.join(path, file)
       return f if File.exist?(f)
@@ -156,26 +165,26 @@ module HykuAddons
       # make_round_trippable
       self.parsed_metadata = {}
       # We don't need a separate column for id because it is already in the source_identifer_field
-      parsed_metadata['id'] = hyrax_record.id
-      parsed_metadata['model'] = hyrax_record.has_model.first
+      parsed_metadata["id"] = hyrax_record.id
+      parsed_metadata["model"] = hyrax_record.has_model.first
       build_mapping_metadata
       build_file_visibility unless hyrax_record.is_a?(Collection)
       build_json_metadata
       # Populate source_identifer if it doesn't have a value similar to make_round_trippable
       parsed_metadata[self.class.source_identifier_field] ||= hyrax_record.id
-      parsed_metadata['visibility'] = hyrax_record.visibility
-      parsed_metadata['admin_set'] = hyrax_record.admin_set_id
-      parsed_metadata['collection'] = hyrax_record.member_of_collection_ids.join('|')
+      parsed_metadata["visibility"] = hyrax_record.visibility
+      parsed_metadata["admin_set"] = hyrax_record.admin_set_id
+      parsed_metadata["collection"] = hyrax_record.member_of_collection_ids.join("|")
       parsed_metadata
     end
 
     def build_mapping_metadata
       export_mapping.each do |key, value|
-        method_name = Array.wrap(value['from']).first&.to_s || key.to_s
+        method_name = Array.wrap(value["from"]).first&.to_s || key.to_s
         next unless hyrax_record.respond_to?(method_name)
         data = hyrax_record.send(method_name)
         if data.is_a?(ActiveTriples::Relation)
-          parsed_metadata[key] = data.map { |d| prepare_export_data(d) }.join('|').to_s unless value[:excluded]
+          parsed_metadata[key] = data.map { |d| prepare_export_data(d) }.join("|").to_s unless value[:excluded]
         else
           parsed_metadata[key] = prepare_export_data(data)
         end
@@ -210,8 +219,8 @@ module HykuAddons
 
     def export_mapping
       # Add all fields from this model to the mapping unless explicitly excluded by already being in the mapping
-      map = mapping.reject { |k, _| k == 'model' || (Bulkrax.reserved_properties.include?(k) && !field_supported?(k)) }
-      hyrax_record.attributes.keys.map { |k| map[k] ||= { 'from' => Array.wrap(k) } unless Bulkrax.reserved_properties.include?(k) || !field_supported?(k) }
+      map = mapping.reject { |k, _| k == "model" || (Bulkrax.reserved_properties.include?(k) && !field_supported?(k)) }
+      hyrax_record.attributes.keys.map { |k| map[k] ||= { "from" => Array.wrap(k) } unless Bulkrax.reserved_properties.include?(k) || !field_supported?(k) }
       map
     end
 
@@ -225,8 +234,8 @@ module HykuAddons
     private
 
       def current_doi_status
-        query = { Bulkrax.system_identifier_field => record['source_identifier'] }
-        match = factory_class.where(query).detect { |m| m.send(Bulkrax.system_identifier_field).include?(record['source_identifier']) }
+        query = { Bulkrax.system_identifier_field => record["source_identifier"] }
+        match = factory_class.where(query).detect { |m| m.send(Bulkrax.system_identifier_field).include?(record["source_identifier"]) }
 
         match&.doi_status_when_public
       end
