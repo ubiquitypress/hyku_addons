@@ -2,7 +2,7 @@
 
 RSpec.describe HykuAddons::ImportMode, type: :job do
   before do
-    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
+    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}, described_class: #{described_class}"
     allow(Apartment::Tenant).to receive(:current).and_return("x")
     allow(Account).to receive(:find_by).with(tenant: "x").and_return(account)
     allow(Apartment::Tenant).to receive(:switch).with("x") do |&block|

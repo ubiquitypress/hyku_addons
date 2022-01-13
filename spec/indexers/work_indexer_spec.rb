@@ -43,7 +43,7 @@ RSpec.describe WorkIndexer do
     let(:account) { create(:account, cname: "hyky-test.me") }
 
     before do
-      puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
+      puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}, described_class: #{described_class}"
       allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
         block&.call
       end

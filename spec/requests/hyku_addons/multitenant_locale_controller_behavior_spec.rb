@@ -12,7 +12,7 @@ RSpec.describe HykuAddons::MultitenantLocaleControllerBehavior, type: :request, 
     login_as(user, scope: :user)
 
     Site.update(account: account)
-    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
+    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}, described_class: #{described_class}"
     allow(Apartment::Tenant).to receive(:switch).with(account.tenant) do |&block|
       block.call
     end

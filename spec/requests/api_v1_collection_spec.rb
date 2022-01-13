@@ -17,7 +17,7 @@ RSpec.describe Hyku::API::V1::CollectionController, type: :request, clean: true,
   let(:collection_branding_list) { class_double(CollectionBrandingInfo) }
 
   before do
-    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
+    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}, described_class: #{described_class}"
     allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
       block&.call
     end

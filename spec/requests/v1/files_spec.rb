@@ -8,7 +8,7 @@ RSpec.describe Hyku::API::V1::FilesController, type: :request, clean: true, mult
   let(:file_set) { work.file_sets.first }
 
   before do
-    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
+    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}, described_class: #{described_class}"
     allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
       block&.call
     end

@@ -8,7 +8,7 @@ RSpec.describe Hyku::API::V1::UsersController, type: :request, clean: true, mult
   let(:private_user) { create(:user) }
 
   before do
-    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
+    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}, described_class: #{described_class}"
     allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
       block&.call
     end

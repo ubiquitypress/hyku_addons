@@ -14,7 +14,7 @@ RSpec.describe Mailboxer::MessageMailer, clean: true, multitenant: true, type: :
       let(:mail) { described_class.new_message_email(mailboxer_message, user) }
 
       before do
-        puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
+        puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}, described_class: #{described_class}"
         allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
           block&.call
         end

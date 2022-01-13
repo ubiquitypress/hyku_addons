@@ -6,15 +6,11 @@ RSpec.describe "::HykuAddons::AccountSettingsController", type: :request do
   let!(:account) { create(:account) }
   before do
     login_as(user, scope: :user)
-    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}"
+    puts "Elsewhere I haz account: #{account.cname}, with tenant #{account.tenant}, described_class: #{described_class}"
     allow(Apartment::Tenant).to receive(:switch).with(account.tenant) do |&block|
       block.call
     end
     account.switch!
-  end
-
-  after do
-    account.reset!
   end
 
   describe "GET /admin/account_settings" do
