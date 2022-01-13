@@ -14,7 +14,7 @@ AllCops:
 
 Metrics/ClassLength:
   Exclude:
-    - 'app/models/hyku_addons/csv_entry.rb'
+    - 'app/models/hyku_addons/importer_overrides.rb'
     - 'app/services/bolognese/readers/base_work_reader.rb'
     - 'app/services/hyku_addons/validations/solr_entry_validation_service.rb'
     - 'app/services/hyku_addons/validations/entry_validation_service.rb'
@@ -65,6 +65,7 @@ Metrics/MethodLength:
     - 'app/forms/concerns/hyku_addons/generic_work_form_overrides.rb'
     - 'app/forms/concerns/hyku_addons/work_form.rb'
     - 'app/models/hyku_addons/csv_entry.rb'
+    - 'app/models/hyku_addons/importer_overrides.rb'
     - 'app/parsers/hyku_addons/csv_parser.rb'
     - 'app/services/bolognese/readers/base_work_reader.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
@@ -97,7 +98,8 @@ Metrics/AbcSize:
   Exclude:
     - 'app/actors/hyku_addons/actors/json_fields_actor.rb'
     - 'app/forms/concerns/hyku_addons/work_form.rb'
-    - 'app/models/hyku_addons/csv_entry.rb'
+    - 'app/models/hyku_addons/importer_overrides.rb'
+    - 'app/models/hyku_addons/exporter_overrides.rb'
     - 'app/services/bolognese/writers/ris_writer_behavior.rb'
     - 'app/controllers/concerns/hyku_addons/importer_controller_behavior.rb'
     - 'bin/transform_export_batch.rb'
@@ -157,6 +159,7 @@ Rails/Date:
 Rails/FindBy:
   Exclude:
     - 'app/models/hyku_addons/csv_entry.rb'
+    - 'app/models/hyku_addons/importer_overrides.rb'
 
 Naming/AccessorMethodName:
   Exclude:
