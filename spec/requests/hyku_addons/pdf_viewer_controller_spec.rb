@@ -18,11 +18,6 @@ RSpec.describe "::HykuAddons::PdfViewerController", type: :request, js: true do
       block.call
     end
     host! account.cname
-    default_url_options[:host] = "http://#{account.cname}"
-  end
-
-  after do
-    account.reset!
   end
 
   describe "GET pdf_viewer" do
