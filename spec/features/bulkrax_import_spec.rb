@@ -317,6 +317,33 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
         .to_return(status: 200, body: "", headers: {})
     end
 
+    context "when import_mode is enabled" do
+      it "calls the DOI Job" do
+        allow(Flipflop).to receive(:enabled?).and_call_original
+        allow(Flipflop).to receive(:enabled?).with(:import_mode).and_return(true).at_least(:once)
+
+        allow(Apartment::Tenant).to receive(:current).and_return("x")
+        allow(Account).to receive(:find_by).with(tenant: "x").and_return(instance_double(Account, name: "x"))
+        allow(Apartment::Tenant).to receive(:switch).with("x") do |&block|
+          block.call
+        end
+
+        allow(Hyrax::DOI::RegisterDOIJob).to receive(:perform_later).and_call_original
+        allow(Hyrax::Identifier::Dispatcher).to receive(:for).and_call_original
+
+        perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
+          Bulkrax::ImporterJob.perform_now(importer.id)
+        end
+
+        expect(Flipflop).to have_received(:enabled?).with(:import_mode).at_least(:once)
+
+        # This tests that the job is enqueued
+        expect(Hyrax::DOI::RegisterDOIJob).to have_received(:perform_later).exactly(4).times
+        # This tests that the job is actually performed, as its only step is to call this class.
+        expect(Hyrax::Identifier::Dispatcher).to have_received(:for).exactly(4).times
+      end
+    end
+
     context "when the work is created" do
       it "mints DOIs for all applicable rows" do
         perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
