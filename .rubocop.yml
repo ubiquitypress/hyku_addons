@@ -34,6 +34,7 @@ Metrics/ModuleLength:
   Exclude:
     - 'app/controllers/concerns/hyku_addons/catalog_controller_behavior.rb'
     - 'app/forms/concerns/hyku_addons/work_form.rb'
+    - 'app/models/hyku_addons/importer_overrides.rb'
     - 'app/helpers/hyku_addons/multiple_metadata_fields_helper.rb'
     - 'app/models/concerns/hyku_addons/generic_work_overrides.rb'
     - 'app/models/concerns/hyku_addons/solr_document_behavior.rb'

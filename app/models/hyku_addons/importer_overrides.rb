@@ -17,6 +17,12 @@ module HykuAddons
         add_metadata(key, value)
       end
 
+      transform_metadata
+
+      parsed_metadata
+    end
+
+    def transform_metadata
       add_file
       add_file_subfields
       add_visibility
@@ -30,8 +36,6 @@ module HykuAddons
       add_controlled_vocabulary_field("resource_type", HykuAddons::ResourceTypesService)
       add_controlled_vocabulary_field("subject", HykuAddons::SubjectService)
       add_controlled_vocabulary_field("language", HykuAddons::LanguageService)
-
-      parsed_metadata
     end
 
     def add_file_subfields
