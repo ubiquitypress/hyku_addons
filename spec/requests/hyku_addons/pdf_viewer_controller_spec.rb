@@ -22,7 +22,7 @@ RSpec.describe "::HykuAddons::PdfViewerController", type: :request, js: true do
   end
 
   after do
-    default_url_options[:host] = nil
+    default_url_options.except!(:host)
   end
 
   describe "GET pdf_viewer" do
