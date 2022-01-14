@@ -25,21 +25,16 @@ module HykuAddons
       export_mapping.each do |key, value|
         method_name = Array.wrap(value["from"]).first || key
         hyrax_record_value = hyrax_record_for_key(method_name)
-  
-        transform_relations(hyrax_record_value) unless hyrax_record_value.is_a?(ActiveTriples::Relation) && value[:excluded]
+
+        parsed_metadata[key] = transform_relations(hyrax_record_value) unless hyrax_record_value.is_a?(ActiveTriples::Relation) && value[:excluded]
       end
     end
 
     def build_json_metadata
-      hyrax_record.class.json_fields.map(&:to_s).each do |field|
+      json_fields.each do |field|
         json_str = parsed_metadata.delete(field)
 
-        if json_str.present?
-          split_json(json_str)
-          
-        end
-      rescue JSON::ParseError
-        next
+        split_json(json_str) if json_str.present?
       end
     end
 
@@ -78,9 +73,9 @@ module HykuAddons
 
       def transform_relations(hyrax_record_value)
         if hyrax_record_value.is_a?(ActiveTriples::Relation)
-          parsed_metadata[key] = data.map { |d| prepare_export_data(d) }.join("|").to_s
+          data.map { |d| prepare_export_data(d) }.join("|").to_s
         else
-          parsed_metadata[key] = prepare_export_data(data)
+          prepare_export_data(data)
         end
       end
 
@@ -90,10 +85,20 @@ module HykuAddons
         hyrax_record.send(method_name.to_s)
       end
 
+      def json_fields
+        hyrax_record.class.json_fields.map(&:to_s)
+      end
+
       def split_json(str)
         # Split JSON into separate columns for each subfield suffixed by index within the JSON (e.g. creator_given_name_1)
-        JSON.parse(str).each_with_index do |h, i| 
-          h.each { |k, v| parsed_metadata["#{k}_#{i + 1}"] = v } 
+        parsed_json = begin
+                        JSON.parse(str)
+                      rescue JSON::ParseError
+                        nil
+                      end
+
+        parsed_json.each_with_index do |h, i|
+          h.each { |k, v| parsed_metadata["#{k}_#{i + 1}"] = v }
         end
       end
 
@@ -101,7 +106,7 @@ module HykuAddons
         return unless hyrax_record.is_a?(Collection)
 
         file_sets = hyrax_record.ordered_members.to_a
-        file_sets.select {|fs| fs.is_a?(FileSet) && filename(fs).present? }
+        file_sets.select { |fs| fs.is_a?(FileSet) && filename(fs).present? }
       end
   end
 end

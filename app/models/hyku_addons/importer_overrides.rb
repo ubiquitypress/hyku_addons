@@ -10,7 +10,7 @@ module HykuAddons
       create_metadata
       transform_metadata
 
-      return parsed_metadata
+      parsed_metadata
     end
 
     def add_file_subfields
@@ -113,6 +113,7 @@ module HykuAddons
     end
 
     private
+
       def create_metadata
         self.parsed_metadata = {}
         parsed_metadata[Bulkrax.system_identifier_field] = record["source_identifier"]
