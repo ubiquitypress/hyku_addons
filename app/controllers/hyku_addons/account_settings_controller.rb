@@ -20,10 +20,13 @@ module HykuAddons
     end
 
     def update_single
-      @account.settings.merge!(account_params['settings'])
+      @account.settings.merge!(account_params["settings"])
+
       # removes nil keys in the hash
       @account.settings.compact
+
       @account.save if @account.settings_changed?
+
       redirect_to admin_account_settings_path
     end
 
@@ -49,9 +52,9 @@ module HykuAddons
       def map_array_fields
         keys = %w[email_format weekly_email_list monthly_email_list yearly_email_list]
         keys.each do |key|
-          next if params['account']['settings'][key].blank?
+          next if params["account"]["settings"][key].blank?
 
-          params['account']['settings'][key].map! { |str| str.split(' ') }.flatten!
+          params["account"]["settings"][key].map! { |str| str.split(" ") }.flatten!
         end
       end
   end

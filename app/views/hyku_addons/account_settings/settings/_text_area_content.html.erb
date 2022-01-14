@@ -1,7 +1,7 @@
 <div class="form-group">
   <%= f.fields_for :settings do |ff| %>
     <%= ff.label field_name %><br>
-    <%= t("settings.helptexts.#{field_name}") %><br>
+    <%== t("settings.helptexts.#{field_name}") %><br>
     <%= ff.text_area field_name, value: @account.settings[field_name], class: "form-control", id: field_name %>
   <% end %>
 </div>

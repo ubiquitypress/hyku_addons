@@ -11,7 +11,7 @@
     <% HykuAddons::AccountBehavior::TEXT_SETTINGS.each do |fname| %>
       <tr>
         <% title_key = "settings.titles.#{fname}" %>
-        <td id="link-<%= fname %>"><b><%= I18n.exists?(title_key) ? t(title_key) : fname.humanize %>:</b> <%= @account&.settings[fname] %></td>
+        <td id="link-<%= fname %>"><b><%== I18n.exists?(title_key) ? t(title_key) : fname.humanize %>:</b> <%= @account&.settings[fname] %></td>
 				<% link = hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: "render_text_fields", field_name: fname) %>
         <td><%= link_to "Edit #{fname.humanize}", link, class: "btn btn-xs btn-default", remote: true %></td>
       </tr>
@@ -20,7 +20,7 @@
     <% HykuAddons::AccountBehavior::TEXT_AREA_SETTINGS.each do |fname| %>
       <tr>
         <% title_key = "settings.titles.#{fname}" %>
-        <td id="link-<%= fname %>"><b><%= I18n.exists?(title_key) ? t(title_key) : fname.humanize %>:</b> <%= @account&.settings[fname] %></td>
+        <td id="link-<%= fname %>"><b><%== I18n.exists?(title_key) ? t(title_key) : fname.humanize %>:</b> <%= @account&.settings[fname] %></td>
 				<% link = hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: "render_text_areas", field_name: fname) %>
         <td><%= link_to "Edit #{fname.humanize}", link, class: "btn btn-xs btn-default", remote: true %></td>
       </tr>
@@ -29,7 +29,7 @@
     <% HykuAddons::AccountBehavior::ARRAY_SETTINGS.each do |fname| %>
       <tr>
         <% title_key = "settings.titles.#{fname}" %>
-        <td id="link-<%= fname %>"><b><%= I18n.exists?(title_key) ? t(title_key) : fname.humanize %>:</b> <%= @account&.settings[fname]&.to_sentence %></td>
+        <td id="link-<%= fname %>"><b><%== I18n.exists?(title_key) ? t(title_key) : fname.humanize %>:</b> <%= @account&.settings[fname]&.to_sentence %></td>
 				<% link = hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: "render_array_list", field_name: fname) %>
         <td><%= link_to "Edit #{fname.humanize}", link, class: "btn btn-xs btn-default", remote: true %></td>
       </tr>
@@ -39,7 +39,7 @@
       <% settings.each do|fname| %>
         <tr>
         <% title_key = "settings.titles.#{fname}" %>
-        <td id="link-<%= fname %>"><b><%= I18n.exists?(title_key) ? t(title_key) : fname.humanize %>:</b> <%= @account&.settings[fname] %></td>
+        <td id="link-<%= fname %>"><b><%== I18n.exists?(title_key) ? t(title_key) : fname.humanize %>:</b> <%= @account&.settings[fname] %></td>
 					<% link = hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: "render_hash_settings", field_name: fname) %>
           <td><%= link_to "Edit #{fname.humanize}", link, class: "btn btn-xs btn-default", remote: true  %></td>
         </tr>
@@ -49,7 +49,7 @@
 		<% HykuAddons::AccountBehavior::BOOLEAN_SETTINGS.each do |fname| %>
       <tr>
         <% title_key = "settings.titles.#{fname}" %>
-        <td id="link-<%= fname %>"><b><%= I18n.exists?(title_key) ? t(title_key) : fname.humanize %>:</b> <%= @account&.settings[fname] %></td>
+        <td id="link-<%= fname %>"><b><%== I18n.exists?(title_key) ? t(title_key) : fname.humanize %>:</b> <%= @account&.settings[fname] %></td>
 				<% link = hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: "render_single_boolean", field_name: fname) %>
         <td><%= link_to "Edit #{fname.humanize}", link, class: "btn btn-xs btn-default", remote: true %></td>
       </tr>
@@ -60,7 +60,7 @@
     <% current_selection = @account.settings.dig(fname)&.select(&:present?)&.compact&.join(", ") %>
     <% title_key = "settings.titles.#{fname}" %>
     <tr>
-      <td id="link-<%= fname %>"><b><%=  I18n.exists?(title_key) ? t(title_key) : fname.humanize %>:</b><br> <%= current_selection %></td>
+      <td id="link-<%= fname %>"><b><%== I18n.exists?(title_key) ? t(title_key) : fname.humanize %>:</b><br> <%= current_selection %></td>
 			<% link = hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: "render_select", field_name: fname, options: options) %>
       <td><%= link_to "Edit #{fname.humanize}", link, class: "btn btn-xs btn-default", remote: true %></td>
     </tr>
