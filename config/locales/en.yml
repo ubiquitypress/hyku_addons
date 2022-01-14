@@ -233,7 +233,12 @@ en:
         label: Type of alternate identifier
         placeholder: ""
         help_text: State the type of alternate identifier.
+  stats:
+    reports:
+      title: Google Data Studio Chart
   settings:
+    titles:
+      dashboard_gds_charts: Dashboard GDS Charts
     helptexts:
       gtm_id: The ID of your Google Tag Manager account
       contact_email: Email recipient of messages sent via the contact form
@@ -248,6 +253,7 @@ en:
       locale_name: |
         The name of the tenant specific locale suffix added to their locale.yml files. Only alphabetic characters should be added, no symbols or numbers, these will then be capitalised.
       oai_admin_email: OAI endpoint contact email address
+      dashboard_gds_charts: List comma delimited Google Data Studio chart URL's to be displayed on the Dashboard
 
   hyrax:
     notifications:
