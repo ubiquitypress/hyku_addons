@@ -24,9 +24,8 @@ module HykuAddons
     def build_mapping_metadata
       export_mapping.each do |key, value|
         method_name = Array.wrap(value["from"]).first || key
-        hyrax_record_value = hyrax_record_for_key(method_name)
-
-        parsed_metadata[key] = transform_relations(hyrax_record_value) unless hyrax_record_value.is_a?(ActiveTriples::Relation) && value[:excluded]
+        data = hyrax_data(method_name&.to_s)
+        parsed_metadata[key] = transform_relations(data) unless value[:excluded] && data.is_a?(ActiveTriples::Relation)
       end
     end
 
@@ -39,10 +38,9 @@ module HykuAddons
     end
 
     def build_file_visibility
-      file_sets.each_with_index do |fs, i|
-        file = filename(fs).to_s
+      hyrax_files_sets.each_with_index do |fs, i|
         index = i + 1
-        parsed_metadata["file_#{index}"] = file
+        parsed_metadata["file_#{index}"] = filename(fs).to_s.presence
         parsed_metadata["file_visibility_#{index}"] = fs.visibility
 
         add_embargo_details(fs, index)
@@ -71,18 +69,18 @@ module HykuAddons
         parsed_metadata["file_embargo_release_date_#{index}"] = fs.embargo_release_date&.to_date&.to_s
       end
 
-      def transform_relations(hyrax_record_value)
-        if hyrax_record_value.is_a?(ActiveTriples::Relation)
+      def hyrax_data(method_name)
+        return unless hyrax_record.respond_to?(method_name)
+
+        hyrax_record.send(method_name)
+      end
+
+      def transform_relations(data)
+        if data.is_a?(ActiveTriples::Relation)
           data.map { |d| prepare_export_data(d) }.join("|").to_s
         else
           prepare_export_data(data)
         end
-      end
-
-      def hyrax_record_for_key(method_name)
-        return unless hyrax_record.respond_to?(method_name)
-
-        hyrax_record.send(method_name.to_s)
       end
 
       def json_fields
@@ -102,8 +100,8 @@ module HykuAddons
         end
       end
 
-      def files_sets
-        return unless hyrax_record.is_a?(Collection)
+      def hyrax_files_sets
+        return if hyrax_record.is_a?(Collection)
 
         file_sets = hyrax_record.ordered_members.to_a
         file_sets.select { |fs| fs.is_a?(FileSet) && filename(fs).present? }
