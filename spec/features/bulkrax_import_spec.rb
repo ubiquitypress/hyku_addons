@@ -338,24 +338,24 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
         expect(Flipflop).to have_received(:enabled?).with(:import_mode).at_least(:once)
 
         # This tests that the job is enqueued
-        expect(Hyrax::DOI::RegisterDOIJob).to have_received(:perform_later).exactly(4).times
+        expect(Hyrax::DOI::RegisterDOIJob).to have_received(:perform_later).exactly(12).times
         # This tests that the job is actually performed, as its only step is to call this class.
-        expect(Hyrax::Identifier::Dispatcher).to have_received(:for).exactly(4).times
+        expect(Hyrax::Identifier::Dispatcher).to have_received(:for).exactly(12).times
       end
     end
 
-    context "when the work is created" do
+    context "when the work does not exist" do
       it "mints DOIs for all applicable rows" do
         perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
           Bulkrax::ImporterJob.perform_now(importer.id)
         end
 
-        expect(GenericWork.all.pluck(:doi)).to eq([[], ["10.1234/abcdef"], ["10.1234/abcdef"], ["10.1234/abcdef"]])
-        expect(GenericWork.all.pluck(:doi_status_when_public)).to eq([nil, "draft", "registered", "findable"])
+        expect(GenericWork.all.pluck(:doi)).to eq([[], [], ["10.1234/abcdef"], [], ["10.1234/abcdef"], ["10.1234/abcdef"], [], ["10.1234/abcdef"], ["10.1234/abcdef"], ["10.1234/abcdef"], ["10.1234/abcdef"], ["10.1234/abcdef"]])
+        expect(GenericWork.all.pluck(:doi_status_when_public)).to eq([nil, nil, "draft", nil, "draft", "registered", nil, "draft", "registered", "findable", "findable", "findable"])
       end
     end
 
-    context "when the work is updated" do
+    context "when the works already exist" do
       let(:prefix) { "10.5678" }
       let(:response_body) { File.read(HykuAddons::Engine.root.join("spec", "fixtures", "doi", "mint_doi_return_body2.json")) }
       let(:body) { "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<resource xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://datacite.org/schema/kernel-4\" xsi:schemaLocation=\"http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd\">\n  <identifier identifierType=\"DOI\"/>\n  <creators>\n    <creator>\n      <creatorName/>\n    </creator>\n    <creator>\n      <creatorName>Poppins, Mary</creatorName>\n      <givenName>Mary</givenName>\n      <familyName>Poppins</familyName>\n    </creator>\n  </creators>\n  <titles>\n    <title>Abstract search test - Mary Poppins</title>\n  </titles>\n  <publisher>:unav</publisher>\n  <publicationYear>2022</publicationYear>\n  <resourceType resourceTypeGeneral=\"Other\">[\"Interactive resource\"]</resourceType>\n  <sizes/>\n  <formats/>\n  <version/>\n</resource>\n" }
@@ -376,11 +376,17 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
       end
 
       context "when the work already has a DOI" do
-        context "the import does not change the DOI status" do
+        context "the import does not change the DOI status backwards" do
           let!(:work_1) { create :work, source_identifier: "external-id-1", doi: nil, doi_status_when_public: nil }
           let!(:work_2) { create :work, source_identifier: "external-id-2", doi: [doi], doi_status_when_public: "draft" }
-          let!(:work_3) { create :work, source_identifier: "external-id-3", doi: [doi], doi_status_when_public: "registered" }
-          let!(:work_4) { create :work, source_identifier: "external-id-4", doi: [doi], doi_status_when_public: "findable" }
+          let!(:work_3) { create :work, source_identifier: "external-id-3", doi: [doi], doi_status_when_public: "draft" }
+          let!(:work_4) { create :work, source_identifier: "external-id-4", doi: [doi], doi_status_when_public: "registered" }
+          let!(:work_5) { create :work, source_identifier: "external-id-5", doi: [doi], doi_status_when_public: "registered" }
+          let!(:work_6) { create :work, source_identifier: "external-id-6", doi: [doi], doi_status_when_public: "registered" }
+          let!(:work_7) { create :work, source_identifier: "external-id-7", doi: [doi], doi_status_when_public: "findable" }
+          let!(:work_8) { create :work, source_identifier: "external-id-8", doi: [doi], doi_status_when_public: "findable" }
+          let!(:work_9) { create :work, source_identifier: "external-id-9", doi: [doi], doi_status_when_public: "findable" }
+          let!(:work_10) { create :work, source_identifier: "external-id-10", doi: [doi], doi_status_when_public: "findable" }
 
           it "does not mint a new DOI" do
             perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
@@ -390,58 +396,59 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
             expect(work_1.reload.doi).to be_empty
             expect(work_2.reload.doi).to eq([doi])
             expect(work_3.reload.doi).to eq([doi])
+            expect(work_3.reload.doi).to eq([doi])
             expect(work_4.reload.doi).to eq([doi])
+            expect(work_5.reload.doi).to eq([doi])
+            expect(work_6.reload.doi).to eq([doi])
+            expect(work_7.reload.doi).to eq([doi])
+            expect(work_8.reload.doi).to eq([doi])
+            expect(work_9.reload.doi).to eq([doi])
+            expect(work_10.reload.doi).to eq([doi])
 
             expect(work_1.doi_status_when_public).to be_nil
             expect(work_2.doi_status_when_public).to eq("draft")
-            expect(work_3.doi_status_when_public).to eq("registered")
-            expect(work_4.doi_status_when_public).to eq("findable")
+            expect(work_3.doi_status_when_public).to eq("draft")
+            expect(work_4.doi_status_when_public).to eq("registered")
+            expect(work_5.doi_status_when_public).to eq("registered")
+            expect(work_6.doi_status_when_public).to eq("registered")
+            expect(work_7.doi_status_when_public).to eq("findable")
+            expect(work_8.doi_status_when_public).to eq("findable")
+            expect(work_9.doi_status_when_public).to eq("findable")
+            expect(work_10.doi_status_when_public).to eq("findable")
           end
         end
 
         context "the import changes the DOI status forwards" do
-          let!(:work_1) { create :work, source_identifier: "external-id-1", doi: nil, doi_status_when_public: nil }
-          let!(:work_2) { create :work, source_identifier: "external-id-2", doi: nil, doi_status_when_public: nil }
-          let!(:work_3) { create :work, source_identifier: "external-id-3", doi: [doi], doi_status_when_public: "draft" }
-          let!(:work_4) { create :work, source_identifier: "external-id-4", doi: [doi], doi_status_when_public: "registered" }
+          let!(:work_8) { create :work, source_identifier: "external-id-8", doi:  nil, doi_status_when_public: nil }
+          let!(:work_9) { create :work, source_identifier: "external-id-9", doi:  nil, doi_status_when_public: nil }
+          let!(:work_10) { create :work, source_identifier: "external-id-10", doi: nil, doi_status_when_public: nil }
+          let!(:work_6) { create :work, source_identifier: "external-id-6", doi: [doi], doi_status_when_public: "draft" }
+          let!(:work_11) { create :work, source_identifier: "external-id-11", doi: [doi], doi_status_when_public: "draft" }
+          let!(:work_12) { create :work, source_identifier: "external-id-12", doi: [doi], doi_status_when_public: "registered" }
 
           it "changes DOI status and mints only for the correct items" do
             perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
               Bulkrax::ImporterJob.perform_now(importer.id)
             end
 
-            expect(work_1.reload.doi).to be_empty
-            expect(work_2.reload.doi).to eq([doi])
-            expect(work_3.reload.doi).to eq([doi])
-            expect(work_4.reload.doi).to eq([doi])
+            expect(work_6.reload.doi).to eq([doi])
+            expect(work_8.reload.doi).to eq([doi])
+            expect(work_9.reload.doi).to eq([doi])
+            expect(work_10.reload.doi).to eq([doi])
+            expect(work_11.reload.doi).to eq([doi])
+            expect(work_12.reload.doi).to eq([doi])
 
-            expect(work_1.doi_status_when_public).to be_nil
-            expect(work_2.doi_status_when_public).to eq("draft")
-            expect(work_3.doi_status_when_public).to eq("registered")
-            expect(work_4.doi_status_when_public).to eq("findable")
-          end
-        end
+            # An existing work without a DOI can move to draft, registered or findable
+            expect(work_8.doi_status_when_public).to eq("draft")
+            expect(work_9.doi_status_when_public).to eq("registered")
+            expect(work_10.doi_status_when_public).to eq("findable")
 
-        context "the import changes the DOI status backwards" do
-          let!(:work_1) { create :work, source_identifier: "external-id-1", doi: [doi], doi_status_when_public: "draft" }
-          let!(:work_2) { create :work, source_identifier: "external-id-2", doi: [doi], doi_status_when_public: "registered" }
-          let!(:work_3) { create :work, source_identifier: "external-id-3", doi: [doi], doi_status_when_public: "findable" }
-          let!(:work_4) { create :work, source_identifier: "external-id-4", doi: [doi], doi_status_when_public: "findable" }
+            # A draft work can move to registered or findable
+            expect(work_6.doi_status_when_public).to eq("registered")
+            expect(work_11.doi_status_when_public).to eq("findable")
 
-          it "does not change DOI or status" do
-            perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
-              Bulkrax::ImporterJob.perform_now(importer.id)
-            end
-
-            expect(work_1.reload.doi).to eq([doi])
-            expect(work_2.reload.doi).to eq([doi])
-            expect(work_3.reload.doi).to eq([doi])
-            expect(work_4.reload.doi).to eq([doi])
-
-            expect(work_1.doi_status_when_public).to eq("draft")
-            expect(work_2.doi_status_when_public).to eq("registered")
-            expect(work_3.doi_status_when_public).to eq("findable")
-            expect(work_4.doi_status_when_public).to eq("findable")
+            # A registered work can move to findable
+            expect(work_12.doi_status_when_public).to eq("findable")
           end
         end
       end
