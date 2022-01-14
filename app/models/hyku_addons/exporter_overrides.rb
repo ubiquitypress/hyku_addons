@@ -24,8 +24,9 @@ module HykuAddons
     def build_mapping_metadata
       export_mapping.each do |key, value|
         method_name = Array.wrap(value["from"]).first || key
-
-        transform_relations(method_name&.to_s)
+        hyrax_record_value = hyrax_record_for_key(method_name)
+  
+        transform_relations(hyrax_record_value) unless hyrax_record_value.is_a?(ActiveTriples::Relation) && value[:excluded]
       end
     end
 
@@ -34,8 +35,8 @@ module HykuAddons
         json_str = parsed_metadata.delete(field)
 
         if json_str.present?
-          # Split JSON into separate columns for each subfield suffixed by index within the JSON (e.g. creator_given_name_1)
-          JSON.parse(json_str).each_with_index { |h, i| h.each { |k, v| parsed_metadata["#{k}_#{i + 1}"] = v } }
+          split_json(json_str)
+          
         end
       rescue JSON::ParseError
         next
@@ -43,10 +44,8 @@ module HykuAddons
     end
 
     def build_file_visibility
-      return unless hyrax_record.is_a?(Collection)
-
-      hyrax_record.ordered_members.to_a.each_with_index do |fs, i|
-        next unless fs.is_a?(FileSet) && (file = filename(fs)&.to_s.presence)
+      file_sets.each_with_index do |fs, i|
+        file = filename(fs).to_s
         index = i + 1
         parsed_metadata["file_#{index}"] = file
         parsed_metadata["file_visibility_#{index}"] = fs.visibility
@@ -77,14 +76,32 @@ module HykuAddons
         parsed_metadata["file_embargo_release_date_#{index}"] = fs.embargo_release_date&.to_date&.to_s
       end
 
-      def transform_relations(method_name)
-        return unless hyrax_record.respond_to?(method_name)
-
-        if hyrax_record.send(method_name).is_a?(ActiveTriples::Relation)
-          parsed_metadata[key] = data.map { |d| prepare_export_data(d) }.join("|").to_s unless value[:excluded]
+      def transform_relations(hyrax_record_value)
+        if hyrax_record_value.is_a?(ActiveTriples::Relation)
+          parsed_metadata[key] = data.map { |d| prepare_export_data(d) }.join("|").to_s
         else
           parsed_metadata[key] = prepare_export_data(data)
         end
+      end
+
+      def hyrax_record_for_key(method_name)
+        return unless hyrax_record.respond_to?(method_name)
+
+        hyrax_record.send(method_name.to_s)
+      end
+
+      def split_json(str)
+        # Split JSON into separate columns for each subfield suffixed by index within the JSON (e.g. creator_given_name_1)
+        JSON.parse(str).each_with_index do |h, i| 
+          h.each { |k, v| parsed_metadata["#{k}_#{i + 1}"] = v } 
+        end
+      end
+
+      def files_sets
+        return unless hyrax_record.is_a?(Collection)
+
+        file_sets = hyrax_record.ordered_members.to_a
+        file_sets.select {|fs| fs.is_a?(FileSet) && filename(fs).present? }
       end
   end
 end
