@@ -11,7 +11,7 @@ module HykuAddons
     end
 
     def reports
-      @reports = Site.instance.account.dashboard_gds_charts.split(",").map(&:strip)
+      @reports = Site.instance.account.dashboard_gds_charts.lines
     end
   end
 end
