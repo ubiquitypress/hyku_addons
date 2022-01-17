@@ -1,22 +1,31 @@
 <%= content_tag :h1, I18n.t("stats.reports.title"), class: "lower" %>
 
-<div class="row">
-	<% @reports.each do |report| %>
-		<% height, url = report.split(",").map(&:strip) %>
+<div id="reports">
+	<div class="row">
+		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-5">
+			<% options = { id: "dashaboard_gds_reports", class: "form-control", data: { "on-change" => "update_iframe_src", iframe_id: "container-frame" }, include_blank: "Please Select..." } %>
+			<%= select_tag :report, options_for_select(@reports), options %>
+		</div>
+	</div>
 
-		<div class="col-xl-6 col-lg-12">
+	<div class="row">
+		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-body text-center">
+				<div id="report" class="panel-body text-center">
+					<div id="reports_intro">
+						<h4>Ubiquity Reports</h4>
+						<p>Select a report to display from the dropdown and it will appear here. </p>
+					</div>
 					<iframe
-							id="container-frame"
-							src="<%= url %>"
-							width="100%"
-							height="<%= height %>"
-							frameborder="0"
-							style="border:0"
-							></iframe>
+						id="container-frame"
+						src=""
+						width="100%"
+						height=""
+						frameborder="0"
+						style="border:0"
+					></iframe>
 				</div>
 			</div>
 		</div>
-	<% end %>
+	</div>
 </div>

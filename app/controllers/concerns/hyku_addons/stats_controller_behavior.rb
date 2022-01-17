@@ -12,7 +12,12 @@ module HykuAddons
     end
 
     def reports
-      @reports = Site.instance.account.dashboard_gds_charts.lines
+      @reports = Site.instance.account.dashboard_gds_charts.lines.map do |chart|
+        config = chart.split(",").map(&:strip)
+
+        # Remove the first item from the array (the title) and return the rest
+        [config.delete_at(0), config.join(",")]
+      end
     end
 
     protected

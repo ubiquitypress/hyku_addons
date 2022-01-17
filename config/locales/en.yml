@@ -254,13 +254,11 @@ en:
         The name of the tenant specific locale suffix added to their locale.yml files. Only alphabetic characters should be added, no symbols or numbers, these will then be capitalised.
       oai_admin_email: OAI endpoint contact email address
       dashboard_gds_charts: |
-        List comma delimited Google Data Studio chart height and URL's to be displayed on the Dashboard. The format is important, i.e.<br><br>
+        List of Google Data Studio charts title, height and URL's to be displayed in the Dashboard. One report per line, comma seperated values, i.e.<br><br>
 
-        450, https://datastudio.google.com/embed/reporting/...,<br>
-        450, https://datastudio.google.com/embed/reporting/...,<br><br>
-
-        Please note the trailing comma after each item. They are grouped one chart per line.
-
+        Title, height in pixels, URL for Goggle Data Studio report
+        Users and Works, 850, https://datastudio.google.com/embed/reporting/...<br>
+        Most Cited Works, 850, https://datastudio.google.com/embed/reporting/...<br><br>
   hyrax:
     notifications:
         workflow:

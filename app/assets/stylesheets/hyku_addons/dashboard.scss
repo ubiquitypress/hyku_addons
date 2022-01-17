@@ -76,6 +76,7 @@
     max-width: 100%;
   }
 }
+
 .btn {
   &[data-create-type="batch"], &[data-behavior="batch-edit"] {
     display: none;
@@ -112,6 +113,18 @@ ul.listing {
           text-decoration: underline;
         }
       }
+    }
+  }
+}
+
+#reports {
+  #dashaboard_gds_reports {
+    margin: 10px 0 20px;
+  }
+
+  #report {
+    iframe {
+      display: none;
     }
   }
 }
