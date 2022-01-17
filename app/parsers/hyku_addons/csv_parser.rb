@@ -56,41 +56,38 @@ module HykuAddons
       HykuAddons::CsvAdminSetEntry
     end
 
+    def collections
+      records.map do |r|
+        next unless r[:collection].present?
+
+        collection_ids = r[:collection]&.split(collection_delimiter)
+
+        collections = if r[:collection_title].present?
+                        collection_titles = r[:collection_title]&.split(collection_delimiter)
+                        collection_ids.each_with_index.map { |_id, i| { id: collection_ids[i], title: collection_titles[i] } }
+                      else
+                        collection_ids.each_with_index.map { |id, i| { id: id, title: "New collection #{i + 1}" } }
+                      end
+
+        collections
+      end.flatten.compact.uniq
+    end
+
     # Override to pass Bulkrax.system_identifier_field as singular instead of array
     def create_collections
       admin_sets.each_with_index do |admin_set_name, index|
         next if admin_set_name.blank?
-        metadata = {
-          title: [admin_set_name],
-          # Allow Hyku to generate a UUID for the admin set
-          # Bulkrax.system_identifier_field => nil,
-          visibility: 'open',
-          collection_type_gid: Hyrax::CollectionType.find_or_create_admin_set_type.gid
-        }
-        new_entry = find_or_create_entry(admin_set_entry_class, admin_set_name, 'Bulkrax::Importer', metadata)
-        begin
-          Bulkrax::ImportWorkCollectionJob.perform_now(new_entry.id, current_run.id)
-        rescue StandardError => e
-          new_entry.status_info(e)
-        end
+
+        call_collection_job(admin_set_entry_class, admin_set_name, admin_set_metadata(admin_set_name))
+
         increment_counters(index, true)
       end
 
       collections.each_with_index do |collection, index|
-        next if collection.blank?
-        metadata = {
-          title: [collection],
-          Bulkrax.system_identifier_field => collection,
-          id: collection,
-          visibility: 'open',
-          collection_type_gid: Hyrax::CollectionType.find_or_create_default_collection_type.gid
-        }
-        new_entry = find_or_create_entry(collection_entry_class, collection, 'Bulkrax::Importer', metadata)
-        begin
-          Bulkrax::ImportWorkCollectionJob.perform_now(new_entry.id, current_run.id)
-        rescue StandardError => e
-          new_entry.status_info(e)
-        end
+        next if collection.empty?
+
+        call_collection_job(collection_entry_class, collection[:id], collection_metadata(collection))
+
         increment_counters(index, true)
       end
     end
@@ -151,6 +148,42 @@ module HykuAddons
     rescue StandardError
       @total = 0
     end
+
+    private
+
+      def call_collection_job(item_entry_class, item_id, item_metadata)
+        new_entry = find_or_create_entry(item_entry_class, item_id, 'Bulkrax::Importer', item_metadata)
+
+        begin
+          Bulkrax::ImportWorkCollectionJob.perform_now(new_entry.id, current_run.id)
+        rescue StandardError => e
+          new_entry.status_info(e)
+        end
+      end
+
+      def admin_set_metadata(admin_set)
+        {
+          title: [admin_set],
+          # Allow Hyku to generate a UUID for the admin set
+          # Bulkrax.system_identifier_field => nil,
+          visibility: 'open',
+          collection_type_gid: Hyrax::CollectionType.find_or_create_admin_set_type.gid
+        }
+      end
+
+      def collection_metadata(collection)
+        {
+          title: [collection[:title]],
+          Bulkrax.system_identifier_field => collection[:id],
+          id: collection[:id],
+          visibility: 'open',
+          collection_type_gid: Hyrax::CollectionType.find_or_create_default_collection_type.gid
+        }
+      end
+
+      def collection_delimiter
+        Bulkrax.field_mappings["HykuAddons::CsvParser"]&.dig("collection", :split) || "\|"
+      end
   end
   # rubocop:enable Metrics/ClassLength
 end

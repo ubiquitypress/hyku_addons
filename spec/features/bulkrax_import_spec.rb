@@ -201,11 +201,31 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
   end
 
   describe "import collections" do
-    it "creates collections" do
-      perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
-        importer.import_collections
+    context "when the csv does not set the collection title" do
+      it "creates collections" do
+        perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Bulkrax::ImportWorkCollectionJob]) do
+          importer.import_collections
+        end
+
+        expect(Collection.exists?("e51dbdd3-11bd-47f6-b00a-8aace969f2ab")).to eq true
+        expect(Collection.exists?("bedd7330-5040-4687-8226-0851f7256dff")).to eq true
+        expect(Collection.find("e51dbdd3-11bd-47f6-b00a-8aace969f2ab").title).to eq(["New collection 1"])
+        expect(Collection.find("bedd7330-5040-4687-8226-0851f7256dff").title).to eq(["New collection 2"])
       end
-      expect(Collection.exists?("e51dbdd3-11bd-47f6-b00a-8aace969f2ab")).to eq true
+    end
+
+    context "when the csv sets the collection title" do
+      let(:import_batch_file) { "spec/fixtures/csv/pacific_articles_new.metadata.csv" }
+      it "creates collections with titles" do
+        perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Bulkrax::ImportWorkCollectionJob]) do
+          importer.import_collections
+        end
+
+        expect(Collection.exists?("e51dbdd3-11bd-47f6-b00a-8aace969f2ab")).to eq true
+        expect(Collection.exists?("bedd7330-5040-4687-8226-0851f7256dff")).to eq true
+        expect(Collection.find("e51dbdd3-11bd-47f6-b00a-8aace969f2ab").title).to eq(["Title"])
+        expect(Collection.find("bedd7330-5040-4687-8226-0851f7256dff").title).to eq(["Other title"])
+      end
     end
   end
 
