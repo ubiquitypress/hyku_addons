@@ -1,22 +1,22 @@
 <%= content_tag :h1, I18n.t("stats.reports.title"), class: "lower" %>
 
-<% @reports.each do |report| %>
-  <% width, height, url = report.split(",").map(&:strip) %>
+<div class="row">
+	<% @reports.each do |report| %>
+		<% height, url = report.split(",").map(&:strip) %>
 
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-body text-center">
-          <iframe
-            id="container-frame"
-            src="<%= url %>"
-            width="<%= width %>"
-            height="<%= height %>"
-            frameborder="0"
-            style="border:0"
-          ></iframe>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
+		<div class="col-xl-6 col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-body text-center">
+					<iframe
+							id="container-frame"
+							src="<%= url %>"
+							width="100%"
+							height="<%= height %>"
+							frameborder="0"
+							style="border:0"
+							></iframe>
+				</div>
+			</div>
+		</div>
+	<% end %>
+</div>
