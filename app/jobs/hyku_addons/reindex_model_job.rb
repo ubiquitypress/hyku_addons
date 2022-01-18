@@ -8,7 +8,6 @@ module HykuAddons
   class ReindexModelJob < ApplicationJob
     rescue_from Hyrax::DOI::DataCiteClient::Error, Ldp::Gone, Ldp::HttpError, RSolr::Error::Http, RSolr::Error::ConnectionRefused do |exception|
       Rails.logger.debug exception.inspect
-      retry_job(wait: 5.minutes)
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -35,7 +34,7 @@ module HykuAddons
     private
 
       def mint_doi(work)
-        return if can_mint_for?(work)
+        return if cant_mint_for?(work)
 
         Rails.logger.debug "=== about to mint doi for #{work.title} ==== "
 
@@ -44,8 +43,8 @@ module HykuAddons
         work.update(doi: [register_doi.identifier])
       end
 
-      def can_mint_for?(work)
-        work.doi.present? || work.visibility != "open" || workflow_state(work)&.workflow_state_name != "deposited"
+      def cant_mint_for?(work)
+        work.creator.blank? || work.doi.present? || work.visibility != "open" || workflow_state(work)&.workflow_state_name != "deposited"
       end
 
       def workflow_state(work)
