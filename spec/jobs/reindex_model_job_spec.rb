@@ -2,13 +2,22 @@
 
 RSpec.describe HykuAddons::ReindexModelJob, type: :job do
   let(:account) { create(:account, cname: cname) }
-  let(:work) { create(:work, doi: [], visibility: "open") }
-  let(:private_work) { create(:work, title: ["private work"], doi: [], visibility: "restricted") }
-  let(:pending_review_work) { create(:work, title: ["pending_review work"], doi: [], visibility: "open") }
+  let(:work) { create(:work, doi: [], visibility: "open", creator: [[creator].to_json]) }
+  let(:no_creator_work) { create(:work, doi: [], creator: []) }
+  let(:private_work) { create(:work, title: ["private work"], doi: [], visibility: "restricted", creator: [[creator].to_json]) }
+  let(:pending_review_work) { create(:work, title: ["pending_review work"], doi: [], visibility: "open", creator: [[creator].to_json]) }
   let(:prefix) { "10.1234" }
   let(:cname) { "123abc" }
   let(:response_body) { File.read(HykuAddons::Engine.root.join("spec", "fixtures", "doi", "mint_doi_return_body.json")) }
   let(:options) { { cname_doi_mint: [account.cname], use_work_ids: [work.id] } }
+
+  let(:creator) do
+    {
+      creator_name_type: "Personal",
+      creator_given_name: "James",
+      creator_family_name: "King"
+    }
+  end
 
   let(:random_id) { SecureRandom.random_number(1_000_000) }
   let(:workflow) { instance_double(Sipity::Workflow, id: random_id, name: "testing", permission_template: permission_template) }
@@ -36,6 +45,7 @@ RSpec.describe HykuAddons::ReindexModelJob, type: :job do
 
     Apartment::Tenant.switch!(account.tenant) do
       work
+      no_creator_work
       private_work
       pending_review_work
     end
@@ -67,6 +77,11 @@ RSpec.describe HykuAddons::ReindexModelJob, type: :job do
 
       described_class.perform_now(pending_review_work.class.to_s, account.cname, limit: 1, options: options)
       expect(pending_review_work.reload.doi_status_when_public).to be_nil
+    end
+
+    it "creator is empty" do
+      described_class.perform_now(no_creator_work.class.to_s, account.cname, limit: 1)
+      expect(private_work.reload.doi_status_when_public).to be_nil
     end
   end
 
