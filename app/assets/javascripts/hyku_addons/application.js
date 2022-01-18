@@ -35,6 +35,7 @@ const hykuAddonsOnLoad = function() {
   // or it might try and trigger an event not being listened to
   new ChangeToggleableListener()
   new RemoveToggleableOnSubmitListener()
+  new UpdateIframeSrcListener()
 
   // Register our events and after event actions
   new Eventable()

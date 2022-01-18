@@ -579,6 +579,7 @@ module HykuAddons
       ::NilEndpoint.prepend HykuAddons::NilEndpointOverride
       ::Hyrax::CollectionIndexer.prepend HykuAddons::CollectionIndexerOverride
       ::Hyrax::CollectionPresenter.prepend HykuAddons::CollectionPresenterOverride
+      Hyrax::StatsController.include HykuAddons::StatsControllerBehavior
 
       User.class_eval do
         def mailboxer_email(_obj)

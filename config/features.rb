@@ -36,11 +36,16 @@ Flipflop.configure do
   feature :cross_tenant_shared_search,
           default: true,
           description: "Turns on cross tenant shared search."
-  
+
   feature :annotation,
           default: false,
           description: "Turns on links to hypothes.is PDF viewer"
+
   feature :inline_doi,
           default: false,
           description: "Toggle layout between a DOI Tab and use of sidebar"
+
+  feature :gds_reports,
+          default: false,
+          description: "Add Google Data Studio reports to the dashaboard"
 end
