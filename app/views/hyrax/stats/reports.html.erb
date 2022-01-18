@@ -4,7 +4,7 @@
   <% if @reports.any? %>
     <div class="row">
       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-5 form-group">
-        <%= label_tag :dashaboard_gds_reports, "Available Reports", class: "form-label" %>
+        <%= label_tag :dashaboard_gds_reports, t("stats.reports.label"), class: "form-label" %>
         <% options = { id: "dashaboard_gds_reports", class: "form-control", data: { "on-change" => "update_iframe_src", iframe_id: "container-frame" }, include_blank: "Please Select..." } %>
         <%= select_tag :report, options_for_select(@reports), options %>
       </div>
