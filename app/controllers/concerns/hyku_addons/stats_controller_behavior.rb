@@ -22,10 +22,10 @@ module HykuAddons
 
     protected
 
-    def has_permission?
-      return if current_user.has_role?(:admin, Site.instance)
+      def has_permission?
+        return if current_user.has_role?(:admin, Site.instance)
 
-      raise ActionController::RoutingError, "Not found"
-    end
+        raise ActionController::RoutingError, "Not found"
+      end
   end
 end
