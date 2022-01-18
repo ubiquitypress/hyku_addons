@@ -71,7 +71,7 @@ RSpec.describe Hyrax::StatsController, type: :controller do
       context "when the user is a non-admin" do
         let(:enabled) { false }
 
-        it "renders a partial" do
+        it "returns an error" do
           expect { get :reports }.to raise_error(ActionController::RoutingError)
         end
       end
@@ -80,7 +80,7 @@ RSpec.describe Hyrax::StatsController, type: :controller do
     context "when the user is a non-admin" do
       let(:user) { create(:user) }
 
-      it "renders a partial" do
+      it "returns an error" do
         expect { get :reports }.to raise_error(ActionController::RoutingError)
       end
     end
