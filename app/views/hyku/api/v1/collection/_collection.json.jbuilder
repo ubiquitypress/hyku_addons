@@ -33,7 +33,7 @@ json.cache! [@account, :collections, collection.id, collection.solr_document[:_v
   json.volumes nil
   json.total_works @total_works
 
-  banner = ::HykuAddons::CollectionBrandingFetcher.collection_banner(collection.id, @account.cname)
+  banner = ::HykuAddons::CollectionBrandingFetcher.new.collection_banner(collection.id, @account.cname)
   if banner.present?
     components = {
       scheme: Rails.application.routes.default_url_options.fetch(:protocol, 'http'),
