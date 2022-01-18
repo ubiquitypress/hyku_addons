@@ -6,7 +6,7 @@ RSpec.describe Hyrax::StatsController, type: :controller do
   routes { HykuAddons::Engine.routes }
 
   let(:user) { create(:admin) }
-  let(:account) { create(:account) }
+  let(:account) { build_stubbed(:account) }
   let(:site) { Site.new(account: account) }
   let(:gds_fixture) { File.read(HykuAddons::Engine.root.join("spec", "fixtures", "csv", "gds_chart_fixture.csv")) }
   let(:enabled) { true }
