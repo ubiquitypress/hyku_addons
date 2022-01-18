@@ -12,7 +12,7 @@ module HykuAddons
     end
 
     def reports
-      @reports = account_gds_charts.lines.map do |chart|
+      @reports = account_gds_reports.lines.map do |chart|
         config = chart.split(",").map(&:strip)
 
         # Remove the first item from the array (the title) and return the rest for use in the select
@@ -23,13 +23,13 @@ module HykuAddons
     protected
 
       def permission?
-        return if current_user.has_role?(:admin, Site.instance)
+        return if current_user.has_role?(:admin, Site.instance) && Flipflop.enabled?(:gds_reports)
 
         raise ActionController::RoutingError, "Not found"
       end
 
-      def account_gds_charts
-        Site.instance.account.dashboard_gds_charts || ""
+      def account_gds_reports
+        Site.instance.account.gds_reports || ""
       end
   end
 end

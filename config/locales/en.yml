@@ -242,7 +242,7 @@ en:
 
   settings:
     titles:
-      dashboard_gds_charts: Dashboard GDS Charts
+      gds_reports: Dashboard GDS Charts
     helptexts:
       gtm_id: The ID of your Google Tag Manager account
       contact_email: Email recipient of messages sent via the contact form
@@ -257,7 +257,7 @@ en:
       locale_name: |
         The name of the tenant specific locale suffix added to their locale.yml files. Only alphabetic characters should be added, no symbols or numbers, these will then be capitalised.
       oai_admin_email: OAI endpoint contact email address
-      dashboard_gds_charts: |
+      gds_reports: |
         List of Google Data Studio charts title, height and URL's to be displayed in the Dashboard. One report per line, comma seperated values, i.e.<br><br>
 
         Title, height in pixels, URL for Goggle Data Studio report

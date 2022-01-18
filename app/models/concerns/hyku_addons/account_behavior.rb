@@ -10,7 +10,7 @@ module HykuAddons
     BOOLEAN_SETTINGS = %w[allow_signup shared_login bulkrax_validations].freeze
     HASH_SETTINGS = %w[smtp_settings hyrax_orcid_settings].freeze
     TEXT_SETTINGS = %w[contact_email gtm_id oai_admin_email oai_prefix oai_sample_identifier google_analytics_id].freeze
-    TEXT_AREA_SETTINGS = %w[dashboard_gds_charts].freeze
+    TEXT_AREA_SETTINGS = %w[gds_reports].freeze
 
     PRIVATE_SETTINGS = %w[smtp_settings].freeze
 
@@ -33,7 +33,7 @@ module HykuAddons
                      :google_scholarly_work_types, :gtm_id, :shared_login, :email_format,
                      :allow_signup, :oai_admin_email, :file_size_limit, :enable_oai_metadata, :oai_prefix,
                      :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id, :smtp_settings,
-                     :hyrax_orcid_settings, :dashboard_gds_charts
+                     :hyrax_orcid_settings, :gds_reports
 
       after_initialize :initialize_settings
 

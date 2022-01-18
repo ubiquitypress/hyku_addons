@@ -18,7 +18,7 @@
 
     <%= menu.nav_link(HykuAddons::Engine.routes.url_helpers.admin_stats_report_path) do %>
       <span class="fa fa-bar-chart" aria-hidden="true"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.reports') %></span>
-    <% end if current_user.has_role?(:admin) %>
+    <% end if current_user.has_role?(:admin) && Flipflop.enabled?(:gds_reports) %>
   <% end %>
 </li>
 
