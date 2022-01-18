@@ -11,5 +11,11 @@ module HykuAddons
     include HykuAddons::NotesTabFormHelper
     include HykuAddons::OrcidHelperBehavior
     include HykuAddons::CrossTenantSharedSearchHelper
+
+    def account_setting_title(setting_name)
+      title_key = "settings.titles.#{setting_name}"
+
+      I18n.exists?(title_key) ? t(title_key) : setting_name.to_s.humanize
+    end
   end
 end
