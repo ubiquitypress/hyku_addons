@@ -42,9 +42,12 @@ RSpec.describe Hyrax::StatsController, type: :controller do
 
         it "displays the select" do
           expect(response.body).to have_selector("#dashaboard_gds_reports")
+        end
 
+        it "displays the correct report titles in the select" do
           reports = response.body.scan(/<option.*>(.*)<\/option>/).flatten
           titles = gds_fixture.lines.map { |line| line.split(",").map(&:strip).delete_at(0) }
+
           expect(reports).to match_array(titles)
         end
       end
