@@ -8,24 +8,28 @@ module HykuAddons
       with_themed_layout "dashboard"
 
       before_action :build_breadcrumbs, only: [:work, :file, :reports]
-      before_action :has_permission?, only: :reports
+      before_action :permission?, only: :reports
     end
 
     def reports
-      @reports = Site.instance.account.dashboard_gds_charts.lines.map do |chart|
+      @reports = account_gds_charts.lines.map do |chart|
         config = chart.split(",").map(&:strip)
 
-        # Remove the first item from the array (the title) and return the rest
+        # Remove the first item from the array (the title) and return the rest for use in the select
         [config.delete_at(0), config.join(",")]
       end
     end
 
     protected
 
-      def has_permission?
+      def permission?
         return if current_user.has_role?(:admin, Site.instance)
 
         raise ActionController::RoutingError, "Not found"
+      end
+
+      def account_gds_charts
+        Site.instance.account.dashboard_gds_charts || ""
       end
   end
 end
