@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Bulkrax import", clean: true, slow: true do
+RSpec.describe "Bulkrax import", clean: true do
   let(:user) { create(:user, email: "test@example.com") }
   # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
   let!(:depositor) { build_stubbed(:user, email: "batchuser@example.com") }
@@ -215,16 +215,36 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
     end
 
     context "when the csv sets the collection title" do
-      let(:import_batch_file) { "spec/fixtures/csv/pacific_articles_new.metadata.csv" }
-      it "creates collections with titles" do
-        perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Bulkrax::ImportWorkCollectionJob]) do
-          importer.import_collections
-        end
+      context "when the Bulkrax version is 2" do
+        let(:import_batch_file) { "spec/fixtures/csv/pacific_articles_collection_title.metadata.csv" }
 
-        expect(Collection.exists?("e51dbdd3-11bd-47f6-b00a-8aace969f2ab")).to eq true
-        expect(Collection.exists?("bedd7330-5040-4687-8226-0851f7256dff")).to eq true
-        expect(Collection.find("e51dbdd3-11bd-47f6-b00a-8aace969f2ab").title).to eq(["Title"])
-        expect(Collection.find("bedd7330-5040-4687-8226-0851f7256dff").title).to eq(["Other title"])
+        it "creates collections with titles" do
+          perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Bulkrax::ImportWorkCollectionJob]) do
+            importer.import_collections
+          end
+
+          expect(Collection.exists?("e51dbdd3-11bd-47f6-b00a-8aace969f2ab")).to eq true
+          expect(Collection.exists?("bedd7330-5040-4687-8226-0851f7256dff")).to eq true
+          expect(Collection.find("e51dbdd3-11bd-47f6-b00a-8aace969f2ab").title).to eq(["Title"])
+          expect(Collection.find("bedd7330-5040-4687-8226-0851f7256dff").title).to eq(["Other title"])
+        end
+      end
+
+      context "when the Bulkrax version is 3" do
+        let(:import_batch_file) { "spec/fixtures/csv/pacific_articles_parent_title.metadata.csv" }
+        # rubocop:disable RSpec/MessageChain
+        it "uses parent_ column prefix" do
+          allow(Gem).to receive_message_chain(:loaded_specs, :[]).with("bulkrax").and_return(instance_double(Bundler::StubSpecification, version: Gem::Version.create("3.0")))
+
+          perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Bulkrax::ImportWorkCollectionJob]) do
+            importer.import_collections
+          end
+
+          expect(Collection.exists?("e51dbdd3-11bd-47f6-b00a-8aace969f2ab")).to eq true
+          expect(Collection.exists?("bedd7330-5040-4687-8226-0851f7256dff")).to eq true
+          expect(Collection.find("e51dbdd3-11bd-47f6-b00a-8aace969f2ab").title).to eq(["Title"])
+          expect(Collection.find("bedd7330-5040-4687-8226-0851f7256dff").title).to eq(["Other title"])
+        end
       end
     end
   end

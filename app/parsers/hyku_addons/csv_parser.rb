@@ -58,12 +58,12 @@ module HykuAddons
 
     def collections
       records.map do |r|
-        next unless r[:collection].present?
+        next unless r[collection_id_key].present?
 
-        collection_ids = r[:collection]&.split(collection_delimiter)
+        collection_ids = r[collection_id_key]&.split(collection_delimiter)
 
-        collections = if r[:collection_title].present?
-                        collection_titles = r[:collection_title]&.split(collection_delimiter)
+        collections = if r[collection_title_key].present?
+                        collection_titles = r[collection_title_key]&.split(collection_delimiter)
                         collection_ids.each_with_index.map { |_id, i| { id: collection_ids[i], title: collection_titles[i] } }
                       else
                         collection_ids.each_with_index.map { |id, i| { id: id, title: "New collection #{i + 1}" } }
@@ -183,6 +183,24 @@ module HykuAddons
 
       def collection_delimiter
         Bulkrax.field_mappings["HykuAddons::CsvParser"]&.dig("collection", :split) || "\|"
+      end
+
+      def collection_prefix
+        if Gem.loaded_specs["bulkrax"].version < Gem::Version.create('3.0')
+          'collection'
+        else
+          'parent'
+        end
+      rescue
+        'collection'
+      end
+
+      def collection_id_key
+        collection_prefix.to_sym
+      end
+
+      def collection_title_key
+        "#{collection_prefix}_title".to_sym
       end
   end
   # rubocop:enable Metrics/ClassLength
