@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Bulkrax import", clean: true do
+RSpec.describe "Bulkrax import", clean: true, slow: true do
   let(:user) { create(:user, email: "test@example.com") }
   # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
   let!(:depositor) { build_stubbed(:user, email: "batchuser@example.com") }
@@ -245,6 +245,7 @@ RSpec.describe "Bulkrax import", clean: true do
           expect(Collection.find("e51dbdd3-11bd-47f6-b00a-8aace969f2ab").title).to eq(["Title"])
           expect(Collection.find("bedd7330-5040-4687-8226-0851f7256dff").title).to eq(["Other title"])
         end
+        # rubocop:enable RSpec/MessageChain
       end
     end
   end
