@@ -294,6 +294,8 @@ en:
     file_sets:
       actions:
         read_and_annotate: Read and annotate
+      actions_list:
+        header: Select an action
       actions_button:
         delete: Delete
         download: Download
