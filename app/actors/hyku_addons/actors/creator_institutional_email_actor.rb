@@ -20,14 +20,13 @@ module HykuAddons
         creator_hash.map do |creator|
           user = User.find_by(email: creator["creator_institutional_email"])
           if user.present? && user.display_profile
-            creator["display_creator_profile?"] = true
+            creator["display_creator_profile"] = true
           else
-            creator["display_creator_profile?"] = false
+            creator["display_creator_profile"] = false
           end
         end
         env.attributes[:creator] = [Array.wrap(creator_hash).to_json]
       end
-
     end
   end
 end
