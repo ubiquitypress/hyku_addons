@@ -506,6 +506,7 @@ module HykuAddons
       ::Hyrax::CollectionPresenter.prepend HykuAddons::CollectionPresenterOverride
       Hyrax::Workflow::AbstractNotification.include HykuAddons::WorkflowBehavior
       Mailboxer::MessageMailer.prepend HykuAddons::MailboxerMessageMailerBehavior
+      Hyrax::StatsController.include HykuAddons::StatsControllerBehavior
 
       Hyrax::Renderers::LicenseAttributeRenderer.prepend Hyrax::Renderers::LicenseAttributeRendererBehavior
     end

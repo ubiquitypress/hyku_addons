@@ -66,7 +66,7 @@ GIT
 
 GIT
   remote: https://github.com/ubiquitypress/hyrax-orcid
-  revision: e74b9c60fc98f6db181515a8f0e590f35733b885
+  revision: efca9a427f9d3b3c023e88834517406452fe8632
   branch: main
   specs:
     hyrax-orcid (0.1.0)

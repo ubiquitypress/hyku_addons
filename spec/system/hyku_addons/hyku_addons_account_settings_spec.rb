@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.describe "AccountSettings", type: :system do
   let(:user) { FactoryBot.create(:admin) }
   let!(:account) { create(:account) }
+
   before do
     driven_by(:rack_test)
     login_as(user, scope: :user)

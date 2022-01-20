@@ -10,16 +10,18 @@ module HykuAddons
     BOOLEAN_SETTINGS = %w[allow_signup shared_login bulkrax_validations].freeze
     HASH_SETTINGS = %w[smtp_settings hyrax_orcid_settings].freeze
     TEXT_SETTINGS = %w[contact_email gtm_id oai_admin_email oai_prefix oai_sample_identifier google_analytics_id].freeze
+    TEXT_AREA_SETTINGS = %w[gds_reports].freeze
 
     PRIVATE_SETTINGS = %w[smtp_settings].freeze
 
     included do
       # added forshared search
       scope :full_accounts, -> { where(search_only: false) }
-      has_many :full_account_cross_searches, class_name: 'AccountCrossSearch', dependent: :destroy, foreign_key: 'search_account_id'
-      has_many :full_accounts, class_name: 'Account', through: :full_account_cross_searches
-      has_many :search_account_cross_searches, class_name: 'AccountCrossSearch', dependent: :destroy, foreign_key: 'full_account_id'
-      has_many :search_accounts, class_name: 'Account', through: :search_account_cross_searches
+
+      has_many :full_account_cross_searches, class_name: "AccountCrossSearch", dependent: :destroy, foreign_key: "search_account_id"
+      has_many :full_accounts, class_name: "Account", through: :full_account_cross_searches
+      has_many :search_account_cross_searches, class_name: "AccountCrossSearch", dependent: :destroy, foreign_key: "full_account_id"
+      has_many :search_accounts, class_name: "Account", through: :search_account_cross_searches
       accepts_nested_attributes_for :full_accounts
       accepts_nested_attributes_for :full_account_cross_searches, allow_destroy: true
 
@@ -31,7 +33,7 @@ module HykuAddons
                      :google_scholarly_work_types, :gtm_id, :shared_login, :email_format,
                      :allow_signup, :oai_admin_email, :file_size_limit, :enable_oai_metadata, :oai_prefix,
                      :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id, :smtp_settings,
-                     :hyrax_orcid_settings
+                     :hyrax_orcid_settings, :gds_reports
 
       after_initialize :initialize_settings
 
@@ -122,15 +124,15 @@ module HykuAddons
     private
 
       def validate_email_format
-        return unless settings['email_format'].present?
+        return unless settings["email_format"].present?
 
-        settings['email_format'].each do |email|
+        settings["email_format"].each do |email|
           errors.add(:email_format) unless email.match?(/@\S*\.\S*/)
         end
       end
 
       def validate_contact_emails
-        ['weekly_email_list', 'monthly_email_list', 'yearly_email_list'].each do |key|
+        ["weekly_email_list", "monthly_email_list", "yearly_email_list"].each do |key|
           next unless settings[key].present?
 
           settings[key].each do |email|
@@ -146,9 +148,9 @@ module HykuAddons
       end
 
       def set_jsonb_allow_signup_default
-        return if settings['allow_signup'].present?
+        return if settings["allow_signup"].present?
 
-        self.allow_signup = 'true'
+        self.allow_signup = "true"
       end
 
       def set_smtp_settings
