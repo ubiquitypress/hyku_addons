@@ -12,21 +12,21 @@ module HykuAddons
 
       private
 
-      def check_creator_institutional_email(env)
-        creator_hash = JSON.parse(env.attributes[:creator].try(:first) || "{}")
+        def check_creator_institutional_email(env)
+          creator_hash = JSON.parse(env.attributes[:creator].try(:first) || "{}")
 
-        return [] if creator_hash.blank?
+          return [] if creator_hash.blank?
 
-        creator_hash.map do |creator|
-          user = User.find_by(email: creator["creator_institutional_email"])
-          if user.present? && user.display_profile
-            creator["display_creator_profile"] = true
-          else
-            creator["display_creator_profile"] = false
+          creator_hash.map do |creator|
+            user = User.find_by(email: creator["creator_institutional_email"])
+            creator["display_creator_profile"] = if user.present? && user.display_profile
+                                                   true
+                                                 else
+                                                   false
+                                                 end
           end
+          env.attributes[:creator] = [Array.wrap(creator_hash).to_json]
         end
-        env.attributes[:creator] = [Array.wrap(creator_hash).to_json]
-      end
     end
   end
 end
