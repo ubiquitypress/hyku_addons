@@ -8,6 +8,7 @@ RSpec.describe HykuAddons::ReindexModelJob, type: :job do
   let(:pending_review_work) { create(:work, title: ["pending_review work"], doi: [], visibility: "open", creator: [[creator].to_json]) }
   let(:prefix) { "10.1234" }
   let(:cname) { "123abc" }
+  let(:doi) { "#{prefix}/abcdef" }
   let(:response_body) { File.read(HykuAddons::Engine.root.join("spec", "fixtures", "doi", "mint_doi_return_body.json")) }
   let(:options) { { cname_doi_mint: [account.cname], use_work_ids: [work.id] } }
 
@@ -26,8 +27,9 @@ RSpec.describe HykuAddons::ReindexModelJob, type: :job do
   let(:sipity_workflow_state) { instance_double(Sipity::WorkflowState, id: random_id, workflow: workflow, name: "deposited") }
   let(:object) { OpenStruct.new(to_sipity_entity: sipity_entity, workflow_state_name: "deposited") }
   let(:sipity_entity) { instance_double(Sipity::Entity, proxy_for_global_id: gid, workflow_id: workflow.id, workflow_state: sipity_workflow_state) }
-
+  let(:doi_registrar) { Hyrax::DOI::DataCiteRegistrar.new }
   before do
+    Rails.application.routes.default_url_options[:host] = "example.com"
     Hyrax::DOI::DataCiteRegistrar.username = "username"
     Hyrax::DOI::DataCiteRegistrar.password = "password"
     Hyrax::DOI::DataCiteRegistrar.prefix = prefix
@@ -37,7 +39,17 @@ RSpec.describe HykuAddons::ReindexModelJob, type: :job do
       .with(body: "{\"data\":{\"type\":\"dois\",\"attributes\":{\"prefix\":\"#{prefix}\"}}}",
             headers: { "Content-Type" => "application/vnd.api+json" },
             basic_auth: ["username", "password"])
-      .to_return(status: 200, body: response_body)
+      .to_return(status: 201, body: response_body)
+
+    stub_request(:put, URI.join(Hyrax::DOI::DataCiteClient::TEST_MDS_BASE_URL, "metadata/#{doi}"))
+      .with(headers: { 'Content-Type': "application/xml;charset=UTF-8" },
+            basic_auth: ["username", "password"])
+      .to_return(status: 201, body: "OK (#{doi})")
+
+    stub_request(:put, URI.join(Hyrax::DOI::DataCiteClient::TEST_MDS_BASE_URL, "doi/#{doi}"))
+      .with(headers: { 'Content-Type': "text/plain;charset=UTF-8" },
+            basic_auth: ["username", "password"])
+      .to_return(status: 201, body: "")
 
     allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
       block&.call

@@ -6,7 +6,7 @@
 
 module HykuAddons
   class ReindexModelJob < ApplicationJob
-    rescue_from Hyrax::DOI::DataCiteClient::Error, Ldp::Gone, Ldp::HttpError, RSolr::Error::Http, RSolr::Error::ConnectionRefused do |exception|
+    rescue_from Hyrax::DOI::DataCiteClient::Error, Ldp::Gone, Ldp::HttpError, RSolr::Error::Http, RSolr::Error::ConnectionRefused, Faraday::ConnectionFailed do |exception|
       Rails.logger.debug exception.inspect
     end
 
@@ -34,7 +34,7 @@ module HykuAddons
     private
 
       def mint_doi(work)
-        return if cant_mint_for?(work)
+        return unless cant_mint_for(work)
 
         Rails.logger.debug "=== about to mint doi for #{work.title} ==== "
 
@@ -43,8 +43,11 @@ module HykuAddons
         work.update(doi: [register_doi.identifier])
       end
 
-      def cant_mint_for?(work)
-        work.creator.blank? || work.doi.present? || work.visibility != "open" || workflow_state(work)&.workflow_state_name != "deposited"
+      def cant_mint_for(work)
+        state = workflow_state(work)
+        cannot_use_workflow_state = ["deposited", nil].exclude?(state&.workflow_state_name)
+
+        !(work.creator.blank? || work.doi.present? || work.visibility != "open" || cannot_use_workflow_state)
       end
 
       def workflow_state(work)
