@@ -20,4 +20,6 @@ HykuAddons::Engine.routes.draw do
   get "/importers/:id/validation", to: "/hyku_addons/importer_validations#show", as: :importer_validation
 
   get "/pdf_viewer(/:download_id)", to: "/hyku_addons/pdf_viewer#pdf", as: :pdf_viewer
+
+  get "/admin/reports", to: "/hyrax/stats#reports", as: :admin_stats_report
 end

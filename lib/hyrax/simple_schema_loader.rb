@@ -59,13 +59,13 @@ module Hyrax
       ##
       # @return [Hash{Symbol => Object}]
       def form_options
-        config.fetch('form', {}).symbolize_keys
+        config.fetch("form", {}).symbolize_keys
       end
 
       ##
       # @return [Enumerable<Symbol>]
       def index_keys
-        config.fetch('index_keys', []).map(&:to_sym)
+        config.fetch("index_keys", []).map(&:to_sym)
       end
     end
 
@@ -77,7 +77,7 @@ module Hyrax
       # @param [#to_s] schema_name
       # @return [Enumerable<AttributeDefinition]
       def definitions(schema_name)
-        schema_config(schema_name)['attributes'].map do |name, config|
+        schema_config(schema_name)["attributes"].map do |name, config|
           AttributeDefinition.new(name, config)
         end
       end

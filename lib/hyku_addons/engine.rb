@@ -199,7 +199,8 @@ module HykuAddons
           "time" => { split: '\|' },
           "add_info" => { split: '\|' },
           "part_of" => { split: '\|' },
-          "qualification_subject_text" => { split: '\|' }
+          "qualification_subject_text" => { split: '\|' },
+          "collection" => { split: "\|" }
         }
       end
 
@@ -579,6 +580,7 @@ module HykuAddons
       ::NilEndpoint.prepend HykuAddons::NilEndpointOverride
       ::Hyrax::CollectionIndexer.prepend HykuAddons::CollectionIndexerOverride
       ::Hyrax::CollectionPresenter.prepend HykuAddons::CollectionPresenterOverride
+      Hyrax::StatsController.include HykuAddons::StatsControllerBehavior
 
       User.class_eval do
         def mailboxer_email(_obj)
