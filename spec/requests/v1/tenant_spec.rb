@@ -13,7 +13,7 @@ RSpec.describe Hyku::API::V1::TenantController, type: :request, clean: true, mul
     end
 
     Apartment::Tenant.switch!(account.tenant) { Site.update(account: account) }
-    
+
     # Ensure that if caching has been enabled elsewhere by the test suite it is disabled for this test
     account.setup_tenant_cache(false)
   end
