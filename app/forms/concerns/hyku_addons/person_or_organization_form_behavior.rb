@@ -29,8 +29,7 @@ module HykuAddons
             :creator_organization_name, :creator_given_name, :creator_middle_name, :creator_family_name,
             :creator_name_type, :creator_orcid, :creator_isni, :creator_ror, :creator_grid, :creator_wikidata,
             :creator_suffix, :creator_institution, :creator_institutional_email, :creator_computing_id,
-            :display_creator_profile, creator_institution: [], creator_role: [],
-            creator_institutional_relationship: []
+            :display_creator_profile, creator_institution: [], creator_role: [], creator_institutional_relationship: []
           ]
         }
       end

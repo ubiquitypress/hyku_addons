@@ -22,7 +22,7 @@ module HykuAddons
     end
 
     def flip_display_profile
-      return unless self.display_profile_changed?
+      return unless display_profile_changed?
       yield
       HykuAddons::FlipDisplayProfileJob.perform_later(email, display_profile)
     end
