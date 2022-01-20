@@ -34,7 +34,7 @@ module HykuAddons
     private
 
       def mint_doi(work)
-        return if can_mint_for?(work)
+        return unless can_mint_for?(work)
 
         Rails.logger.debug "=== about to mint doi for #{work.title} ==== "
 
@@ -46,7 +46,7 @@ module HykuAddons
       def can_mint_for?(work)
         state = workflow_state(work)
 
-        (work.creator.blank? || work.doi.present? || work.visibility != "open" || ["deposited", nil].exclude?(state&.workflow_state_name))
+        work.creator.present? && work.doi.blank? && work.visibility == "open" && ["deposited", nil].include?(state&.workflow_state_name)
       end
 
       def workflow_state(work)
