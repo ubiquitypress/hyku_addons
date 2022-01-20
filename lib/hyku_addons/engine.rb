@@ -199,7 +199,8 @@ module HykuAddons
           "time" => { split: '\|' },
           "add_info" => { split: '\|' },
           "part_of" => { split: '\|' },
-          "qualification_subject_text" => { split: '\|' }
+          "qualification_subject_text" => { split: '\|' },
+          "collection" => { split: "\|" }
         }
       end
 
