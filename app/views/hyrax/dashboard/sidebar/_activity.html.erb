@@ -10,7 +10,7 @@
        <span class="fa fa-dashboard"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.activity_summary') %></span>
      <% end %>
 
-     <% if current_user.has_role?(:admin) && Flipflop.enabled?(:gds_reports) %>
+     <% if current_user.has_role?(:admin, Site.instance) && Flipflop.enabled?(:gds_reports) %>
        <%= menu.nav_link(HykuAddons::Engine.routes.url_helpers.admin_stats_report_path) do %>
          <span class="fa fa-bar-chart" aria-hidden="true"></span>
          <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.reports') %></span>
