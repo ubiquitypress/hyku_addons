@@ -23,6 +23,9 @@ module HykuAddons
     protected
 
       def permission?
+        # Ensure the user is signed in
+        authorize! :read, Hyrax::Statistics
+
         return if current_user.has_role?(:admin, Site.instance) && Flipflop.enabled?(:gds_reports)
 
         raise ActionController::RoutingError, "Not found"
