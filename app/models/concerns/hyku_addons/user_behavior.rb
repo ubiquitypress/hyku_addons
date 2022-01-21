@@ -5,7 +5,7 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     included do
-      around_update :flip_display_profile
+      around_update :toggle_display_profile
       validate :must_have_valid_email_format
     end
 
@@ -21,10 +21,10 @@ module HykuAddons
       Site.account
     end
 
-    def flip_display_profile
+    def toggle_display_profile
       return unless display_profile_changed?
       yield
-      HykuAddons::FlipDisplayProfileJob.perform_later(email, display_profile)
+      HykuAddons::ToggleDisplayProfileJob.perform_later(email, display_profile)
     end
   end
 end
