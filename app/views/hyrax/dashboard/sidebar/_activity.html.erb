@@ -6,19 +6,22 @@
                                id: 'collapseRepositoryActivity',
                                open: menu.repository_activity_section? do %>
 
-    <%= menu.nav_link(hyrax.dashboard_path) do %>
-      <span class="fa fa-dashboard"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.activity_summary') %></span>
-    <% end %>
+     <%= menu.nav_link(hyrax.dashboard_path) do %>
+       <span class="fa fa-dashboard"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.activity_summary') %></span>
+     <% end %>
+
+     <% if current_user.has_role?(:admin) && Flipflop.enabled?(:gds_reports) %>
+       <%= menu.nav_link(HykuAddons::Engine.routes.url_helpers.admin_stats_report_path) do %>
+         <span class="fa fa-bar-chart" aria-hidden="true"></span>
+         <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.reports') %></span>
+       <% end %>
+     <% end %>
 
     <% if menu.show_admin_menu_items? %>
       <%= menu.nav_link(main_app.status_path) do %>
         <span class="fa fa-flag"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.system_status') %></span>
       <% end %>
     <% end %>
-
-    <%= menu.nav_link(HykuAddons::Engine.routes.url_helpers.admin_stats_report_path) do %>
-      <span class="fa fa-bar-chart" aria-hidden="true"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.reports') %></span>
-    <% end if current_user.has_role?(:admin) && Flipflop.enabled?(:gds_reports) %>
   <% end %>
 </li>
 
