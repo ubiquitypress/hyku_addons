@@ -41,7 +41,7 @@ module HykuAddons
         new_entry = find_or_create_entry(item_entry_class, item_id, 'Bulkrax::Importer', item_metadata)
 
         begin
-          Bulkrax::ImportWorkCollectionJob.perform_now(new_entry.id, current_run.id)
+          HykuAddons::ImportWorkCollectionJob.perform_now(new_entry.id, current_run.id)
         rescue StandardError => e
           new_entry.status_info(e)
         end
