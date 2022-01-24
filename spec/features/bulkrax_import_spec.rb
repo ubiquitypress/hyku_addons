@@ -203,7 +203,7 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
   describe "import collections" do
     context "when the csv does not set the collection title" do
       it "creates collections" do
-        perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Bulkrax::ImportWorkCollectionJob]) do
+        perform_enqueued_jobs(only: [Bulkrax::ImporterJob, HykuAddons::ImportWorkCollectionJob]) do
           importer.import_collections
         end
 
@@ -219,7 +219,7 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
         let(:import_batch_file) { "spec/fixtures/csv/pacific_articles_collection_title.metadata.csv" }
 
         it "creates collections with titles" do
-          perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Bulkrax::ImportWorkCollectionJob]) do
+          perform_enqueued_jobs(only: [Bulkrax::ImporterJob, HykuAddons::ImportWorkCollectionJob]) do
             importer.import_collections
           end
 
@@ -227,6 +227,20 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
           expect(Collection.exists?("bedd7330-5040-4687-8226-0851f7256dff")).to eq true
           expect(Collection.find("e51dbdd3-11bd-47f6-b00a-8aace969f2ab").title).to eq(["Title"])
           expect(Collection.find("bedd7330-5040-4687-8226-0851f7256dff").title).to eq(["Other title"])
+        end
+
+        context "when the collections already exist" do
+          let(:collection_1) { create :collection, id: "e51dbdd3-11bd-47f6-b00a-8aace969f2ab", title: ["This Title Should Change"] }
+          let(:collection_2) { create :collection, id: "bedd7330-5040-4687-8226-0851f7256dff", title: ["This Title Should Change"] }
+
+          it "updates the collections" do
+            perform_enqueued_jobs(only: [Bulkrax::ImporterJob, HykuAddons::ImportWorkCollectionJob]) do
+              importer.import_collections
+            end
+
+            expect(Collection.find("e51dbdd3-11bd-47f6-b00a-8aace969f2ab").title).to eq(["Title"])
+            expect(Collection.find("bedd7330-5040-4687-8226-0851f7256dff").title).to eq(["Other title"])
+          end
         end
       end
 
@@ -236,7 +250,7 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
         it "uses parent_ column prefix" do
           allow(Gem).to receive_message_chain(:loaded_specs, :[]).with("bulkrax").and_return(instance_double(Bundler::StubSpecification, version: Gem::Version.create("3.0")))
 
-          perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Bulkrax::ImportWorkCollectionJob]) do
+          perform_enqueued_jobs(only: [Bulkrax::ImporterJob, HykuAddons::ImportWorkCollectionJob]) do
             importer.import_collections
           end
 
