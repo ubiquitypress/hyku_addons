@@ -124,11 +124,14 @@ ul.listing {
 
   #dashaboard_gds_reports {
     margin-bottom: 20px;
+    overflow: hidden;
   }
 
   #report {
     iframe {
+      width: 100%;
       display: none;
+      height: 101%;
     }
   }
 }

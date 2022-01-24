@@ -2,7 +2,7 @@
 // class will create a new iframe DOM element, copy the existing ifames attributes and replace it in its parent.
 //
 // Example:
-// <% options = { class: "js-reports-trigger form-control", data: { "on-change" => "update_iframe_src", iframe_id: "container-frame" }, include_blank: "Please Select..." } %>
+// <% options = { class: "js-reports-trigger form-control", data: { "on-change" => "update_iframe_src", iframe_id: "container_frame" }, include_blank: "Please Select..." } %>
 // <%= select_tag :report, options_for_select(@reports), options %>
 class UpdateIframeSrcListener {
   constructor() {
@@ -17,13 +17,13 @@ class UpdateIframeSrcListener {
     $("body").on(this.eventName, this.onEvent.bind(this))
   }
 
-  onEvent(_event, target) {
-    let $iframe = $(`#${$(target).data(this.iframeId)}`)
-    this.recreateIframe(target, $iframe)
+  onEvent(_, $select) {
+    let $iframe = $(`#${$select.data(this.iframeId)}`)
+    this.recreateIframe($select, $iframe)
   }
 
-  recreateIframe(select, $iframe) {
-    let [height, src] = select.val().split(",")
+  recreateIframe($select, $iframe) {
+    let [height, width, src] = $select.val().split(",")
 
     // If the user selected the blank option, or they selected the current chart after selecting the blank options
     if (src === undefined || src == $iframe.attr("src")) {
@@ -36,11 +36,17 @@ class UpdateIframeSrcListener {
     let $parent = $iframe.parent()
     $iframe.remove()
 
+
     newIframe.setAttribute("src", src)
+    newIframe.width = "100%"
     newIframe.height = `${height}px`
     newIframe.style.display = "block"
 
+    // Record the dimensions and ratio so that proportions can be maintained on resize
+    $parent.data("ratio", height/width).data("width", width).data("height", height)
     $parent.append(newIframe)
+
+    this.createResizeEvent($parent)
   }
 
   // Build the new iframe dom element and copy over all of the previous iframes attributes
@@ -51,5 +57,19 @@ class UpdateIframeSrcListener {
     $(attrs).each(function() { $(newIframe).attr(this.nodeName, this.nodeValue) })
 
     return newIframe
+  }
+
+  createResizeEvent($parent) {
+    $parent.height($parent.data("ratio") * $parent.width())
+
+    const resizeObserver = new ResizeObserver(entries => {
+      for (let entry of entries) {
+        let $el = $(entry.target);
+
+        $el.height($el.data("ratio") * $el.width())
+      }
+    })
+
+    resizeObserver.observe($parent[0])
   }
 }
