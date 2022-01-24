@@ -50,8 +50,6 @@ const hykuAddonsOnLoad = function() {
   // Reorder the notifications table by date desc by default
   $(".datatable.notifications").find("[aria-label~='Date:']").click()
 
-
-
   $("body").attr("data-hyku-addons-js-loaded", "true")
 }
 
