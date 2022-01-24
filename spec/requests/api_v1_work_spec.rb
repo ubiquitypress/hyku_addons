@@ -309,7 +309,8 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
 
                                                          { "creator_family_name" => "Testing",
                                                            "creator_given_name" => "Johnny",
-                                                           "creator_name_type" => "Personal" }],
+                                                           "creator_name_type" => "Personal",
+                                                           "creator_institutional_email" => "fake.email@test.com" }],
                                            "date_accepted" => ["2018-01-02"],
                                            "date_published" => ["1946-03-12"],
                                            "date_published_text" => nil,
