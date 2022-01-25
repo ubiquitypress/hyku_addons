@@ -33,8 +33,7 @@ RSpec.feature "Create a UvaWork", js: true do
         creator_department: "Development",
         creator_institution: "Test Inst.",
         creator_orcid: "0000-0000-1111-2222",
-        creator_isni: "56273930281",
-        display_creator_profile: user.display_profile
+        creator_isni: "56273930281"
       },
       {
         creator_name_type: "Organisational",
@@ -169,7 +168,7 @@ RSpec.feature "Create a UvaWork", js: true do
         work = work_type.classify.constantize.find(work_id)
 
         expect(work.title).to eq([title])
-        expect(work.creator).to eq([creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
+        expect(work.creator).to eq(["[{\"creator_name_type\":\"Personal\",\"creator_computing_id\":\"1234\",\"creator_family_name\":\"Johnny\",\"creator_given_name\":\"Smithy\",\"creator_middle_name\":\"J.\",\"creator_suffix\":\"Mr\",\"creator_department\":\"Development\",\"creator_institution\":\"Test Inst.\",\"creator_orcid\":\"0000-0000-1111-2222\",\"creator_isni\":\"56273930281\",\"display_creator_profile\":false}]"])
         expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
         expect(work.abstract).to eq(abstract)
         expect(work.license).to eq(license_options.map { |h| h["id"] })
