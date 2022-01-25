@@ -21,29 +21,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
   let(:title) { "Ubiquity Template Work Item" }
   let(:alt_title) { ["Alt Title 1", "Alt Title 2"] }
-  let(:expected_creator) do
-    [
-      {
-        creator_name_type: "Personal",
-        creator_family_name: "Smithy",
-        creator_given_name: "Johnny",
-        creator_middle_name: "J.",
-        creator_suffix: "Mr",
-        creator_orcid: "0000-0000-1111-2222",
-        creator_institutional_relationship: "Research associate",
-        creator_isni: "56273930281",
-        display_creator_profile: user.display_profile
-      },
-      {
-        creator_name_type: "Organisational",
-        creator_organization_name: "A Test Company Name",
-        creator_ror: "ror.org/123456",
-        creator_grid: "grid.org/098765",
-        creator_wikidata: "wiki.com/123",
-        creator_isni: "1234567890"
-      }
-    ]
-  end
   let(:creator) do
     [
       {
@@ -424,9 +401,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
         expect(work.date_published).to eq(normalize_date(date_published).first)
         # Cloneable fields use the label to select the option, but save the id to the work
-        hash = { "display_creator_profile" => user.display_profile}
-        creator.first.merge!(hash)
-        creator_json = creator.to_json
         expect(work.creator).to eq(["[{\"creator_name_type\":\"Personal\",\"creator_family_name\":\"Smithy\",\"creator_given_name\":\"Johnny\",\"creator_middle_name\":\"J.\",\"creator_suffix\":\"Mr\",\"creator_orcid\":\"0000-0000-1111-2222\",\"creator_institutional_relationship\":\"Research associate\",\"creator_isni\":\"56273930281\",\"display_creator_profile\":false}]"])
         expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
         expect(work.editor).to eq([editor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
