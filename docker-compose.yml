@@ -80,6 +80,19 @@ services:
       - workers
       - chrome
 
+  runner:
+    <<: *app
+    command: /bin/bash
+    depends_on:
+      - db
+      - solr
+      - fcrepo
+      - redis
+      - zoo1
+      - initialize_app
+      - db_migrate
+      - workers
+
   workers:
     <<: *app
     command: bash -c "bundle install && bundle exec sidekiq -r spec/internal_test_hyku/"
