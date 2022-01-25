@@ -143,6 +143,9 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
       Site.update(account: account)
       work
     end
+
+    # Ensure that if caching has been enabled elsewhere by the test suite it is disabled for this test
+    account.setup_tenant_cache(false)
   end
 
   describe "/work/:id" do
