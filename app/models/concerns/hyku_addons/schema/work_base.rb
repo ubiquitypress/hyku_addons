@@ -5,6 +5,7 @@ module HykuAddons
     module WorkBase
       extend ActiveSupport::Concern
 
+      include HykuAddons::SourceLocationBehavior
       include HykuAddons::TaskMaster::WorkBehavior
 
       # Needs to be defined before schema is included
