@@ -4,6 +4,8 @@ module HykuAddons
     module WorkForm
       extend ActiveSupport::Concern
 
+      include HykuAddons::NoteFormBehavior
+
       included do
         class_attribute :primary_fields, :field_configs, :internal_terms
         self.primary_fields = []
