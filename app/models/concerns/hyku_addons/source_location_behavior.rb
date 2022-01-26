@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# The `source_identifier` is required for a field to be importable by Bulkrax
+# The `source_identifier` is required for a work to be importable by Bulkrax
 module HykuAddons
   module SourceLocationBehavior
     extend ActiveSupport::Concern
