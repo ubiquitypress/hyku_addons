@@ -62,6 +62,9 @@ FROM dependencies_image as development_image
 
 WORKDIR /home/app
 
+# Add the binstubs to the path to avoid requiring bundle exec to be prefixed
+ENV PATH=/home/app/bin:$PATH
+
 COPY --chown=app:app . /home/app
 COPY --chown=app:app lib/hyku_addons/version.rb ./lib/hyku_addons/version.rb
 COPY --chown=app:app hyku_addons.gemspec ./hyku_addons.gemspec
