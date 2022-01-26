@@ -19,3 +19,4 @@ README.md
 .rspec
 .rubocop.yml
 .solargraph.yml
+./spec/internal_test_hyku/tmp/
