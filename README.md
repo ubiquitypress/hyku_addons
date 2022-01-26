@@ -422,6 +422,68 @@ gem install pg -v '1.2.3' --source 'https://rubygems.org/'
 
 ```
 
+### Docker
+
+Running a docker development environment is possible by running:
+
+```
+docker-compose up --build
+```
+
+Attaching to the hyku container to run commands can be done by running:
+
+```
+docker-compose exec web /bin/bash
+```
+
+#### Docker Runner
+
+Normally Rails commands like `rails console` and `rspec` are run by connecting to the main `web` container with a `bash` shell. This has several problems however, for example, if you were running your slow tests and accidentally stopped the web container, your tests would also be closed as the connection to the `web` container was unvailable. Another issue is that when you need to `bundle install`, you would normally be required to start the `web` container, connect to it via `bash` and then run `bundle install`, before closing the container and restarting it.
+
+Hyku Addons docker setup has a Runner in development that allows you to run commands without the need for the main `web` container to be running, or worry about the process being killed part way though.
+
+The basics of the runner are that it can be safety removed after a single command has been executed:
+
+```bash
+docker-compose run --rm runner <command>
+```
+
+So to run the specs you could do the following:
+
+```bash
+docker-compose run --rm runner rspec
+```
+
+Or if you wanted to run a long running rake task, then you could do the following:
+
+```bash
+docker-compose run --rm runner rails hyku_addons:long_running_task
+```
+
+##### Bash alias
+
+To shorten the long command you could add the following to your `~/.bashrc`:
+
+```bash
+alias dcr="docker-compose run --rm runner"
+```
+
+Now you can use the Runner to run the specs with the following shortened syntax:
+
+```bash
+dcr rspec
+```
+
+##### Fish function
+
+If you use Fish shell, you can add the following to your `~/.config/fish/config.fish`:
+
+```fish
+function dcr
+	docker-compose run --rm runner $argv
+end
+```
+
 ### Dory / Host file
 
 Dory can be used to automatically configure your local development environment so that you can use local subdomains, however you may experience issues. (See https://github.com/samvera/hyku/#dory)
@@ -446,20 +508,6 @@ And add the following:
 You can now access the repositories by suffixing the URL with `:3000`, for instance: http://hyku.docker:3000
 
 You will need to add each new tenant cname to your host file when a new account is added.
-
-### Docker
-
-Running a docker development environment is possible by running:
-
-```
-docker-compose up --build
-```
-
-Attaching to the hyku container to run commands can be done by running:
-
-```
-docker-compose exec web /bin/bash
-```
 
 ### Setting up an account and super admin
 
@@ -535,14 +583,14 @@ Tests are run automatically on CircleCI with rubocop and codeclimate.  These tes
 To run the tests locally inside docker run:
 
 ```bash
-docker-compose exec web bin/rspec
+docker-compose exec web rspec
 ```
 
 In order to make local development more practical, slow tests are not run by default. All these tests slow tests are run on CI by default.
 Use the following command to run them locally:
 
 ```bash
-docker-compose exec web bin/rspec --tag @slow
+docker-compose exec web rspec --tag @slow
 ```
 
 To run the tests locally outside of docker do the following with each line in its own shell from the root of the engine:
