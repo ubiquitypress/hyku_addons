@@ -273,13 +273,13 @@ module HykuAddons
         end
 
         def find
-          return find_by_id if attributes[:id]
-
-          if attributes[system_identifier_field].present? && klass.new.respond_to?(system_identifier_field)
-            return search_by_identifier
+          if attributes[:id]
+            find_by_id
+          elsif attributes[system_identifier_field].present? && klass.new.respond_to?(system_identifier_field)
+            search_by_identifier
+          elsif klass == AdminSet && attributes[:title].present?
+            search_by_title_or_identifier
           end
-
-          return search_by_title_or_identifier if klass == AdminSet && attributes[:title].present?
         end
 
         def search_by_title_or_identifier
