@@ -208,13 +208,16 @@ module HykuAddons
         def run
           arg_hash = { id: attributes[:id], name: 'UPDATE', klass: klass }
           @object = find
+
           if object
             object.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX if object.respond_to? :reindex_extent
             ActiveSupport::Notifications.instrument('import.importer', arg_hash) { update }
           else
             ActiveSupport::Notifications.instrument('import.importer', arg_hash.merge(name: 'CREATE')) { create }
           end
+
           yield(object) if block_given?
+
           object
         end
 
@@ -270,9 +273,13 @@ module HykuAddons
         end
 
         def find
-          return find_by_id if attributes[:id]
-          return search_by_identifier if attributes[system_identifier_field].present?
-          return search_by_title_or_identifier if klass == AdminSet && attributes[:title].present?
+          if attributes[:id]
+            find_by_id
+          elsif attributes[system_identifier_field].present? && klass.new.respond_to?(system_identifier_field)
+            search_by_identifier
+          elsif klass == AdminSet && attributes[:title].present?
+            search_by_title_or_identifier
+          end
         end
 
         def search_by_title_or_identifier
