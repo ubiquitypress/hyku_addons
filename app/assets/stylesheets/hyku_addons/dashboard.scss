@@ -118,17 +118,22 @@ ul.listing {
 }
 
 #reports {
+  max-width: 1600px;
+
   label {
     margin-top: 10px;
   }
 
   #dashaboard_gds_reports {
     margin-bottom: 20px;
+    overflow: hidden;
   }
 
   #report {
     iframe {
+      width: 100%;
       display: none;
+      height: 101%;
     }
   }
 }

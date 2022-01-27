@@ -4,7 +4,6 @@ class UvaWork < ActiveFedora::Base
   include Hyrax::WorkBehavior
   include Hyrax::DOI::DOIBehavior
   include Hyrax::DOI::DataCiteDOIBehavior
-  include HykuAddons::NoteBehavior
 
   include HykuAddons::Schema::WorkBase
   include Hyrax::Schema(:uva_work)

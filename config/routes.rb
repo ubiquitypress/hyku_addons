@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'sidekiq/web'
+
 HykuAddons::Engine.routes.draw do
   resources :account_settings, path: "/admin/account_settings", controller: 'account_settings', as: 'admin_account_settings' do
     member do
@@ -18,4 +20,8 @@ HykuAddons::Engine.routes.draw do
   get "/pdf_viewer(/:download_id)", to: "/hyku_addons/pdf_viewer#pdf", as: :pdf_viewer
 
   get "/admin/reports", to: "/hyrax/stats#reports", as: :admin_stats_report
+
+  authenticate :user, lambda {|u| u.roles_name.include? 'admin' } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end
