@@ -18,12 +18,14 @@ module HykuAddons
           return [] if creator_hash.blank?
 
           creators = creator_hash.map do |creator|
-            return creator if creator["creator_name_type"] == "Organizational"
-            user = User.find_by(email: creator["creator_institutional_email"])
-            creator["display_creator_profile"] = user.present? && user.display_profile
-            creator
+            if creator["creator_name_type"] == "Organizational" || creator["creator_name_type"] == "Organisational"
+              creator
+            else
+              user = User.find_by(email: creator["creator_institutional_email"])
+              creator["display_creator_profile"] = user.present? && user.display_profile
+              creator
+            end
           end
-
           env.attributes[:creator] = [creators.to_json]
         end
     end

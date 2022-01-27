@@ -168,7 +168,7 @@ RSpec.feature "Create a UvaWork", js: true do
         work = work_type.classify.constantize.find(work_id)
 
         expect(work.title).to eq([title])
-        expect(work.creator).to eq(["[{\"creator_name_type\":\"Personal\",\"creator_computing_id\":\"1234\",\"creator_family_name\":\"Johnny\",\"creator_given_name\":\"Smithy\",\"creator_middle_name\":\"J.\",\"creator_suffix\":\"Mr\",\"creator_department\":\"Development\",\"creator_institution\":\"Test Inst.\",\"creator_orcid\":\"0000-0000-1111-2222\",\"creator_isni\":\"56273930281\",\"display_creator_profile\":false}]"])
+        expect(work.creator).to eq(["[{\"creator_name_type\":\"Personal\",\"creator_computing_id\":\"1234\",\"creator_family_name\":\"Johnny\",\"creator_given_name\":\"Smithy\",\"creator_middle_name\":\"J.\",\"creator_suffix\":\"Mr\",\"creator_department\":\"Development\",\"creator_institution\":\"Test Inst.\",\"creator_orcid\":\"0000-0000-1111-2222\",\"creator_isni\":\"56273930281\",\"display_creator_profile\":false},{\"creator_name_type\":\"Organizational\",\"creator_organization_name\":\"A Test Company Name\",\"creator_ror\":\"ror.org/123456\",\"creator_grid\":\"grid.org/098765\",\"creator_wikidata\":\"wiki.com/123\",\"creator_isni\":\"1234567890\"}]"])
         expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
         expect(work.abstract).to eq(abstract)
         expect(work.license).to eq(license_options.map { |h| h["id"] })

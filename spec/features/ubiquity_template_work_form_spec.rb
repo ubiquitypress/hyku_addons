@@ -401,7 +401,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
         expect(work.date_published).to eq(normalize_date(date_published).first)
         # Cloneable fields use the label to select the option, but save the id to the work
-        expect(work.creator).to eq(["[{\"creator_name_type\":\"Personal\",\"creator_family_name\":\"Smithy\",\"creator_given_name\":\"Johnny\",\"creator_middle_name\":\"J.\",\"creator_suffix\":\"Mr\",\"creator_orcid\":\"0000-0000-1111-2222\",\"creator_institutional_relationship\":\"Research associate\",\"creator_isni\":\"56273930281\",\"display_creator_profile\":false}]"])
+        expect(work.creator).to eq(["[{\"creator_name_type\":\"Personal\",\"creator_family_name\":\"Smithy\",\"creator_given_name\":\"Johnny\",\"creator_middle_name\":\"J.\",\"creator_suffix\":\"Mr\",\"creator_orcid\":\"0000-0000-1111-2222\",\"creator_institutional_relationship\":\"Research associate\",\"creator_isni\":\"56273930281\",\"display_creator_profile\":false},{\"creator_name_type\":\"Organizational\",\"creator_organization_name\":\"A Test Company Name\",\"creator_ror\":\"ror.org/123456\",\"creator_grid\":\"grid.org/098765\",\"creator_wikidata\":\"wiki.com/123\",\"creator_isni\":\"1234567890\"}]"])
         expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
         expect(work.editor).to eq([editor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
         expect(work.description).to eq(description)
