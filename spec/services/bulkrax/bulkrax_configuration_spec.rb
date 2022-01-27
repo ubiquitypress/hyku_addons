@@ -3,7 +3,8 @@
 # This spec is to ensure that configuration removed from the Engine is still being read as it was before the change
 RSpec.describe Bulkrax do
   describe ".setup" do
-    let(:mappings) do {
+    let(:mappings) do
+      {
         "institution" => { split: '\|' },
         "org_unit" => { split: '\|' },
         "fndr_project_ref" => { split: '\|' },
@@ -37,20 +38,22 @@ RSpec.describe Bulkrax do
         "add_info" => { split: '\|' },
         "part_of" => { split: '\|' },
         "qualification_subject_text" => { split: '\|' },
+        # rubocop:disable Style/StringLiterals
         "collection" => { split: '|' }
+        # rubocop:enable Style/StringLiterals
       }
     end
 
     it "sets the configuration" do
-      expect(Bulkrax.export_path.to_s).to eq(Rails.root.join("tmp", "exports").to_s)
-      expect(Bulkrax.system_identifier_field).to eq "source_identifier"
-      expect(Bulkrax.reserved_properties).not_to include(["depositor"])
-      expect(Bulkrax.parsers).to include({
+      expect(described_class.export_path.to_s).to eq(Rails.root.join("tmp", "exports").to_s)
+      expect(described_class.system_identifier_field).to eq "source_identifier"
+      expect(described_class.reserved_properties).not_to include(["depositor"])
+      expect(described_class.parsers).to include(
         class_name: "HykuAddons::CsvParser",
         name: "Ubiquity Repositiories CSV",
         partial: "csv_fields"
-      })
-      expect(Bulkrax.field_mappings["HykuAddons::CsvParser"].sort.to_h).to eq(mappings.sort.to_h)
+      )
+      expect(described_class.field_mappings["HykuAddons::CsvParser"].sort.to_h).to eq(mappings.sort.to_h)
     end
   end
 end
