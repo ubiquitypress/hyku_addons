@@ -6,7 +6,7 @@ Bulkrax.setup do |config|
   config.reserved_properties -= ["depositor"]
   config.parsers += [{ class_name: "HykuAddons::CsvParser", name: "Ubiquity Repositiories CSV", partial: "csv_fields" }]
   #
-  # NOTE: The `\|` and "\| produce a different output"
+  # NOTE: The `\|` and "\|" produce a different output"
   config.field_mappings["HykuAddons::CsvParser"] = {
     "institution" => { split: '\|' },
     "org_unit" => { split: '\|' },
