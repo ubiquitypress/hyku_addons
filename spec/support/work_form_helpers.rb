@@ -17,8 +17,10 @@ end
 #
 # @param visibility [Symbol] the work visibility, :open, :restricted, :lease, :authenticated, :embargo
 # @return [void]
+# Click the body, then the last li on the page, which will be the last in the visibility options, to help Capybara find it
 def add_visibility(visibility = :open)
   find("body").click
+  find_all("li").last.click
   choose("#{work_type}_visibility_#{visibility}")
 end
 

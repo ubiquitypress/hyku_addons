@@ -12,10 +12,6 @@ Flipflop.configure do
           default: true,
           description: "Shows collections, importer and exporter links on the sidebar for non admin users"
 
-  feature :simplified_deposit_form,
-          default: false,
-          description: "Hide the DOI tab from non-admin users"
-
   feature :import_mode,
           default: false,
           description: "Import mode - Background jobs are run on specially named queues"
@@ -41,11 +37,8 @@ Flipflop.configure do
           default: false,
           description: "Turns on links to hypothes.is PDF viewer"
 
-  feature :inline_doi,
-          default: false,
-          description: "Toggle layout between a DOI Tab and use of sidebar"
-
   feature :gds_reports,
           default: false,
           description: "Add Google Data Studio reports to the dashaboard"
+  
 end
