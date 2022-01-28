@@ -84,7 +84,12 @@ module HykuAddons
       end
 
       def json_fields
-        hyrax_record.class.json_fields.map(&:to_s)
+        json_fields = hyrax_record.class.json_fields
+
+        # NOTE: Once the schema migration has been completed, this should be the default
+        json_fields = json_fields.keys if hyrax_record.schema_driven?
+
+        json_fields.map(&:to_s)
       end
 
       def split_json(str)

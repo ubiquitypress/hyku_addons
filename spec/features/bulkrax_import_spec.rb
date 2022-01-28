@@ -329,6 +329,29 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
     end
   end
 
+  describe "when the work is schema_driven" do
+    context "when only source_identifier is present" do
+      let(:import_batch_file) { "spec/fixtures/csv/uva_work.csv" }
+      let(:source_identifier) { "external-id-2" }
+
+      it "mints a new id" do
+        expect do
+          perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+            Bulkrax::ImporterJob.perform_now(importer.id)
+          end
+        end.to change { UvaWork.count }.by(1)
+
+        work = UvaWork.where(source_identifier: source_identifier).first
+        expect(work.id).not_to eq source_identifier
+
+        creator = JSON.parse(work.creator.first).first
+        expect(creator["creator_name_type"]).to eq "Personal"
+        expect(creator["creator_given_name"]).to eq "Mary"
+        expect(creator["creator_family_name"]).to eq "Poppins"
+      end
+    end
+  end
+
   describe "doi minting" do
     let(:import_batch_file) { "spec/fixtures/csv/generic_work_with_doi.csv" }
     let(:prefix) { "10.1234" }
