@@ -13,12 +13,12 @@ module HykuAddons
       private
 
         def check_creator_institutional_email(env)
-          creator_hash = JSON.parse(env.attributes[:creator].try(:first) || "{}")
+          creator_hash = JSON.parse(env.attributes[:creator]&.first || "{}")
 
           return [] if creator_hash.blank?
 
           creators = creator_hash.map do |creator|
-            if creator["creator_name_type"] == "Organizational" || creator["creator_name_type"] == "Organisational"
+            if %w[Organizational Organisational].include?(creator["creator_name_type"])
             else
               user = User.find_by(email: creator["creator_institutional_email"])
               creator["display_creator_profile"] = user.present? && user.display_profile

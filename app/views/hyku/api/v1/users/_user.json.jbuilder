@@ -1,6 +1,5 @@
 # frozen_string_literal: true
-# Some of these fields we don"t currently have a way to set, I will leave it up to
-# Elisa or Tom if they want to allow users to set any of these fields for the Frontend Profile
+
 json.id user.id
 json.email user.email
 json.display_name user.display_name
