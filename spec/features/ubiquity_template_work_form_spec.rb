@@ -425,7 +425,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
         expect(work.date_published).to eq(normalize_date(date_published).first)
         # Cloneable fields use the label to select the option, but save the id to the work
-        puts creator_2.inspect
         expect(work.creator).to eq([expected_creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
         expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
         expect(work.editor).to eq([editor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
