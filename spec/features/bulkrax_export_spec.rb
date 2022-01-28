@@ -76,7 +76,7 @@ RSpec.describe "Bulkrax export", clean: true, type: :feature, slow: true do
           {
             creator_name_type: "Personal",
             creator_family_name: "Smithy",
-            creator_given_name: "Johnny",
+            creator_given_name: "Johnny"
           }
         ]
       end
