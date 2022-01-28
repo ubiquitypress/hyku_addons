@@ -37,28 +37,67 @@ RSpec.describe "Bulkrax export", clean: true, type: :feature, slow: true do
   end
 
   describe "single object export" do
-    subject(:parsed_metadata) { entry.parsed_metadata }
-    let(:work) { create(:fully_described_work, user: depositor.email) }
-    let(:entry) { exporter.entries.first }
+    context "when the work is not schema driven" do
+      subject(:parsed_metadata) { entry.parsed_metadata }
+      let(:work) { create(:fully_described_work, user: depositor.email) }
+      let(:entry) { exporter.entries.first }
 
-    before do
-      work
-      perform_enqueued_jobs(only: Bulkrax::ExporterJob) do
-        exporter.export
+      before do
+        work
+        perform_enqueued_jobs(only: Bulkrax::ExporterJob) do
+          exporter.export
+        end
+      end
+
+      it "populates all fields" do
+        expect(parsed_metadata["id"]).to eq work.id
+        expect(parsed_metadata["source_identifier"]).to eq work.id
+        expect(parsed_metadata["model"]).to eq "GenericWork"
+        expect(parsed_metadata["depositor"]).to eq depositor.email
+        expect(parsed_metadata["pagination"]).to eq "1"
+        expect(parsed_metadata["event_date"]).to eq "2009"
+        expect(parsed_metadata["related_exhibition_date"]).to eq "2009"
+        expected_dois = ["3-921099-34-X", "doi:10.1038/nphys1170", "ISBN:978-83-7659-303-6", "9790879392788",
+                         "3-540-49698-x", "0-19-852663-6", "978-3-540-49698-4"]
+        expect(parsed_metadata["identifier"].split("|")).to contain_exactly(*expected_dois)
       end
     end
 
-    it "populates all fields" do
-      expect(parsed_metadata["id"]).to eq work.id
-      expect(parsed_metadata["source_identifier"]).to eq work.id
-      expect(parsed_metadata["model"]).to eq "GenericWork"
-      expect(parsed_metadata["depositor"]).to eq depositor.email
-      expect(parsed_metadata["pagination"]).to eq "1"
-      expect(parsed_metadata["event_date"]).to eq "2009"
-      expect(parsed_metadata["related_exhibition_date"]).to eq "2009"
-      expected_dois = ["3-921099-34-X", "doi:10.1038/nphys1170", "ISBN:978-83-7659-303-6", "9790879392788",
-                       "3-540-49698-x", "0-19-852663-6", "978-3-540-49698-4"]
-      expect(parsed_metadata["identifier"].split("|")).to contain_exactly(*expected_dois)
+    context "when the work is schema driven" do
+      subject(:parsed_metadata) { entry.parsed_metadata }
+      let(:attributes) do
+        { depositor: depositor.email, creator: [creator.to_json], title: [title], resource_type: ["Article"] }
+      end
+      let(:work) { UvaWork.create(attributes) }
+      let(:entry) { exporter.entries.first }
+      let(:title) { "UVA Work Item" }
+      let(:creator) do
+        [
+          {
+            creator_name_type: "Personal",
+            creator_family_name: "Smithy",
+            creator_given_name: "Johnny",
+          }
+        ]
+      end
+
+      before do
+        work
+
+        perform_enqueued_jobs(only: Bulkrax::ExporterJob) do
+          exporter.export
+        end
+      end
+
+      it "populates all fields" do
+        expect(parsed_metadata["id"]).to eq work.id
+        expect(parsed_metadata["source_identifier"]).to eq work.id
+        expect(parsed_metadata["model"]).to eq "UvaWork"
+        expect(parsed_metadata["depositor"]).to eq depositor.email
+        expect(parsed_metadata["creator_name_type_1"]).to eq "Personal"
+        expect(parsed_metadata["creator_given_name_1"]).to eq "Johnny"
+        expect(parsed_metadata["creator_family_name_1"]).to eq "Smithy"
+      end
     end
   end
 
