@@ -25,6 +25,7 @@ module HykuAddons
             end
             creator
           end
+
           env.attributes[:creator] = [creators.to_json]
         end
     end
