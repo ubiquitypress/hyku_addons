@@ -193,7 +193,7 @@ RSpec.feature "Create a UvaWork", js: true do
         work = work_type.classify.constantize.find(work_id)
 
         expect(work.title).to eq([title])
-          expect(work.creator).to eq([expected_creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
+        expect(work.creator).to eq([expected_creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
         expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
         expect(work.abstract).to eq(abstract)
         expect(work.license).to eq(license_options.map { |h| h["id"] })
