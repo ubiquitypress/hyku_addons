@@ -69,13 +69,19 @@ module HykuAddons
     end
 
     def add_json_fields
-      factory_class.json_fields.map(&:to_s).each do |field|
+      # NOTE: When the schema migration is complete, this can be replaced with:
+      # json_fields = factory_class.json_fields.keys
+      json_fields = factory_class.new.schema_driven? ? factory_class.json_fields.keys : factory_class.json_fields
+
+      json_fields.map(&:to_s).each do |field|
         field_json = []
+
         raw_metadata.select { |k, _v| k.starts_with? field.to_s }.each do |k, v|
           match = k.match(/^(?<subfield>.+)_(?<index>\d+)$/)
           field_json[match[:index].to_i - 1] ||= {}
           field_json[match[:index].to_i - 1][match[:subfield]] = v
         end
+
         parsed_metadata[field] = field_json
       end
     end
