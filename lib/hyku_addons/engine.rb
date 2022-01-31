@@ -523,7 +523,7 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::NoteFieldActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::RelatedIdentifierActor
-
+      Hyrax::CurationConcern.actor_factory.insert_after HykuAddons::Actors::JSONFieldsActor, HykuAddons::Actors::CreatorInstitutionalEmailActor
       actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
@@ -538,7 +538,7 @@ module HykuAddons
       # Insert at the end of the actor chain
       Hyrax::CurationConcern.actor_factory.use HykuAddons::Actors::TaskMaster::WorkActor
 
-      User.include HykuAddons::UserEmailFormat
+      User.include HykuAddons::UserBehavior
       Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
       ::Bolognese::Writers::RisWriter.include ::Bolognese::Writers::RisWriterBehavior
       ::Bolognese::Metadata.prepend ::Bolognese::Writers::HykuAddonsWorkFormFieldsWriter

@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 module HykuAddons
-  module UserEmailFormat
+  module UserBehavior
     extend ActiveSupport::Concern
 
     included do
+      around_update :toggle_display_profile
       validate :must_have_valid_email_format
     end
 
@@ -18,6 +19,12 @@ module HykuAddons
 
     def current_account
       Site.account
+    end
+
+    def toggle_display_profile
+      return unless display_profile_changed?
+      yield
+      HykuAddons::ToggleDisplayProfileJob.perform_later(email, display_profile)
     end
   end
 end
