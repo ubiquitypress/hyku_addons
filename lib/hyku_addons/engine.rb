@@ -166,6 +166,16 @@ module HykuAddons
         config.system_identifier_field = 'source_identifier'
         config.reserved_properties -= ['depositor']
         config.parsers += [{ class_name: "HykuAddons::CsvParser", name: "Ubiquity Repositiories CSV", partial: "csv_fields" }]
+
+        # NOTE: The splits are passed to a Regexp instance, which is passed to split.
+        #
+        # They must use single quotes with a backslash `'\|'` or double quotes with two backslashes `"\\|"`.
+        #
+        # Example:
+        # value = "funder_award_1_1|funder_award_1_2"
+        # value.split(Regexp.new('\|')) # => ["funder_award_1_1", "funder_award_1_2"]
+        # value.split(Regexp.new("\|")) # => ["f", "u", "n", "d", "e", "r", "_", ...[REMOVED]... , "_", "1", "_", "2"]
+        # value.split(Regexp.new("\\|")) # => ["funder_award_1_1", "funder_award_1_2"]
         config.field_mappings["HykuAddons::CsvParser"] = {
           "institution" => { split: '\|' },
           "org_unit" => { split: '\|' },
@@ -200,6 +210,7 @@ module HykuAddons
           "add_info" => { split: '\|' },
           "part_of" => { split: '\|' },
           "qualification_subject_text" => { split: '\|' },
+          "funder_award" => { split: '\|' },
           "collection" => { split: "\|" }
         }
       end
