@@ -62,7 +62,7 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
       expect(creator["creator_name_type"]).to eq "Personal"
     end
 
-    context "for an articles" do
+    context "for an article" do
       let(:account) { build_stubbed(:account, locale_name: "anschutz") }
       let(:import_batch_file) { "spec/fixtures/csv/anschutz.csv" }
 
@@ -80,6 +80,27 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
           next unless (val = work.try(field))
           expect(val).to eq(["#{field}1", "#{field}2"])
         end
+      end
+    end
+
+    context "for funder awards" do
+      let(:account) { build_stubbed(:account) }
+      let(:import_batch_file) { "spec/fixtures/csv/uva_work.csv" }
+      let(:source_identifier) { "external-id-2" }
+
+      before do
+        Site.update(account: account)
+      end
+
+      it "parses multiple funder awards and returns an array" do
+        perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+          importer.import_works
+        end
+
+        work = UvaWork.where(source_identifier: source_identifier).first
+        funder = JSON.parse(work.funder.first).first
+
+        expect(funder["funder_award"]).to eq ["funder_award_1_1", "funder_award_1_2"]
       end
     end
 
