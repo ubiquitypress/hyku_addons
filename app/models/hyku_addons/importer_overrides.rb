@@ -73,6 +73,8 @@ module HykuAddons
     end
 
     def add_json_fields
+      delimiter = %r{\|}
+
       # NOTE: When the schema migration is complete, this can be replaced with:
       # json_fields = factory_class.json_fields.keys
       json_fields = factory_class.new.schema_driven? ? factory_class.json_fields.keys : factory_class.json_fields
@@ -83,11 +85,8 @@ module HykuAddons
         raw_metadata.select { |key, _v| key.starts_with? field.to_s }.each do |key, value|
           match = key.match(/^(?<subfield>.+)_(?<index>\d+)$/)
 
-          # If the value is defined as a multiple value and has a split delimiter defined in the field_mappings
-          # defined in the HykuAddons::Engine. i.e. "funder_award" => { split: '\|' },
-          if (delimiter = Bulkrax.field_mappings.dig("HykuAddons::CsvParser", match[:subfield], :split)).present?
-            value = value.split(Regexp.new(delimiter))
-          end
+          # If the value is defined as multiple by including a `|`, split and set as an array
+          value = value.split(delimiter) if value.match?(delimiter)
 
           (field_json[match[:index].to_i - 1] ||= {})[match[:subfield]] = value
         end

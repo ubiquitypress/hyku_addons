@@ -210,7 +210,6 @@ module HykuAddons
           "add_info" => { split: '\|' },
           "part_of" => { split: '\|' },
           "qualification_subject_text" => { split: '\|' },
-          "funder_award" => { split: '\|' },
           "collection" => { split: "\|" }
         }
       end
