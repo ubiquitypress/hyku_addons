@@ -15,16 +15,19 @@ module HykuAddons
 
     def add_file_subfields
       file_metadata = []
+
       raw_metadata.select { |k, _v| k =~ /^file_((?<subfield>.+)_)?(?<index>\d+)$/ }.each do |k, v|
         match = k.match(/^file_((?<subfield>.+)_)?(?<index>\d+)$/)
         file_index = match[:index].to_i - 1
         file_metadata[file_index] ||= {}
+
         if (subfield = match[:subfield].presence)
           file_metadata[file_index][subfield] = v
         else
           file_metadata[file_index]["file"] = v
         end
       end
+
       parsed_metadata["file"] = file_metadata.pluck("file") if parsed_metadata["file"].blank?
       parsed_metadata["file"] = parsed_metadata["file"].map { |f| path_to_file(f) }
       parsed_metadata["file_set"] = file_metadata
@@ -43,6 +46,7 @@ module HykuAddons
     def add_date_fields
       factory_class.date_fields.map(&:to_s).each do |field|
         next unless mapping[field] && record[field.to_s].present?
+
         matcher = self.class.matcher(field, mapping[field].symbolize_keys)
         result = matcher.result(self, record[field.to_s])
         parsed_metadata[field] = Array.wrap(result)
@@ -69,6 +73,8 @@ module HykuAddons
     end
 
     def add_json_fields
+      delimiter = %r{\|}
+
       # NOTE: When the schema migration is complete, this can be replaced with:
       # json_fields = factory_class.json_fields.keys
       json_fields = factory_class.new.schema_driven? ? factory_class.json_fields.keys : factory_class.json_fields
@@ -76,10 +82,13 @@ module HykuAddons
       json_fields.map(&:to_s).each do |field|
         field_json = []
 
-        raw_metadata.select { |k, _v| k.starts_with? field.to_s }.each do |k, v|
-          match = k.match(/^(?<subfield>.+)_(?<index>\d+)$/)
-          field_json[match[:index].to_i - 1] ||= {}
-          field_json[match[:index].to_i - 1][match[:subfield]] = v
+        raw_metadata.select { |key, _v| key.starts_with? field.to_s }.each do |key, value|
+          match = key.match(/^(?<subfield>.+)_(?<index>\d+)$/)
+
+          # If the value is defined as multiple by including a `|`, split and set as an array
+          value = value.split(delimiter) if value.match?(delimiter)
+
+          (field_json[match[:index].to_i - 1] ||= {})[match[:subfield]] = value
         end
 
         parsed_metadata[field] = field_json
@@ -88,6 +97,7 @@ module HykuAddons
 
     def add_controlled_vocabulary_field(field, service_class)
       return unless parsed_metadata[field].present?
+
       service = service_class.new(model: parsed_metadata["model"]&.safe_constantize)
       parsed_metadata[field] = parsed_metadata[field].map do |val|
         service.authority.find(val).fetch("id")
@@ -99,11 +109,13 @@ module HykuAddons
     # Removes the replcement of spaces to underscores https://github.com/samvera-labs/bulkrax/blob/master/app/models/bulkrax/csv_entry.rb#L84
     def add_file
       parsed_metadata["file"] ||= []
+
       if record["file"]&.is_a?(String)
         parsed_metadata["file"] = record["file"].split(/\s*[;|]\s*/)
       elsif record["file"].is_a?(Array)
         parsed_metadata["file"] = record["file"]
       end
+
       parsed_metadata["file"] = parsed_metadata["file"].map { |f| path_to_file(f) }
     end
 
@@ -111,10 +123,13 @@ module HykuAddons
     def path_to_file(file)
       # return if we already have the full file path
       return file if File.exist?(file)
+
       path = ENV["BULKRAX_FILE_PATH"]
       path ||= importerexporter.parser.path_to_files
       f = File.join(path, file)
+
       return f if File.exist?(f)
+
       raise "File #{f} does not exist."
     end
 
@@ -127,6 +142,7 @@ module HykuAddons
 
         record.each do |key, value|
           next if key == "collection"
+
           add_metadata(key, value)
         end
       end
