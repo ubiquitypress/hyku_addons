@@ -37,23 +37,22 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
       end.to change { PacificArticle.count }.by(2)
     end
 
-    context 'publication dates separately' do
+    context "publication dates separately" do
       let(:import_batch_file) { "spec/fixtures/csv/publication_date.csv" }
 
-      it 'imports publication date separately' do
+      it "imports publication date separately" do
         perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
           importer.import_works
         end
 
-        [GenericWork, UvaWork, PacificArticle, NsuGenericWork, NsuArticle].each_with_index do |work,i|
-          work_1 = work.where(source_identifier: "external-id-#{3*i+1}").first        
-          work_2 = work.where(source_identifier: "external-id-#{3*i+2}").first        
-          work_3 = work.where(source_identifier: "external-id-#{3*i+3}").first        
+        [GenericWork, UvaWork, PacificArticle, NsuGenericWork, NsuArticle].each_with_index do |work, i|
+          work_1 = work.where(source_identifier: "external-id-#{3 * i + 1}").first
+          work_2 = work.where(source_identifier: "external-id-#{3 * i + 2}").first
+          work_3 = work.where(source_identifier: "external-id-#{3 * i + 3}").first
           expect(work_1.date_published).to eq("1901")
           expect(work_2.date_published).to eq("1902-2")
           expect(work_3.date_published).to eq("1903-3-3")
         end
-        
       end
     end
 
