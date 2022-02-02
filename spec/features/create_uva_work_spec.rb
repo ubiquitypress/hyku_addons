@@ -40,9 +40,10 @@ RSpec.feature "Create a UvaWork", slow: true do
     end
   end
 
-  it "applys work visibility" do
+  it "applies work visibility" do
     visibility = :open
     find("body").click
+    find_all("li").last.click
     choose("#{work_type}_visibility_#{visibility}")
 
     expect(page).to have_content("Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to")

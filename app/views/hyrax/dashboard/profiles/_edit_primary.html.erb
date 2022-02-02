@@ -19,12 +19,14 @@
     <br>
     <!-- I would like to move this to the bottom of the form but whenever I try the styling is all
     wrong and I don't want to push the pixels around right now-->
+    <% if current_user.has_role?(:admin, Site.instance) %>
      <div class="checkbox">
-       <%= f.label :allow_public_display do %>
+       <%= f.label :display_profile do %>
         <%= f.check_box :display_profile %>
         <%= t(".allow_public_display") %>
        <% end %>
      </div>
+    <% end %>
    </div>
  </div>
 
@@ -48,10 +50,30 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :telephone, t(".telephone").html_safe, class: 'col-xs-4 control-label' %>
+    <div class="col-xs-8">
+       <%= f.text_field :telephone, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :website, t(".website").html_safe, class: 'col-xs-4 control-label' %>
+    <div class="col-xs-8">
+       <%= f.text_field :website, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <%= f.label :department, t(".department").html_safe, class: 'col-xs-4 control-label' %>
     <div class="col-xs-8">
        <%= f.text_field :department, class: "form-control" %>
-       <span class="help-block"><%= t('.help_department') %></span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :biography, t(".bio").html_safe, class: 'col-xs-4 control-label' %>
+    <div class="col-xs-8">
+       <%= f.text_area :biography, cols: 30, rows: 10, class: "form-control" %>
     </div>
   </div>
 
@@ -72,16 +94,9 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :facebook_handle, t(".facebook_handle").html_safe, class: 'col-xs-4 control-label' %>
+    <%= f.label :linkedin_handle, t(".linkedin_handle").html_safe, class: 'col-xs-4 control-label' %>
     <div class="col-xs-8">
-       <%= f.text_field :facebook_handle, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :googleplus_handle, t(".google_handle").html_safe, class: 'col-xs-4 control-label' %>
-    <div class="col-xs-8">
-       <%= f.text_field :googleplus_handle, class: "form-control" %>
+       <%= f.text_field :linkedin_handle, class: "form-control" %>
     </div>
   </div>
 

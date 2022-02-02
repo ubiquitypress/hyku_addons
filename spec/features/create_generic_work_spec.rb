@@ -108,8 +108,10 @@ RSpec.describe "Create a GenericWork", js: true, clean: true do
 
       # With selenium and the chrome driver, focus remains on the
       # select box. Click outside the box so the next line can't find
-      # its element
+      # its element, then find the last li on the page, which will be
+      # last visibility option and click that, before selecting the one you want
       find("body").click
+      find_all("li").last.click
       choose("generic_work_visibility_open")
       expect(page).to have_content("Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to")
       check("agreement")
@@ -321,8 +323,10 @@ RSpec.describe "Create a GenericWork", js: true, clean: true do
 
       # With selenium and the chrome driver, focus remains on the
       # select box. Click outside the box so the next line can't find
-      # its element
+      # its element, then find the last li on the page, which will be
+      # last visibility option and click that, before selecting the one you want
       find("body").click
+      find_all("li").last.click
       choose("generic_work_visibility_open")
       expect(page).to have_content("Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to")
       check("agreement")

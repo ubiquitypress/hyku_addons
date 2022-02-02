@@ -31,13 +31,13 @@ module HykuAddons
         def new
           return super if current_account&.allow_signup == "true"
 
-          redirect_to root_path, alert: t(:'hyku.account.signup_disabled')
+          redirect_to root_path, alert: t('hyku.account.signup_disabled')
         end
 
         def create
           return super if current_account&.allow_signup == "true"
 
-          redirect_to root_path, alert: t(:'hyku.account.signup_disabled')
+          redirect_to root_path, alert: t('hyku.account.signup_disabled')
         end
 
         def current_account
@@ -418,7 +418,7 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::NoteFieldActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::RelatedIdentifierActor
-
+      Hyrax::CurationConcern.actor_factory.insert_after HykuAddons::Actors::JSONFieldsActor, HykuAddons::Actors::CreatorInstitutionalEmailActor
       actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 

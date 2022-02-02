@@ -2,12 +2,13 @@
 
 require "spec_helper"
 require "hyrax/doi/spec/shared_specs"
+require File.expand_path("../support/shared_contexts/doi_inline_form_context", __dir__)
 
 RSpec.describe Hyrax::GenericWorkForm do
   let(:work) { GenericWork.new }
   let(:form) { described_class.new(work, nil, nil) }
 
-  it_behaves_like "a DOI-enabled form"
+  it_behaves_like "a DOI-enabled inline form"
   it_behaves_like "a DataCite DOI-enabled form"
 
   describe ".required_fields" do

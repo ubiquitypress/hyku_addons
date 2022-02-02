@@ -62,7 +62,7 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
       expect(creator["creator_name_type"]).to eq "Personal"
     end
 
-    context "for an articles" do
+    context "for an article" do
       let(:account) { build_stubbed(:account, locale_name: "anschutz") }
       let(:import_batch_file) { "spec/fixtures/csv/anschutz.csv" }
 
@@ -80,6 +80,27 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
           next unless (val = work.try(field))
           expect(val).to eq(["#{field}1", "#{field}2"])
         end
+      end
+    end
+
+    context "for funder awards" do
+      let(:account) { build_stubbed(:account) }
+      let(:import_batch_file) { "spec/fixtures/csv/uva_work.csv" }
+      let(:source_identifier) { "external-id-2" }
+
+      before do
+        Site.update(account: account)
+      end
+
+      it "parses multiple funder awards and returns an array" do
+        perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+          importer.import_works
+        end
+
+        work = UvaWork.where(source_identifier: source_identifier).first
+        funder = JSON.parse(work.funder.first).first
+
+        expect(funder["funder_award"]).to eq ["funder_award_1_1", "funder_award_1_2"]
       end
     end
 
@@ -325,6 +346,29 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
         end.to change { GenericWork.count }.by(1)
         work = GenericWork.where(source_identifier: source_identifier).first
         expect(work.id).not_to eq source_identifier
+      end
+    end
+  end
+
+  describe "when the work is schema_driven" do
+    context "when only source_identifier is present" do
+      let(:import_batch_file) { "spec/fixtures/csv/uva_work.csv" }
+      let(:source_identifier) { "external-id-2" }
+
+      it "mints a new id" do
+        expect do
+          perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
+            Bulkrax::ImporterJob.perform_now(importer.id)
+          end
+        end.to change { UvaWork.count }.by(1)
+
+        work = UvaWork.where(source_identifier: source_identifier).first
+        expect(work.id).not_to eq source_identifier
+
+        creator = JSON.parse(work.creator.first).first
+        expect(creator["creator_name_type"]).to eq "Personal"
+        expect(creator["creator_given_name"]).to eq "Mary"
+        expect(creator["creator_family_name"]).to eq "Poppins"
       end
     end
   end
