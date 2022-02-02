@@ -106,23 +106,6 @@ module HykuAddons
       end
     end
 
-    # HACK: Workaround issue where Flipflop's db table needs to be created before db:create has been run
-    # This is because we're prepending to Hyrax::GenericWorksController which forces a load of Hyrax::WorksControllerBehavior
-    # which calls Flipflop in an `included` block.
-    # See https://github.com/samvera/hyrax/blob/v2.9.1/app/controllers/concerns/hyrax/works_controller_behavior.rb#L17
-    initializer 'hyku_addons.workaround_flip_flop' do
-      Flipflop::Facade.module_eval do
-        def method_missing(method, *args)
-          if method[-1] == "?"
-            return false unless ActiveRecord::Base.connected? && ActiveRecord::Base.connection.table_exists?(:hyrax_features)
-            Flipflop::FeatureSet.current.enabled?(method[0..-2].to_sym)
-          else
-            super
-          end
-        end
-      end
-    end
-
     initializer 'hyku_addons.bulkrax_overrides' do
       Bulkrax::ObjectFactory.class_eval do
         def run
