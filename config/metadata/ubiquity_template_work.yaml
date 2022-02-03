@@ -96,7 +96,7 @@ attributes:
           type: text
           display_for:
           - Personal
-      display_creator_profile:
+      creator_profile_visibility:
         type: string
         form:
           required: false

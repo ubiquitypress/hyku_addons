@@ -18,11 +18,11 @@ module HykuAddons
           return [] if creator_hash.blank?
 
           creators = creator_hash.map do |creator|
-            if %w[Organizational Organisational].include?(creator["creator_name_type"])
-            else
+            unless %w[Organizational Organisational].include?(creator["creator_name_type"])
               user = User.find_by(email: creator["creator_institutional_email"])
-              creator["display_creator_profile"] = user.present? && user.display_profile
+              creator["creator_profile_visibility"] = user.present? && user.display_profile ? "open" : "closed"
             end
+
             creator
           end
 
