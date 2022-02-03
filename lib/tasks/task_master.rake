@@ -19,8 +19,8 @@ namespace :task_master do
       AccountElevator.switch!(account.cname)
 
       works = ActiveFedora::SolrService.get("generic_type_sim:Work", fl: [:id], rows: 1_000_000)
-        .dig("response", "docs")
-        .map { |doc| ActiveFedora::SolrHit.new(doc).reify }
+                                       .dig("response", "docs")
+                                       .map { |doc| ActiveFedora::SolrHit.new(doc).reify }
 
       works.each do |work|
         # Calculate a random time in the next 48 hours for the work to be imported
