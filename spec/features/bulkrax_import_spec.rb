@@ -46,12 +46,12 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
         end
 
         [GenericWork, UvaWork, PacificArticle, NsuGenericWork, NsuArticle].each_with_index do |work, i|
-          work_1 = work.where(source_identifier: "external-id-#{3 * i + 1}").first
-          work_2 = work.where(source_identifier: "external-id-#{3 * i + 2}").first
-          work_3 = work.where(source_identifier: "external-id-#{3 * i + 3}").first
-          expect(work_1.date_published).to eq("1901")
-          expect(work_2.date_published).to eq("1902-2")
-          expect(work_3.date_published).to eq("1903-3-3")
+          work_one = work.where(source_identifier: "external-id-#{3 * i + 1}").first
+          work_two = work.where(source_identifier: "external-id-#{3 * i + 2}").first
+          work_three = work.where(source_identifier: "external-id-#{3 * i + 3}").first
+          expect(work_one.date_published).to eq("1901")
+          expect(work_two.date_published).to eq("1902-2")
+          expect(work_three.date_published).to eq("1903-3-3")
         end
       end
     end
