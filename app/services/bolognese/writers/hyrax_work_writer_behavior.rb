@@ -51,8 +51,7 @@ module Bolognese
         end
 
         def json?(author)
-          JSON.parse(author)
-          true
+          !!JSON.parse(author)
         rescue JSON::ParserError
           false
         end
