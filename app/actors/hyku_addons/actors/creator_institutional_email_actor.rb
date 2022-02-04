@@ -20,14 +20,14 @@ module HykuAddons
           creators = creator_hash.map do |creator|
             unless %w[Organizational Organisational].include?(creator["creator_name_type"])
               user = User.find_by(email: creator["creator_institutional_email"])
-              return if user.blank?
+              next if user.blank?
               creator["creator_profile_visibility"] = user.display_profile_visibility
             end
 
             creator
           end
 
-          env.attributes[:creator] = [creators.to_json]
+          env.attributes[:creator] = [creators.compact.to_json]
         end
     end
   end

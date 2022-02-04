@@ -10,9 +10,7 @@ module HykuAddons
       works.each do |work|
         creator_hash = JSON.parse(work["creator"].first)
         creator_hash.map! do |creator|
-          if creator["creator_institutional_email"] == email
-            creator["creator_profile_visibility"] = display_profile_visibility
-          end
+          creator["creator_profile_visibility"] = display_profile_visibility if creator["creator_institutional_email"] == email
 
           creator
         end
