@@ -10,7 +10,7 @@ RSpec.describe HykuAddons::ToggleDisplayProfileJob, type: :job, clean: true do
         creator_given_name: "Stephen",
         creator_organization_name: "",
         creator_institutional_email: user.email,
-        display_creator_profile: user.display_profile
+        creator_profile_visibility: "closed"
       }
     ].to_json
   end
@@ -27,6 +27,6 @@ RSpec.describe HykuAddons::ToggleDisplayProfileJob, type: :job, clean: true do
   end
 
   it "changes the display profile field for the works where the user is the creator" do
-    expect { HykuAddons::ToggleDisplayProfileJob.perform_now(user.email, !user.display_profile) }.to change { JSON.parse(work.reload["creator"].first).first["display_creator_profile"] }
+    expect { HykuAddons::ToggleDisplayProfileJob.perform_now(user.email, !user.display_profile) }.to change { JSON.parse(work.reload["creator"].first).first["creator_profile_visibility"] }
   end
 end
