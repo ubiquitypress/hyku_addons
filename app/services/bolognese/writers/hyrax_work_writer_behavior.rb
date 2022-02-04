@@ -29,6 +29,33 @@ module Bolognese
           # Ensure we have the singularized `creator` string being used here as we are now processing hyku_addon data
           bologneseify_author_json(type.to_s.singularize, data)
         end
+
+        # This method is being overridden to prevent JSON strings from being titleized
+        # and causing issues with HykuAddons JSON fields
+        def cleanup_author(author)
+          return nil unless author.present?
+
+          # This ensures that we do not corrupt any JSON data that might be passed. Without this, JSON strings are
+          # titleized, which causes JSON parse errors when booleans are included.
+          return author if json?(author)
+
+          # detect pattern "Smith J.", but not "Smith, John K."
+          author = author.gsub(/[[:space:]]([A-Z]\.)?(-?[A-Z]\.)$/, ', \1\2') unless author.include?(",")
+
+          # remove spaces around hyphens
+          author = author.gsub(" - ", "-")
+
+          # titleize strings
+          # remove non-standard space characters
+          author.my_titleize.gsub(/[[:space:]]/, ' ')
+        end
+
+        def json?(author)
+          JSON.parse(author)
+          true
+        rescue JSON::ParserError
+          false
+        end
     end
   end
 end
