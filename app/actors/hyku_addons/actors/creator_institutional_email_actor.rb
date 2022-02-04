@@ -18,9 +18,9 @@ module HykuAddons
           return [] if creator_hash.blank?
 
           creators = creator_hash.map do |creator|
-            creator["creator_profile_visibility"] = "closed"
 
             if creator["creator_name_type"] == "Personal"
+              creator["creator_profile_visibility"] = "closed"
               user = User.find_by(email: creator["creator_institutional_email"])
 
               creator["creator_profile_visibility"] = user.display_profile_visibility if user.present?
