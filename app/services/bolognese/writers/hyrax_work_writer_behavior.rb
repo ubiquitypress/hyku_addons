@@ -49,11 +49,11 @@ module Bolognese
           # remove non-standard space characters
           author.my_titleize.gsub(/[[:space:]]/, ' ')
         end
-      
+
       private
 
         def json?(author)
-          !!JSON.parse(author)
+          JSON.parse(author).present?
         rescue JSON::ParserError
           false
         end
