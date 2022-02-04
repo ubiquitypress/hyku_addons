@@ -22,7 +22,7 @@ module HykuAddons
     end
 
     def display_profile_visibility
-      user.display_profile ? "open" : "closed"
+      display_profile ? "open" : "closed"
     end
 
     def toggle_display_profile
