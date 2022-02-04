@@ -58,7 +58,7 @@ RSpec.feature "Create a UvaWork", js: true do
         creator_institution: "Test Inst.",
         creator_orcid: "0000-0000-1111-2222",
         creator_isni: "56273930281",
-        creator_profile_visibility: "false"
+        creator_profile_visibility: "closed"
       },
       {
         creator_name_type: "Organisational",
