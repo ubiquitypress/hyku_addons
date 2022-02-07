@@ -300,11 +300,17 @@ en:
         read_and_annotate: Read and annotate
       actions_list:
         header: Select an action
+        delete: Delete
+        download: Download
+        edit: Edit
+        read_and_annotate: Read and annotate
+        versions: Versions
       actions_button:
         delete: Delete
         download: Download
         edit: Edit
         read_and_annotate: Read and annotate
+        versions: Versions
   bulkrax:
     validation_issues:
       attribute: "Attribute"
