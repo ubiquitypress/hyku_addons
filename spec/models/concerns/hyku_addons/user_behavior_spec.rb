@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.describe HykuAddons::UserBehavior, type: :model do
   subject(:user) { create(:user) }
 
@@ -26,6 +27,32 @@ RSpec.describe HykuAddons::UserBehavior, type: :model do
       user.department = "software development"
 
       expect { user.save }.not_to have_enqueued_job(HykuAddons::ToggleDisplayProfileJob)
+    end
+  end
+
+  describe "#display_profile" do
+    it "defaults to false" do
+      expect(user.display_profile).to eq false
+    end
+  end
+
+  describe "#display_profile_visibility" do
+    context "when display_profile is true" do
+      it "returns a string 'open'" do
+        user.display_profile = true
+
+        expect(user.display_profile_visibility).to be_a(String)
+        expect(user.display_profile_visibility).to eq(User::PROFILE_VISIBILITY[:open])
+      end
+    end
+
+    context "when display_profile is false" do
+      it "returns a string 'closed'" do
+        user.display_profile = false
+
+        expect(user.display_profile_visibility).to be_a(String)
+        expect(user.display_profile_visibility).to eq(User::PROFILE_VISIBILITY[:closed])
+      end
     end
   end
 end
