@@ -4,8 +4,11 @@ module HykuAddons
   module UserBehavior
     extend ActiveSupport::Concern
 
+    PROFILE_VISIBILITY = { open: "open", closed: "closed" }.freeze
+
     included do
       around_update :toggle_display_profile
+
       validate :must_have_valid_email_format
     end
 
@@ -22,13 +25,17 @@ module HykuAddons
     end
 
     def display_profile_visibility
-      display_profile ? "open" : "closed"
+      PROFILE_VISIBILITY[display_profile ? :open : :closed]
     end
 
-    def toggle_display_profile
-      return unless display_profile_changed?
-      yield
-      HykuAddons::ToggleDisplayProfileJob.perform_later(email, display_profile_visibility)
-    end
+    protected
+
+      def toggle_display_profile
+        return unless display_profile_changed?
+
+        yield
+
+        HykuAddons::ToggleDisplayProfileJob.perform_later(email, display_profile_visibility)
+      end
   end
 end
