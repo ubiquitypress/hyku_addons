@@ -9,7 +9,7 @@ namespace :task_master do
   end
 
   task count_all: :environment do
-    Account.all.each do |account|
+    Account.where(search_only: false).each do |account|
       AccountElevator.switch!(account.cname)
 
       works = ActiveFedora::SolrService.get("generic_type_sim:Work", fl: [:id], rows: 1_000_000).dig("response", "numFound")
