@@ -35,7 +35,7 @@ module HykuAddons
         end
 
         def extract_creators(env)
-          JSON.parse(env.curation_concern[:creator]&.first || "{}")
+          JSON.parse(env.attributes[:creator]&.first || "{}")
         end
     end
   end
