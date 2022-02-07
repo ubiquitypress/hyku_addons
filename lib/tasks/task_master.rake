@@ -19,7 +19,6 @@ namespace :task_master do
     end
   end
 
-
   # NOTE: The reason there is such a large delay (1 second to 3 dys) on the task is to avoid flooding Fedora,
   # which is incredibly slow and can get backlogged very quickly, causing jobs to fail and be rescheduled,
   # running again and causing a cascade of failures which ends up using up all resources.
@@ -32,8 +31,8 @@ namespace :task_master do
       AccountElevator.switch!(account.cname)
 
       works = ActiveFedora::SolrService.get("generic_type_sim:Work", fl: [:id], rows: 1_000_000)
-        .dig("response", "docs")
-        .map { |doc| ActiveFedora::SolrHit.new(doc).reify }
+                                       .dig("response", "docs")
+                                       .map { |doc| ActiveFedora::SolrHit.new(doc).reify }
 
       works.each do |work|
         # Calculate a random time in the next 48 hours for the work to be imported
