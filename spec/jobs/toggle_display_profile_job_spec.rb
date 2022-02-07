@@ -10,7 +10,7 @@ RSpec.describe HykuAddons::ToggleDisplayProfileJob, type: :job, clean: true do
         creator_given_name: "Stephen",
         creator_organization_name: "",
         creator_institutional_email: user.email,
-        creator_profile_visibility: "closed"
+        creator_profile_visibility: User::PROFILE_VISIBILITY[:closed]
       }
     ].to_json
   end
