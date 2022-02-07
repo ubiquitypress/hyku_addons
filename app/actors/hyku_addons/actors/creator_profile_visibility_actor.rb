@@ -25,7 +25,6 @@ module HykuAddons
             if creator["creator_name_type"] == "Personal"
               user = User.find_by(email: creator["creator_institutional_email"])
 
-          byebug
               creator["creator_profile_visibility"] = user&.display_profile_visibility || User::PROFILE_VISIBILITY[:closed]
             end
 
