@@ -26,9 +26,8 @@ module HykuAddons
     end
 
     def toggle_display_profile
-      return unless display_profile_changed?
+      HykuAddons::ToggleDisplayProfileJob.perform_later(email, display_profile_visibility) if display_profile_changed?
       yield
-      HykuAddons::ToggleDisplayProfileJob.perform_later(email, display_profile_visibility)
     end
   end
 end
