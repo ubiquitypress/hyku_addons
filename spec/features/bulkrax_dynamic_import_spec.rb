@@ -2,11 +2,12 @@
 
 require "rails_helper"
 require "csv"
-require HykuAddons::Engine.root.join("spec", "support", "bulkrax",  "csv_reader_helper.rb").to_s
-require HykuAddons::Engine.root.join("spec", "support", "bulkrax",  "csv_writer_helper.rb").to_s
 
 # rubocop:disable RSpec/InstanceVariable
 RSpec.describe "Bulkrax import", clean: true, slow: true do
+  include CsvWriterHelper
+  include CsvReaderHelper
+
   let(:user) { create(:user, email: "test@example.com") }
   let(:depositor) { build_stubbed(:user, email: "batchuser@example.com") }
 
