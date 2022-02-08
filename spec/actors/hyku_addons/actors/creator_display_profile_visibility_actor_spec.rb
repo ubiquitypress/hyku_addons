@@ -81,7 +81,7 @@ RSpec.describe HykuAddons::Actors::CreatorProfileVisibilityActor do
 
     context "when the display profile is false" do
       it "doesn't change the value" do
-        expect {  middleware.update(env) }
+        expect { middleware.update(env) }
           .not_to change { JSON.parse(env.attributes[:creator].first).first.dig(key) }
       end
     end
@@ -92,7 +92,7 @@ RSpec.describe HykuAddons::Actors::CreatorProfileVisibilityActor do
       end
 
       it "does change the value" do
-        expect {  middleware.update(env) }
+        expect { middleware.update(env) }
           .to change { JSON.parse(env.attributes[:creator].first).first.dig(key) }
       end
     end
