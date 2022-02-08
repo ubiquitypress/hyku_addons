@@ -3,6 +3,23 @@
 RSpec.describe HykuAddons::UserBehavior, type: :model do
   subject(:user) { create(:user) }
 
+  describe ".with_public_profile" do
+    subject(:query) { User.with_public_profile }
+    let(:public_user) { create(:user, display_profile: true) }
+
+    before do
+      user && public_user
+    end
+
+    it "doesn't return private users" do
+      expect(query).to include(public_user)
+      expect(query).not_to include(user)
+    end
+
+    it "doesn't affect normal queries" do
+      expect(User.all.count).to eq 2
+    end
+  end
   describe "#save" do
     let(:creator) do
       [
