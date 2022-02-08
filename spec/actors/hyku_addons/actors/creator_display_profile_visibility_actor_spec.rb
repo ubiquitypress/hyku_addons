@@ -14,8 +14,8 @@ RSpec.describe HykuAddons::Actors::CreatorProfileVisibilityActor do
       }
     ].to_json
   end
-  let(:work) { create(:work, creator: [creator]) }
-  let(:account) { create(:account) }
+  let(:work) { build_stubbed(:work, creator: [creator]) }
+  let(:account) { build_stubbed(:account) }
   let(:site) { Site.new(account: account) }
 
   # Middleware Setup
