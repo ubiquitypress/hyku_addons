@@ -3,6 +3,31 @@
 RSpec.describe HykuAddons::UserBehavior, type: :model do
   subject(:user) { create(:user) }
 
+  describe "validations" do
+    context "email_format" do
+      let(:account) { create(:account, settings: { email_format: ["@abc.com", "@123.com"] }) }
+      let(:site) { Site.new(account: account) }
+
+      before do
+        allow(Site).to receive(:instance).and_return(site)
+      end
+
+      context "when the users email address is not in the list" do
+        it "is invalid" do
+          expect { user.valid? }.to raise_error(ActiveRecord::RecordInvalid)
+        end
+      end
+
+      context "when the users email address is in the list" do
+        subject(:user) { create(:user, email: "test@abc.com") }
+
+        it "is valid" do
+          expect { user.valid? }.not_to raise_error
+        end
+      end
+    end
+  end
+
   describe ".with_public_profile" do
     subject(:query) { User.with_public_profile }
     let(:public_user) { create(:user, display_profile: true) }
@@ -20,6 +45,7 @@ RSpec.describe HykuAddons::UserBehavior, type: :model do
       expect(User.all.count).to eq 2
     end
   end
+
   describe "#save" do
     let(:creator) do
       [
