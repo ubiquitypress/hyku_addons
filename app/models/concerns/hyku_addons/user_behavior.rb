@@ -14,11 +14,6 @@ module HykuAddons
       scope :with_public_profile, -> { where(display_profile: true) }
     end
 
-    # NOTE: Is this used anywhere?
-    def current_account
-      Site.account
-    end
-
     def display_profile_visibility
       PROFILE_VISIBILITY[display_profile ? :open : :closed]
     end
