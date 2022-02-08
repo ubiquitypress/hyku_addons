@@ -24,9 +24,9 @@ module HykuAddons
       def email_format
         email_formats = Site.account&.settings&.dig("email_format")
 
-        return if email_formats.blank? || email_formats.include?("@#{email.split("@").last}")
+        return if email_formats.blank? || email_formats.include?("@#{email.split('@').last}")
 
-        message = "must contain #{email_formats.to_sentence(two_words_connector: " or ", last_word_connector: ", or ")}"
+        message = "must contain #{email_formats.to_sentence(two_words_connector: ' or ', last_word_connector: ', or ')}"
         errors.add(:email, message)
       end
 
