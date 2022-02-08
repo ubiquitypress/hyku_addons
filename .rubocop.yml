@@ -9,7 +9,7 @@ AllCops:
     - "bin/*"
     - "spec/internal_test_hyku/**/*"
     - "app/jobs/hyku_addons/post_migration_fix_work_job.rb"
-    - 'vendor/**/*'
+    - "vendor/**/*"
 
 Metrics/ModuleLength:
   Max: 165
