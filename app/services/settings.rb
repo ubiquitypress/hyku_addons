@@ -2,7 +2,7 @@
 
 class Settings
   def self.switch!(name: nil, settings: {})
-    settings_files = Config.setting_files(Rails.root.join('config'), Rails.env)
+    settings_files = Config.setting_files(Rails.root.join("config"), Rails.env)
     settings_files += [tenant_settings_filename(name)] if name
     config = Config.load_files(settings_files)
     config.add_source!(Config::Sources::EnvSource.new(ENV, prefix: tenant_settings_prefix(name))) if name
@@ -27,7 +27,7 @@ class Settings
   end
 
   def self.tenant_settings_filename(name)
-    Rails.root.join('config', 'settings', "#{Rails.env}-#{name.upcase}.yml")
+    Rails.root.join("config", "settings", "#{Rails.env}-#{name.upcase}.yml")
   end
 
   def self.tenant_settings_prefix(name)

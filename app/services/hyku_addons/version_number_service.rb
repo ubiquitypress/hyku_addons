@@ -2,7 +2,7 @@
 module HykuAddons
   class VersionNumberService < HykuAddons::QaSelectService
     def initialize(model: nil)
-      super('version_number', model: model)
+      super("version_number", model: model)
     end
   end
 end

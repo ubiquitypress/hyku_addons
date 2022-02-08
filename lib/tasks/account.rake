@@ -2,7 +2,7 @@
 
 namespace :hyku do
   namespace :account do
-    desc 'Create an account'
+    desc "Create an account"
     task :create, [:name, :uuid, :cname, :admin_emails] => [:environment] do |_t, args|
       account = Account.new(name: args[:name], tenant: args[:uuid].presence, cname: args[:cname].presence)
       CreateAccount.new(account).save
@@ -16,11 +16,11 @@ namespace :hyku do
 
     # example usage
     # bundle exec rake 'app:hyku:account:create_shared[sample, 1ab4, sample.hyku.docker, 27,29 ]'
-    desc 'Create a shared search account'
+    desc "Create a shared search account"
     task :create_shared, [:name, :uuid, :cname, :tenant_ids] => [:environment] do |_t, args|
-      tenant_list = Array.wrap(args.to_a[3..-1]).compact - ['']
+      tenant_list = Array.wrap(args.to_a[3..-1]).compact - [""]
 
-      raise ArgumentError, 'Provide a list of tenants seperated by commas as last argument' if tenant_list.blank?
+      raise ArgumentError, "Provide a list of tenants seperated by commas as last argument" if tenant_list.blank?
 
       puts "====== instantiating a shared-search account"
 
@@ -34,7 +34,7 @@ namespace :hyku do
       puts "====== shared-search account created"
     end
 
-    desc 'destroy an account and all the data within'
+    desc "destroy an account and all the data within"
     task :cleanup, [:tenant] => [:environment] do |_t, args|
       account = load_account(args[:tenant])
       if check_confirmation(account)
@@ -47,7 +47,7 @@ namespace :hyku do
       exit 1
     end
 
-    desc 'Update the frontend url of an account'
+    desc "Update the frontend url of an account"
     task :frontend_url, [:tenant, :frontend_url] => [:environment] do |_t, args|
       account = load_account(args[:tenant])
       if HykuAddons::UpdateAccountFrontendUrl.new(account, args[:frontend_url]).perform
@@ -57,7 +57,7 @@ namespace :hyku do
       end
     end
 
-    desc 'Update the cname of an account'
+    desc "Update the cname of an account"
     task :cname, [:tenant, :cname] => [:environment] do |_t, args|
       account = load_account(args[:tenant])
       if HykuAddons::UpdateAccountCname.new(account, args[:cname]).perform
@@ -79,7 +79,7 @@ def load_account(tenant)
 end
 
 def check_confirmation(account)
-  unless ENV['CONFIRM'] == 'yes'
+  unless ENV["CONFIRM"] == "yes"
     $stderr.puts <<-EOC
 WARNING: This process will destroy all data for this tenant in:
 DB: All tables

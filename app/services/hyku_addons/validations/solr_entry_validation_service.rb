@@ -6,15 +6,15 @@ module HykuAddons
       attr_reader :errors, :entry
 
       SOURCE_SERVICE_OPTIONS = {
-        base_url: ENV['BULKRAX_SOURCE_BASE_URL'],
-        username: ENV['BULKRAX_SOURCE_USERNAME'],
-        password: ENV['BULKRAX_SOURCE_PASSWORD']
+        base_url: ENV["BULKRAX_SOURCE_BASE_URL"],
+        username: ENV["BULKRAX_SOURCE_USERNAME"],
+        password: ENV["BULKRAX_SOURCE_PASSWORD"]
       }.with_indifferent_access.freeze
 
       DESTINATION_SERVICE_OPTIONS = {
-        base_url: ENV['BULKRAX_DESTINATION_BASE_URL'],
-        username: ENV['BULKRAX_DESTINATION_USERNAME'],
-        password: ENV['BULKRAX_DESTINATION_PASSWORD']
+        base_url: ENV["BULKRAX_DESTINATION_BASE_URL"],
+        username: ENV["BULKRAX_DESTINATION_USERNAME"],
+        password: ENV["BULKRAX_DESTINATION_PASSWORD"]
       }.with_indifferent_access.freeze
 
       EXCLUDED_FIELDS = %i[
@@ -30,11 +30,11 @@ module HykuAddons
       RENAMED_FIELDS = {
         creator_search_tesim: "creator_display_ssim",
         contributor_list_tesim: "contributor_display_ssim",
-        date_uploaded_dtsi: 'date_uploaded_ssi',
-        version_tesim: 'version_number_tesim',
-        collection_id_tesim: 'member_of_collection_ids_ssim',
-        collection_names_tesim: 'member_of_collections_ssim',
-        doi_tesim: 'official_link'
+        date_uploaded_dtsi: "date_uploaded_ssi",
+        version_tesim: "version_number_tesim",
+        collection_id_tesim: "member_of_collection_ids_ssim",
+        collection_names_tesim: "member_of_collections_ssim",
+        doi_tesim: "official_link"
       }.with_indifferent_access.freeze
 
       EXCLUDED_FIELDS_WITH_VALUES = {
@@ -119,7 +119,7 @@ module HykuAddons
         end
 
         def reevaluate_admin_set_tesim(old_value)
-          Array.wrap(old_value).first == "Default Admin Set" ? ['Default'] : old_value
+          Array.wrap(old_value).first == "Default Admin Set" ? ["Default"] : old_value
         end
 
         def reevaluate_resource_type_tesim(old_value)
@@ -175,7 +175,7 @@ module HykuAddons
         end
 
         def gross_work_type_name(alt_name)
-          alt_name.first.gsub(/Pacific|Work|\s*/, '')
+          alt_name.first.gsub(/Pacific|Work|\s*/, "")
         end
     end
   end

@@ -40,5 +40,4 @@ Flipflop.configure do
   feature :gds_reports,
           default: false,
           description: "Add Google Data Studio reports to the dashaboard"
-  
 end

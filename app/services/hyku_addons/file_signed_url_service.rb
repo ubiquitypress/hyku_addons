@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'google/cloud/storage'
+require "google/cloud/storage"
 
 # Example:
 # https://demo.ubiquityrepo-ah.website/concern/file_sets/d6facdbe-da76-47ef-8544-555b8acf0523?locale=en
@@ -34,7 +34,7 @@ module HykuAddons
       end
 
       def grouped_digest
-        digest.split('').in_groups_of(2).first(3).map(&:join).join("/")
+        digest.split("").in_groups_of(2).first(3).map(&:join).join("/")
       end
 
       def digest

@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
-require 'csv'
-require 'optparse'
-require 'json'
-require 'securerandom'
+require "csv"
+require "optparse"
+require "json"
+require "securerandom"
 
 JSON_FIELDS = ["creator", "contributor", "editor", "funder"].freeze
 DOI_REGEX = /10\.\d{4,}(\.\d+)*\/[-._;():\/A-Za-z\d]+/
@@ -21,7 +21,7 @@ options_parser = OptionParser.new do |opts|
   end
 
   opts.on("-j", "--json_fields [JSON_FIELDS]", "List of JSON fields in batch") do |json_fields|
-    options[:json_fields] = json_fields.split(',')
+    options[:json_fields] = json_fields.split(",")
   end
 
   opts.on("-f", "--[no-]files", "Include files") do |files|
@@ -36,7 +36,7 @@ options_parser = OptionParser.new do |opts|
     options[:start_row] = start.to_i
   end
 
-  opts.on('--[no-]new-ids', "Create new ids for all rows and collections") do |new_ids|
+  opts.on("--[no-]new-ids", "Create new ids for all rows and collections") do |new_ids|
     options[:new_ids] = new_ids
   end
 
@@ -66,9 +66,9 @@ headers = csv[0]
 @fields = {}
 
 # JSON fields are excluded from the multiple fields even though they have indexed suffixes
-multiple_field_names = headers.reject { |h| h.start_with?(*options[:json_fields]) }.select { |h| h.match?(/.+_\d+$/) }.collect { |h| h.sub(/_\d+$/, '') }.uniq
+multiple_field_names = headers.reject { |h| h.start_with?(*options[:json_fields]) }.select { |h| h.match?(/.+_\d+$/) }.collect { |h| h.sub(/_\d+$/, "") }.uniq
 new_headers = headers.reject { |h| h.start_with?(*multiple_field_names) } + multiple_field_names
-new_headers -= ['file'] unless options[:include_files]
+new_headers -= ["file"] unless options[:include_files]
 
 # Handle fields that have indexed headers volume_1, volume_2, etc.
 multiple_field_names.each do |field|
@@ -78,7 +78,7 @@ multiple_field_names.each do |field|
 end
 
 # Handle all other headers
-headers.reject { |h| h.start_with?(*multiple_field_names) || h == 'file' }.each do |field|
+headers.reject { |h| h.start_with?(*multiple_field_names) || h == "file" }.each do |field|
   old_index = headers.index(field)
   new_index = new_headers.index(field)
   @fields[field] = { old_indexes: [old_index], new_index: new_index }
@@ -86,15 +86,15 @@ end
 
 # Rename fields
 field_mappings = {
-  'id' => 'source_identifier',
-  'collection_id' => 'collection',
-  'work_type' => 'model',
-  'additional_information' => 'add_info',
-  'alternative_title' => 'alt_title',
-  'organisational_unit' => 'org_unit',
-  'doi' => 'official_link',
-  'version' => 'version_number',
-  'locations' => 'location'
+  "id" => "source_identifier",
+  "collection_id" => "collection",
+  "work_type" => "model",
+  "additional_information" => "add_info",
+  "alternative_title" => "alt_title",
+  "organisational_unit" => "org_unit",
+  "doi" => "official_link",
+  "version" => "version_number",
+  "locations" => "location"
 }
 
 field_mappings.each do |old_name, new_name|
@@ -105,9 +105,9 @@ end
 
 def gather_values(field, row, options)
   field_values = row.values_at(*@fields[field][:old_indexes])
-  if field == 'resource_type'
+  if field == "resource_type"
     model_name = row.values_at(*@fields["model"][:old_indexes]).first
-    values = field_values.map { |v| v.delete_prefix(model_name + " ").delete_prefix('default ').delete_prefix('Default ').titleize }
+    values = field_values.map { |v| v.delete_prefix(model_name + " ").delete_prefix("default ").delete_prefix("Default ").titleize }
     values.map do |v|
       if HykuAddons::ResourceTypesService.new(model: "Pacific#{model_name}".delete_suffix("Work").safe_constantize).authority.find(v).blank?
         puts "Invalid resource type found for #{model_name}, #{v}, #{row[0]}...Defaulting to \"#{model_name}\""
@@ -116,23 +116,25 @@ def gather_values(field, row, options)
         v
       end
     end
-  elsif field == 'model'
+  elsif field == "model"
     # FIXME: make this model mapping configurable
     field_values.map do |v|
       "Pacific" + (v == "TextWork" ? v : v.delete_suffix("Work"))
     end
-  elsif field == 'doi'
+  elsif field == "doi"
     # Extract DOI from DOI url
     field_values.map do |v|
       v&.match(DOI_REGEX)&.to_s
     end
   elsif field.match?(/_role/)
     field_values.map do |v|
-      JSON.parse(v).join('|') rescue nil
+      JSON.parse(v).join("|")
+    rescue
+      nil
     end
-  elsif field == 'source_identifier'
+  elsif field == "source_identifier"
     options[:new_ids] ? [SecureRandom.uuid] : field_values
-  elsif field == 'collection'
+  elsif field == "collection"
     options[:new_ids] ? [SecureRandom.uuid] : field_values
   else
     field_values
@@ -143,7 +145,7 @@ end
 CSV.open(options[:output], "wb") do |write_csv|
   write_csv << new_headers
   csv.slice(options[:start_row]..(options[:start_row] + options[:rows] - 1)).each do |row|
-    new_row = new_headers.collect { |field| gather_values(field, row, options).select { |value| !value.nil? && value != '' }.join("|") }
+    new_row = new_headers.collect { |field| gather_values(field, row, options).select { |value| !value.nil? && value != "" }.join("|") }
     write_csv << new_row
   end
 end

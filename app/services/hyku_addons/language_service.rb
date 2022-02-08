@@ -2,7 +2,7 @@
 module HykuAddons
   class LanguageService < HykuAddons::QaSelectService
     def initialize(model: nil)
-      super('language', model: model)
+      super("language", model: model)
     end
   end
 end

@@ -11,7 +11,7 @@ class Article < ActiveFedora::Base
 
   self.indexer = HykuAddons::ArticleIndexer
 
-  validates :title, presence: { message: 'Your work must have a title.' }
+  validates :title, presence: { message: "Your work must have a title." }
 
   property :journal_title, predicate: ::RDF::Vocab::BIBO.Journal, multiple: false do |index|
     index.as :stored_searchable, :facetable

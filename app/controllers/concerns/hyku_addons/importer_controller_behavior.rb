@@ -7,7 +7,7 @@ module HykuAddons
       class_eval do
         def show
           if api_request?
-            json_response('show')
+            json_response("show")
           else
             add_importer_breadcrumbs
             add_breadcrumb @importer.name
@@ -18,8 +18,8 @@ module HykuAddons
               format.html
               format.csv do
                 send_data(HykuAddons::Validations::ImporterReportService.new(@importer).perform(self),
-                          type: 'text/csv; charset=utf-8; header=present',
-                          disposition: 'attachment; filename=importer-report.csv')
+                          type: "text/csv; charset=utf-8; header=present",
+                          disposition: "attachment; filename=importer-report.csv")
               end
             end
           end

@@ -18,10 +18,10 @@ json.cache! [@account, :collections, collection.id, collection.solr_document[:_v
   json.thumbnail_url collection.solr_document.thumbnail_path
   if Hyrax::PresenterFactory.build_for(ids: [collection.solr_document.thumbnail_id], presenter_class: Hyrax::FileSetPresenter, presenter_args: [current_ability, request]).first&.solr_document&.public?
     components = {
-      scheme: Rails.application.routes.default_url_options.fetch(:protocol, 'http'),
+      scheme: Rails.application.routes.default_url_options.fetch(:protocol, "http"),
       host: @account.cname,
-      path: collection.thumbnail_path.split('?')[0],
-      query: collection.thumbnail_path.split('?')[1]
+      path: collection.thumbnail_path.split("?")[0],
+      query: collection.thumbnail_path.split("?")[1]
     }
     json.thumbnail_url URI::Generic.build(components).to_s
   else
@@ -36,7 +36,7 @@ json.cache! [@account, :collections, collection.id, collection.solr_document[:_v
   banner = ::HykuAddons::CollectionBrandingFetcher.new.collection_banner(collection.id, @account.cname)
   if banner.present?
     components = {
-      scheme: Rails.application.routes.default_url_options.fetch(:protocol, 'http'),
+      scheme: Rails.application.routes.default_url_options.fetch(:protocol, "http"),
       host: @account.cname,
       path: "/" + banner.first.local_path.split("/")[-4..-1].join("/"),
       alt_text: banner.first.alt_text
@@ -49,6 +49,6 @@ end
 
 if local_assigns[:include_works]
   json.works do
-    json.partial! 'hyku/api/v1/work/work', collection: @works, as: :work, collection_docs: Array.wrap(@collection_member_search_results)
+    json.partial! "hyku/api/v1/work/work", collection: @works, as: :work, collection_docs: Array.wrap(@collection_member_search_results)
   end
 end

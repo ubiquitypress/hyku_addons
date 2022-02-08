@@ -11,9 +11,9 @@ module HykuAddons
     end
 
     def file_paths
-      raise StandardError, 'No records were found' if records.blank?
+      raise StandardError, "No records were found" if records.blank?
       @file_paths ||= records.map do |r|
-        file_mapping = Bulkrax.field_mappings.dig(self.class.to_s, 'file', :from)&.first&.to_sym || :file
+        file_mapping = Bulkrax.field_mappings.dig(self.class.to_s, "file", :from)&.first&.to_sym || :file
         next unless r[file_mapping].present?
 
         r[file_mapping].split(/\s*[:;|]\s*/).map do |f|
@@ -32,17 +32,17 @@ module HykuAddons
     # @todo - investigate using perform_later, and having the importer check for
     #   DownloadCloudFileJob before it starts
     def retrieve_cloud_files(files)
-      files_path = File.join(path_for_import, 'files')
+      files_path = File.join(path_for_import, "files")
       FileUtils.mkdir_p(files_path) unless File.exist?(files_path)
       files.each_pair do |_key, file|
         # fixes bug where auth headers do not get attached properly
-        if file['auth_header'].present?
-          file['headers'] ||= {}
-          file['headers'].merge!(file['auth_header'])
+        if file["auth_header"].present?
+          file["headers"] ||= {}
+          file["headers"].merge!(file["auth_header"])
         end
         # this only works for uniquely named files
         # HACK: Override the tr method to prevent spaces from being changes to underscores
-        target_file = File.join(files_path, file['file_name'])
+        target_file = File.join(files_path, file["file_name"])
         # Now because we want the files in place before the importer runs
         # Problematic for a large upload
         Bulkrax::DownloadCloudFileJob.perform_now(file, target_file)
@@ -66,7 +66,7 @@ module HykuAddons
     end
 
     def path_to_files
-      ENV['BULKRAX_FILE_PATH'].presence || super
+      ENV["BULKRAX_FILE_PATH"].presence || super
     end
 
     # Override to use #entries_to_export for better handling of limiting
@@ -101,7 +101,7 @@ module HykuAddons
       return @total if @total&.positive?
       @total = if importer?
                  # @total ||= `wc -l #{parser_fields['import_file_path']}`.to_i - 1
-                 `grep -vc ^$ #{parser_fields['import_file_path']}`.to_i - 1
+                 `grep -vc ^$ #{parser_fields["import_file_path"]}`.to_i - 1
                elsif exporter?
                  importerexporter.entries.count
                else

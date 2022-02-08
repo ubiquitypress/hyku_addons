@@ -19,6 +19,6 @@ json.cache! [:tenants, account, content_blocks] do
 
   json.settings settings
   # Avoid returning attributes beyond what the original UP API returned for now
-  json.partial! 'site', account: account, site: site
+  json.partial! "site", account: account, site: site
   json.content_block content_blocks
 end

@@ -20,7 +20,7 @@ module HykuAddons
 
       def reindex(cname)
         AccountElevator.switch!(cname)
-        available_works = Site.first.available_works | ['Collection']
+        available_works = Site.first.available_works | ["Collection"]
 
         available_works.each do |model_class|
           klass = model_class.constantize

@@ -7,7 +7,7 @@ module HykuAddons
 
     def call(field = nil)
       scope = relation
-              .where(status_message: 'Complete', error_message: nil)
+              .where(status_message: "Complete", error_message: nil)
               .where.not(error_backtrace: nil)
       field.blank? ? scope : scope.where("error_backtrace LIKE ?", "%#{field}%")
     end

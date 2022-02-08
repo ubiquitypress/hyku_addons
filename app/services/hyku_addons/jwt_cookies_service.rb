@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'jwt'
+require "jwt"
 
 # Manages the JWT authentication cookies based on Warden callbacks.
 module HykuAddons
@@ -24,7 +24,7 @@ module HykuAddons
     def remove_jwt_cookies
       return unless @account.present?
       %i[jwt refresh].each do |cookie|
-        set_jwt_cookie(cookie, value: '', expires: 10_000.hours.ago)
+        set_jwt_cookie(cookie, value: "", expires: 10_000.hours.ago)
       end
     end
 
@@ -40,9 +40,9 @@ module HykuAddons
 
       def default_cookie_options
         {
-          path: '/',
+          path: "/",
           same_site: :lax,
-          domain: ('.' + cookie_domain),
+          domain: ("." + cookie_domain),
           secure: Rails.env.production?,
           httponly: true
         }
@@ -54,7 +54,7 @@ module HykuAddons
 
       def user_roles(user)
         # Need to call `.uniq` because admin role can appear twice
-        user.roles.map(&:name).uniq - ['super_admin']
+        user.roles.map(&:name).uniq - ["super_admin"]
       end
   end
 end
