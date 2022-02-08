@@ -18,6 +18,7 @@ module HykuAddons
       registered_attributes.collect { |attr| [attr, send(attr)] }.to_h
     end
 
+    # rubocop:disable Metrics/BlockLength
     included do
       class_attribute :registered_attributes
       # Pre-seed registered attributes because they have already been created before this module is included
@@ -140,5 +141,6 @@ module HykuAddons
         subject: "keyword_tesim"
       )
     end
+    # rubocop:enable Metrics/BlockLength
   end
 end

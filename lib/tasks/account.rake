@@ -78,6 +78,7 @@ def load_account(tenant)
   account
 end
 
+# rubocop:disable Metrics/MethodLength
 def check_confirmation(account)
   unless ENV["CONFIRM"] == "yes"
     $stderr.puts <<-EOC
@@ -99,3 +100,4 @@ Please run `rake hyku:account:cleanup[{tenant}] CONFIRM=yes` to confirm.
   end
   true
 end
+# rubocop:enable Metrics/MethodLength

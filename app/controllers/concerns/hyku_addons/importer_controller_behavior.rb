@@ -1,10 +1,14 @@
 # frozen_string_literal: true
+
 module HykuAddons
   module ImporterControllerBehavior
     extend ActiveSupport::Concern
 
+    # rubocop:disable Metrics/BlockLength
     included do
       class_eval do
+        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable Metrics/MethodLength
         def show
           if api_request?
             json_response("show")
@@ -12,8 +16,15 @@ module HykuAddons
             add_importer_breadcrumbs
             add_breadcrumb @importer.name
 
-            @work_entries = @importer.entries.where(type: @importer.parser.entry_class.to_s).page(params[:work_entries_page]).per(30)
-            @collection_entries = @importer.entries.where(type: @importer.parser.collection_entry_class.to_s).page(params[:collections_entries_page]).per(30)
+            @work_entries = @importer.entries
+                                     .where(type: @importer.parser.entry_class.to_s)
+                                     .page(params[:work_entries_page])
+                                     .per(30)
+            @collection_entries = @importer.entries
+                                           .where(type: @importer.parser.collection_entry_class.to_s)
+                                           .page(params[:collections_entries_page])
+                                           .per(30)
+
             respond_to do |format|
               format.html
               format.csv do
@@ -24,7 +35,10 @@ module HykuAddons
             end
           end
         end
+        # rubocop:enable Metrics/AbcSize
+        # rubocop:enable Metrics/MethodLength
       end
     end
+    # rubocop:enable Metrics/BlockLength
   end
 end

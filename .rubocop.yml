@@ -5,20 +5,57 @@ AllCops:
   UseCache: true
   TargetRubyVersion: 2.5
   DisplayCopNames: true
+  Exclude:
+    - "bin/*"
+    - "spec/internal_test_hyku/**/*"
+    - "app/jobs/hyku_addons/post_migration_fix_work_job.rb"
 
-RSpec/ExampleLength:
-  Max: 10
+Metrics/ModuleLength:
+  Max: 165
+
+Metrics/ClassLength:
+  Max: 160
+
+Style/StructInheritance:
+  Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
   SupportedStyles:
     - single_quotes
     - double_quotes
-  Exclude:
-    - "lib/hyku_addons/engine.rb"
 
 Metrics/BlockLength:
   Exclude:
     - "lib/hyku_addons/engine.rb"
     - "lib/tasks/*.rake"
     - "spec/**/*.rb"
+
+Metrics/LineLength:
+  Exclude:
+    - "spec/**/*"
+
+# Not sure if the use of `where.first` is an issue with ActiveFedora, but something to look into
+Rails/FindBy:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Exclude:
+    - "spec/**/*.rb"
+
+RSpec/DescribeClass:
+  Exclude:
+    - "spec/features/**/*"
+    - "spec/system/**/*"
+    - "spec/tasks/**/*"
+
+RSpec/ExampleLength:
+  Max: 10
+  Exclude:
+    - "spec/**/*.rb"
+
+RSpec/LetSetup:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false

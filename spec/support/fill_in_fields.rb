@@ -86,11 +86,13 @@ def fill_in_cloneable_date_field(field, values)
     end
   end
 end
+# rubocop:enable Metrics/MethodLength
 
 # Fill in a cloneable element like Creator/Contributor/Editor
 # @param field [Symbol] the field that we wish to target
 # @param values [Hash, Array] the hash (or array of hashes) where each key is the name of the subfield
 # rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
 def fill_in_cloneable(field, values)
   values = Array.wrap(values)
 
@@ -129,6 +131,7 @@ def fill_in_cloneable(field, values)
   end
 end
 # rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/MethodLength
 
 # FIll in a multiple select field
 #
@@ -220,6 +223,7 @@ def fill_in_legacy_json_field(field, value)
 end
 
 # Some fields have not been updated for years, alternative_identifier/related_identifier for example
+# rubocop:disable Metrics/MethodLength
 def fill_in_legacy_cloneable_field(field, value)
   values = Array.wrap(value)
 
@@ -243,3 +247,4 @@ def fill_in_legacy_cloneable_field(field, value)
     end
   end
 end
+# rubocop:enable Metrics/MethodLength

@@ -1,4 +1,8 @@
 # frozen_string_literal: true
+
+# rubocop:disable Metrics/LineLength
+# rubocop:disable Metrics/BlockLength
+# rubocop:disable Metrics/ModuleLength
 module HykuAddons
   module CatalogControllerBehavior
     extend ActiveSupport::Concern
@@ -19,9 +23,18 @@ module HykuAddons
         config.add_facet_field solr_name("audience", :facetable), limit: 5, label: "OER Audience", if: proc { |context, _config, _opts| context.send(:current_account)&.settings&.dig("locale_name") == "redlands" }
         config.add_facet_field "file_availability", query: {
           # TODO: use i18n
-          available: { label: "File available from this repository", fq: "generic_type_sim:Work AND ({!join from=id to=file_set_ids_ssim}visibility_ssi:open)" },
-          external_link: { label: "External link (access may be restricted)", fq: "generic_type_sim:Work AND -doi_status_when_public_ssi:findable AND -doi_status_when_public_ssi:registered AND official_link_tesim:[* TO *]" },
-          not_available: { label: "File not available", fq: "generic_type_sim:Work AND ({!join from=id to=file_set_ids_ssim}-visibility_ssi:open) AND ((*:* AND -official_link_tesim:[* TO *]) OR ((doi_status_when_public_ssi:findable OR doi_status_when_public_ssi:registered) AND official_link_tesim:[* TO *]))" }
+          available: {
+            label: "File available from this repository",
+            fq: "generic_type_sim:Work AND ({!join from=id to=file_set_ids_ssim}visibility_ssi:open)"
+          },
+          external_link: {
+            label: "External link (access may be restricted)",
+            fq: "generic_type_sim:Work AND -doi_status_when_public_ssi:findable AND -doi_status_when_public_ssi:registered AND official_link_tesim:[* TO *]"
+          },
+          not_available: {
+            label: "File not available",
+            fq: "generic_type_sim:Work AND ({!join from=id to=file_set_ids_ssim}-visibility_ssi:open) AND ((*:* AND -official_link_tesim:[* TO *]) OR ((doi_status_when_public_ssi:findable OR doi_status_when_public_ssi:registered) AND official_link_tesim:[* TO *]))"
+          }
         }
         config.add_facet_fields_to_solr_request!
 
@@ -357,3 +370,6 @@ module HykuAddons
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength
+# rubocop:enable Metrics/BlockLength
+# rubocop:enable Metrics/LineLength

@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+# rubocop:disable Metrics/BlockLength
 Flipflop.configure do
   feature :oai_endpoint,
           default: true,
@@ -41,3 +43,4 @@ Flipflop.configure do
           default: false,
           description: "Add Google Data Studio reports to the dashaboard"
 end
+# rubocop:enable Metrics/BlockLength

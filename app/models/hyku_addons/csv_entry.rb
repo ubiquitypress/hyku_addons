@@ -35,6 +35,7 @@ module HykuAddons
       begin
         super
       rescue
+        nil
       end || factory.find
     end
 

@@ -8,6 +8,7 @@ require "hyrax/doi/engine"
 require "bolognese/metadata"
 require "cocoon"
 
+# rubocop:disable Metrics/ClassLength
 module HykuAddons
   class Engine < ::Rails::Engine
     isolate_namespace HykuAddons
@@ -149,11 +150,13 @@ module HykuAddons
     # This is because we're prepending to Hyrax::GenericWorksController which forces a load of Hyrax::WorksControllerBehavior
     # which calls Flipflop in an `included` block.
     # See https://github.com/samvera/hyrax/blob/v2.9.1/app/controllers/concerns/hyrax/works_controller_behavior.rb#L17
+    # rubocop:disable Style/MethodMissing
     initializer "hyku_addons.workaround_flip_flop" do
       Flipflop::Facade.module_eval do
         def method_missing(method, *args)
           if method[-1] == "?"
             return false unless ActiveRecord::Base.connected? && ActiveRecord::Base.connection.table_exists?(:hyrax_features)
+
             Flipflop::FeatureSet.current.enabled?(method[0..-2].to_sym)
           else
             super
@@ -161,6 +164,7 @@ module HykuAddons
         end
       end
     end
+    # rubocop:enable Style/MethodMissing
 
     initializer "hyku_addons.bulkrax_overrides" do
       Bulkrax.setup do |config|
@@ -236,6 +240,7 @@ module HykuAddons
         # An ActiveFedora bug when there are many habtm <-> has_many associations means they won't all get saved.
         # https://github.com/projecthydra/active_fedora/issues/874
         # 2+ years later, still open!
+        # rubocop:disable Metrics/MethodLength
         def create
           attrs = create_attributes
           @object = klass.new
@@ -253,9 +258,13 @@ module HykuAddons
           end
           log_created(object)
         end
+        # rubocop:enable Metrics/MethodLength
 
+        # rubocop:disable Metrics/PerceivedComplexity
+        # rubocop:disable Metrics/CyclomaticComplexity
         def update
           raise "Object doesn't exist" unless object
+
           destroy_existing_files if @replace_files && (klass != ::Collection || klass != ::AdminSet)
           attrs = update_attributes
           run_callbacks :save do
@@ -269,6 +278,8 @@ module HykuAddons
           end
           log_updated(object)
         end
+        # rubocop:enable Metrics/PerceivedComplexity
+        # rubocop:enable Metrics/CyclomaticComplexity
 
         def create_admin_set(attrs)
           attrs.delete("collection_type_gid")
@@ -354,13 +365,16 @@ module HykuAddons
       AttachFilesToWorkJob.class_eval do
         # @param [ActiveFedora::Base] work - the work object
         # @param [Array<Hyrax::UploadedFile>] uploaded_files - an array of files to attach
+        # rubocop:disable Metrics/MethodLength
         def perform(work, uploaded_files, **work_attributes)
           validate_files!(uploaded_files)
           depositor = proxy_or_depositor(work)
           user = User.find_by_user_key(depositor)
           work_permissions = work.permissions.map(&:to_hash)
+
           uploaded_files.each do |uploaded_file|
             next if uploaded_file.file_set_uri.present?
+
             actor = Hyrax::Actors::FileSetActor.new(FileSet.create, user)
             file_set_attributes = file_set_attrs(work_attributes, uploaded_file)
             metadata = visibility_attributes(work_attributes, file_set_attributes)
@@ -374,6 +388,7 @@ module HykuAddons
             actor.attach_to_work(work, metadata)
           end
         end
+        # rubocop:enable Metrics/MethodLength
 
         private
 
@@ -512,6 +527,8 @@ module HykuAddons
     end
 
     # Pre-existing Work type overrides and dynamic includes
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
     def self.dynamically_include_mixins
       Account.include HykuAddons::AccountBehavior
       GenericWork.include HykuAddons::GenericWorkOverrides
@@ -638,6 +655,8 @@ module HykuAddons
         end
       end
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength
 
     # Use #to_prepare because it reloads where after_initialize only runs once
     # This might slow down every request so only do it in development environment
@@ -659,3 +678,4 @@ module HykuAddons
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

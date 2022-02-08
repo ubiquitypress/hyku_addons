@@ -14,8 +14,9 @@ module HykuAddons
       @request = env.request
     end
 
-    def set_jwt_cookies(user = nil)
+    def assign_jwt_cookies(user = nil)
       return unless @account.present?
+
       user ||= @user
       set_jwt_cookie(:jwt, value: generate_token(user_id: user.id, type: user_roles(user)), expires: 1.week.from_now)
       set_jwt_cookie(:refresh, value: generate_token(user_id: user.id, exp: 1.week.from_now.to_i), expires: 1.week.from_now)

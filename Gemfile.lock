@@ -27,7 +27,7 @@ GIT
       simple_form
 
 GIT
-  remote: https://github.com/samvera-labs/hyrax-doi
+  remote: https://github.com/samvera-labs/hyrax-doi.git
   revision: 5e05d2354e0c81426a54a28a188a900e59ab8fb1
   branch: main
   specs:
@@ -46,7 +46,7 @@ GIT
       rails (>= 5.0, < 7)
 
 GIT
-  remote: https://github.com/ubiquitypress/hyku-api
+  remote: https://github.com/ubiquitypress/hyku-api.git
   revision: 4630e248c5aba68259da90538ad9c02899c2abd2
   branch: main
   specs:
@@ -55,7 +55,7 @@ GIT
       rails (~> 5.2.4, >= 5.2.4.4)
 
 GIT
-  remote: https://github.com/ubiquitypress/hyrax-hirmeos
+  remote: https://github.com/ubiquitypress/hyrax-hirmeos.git
   revision: 770935eb310f4e2fb6af80431f2ca5da54536362
   branch: main
   specs:
@@ -65,7 +65,7 @@ GIT
       rails (~> 5.2.4, >= 5.2.4.3)
 
 GIT
-  remote: https://github.com/ubiquitypress/hyrax-orcid
+  remote: https://github.com/ubiquitypress/hyrax-orcid.git
   revision: efca9a427f9d3b3c023e88834517406452fe8632
   branch: main
   specs:

@@ -1,5 +1,5 @@
-
 # frozen_string_literal: true
+
 unless ENV["DB_ADAPTER"] == "nulldb"
   # You can have Apartment route to the appropriate Tenant by adding some Rack middleware.
   # Apartment can support many different "Elevators" that can take care of this routing to your data.
@@ -49,12 +49,8 @@ unless ENV["DB_ADAPTER"] == "nulldb"
     # Callbacks from ActiveSupport::Callback: receives ZERO information about object/event.
     # Instead receives an [Apartment::Adapters::PostgresqlSchemaAdapter]
     # Therefore cannot be used as effectively as ActiveRecord hooks.
-    Apartment::Tenant.adapter.class.set_callback :switch, :after, ->() do
-      account = Account.find_by(tenant: current)
-      account&.switch!
-    end
+    Apartment::Tenant.adapter.class.set_callback :switch, :after, -> { Account.find_by(tenant: current)&.switch! }
   end
 
   Rails.application.config.middleware.use AccountElevator
-
-  end
+end

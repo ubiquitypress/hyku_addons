@@ -9,6 +9,7 @@ module HykuAddons
     include ::HykuAddons::AddInfoSingular
 
     # TODO: Review indexing and switch to mostly _ssim instead of _tesim
+    # rubocop:disable Metrics/BlockLength
     included do
       include Hyrax::DOI::DOIBehavior
       include Hyrax::DOI::DataCiteDOIBehavior
@@ -136,5 +137,6 @@ module HykuAddons
       # schema (by adding accepts_nested_attributes)
       include ::Hyrax::BasicMetadata
     end
+    # rubocop:enable Metrics/BlockLength
   end
 end

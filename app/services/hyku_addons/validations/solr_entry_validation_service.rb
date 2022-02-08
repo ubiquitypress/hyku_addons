@@ -41,6 +41,8 @@ module HykuAddons
         edit_access_group_ssim: ["admin"]
       }.with_indifferent_access.freeze
 
+      # rubocop:disable Metrics/CyclomaticComplexity
+      # rubocop:disable Metrics/PerceivedComplexity
       def initialize(account, entry, source_service_options = nil, destination_service_options = nil)
         super(account, entry)
 
@@ -58,6 +60,8 @@ module HykuAddons
 
         raise ArgumentError, "Source and destination service params must be present" unless valid_endpoint_params?
       end
+      # rubocop:enable Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/CyclomaticComplexity
 
       def source_metadata
         @_source_metadata ||=
@@ -72,10 +76,14 @@ module HykuAddons
 
       protected
 
+        # rubocop:disable Metrics/CyclomaticComplexity
+        # rubocop:disable Metrics/PerceivedComplexity
         def valid_endpoint_params?
           @source_base_url && ((@source_username && @source_password) || @source_cookie) &&
             @destination_base_url && ((@destination_username && @destination_password) || @destination_cookie)
         end
+        # rubocop:enable Metrics/CyclomaticComplexity
+        # rubocop:enable Metrics/PerceivedComplexity
 
         COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS = %w[
           organization_name organisation_name given_name middle_name family_name name_type orcid isni ror grid wikidata suffix institution
@@ -122,6 +130,8 @@ module HykuAddons
           Array.wrap(old_value).first == "Default Admin Set" ? ["Default"] : old_value
         end
 
+        # rubocop:disable Metrics/CyclomaticComplexity
+        # rubocop:disable Metrics/MethodLength
         def reevaluate_resource_type_tesim(old_value)
           initial_value = Array.wrap(old_value).first
           case initial_value
@@ -173,6 +183,8 @@ module HykuAddons
             initial_value
           end
         end
+        # rubocop:enable Metrics/MethodLength
+        # rubocop:enable Metrics/CyclomaticComplexity
 
         def gross_work_type_name(alt_name)
           alt_name.first.gsub(/Pacific|Work|\s*/, "")

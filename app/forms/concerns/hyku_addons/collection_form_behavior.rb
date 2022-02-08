@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module HykuAddons
   module CollectionFormBehavior
     extend ActiveSupport::Concern
@@ -6,6 +7,7 @@ module HykuAddons
     include HykuAddons::PersonOrOrganizationFormBehavior
 
     # TODO: extract duplicate code (from JSONFieldsActor) out into a service class?
+    # rubocop:disable Metrics/BlockLength
     class_methods do
       def model_attributes(form_params)
         super.tap do |model_attributes|
@@ -36,6 +38,7 @@ module HykuAddons
         end
       end
     end
+    # rubocop:enable Metrics/BlockLength
 
     # User collections will error without this, as _title is used in for works and collections
     def schema_driven?

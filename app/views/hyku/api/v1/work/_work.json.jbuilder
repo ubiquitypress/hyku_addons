@@ -2,6 +2,8 @@
 
 # Required to use helpers in the jbuilder context - https://github.com/rails/jbuilder/issues/227#issuecomment-461477721
 extend HyraxHelper
+
+# rubocop:disable Metrics/BlockLength
 json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.member_of_collection_ids & collection_docs.pluck("id")] do
   json.uuid work.id
   json.abstract work.try(:solr_document)&.to_h&.dig("abstract_tesim")&.first
@@ -189,3 +191,4 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   collections = collection_presenters.map { |collection| { uuid: collection.id, title: collection.title.first } }
   json.collections collections
 end
+# rubocop:enable Metrics/BlockLength
