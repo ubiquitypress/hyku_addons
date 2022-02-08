@@ -25,20 +25,20 @@ module HykuAddons
 
     protected
 
-    # Triggered when the user registers an account
-    def email_format
-      email_formats = Site.account&.settings&.dig("email_format")
+      # Triggered when the user registers an account
+      def email_format
+        email_formats = Site.account&.settings&.dig("email_format")
 
-      return if email_formats.blank? || email_formats.include?("@#{email.split("@").last}")
+        return if email_formats.blank? || email_formats.include?("@#{email.split("@").last}")
 
-      message = "must contain #{email_formats.to_sentence(two_words_connector: " or ", last_word_connector: ", or ")}"
-      errors.add(:email, message)
-    end
+        message = "must contain #{email_formats.to_sentence(two_words_connector: " or ", last_word_connector: ", or ")}"
+        errors.add(:email, message)
+      end
 
-    def toggle_display_profile
-      return unless display_profile_changed?
+      def toggle_display_profile
+        return unless display_profile_changed?
 
-      HykuAddons::ToggleDisplayProfileJob.perform_later(email, display_profile_visibility)
-    end
+        HykuAddons::ToggleDisplayProfileJob.perform_later(email, display_profile_visibility)
+      end
   end
 end
