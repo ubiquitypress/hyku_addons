@@ -212,7 +212,7 @@ module HykuAddons
           "part_of" => { split: '\|' },
           "qualification_subject_text" => { split: '\|' },
           "related_url" => { split: '\|' },
-          "collection" => { split: "\|" }
+          "collection" => { split: '\|' }
         }
       end
 

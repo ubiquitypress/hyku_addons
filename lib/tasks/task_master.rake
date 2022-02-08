@@ -1,9 +1,21 @@
 # frozen_string_literal: true
+
 namespace :task_master do
   desc "Generate Account Entries"
   task publish_accounts: :environment do
     Account.all.each do |account|
       publish_to_task_master("tenant", account.to_task_master)
+    end
+  end
+
+  task count_all: :environment do
+    Account.where(search_only: false).each do |account|
+      AccountElevator.switch!(account.cname)
+
+      works = ActiveFedora::SolrService.get("generic_type_sim:Work", fl: [:id], rows: 1_000_000).dig("response", "numFound")
+      puts "#{account.cname}: #{works}"
+    rescue RSolr::Error::ConnectionRefused
+      puts "#{account.cname}: Solr Error"
     end
   end
 
@@ -33,6 +45,9 @@ namespace :task_master do
         # Schedule any files to be imported 1 day after the work is imported to avoid flooding
         work.file_sets.each { |file| publish_to_task_master("file", file.to_task_master, delay + 1.day.seconds) }
       end
+
+    rescue RSolr::Error::ConnectionRefused
+      nil
     end
   end
 end
