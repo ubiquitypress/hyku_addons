@@ -10,23 +10,15 @@ RSpec.describe HykuAddons::ToggleDisplayProfileJob, type: :job, clean: true do
         creator_given_name: "Stephen",
         creator_organization_name: "",
         creator_institutional_email: user.email,
-        creator_profile_visibility: "closed"
+        creator_profile_visibility: User::PROFILE_VISIBILITY[:closed]
       }
     ].to_json
   end
   let(:work) { create(:work, creator: [creator]) }
 
-  it "is enqueued when a user changes their display_profile setting" do
-    user.display_profile = true
-    expect { user.save }.to have_enqueued_job(HykuAddons::ToggleDisplayProfileJob)
-  end
-
-  it "does not enque a job unless the display profile setting has been changed" do
-    user.department = "software development"
-    expect { user.save }.not_to have_enqueued_job(HykuAddons::ToggleDisplayProfileJob)
-  end
-
   it "changes the display profile field for the works where the user is the creator" do
-    expect { HykuAddons::ToggleDisplayProfileJob.perform_now(user.email, !user.display_profile) }.to change { JSON.parse(work.reload["creator"].first).first["creator_profile_visibility"] }
+    expect do
+      HykuAddons::ToggleDisplayProfileJob.perform_now(user.email, !user.display_profile)
+    end.to change { JSON.parse(work.reload["creator"].first).first["creator_profile_visibility"] }
   end
 end
