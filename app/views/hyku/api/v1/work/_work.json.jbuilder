@@ -10,6 +10,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.additional_links work.try(:solr_document)&.to_h&.dig('additional_links_tesim')
   json.admin_set_name work.admin_set.first
   json.advisor work.try(:solr_document)&.to_h&.dig('advisor_tesim')
+  json.alternate_identifier work.try(:solr_document)&.to_h&.dig('alternate_identifier_tesim')
   json.alternative_journal_title work.try(:solr_document)&.to_h&.dig('alternative_journal_title_tesim')
   json.alternative_book_title work.try(:solr_document)&.to_h&.dig('alt_book_title_tesim')
   json.alternative_title work.try(:solr_document)&.to_h&.dig('alt_title_tesim')
