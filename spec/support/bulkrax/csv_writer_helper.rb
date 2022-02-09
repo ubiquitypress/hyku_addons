@@ -75,7 +75,14 @@ module CsvWriterHelper
   def faked_attribute(name, i)
     return unless name.is_a? Symbol
 
-    if attributes[name][:type] == "date"
+    if name == :creator_profile_visibility
+      # TODO: This is wrong
+      # It should be an authority field, unfortunately no authority has been defined
+      # You should also be able to use User::PROFILE_VISIBILITY.values.sample
+      # However it looks like Bulkrax cannot match the values and therefore the user always gets
+      # the default value assigned.
+      "closed"
+    elsif attributes[name][:type] == "date"
       time_field
     elsif attributes[name][:type] == "select" && attributes.dig(name, :authority)
       authority_field(name)
