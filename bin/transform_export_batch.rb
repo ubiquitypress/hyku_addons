@@ -132,10 +132,10 @@ def gather_values(field, row, options)
     rescue
       nil
     end
-  elsif field == "source_identifier"
-    options[:new_ids] ? [SecureRandom.uuid] : field_values
-  elsif field == "collection"
-    options[:new_ids] ? [SecureRandom.uuid] : field_values
+  elsif field == "source_identifier" && options[:new_ids]
+    [SecureRandom.uuid]
+  elsif field == "collection" && options[:new_ids]
+    [SecureRandom.uuid]
   else
     field_values
   end
