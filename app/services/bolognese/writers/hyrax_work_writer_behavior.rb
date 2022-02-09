@@ -47,7 +47,7 @@ module Bolognese
 
           # titleize strings
           # remove non-standard space characters
-          author.my_titleize.gsub(/[[:space:]]/, ' ')
+          author.my_titleize.gsub(/[[:space:]]/, " ")
         end
 
       private
