@@ -1,10 +1,9 @@
 # frozen_string_literal: true
+
 $LOAD_PATH.push File.expand_path("lib", __dir__)
 
-# Maintain your gem's version:
 require "hyku_addons/version"
 
-# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |spec|
   spec.name = "hyku_addons"
   spec.version     = HykuAddons::VERSION
@@ -59,4 +58,3 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "stackprof"
   spec.add_development_dependency "ruby-prof"
 end
-# rubocop:enable Metrics/BlockLength
