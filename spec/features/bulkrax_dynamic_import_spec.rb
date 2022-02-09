@@ -2,8 +2,6 @@
 
 require "rails_helper"
 require "csv"
-
-# rubocop:disable RSpec/InstanceVariable
 RSpec.describe "Bulkrax import", clean: true, slow: true do
   include CsvWriterHelper
   include CsvReaderHelper
@@ -11,15 +9,19 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
   let(:user) { create(:user, email: "test@example.com") }
   let(:depositor) { build_stubbed(:user, email: "batchuser@example.com") }
 
+  # We cannot use let to memoize or share the model name because Rspec will not reset it when we iterate below
+  attr_accessor :model_name
+
   let(:number_of_records) { 3 } # Setting this too high will increase the test time for little gain
 
   after do
-    ["UbiquityTemplateWork", "UvaWork"].each do |model_name|
-      File.delete("spec/fixtures/csv/#{model_name.underscore}_dynamic_data.csv") if File.exist?("spec/fixtures/csv/#{model_name.underscore}_dynamic_data.csv")
+    ["UbiquityTemplateWork", "UvaWork"].each do |work_type|
+      file = "spec/fixtures/csv/#{work_type.underscore}_dynamic_data.csv"
+      File.delete(file) if File.exist?(file)
     end
   end
 
-  ["UbiquityTemplateWork", "UvaWork"].each do |model_name|
+  ["UbiquityTemplateWork", "UvaWork"].each do |work_type|
     let(:importer) do
       create(:bulkrax_importer_csv,
              user: user,
@@ -32,15 +34,15 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
     before do
       # Make sure default admin set exists
       AdminSet.find_or_create_default_admin_set_id
-      stub_request(:get, Addressable::Template.new("#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}")).to_return(status: 200)
+      template = Addressable::Template.new("#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}")
+      stub_request(:get, template).to_return(status: 200)
       allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
 
-      # We cannot use let to memoize model name because Rspec will not reset it when we iterate
-      @model_name = model_name
+      self.model_name = work_type
       create_csv
     end
 
-    it "imports #{model_name} works" do
+    it "imports #{work_type} works" do
       expect do
         perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
           importer.import_collections
@@ -49,19 +51,19 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
         perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
           importer.import_works
         end
-      end.to change { @model_name.constantize.count }.by(number_of_records)
+      end.to change { model_name.constantize.count }.by(number_of_records)
 
       aggregate_failures do
         CSV.read(temporary_file_path, headers: true).each do |row|
-          work = @model_name.constantize.where(source_identifier: row["source_identifier"]).first
+          work = model_name.constantize.where(source_identifier: row["source_identifier"]).first
           expectations = csv_row_to_expectations(row, work)
 
           expectations.each do |expectation|
-            expect(expectation[:actual]).to eq(expectation[:test]), "expected #{expectation[:attribute_name]} to equal #{expectation[:test]} but got #{expectation[:actual]}"
+            error_message = "expected #{expectation[:attribute_name]} to equal #{expectation[:test]} but got #{expectation[:actual]}"
+            expect(expectation[:actual]).to eq(expectation[:test]), error_message
           end
         end
       end
     end
   end
 end
-# rubocop:enable RSpec/InstanceVariable

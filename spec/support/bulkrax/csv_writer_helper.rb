@@ -16,7 +16,8 @@ module CsvWriterHelper
 
     CSV.open(file, "wb", headers: headers, write_headers: true) do |row|
       number_of_records.times.each do |i|
-        row << ["id-#{i}", "source-#{i}", @model_name, depositor.email, "Test Title #{i}", "https://fake.url.com/"] + fake_row_data(i)
+        hardcoded_fields = ["id-#{i}", "source-#{i}", model_name, depositor.email, "Test Title #{i}", "https://fake.url.com/"]
+        row << hardcoded_fields + fake_row_data(i)
       end
     end
 
@@ -28,19 +29,20 @@ module CsvWriterHelper
   end
 
   def temporary_file_path
-    "spec/fixtures/csv/#{@model_name.underscore}_dynamic_data.csv"
+    "spec/fixtures/csv/#{model_name.underscore}_dynamic_data.csv"
   end
 
   # Subfields should be merged with regular fields as the importer treats them like any other column header
   def headers
     subfields_with_suffixes = subfields.transform_keys { |k| "#{k}_1".to_sym }
-    %w[id source_identifier model depositor title related_url] + field_configs_without_subfields.merge!(subfields_with_suffixes).keys
+    hardcoded_fields = %w[id source_identifier model depositor title related_url]
+    hardcoded_fields + field_configs_without_subfields.merge!(subfields_with_suffixes).keys
   end
 
   # --- Schema methods ---
 
   def field_configs
-    "Hyrax::#{@model_name}Form".constantize.field_configs.reject { |k, _v| untested_attributes.include?(k) }
+    "Hyrax::#{model_name}Form".constantize.field_configs.reject { |k, _v| untested_attributes.include?(k) }
   end
 
   def field_configs_without_subfields
@@ -99,7 +101,12 @@ module CsvWriterHelper
 
   # Get a random valid option for an authority, and select the value (not the key)
   def authority_field(name)
-    attributes[name][:authority].constantize.new(model: @model_name.constantize).select_active_options.sample&.second
+    attributes[name][:authority]
+      .constantize
+      .new(model: model_name.constantize)
+      .select_active_options
+      .sample
+      &.second
   end
 
   # Dates can be in full, or just years or months within a year
