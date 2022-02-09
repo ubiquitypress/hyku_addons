@@ -122,3 +122,15 @@ en-DENVER:
         abstract: Abstract or short description of content.
         institution: The Auraria entity responsible for the item.
         georeferenced: A digital image is georeferenced if it is a map view AND the file contains the information to align the image on the planet's surface.
+        geolocate: The name of the location (city, state, country)
+        longitude: Longitude in decimal degrees. If the material has a continuous extended spatial coverage, use estimated center longitude.
+        latitude: Latitude in decimal degrees. If the material has a continuous extended spatial coverage, use estimated center latitude.
+        medium: Add the file type suffix when possible, or a description.
+        time: Provide a relevant time coverage
+    placeholders:
+      defaults:
+        medium: .txt, .csv, .pdf, etc.
+        time: April 2017 - March 2018
+        geoloate: Denver, CO, United States
+        longitude: "-105.003"
+        latitude: "39.744"
