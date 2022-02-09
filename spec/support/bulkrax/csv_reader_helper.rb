@@ -3,6 +3,7 @@
 module CsvReaderHelper
   # Read a row from a CSV file and make expectations for each column
   # Subfields (like creator_given_name) will be a column like any other and so these must be handled separately
+  # rubocop:disable Metrics/MethodLength
   def csv_row_to_expectations(row, work)
     expectations = []
 
@@ -26,6 +27,7 @@ module CsvReaderHelper
 
     expectations
   end
+  # rubocop:enable Metrics/MethodLength
 
   # Parse the CSV data for comparison with the model
   # If the field is multiple it will be saved in the model as an array: ["value"]
