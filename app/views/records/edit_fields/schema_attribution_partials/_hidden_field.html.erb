@@ -1,0 +1,11 @@
+
+<% Array.wrap(hash.fetch(field_slug.to_s, "")).each do |value| %>
+	<% defaults = {
+		class: "#{template}_#{field_group} #{template}_#{field_slug} form-control multi-text-field multi_value",
+		placeholder: t("simple_form.#{field_group}.#{field_slug}.placeholder"),
+		data: { field_name: "ubiquity_#{field_slug}", template: template, field_group: field_group },
+		required: local_assigns[:required]
+	}.merge(local_assigns[:field_args] || {}) %>
+
+	<%= hidden_field_tag "#{template}[#{field_group}][][#{field_slug}]", value, defaults %>
+<% end %>
