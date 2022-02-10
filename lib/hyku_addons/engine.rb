@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'hyrax/form_fields'
 require 'hyrax/indexer'
 require 'hyrax/schema'
@@ -212,7 +213,7 @@ module HykuAddons
           "part_of" => { split: '\|' },
           "qualification_subject_text" => { split: '\|' },
           "related_url" => { split: '\|' },
-          "collection" => { split: "\|" }
+          "collection" => { split: '\|' }
         }
       end
 
@@ -519,9 +520,6 @@ module HykuAddons
       GenericWork.include ::Hyrax::BasicMetadata
       Hyrax::WorkIndexer.include HykuAddons::WorkIndexerBehavior
 
-      # HykuAddons::DOIFormBehavior must be prepended before WorkForm overrides
-      Hyrax::DOI::DOIFormBehavior.prepend HykuAddons::DOIFormBehavior
-
       Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
       Hyrax::ImageForm.include HykuAddons::ImageFormOverrides
       Hyrax::Forms::CollectionForm.include HykuAddons::CollectionFormBehavior
@@ -535,7 +533,10 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::NoteFieldActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::RelatedIdentifierActor
-      Hyrax::CurationConcern.actor_factory.insert_after HykuAddons::Actors::JSONFieldsActor, HykuAddons::Actors::CreatorInstitutionalEmailActor
+
+      actors = [HykuAddons::Actors::JSONFieldsActor, HykuAddons::Actors::CreatorProfileVisibilityActor]
+      Hyrax::CurationConcern.actor_factory.insert_after(*actors)
+
       actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 

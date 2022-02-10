@@ -99,7 +99,6 @@ def fill_in_cloneable(field, values)
       groups = all("[data-cloneable-group=#{work_type}_#{field}]")
       group = groups[index]
 
-      # byebug if field == :alternate_identifier
       # Incase cloneable isn't toggleable, like funder
       if (name_type = hash["#{field}_name_type".to_sym]).present?
         group.select(name_type, from: "#{work_type}_#{field}__#{field}_name_type")

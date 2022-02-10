@@ -136,6 +136,14 @@ attributes:
           display_for:
           - Personal
           - Organizational
+      creator_profile_visibility:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: hidden
+          display_for:
+            - Personal
   resource_type:
     predicate: http://purl.org/dc/terms/type
     multiple: true

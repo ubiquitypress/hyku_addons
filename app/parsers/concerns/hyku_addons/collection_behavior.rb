@@ -68,7 +68,7 @@ module HykuAddons
       end
 
       def collection_delimiter
-        Bulkrax.field_mappings["HykuAddons::CsvParser"]&.dig("collection", :split) || "\|"
+        Regexp.new(Bulkrax.field_mappings["HykuAddons::CsvParser"]&.dig("collection", :split) || %r{\|})
       end
 
       def collection_prefix
