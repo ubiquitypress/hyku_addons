@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
-require 'hyrax/form_fields'
-require 'hyrax/indexer'
-require 'hyrax/schema'
-require 'hyrax/simple_schema_loader'
-require 'hyrax/doi/engine'
-require 'bolognese/metadata'
-require 'cocoon'
+require "hyrax/form_fields"
+require "hyrax/indexer"
+require "hyrax/schema"
+require "hyrax/simple_schema_loader"
+require "hyrax/doi/engine"
+require "bolognese/metadata"
+require "cocoon"
 require "hyrax/autopopulation/engine"
 
+# rubocop:disable Metrics/ClassLength
 module HykuAddons
   class Engine < ::Rails::Engine
     isolate_namespace HykuAddons
