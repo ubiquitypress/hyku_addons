@@ -7,7 +7,7 @@ RSpec.describe Hyku::RegistrationsController, type: :controller do
   before do
     allow(Site).to receive(:instance).and_return(site)
 
-    @request.env["devise.mapping"] = Devise.mappings[:user] # Required by devise
+    @request.env["devise.mapping"] = Devise.mappings[:user] # rubocop:disable RSpec/InstanceVariable
   end
 
   context "with account signup enabled" do
