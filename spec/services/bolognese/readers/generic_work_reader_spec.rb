@@ -299,7 +299,7 @@ RSpec.describe Bolognese::Readers::HykuAddonsWorkReader do
           end
 
           it "defaults to current year" do
-            expect(datacite_xml.xpath("/resource/publicationYear/text()").to_s).to eq Date.today.year.to_s
+            expect(datacite_xml.xpath("/resource/publicationYear/text()").to_s).to eq DateTime.current.year.to_s
           end
         end
       end

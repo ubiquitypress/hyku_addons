@@ -5,8 +5,11 @@ module HykuAddons
 
     include HykuAddons::PersonOrOrganizationFormBehavior
 
+    # rubocop:disable Metrics/BlockLength
     class_methods do
       # Group all params here so save on boiler plate
+      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable Metrics/AbcSize
       def build_permitted_params
         super.tap do |permitted_params|
           permitted_params << common_fields
@@ -25,6 +28,8 @@ module HykuAddons
           permitted_params << note
         end
       end
+      # rubocop:enable Metrics/MethodLength
+      # rubocop:enable Metrics/AbcSize
 
       # Adds the terms received as params to the work type terms list ensuring the correct order
       # @param work_type_terms [Array] array of terms to add to the work type
@@ -44,8 +49,8 @@ module HykuAddons
            alternate_identifier related_identifier refereed keyword dewey library_of_congress_classification add_info
            page_display_order_number irb_number irb_status subject additional_links is_included_in buy_book challenged
            location outcome participant reading_level photo_caption photo_description degree longitude latitude alt_email
-           alt_book_title table_of_contents prerequisites suggested_student_reviewers suggested_reviewers adapted_from audience
-           related_material note advisor subject_text mesh journal_frequency funding_description
+           alt_book_title table_of_contents prerequisites suggested_student_reviewers suggested_reviewers adapted_from
+           audience related_material note advisor subject_text mesh journal_frequency funding_description
            citation references extent medium source committee_member time qualification_grantor date_published_text
            rights_statement_text qualification_subject_text is_format_of part_of
            georeferenced source_identifier mentor] + hyrax_terms
@@ -125,6 +130,7 @@ module HykuAddons
         [:note]
       end
     end
+    # rubocop:enable Metrics/BlockLength
 
     def primary_terms
       if Flipflop.enabled?(:simplified_admin_set_selection)
@@ -135,7 +141,7 @@ module HykuAddons
     end
 
     def initialize(model, current_ability, controller)
-      model.admin_set_id = controller.params['admin_set_id'] if simplfied_admin_set?(controller)
+      model.admin_set_id = controller.params["admin_set_id"] if simplfied_admin_set?(controller)
 
       super(model, current_ability, controller)
     end
@@ -151,7 +157,7 @@ module HykuAddons
     protected
 
       def simplfied_admin_set?(controller)
-        Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig('admin_set_id').present?
+        Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig("admin_set_id").present?
       end
   end
 end

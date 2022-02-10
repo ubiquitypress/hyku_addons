@@ -22,7 +22,7 @@ module HykuAddons
       end
 
       def orcid_logo
-        orcid_logo_url = 'https://s3-eu-west-1.amazonaws.com/service-hyku-oar-importer/orcid_16x16.png'
+        orcid_logo_url = "https://s3-eu-west-1.amazonaws.com/service-hyku-oar-importer/orcid_16x16.png"
         "<img src='#{orcid_logo_url}' alt='ORCID' height='16' width='16' class='img-responsive' />"
       end
 
@@ -35,7 +35,7 @@ module HykuAddons
       end
 
       def isni_logo
-        isni_logo_url = 'https://s3-eu-west-1.amazonaws.com/service-hyku-oar-importer/logo_xml_isni-16.gif'
+        isni_logo_url = "https://s3-eu-west-1.amazonaws.com/service-hyku-oar-importer/logo_xml_isni-16.gif"
         "<img src='#{isni_logo_url}' alt='ISNI' height='16' width='16' class='img-responsive' />"
       end
 
@@ -86,7 +86,7 @@ module HykuAddons
         return if (field_value = solr_document.public_send(field).first.presence || "[]").blank?
 
         JSON.parse(field_value).collect do |hash|
-          name = hash.slice("#{field}_family_name", "#{field}_given_name", "#{field}_organization_name").values.map(&:presence).compact.join(', ')
+          name = hash.slice("#{field}_family_name", "#{field}_given_name", "#{field}_organization_name").values.map(&:presence).compact.join(", ")
           PersonOrOrganization.new(name, hash["#{field}_orcid"], hash["#{field}_isni"], hash["#{field}_ror"], hash["#{field}_grid"], hash["#{field}_wikidata"])
         end
       end

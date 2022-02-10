@@ -31,8 +31,8 @@ module HykuAddons
         Hyrax::PermissionTemplateAccess.find_or_create_by!(
           permission_template_id: permission_template.id,
           agent_id: user.user_key,
-          agent_type: 'user',
-          access: 'manage'
+          agent_type: "user",
+          access: "manage"
         )
 
         collection.reset_access_controls!

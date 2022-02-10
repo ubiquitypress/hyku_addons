@@ -39,8 +39,6 @@ RSpec.describe Hyku::API::V1::CollectionController, type: :request, clean: true,
       allow(collection_branding_list).to receive(:where).and_return(collection_branding_list)
       allow(collection_branding_list).to receive(:first).and_return(collection_branding_instance)
     end
-
-    # rubocop:disable  RSpec/ExampleLength
     it "returns correct collection json" do
       get "/api/v1/tenant/#{account.tenant}/collection/#{collection.id}"
       expect(response.status).to eq(200)

@@ -81,7 +81,7 @@ class ExhibitionItem < ActiveFedora::Base
   self.date_fields += %i[event_date related_exhibition_date]
   self.indexer = ExhibitionItemIndexer
 
-  validates :title, presence: { message: 'Your work must have a title.' }
+  validates :title, presence: { message: "Your work must have a title." }
 
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)

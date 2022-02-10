@@ -46,6 +46,7 @@ RSpec.shared_context "work forms context" do
       end
     end
 
+    # rubocop:disable Metrics/MethodLength
     def check_common_fields_presence
       fields = %w[title alternative_name project_name institution abstract official_link language license
                   rights_statement rights_holder doi keywords dewey library_of_congress_classification
@@ -70,7 +71,9 @@ RSpec.shared_context "work forms context" do
       check_attribute_group_presence(:alternate_identifier, [:alternate_identifier, :alternate_identifier_type])
       check_attribute_group_presence(:related_identifier, [:related_identifier, :related_identifier_type, :relation_type])
     end
+    # rubocop:enable Metrics/MethodLength
 
+    # rubocop:disable Metrics/MethodLength
     def common_params
       {
         title: "title",
@@ -92,6 +95,7 @@ RSpec.shared_context "work forms context" do
       }.merge(creator_params, contributor_params, date_published_params, funder_params, date_accepted_params,
               date_submitted_params, related_identifier_params, alternate_identifier_params)
     end
+    # rubocop:enable Metrics/MethodLength
 
     def creator_params
       {
@@ -110,6 +114,7 @@ RSpec.shared_context "work forms context" do
       }
     end
 
+    # rubocop:disable Metrics/MethodLength
     def contributor_params
       {
         contributor: {
@@ -127,6 +132,7 @@ RSpec.shared_context "work forms context" do
         }
       }
     end
+    # rubocop:enable Metrics/MethodLength
 
     def date_accepted_params
       {

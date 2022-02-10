@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'uri'
+require "uri"
 
 # Update the frontend_url of an account.
 class HykuAddons::UpdateAccountFrontendUrl

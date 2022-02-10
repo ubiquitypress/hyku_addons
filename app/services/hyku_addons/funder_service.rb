@@ -2,7 +2,7 @@
 module HykuAddons
   class FunderService < HykuAddons::QaSelectService
     def initialize(model: nil)
-      super('funder', model: model)
+      super("funder", model: model)
     end
   end
 end

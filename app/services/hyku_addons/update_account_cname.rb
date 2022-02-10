@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'uri'
+require "uri"
 
 # Update the cname of an account.
 class HykuAddons::UpdateAccountCname

@@ -25,15 +25,15 @@ module HykuAddons
     private
 
       def tenant_authority_name
-        [@authority_name, tenant_locale].compact.join('-')
+        [@authority_name, tenant_locale].compact.join("-")
       end
 
       def model_authority_name
-        [@authority_name, model_name].compact.join('-')
+        [@authority_name, model_name].compact.join("-")
       end
 
       def model_tenant_authority_name
-        [@authority_name, model_name, tenant_locale].compact.join('-')
+        [@authority_name, model_name, tenant_locale].compact.join("-")
       end
 
       def model_name

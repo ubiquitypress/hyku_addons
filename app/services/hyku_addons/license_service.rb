@@ -3,7 +3,7 @@
 module HykuAddons
   class LicenseService < HykuAddons::QaSelectService
     def initialize(model: nil)
-      super('licenses', model: model)
+      super("licenses", model: model)
     end
   end
 end

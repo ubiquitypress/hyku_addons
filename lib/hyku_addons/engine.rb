@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
-require 'hyrax/form_fields'
-require 'hyrax/indexer'
-require 'hyrax/schema'
-require 'hyrax/simple_schema_loader'
-require 'hyrax/doi/engine'
-require 'bolognese/metadata'
-require 'cocoon'
+require "hyrax/form_fields"
+require "hyrax/indexer"
+require "hyrax/schema"
+require "hyrax/simple_schema_loader"
+require "hyrax/doi/engine"
+require "bolognese/metadata"
+require "cocoon"
 
+# rubocop:disable Metrics/ClassLength
 module HykuAddons
   class Engine < ::Rails::Engine
     isolate_namespace HykuAddons
@@ -41,8 +42,8 @@ module HykuAddons
       Rails.application.config.assets.precompile += ["pdf_viewer.css", "pdf_viewer/base.js", "pdf_viewer/locale/*"]
     end
 
-    initializer 'hyku_addons.class_overrides_for_hyrax-doi' do
-      require_dependency 'hyrax/search_state'
+    initializer "hyku_addons.class_overrides_for_hyrax-doi" do
+      require_dependency "hyrax/search_state"
 
       Hyku::RegistrationsController.class_eval do
         def new
@@ -72,23 +73,23 @@ module HykuAddons
 
     # Prepend our views so they have precedence
     config.after_initialize do
-      ActionController::Base.prepend_view_path(paths['app/views'].existent)
+      ActionController::Base.prepend_view_path(paths["app/views"].existent)
     end
 
     # Append our locales so they have precedence
     config.after_initialize do
-      I18n.load_path += Dir[HykuAddons::Engine.root.join('config', 'locales', '*.{rb,yml}')]
+      I18n.load_path += Dir[HykuAddons::Engine.root.join("config", "locales", "*.{rb,yml}")]
     end
 
     ## In engine development mode (ENGINE_ROOT defined) handle specific generators as app-only by setting destintation_root appropriately
-    initializer 'hyku_addons.app_generators' do
+    initializer "hyku_addons.app_generators" do
       if defined?(ENGINE_ROOT)
         APP_GENERATORS = [
-          'HykuAddons::InstallGenerator',
-          'Hyrax::DOI::InstallGenerator',
-          'Hyrax::DOI::AddToWorkTypeGenerator',
-          'Hyrax::Hirmeos::InstallGenerator',
-          'Hyrax::Orcid::InstallGenerator'
+          "HykuAddons::InstallGenerator",
+          "Hyrax::DOI::InstallGenerator",
+          "Hyrax::DOI::AddToWorkTypeGenerator",
+          "Hyrax::Hirmeos::InstallGenerator",
+          "Hyrax::Orcid::InstallGenerator"
         ].freeze
 
         Rails::Generators::Base.class_eval do
@@ -107,7 +108,7 @@ module HykuAddons
     # NOTE: This issue only seems to present in development, and not consistently.
     # Compact the available work types to remove `nil` and prevent an `Nil location provided. Can't build URI.` error
     # when not all options are selected, thrown from `SelectTypePresenter#switch_to_new_work_path`
-    initializer 'hyku_addon.available_work_type_bug_fix' do
+    initializer "hyku_addon.available_work_type_bug_fix" do
       Hyrax::QuickClassificationQuery.class_eval do
         def normalized_model_names
           models.map { |name| concern_name_normalizer.call(name) if Site.first.available_works.include?(name) }.compact
@@ -116,24 +117,24 @@ module HykuAddons
     end
 
     # Add migrations to parent app paths
-    initializer 'hyku_addons.append_migrations' do |app|
+    initializer "hyku_addons.append_migrations" do |app|
       unless app.root.to_s.match?(root.to_s)
-        config.paths['db/migrate'].expanded.each do |expanded_path|
-          app.config.paths['db/migrate'] << expanded_path
+        config.paths["db/migrate"].expanded.each do |expanded_path|
+          app.config.paths["db/migrate"] << expanded_path
         end
       end
     end
 
     # Allow flipflop to load config/features.rb from the Hyrax gem:
-    initializer 'configure' do
+    initializer "configure" do
       Flipflop::FeatureLoader.current.append(self)
     end
 
     # In test & dev environments, dynamically mount the hyku_addons in the parent app to avoid routing errors
     config.after_initialize do
-      if Rails.env == 'development' || Rails.env == 'test'
+      if Rails.env == "development" || Rails.env == "test"
         # Resolves Missing host to link to! Please provide the :host parameter, set default_url_options[:host], or set :only_path to true
-        HykuAddons::Engine.routes.default_url_options = { host: 'hyku.docker' }
+        HykuAddons::Engine.routes.default_url_options = { host: "hyku.docker" }
       end
     end
 
@@ -141,7 +142,7 @@ module HykuAddons
     # Only do this because this is just for us and we don't need to allow control over the mount to the application
     config.after_initialize do
       Rails.application.routes.prepend do
-        mount HykuAddons::Engine => '/'
+        mount HykuAddons::Engine => "/"
       end
     end
 
@@ -149,11 +150,13 @@ module HykuAddons
     # This is because we're prepending to Hyrax::GenericWorksController which forces a load of Hyrax::WorksControllerBehavior
     # which calls Flipflop in an `included` block.
     # See https://github.com/samvera/hyrax/blob/v2.9.1/app/controllers/concerns/hyrax/works_controller_behavior.rb#L17
-    initializer 'hyku_addons.workaround_flip_flop' do
+    # rubocop:disable Style/MethodMissing
+    initializer "hyku_addons.workaround_flip_flop" do
       Flipflop::Facade.module_eval do
         def method_missing(method, *args)
           if method[-1] == "?"
             return false unless ActiveRecord::Base.connected? && ActiveRecord::Base.connection.table_exists?(:hyrax_features)
+
             Flipflop::FeatureSet.current.enabled?(method[0..-2].to_sym)
           else
             super
@@ -161,11 +164,12 @@ module HykuAddons
         end
       end
     end
+    # rubocop:enable Style/MethodMissing
 
-    initializer 'hyku_addons.bulkrax_overrides' do
+    initializer "hyku_addons.bulkrax_overrides" do
       Bulkrax.setup do |config|
-        config.system_identifier_field = 'source_identifier'
-        config.reserved_properties -= ['depositor']
+        config.system_identifier_field = "source_identifier"
+        config.reserved_properties -= ["depositor"]
         config.parsers += [{ class_name: "HykuAddons::CsvParser", name: "Ubiquity Repositiories CSV", partial: "csv_fields" }]
 
         # NOTE: The splits are passed to a Regexp instance, which is passed to split.
@@ -218,14 +222,14 @@ module HykuAddons
 
       Bulkrax::ObjectFactory.class_eval do
         def run
-          arg_hash = { id: attributes[:id], name: 'UPDATE', klass: klass }
+          arg_hash = { id: attributes[:id], name: "UPDATE", klass: klass }
           @object = find
 
           if object
             object.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX if object.respond_to? :reindex_extent
-            ActiveSupport::Notifications.instrument('import.importer', arg_hash) { update }
+            ActiveSupport::Notifications.instrument("import.importer", arg_hash) { update }
           else
-            ActiveSupport::Notifications.instrument('import.importer', arg_hash.merge(name: 'CREATE')) { create }
+            ActiveSupport::Notifications.instrument("import.importer", arg_hash.merge(name: "CREATE")) { create }
           end
 
           yield(object) if block_given?
@@ -236,6 +240,7 @@ module HykuAddons
         # An ActiveFedora bug when there are many habtm <-> has_many associations means they won't all get saved.
         # https://github.com/projecthydra/active_fedora/issues/874
         # 2+ years later, still open!
+        # rubocop:disable Metrics/MethodLength
         def create
           attrs = create_attributes
           @object = klass.new
@@ -253,9 +258,13 @@ module HykuAddons
           end
           log_created(object)
         end
+        # rubocop:enable Metrics/MethodLength
 
+        # rubocop:disable Metrics/PerceivedComplexity
+        # rubocop:disable Metrics/CyclomaticComplexity
         def update
           raise "Object doesn't exist" unless object
+
           destroy_existing_files if @replace_files && (klass != ::Collection || klass != ::AdminSet)
           attrs = update_attributes
           run_callbacks :save do
@@ -269,16 +278,18 @@ module HykuAddons
           end
           log_updated(object)
         end
+        # rubocop:enable Metrics/PerceivedComplexity
+        # rubocop:enable Metrics/CyclomaticComplexity
 
         def create_admin_set(attrs)
-          attrs.delete('collection_type_gid')
+          attrs.delete("collection_type_gid")
           object.members = members
           object.attributes = attrs
           object.save!
         end
 
         def update_admin_set(attrs)
-          attrs.delete('collection_type_gid')
+          attrs.delete("collection_type_gid")
           object.members = members
           object.attributes = attrs
           object.save!
@@ -309,15 +320,15 @@ module HykuAddons
             attributes.slice(*permitted_attributes)
           else
             attrs = attributes.slice(*permitted_attributes).merge(file_attributes)
-            attrs = attrs.merge('file_set' => attributes['file_set'])
-            attrs['uploaded_files'].each_with_index { |id, i| attrs['file_set'][i]['uploaded_file_id'] = id if attrs['file_set'][i].present? } if attrs['file_set'].present?
+            attrs = attrs.merge("file_set" => attributes["file_set"])
+            attrs["uploaded_files"].each_with_index { |id, i| attrs["file_set"][i]["uploaded_file_id"] = id if attrs["file_set"][i].present? } if attrs["file_set"].present?
             attrs
           end
         end
       end
     end
 
-    initializer 'hyku_addons.import_mode_overrides' do
+    initializer "hyku_addons.import_mode_overrides" do
       Hyrax::Actors::FileSetActor.class_eval do
         def attach_to_work(work, file_set_params = {})
           acquire_lock_for(work.id) do
@@ -341,26 +352,29 @@ module HykuAddons
 
     # Monkey-patch override to make use of file set parameters relating to permissions
     # See https://github.com/samvera/hyrax/pull/4992
-    initializer 'hyku_addons.file_set_overrides' do
+    initializer "hyku_addons.file_set_overrides" do
       # Override to skip file_set attribute when doing mass assignment
       Hyrax::Actors::BaseActor.class_eval do
         def clean_attributes(attributes)
           attributes[:license] = Array(attributes[:license]) if attributes.key? :license
           attributes[:rights_statement] = Array(attributes[:rights_statement]) if attributes.key? :rights_statement
-          remove_blank_attributes!(attributes).except('file_set')
+          remove_blank_attributes!(attributes).except("file_set")
         end
       end
 
       AttachFilesToWorkJob.class_eval do
         # @param [ActiveFedora::Base] work - the work object
         # @param [Array<Hyrax::UploadedFile>] uploaded_files - an array of files to attach
+        # rubocop:disable Metrics/MethodLength
         def perform(work, uploaded_files, **work_attributes)
           validate_files!(uploaded_files)
           depositor = proxy_or_depositor(work)
           user = User.find_by_user_key(depositor)
           work_permissions = work.permissions.map(&:to_hash)
+
           uploaded_files.each do |uploaded_file|
             next if uploaded_file.file_set_uri.present?
+
             actor = Hyrax::Actors::FileSetActor.new(FileSet.create, user)
             file_set_attributes = file_set_attrs(work_attributes, uploaded_file)
             metadata = visibility_attributes(work_attributes, file_set_attributes)
@@ -374,6 +388,7 @@ module HykuAddons
             actor.attach_to_work(work, metadata)
           end
         end
+        # rubocop:enable Metrics/MethodLength
 
         private
 
@@ -392,7 +407,7 @@ module HykuAddons
       end
     end
 
-    initializer 'hyku_addons.hyrax_identifier_overrides' do
+    initializer "hyku_addons.hyrax_identifier_overrides" do
       Hyrax::Identifier::Dispatcher.class_eval do
         def assign_for(object:, attribute: :identifier)
           record = registrar.register!(object: object)
@@ -402,7 +417,7 @@ module HykuAddons
       end
     end
 
-    initializer 'hyku_addons.hyrax_admin_set_create_overrides' do
+    initializer "hyku_addons.hyrax_admin_set_create_overrides" do
       Hyrax::Admin::AdminSetsController.class_eval do
         def create_admin_set
           admin_set_create_service.call(admin_set: @admin_set, creating_user: nil)
@@ -410,11 +425,11 @@ module HykuAddons
       end
     end
 
-    initializer 'hyku_addons.session_storage_overrides' do
-      Rails.application.config.session_store :cookie_store, key: '_hyku_session', same_site: :lax
+    initializer "hyku_addons.session_storage_overrides" do
+      Rails.application.config.session_store :cookie_store, key: "_hyku_session", same_site: :lax
     end
 
-    initializer 'hyku_addons.license_renderer_override' do
+    initializer "hyku_addons.license_renderer_override" do
       # Override to explicitly call our license service with model
       Hyrax::Renderers::LicenseAttributeRenderer.class_eval do
         def attribute_value_to_html(value)
@@ -438,7 +453,7 @@ module HykuAddons
     config.after_initialize do
       # Avoid media pluralizing to medium
       ActiveSupport::Inflector.inflections(:en) do |inflect|
-        inflect.irregular 'media', 'medias'
+        inflect.irregular "media", "medias"
       end
 
       Hyrax.config do |config|
@@ -512,6 +527,8 @@ module HykuAddons
     end
 
     # Pre-existing Work type overrides and dynamic includes
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
     def self.dynamically_include_mixins
       Account.include HykuAddons::AccountBehavior
       GenericWork.include HykuAddons::GenericWorkOverrides
@@ -623,8 +640,8 @@ module HykuAddons
           @receiver = receiver
           set_subject(message)
           mail to: receiver.send(Mailboxer.email_method, message),
-               subject: t('mailboxer.message_mailer.subject_new', subject: @subject, tenant_name: Site.instance.application_name),
-               template_name: 'hyku_addons_new_message_email'
+               subject: t("mailboxer.message_mailer.subject_new", subject: @subject, tenant_name: Site.instance.application_name),
+               template_name: "hyku_addons_new_message_email"
         end
 
         # Sends an email for indicating a reply in an already created conversation
@@ -633,11 +650,13 @@ module HykuAddons
           @receiver = receiver
           set_subject(message)
           mail to: receiver.send(Mailboxer.email_method, message),
-               subject: t('mailboxer.message_mailer.subject_reply', subject: @subject, tenant_name: Site.instance.application_name),
-               template_name: 'hyku_addons_reply_message_email'
+               subject: t("mailboxer.message_mailer.subject_reply", subject: @subject, tenant_name: Site.instance.application_name),
+               template_name: "hyku_addons_reply_message_email"
         end
       end
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength
 
     # Use #to_prepare because it reloads where after_initialize only runs once
     # This might slow down every request so only do it in development environment
@@ -646,7 +665,7 @@ module HykuAddons
     else
       config.after_initialize { HykuAddons::Engine.dynamically_include_mixins }
       # This is needed to allow the API search to copy the blacklight configuration after our customisations are applied.
-      initializer 'hyku_addons.blacklight_config override' do
+      initializer "hyku_addons.blacklight_config override" do
         CatalogController.include HykuAddons::CatalogControllerBehavior
       end
     end
@@ -659,3 +678,4 @@ module HykuAddons
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
