@@ -2,9 +2,9 @@
 
 namespace :hyku_addons do
   namespace :superadmin do
-    desc 'Create a superadmin user'
+    desc "Create a superadmin user"
     task :create, [:email, :password] => [:environment] do |_cmd, args|
-      puts 'Creating a superadmin user.'
+      puts "Creating a superadmin user."
       user = create_or_prompt_to_create_user(args)
       user.add_role(:superadmin)
       puts "User (#{user.user_key}) created and granted superadministrator privileges"
@@ -12,7 +12,7 @@ namespace :hyku_addons do
 
     def create_or_prompt_to_create_user(args)
       User.find_or_create_by!(email: args.email || prompt_for_email) do |u|
-        puts 'User not found. Enter a password to create the user.'
+        puts "User not found. Enter a password to create the user."
         u.password = args.password || prompt_for_password
       end
     rescue StandardError => e
@@ -21,18 +21,18 @@ namespace :hyku_addons do
     end
 
     def prompt_for_email
-      print 'Email: '
+      print "Email: "
       $stdin.gets.chomp
     end
 
     def prompt_for_password
       begin
-        system 'stty -echo'
-        print 'Password (must be 8+ characters): '
+        system "stty -echo"
+        print "Password (must be 8+ characters): "
         password = $stdin.gets.chomp
         puts "\n"
       ensure
-        system 'stty echo'
+        system "stty echo"
       end
       password
     end

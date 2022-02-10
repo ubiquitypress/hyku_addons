@@ -14,6 +14,7 @@ module HykuAddons
 
     PRIVATE_SETTINGS = %w[smtp_settings].freeze
 
+    # rubocop:disable Metrics/BlockLength
     included do
       # added forshared search
       scope :full_accounts, -> { where(search_only: false) }
@@ -108,6 +109,7 @@ module HykuAddons
         true
       end
     end
+    # rubocop:enable Metrics/BlockLength
 
     def datacite_endpoint
       super || NilDataCiteEndpoint.new

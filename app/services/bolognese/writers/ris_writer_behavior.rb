@@ -44,7 +44,10 @@ module Bolognese
         BLOG: ["GenericWork Blog post", "Collection Blog post"]
       }.freeze
 
+      # rubocop:disable Metrics/BlockLength
       included do
+        # rubocop:disable Metrics/MethodLength
+        # rubocop:disable Metrics/AbcSize
         def ris
           hash = {
             "TY" => calculate_resource_type(types),
@@ -73,6 +76,8 @@ module Bolognese
 
           expand_nested_and_prepare(hash)
         end
+        # rubocop:enable Metrics/AbcSize
+        # rubocop:enable Metrics/MethodLength
 
         protected
 
@@ -107,6 +112,7 @@ module Bolognese
             RESOURCE_TYPES.select { |_k, v| v.include?(types["resourceType"].first) }.keys.first || DEFAULT_RESOURCE_TYPE
           end
       end
+      # rubocop:enable Metrics/BlockLength
     end
   end
 end

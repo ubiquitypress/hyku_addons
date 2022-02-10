@@ -1,35 +1,35 @@
 # frozen_string_literal: true
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-require 'spec_helper'
-require File.expand_path('internal_test_hyku/spec/rails_helper.rb', __dir__)
+require "spec_helper"
+require File.expand_path("internal_test_hyku/spec/rails_helper.rb", __dir__)
 
-ENV['RAILS_ENV'] ||= 'test'
+ENV["RAILS_ENV"] ||= "test"
 # require File.expand_path('../config/environment', __dir__)
-require File.expand_path('internal_test_hyku/config/environment', __dir__)
+require File.expand_path("internal_test_hyku/config/environment", __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
-require 'rspec/rails'
+require "rspec/rails"
 # Add additional requires below this line. Rails is not loaded until this point!
-require 'factory_bot_rails'
+require "factory_bot_rails"
 FactoryBot.definition_file_paths = [File.expand_path("spec/factories", HykuAddons::Engine.root)]
 FactoryBot.find_definitions
 
 # For testing generators
-require 'ammeter/init'
+require "ammeter/init"
 
 # Optional execution of specs for examples that fail randomly on CI
-require File.expand_path('support/optional_example', __dir__)
+require File.expand_path("support/optional_example", __dir__)
 
 # Try and suppress depreciation warnings
 ActiveSupport::Deprecation.silenced = true
 
-if ENV['CI']
+if ENV["CI"]
   # Capybara config copied over from Hyrax
   Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
     browser_options = ::Selenium::WebDriver::Chrome::Options.new
-    browser_options.args << '--headless'
-    browser_options.args << '--disable-gpu'
-    browser_options.args << '--no-sandbox'
+    browser_options.args << "--headless"
+    browser_options.args << "--disable-gpu"
+    browser_options.args << "--no-sandbox"
     # browser_options.args << '--disable-dev-shm-usage'
     # browser_options.args << '--disable-extensions'
     # client = Selenium::WebDriver::Remote::Http::Default.new
@@ -43,7 +43,7 @@ if ENV['CI']
   Capybara.default_max_wait_time = 10 # We may have a slow application, let's give it some time.
 
   # FIXME: Pin to older version of chromedriver to avoid issue with clicking non-visible elements
-  Webdrivers::Chromedriver.required_version = '72.0.3626.69'
+  Webdrivers::Chromedriver.required_version = "72.0.3626.69"
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -62,7 +62,7 @@ end
 # Require supporting ruby files from spec/support/ and subdirectories.  Note: engine, not Rails.root context.
 Dir[File.join(File.dirname(__FILE__), "support/**/*.rb")].each { |f| require f }
 
-require 'shoulda-matchers'
+require "shoulda-matchers"
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
@@ -140,7 +140,7 @@ RSpec.configure do |config|
     clear_enqueued_jobs
   end
 
-  config.filter_run_excluding slow: true unless ENV['CI']
+  config.filter_run_excluding slow: true unless ENV["CI"]
 
   # Add support for conditional execution of specs
   config.include OptionalExample
@@ -155,7 +155,7 @@ RSpec.configure do |config|
   # might not actually be used in all examples where it's included.
   config.after do
     example = RSpec.current_example
-    ENV.delete('SETTINGS__MULTITENANCY__ENABLED') if example.metadata[:multitenant] || example.metadata[:singletenant]
+    ENV.delete("SETTINGS__MULTITENANCY__ENABLED") if example.metadata[:multitenant] || example.metadata[:singletenant]
   end
 
   # There are 3 optional flags available to a test block.  Only ONE will be active
@@ -172,8 +172,8 @@ RSpec.configure do |config|
 
   config.before do
     example = RSpec.current_example
-    ENV['SETTINGS__MULTITENANCY__ENABLED'] = 'true' if example.metadata[:multitenant] || example.metadata[:faketenant] || example.metadata[:type] == :controller
-    ENV['SETTINGS__MULTITENANCY__ENABLED'] = 'false' if example.metadata[:singletenant] || example.metadata[:type] == :feature
+    ENV["SETTINGS__MULTITENANCY__ENABLED"] = "true" if example.metadata[:multitenant] || example.metadata[:faketenant] || example.metadata[:type] == :controller
+    ENV["SETTINGS__MULTITENANCY__ENABLED"] = "false" if example.metadata[:singletenant] || example.metadata[:type] == :feature
 
     # Ensure that Hirmeos is always enabled or all the feature tests will fail
     allow(Hyrax::Hirmeos).to receive(:configured?).and_return(true)
@@ -181,8 +181,8 @@ RSpec.configure do |config|
 
   # in addition to hydra-test, created  2 solr collection for testing cross tenant search
   config.before(:suite) do
-    CreateSolrCollectionJob.new.without_account('hydra-sample') if ENV['IN_DOCKER']
-    CreateSolrCollectionJob.new.without_account('hydra-cross-search-tenant', 'hydra-test, hydra-sample') if ENV['IN_DOCKER']
+    CreateSolrCollectionJob.new.without_account("hydra-sample") if ENV["IN_DOCKER"]
+    CreateSolrCollectionJob.new.without_account("hydra-cross-search-tenant", "hydra-test, hydra-sample") if ENV["IN_DOCKER"]
   end
   ## End override
 end

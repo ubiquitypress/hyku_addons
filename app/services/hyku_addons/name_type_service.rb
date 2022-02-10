@@ -2,7 +2,7 @@
 module HykuAddons
   class NameTypeService < HykuAddons::QaSelectService
     def initialize(model: nil)
-      super('name_type', model: model)
+      super("name_type", model: model)
     end
   end
 end

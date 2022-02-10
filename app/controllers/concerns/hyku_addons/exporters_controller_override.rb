@@ -12,11 +12,11 @@ module HykuAddons
           field_mapping_params
 
           if @exporter.save
-            if params[:commit] == 'Create and Export'
+            if params[:commit] == "Create and Export"
               # Use perform later for creating the export in the background
               HykuAddons::MultitenantExporterJob.perform_later(current_account.id, @exporter.id)
             end
-            redirect_to bulkrax.exporters_path, notice: 'Exporter was successfully created.'
+            redirect_to bulkrax.exporters_path, notice: "Exporter was successfully created."
           else
             render :new
           end
@@ -26,8 +26,8 @@ module HykuAddons
           field_mapping_params
           if @exporter.update(exporter_params)
             # Use perform later for creating the export in the background
-            Bulkrax::MultitenantExporterJob.perform_later(current_account.id, @exporter.id) if params[:commit] == 'Update and Re-Export All Items'
-            redirect_to bulkrax.exporters_path, notice: 'Exporter was successfully updated.'
+            Bulkrax::MultitenantExporterJob.perform_later(current_account.id, @exporter.id) if params[:commit] == "Update and Re-Export All Items"
+            redirect_to bulkrax.exporters_path, notice: "Exporter was successfully updated."
           else
             render :edit
           end

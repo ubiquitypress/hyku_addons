@@ -26,7 +26,7 @@ module HykuAddons
         message.smtp_envelope_from = from
       end
 
-      (HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields - ['from']).map do |key|
+      (HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields - ["from"]).map do |key|
         value = mailer_settings.try(key)
         [key.to_sym, value] if value.present?
       end

@@ -8,7 +8,7 @@ module HykuAddons
       @excluded_fields = %i[].freeze
       @renamed_fields = {}.freeze
       @excluded_fields_with_value = {}.freeze
-      @separator_char = ','
+      @separator_char = ","
 
       class << self
         %i[excluded_fields renamed_fields excluded_fields_with_value separator_char].each do |attr|
@@ -38,7 +38,7 @@ module HykuAddons
       end
 
       def destination_metadata
-        @_destination_metadata ||= ActiveFedora::SolrService.get("id:#{@entry.identifier}").dig('response', 'docs')&.first || {}
+        @_destination_metadata ||= ActiveFedora::SolrService.get("id:#{@entry.identifier}").dig("response", "docs")&.first || {}
       end
 
       def source_metadata_after_transforms

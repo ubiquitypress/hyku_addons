@@ -30,7 +30,7 @@ module HykuAddons
     end
 
     def self.processed_tenant(tenant)
-      tenant.to_s.upcase.tr(' .-', '_')
+      tenant.to_s.upcase.tr(" .-", "_")
     end
   end
 end

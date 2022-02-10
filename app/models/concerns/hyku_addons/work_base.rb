@@ -7,6 +7,7 @@ module HykuAddons
     include HykuAddons::TaskMaster::WorkBehavior
 
     # TODO: Review indexing and switch to mostly _ssim instead of _tesim
+    # rubocop:disable Metrics/BlockLength
     included do
       # From SharedMetadata
       property :official_link, predicate: ::RDF::Vocab::SCHEMA.url, multiple: false do |index|
@@ -84,6 +85,7 @@ module HykuAddons
       self.json_fields = %i[creator contributor funder alternate_identifier related_identifier]
       self.date_fields = %i[date_published date_accepted date_submitted]
     end
+    # rubocop:enable Metrics/BlockLength
 
     def schema_driven?
       false

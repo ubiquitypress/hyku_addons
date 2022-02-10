@@ -4,7 +4,7 @@ module HykuAddons
   class CollectionBrandingFetcher
     def collection_banner(id, cname)
       AccountElevator.switch!(cname)
-      @_collection_banner ||= collection_branding_info(id).where(role: 'banner')
+      @_collection_banner ||= collection_branding_info(id).where(role: "banner")
     end
 
     private

@@ -56,7 +56,7 @@ class BookContribution < ActiveFedora::Base
   self.json_fields += %i[editor]
   self.indexer = BookContributionIndexer
 
-  validates :title, presence: { message: 'Your work must have a title.' }
+  validates :title, presence: { message: "Your work must have a title." }
 
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
