@@ -45,6 +45,10 @@ module CsvWriterHelper
     "Hyrax::#{model_name}Form".constantize.field_configs.reject { |k, _v| untested_attributes.include?(k) }
   end
 
+  def excluded_fields
+    Bulkrax.field_mappings["HykuAddons::CsvParser"].map { |k, v| k.to_sym if v.dig(:excluded) }.compact || []
+  end
+
   def field_configs_without_subfields
     field_configs.reject { |_k, v| v.key?(:subfields) }
   end
@@ -61,7 +65,7 @@ module CsvWriterHelper
   end
 
   def untested_attributes
-    %i[relation_type subject resource_type title related_url]
+    excluded_fields + %i[relation_type subject resource_type title related_url]
   end
 
   # --- Data Generators ---
@@ -75,14 +79,7 @@ module CsvWriterHelper
   def faked_attribute(name, i)
     return unless name.is_a? Symbol
 
-    if name == :creator_profile_visibility
-      # TODO: This is wrong
-      # It should be an authority field, unfortunately no authority has been defined
-      # You should also be able to use User::PROFILE_VISIBILITY.values.sample
-      # However it looks like Bulkrax cannot match the values and therefore the user always gets
-      # the default value assigned.
-      "closed"
-    elsif attributes[name][:type] == "date"
+    if attributes[name][:type] == "date"
       time_field
     elsif attributes[name][:type] == "select" && attributes.dig(name, :authority)
       authority_field(name)
