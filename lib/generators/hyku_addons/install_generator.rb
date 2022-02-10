@@ -35,7 +35,7 @@ module HykuAddons
     end
 
     def install_hyrax_autopopulation
-      generate "hyrax:autopopulation:instal"
+      generate "hyrax:autopopulation:install"
     end
 
     def inject_overrides_into_curation_concerns
