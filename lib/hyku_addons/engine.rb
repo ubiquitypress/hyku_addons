@@ -6,6 +6,7 @@ require 'hyrax/simple_schema_loader'
 require 'hyrax/doi/engine'
 require 'bolognese/metadata'
 require 'cocoon'
+require "hyrax/autopopulation/engine"
 
 module HykuAddons
   class Engine < ::Rails::Engine
