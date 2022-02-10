@@ -12,7 +12,8 @@ module HykuAddons
         7. Injects CSS
         8. Injects helpers
         9. Installs workflows
-        10. Install Coccon
+        10. Install Cocoon
+        11. Install hyrax-autopopulation
     EOS
 
     source_root File.expand_path("templates", __dir__)
@@ -31,6 +32,10 @@ module HykuAddons
 
     def install_cocoon
       generate "cocoon:install"
+    end
+
+    def install_hyrax_autopopulation
+      generate "hyrax:autopopulation:install"
     end
 
     def inject_overrides_into_curation_concerns
