@@ -98,6 +98,10 @@ class AnschutzWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
+  property :repository_space, predicate: ::RDF::Vocab::SIOC.term(:Space), multiple: false do |index|
+    index.as :stored_searchable
+  end
+
   self.indexer = AnschutzWorkIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []

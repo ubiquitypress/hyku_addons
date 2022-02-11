@@ -1439,3 +1439,15 @@ attributes:
       multiple: false
       type: select
       authority: HykuAddons::GeoreferencedService
+  repository_space:
+    predicate: http://rdfs.org/sioc/ns#Space
+    multiple: false
+    index_keys:
+      - repository_space_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      include_blank: false
+      type: select
+      authority: HykuAddons::RepositorySpaceService

@@ -153,6 +153,11 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
 
   json.related_material work.try(:solr_document)&.to_h&.dig('related_material_tesim')
   json.related_url work.try(:solr_document)&.to_h&.dig('related_url_tesim')
+
+  repository_space_service = HykuAddons::RepositorySpaceService.new
+  id = work.try(:solr_document)&.to_h&.dig('repository_space_tesim')&.first
+  json.repository_space repository_space_service.label(id) if id.present?
+
   json.time work.try(:solr_document)&.to_h&.dig('time_tesim')
   json.resource_type work.resource_type
   json.rights_holder work.try(:solr_document)&.to_h&.dig('rights_holder_tesim')
