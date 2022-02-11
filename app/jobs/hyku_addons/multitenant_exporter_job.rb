@@ -7,7 +7,7 @@ module HykuAddons
       return if (account = Account.find(account_id)).blank?
 
       AccountElevator.switch!(account.cname)
-      Bulkrax::ExporterJob.perform_now(exporter_id)
+      ::Bulkrax::ExporterJob.perform_now(exporter_id)
     end
   end
 end
