@@ -27,27 +27,24 @@ module HykuAddons
       HykuAddons::I18nMultitenant.configure(I18n)
     end
 
-    initializer "hyku_addons.class_overrides_for_hyrax-doi" do
-      require_dependency "hyrax/search_state"
-
-      # Using a concern doesn't actually override the original method so inlining it here
-      Proprietor::AccountsController.include HykuAddons::AccountControllerBehavior
-
-      CreateAccount.class_eval do
-        def create_account_inline
-          CreateAccountInlineJob.perform_now(account) && account.create_datacite_endpoint
-        end
-      end
-    end
-
-    # Prepend our views so they have precedence
     config.after_initialize do
+      # Prepend our views so they have precedence
       ActionController::Base.prepend_view_path(paths["app/views"].existent)
-    end
 
-    # Append our locales so they have precedence
-    config.after_initialize do
+      # Append our locales so they have precedence
       I18n.load_path += Dir[HykuAddons::Engine.root.join("config", "locales", "*.{rb,yml}")]
+
+      # In test & dev environments, dynamically mount the hyku_addons in the parent app to avoid routing errors
+      if Rails.env == "development" || Rails.env == "test"
+        # Resolves Missing host to link to! Please provide the :host parameter, set default_url_options[:host], or set :only_path to true
+        HykuAddons::Engine.routes.default_url_options = { host: "hyku.docker" }
+      end
+
+      # Automount this engine
+      # Only do this because this is just for us and we don't need to allow control over the mount to the application
+      Rails.application.routes.prepend do
+        mount HykuAddons::Engine => "/"
+      end
     end
 
     # NOTE: This issue only seems to present in development, and not consistently.
@@ -73,22 +70,6 @@ module HykuAddons
     # Allow flipflop to load config/features.rb from the Hyrax gem:
     initializer "configure" do
       Flipflop::FeatureLoader.current.append(self)
-    end
-
-    # In test & dev environments, dynamically mount the hyku_addons in the parent app to avoid routing errors
-    config.after_initialize do
-      if Rails.env == "development" || Rails.env == "test"
-        # Resolves Missing host to link to! Please provide the :host parameter, set default_url_options[:host], or set :only_path to true
-        HykuAddons::Engine.routes.default_url_options = { host: "hyku.docker" }
-      end
-    end
-
-    # Automount this engine
-    # Only do this because this is just for us and we don't need to allow control over the mount to the application
-    config.after_initialize do
-      Rails.application.routes.prepend do
-        mount HykuAddons::Engine => "/"
-      end
     end
 
     initializer "hyku_addons.bulkrax_overrides" do
@@ -422,6 +403,8 @@ module HykuAddons
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
 
       Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
+      # Using a concern doesn't actually override the original method so inlining it here
+      Proprietor::AccountsController.include HykuAddons::AccountControllerBehavior
 
       ::Bolognese::Metadata.prepend ::Bolognese::Writers::HyraxWorkWriterBehavior
       ::Bolognese::Metadata.include HykuAddons::Bolognese::JsonFieldsReader
