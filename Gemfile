@@ -3,11 +3,11 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem "hyku-api", github: "ubiquitypress/hyku-api", branch: "main"
-gem "hyrax-autopopulation", github: "ubiquitypress/hyrax-autopopulation", branch: "main"
+gem "hyku-api", github: "samvera-labs/hyku-api", branch: "main"
+gem "hyrax-autopopulation", github: "samvera-labs/hyrax-autopopulation", branch: "main"
 gem "hyrax-doi", github: "samvera-labs/hyrax-doi", branch: "main"
-gem "hyrax-hirmeos", github: "ubiquitypress/hyrax-hirmeos", branch: "main"
-gem "hyrax-orcid", github: "ubiquitypress/hyrax-orcid", branch: "main"
+gem "hyrax-hirmeos", github: "samvera-labs/hyrax-hirmeos", branch: "main"
+gem "hyrax-orcid", github: "samvera-labs/hyrax-orcid", branch: "main"
 
 # Declare your gem's dependencies in hyku_addons.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
