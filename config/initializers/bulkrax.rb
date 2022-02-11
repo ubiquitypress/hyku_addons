@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 Bulkrax.setup do |config|
   config.export_path = Rails.root.join("tmp", "exports")
   config.system_identifier_field = "source_identifier"
@@ -53,3 +54,4 @@ Bulkrax.setup do |config|
     "collection" => { split: '\|' }
   }
 end
+# rubocop:enable Metrics/BlockLength
