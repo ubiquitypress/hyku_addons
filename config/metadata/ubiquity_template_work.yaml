@@ -96,12 +96,6 @@ attributes:
           type: text
           display_for:
           - Personal
-      display_creator_profile:
-        type: string
-        form:
-          required: false
-          multiple: false
-          type: hidden
       creator_institutional_relationship:
         type: string
         form:
@@ -154,6 +148,14 @@ attributes:
           display_for:
           - Personal
           - Organizational
+      creator_profile_visibility:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: hidden
+          display_for:
+            - Personal
   contributor:
     predicate: http://purl.org/dc/elements/1.1/contributor
     multiple: true

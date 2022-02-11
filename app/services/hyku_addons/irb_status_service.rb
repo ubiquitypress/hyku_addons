@@ -2,7 +2,7 @@
 module HykuAddons
   class IrbStatusService < HykuAddons::QaSelectService
     def initialize(model: nil)
-      super('irb_status', model: model)
+      super("irb_status", model: model)
     end
   end
 end

@@ -2,7 +2,7 @@
 module HykuAddons
   class AudienceService < HykuAddons::QaSelectService
     def initialize(model: nil)
-      super('audience', model: model)
+      super("audience", model: model)
     end
   end
 end

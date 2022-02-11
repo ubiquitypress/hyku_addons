@@ -6,12 +6,13 @@ module HykuAddons
     extend ActiveSupport::Concern
 
     def index
-      @users = User.where(display_profile: true)
+      @users = User.with_public_profile
       @user_count = @users.count
     end
 
     def show
-      @user = User.find_by(email: params[:email], display_profile: true)
+      @user = User.with_public_profile.find_by(email: params[:email])
+
       return render json: { status: 403, code: "forbidden", message: t("errors.users_forbidden") } if @user.blank?
 
       query_string = "(generic_type_sim:Work AND creator_tesim:\"*#{@user.email}*\") AND visibility_ssi:open"

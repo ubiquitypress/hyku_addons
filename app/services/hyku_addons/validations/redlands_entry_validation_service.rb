@@ -7,7 +7,7 @@ module HykuAddons
       ].freeze
 
       @renamed_fields = {
-        doi_tesim: 'official_link'
+        doi_tesim: "official_link"
       }.with_indifferent_access.freeze
 
       @excluded_fields_with_value = {

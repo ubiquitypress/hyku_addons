@@ -5,5 +5,5 @@ Warden::Manager.before_logout do |user, auth, _opts|
 end
 
 Warden::Manager.after_authentication do |user, auth, _opts|
-  HykuAddons::JwtCookiesService.new(user, auth).set_jwt_cookies
+  HykuAddons::JwtCookiesService.new(user, auth).assign_jwt_cookies
 end

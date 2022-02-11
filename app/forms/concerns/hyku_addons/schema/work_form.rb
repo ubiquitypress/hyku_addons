@@ -37,6 +37,7 @@ module HykuAddons
       def primary_terms
         pt = primary_fields | super
         pt += %i[admin_set_id] if Flipflop.enabled?(:simplified_admin_set_selection)
+        pt += %i[doi]
         pt
       end
 

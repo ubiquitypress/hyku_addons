@@ -55,7 +55,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         creator_orcid: "0000-0000-1111-2222",
         creator_institutional_relationship: "Research associate",
         creator_isni: "56273930281",
-        display_creator_profile: user.display_profile
+        creator_profile_visibility: User::PROFILE_VISIBILITY[:closed]
       },
       {
         creator_name_type: "Organisational",

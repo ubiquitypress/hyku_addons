@@ -2,7 +2,7 @@
 module HykuAddons
   class SubjectService < HykuAddons::QaSelectService
     def initialize(model: nil)
-      super('subject', model: model)
+      super("subject", model: model)
     end
   end
 end

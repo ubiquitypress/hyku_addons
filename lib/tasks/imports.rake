@@ -3,7 +3,7 @@
 namespace :hyku do
   namespace :validations do
     namespace :importers do
-      desc 'Validate a Bulkrax Importer'
+      desc "Validate a Bulkrax Importer"
       task :http, [:tenant, :importer, :source_path, :source_auth, :destination_path, :destination_auth] => [:environment] do |_t, args|
         account = load_account(args[:tenant])
         importer = Bulkrax::Importer.find(args[:importer])
@@ -37,7 +37,7 @@ namespace :hyku do
     end
 
     namespace :entries do
-      desc 'Validate a Bulkrax Entry'
+      desc "Validate a Bulkrax Entry"
       task :http, [:tenant, :entry, :source_path, :source_auth, :destination_path, :destination_auth] => [:environment] do |_t, args|
         account = load_account(args[:tenant])
         entry = Bulkrax::Entry.find(args[:entry])
@@ -83,7 +83,7 @@ def validate_http_params(args)
       exit(1)
     end
 
-    unless args["#{location}_auth"]&.split(':')&.count == 2
+    unless args["#{location}_auth"]&.split(":")&.count == 2
       puts "You need to pass a credentials as username:password at #{location}_auth"
       exit(1)
     end
@@ -107,16 +107,16 @@ end
 def source_auth_options(args)
   {
     base_url: args[:source_path],
-    username: args[:source_auth].split(':')[0],
-    password: args[:source_auth].split(':')[1]
+    username: args[:source_auth].split(":")[0],
+    password: args[:source_auth].split(":")[1]
   }
 end
 
 def destination_auth_options(args)
   {
     base_url: args[:destination_path],
-    username: args[:destination_auth].split(':')[0],
-    password: args[:destination_auth].split(':')[1]
+    username: args[:destination_auth].split(":")[0],
+    password: args[:destination_auth].split(":")[1]
   }
 end
 
