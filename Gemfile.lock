@@ -55,6 +55,17 @@ GIT
       rails (~> 5.2.4, >= 5.2.4.4)
 
 GIT
+  remote: https://github.com/ubiquitypress/hyrax-autopopulation.git
+  revision: 8b3489c1ce58e27373cbd5e059c4ba61a06b15ac
+  branch: main
+  specs:
+    hyrax-autopopulation (0.1.0)
+      bolognese (~> 1.9, >= 1.9.9)
+      flipflop (~> 2.6)
+      hyrax (~> 2.9)
+      rails (~> 5.2.6)
+
+GIT
   remote: https://github.com/ubiquitypress/hyrax-hirmeos.git
   revision: 770935eb310f4e2fb6af80431f2ca5da54536362
   branch: main
@@ -1247,6 +1258,7 @@ DEPENDENCIES
   hyku-api!
   hyku_addons!
   hyrax (~> 2.9, >= 2.9.1)
+  hyrax-autopopulation!
   hyrax-doi!
   hyrax-hirmeos!
   hyrax-orcid!
