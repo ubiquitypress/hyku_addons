@@ -9,8 +9,8 @@ module HykuAddons
       @receiver = receiver
       set_subject(message)
       mail to: receiver.send(Mailboxer.email_method, message),
-           subject: t('mailboxer.message_mailer.subject_new', subject: @subject, tenant_name: Site.instance.application_name),
-           template_name: 'hyku_addons_new_message_email'
+           subject: t("mailboxer.message_mailer.subject_new", subject: @subject, tenant_name: Site.instance.application_name),
+           template_name: "hyku_addons_new_message_email"
     end
 
     # Sends an email for indicating a reply in an already created conversation
@@ -19,8 +19,8 @@ module HykuAddons
       @receiver = receiver
       set_subject(message)
       mail to: receiver.send(Mailboxer.email_method, message),
-           subject: t('mailboxer.message_mailer.subject_reply', subject: @subject, tenant_name: Site.instance.application_name),
-           template_name: 'hyku_addons_reply_message_email'
+           subject: t("mailboxer.message_mailer.subject_reply", subject: @subject, tenant_name: Site.instance.application_name),
+           template_name: "hyku_addons_reply_message_email"
     end
   end
 end

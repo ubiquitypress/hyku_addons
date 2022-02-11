@@ -91,7 +91,7 @@ module HykuAddons
       end
     end
 
-    initializer 'hyku_addons.bulkrax_overrides' do
+    initializer "hyku_addons.bulkrax_overrides" do
       Bulkrax::ObjectFactory.class_eval do
         def run
           arg_hash = { id: attributes[:id], name: "UPDATE", klass: klass }
