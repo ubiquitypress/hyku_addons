@@ -17,6 +17,7 @@ Bulkrax.setup do |config|
   # value.split(Regexp.new("\|")) # => ["f", "u", "n", "d", "e", "r", "_", ...[REMOVED]... , "_", "1", "_", "2"]
   # value.split(Regexp.new("\\|")) # => ["funder_award_1_1", "funder_award_1_2"]
   config.field_mappings["HykuAddons::CsvParser"] = {
+    # rubocop:disable Style/StringLiterals
     "institution" => { split: '|' },
     "org_unit" => { split: '|' },
     "fndr_project_ref" => { split: '|' },
@@ -52,6 +53,7 @@ Bulkrax.setup do |config|
     "qualification_subject_text" => { split: '|' },
     "related_url" => { split: '|' },
     "collection" => { split: '|' }
+    # rubocop:enable Style/StringLiterals
   }
 end
 # rubocop:enable Metrics/BlockLength
