@@ -9,49 +9,49 @@ Bulkrax.setup do |config|
 
   # NOTE: The splits are passed to a Regexp instance, which is passed to split.
   #
-  # They must use single quotes with a backslash `'\|'` or double quotes with two backslashes `"\\|"`.
+  # They must use single quotes with a backslash `'|'` or double quotes with two backslashes `"\\|"`.
   #
   # Example:
   # value = "funder_award_1_1|funder_award_1_2"
-  # value.split(Regexp.new('\|')) # => ["funder_award_1_1", "funder_award_1_2"]
+  # value.split(Regexp.new('|')) # => ["funder_award_1_1", "funder_award_1_2"]
   # value.split(Regexp.new("\|")) # => ["f", "u", "n", "d", "e", "r", "_", ...[REMOVED]... , "_", "1", "_", "2"]
   # value.split(Regexp.new("\\|")) # => ["funder_award_1_1", "funder_award_1_2"]
   config.field_mappings["HykuAddons::CsvParser"] = {
-    "institution" => { split: '\|' },
-    "org_unit" => { split: '\|' },
-    "fndr_project_ref" => { split: '\|' },
-    "project_name" => { split: '\|' },
-    "rights_holder" => { split: '\|' },
-    "library_of_congress_classification" => { split: '\|' },
-    "alt_title" => { split: '\|' },
-    "volume" => { split: '\|' },
-    "duration" => { split: '\|' },
-    "version" => { split: '\|' },
-    "publisher" => { split: '\|' },
-    "keyword" => { split: '\|' },
-    "license" => { split: '\|', parsed: true },
-    "subject" => { split: '\|' },
-    "language" => { split: '\|' },
-    "resource_type" => { split: '\|' },
-    "date_published" => { split: '\|', parsed: true },
-    "alt_email" => { split: '\|' },
-    "isbn" => { split: '\|' },
-    "audience" => { split: '\|' },
-    "advisor" => { split: '\|' },
-    "mesh" => { split: '\|' },
-    "subject_text" => { split: '\|' },
-    "source" => { split: '\|' },
-    "funding_description" => { split: '\|' },
-    "citation" => { split: '\|' },
-    "references" => { split: '\|' },
-    "medium" => { split: '\|' },
-    "committee_member" => { split: '\|' },
-    "time" => { split: '\|' },
-    "add_info" => { split: '\|' },
-    "part_of" => { split: '\|' },
-    "qualification_subject_text" => { split: '\|' },
-    "related_url" => { split: '\|' },
-    "collection" => { split: '\|' }
+    "institution" => { split: '|' },
+    "org_unit" => { split: '|' },
+    "fndr_project_ref" => { split: '|' },
+    "project_name" => { split: '|' },
+    "rights_holder" => { split: '|' },
+    "library_of_congress_classification" => { split: '|' },
+    "alt_title" => { split: '|' },
+    "volume" => { split: '|' },
+    "duration" => { split: '|' },
+    "version" => { split: '|' },
+    "publisher" => { split: '|' },
+    "keyword" => { split: '|' },
+    "license" => { split: '|', parsed: true },
+    "subject" => { split: '|' },
+    "language" => { split: '|' },
+    "resource_type" => { split: '|' },
+    "date_published" => { split: '|', parsed: true },
+    "alt_email" => { split: '|' },
+    "isbn" => { split: '|' },
+    "audience" => { split: '|' },
+    "advisor" => { split: '|' },
+    "mesh" => { split: '|' },
+    "subject_text" => { split: '|' },
+    "source" => { split: '|' },
+    "funding_description" => { split: '|' },
+    "citation" => { split: '|' },
+    "references" => { split: '|' },
+    "medium" => { split: '|' },
+    "committee_member" => { split: '|' },
+    "time" => { split: '|' },
+    "add_info" => { split: '|' },
+    "part_of" => { split: '|' },
+    "qualification_subject_text" => { split: '|' },
+    "related_url" => { split: '|' },
+    "collection" => { split: '|' }
   }
 end
 # rubocop:enable Metrics/BlockLength
