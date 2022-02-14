@@ -128,7 +128,7 @@ RSpec.describe "Bulkrax export", clean: true, type: :feature, slow: true do
       end
     end
 
-    it "exports all fields" do
+    it "exports all non-excluded fields " do
       entry = exporter.entries.find { |e| e.identifier == "c109b1ff-6d9a-4498-b86c-190e7dcbe2e0" }
       expect(entry).to be_present
       expect(entry.parsed_metadata["id"]).to eq "c109b1ff-6d9a-4498-b86c-190e7dcbe2e0"
@@ -144,6 +144,8 @@ RSpec.describe "Bulkrax export", clean: true, type: :feature, slow: true do
       expect(entry.parsed_metadata["license"]).to eq "https://commons.pacificu.edu/rights"
       expect(entry.parsed_metadata["publisher"].split("|")).to contain_exactly("Pacific University Press", "Ubiquity Press")
       expect(entry.parsed_metadata["depositor"]).to eq "batchuser@example.com"
+      # This field is excluded and should not be exported
+      expect(entry.parsed_metadata["creator_profile_visibility"]).to be_nil
     end
 
     it "round-trips" do
