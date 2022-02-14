@@ -9,24 +9,24 @@ module HykuAddons
       @cname = cname
     end
 
-    def logo_url
-      url(fetch_collection_branding("logo"))
-    end
+    def url_for(role)
+      return unless ["banner", "logo"].include? role
 
-    def banner_url
-      url(fetch_collection_branding("banner"))
+      format_url(fetch_collection_branding(role))
     end
 
     private
 
+      # Fetch first banner or logo file information attached to collection if it exists
       def fetch_collection_branding(role)
         return if @cname.nil?
 
         AccountElevator.switch!(cname)
-        CollectionBrandingInfo.where(collection_id: @collection_id.to_s, role: role).first
+        CollectionBrandingInfo.where(collection_id: @collection_id.to_s, role: role)&.first
       end
 
-      def url(role)
+      # Build component for collection json
+      def format_url(role)
         return unless role.present?
 
         URI::Generic.build(component(role)).to_s
@@ -36,7 +36,7 @@ module HykuAddons
         {
           scheme: Rails.application.routes.default_url_options.fetch(:protocol, "http"),
           host: @cname,
-          path: "/" + role.local_path.split("/")[-4..-1].join("/"),
+          path: role.local_path,
           alt_text: role.alt_text
         }
       end

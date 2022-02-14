@@ -35,8 +35,8 @@ json.cache! [@account, :collections, collection.id, collection.solr_document[:_v
 
   branding_fetcher = ::HykuAddons::CollectionBrandingFetcher.new(collection.id, @account.cname)
 
-  json.collection_banner_url branding_fetcher.banner_url
-  json.collection_logo_url branding_fetcher.logo_url
+  json.collection_banner_url branding_fetcher.url_for("banner")
+  json.collection_logo_url branding_fetcher.url_for("logo")
 end
 
 if local_assigns[:include_works]
