@@ -401,6 +401,8 @@ module HykuAddons
       ::Hyku::API::V1::UsersController.prepend HykuAddons::UsersControllerBehavior
 
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
+      ::Hyku::RegistrationsController.include HykuAddons::RegistrationsControllerBehavior
+
       ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
       Hyrax::Dashboard::ProfilesController.prepend HykuAddons::ProfilesControllerBehavior
       Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
