@@ -20,9 +20,9 @@ module HykuAddons
 
     protected
 
-    # Redirect the user to the profile after registration
-    def after_sign_up_path_for(resource)
-      hyrax.dashboard_profile_path(resource)
-    end
+      # Redirect the user to the profile after registration
+      def after_sign_up_path_for(resource)
+        hyrax.dashboard_profile_path(resource)
+      end
   end
 end
