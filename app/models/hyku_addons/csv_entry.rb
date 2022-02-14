@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HykuAddons
-  class CsvEntry < Bulkrax::CsvEntry
+  class CsvEntry < ::Bulkrax::CsvEntry
     include ExporterOverrides
     include ImporterOverrides
 
