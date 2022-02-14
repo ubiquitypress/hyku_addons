@@ -395,10 +395,12 @@ module HykuAddons
       ::Bolognese::Metadata.prepend ::Bolognese::Writers::HyraxWorkWriterBehavior
       ::Bolognese::Metadata.include HykuAddons::Bolognese::JsonFieldsReader
 
-      ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
       ::Hyku::API::V1::SearchController.prepend HykuAddons::SearchControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
       ::Hyku::API::V1::HighlightsController.prepend HykuAddons::HighlightsControllerBehavior
+      ::Hyku::API::V1::UsersController.prepend HykuAddons::UsersControllerBehavior
+
+      ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
       ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
       Hyrax::Dashboard::ProfilesController.prepend HykuAddons::ProfilesControllerBehavior
       Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
