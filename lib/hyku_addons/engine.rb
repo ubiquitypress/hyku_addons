@@ -116,8 +116,8 @@ module HykuAddons
       end
     end
 
+    # Add migrations to parent app paths
     initializer "hyku_addons.append_migrations" do |app|
-      # Add migrations to parent app paths
       unless app.root.to_s.match?(root.to_s)
         config.paths["db/migrate"].expanded.each do |expanded_path|
           app.config.paths["db/migrate"] << expanded_path
@@ -128,6 +128,115 @@ module HykuAddons
     # Allow flipflop to load config/features.rb from the Hyrax gem:
     initializer "configure" do
       Flipflop::FeatureLoader.current.append(self)
+    end
+
+    initializer "hyku_addons.bulkrax_overrides" do
+      Bulkrax::ObjectFactory.class_eval do
+        def run
+          arg_hash = { id: attributes[:id], name: "UPDATE", klass: klass }
+          @object = find
+
+          if object
+            object.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX if object.respond_to? :reindex_extent
+            ActiveSupport::Notifications.instrument("import.importer", arg_hash) { update }
+          else
+            ActiveSupport::Notifications.instrument("import.importer", arg_hash.merge(name: "CREATE")) { create }
+          end
+
+          yield(object) if block_given?
+
+          object
+        end
+
+        # An ActiveFedora bug when there are many habtm <-> has_many associations means they won't all get saved.
+        # https://github.com/projecthydra/active_fedora/issues/874
+        # 2+ years later, still open!
+        # rubocop:disable Metrics/MethodLength
+        def create
+          attrs = create_attributes
+          @object = klass.new
+          object.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX if object.respond_to? :reindex_extent
+          run_callbacks :save do
+            run_callbacks :create do
+              if klass == ::AdminSet
+                create_admin_set(attrs)
+              elsif klass == ::Collection
+                create_collection(attrs)
+              else
+                work_actor.create(environment(attrs))
+              end
+            end
+          end
+          log_created(object)
+        end
+        # rubocop:enable Metrics/MethodLength
+
+        # rubocop:disable Metrics/PerceivedComplexity
+        # rubocop:disable Metrics/CyclomaticComplexity
+        def update
+          raise "Object doesn't exist" unless object
+
+          destroy_existing_files if @replace_files && (klass != ::Collection || klass != ::AdminSet)
+          attrs = update_attributes
+          run_callbacks :save do
+            if klass == ::AdminSet
+              update_admin_set(attrs)
+            elsif klass == ::Collection
+              update_collection(attrs)
+            else
+              work_actor.update(environment(attrs))
+            end
+          end
+          log_updated(object)
+        end
+        # rubocop:enable Metrics/PerceivedComplexity
+        # rubocop:enable Metrics/CyclomaticComplexity
+
+        def create_admin_set(attrs)
+          attrs.delete("collection_type_gid")
+          object.members = members
+          object.attributes = attrs
+          object.save!
+        end
+
+        def update_admin_set(attrs)
+          attrs.delete("collection_type_gid")
+          object.members = members
+          object.attributes = attrs
+          object.save!
+        end
+
+        def find
+          if attributes[:id]
+            find_by_id
+          elsif attributes[system_identifier_field].present? && klass.new.respond_to?(system_identifier_field)
+            search_by_identifier
+          elsif klass == AdminSet && attributes[:title].present?
+            search_by_title_or_identifier
+          end
+        end
+
+        def search_by_title_or_identifier
+          AdminSet.where(title: Array(attributes[:title]).first).first || AdminSet.where(id: Array(attributes[:title]).first).first
+        end
+
+        def permitted_attributes
+          klass.properties.keys.map(&:to_sym) + %i[id edit_users edit_groups read_groups visibility work_members_attributes admin_set_id]
+        end
+
+        # Override if we need to map the attributes from the parser in
+        # a way that is compatible with how the factory needs them.
+        def transform_attributes
+          if klass == ::Collection || klass == ::AdminSet
+            attributes.slice(*permitted_attributes)
+          else
+            attrs = attributes.slice(*permitted_attributes).merge(file_attributes)
+            attrs = attrs.merge("file_set" => attributes["file_set"])
+            attrs["uploaded_files"].each_with_index { |id, i| attrs["file_set"][i]["uploaded_file_id"] = id if attrs["file_set"][i].present? } if attrs["file_set"].present?
+            attrs
+          end
+        end
+      end
     end
 
     initializer "hyku_addons.import_mode_overrides" do
@@ -273,10 +382,7 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.use HykuAddons::Actors::TaskMaster::WorkActor
 
       User.include HykuAddons::UserBehavior
-
       Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
-      Bulkrax::ObjectFactory.include HykuAddons::Bulkrax::ObjectFactoryBehavior
-
       ::Bolognese::Writers::RisWriter.include ::Bolognese::Writers::RisWriterBehavior
       ::Bolognese::Metadata.prepend ::Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
       ::Bolognese::Metadata.include ::Bolognese::Readers::HykuAddonsWorkReader
@@ -295,10 +401,8 @@ module HykuAddons
       ::Hyku::API::V1::HighlightsController.prepend HykuAddons::HighlightsControllerBehavior
       ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
       Hyrax::Dashboard::ProfilesController.prepend HykuAddons::ProfilesControllerBehavior
-
-      ::Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
-      ::Bulkrax::ExportersController.include HykuAddons::ExportersControllerOverride
-
+      Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
+      Bulkrax::ExportersController.include HykuAddons::ExportersControllerOverride
       ::ActiveJob::Base.include HykuAddons::ImportMode
       ::CleanupAccountJob.prepend HykuAddons::CleanupAccountJobBehavior
 

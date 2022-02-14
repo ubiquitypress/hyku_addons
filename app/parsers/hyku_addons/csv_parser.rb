@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HykuAddons
-  class CsvParser < ::Bulkrax::CsvParser
+  class CsvParser < Bulkrax::CsvParser
     include HykuAddons::CollectionBehavior
 
     # FIXME: Override to make debugging easier
