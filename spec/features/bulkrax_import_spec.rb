@@ -273,7 +273,6 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
               importer.import_collections
             end
 
-            # byebug
             expect(Collection.find("e51dbdd3-11bd-47f6-b00a-8aace969f2ab").title).to eq(["Title"])
             expect(Collection.find("bedd7330-5040-4687-8226-0851f7256dff").title).to eq(["Other title"])
           end
@@ -286,7 +285,6 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
         it "uses parent_ column prefix" do
           allow(Gem).to receive_message_chain(:loaded_specs, :[]).with("bulkrax").and_return(instance_double(Bundler::StubSpecification, version: Gem::Version.create("3.0")))
 
-          byebug
           perform_enqueued_jobs(only: [Bulkrax::ImporterJob, HykuAddons::ImportWorkCollectionJob]) do
             importer.import_collections
           end
