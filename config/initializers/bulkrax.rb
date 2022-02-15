@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/BlockLength
-<<<<<<< Updated upstream
-Bulkrax.setup do |config|
-=======
 ::Bulkrax.setup do |config|
->>>>>>> Stashed changes
   config.export_path = Rails.root.join("tmp", "exports")
   config.system_identifier_field = "source_identifier"
   config.reserved_properties -= ["depositor"]
@@ -20,13 +16,8 @@ Bulkrax.setup do |config|
   # value.split(Regexp.new('\|')) # => ["funder_award_1_1", "funder_award_1_2"]
   # value.split(Regexp.new("\|")) # => ["f", "u", "n", "d", "e", "r", "_", ...[REMOVED]... , "_", "1", "_", "2"]
   # value.split(Regexp.new("\\|")) # => ["funder_award_1_1", "funder_award_1_2"]
-<<<<<<< Updated upstream
-  config.field_mappings["HykuAddons::CsvParser"] = {
-    # rubocop:enable Style/StringLiterals
-=======
   # rubocop:enable Style/StringLiterals
   config.field_mappings["HykuAddons::CsvParser"] = {
->>>>>>> Stashed changes
     "institution" => { split: '\|' },
     "org_unit" => { split: '\|' },
     "fndr_project_ref" => { split: '\|' },
@@ -62,12 +53,7 @@ Bulkrax.setup do |config|
     "qualification_subject_text" => { split: '\|' },
     "related_url" => { split: '\|' },
     "collection" => { split: '\|' }
-<<<<<<< Updated upstream
-    # rubocop:enable Style/StringLiterals
-  }
-=======
   }
   # rubocop:enable Style/StringLiterals
->>>>>>> Stashed changes
 end
 # rubocop:enable Metrics/BlockLength
