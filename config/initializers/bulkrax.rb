@@ -8,14 +8,22 @@
   config.parsers += [{ class_name: "HykuAddons::CsvParser", name: "Ubiquity Repositiories CSV", partial: "csv_fields" }]
 
   # NOTE: The splits are passed to a Regexp instance, which is passed to split.
+  # NOTE(1): The splits are passed to a Regexp instance, which is passed to split.
   #
   # They must use single quotes with a backslash `'\|'` or double quotes with two backslashes `"\\|"`.
   #
   # Example:
   # value = "funder_award_1_1|funder_award_1_2"
   # value.split(Regexp.new('\|')) # => ["funder_award_1_1", "funder_award_1_2"]
+  # value = "funding_description_1_1|funding_description_1_2"
+  # value.split(Regexp.new('\|')) # => ["funding_description_1_1", "funding_description_1_2"]
   # value.split(Regexp.new("\|")) # => ["f", "u", "n", "d", "e", "r", "_", ...[REMOVED]... , "_", "1", "_", "2"]
   # value.split(Regexp.new("\\|")) # => ["funder_award_1_1", "funder_award_1_2"]
+  # value.split(Regexp.new("\\|")) # => ["funding_description_1_1", "funding_description_1_2"]
+  #
+  # NOTE(2): Any fields which Bulkrax should not be parsing can be removed by adding the mapping:
+  # "field_name" => { excluded: true }
+  # The Bulkrax dynamic import will also ignore those fields
   # rubocop:enable Style/StringLiterals
   config.field_mappings["HykuAddons::CsvParser"] = {
     "institution" => { split: '\|' },
@@ -52,7 +60,8 @@
     "part_of" => { split: '\|' },
     "qualification_subject_text" => { split: '\|' },
     "related_url" => { split: '\|' },
-    "collection" => { split: '\|' }
+    "collection" => { split: '\|' },
+    "creator_profile_visibility" => { excluded: true }
   }
   # rubocop:enable Style/StringLiterals
 end
