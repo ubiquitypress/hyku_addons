@@ -38,9 +38,8 @@ RSpec.describe Bulkrax do
         "add_info" => { split: '\|' },
         "part_of" => { split: '\|' },
         "qualification_subject_text" => { split: '\|' },
-        # rubocop:disable Style/StringLiterals
-        "collection" => { split: '|' }
-        # rubocop:enable Style/StringLiterals
+        "collection" => { split: '\|' },
+        "related_url" => { split: '\|' }
       }
     end
 
