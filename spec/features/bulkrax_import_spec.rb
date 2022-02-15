@@ -7,18 +7,13 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
   # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
   let!(:depositor) { build_stubbed(:user, email: "batchuser@example.com") }
   let(:importer) do
-    create(:bulkrax_importer_csv,
-           user: user,
-           field_mapping: Bulkrax.field_mappings["HykuAddons::CsvParser"],
-           parser_klass: "HykuAddons::CsvParser",
-           parser_fields: { "import_file_path" => import_batch_file },
-           limit: 0)
+    create(:bulkrax_importer_csv, user: user, field_mapping: ::Bulkrax.field_mappings["HykuAddons::CsvParser"], parser_klass: "HykuAddons::CsvParser", parser_fields: { "import_file_path" => import_batch_file }, limit: 0)
   end
   let(:import_batch_file) { "spec/fixtures/csv/pacific_articles.metadata.csv" }
 
   before do
-    # Make sure default admin set exists
-    stub_request(:get, Addressable::Template.new("#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}")).to_return(status: 200)
+    url = "#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}"
+    stub_request(:get, Addressable::Template.new(url)).to_return(status: 200)
     allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
   end
 
@@ -274,10 +269,11 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
           let(:collection_2) { create :collection, id: "bedd7330-5040-4687-8226-0851f7256dff", title: ["This Title Should Change"] }
 
           it "updates the collections" do
-            perform_enqueued_jobs(only: [Bulkrax::ImporterJob, HykuAddons::ImportWorkCollectionJob]) do
+            perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Bulkrax::ImportWorkCollectionJob]) do
               importer.import_collections
             end
 
+            # byebug
             expect(Collection.find("e51dbdd3-11bd-47f6-b00a-8aace969f2ab").title).to eq(["Title"])
             expect(Collection.find("bedd7330-5040-4687-8226-0851f7256dff").title).to eq(["Other title"])
           end
@@ -290,6 +286,7 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
         it "uses parent_ column prefix" do
           allow(Gem).to receive_message_chain(:loaded_specs, :[]).with("bulkrax").and_return(instance_double(Bundler::StubSpecification, version: Gem::Version.create("3.0")))
 
+          byebug
           perform_enqueued_jobs(only: [Bulkrax::ImporterJob, HykuAddons::ImportWorkCollectionJob]) do
             importer.import_collections
           end

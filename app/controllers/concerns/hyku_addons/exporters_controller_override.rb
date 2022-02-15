@@ -8,7 +8,7 @@ module HykuAddons
     included do
       class_eval do
         def create
-          @exporter = Bulkrax::Exporter.new(exporter_params)
+          @exporter = ::Bulkrax::Exporter.new(exporter_params)
           field_mapping_params
 
           if @exporter.save
@@ -16,7 +16,7 @@ module HykuAddons
               # Use perform later for creating the export in the background
               HykuAddons::MultitenantExporterJob.perform_later(current_account.id, @exporter.id)
             end
-            redirect_to bulkrax.exporters_path, notice: "Exporter was successfully created."
+            redirect_to ::Bulkrax.exporters_path, notice: "Exporter was successfully created."
           else
             render :new
           end
@@ -26,8 +26,8 @@ module HykuAddons
           field_mapping_params
           if @exporter.update(exporter_params)
             # Use perform later for creating the export in the background
-            Bulkrax::MultitenantExporterJob.perform_later(current_account.id, @exporter.id) if params[:commit] == "Update and Re-Export All Items"
-            redirect_to bulkrax.exporters_path, notice: "Exporter was successfully updated."
+            ::Bulkrax::MultitenantExporterJob.perform_later(current_account.id, @exporter.id) if params[:commit] == "Update and Re-Export All Items"
+            redirect_to ::Bulkrax.exporters_path, notice: "Exporter was successfully updated."
           else
             render :edit
           end

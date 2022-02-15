@@ -274,8 +274,10 @@ module HykuAddons
 
       User.include HykuAddons::UserBehavior
 
-      Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
-      Bulkrax::ObjectFactory.include HykuAddons::Bulkrax::ObjectFactoryBehavior
+      ::Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
+      ::Bulkrax::ObjectFactory.prepend HykuAddons::Bulkrax::ObjectFactoryBehavior
+      ::Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
+      ::Bulkrax::ExportersController.include HykuAddons::ExportersControllerOverride
 
       ::Bolognese::Writers::RisWriter.include ::Bolognese::Writers::RisWriterBehavior
       ::Bolognese::Metadata.prepend ::Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
@@ -299,9 +301,6 @@ module HykuAddons
 
       ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
       Hyrax::Dashboard::ProfilesController.prepend HykuAddons::ProfilesControllerBehavior
-
-      ::Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
-      ::Bulkrax::ExportersController.include HykuAddons::ExportersControllerOverride
 
       ::ActiveJob::Base.include HykuAddons::ImportMode
       ::CleanupAccountJob.prepend HykuAddons::CleanupAccountJobBehavior

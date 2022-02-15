@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module HykuAddons
   class CsvMatcher < ::Bulkrax::CsvMatcher
     def parse_date_published(src)

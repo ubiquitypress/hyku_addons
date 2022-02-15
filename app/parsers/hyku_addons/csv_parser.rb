@@ -13,7 +13,7 @@ module HykuAddons
     def file_paths
       raise StandardError, "No records were found" if records.blank?
       @file_paths ||= records.map do |r|
-        file_mapping = Bulkrax.field_mappings.dig(self.class.to_s, "file", :from)&.first&.to_sym || :file
+        file_mapping = ::Bulkrax.field_mappings.dig(self.class.to_s, "file", :from)&.first&.to_sym || :file
         next unless r[file_mapping].present?
 
         r[file_mapping].split(/\s*[:;|]\s*/).map do |f|
@@ -45,17 +45,17 @@ module HykuAddons
         target_file = File.join(files_path, file["file_name"])
         # Now because we want the files in place before the importer runs
         # Problematic for a large upload
-        Bulkrax::DownloadCloudFileJob.perform_now(file, target_file)
+        ::Bulkrax::DownloadCloudFileJob.perform_now(file, target_file)
       end
       nil
     end
 
     def entry_class
-      HykuAddons::CsvEntry
+      CsvEntry
     end
 
     def admin_set_entry_class
-      HykuAddons::CsvAdminSetEntry
+      CsvAdminSetEntry
     end
 
     def admin_sets

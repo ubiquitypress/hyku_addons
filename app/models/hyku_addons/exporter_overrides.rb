@@ -57,7 +57,7 @@ module HykuAddons
     private
 
       def supported_and_unreserved_field(k)
-        field_supported?(k) && !Bulkrax.reserved_properties.include?(k)
+        field_supported?(k) && !::Bulkrax.reserved_properties.include?(k)
       end
 
       def add_embargo_details(fs, index)
