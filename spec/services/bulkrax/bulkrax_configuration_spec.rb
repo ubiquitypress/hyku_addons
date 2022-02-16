@@ -40,6 +40,7 @@ RSpec.describe Bulkrax do
         "qualification_subject_text" => { split: '\|' },
         "collection" => { split: '\|' },
         "related_url" => { split: '\|' }
+        "creator_profile_visibility" => { excluded: true }
       }
     end
 
