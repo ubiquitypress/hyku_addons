@@ -64,15 +64,6 @@ module HykuAddons
     # Monkey-patch override to make use of file set parameters relating to permissions
     # See https://github.com/samvera/hyrax/pull/4992
     initializer "hyku_addons.file_set_overrides" do
-      # Override to skip file_set attribute when doing mass assignment
-      Hyrax::Actors::BaseActor.class_eval do
-        def clean_attributes(attributes)
-          attributes[:license] = Array(attributes[:license]) if attributes.key? :license
-          attributes[:rights_statement] = Array(attributes[:rights_statement]) if attributes.key? :rights_statement
-          remove_blank_attributes!(attributes).except("file_set")
-        end
-      end
-
       AttachFilesToWorkJob.class_eval do
         # @param [ActiveFedora::Base] work - the work object
         # @param [Array<Hyrax::UploadedFile>] uploaded_files - an array of files to attach
@@ -173,6 +164,7 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
       Hyrax::Actors::FileSetActor.include HykuAddons::Actors::FileSetActorBehavior
+      Hyrax::Actors::BaseActor.prepend HykuAddons::Actors::BaseActorBehavior
 
       # Workflows
       Hyrax::Workflow::ChangesRequiredNotification.prepend HykuAddons::Workflow::ChangesRequiredNotification
