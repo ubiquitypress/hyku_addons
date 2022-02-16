@@ -44,6 +44,11 @@ module HykuAddons
       Rails.application.routes.prepend do
         mount HykuAddons::Engine => "/"
       end
+
+      # Remove the Hyrax Orcid JSON Actor as we have our own - this should not be namespaced
+      Hyrax::CurationConcern.actor_factory.middlewares.delete(Hyrax::Actors::Orcid::JSONFieldsActor)
+      # Remove the Hyrax Orcid pipeline as its not required within HykuAddons
+      ::Blacklight::Rendering::Pipeline.operations.delete(Hyrax::Orcid::Blacklight::Rendering::PipelineJsonExtractor)
     end
 
     initializer "hyku_addons.append_migrations" do |app|
@@ -242,13 +247,6 @@ module HykuAddons
       initializer "hyku_addons.blacklight_config override" do
         CatalogController.include HykuAddons::CatalogControllerBehavior
       end
-    end
-
-    config.after_initialize do
-      # Remove the Hyrax Orcid JSON Actor as we have our own - this should not be namespaced
-      Hyrax::CurationConcern.actor_factory.middlewares.delete(Hyrax::Actors::Orcid::JSONFieldsActor)
-      # Remove the Hyrax Orcid pipeline as its not required within HykuAddons
-      ::Blacklight::Rendering::Pipeline.operations.delete(Hyrax::Orcid::Blacklight::Rendering::PipelineJsonExtractor)
     end
   end
 end
