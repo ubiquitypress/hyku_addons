@@ -70,4 +70,3 @@ Hyrax.config do |config|
   end
 end
 # rubocop:enable Metrics/BlockLength
-
