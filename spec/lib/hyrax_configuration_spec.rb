@@ -3,7 +3,7 @@
 RSpec.describe Hyrax do
   describe ".config" do
     it "registered the license service" do
-      expect(Hyrax.config.license_service_class).to eq(HykuAddons::LicenseService)
+      expect(described_class.config.license_service_class).to eq(HykuAddons::LicenseService)
     end
 
     context "Registered Curation Concerns" do
@@ -21,7 +21,7 @@ RSpec.describe Hyrax do
       end
 
       it "registered the correct curation concerns" do
-        expect(Hyrax.config.curation_concerns).to match_array(curation_concerns)
+        expect(described_class.config.curation_concerns).to match_array(curation_concerns)
       end
     end
   end

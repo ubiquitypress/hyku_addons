@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Register any Hyrax related settings and add new curation concerns (works)
+# rubocop:disable Metrics/BlockLength
 Hyrax.config do |config|
   config.register_curation_concern :anschutz_work
   config.register_curation_concern :article
@@ -68,4 +69,5 @@ Hyrax.config do |config|
     )
   end
 end
+# rubocop:enable Metrics/BlockLength
 
