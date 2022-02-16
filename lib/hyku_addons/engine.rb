@@ -9,7 +9,6 @@ require "bolognese/metadata"
 require "cocoon"
 require "hyrax/autopopulation/engine"
 
-# rubocop:disable Metrics/ClassLength
 module HykuAddons
   class Engine < ::Rails::Engine
     isolate_namespace HykuAddons
@@ -253,4 +252,3 @@ module HykuAddons
     end
   end
 end
-# rubocop:enable Metrics/ClassLength
