@@ -15,7 +15,8 @@ module HykuAddons
     isolate_namespace HykuAddons
 
     # Without this include, the presenter will be dropped by the autoloading each time a change is made to the codebase.
-    # Because of the way the app is structured, we need to include it here to have the console and server use the same location.
+    # Because of the way the app is structured, we need to include it here to have the console and server use the same
+    # location.
     require HykuAddons::Engine.root.join("app/presenters/hyku_addons/schema/presenter.rb")
 
     config.before_initialize do
@@ -55,7 +56,7 @@ module HykuAddons
       end
     end
 
-    # Allow flipflop to load config/features.rb from the Hyrax gem:
+    # This is the recommended way of loading Engine features and cannot be moved to an initializer
     initializer "configure" do
       Flipflop::FeatureLoader.current.append(self)
     end
@@ -161,7 +162,9 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::NoteFieldActor
-      Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::RelatedIdentifierActor
+
+      actors = [Hyrax::Actors::ModelActor, HykuAddons::Actors::RelatedIdentifierActor]
+      Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
       actors = [HykuAddons::Actors::JSONFieldsActor, HykuAddons::Actors::CreatorProfileVisibilityActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
@@ -170,6 +173,7 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
       Hyrax::Actors::FileSetActor.include HykuAddons::Actors::FileSetActorBehavior
+
       # Workflows
       Hyrax::Workflow::ChangesRequiredNotification.prepend HykuAddons::Workflow::ChangesRequiredNotification
       Hyrax::Workflow::DepositedNotification.prepend HykuAddons::Workflow::DepositedNotification
