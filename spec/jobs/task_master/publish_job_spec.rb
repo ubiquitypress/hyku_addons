@@ -16,6 +16,10 @@ RSpec.describe HykuAddons::TaskMaster::PublishJob, type: :job do
     allow(Site).to receive(:instance).and_return(site)
   end
 
+  it "has its callback available" do
+    expect(Hyrax.config.callback.enabled).to include(:task_master_after_create_fileset)
+  end
+
   describe ".perform_later" do
     it "enqueues the job" do
       expect { described_class.perform_later(type, action, json) }
