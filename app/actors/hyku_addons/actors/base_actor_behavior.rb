@@ -4,6 +4,7 @@ module HykuAddons
   module Actors
     module BaseActorBehavior
       private
+
         # Monkey-patch override to make use of file set parameters relating to permissions
         # See https://github.com/samvera/hyrax/pull/4992
         # Override to skip file_set attribute when doing mass assignment
