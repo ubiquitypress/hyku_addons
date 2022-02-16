@@ -38,7 +38,9 @@ module HykuAddons
       def call_collection_job(item_entry_class, item_id, item_metadata)
         return if item_id.empty?
 
-        new_entry = find_or_create_entry(item_entry_class, item_id, "::Bulkrax::Importer", item_metadata)
+        # Bulkrax uses the `Bulkrax::Importer` string as a "type" for the polymorphic object, so this does not need
+        # to be namespaced like other occurances of the `::Bulkrax` module.
+        new_entry = find_or_create_entry(item_entry_class, item_id, "Bulkrax::Importer", item_metadata)
 
         begin
           HykuAddons::ImportWorkCollectionJob.perform_now(new_entry.id, current_run.id)
