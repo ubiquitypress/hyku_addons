@@ -60,28 +60,6 @@ module HykuAddons
       Flipflop::FeatureLoader.current.append(self)
     end
 
-    initializer "hyku_addons.import_mode_overrides" do
-      Hyrax::Actors::FileSetActor.class_eval do
-        def attach_to_work(work, file_set_params = {})
-          acquire_lock_for(work.id) do
-            # Ensure we have an up-to-date copy of the members association, so that we append to the end of the list.
-            work.reload unless work.new_record?
-            file_set.visibility = work.visibility unless assign_visibility?(file_set_params)
-            work.ordered_members << file_set
-            work.representative = file_set if work.representative_id.blank?
-            work.thumbnail = file_set if work.thumbnail_id.blank?
-            # Save the work so the association between the work and the file_set is persisted (head_id)
-            # NOTE: the work may not be valid, in which case this save doesn't do anything.
-            work.save
-            Hyrax.config.callback.run(:after_create_fileset, file_set, user)
-
-            # Perform TaskMaster related filset callback
-            Hyrax.config.callback.run(:task_master_after_create_fileset, file_set, user)
-          end
-        end
-      end
-    end
-
     # Monkey-patch override to make use of file set parameters relating to permissions
     # See https://github.com/samvera/hyrax/pull/4992
     initializer "hyku_addons.file_set_overrides" do
@@ -191,6 +169,7 @@ module HykuAddons
       actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
 
+      Hyrax::Actors::FileSetActor.include HykuAddons::Actors::FileSetActorBehavior
       # Workflows
       Hyrax::Workflow::ChangesRequiredNotification.prepend HykuAddons::Workflow::ChangesRequiredNotification
       Hyrax::Workflow::DepositedNotification.prepend HykuAddons::Workflow::DepositedNotification
