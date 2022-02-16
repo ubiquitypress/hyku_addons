@@ -51,8 +51,8 @@ module HykuAddons
       ::Blacklight::Rendering::Pipeline.operations.delete(Hyrax::Orcid::Blacklight::Rendering::PipelineJsonExtractor)
     end
 
+    # Add migrations to parent app paths
     initializer "hyku_addons.append_migrations" do |app|
-      # Add migrations to parent app paths
       unless app.root.to_s.match?(root.to_s)
         config.paths["db/migrate"].expanded.each do |expanded_path|
           app.config.paths["db/migrate"] << expanded_path
@@ -60,7 +60,8 @@ module HykuAddons
       end
     end
 
-    # This is the recommended way of loading Engine features and cannot be moved to an initializer
+    # This is the recommended way of loading Engine features and cannot be moved to an
+    # initializer without causing a number of stange errors when the Rails server starts
     initializer "configure" do
       Flipflop::FeatureLoader.current.append(self)
     end
@@ -110,16 +111,6 @@ module HykuAddons
             attrs = Array(attributes[:file_set]).find { |fs| fs[:uploaded_file_id].present? && (fs[:uploaded_file_id].to_i == uploaded_file&.id) }
             Hash(attrs).symbolize_keys
           end
-      end
-    end
-
-    initializer "hyku_addons.hyrax_identifier_overrides" do
-      Hyrax::Identifier::Dispatcher.class_eval do
-        def assign_for(object:, attribute: :identifier)
-          record = registrar.register!(object: object)
-          object.public_send("#{attribute}=".to_sym, Array.wrap(record.identifier))
-          object
-        end
       end
     end
 

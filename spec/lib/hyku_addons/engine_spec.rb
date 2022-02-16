@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.describe HykuAddons::Engine do
   describe "Additional mime types" do
     it "RIS is registered" do
