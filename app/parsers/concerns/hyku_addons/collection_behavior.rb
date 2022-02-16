@@ -17,13 +17,13 @@ module HykuAddons
     # Override to pass Bulkrax.system_identifier_field as singular instead of array
     def create_collections
       admin_sets.each_with_index do |admin_set_name, index|
-        call_collection_job(admin_set_entry_class, admin_set_name, admin_set_metadata(admin_set_name))
+        call_collection_job(admin_set_entry_class, admin_set_name, admin_set_metadata(admin_set_name), admin_sets.count)
 
         increment_counters(index, true)
       end
 
       collections.each_with_index do |collection, index|
-        call_collection_job(collection_entry_class, collection[:id], collection_metadata(collection))
+        call_collection_job(collection_entry_class, collection[:id], collection_metadata(collection), collections.count)
 
         increment_counters(index, true)
       end
@@ -35,7 +35,7 @@ module HykuAddons
 
     private
 
-      def call_collection_job(item_entry_class, item_id, item_metadata)
+      def call_collection_job(item_entry_class, item_id, item_metadata, number_of_items)
         return if item_id.empty?
 
         # Bulkrax uses the `Bulkrax::Importer` string as a "type" for the polymorphic object, so this does not need
@@ -43,7 +43,7 @@ module HykuAddons
         new_entry = find_or_create_entry(item_entry_class, item_id, "Bulkrax::Importer", item_metadata)
 
         begin
-          HykuAddons::ImportWorkCollectionJob.perform_now(new_entry.id, current_run.id)
+          choose_queue("HykuAddons::ImportWorkCollectionJob", number_of_items, [new_entry.id, current_run.id])
         rescue StandardError => e
           new_entry.status_info(e)
         end

@@ -69,6 +69,31 @@ module HykuAddons
       ENV["BULKRAX_FILE_PATH"].presence || super
     end
 
+    def create_works
+      records.each_with_index do |record, index|
+        if record[:source_identifier].blank?
+          current_run.invalid_records ||= ""
+          current_run.invalid_records += "Missing #{Bulkrax.system_identifier_field} for #{record.to_h}\n"
+          current_run.failed_records += 1
+          current_run.save
+          next
+        end
+        break if limit_reached?(limit, index)
+
+        seen[record[:source_identifier]] = true
+        new_entry = find_or_create_entry(entry_class, record[:source_identifier], 'Bulkrax::Importer', record.to_h.compact)
+
+        if record[:delete].present?
+          choose_queue("Bulkrax::DeleteWorkJob", records.count, [new_entry, current_run])
+        else
+          choose_queue("Bulkrax::ImportWorkJob", records.count, [new_entry.id, current_run.id])
+        end
+        increment_counters(index)
+      end
+    rescue StandardError => e
+      status_info(e)
+    end
+
     # Override to use #entries_to_export for better handling of limiting
     def write_files
       CSV.open(setup_export_file, "w", headers: export_headers, write_headers: true) do |csv|
@@ -109,6 +134,22 @@ module HykuAddons
                end
     rescue StandardError
       @total = 0
+    end
+
+    def bulkrax_import_threshold
+      ENV["BULKRAX_IMPORT_THRESHOLD"] || 20
+    end
+
+    def queue_name
+      :import_import
+    end
+
+    def choose_queue(class_name, number_of_items, args)
+      if number_of_items > bulkrax_import_threshold
+        class_name.constantize.set(queue: queue_name).send(perform_method, *args)
+      else
+        class_name.constantize.send(perform_method, *args)
+      end
     end
   end
 end

@@ -237,6 +237,32 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
   end
 
   describe "import collections" do
+    context "a bulk import" do
+      it "enqueues jobs in the bulk import queue" do
+        allow(ENV).to receive(:[]).and_call_original
+        allow(ENV).to receive(:[]).with("BULKRAX_IMPORT_THRESHOLD").and_return(1)
+        allow(HykuAddons::ImportWorkCollectionJob).to receive(:set).and_call_original
+
+        perform_enqueued_jobs(only: [Bulkrax::ImporterJob]) do
+          importer.import_collections
+        end
+
+        expect(HykuAddons::ImportWorkCollectionJob).to have_received(:set).with(queue: :import_import).at_least(:once)
+      end
+
+      it "enqueues jobs in the regular import queue" do
+        allow(ENV).to receive(:[]).and_call_original
+        allow(ENV).to receive(:[]).with("BULKRAX_IMPORT_THRESHOLD").and_return(20)
+        allow(HykuAddons::ImportWorkCollectionJob).to receive(:set).and_call_original
+
+        perform_enqueued_jobs(only: [Bulkrax::ImporterJob]) do
+          importer.import_collections
+        end
+
+        expect(HykuAddons::ImportWorkCollectionJob).not_to have_received(:set).with(queue: :import_import)
+      end
+    end
+
     context "when the csv does not set the collection title" do
       it "creates collections" do
         perform_enqueued_jobs(only: [Bulkrax::ImporterJob, HykuAddons::ImportWorkCollectionJob]) do
