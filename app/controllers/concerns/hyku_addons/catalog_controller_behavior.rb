@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This module controls the following: 
+# This module controls the following:
 #  + Which attributes can have searches ran against
 #  + The facets you see on the left of the search page
 #  + Adding search fields and how they should behave when searched against
