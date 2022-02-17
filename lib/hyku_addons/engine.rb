@@ -151,7 +151,23 @@ module HykuAddons
       Hyrax::WorkIndexer.include HykuAddons::WorkIndexerBehavior
 
       # Jobs
+      HykuAddons::CsvParser.include HykuAddons::BulkFlagBehavior     
+
+      Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
+      Bulkrax::ExportersController.include HykuAddons::ExportersControllerOverride
+      Bulkrax::ImporterJob.include HykuAddons::PortableBulkraxImporterBehavior
+      # Bulkrax::ImportCollectionJob.include HykuAddons::BulkraxEntryObjectBehavior
+      Bulkrax::ImportWorkJob.include HykuAddons::PortableBulkraxEntryBehavior
+      Bulkrax::DeleteWorkJob.include HykuAddons::PortableBulkraxEntryBehavior
+
+      # Bulkrax::ImportFileSetJob.include HykuAddons::BulkraxEntryObjectBehavior
+      HykuAddons::ImportWorkCollectionJob.include HykuAddons::PortableBulkraxEntryBehavior
+      Hyrax::Hirmeos::HirmeosWorkRegistrationJob.include HykuAddons::PortableActiveFedoraBehavior
+      Hyrax::Hirmeos::HirmeosWorkUpdaterJob.include HykuAddons::PortableActiveFedoraBehavior
+      Hyrax::DOI::RegisterDOIJob.include HykuAddons::PortableGenericBehavior
+
       ::ActiveJob::Base.include HykuAddons::ImportMode
+
       ::CleanupAccountJob.prepend HykuAddons::CleanupAccountJobBehavior
       ::CreateFcrepoEndpointJob.prepend HykuAddons::CreateFcrepoEndpointJobOverride
       ::RemoveSolrCollectionJob.prepend HykuAddons::RemoveSolrCollectionJobOverride

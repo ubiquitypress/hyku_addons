@@ -7,8 +7,6 @@ RSpec.describe HykuAddons::ImportMode, type: :job do
     allow(Apartment::Tenant).to receive(:switch).with("x") do |&block|
       block.call
     end
-
-    allow(Flipflop).to receive(:enabled?).with(:import_mode).and_return(import_mode)
   end
 
   let(:job) do
@@ -16,6 +14,7 @@ RSpec.describe HykuAddons::ImportMode, type: :job do
       queue_as :test
     end
   end
+
   let(:account) { FactoryBot.build(:account, name: "moominU") }
   let(:import_mode) { false }
 
@@ -42,8 +41,45 @@ RSpec.describe HykuAddons::ImportMode, type: :job do
     context "when in import mode" do
       let(:import_mode) { true }
 
-      it "returns special queue name if in import mode" do
-        expect(job.new.queue_name).to eq "moominU_import_test"
+      before do
+        allow(Bulkrax::Entry).to receive(:find).and_return(nil)
+        allow(ActiveFedora::Base).to receive(:find).and_return(nil)
+      end
+
+      context "a generic job" do
+        it "returns super if not in import mode" do
+          expect(job.new.queue_name).to eq "test"
+        end
+      end
+
+      context "an import job" do
+        [Bulkrax::Entry, ActiveFedora::Base].each do |object_type|
+          context "the job processes a #{object_type}" do
+            let(:object) { double }
+
+            before do
+              if object_type == Bulkrax::Entry
+                job.include HykuAddons::PortableBulkraxEntryBehavior
+              elsif object_type == ActiveFedora::Base
+                job.include HykuAddons::PortableActiveFedoraBehavior
+              end
+
+              allow(object_type).to receive(:find).and_return(object)
+            end
+
+            it "returns special queue name if the entry is marked bulk" do
+              allow(object).to receive(:bulk).and_return(true)
+
+              expect(job.new.queue_name).to eq "moominU_import_test"
+            end
+
+            it "returns super if the entry is not marked bulk" do
+              allow(object).to receive(:bulk).and_return(false)
+
+              expect(job.new.queue_name).to eq "test"
+            end
+          end
+        end
       end
     end
   end

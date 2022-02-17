@@ -16,6 +16,13 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
     stub_request(:get, Addressable::Template.new(url)).to_return(status: 200)
 
     allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
+    
+    allow(Apartment::Tenant).to receive(:current).and_return("x")
+    allow(Account).to receive(:find_by).with(tenant: "x").and_return(instance_double(Account, name: "x"))
+    allow(Apartment::Tenant).to receive(:switch).with("x") do |&block|
+      block.call
+    end
+
   end
 
   describe "import works" do
@@ -37,9 +44,13 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
       let(:import_batch_file) { "spec/fixtures/csv/publication_date.csv" }
 
       it "imports publication date separately" do
+        allow(ActiveJob::Base).to receive(:queue_name).and_call_original
+
         perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
           importer.import_works
         end
+
+        expect(ActiveJob::Base).to have_received(:queue_name).at_least(:once)
 
         [GenericWork, UvaWork, PacificArticle, NsuGenericWork, NsuArticle].each_with_index do |work, i|
           work_one = work.where(source_identifier: "external-id-#{3 * i + 1}").first
@@ -237,32 +248,6 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
   end
 
   describe "import collections" do
-    context "a bulk import" do
-      it "enqueues jobs in the bulk import queue" do
-        allow(ENV).to receive(:[]).and_call_original
-        allow(ENV).to receive(:[]).with("BULKRAX_IMPORT_THRESHOLD").and_return(1)
-        allow(HykuAddons::ImportWorkCollectionJob).to receive(:set).and_call_original
-
-        perform_enqueued_jobs(only: [Bulkrax::ImporterJob]) do
-          importer.import_collections
-        end
-
-        expect(HykuAddons::ImportWorkCollectionJob).to have_received(:set).with(queue: :import_import).at_least(:once)
-      end
-
-      it "enqueues jobs in the regular import queue" do
-        allow(ENV).to receive(:[]).and_call_original
-        allow(ENV).to receive(:[]).with("BULKRAX_IMPORT_THRESHOLD").and_return(20)
-        allow(HykuAddons::ImportWorkCollectionJob).to receive(:set).and_call_original
-
-        perform_enqueued_jobs(only: [Bulkrax::ImporterJob]) do
-          importer.import_collections
-        end
-
-        expect(HykuAddons::ImportWorkCollectionJob).not_to have_received(:set).with(queue: :import_import)
-      end
-    end
-
     context "when the csv does not set the collection title" do
       it "creates collections" do
         perform_enqueued_jobs(only: [Bulkrax::ImporterJob, HykuAddons::ImportWorkCollectionJob]) do
@@ -459,23 +444,12 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
 
     context "when import_mode is enabled" do
       it "calls the DOI Job" do
-        allow(Flipflop).to receive(:enabled?).and_call_original
-        allow(Flipflop).to receive(:enabled?).with(:import_mode).and_return(true).at_least(:once)
-
-        allow(Apartment::Tenant).to receive(:current).and_return("x")
-        allow(Account).to receive(:find_by).with(tenant: "x").and_return(instance_double(Account, name: "x"))
-        allow(Apartment::Tenant).to receive(:switch).with("x") do |&block|
-          block.call
-        end
-
         allow(Hyrax::DOI::RegisterDOIJob).to receive(:perform_later).and_call_original
         allow(Hyrax::Identifier::Dispatcher).to receive(:for).and_call_original
 
         perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
           Bulkrax::ImporterJob.perform_now(importer.id)
         end
-
-        expect(Flipflop).to have_received(:enabled?).with(:import_mode).at_least(:once)
 
         # This tests that the job is enqueued
         expect(Hyrax::DOI::RegisterDOIJob).to have_received(:perform_later).exactly(12).times
