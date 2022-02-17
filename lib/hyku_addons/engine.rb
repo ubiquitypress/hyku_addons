@@ -126,15 +126,11 @@ module HykuAddons
     initializer "hyku_addons.session_storage_overrides" do
       Rails.application.config.session_store :cookie_store, key: "_hyku_session", same_site: :lax
     end
-    # Monkey Patches and modules overrides
-    #
-    # NOTE: This method is included differently depending on the environment; for development it allows code reloading;
-    # in producution it loads all files when the process starts. This can leave to small differences in how files are
-    # included and can in some circumstances lead to production only bugs.
+    # HykuAddons mixins, monkey patches and modules overrides
     #
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/MethodLength
-    def self.dynamically_include_mixins
+    def self.mixins
       # Actors
       # NOTE: The order of the insert before/after must be preserved
       Hyrax::CurationConcern.actor_factory.use HykuAddons::Actors::TaskMaster::WorkActor
@@ -236,10 +232,10 @@ module HykuAddons
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength
 
-    if Rails.env.development?
-      config.to_prepare { HykuAddons::Engine.dynamically_include_mixins }
-    else
-      config.after_initialize { HykuAddons::Engine.dynamically_include_mixins }
-    end
+    # NOTE: The mixins are included differently depending on the environment; for development it allows code reloading;
+    # in producution it loads all files when the process starts. This can leave to small differences in how files are
+    # included and can, in some circumstances, lead to production only bugs.
+    method = Rails.env.development? ? :to_prepare : :after_initialize
+    config.send(method) { HykuAddons::Engine.mixins }
   end
 end
