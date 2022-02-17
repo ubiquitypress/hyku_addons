@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 RSpec.describe HykuAddons::TaskMaster::PublishJob, type: :job do
   let(:work) { create(:work) }
   let(:service_class) { HykuAddons::TaskMaster::PublishService }
