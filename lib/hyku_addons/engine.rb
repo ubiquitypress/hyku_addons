@@ -9,6 +9,20 @@ require "bolognese/metadata"
 require "cocoon"
 require "hyrax/autopopulation/engine"
 
+# NOTE: This file controls all aspects of the HykuAddons application. There are currently 4 sections:
+# + before_initialze
+# + after_initialize
+# + initializers
+# + mixins
+#
+# ## Initializers
+# It is sometimes necessary to place code within an `initializers` method within the body of the Engine. This should
+# be reserved for when adding a normal rails initializer will not suffice.
+#
+# ## Mixins
+# All behaviors/overrides/monkey patches should be added to seperate behavior modules and included in the correct
+# file within the mixins method. No class should be placed within a `class_eval` within an Engine `initializers` method
+# as this leads to excessive bloat and technical debt.
 module HykuAddons
   class Engine < ::Rails::Engine
     isolate_namespace HykuAddons
@@ -137,7 +151,7 @@ module HykuAddons
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
       actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
-      Hyrax::Actors::FileSetActor.include HykuAddons::Actors::FileSetActorBehavior
+      Hyrax::Actors::FileSetActor.prepend HykuAddons::Actors::FileSetActorBehavior
       Hyrax::Actors::BaseActor.prepend HykuAddons::Actors::BaseActorBehavior
 
       # Bolognese

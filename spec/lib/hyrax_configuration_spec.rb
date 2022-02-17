@@ -24,5 +24,11 @@ RSpec.describe Hyrax do
         expect(described_class.config.curation_concerns).to match_array(curation_concerns)
       end
     end
+
+    context "Registered callbacks" do
+      it "registered the taskmaster callback" do
+        expect(described_class.config.callback.enabled).to include(:task_master_after_create_fileset)
+      end
+    end
   end
 end
