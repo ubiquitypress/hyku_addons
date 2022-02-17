@@ -76,7 +76,6 @@ module HykuAddons
       AttachFilesToWorkJob.class_eval do
         # @param [ActiveFedora::Base] work - the work object
         # @param [Array<Hyrax::UploadedFile>] uploaded_files - an array of files to attach
-        # rubocop:disable Metrics/AbcSize
         # rubocop:disable Metrics/MethodLength
         def perform(work, uploaded_files, **work_attributes)
           validate_files!(uploaded_files)
@@ -100,7 +99,6 @@ module HykuAddons
             actor.attach_to_work(work, metadata)
           end
         end
-        # rubocop:enable Metrics/AbcSize
         # rubocop:enable Metrics/MethodLength
 
         private
