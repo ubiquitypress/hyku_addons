@@ -125,7 +125,6 @@ module HykuAddons
     initializer "hyku_addons.session_storage_overrides" do
       Rails.application.config.session_store :cookie_store, key: "_hyku_session", same_site: :lax
     end
-
     # Monkey Patches and modules overrides
     #
     # NOTE: This method is included differently depending on the environment; for development it allows code reloading;
@@ -235,17 +234,10 @@ module HykuAddons
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength
 
-    # Use #to_prepare because it reloads where after_initialize only runs once
-    # This might slow down every request so only do it in development environment
     if Rails.env.development?
       config.to_prepare { HykuAddons::Engine.dynamically_include_mixins }
     else
       config.after_initialize { HykuAddons::Engine.dynamically_include_mixins }
-
-      # This is needed to allow the API search to copy the blacklight configuration after our customisations are applied.
-      initializer "hyku_addons.blacklight_config override" do
-        CatalogController.include HykuAddons::CatalogControllerBehavior
-      end
     end
   end
 end

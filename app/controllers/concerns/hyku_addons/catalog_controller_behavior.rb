@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Allow the API search to copy the blacklight configuration after our customisations are applied
+#
 # rubocop:disable Metrics/LineLength
 # rubocop:disable Metrics/BlockLength
 # rubocop:disable Metrics/ModuleLength
