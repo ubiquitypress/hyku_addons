@@ -38,11 +38,8 @@ module HykuAddons
       # set default_url_options[:host], or set :only_path to true
       HykuAddons::Engine.routes.default_url_options = { host: "hyku.docker" } unless Rails.env.production?
 
-      # Automount this engine
-      # Only do this because this is just for us and we don't need to allow control over the mount to the application
-      Rails.application.routes.prepend do
-        mount HykuAddons::Engine => "/"
-      end
+      # Automount the engine
+      Rails.application.routes.prepend { mount HykuAddons::Engine => "/" }
 
       # Remove the Hyrax Orcid JSON Actor as we have our own - this should not be namespaced
       Hyrax::CurationConcern.actor_factory.middlewares.delete(Hyrax::Actors::Orcid::JSONFieldsActor)
@@ -60,6 +57,13 @@ module HykuAddons
           app.config.paths["db/migrate"] << expanded_path
         end
       end
+    end
+
+    # This is the recommended way of loading Engine features and cannot be moved to an
+    # initializer without causing a number of stange errors when the Rails server starts
+    # or dropped features in development
+    initializer "flipflop.configure" do
+      Flipflop::FeatureLoader.current.append(self)
     end
 
     # Monkey-patch override to make use of file set parameters relating to permissions
@@ -106,11 +110,6 @@ module HykuAddons
             Hash(attrs).symbolize_keys
           end
       end
-    # This is the recommended way of loading Engine features and cannot be moved to an
-    # initializer without causing a number of stange errors when the Rails server starts
-    # or dropped features in development
-    initializer "flipflop.configure" do
-      Flipflop::FeatureLoader.current.append(self)
     end
 
     initializer "hyku_addons.hyrax_admin_set_create_overrides" do
