@@ -13,9 +13,8 @@ module HykuAddons
   class Engine < ::Rails::Engine
     isolate_namespace HykuAddons
 
-    # Without this include, the presenter will be dropped by the autoloading each time a change is made to the codebase.
-    # Because of the way the app is structured, we need to include it here to have the console and server use the same
-    # location.
+    # Without this include, the presenter will be dropped by the autoloader each time a change is made. Because of the
+    # way the app is structured, we need to include it here to have the console and server use the same location.
     require HykuAddons::Engine.root.join("app/presenters/hyku_addons/schema/presenter.rb")
 
     config.before_initialize do
@@ -47,23 +46,20 @@ module HykuAddons
 
       # Remove the Hyrax Orcid JSON Actor as we have our own - this should not be namespaced
       Hyrax::CurationConcern.actor_factory.middlewares.delete(Hyrax::Actors::Orcid::JSONFieldsActor)
+
       # Remove the Hyrax Orcid pipeline as its not required within HykuAddons
       ::Blacklight::Rendering::Pipeline.operations.delete(Hyrax::Orcid::Blacklight::Rendering::PipelineJsonExtractor)
     end
 
     # Add migrations to parent app paths
+    # NOTE: This could be placed in an initializer file, but with some difficulty,
+    # so as it is engine specific I have opted to leave it inplace.
     initializer "hyku_addons.append_migrations" do |app|
       unless app.root.to_s.match?(root.to_s)
         config.paths["db/migrate"].expanded.each do |expanded_path|
           app.config.paths["db/migrate"] << expanded_path
         end
       end
-    end
-
-    # This is the recommended way of loading Engine features and cannot be moved to an
-    # initializer without causing a number of stange errors when the Rails server starts
-    initializer "configure" do
-      Flipflop::FeatureLoader.current.append(self)
     end
 
     # Monkey-patch override to make use of file set parameters relating to permissions
@@ -135,6 +131,7 @@ module HykuAddons
     # rubocop:disable Metrics/MethodLength
     def self.dynamically_include_mixins
       # Actors
+      # NOTE: The order of the insert before/after must be preserved
       Hyrax::CurationConcern.actor_factory.use HykuAddons::Actors::TaskMaster::WorkActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
