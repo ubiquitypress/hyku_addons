@@ -126,104 +126,111 @@ module HykuAddons
       Rails.application.config.session_store :cookie_store, key: "_hyku_session", same_site: :lax
     end
 
-    # Pre-existing Work type overrides and dynamic includes
+    # Monkey Patches and modules overrides
+    #
+    # NOTE: This method is included differently depending on the environment; for development it allows code reloading;
+    # in producution it loads all files when the process starts. This can leave to small differences in how files are
+    # included and can in some circumstances lead to production only bugs.
+    #
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/MethodLength
     def self.dynamically_include_mixins
-      Account.include HykuAddons::AccountBehavior
-      GenericWork.include HykuAddons::GenericWorkOverrides
-      Image.include HykuAddons::ImageOverrides
-      GenericWork.include ::Hyrax::BasicMetadata
-      Hyrax::WorkIndexer.include HykuAddons::WorkIndexerBehavior
-
-      Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
-      Hyrax::ImageForm.include HykuAddons::ImageFormOverrides
-      Hyrax::Forms::CollectionForm.include HykuAddons::CollectionFormBehavior
-      Hyrax::CollectionPresenter.include HykuAddons::CollectionPresenterBehavior
-      SolrDocument.include HykuAddons::SolrDocumentBehavior
-      SolrDocument.include HykuAddons::SolrDocumentRis
-      Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
-      Hyrax::ImagePresenter.include HykuAddons::GenericWorkPresenterBehavior
-      CatalogController.include HykuAddons::CatalogControllerBehavior
+      # Actors
+      Hyrax::CurationConcern.actor_factory.use HykuAddons::Actors::TaskMaster::WorkActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::JSONFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::DateFieldsActor
       Hyrax::CurationConcern.actor_factory.insert_before Hyrax::Actors::ModelActor, HykuAddons::Actors::NoteFieldActor
-
       actors = [Hyrax::Actors::ModelActor, HykuAddons::Actors::RelatedIdentifierActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
-
       actors = [HykuAddons::Actors::JSONFieldsActor, HykuAddons::Actors::CreatorProfileVisibilityActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
-
       actors = [Hyrax::Actors::DefaultAdminSetActor, HykuAddons::Actors::MemberCollectionFromAdminSetActor]
       Hyrax::CurationConcern.actor_factory.insert_after(*actors)
-
       Hyrax::Actors::FileSetActor.include HykuAddons::Actors::FileSetActorBehavior
       Hyrax::Actors::BaseActor.prepend HykuAddons::Actors::BaseActorBehavior
 
-      # Workflows
-      Hyrax::Workflow::ChangesRequiredNotification.prepend HykuAddons::Workflow::ChangesRequiredNotification
-      Hyrax::Workflow::DepositedNotification.prepend HykuAddons::Workflow::DepositedNotification
-      Hyrax::Workflow::PendingReviewNotification.prepend HykuAddons::Workflow::PendingReviewNotification
+      # Bolognese
+      ::Bolognese::Writers::RisWriter.include ::Bolognese::Writers::RisWriterBehavior
+      ::Bolognese::Metadata.prepend ::Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
+      ::Bolognese::Metadata.include ::Bolognese::Readers::HykuAddonsWorkReader
+      ::Bolognese::Metadata.prepend ::Bolognese::Writers::HyraxWorkWriterBehavior
+      ::Bolognese::Metadata.include HykuAddons::Bolognese::JsonFieldsReader
 
-      # TaskMaster
-      Account.include HykuAddons::TaskMaster::AccountBehavior
-      FileSet.include HykuAddons::TaskMaster::FileSetBehavior
-      # Insert at the end of the actor chain
-      Hyrax::CurationConcern.actor_factory.use HykuAddons::Actors::TaskMaster::WorkActor
-
-      User.include HykuAddons::UserBehavior
-
+      # Bulkrax
       ::Bulkrax::Entry.include HykuAddons::BulkraxEntryBehavior
       ::Bulkrax::ObjectFactory.prepend HykuAddons::Bulkrax::ObjectFactoryBehavior
       ::Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
       ::Bulkrax::ExportersController.include HykuAddons::ExportersControllerOverride
 
-      ::Bolognese::Writers::RisWriter.include ::Bolognese::Writers::RisWriterBehavior
-      ::Bolognese::Metadata.prepend ::Bolognese::Writers::HykuAddonsWorkFormFieldsWriter
-      ::Bolognese::Metadata.include ::Bolognese::Readers::HykuAddonsWorkReader
+      # Controllers
       Hyrax::GenericWorksController.include HykuAddons::WorksControllerBehavior
-
       Hyrax::DOI::HyraxDOIController.include HykuAddons::DOIControllerBehavior
-      # Using a concern doesn't actually override the original method so inlining it here
       Proprietor::AccountsController.include HykuAddons::AccountControllerBehavior
+      ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
+      ::Hyku::RegistrationsController.include HykuAddons::RegistrationsControllerBehavior
+      ::Hyrax::Dashboard::ProfilesController.prepend HykuAddons::ProfilesControllerBehavior
+      ::ApplicationController.prepend HykuAddons::ApplicationControllerOverride
+      ::Hyrax::Admin::FeaturesController.prepend HykuAddons::FlipflopFeaturesControllerOverride
+      ::Flipflop::StrategiesController.prepend HykuAddons::FlipflopStrategiesControllerOverride
+      ::Proprietor::AccountsController.prepend HykuAddons::ProprietorControllerOverride
+      ::Hyrax::StatsController.include HykuAddons::StatsControllerBehavior
+      Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
+      Hyrax::ImagePresenter.include HykuAddons::GenericWorkPresenterBehavior
+      CatalogController.include HykuAddons::CatalogControllerBehavior
 
-      ::Bolognese::Metadata.prepend ::Bolognese::Writers::HyraxWorkWriterBehavior
-      ::Bolognese::Metadata.include HykuAddons::Bolognese::JsonFieldsReader
+      # Forms
+      Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
+      Hyrax::ImageForm.include HykuAddons::ImageFormOverrides
+      Hyrax::Forms::CollectionForm.include HykuAddons::CollectionFormBehavior
 
+      # Hyku API
       ::Hyku::API::V1::SearchController.prepend HykuAddons::SearchControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
       ::Hyku::API::V1::HighlightsController.prepend HykuAddons::HighlightsControllerBehavior
       ::Hyku::API::V1::UsersController.prepend HykuAddons::UsersControllerBehavior
 
-      ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
-      ::Hyku::RegistrationsController.include HykuAddons::RegistrationsControllerBehavior
+      # Indexers
+      ::Hyrax::CollectionIndexer.prepend HykuAddons::CollectionIndexerOverride
+      Hyrax::WorkIndexer.include HykuAddons::WorkIndexerBehavior
 
-      ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
-      Hyrax::Dashboard::ProfilesController.prepend HykuAddons::ProfilesControllerBehavior
-
+      # Jobs
       ::ActiveJob::Base.include HykuAddons::ImportMode
       ::CleanupAccountJob.prepend HykuAddons::CleanupAccountJobBehavior
-
-      # Overrides for shared_search.
-      # remove when we start using Hyku-3
-      ::CreateSolrCollectionJob.prepend HykuAddons::CreateSolrCollectionJobOverride
       ::CreateFcrepoEndpointJob.prepend HykuAddons::CreateFcrepoEndpointJobOverride
-      ::CreateAccount.prepend HykuAddons::CreateAccountOverride
       ::RemoveSolrCollectionJob.prepend HykuAddons::RemoveSolrCollectionJobOverride
-      ::SolrEndpoint.prepend HykuAddons::SolrEndpointOverride
-      ::ApplicationController.prepend HykuAddons::ApplicationControllerOverride
-      ::Hyrax::Admin::FeaturesController.prepend HykuAddons::FlipflopFeaturesControllerOverride
-      ::Flipflop::StrategiesController.prepend HykuAddons::FlipflopStrategiesControllerOverride
-      ::Proprietor::AccountsController.prepend HykuAddons::ProprietorControllerOverride
-      ::NilEndpoint.prepend HykuAddons::NilEndpointOverride
-      ::Hyrax::CollectionIndexer.prepend HykuAddons::CollectionIndexerOverride
-      ::Hyrax::CollectionPresenter.prepend HykuAddons::CollectionPresenterOverride
+      # Overrides for shared_search, remove when we start using Hyku-3
+      ::CreateSolrCollectionJob.prepend HykuAddons::CreateSolrCollectionJobOverride
+
+      # Misc
+      ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
       Hyrax::Workflow::AbstractNotification.include HykuAddons::WorkflowBehavior
       Mailboxer::MessageMailer.prepend HykuAddons::MailboxerMessageMailerBehavior
-      Hyrax::StatsController.include HykuAddons::StatsControllerBehavior
 
+      # Models / Records
+      Account.include HykuAddons::AccountBehavior
+      Account.include HykuAddons::TaskMaster::AccountBehavior
+      ::CreateAccount.prepend HykuAddons::CreateAccountOverride
+      FileSet.include HykuAddons::TaskMaster::FileSetBehavior
+      GenericWork.include HykuAddons::GenericWorkOverrides
+      GenericWork.include ::Hyrax::BasicMetadata
+      Image.include HykuAddons::ImageOverrides
+      SolrDocument.include HykuAddons::SolrDocumentBehavior
+      SolrDocument.include HykuAddons::SolrDocumentRis
+      User.include HykuAddons::UserBehavior
+
+      # Presenters / Renderers
+      Hyrax::CollectionPresenter.include HykuAddons::CollectionPresenterBehavior
       Hyrax::Renderers::LicenseAttributeRenderer.prepend Hyrax::Renderers::LicenseAttributeRendererBehavior
+      ::Hyrax::CollectionPresenter.prepend HykuAddons::CollectionPresenterOverride
+
+      # Service Endpoints
+      ::SolrEndpoint.prepend HykuAddons::SolrEndpointOverride
+      ::NilEndpoint.prepend HykuAddons::NilEndpointOverride
+
+      # Workflows
+      Hyrax::Workflow::ChangesRequiredNotification.prepend HykuAddons::Workflow::ChangesRequiredNotification
+      Hyrax::Workflow::DepositedNotification.prepend HykuAddons::Workflow::DepositedNotification
+      Hyrax::Workflow::PendingReviewNotification.prepend HykuAddons::Workflow::PendingReviewNotification
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength
@@ -234,6 +241,7 @@ module HykuAddons
       config.to_prepare { HykuAddons::Engine.dynamically_include_mixins }
     else
       config.after_initialize { HykuAddons::Engine.dynamically_include_mixins }
+
       # This is needed to allow the API search to copy the blacklight configuration after our customisations are applied.
       initializer "hyku_addons.blacklight_config override" do
         CatalogController.include HykuAddons::CatalogControllerBehavior
