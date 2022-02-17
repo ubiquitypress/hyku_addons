@@ -120,14 +120,6 @@ module HykuAddons
       end
     end
 
-    initializer "hyku_addons.hyrax_admin_set_create_overrides" do
-      Hyrax::Admin::AdminSetsController.class_eval do
-        def create_admin_set
-          admin_set_create_service.call(admin_set: @admin_set, creating_user: nil)
-        end
-      end
-    end
-
     # HykuAddons mixins, monkey patches and modules overrides
     #
     # rubocop:disable Metrics/AbcSize
