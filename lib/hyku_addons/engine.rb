@@ -108,6 +108,11 @@ module HykuAddons
             Hash(attrs).symbolize_keys
           end
       end
+    # This is the recommended way of loading Engine features and cannot be moved to an
+    # initializer without causing a number of stange errors when the Rails server starts
+    # or dropped features in development
+    initializer "flipflop.configure" do
+      Flipflop::FeatureLoader.current.append(self)
     end
 
     initializer "hyku_addons.hyrax_admin_set_create_overrides" do
