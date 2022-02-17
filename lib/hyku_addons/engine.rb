@@ -66,6 +66,8 @@ module HykuAddons
       Flipflop::FeatureLoader.current.append(self)
     end
 
+    # Ensure that the API and dashboard can use the same cookie
+    # This cannot be placed in an initializer as it doesn't work anywhere outside of the initializer method
     initializer "hyku_addons.session_storage_overrides" do
       Rails.application.config.session_store :cookie_store, key: "_hyku_session", same_site: :lax
     end
