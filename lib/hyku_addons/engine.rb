@@ -68,7 +68,6 @@ module HykuAddons
       AttachFilesToWorkJob.class_eval do
         # @param [ActiveFedora::Base] work - the work object
         # @param [Array<Hyrax::UploadedFile>] uploaded_files - an array of files to attach
-        # rubocop:disable Metrics/MethodLength
         def perform(work, uploaded_files, **work_attributes)
           validate_files!(uploaded_files)
           depositor = proxy_or_depositor(work)
@@ -91,7 +90,6 @@ module HykuAddons
             actor.attach_to_work(work, metadata)
           end
         end
-        # rubocop:enable Metrics/MethodLength
 
         private
 
@@ -126,10 +124,8 @@ module HykuAddons
     initializer "hyku_addons.session_storage_overrides" do
       Rails.application.config.session_store :cookie_store, key: "_hyku_session", same_site: :lax
     end
+
     # HykuAddons mixins, monkey patches and modules overrides
-    #
-    # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Metrics/MethodLength
     def self.mixins
       # Actors
       # NOTE: The order of the insert before/after must be preserved
@@ -229,8 +225,6 @@ module HykuAddons
       Hyrax::Workflow::DepositedNotification.prepend HykuAddons::Workflow::DepositedNotification
       Hyrax::Workflow::PendingReviewNotification.prepend HykuAddons::Workflow::PendingReviewNotification
     end
-    # rubocop:enable Metrics/AbcSize
-    # rubocop:enable Metrics/MethodLength
 
     # NOTE: The mixins are included differently depending on the environment; for development it allows code reloading;
     # in producution it loads all files when the process starts. This can leave to small differences in how files are
