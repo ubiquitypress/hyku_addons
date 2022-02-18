@@ -16,7 +16,7 @@ module HykuAddons
               # Use perform later for creating the export in the background
               HykuAddons::MultitenantExporterJob.perform_later(current_account.id, @exporter.id)
             end
-            redirect_to ::Bulkrax.exporters_path, notice: "Exporter was successfully created."
+            redirect_to bulkrax.exporters_path, notice: "Exporter was successfully created."
           else
             render :new
           end
@@ -27,7 +27,7 @@ module HykuAddons
           if @exporter.update(exporter_params)
             # Use perform later for creating the export in the background
             ::Bulkrax::MultitenantExporterJob.perform_later(current_account.id, @exporter.id) if params[:commit] == "Update and Re-Export All Items"
-            redirect_to ::Bulkrax.exporters_path, notice: "Exporter was successfully updated."
+            redirect_to bulkrax.exporters_path, notice: "Exporter was successfully updated."
           else
             render :edit
           end
