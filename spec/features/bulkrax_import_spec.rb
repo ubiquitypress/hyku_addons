@@ -14,6 +14,7 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
   before do
     url = "#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}"
     stub_request(:get, Addressable::Template.new(url)).to_return(status: 200)
+
     allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
   end
 

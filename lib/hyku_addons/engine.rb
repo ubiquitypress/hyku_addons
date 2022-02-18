@@ -81,57 +81,9 @@ module HykuAddons
     end
 
     # Ensure that the API and dashboard can use the same cookie
-    # This cannot be placed in an initializer as it doesn't work anywhere outside of the initializer method
+    # NOTE: This cannot be placed in an initializer file as it doesn't work anywhere outside of the initializer method
     initializer "hyku_addons.session_storage_overrides" do
       Rails.application.config.session_store :cookie_store, key: "_hyku_session", same_site: :lax
-    end
-
-    # Monkey-patch override to make use of file set parameters relating to permissions
-    # See https://github.com/samvera/hyrax/pull/4992
-    initializer "hyku_addons.file_set_overrides" do
-      AttachFilesToWorkJob.class_eval do
-        # @param [ActiveFedora::Base] work - the work object
-        # @param [Array<Hyrax::UploadedFile>] uploaded_files - an array of files to attach
-        # rubocop:disable Metrics/MethodLength
-        def perform(work, uploaded_files, **work_attributes)
-          validate_files!(uploaded_files)
-          depositor = proxy_or_depositor(work)
-          user = User.find_by_user_key(depositor)
-          work_permissions = work.permissions.map(&:to_hash)
-
-          uploaded_files.each do |uploaded_file|
-            next if uploaded_file.file_set_uri.present?
-
-            actor = Hyrax::Actors::FileSetActor.new(FileSet.create, user)
-            file_set_attributes = file_set_attrs(work_attributes, uploaded_file)
-            metadata = visibility_attributes(work_attributes, file_set_attributes)
-            uploaded_file.update(file_set_uri: actor.file_set.uri)
-            actor.file_set.permissions_attributes = work_permissions
-            # NOTE: The next line is not included in the upstream PR
-            # This line allows the setting of a file's title from a bulkrax import
-            actor.file_set.title = Array(file_set_attributes[:title].presence)
-            actor.create_metadata(metadata)
-            actor.create_content(uploaded_file)
-            actor.attach_to_work(work, metadata)
-          end
-        end
-        # rubocop:enable Metrics/MethodLength
-
-        private
-
-          # The attributes used for visibility - sent as initial params to created FileSets.
-          def visibility_attributes(attributes, file_set_attributes)
-            attributes.merge(Hash(file_set_attributes).symbolize_keys).slice(:visibility, :visibility_during_lease,
-                                                                             :visibility_after_lease, :lease_expiration_date,
-                                                                             :embargo_release_date, :visibility_during_embargo,
-                                                                             :visibility_after_embargo)
-          end
-
-          def file_set_attrs(attributes, uploaded_file)
-            attrs = Array(attributes[:file_set]).find { |fs| fs[:uploaded_file_id].present? && (fs[:uploaded_file_id].to_i == uploaded_file&.id) }
-            Hash(attrs).symbolize_keys
-          end
-      end
     end
 
     # HykuAddons mixins, monkey patches and modules overrides
@@ -205,6 +157,7 @@ module HykuAddons
       ::RemoveSolrCollectionJob.prepend HykuAddons::RemoveSolrCollectionJobOverride
       # Overrides for shared_search, remove when we start using Hyku-3
       ::CreateSolrCollectionJob.prepend HykuAddons::CreateSolrCollectionJobOverride
+      AttachFilesToWorkJob.prepend HykuAddons::WorkFileSetPersmissionsBehavior
 
       # Misc
       ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
@@ -241,7 +194,7 @@ module HykuAddons
     # rubocop:enable Metrics/MethodLength
 
     # NOTE: The mixins are included differently depending on the environment; for development it allows code reloading;
-    # in producution it loads all files when the process starts. This can leave to small differences in how files are
+    # in producution it loads all files when the process starts. This can result in small differences in how files are
     # included and can, in some circumstances, lead to production only bugs.
     method = Rails.env.development? ? :to_prepare : :after_initialize
     config.send(method) { HykuAddons::Engine.mixins }
