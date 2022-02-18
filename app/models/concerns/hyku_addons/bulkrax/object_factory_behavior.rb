@@ -100,9 +100,11 @@ module HykuAddons
           attrs = attributes.slice(*permitted_attributes).merge(file_attributes)
           attrs = attrs.merge("file_set" => attributes["file_set"])
 
-          attrs["uploaded_files"].each_with_index do |id, i|
-            attrs["file_set"][i]["uploaded_file_id"] = id if attrs["file_set"][i].present?
-          end if attrs["file_set"].present?
+          if attrs["file_set"].present?
+            attrs["uploaded_files"].each_with_index do |id, i|
+              attrs["file_set"][i]["uploaded_file_id"] = id if attrs["file_set"][i].present?
+            end
+          end
 
           attrs
         end
