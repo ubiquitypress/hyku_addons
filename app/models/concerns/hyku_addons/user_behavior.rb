@@ -14,7 +14,7 @@ module HykuAddons
       scope :with_public_profile, -> { where(display_profile: true) }
     end
 
-    def mailboxer_email(_obj)
+    def mailboxer_email
       email
     end
 
