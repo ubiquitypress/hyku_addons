@@ -22,46 +22,42 @@ module HykuAddons
       # An ActiveFedora bug when there are many habtm <-> has_many associations means they won't all get saved.
       # https://github.com/projecthydra/active_fedora/issues/874
       # 2+ years later, still open!
-      # rubocop:disable Metrics/MethodLength
       def create
         attrs = create_attributes
         @object = klass.new
         object.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX if object.respond_to? :reindex_extent
+
         run_callbacks :save do
           run_callbacks :create do
-            if klass == ::AdminSet
-              create_admin_set(attrs)
-            elsif klass == ::Collection
-              create_collection(attrs)
-            else
-              work_actor.create(environment(attrs))
-            end
+            after_save_actions(attrs)
           end
         end
+
         log_created(object)
       end
-      # rubocop:enable Metrics/MethodLength
 
-      # rubocop:disable Metrics/PerceivedComplexity
-      # rubocop:disable Metrics/CyclomaticComplexity
       def update
         raise "Object doesn't exist" unless object
 
         destroy_existing_files if @replace_files && (klass != ::Collection || klass != ::AdminSet)
+
         attrs = update_attributes
         run_callbacks :save do
-          if klass == ::AdminSet
-            update_admin_set(attrs)
-          elsif klass == ::Collection
-            update_collection(attrs)
-          else
-            work_actor.update(environment(attrs))
-          end
+          after_save_actions(attrs)
         end
+
         log_updated(object)
       end
-      # rubocop:enable Metrics/PerceivedComplexity
-      # rubocop:enable Metrics/CyclomaticComplexity
+
+      def after_save_actions(attrs)
+        if klass == ::AdminSet
+          update_admin_set(attrs)
+        elsif klass == ::Collection
+          update_collection(attrs)
+        else
+          work_actor.update(environment(attrs))
+        end
+      end
 
       def create_admin_set(attrs)
         attrs.delete("collection_type_gid")
@@ -103,7 +99,11 @@ module HykuAddons
         else
           attrs = attributes.slice(*permitted_attributes).merge(file_attributes)
           attrs = attrs.merge("file_set" => attributes["file_set"])
-          attrs["uploaded_files"].each_with_index { |id, i| attrs["file_set"][i]["uploaded_file_id"] = id if attrs["file_set"][i].present? } if attrs["file_set"].present?
+
+          attrs["uploaded_files"].each_with_index do |id, i|
+            attrs["file_set"][i]["uploaded_file_id"] = id if attrs["file_set"][i].present?
+          end if attrs["file_set"].present?
+
           attrs
         end
       end
