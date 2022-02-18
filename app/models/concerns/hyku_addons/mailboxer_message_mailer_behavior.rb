@@ -8,7 +8,7 @@ module HykuAddons
       @message  = message
       @receiver = receiver
 
-      message_email("mailboxer.message_mailer.subject_new",  "hyku_addons_new_message_email")
+      message_email("mailboxer.message_mailer.subject_new", "hyku_addons_new_message_email")
     end
 
     # Sends an email for indicating a reply in an already created conversation
@@ -16,7 +16,7 @@ module HykuAddons
       @message  = message
       @receiver = receiver
 
-      message_email("mailboxer.message_mailer.subject_reply",  "hyku_addons_reply_message_email")
+      message_email("mailboxer.message_mailer.subject_reply", "hyku_addons_reply_message_email")
     end
 
     protected
