@@ -8,7 +8,7 @@ RSpec.describe ActiveSupport::Inflector do
       expect("media".pluralize).to eq "medias"
     end
 
-    it "singgularizes" do
+    it "singularizes" do
       expect("medias".singularize).to eq "media"
     end
   end
