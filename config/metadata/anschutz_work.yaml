@@ -53,7 +53,7 @@ attributes:
       creator_given_name:
         type: string
         form:
-          required: true
+          required: false
           multiple: false
           type: text
           display_for:
@@ -78,7 +78,7 @@ attributes:
         type: string
         form:
           required: false
-          multiple: false
+          multiple: true
           type: select
           authority: HykuAddons::RoleService
           display_for:
