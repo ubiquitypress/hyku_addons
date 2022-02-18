@@ -16,8 +16,8 @@ require "hyrax/autopopulation/engine"
 # + mixins
 #
 # ## Initializers
-# It is sometimes necessary to place code within an `initializers` method within the body of the Engine. This should
-# be reserved for when adding a normal rails initializer will not suffice.
+# It is sometimes necessary to place code within an `initializer` method within the body of the Engine. This should
+# be reserved for when adding a normal rails initializer file will not suffice.
 #
 # ## Mixins
 # All behaviors/overrides/monkey patches should be added to seperate behavior modules and included in the correct
