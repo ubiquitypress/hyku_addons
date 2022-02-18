@@ -2,6 +2,12 @@
 
 # Allow the API search to copy the blacklight configuration after our customisations are applied
 #
+# This module controls the following:
+#  + Which attributes can have searches ran against
+#  + The facets you see on the left of the search page
+#  + Adding search fields and how they should behave when searched against
+#  + Solr fields to be displayed in the show (single result) view
+
 # rubocop:disable Metrics/LineLength
 # rubocop:disable Metrics/BlockLength
 # rubocop:disable Metrics/ModuleLength

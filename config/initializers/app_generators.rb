@@ -8,6 +8,7 @@
 if defined?(ENGINE_ROOT)
   APP_GENERATORS = [
     "HykuAddons::InstallGenerator",
+    "Hyrax::Autopopulation::InstallGenerator",
     "Hyrax::DOI::InstallGenerator",
     "Hyrax::DOI::AddToWorkTypeGenerator",
     "Hyrax::Hirmeos::InstallGenerator",
