@@ -33,18 +33,10 @@ json.cache! [@account, :collections, collection.id, collection.solr_document[:_v
   json.volumes nil
   json.total_works @total_works
 
-  banner = ::HykuAddons::CollectionBrandingFetcher.new.collection_banner(collection.id, @account.cname)
-  if banner.present?
-    components = {
-      scheme: Rails.application.routes.default_url_options.fetch(:protocol, "http"),
-      host: @account.cname,
-      path: "/" + banner.first.local_path.split("/")[-4..-1].join("/"),
-      alt_text: banner.first.alt_text
-    }
-    json.collection_banner_url URI::Generic.build(components).to_s
-  else
-    json.collection_banner_url nil
-  end
+  branding_fetcher = ::HykuAddons::CollectionBrandingFetcher.new(collection.id, @account.cname)
+
+  json.collection_banner_url branding_fetcher.url_for("banner")
+  json.collection_logo_url branding_fetcher.url_for("logo")
 end
 
 if local_assigns[:include_works]
