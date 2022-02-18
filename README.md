@@ -25,11 +25,11 @@ $ bundle
 
 ### Routes
 
-https://github.com/ubiquitypress/hyku_addons/wiki/Hyku:-Routes
+https://github.com/ubiquitypress/hyku_addons/wiki/HykuAddons:-Routes
 
 ### Database Migrations
 
-https://github.com/ubiquitypress/hyku_addons/wiki/Hyku:-Database-migrations
+https://github.com/ubiquitypress/hyku_addons/wiki/HykuAddons:-Database-migrations
 
 ### Initializers
 
@@ -37,7 +37,9 @@ Initializers that should be run within Hyku can be added to `config/initializers
 
 ### I18n Locales
 
-https://github.com/ubiquitypress/hyku_addons/wiki/Hyku:-Tenant-Locales
+How to add locales for specific tenants, changing the contents of form dropdown menus and form field labels.
+
+https://github.com/ubiquitypress/hyku_addons/wiki/Hyku:Addons-Tenant-Locales
 
 ### Generators
 
@@ -59,27 +61,27 @@ When behavior that is tested in Hyku changes, copy the relevant test files from 
 
 ### Work Schema and creating new work types
 
-https://github.com/ubiquitypress/hyku_addons/wiki/Hyku:-Creating-new-work-types
+https://github.com/ubiquitypress/hyku_addons/wiki/HykuAddons:-Creating-new-work-types
 
 ### Local Development
 
-https://github.com/ubiquitypress/hyku_addons/wiki/Hyku:-Local-Development
+https://github.com/ubiquitypress/hyku_addons/wiki/HykuAddons:-Local-Development
 
 #### Create an Tenant (Account) and setting up Hyku Addons
 
-https://github.com/ubiquitypress/hyku_addons/wiki/Hyku:-Setup-HykuAddons
+https://github.com/ubiquitypress/hyku_addons/wiki/HykuAddons:-Setup-Guide
+
+### Development using a local Gem
+
+https://github.com/ubiquitypress/hyku_addons/wiki/HykuAddons:-Development-using-a-local-Gem
 
 ### Testing
 
-https://github.com/ubiquitypress/hyku_addons/wiki/Hyku:-Testing
-
-### Using a local Gem
-
-https://github.com/ubiquitypress/hyku_addons/wiki/Hyku:-Development-using-a-local-Gem
+https://github.com/ubiquitypress/hyku_addons/wiki/HykuAddons:-Testing
 
 ### Updating the internal test app
 
-https://github.com/ubiquitypress/hyku_addons/wiki/Hyku:-Updating-Hyku-Base
+https://github.com/ubiquitypress/hyku_addons/wiki/HykuAddons:-Updating-Hyku-Base
 
 ### Dependency Management
 
