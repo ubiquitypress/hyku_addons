@@ -1,8 +1,6 @@
 # frozen_string_literal: true
-# Generated via
-#  `rails generate hyrax:work AnschutzWork`
+
 module Hyrax
-  # Generated form for AnschutzWork
   class AnschutzWorkForm < Hyrax::Forms::WorkForm
     include ::HykuAddons::WorkForm
     self.model_class = ::AnschutzWork

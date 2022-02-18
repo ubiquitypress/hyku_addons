@@ -10,6 +10,7 @@ module Hyrax
       "textarea" => %w[add_info table_of_contents abstract],
       "date" => %w[date_accepted date_published date_submitted event_date related_exhibition_date]
     }.freeze
+    IGNORED_FIELDS = %w[doi doi_status_when_public]
 
     def initialize(model_name)
       @model = model_name.classify.safe_constantize
@@ -23,6 +24,8 @@ module Hyrax
       properties = @model.properties.slice(*@form.terms.map(&:to_s))
 
       properties.each do |term, config|
+        next if IGNORED_FIELDS.include?(term)
+
         @attributes[term] = field_partial_for(term) || build_term_attributes(term, config)
       end
 
