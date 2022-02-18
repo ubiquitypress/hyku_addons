@@ -270,7 +270,7 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
           let(:collection_2) { create :collection, id: "bedd7330-5040-4687-8226-0851f7256dff", title: ["This Title Should Change"] }
 
           it "updates the collections" do
-            perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Bulkrax::ImportWorkCollectionJob]) do
+            perform_enqueued_jobs(only: [Bulkrax::ImporterJob, HykuAddons::ImportWorkCollectionJob]) do
               importer.import_collections
             end
 
