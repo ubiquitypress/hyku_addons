@@ -14,4 +14,3 @@ package.json
 .eslintrc.*
 passenger.*pid*
 passenger.*log
-spec/fixtures/csv/*_dynamic_data.csv
