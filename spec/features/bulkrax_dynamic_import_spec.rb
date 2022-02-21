@@ -35,6 +35,7 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
     end
 
     before do
+      # Required in order to get the available schema work types
       allow(Site).to receive(:instance).and_return(site)
 
       # Make sure default admin set exists
