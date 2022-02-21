@@ -255,6 +255,17 @@ attributes:
       primary: true
       multiple: true
       type: textarea
+  doi:
+    type: string
+    predicate: http://purl.org/ontology/bibo/doi
+    multiple: true
+    index_keys:
+    - doi_ssi
+    form:
+      required: false
+      primary: true
+      multiple: true
+      type: text
   advisor:
     type: string
     predicate: http://bibframe.org/vocab/Person
