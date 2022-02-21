@@ -76,7 +76,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         contributor_given_name: "Johnny",
         contributor_orcid: "0000-1111-2222-3333",
         contributor_institutional_relationship: "Staff member",
-        contributor_isni: "1234567890"
+        contributor_isni: "1234567890",
+        contributor_role: ["Actor"]
       },
       {
         contributor_name_type: "Organisational",
@@ -84,7 +85,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         contributor_ror: "ror.org/1234",
         contributor_grid: "grid.com/1234",
         contributor_wikidata: "wikidata.org/1234",
-        contributor_isni: "1234567890"
+        contributor_isni: "1234567890",
+        contributor_role: ["Actor"]
       }
     ]
   end
