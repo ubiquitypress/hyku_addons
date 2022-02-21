@@ -4,7 +4,7 @@ require "rails_helper"
 require HykuAddons::Engine.root.join("spec", "support", "fill_in_fields.rb").to_s
 require HykuAddons::Engine.root.join("spec", "support", "work_form_helpers.rb").to_s
 
-RSpec.feature "Create a UvaWork", js: true do
+RSpec.feature "Create a UvaWork", js: true, slow: true do
   let(:work_type) { "uva_work" }
 
   let(:model) { work_type.classify.constantize }
@@ -99,6 +99,7 @@ RSpec.feature "Create a UvaWork", js: true do
       }
     ]
   end
+  let(:doi) { "10.1521/soco.23.1.118.59197" }
   let(:language_options) { HykuAddons::LanguageService.new(model: model).active_elements.sample(2) }
   let(:date_published) { { year: "2020", month: "02", day: "02" } }
   let(:related_url) { ["http://test.com", "https://www.test123.com"] }
@@ -160,6 +161,7 @@ RSpec.feature "Create a UvaWork", js: true do
       fill_in_multiple_text_fields(:publisher, publisher)
       fill_in_multiple_text_fields(:keyword, keyword)
       fill_in_cloneable(:contributor, contributor)
+      fill_in_text_field(:doi, doi)
       fill_in_multiple_selects(:language, language_options.map { |h| h["label"] })
       fill_in_date(:date_published, date_published)
       fill_in_multiple_text_fields(:related_url, related_url)

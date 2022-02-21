@@ -4,7 +4,7 @@ require "rails_helper"
 require HykuAddons::Engine.root.join("spec", "support", "fill_in_fields.rb").to_s
 require HykuAddons::Engine.root.join("spec", "support", "work_form_helpers.rb").to_s
 
-RSpec.feature "Create a UbiquityTemplateWork", js: true do
+RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:work_type) { "ubiquity_template_work" }
 
   let(:model) { work_type.classify.constantize }
@@ -43,7 +43,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       }
     ]
   end
-
   let(:expected_creator) do
     [
       {
@@ -76,7 +75,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         contributor_given_name: "Johnny",
         contributor_orcid: "0000-1111-2222-3333",
         contributor_institutional_relationship: "Staff member",
-        contributor_isni: "1234567890"
+        contributor_isni: "1234567890",
+        contributor_role: ["Actor"]
       },
       {
         contributor_name_type: "Organisational",
@@ -84,7 +84,9 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         contributor_ror: "ror.org/1234",
         contributor_grid: "grid.com/1234",
         contributor_wikidata: "wikidata.org/1234",
-        contributor_isni: "1234567890"
+        contributor_isni: "1234567890",
+        contributor_role: ["Actor"]
+
       }
     ]
   end
@@ -108,6 +110,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       }
     ]
   end
+  let(:doi) { ["10.1521/soco.23.1.118.59197"] }
   let(:resource_type) { HykuAddons::ResourceTypesService.new(model: model).active_elements.sample(1) }
   let(:date_published) { { year: "2020", month: "02", day: "02" } }
   let(:date_submitted) { { year: "2019", month: "03", day: "03" } }
@@ -298,6 +301,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       fill_in_cloneable(:creator, creator)
       fill_in_date(:date_published, date_published)
       fill_in_cloneable(:contributor, contributor)
+      fill_in_text_field(:doi, doi)
 
       # Additional fields
       fill_in_multiple_textareas(:description, description)

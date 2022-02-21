@@ -282,6 +282,17 @@ attributes:
       primary: true
       multiple: false
       type: date
+  doi:
+    type: string
+    predicate: http://purl.org/ontology/bibo/doi
+    multiple: true
+    index_keys:
+    - doi_ssi
+    form:
+      required: false
+      primary: true
+      multiple: true
+      type: text
   media:
     type: string
     predicate: http://www.loc.gov/mods/rdf/v1#physicalForm
