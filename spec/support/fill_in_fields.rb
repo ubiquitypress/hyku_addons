@@ -125,7 +125,7 @@ def fill_in_cloneable(field, values)
         end
       end
 
-      next unless index + 1 < values.size
+      next if index + 1 >= values.size
 
       # Ensure we only click the "Add another" link for the parent, not any subfields
       selector = "a[data-cloneable-target='#{work_type}_#{field}'][data-on-click='clone_group']"

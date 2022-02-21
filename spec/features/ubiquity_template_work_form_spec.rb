@@ -86,7 +86,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
         contributor_wikidata: "wikidata.org/1234",
         contributor_isni: "1234567890",
         contributor_role: ["Actor"]
-
       }
     ]
   end
