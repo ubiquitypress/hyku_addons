@@ -16,13 +16,12 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
     stub_request(:get, Addressable::Template.new(url)).to_return(status: 200)
 
     allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
-    
+
     allow(Apartment::Tenant).to receive(:current).and_return("x")
     allow(Account).to receive(:find_by).with(tenant: "x").and_return(instance_double(Account, name: "x"))
     allow(Apartment::Tenant).to receive(:switch).with("x") do |&block|
       block.call
     end
-
   end
 
   describe "import works" do
@@ -44,13 +43,9 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
       let(:import_batch_file) { "spec/fixtures/csv/publication_date.csv" }
 
       it "imports publication date separately" do
-        allow(ActiveJob::Base).to receive(:queue_name).and_call_original
-
         perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
           importer.import_works
         end
-
-        expect(ActiveJob::Base).to have_received(:queue_name).at_least(:once)
 
         [GenericWork, UvaWork, PacificArticle, NsuGenericWork, NsuArticle].each_with_index do |work, i|
           work_one = work.where(source_identifier: "external-id-#{3 * i + 1}").first
@@ -308,6 +303,25 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
         end
         # rubocop:enable RSpec/MessageChain
       end
+    end
+  end
+
+  describe "bulk queue assignment" do
+    # This file has more than 20 rows so by default will use import mode
+    let(:import_batch_file) { "spec/fixtures/csv/publication_date.csv" }
+
+    it "imports using import queue" do
+      # Setup the bulkrax importer object with the correct number of entries
+      # Then assert for each job that *could* be called that it is called in the correct queue
+
+      assert_performed_with(job: HykuAddons::ImportWorkCollectionJob, queue: "x_import_import") do
+        importer.import_collections
+
+        importer.import_works
+      end
+
+      # Hyrax::Hirmeos::HirmeosWorkRegistrationJob
+      # Hyrax::DOI::RegisterDOIJob
     end
   end
 

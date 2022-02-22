@@ -152,21 +152,28 @@ module HykuAddons
 
       # Jobs
       HykuAddons::CsvParser.include HykuAddons::BulkFlagBehavior     
+      # HykuAddons::ReindexModelJob is a bulk job and will not be called from actor stack
+      # HykuAddons::ToggleDisplayProfileJob is another bulk job
 
+      # Bulk mode behaviors
+      ::ActiveJob::Base.include HykuAddons::ImportMode
+      ## Bulkrax
       Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
       Bulkrax::ExportersController.include HykuAddons::ExportersControllerOverride
       Bulkrax::ImporterJob.include HykuAddons::PortableBulkraxImporterBehavior
-      # Bulkrax::ImportCollectionJob.include HykuAddons::BulkraxEntryObjectBehavior
       Bulkrax::ImportWorkJob.include HykuAddons::PortableBulkraxEntryBehavior
       Bulkrax::DeleteWorkJob.include HykuAddons::PortableBulkraxEntryBehavior
-
-      # Bulkrax::ImportFileSetJob.include HykuAddons::BulkraxEntryObjectBehavior
       HykuAddons::ImportWorkCollectionJob.include HykuAddons::PortableBulkraxEntryBehavior
+
+      ## Related Gems
       Hyrax::Hirmeos::HirmeosWorkRegistrationJob.include HykuAddons::PortableActiveFedoraBehavior
       Hyrax::Hirmeos::HirmeosWorkUpdaterJob.include HykuAddons::PortableActiveFedoraBehavior
       Hyrax::DOI::RegisterDOIJob.include HykuAddons::PortableGenericBehavior
 
-      ::ActiveJob::Base.include HykuAddons::ImportMode
+      ## Hyrax
+      Hyrax::GrantEditToMembersJob.include HykuAddons::PortableGenericBehavior
+      Hyrax::ContentEventJob.include HykuAddons::PortableGenericBehavior
+      Hyrax::ContentDepositEventJob.include HykuAddons::PortableGenericBehavior
 
       ::CleanupAccountJob.prepend HykuAddons::CleanupAccountJobBehavior
       ::CreateFcrepoEndpointJob.prepend HykuAddons::CreateFcrepoEndpointJobOverride
