@@ -2,7 +2,6 @@
 
 module Hyrax
   class UvaWorkForm < Hyrax::Forms::WorkForm
-    include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
     include ::HykuAddons::Schema::WorkForm
