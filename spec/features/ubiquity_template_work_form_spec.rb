@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
 require HykuAddons::Engine.root.join("spec", "support", "fill_in_fields.rb").to_s
 require HykuAddons::Engine.root.join("spec", "support", "work_form_helpers.rb").to_s
 
@@ -21,6 +20,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
   let(:title) { "Ubiquity Template Work Item" }
   let(:alt_title) { ["Alt Title 1", "Alt Title 2"] }
+  let(:doi) { "10.1521/soco.23.1.118.59197" }
   let(:creator) do
     [
       {
@@ -66,7 +66,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       }
     ]
   end
-
   let(:contributor) do
     [
       {
@@ -109,7 +108,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       }
     ]
   end
-  let(:doi) { ["10.1521/soco.23.1.118.59197"] }
   let(:resource_type) { HykuAddons::ResourceTypesService.new(model: model).active_elements.sample(1) }
   let(:date_published) { { year: "2020", month: "02", day: "02" } }
   let(:date_submitted) { { year: "2019", month: "03", day: "03" } }
@@ -295,12 +293,12 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
 
       # Required fields
       fill_in_text_field(:title, title)
+      fill_in_text_field(:doi, doi)
       fill_in_multiple_text_fields(:alt_title, alt_title)
       fill_in_select(:resource_type, resource_type.map { |h| h["label"] }.first)
       fill_in_cloneable(:creator, creator)
       fill_in_date(:date_published, date_published)
       fill_in_cloneable(:contributor, contributor)
-      fill_in_text_field(:doi, doi)
 
       # Additional fields
       fill_in_multiple_textareas(:description, description)
@@ -425,6 +423,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
         work = work_type.classify.constantize.find(work_id)
 
         expect(work.title).to eq([title])
+        expect(work.doi).to eq(doi)
         expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
         expect(work.date_published).to eq(normalize_date(date_published).first)
         # Cloneable fields use the label to select the option, but save the id to the work
