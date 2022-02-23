@@ -2,12 +2,15 @@
 
 require "rails_helper"
 require "csv"
+
 RSpec.describe "Bulkrax import", clean: true, slow: true do
   include CsvWriterHelper
   include CsvReaderHelper
 
-  let(:user) { create(:user, email: "test@example.com") }
-  let(:depositor) { build_stubbed(:user, email: "batchuser@example.com") }
+  let(:user) { create(:user, email: "test@test.com") }
+  let(:depositor) { build_stubbed(:user, email: "batchuser@test.com") }
+  let(:account) { build_stubbed(:account) }
+  let(:site) { Site.new(account: account) }
 
   # We cannot use let to memoize or share the model name because Rspec will not reset it when we iterate below
   attr_accessor :model_name
@@ -15,13 +18,13 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
   let(:number_of_records) { 3 } # Setting this too high will increase the test time for little gain
 
   after do
-    ["UbiquityTemplateWork", "UvaWork"].each do |work_type|
+    schema_work_types.each do |work_type|
       file = "spec/fixtures/csv/#{work_type.underscore}_dynamic_data.csv"
       File.delete(file) if File.exist?(file)
     end
   end
 
-  ["UbiquityTemplateWork", "UvaWork"].each do |work_type|
+  schema_work_types.each do |work_type|
     let(:importer) do
       create(:bulkrax_importer_csv,
              user: user,
@@ -32,9 +35,13 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
     end
 
     before do
+      # Required in order to get the available schema work types
+      allow(Site).to receive(:instance).and_return(site)
+
       # Make sure default admin set exists
       AdminSet.find_or_create_default_admin_set_id
-      template = Addressable::Template.new("#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}")
+      url = "#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}"
+      template = Addressable::Template.new(url)
       stub_request(:get, template).to_return(status: 200)
       allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
 

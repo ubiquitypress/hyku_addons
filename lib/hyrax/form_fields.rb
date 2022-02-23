@@ -58,6 +58,7 @@ module Hyrax
 
         # Maintain a list of internal terms to help prevent them from being rendered as fields on the form
         descendant.internal_terms = descendant.terms.difference(form_field_definitions.keys).sort
+        remove_skippable!(descendant)
 
         form_field_definitions.each do |field_name, options|
           # Ensure we don"t get duplicate entries
@@ -76,10 +77,22 @@ module Hyrax
         descendant.field_configs.freeze
       end
 
+      # If we have a default Hyrax field which is not included in our schema definition, it should be removed
+      def remove_skippable!(descendant)
+        similar = internal_skippable_fields & form_field_definitions.keys
+
+        descendant.terms = descendant.terms - (internal_skippable_fields - similar)
+      end
+
+      # Ensure that the terms are ordered by the original definitions after hyrax adds its own in
       def ensure_ordered!(descendant)
-        # Ensure that the terms are ordered by the original definitions after hyrax adds its own in
         descendant.terms.sort_by!(&field_orderer)
         descendant.primary_fields.sort_by!(&field_orderer)
+      end
+
+      # Define a list of internal Hyrax form fields, which might not be required by a schema and it is safe to skip.
+      def internal_skippable_fields
+        %i[creator contributor description keyword license rights_statement publisher language identifier based_near related_url]
       end
 
       def field_orderer
