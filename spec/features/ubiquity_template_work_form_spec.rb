@@ -394,7 +394,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       fill_in_text_field(:rights_statement_text, rights_statement_text)
       fill_in_multiple_text_fields(:qualification_subject_text, qualification_subject_text)
       fill_in_select(:georeferenced, georeferenced_options.map { |h| h["label"] }.first)
-      fill_in_select(:repository_space, repository_space_option)
+      fill_in_select(:repository_space, repository_space_option["label"])
     end
 
     describe "submitting the form" do
