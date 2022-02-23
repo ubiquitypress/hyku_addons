@@ -69,6 +69,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
 
   let(:advisor) { "advisor" }
   let(:publisher) { ["publisher1", "publisher2"] }
+  let(:repository_space_options) { HykuAddons::RepositorySpaceService.new(model: model).active_elements.first }
   let(:source_data) { ["source 1", "Source 2"] }
   let(:journal_frequency) { "journal_frequency" }
   let(:funding_description) { ["Funding descrption 1", "Funding descrption 2"] }
@@ -121,6 +122,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       # Additional fields
       fill_in_text_field(:advisor, advisor)
       fill_in_multiple_text_fields(:publisher, publisher)
+      fill_in_select(:repository_space, repository_space_options["label"])
       fill_in_multiple_text_fields(:source, source_data)
       fill_in_text_field(:journal_frequency, journal_frequency)
       fill_in_multiple_text_fields(:funding_description, funding_description)
@@ -178,6 +180,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
 
           expect(work.advisor).to eq(advisor)
           expect(work.publisher).to eq(publisher)
+          expect(work.repository_space).to eq(repository_space_options["id"])
           expect(work.source).to eq(source_data)
           expect(work.journal_frequency).to eq(journal_frequency)
           expect(work.funding_description).to eq(funding_description)

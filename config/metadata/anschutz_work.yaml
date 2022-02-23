@@ -287,6 +287,18 @@ attributes:
       primary: false
       multiple: true
       type: text
+  repository_space:
+    predicate: http://rdfs.org/sioc/ns#Space
+    multiple: false
+    index_keys:
+      - repository_space_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      include_blank: false
+      type: select
+      authority: HykuAddons::RepositorySpaceService
   source:
     predicate: http://purl.org/dc/terms/source
     multiple: true
