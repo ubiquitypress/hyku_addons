@@ -261,6 +261,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:rights_statement_text) { "rights_statement_text" }
   let(:qualification_subject_text) { ["Qualification statement text 1", "Qualification statement text 2"] }
   let(:georeferenced_options) { HykuAddons::GeoreferencedService.new(model: model).active_elements.sample(1) }
+  let(:repository_space_option) { HykuAddons::RepositorySpaceService.new(model: model).active_elements.first }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -393,6 +394,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       fill_in_text_field(:rights_statement_text, rights_statement_text)
       fill_in_multiple_text_fields(:qualification_subject_text, qualification_subject_text)
       fill_in_select(:georeferenced, georeferenced_options.map { |h| h["label"] }.first)
+      fill_in_select(:repository_space, repository_space_option)
     end
 
     describe "submitting the form" do
@@ -523,6 +525,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
         expect(work.rights_statement_text).to eq(rights_statement_text)
         expect(work.qualification_subject_text).to eq(qualification_subject_text)
         expect(work.georeferenced).to eq(georeferenced_options.map { |h| h["id"] }.first.to_s)
+        expect(work.repository_space).to eq(repository_space_option)
       end
     end
   end
