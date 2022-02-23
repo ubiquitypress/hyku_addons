@@ -118,7 +118,7 @@ def fill_in_cloneable(field, values)
         when "select"
           group.find("select.#{work_type}_#{subfield}").find(:option, val).select_option
         else
-          # Some JSON fields have a field labelled after the parent, but s the parent class is used to identify
+          # Some JSON fields have a field labelled after the parent, but the parent class is used to identify
           # the fields, it will appear on both f them, so causing a "duplicate element found" error. An example of this
           # is alternate_identifier, which has fields alternate_identifier and alternate_identifer_type
           group.find_all("input.#{work_type}_#{subfield}")[0].set(val)
