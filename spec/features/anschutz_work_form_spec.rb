@@ -47,7 +47,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
         creator_organization_name: "A Test Company Name",
         creator_ror: "ror.org/123456",
         creator_grid: "grid.org/098765",
-        creator_wikidata: "wiki.com/123",
+        creator_wikidata: "wiki.com/123"
       }
     ]
   end
@@ -146,7 +146,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
         add_visibility
         add_agreement
         ss
-        byebug
         submit
       end
 
