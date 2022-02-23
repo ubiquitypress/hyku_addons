@@ -11,17 +11,17 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.additional_info work.try(:solr_document)&.to_h&.dig("add_info_tesim")
   json.additional_links work.try(:solr_document)&.to_h&.dig("additional_links_tesim")
   json.admin_set_name work.admin_set.first
-  json.advisor work.try(:solr_document)&.to_h&.dig('advisor_tesim')
-  json.alternate_identifier work.try(:solr_document)&.to_h&.dig('alternate_identifier_tesim')
-  json.alternative_journal_title work.try(:solr_document)&.to_h&.dig('alternative_journal_title_tesim')
-  json.alternative_book_title work.try(:solr_document)&.to_h&.dig('alt_book_title_tesim')
-  json.alternative_title work.try(:solr_document)&.to_h&.dig('alt_title_tesim')
-  json.article_number work.try(:solr_document)&.to_h&.dig('article_num_tesim')
-  json.audience work.try(:solr_document)&.to_h&.dig('audience_tesim')
-  json.book_title work.try(:solr_document)&.to_h&.dig('book_title_tesim')
-  json.buy_book work.try(:solr_document)&.to_h&.dig('buy_book_tesim')
-  json.challenged work.try(:solr_document)&.to_h&.dig('challenged_tesim')
-  json.citation work.try(:solr_document)&.to_h&.dig('citation_tesim')
+  json.advisor work.try(:solr_document)&.to_h&.dig("advisor_tesim")
+  json.alternate_identifier work.try(:solr_document)&.to_h&.dig("alternate_identifier_tesim")
+  json.alternative_journal_title work.try(:solr_document)&.to_h&.dig("alternative_journal_title_tesim")
+  json.alternative_book_title work.try(:solr_document)&.to_h&.dig("alt_book_title_tesim")
+  json.alternative_title work.try(:solr_document)&.to_h&.dig("alt_title_tesim")
+  json.article_number work.try(:solr_document)&.to_h&.dig("article_num_tesim")
+  json.audience work.try(:solr_document)&.to_h&.dig("audience_tesim")
+  json.book_title work.try(:solr_document)&.to_h&.dig("book_title_tesim")
+  json.buy_book work.try(:solr_document)&.to_h&.dig("buy_book_tesim")
+  json.challenged work.try(:solr_document)&.to_h&.dig("challenged_tesim")
+  json.citation work.try(:solr_document)&.to_h&.dig("citation_tesim")
   json.cname @account.search_only? ? work.try(:solr_document)&.to_h&.dig("account_cname_tesim")&.first : @account.cname
   json.committee_member work.try(:solr_document)&.to_h&.dig("committee_member_tesim")
 
@@ -153,14 +153,14 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
     end
   end
 
-  json.related_material work.try(:solr_document)&.to_h&.dig('related_material_tesim')
-  json.related_url work.try(:solr_document)&.to_h&.dig('related_url_tesim')
+  json.related_material work.try(:solr_document)&.to_h&.dig("related_material_tesim")
+  json.related_url work.try(:solr_document)&.to_h&.dig("related_url_tesim")
 
   repository_space_service = HykuAddons::RepositorySpaceService.new
-  id = work.try(:solr_document)&.to_h&.dig('repository_space_tesim')&.first
+  id = work.try(:solr_document)&.to_h&.dig("repository_space_tesim")&.first
   json.repository_space repository_space_service.label(id) if id.present?
 
-  json.time work.try(:solr_document)&.to_h&.dig('time_tesim')
+  json.time work.try(:solr_document)&.to_h&.dig("time_tesim")
   json.resource_type work.resource_type
   json.rights_holder work.try(:solr_document)&.to_h&.dig("rights_holder_tesim")
   json.rights_statement work.rights_statement
