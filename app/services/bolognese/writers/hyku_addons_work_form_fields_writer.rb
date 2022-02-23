@@ -10,8 +10,6 @@
 # To create fixtures for specs, the the unprocessed XML can be accessed via an XML request.
 # NOTE: Copy the raw source, not the HTML output:
 # http://YOUR_TENANT.hyku.docker/doi/autofill.xml?curation_concern=generic_work&doi=YOUR_DOI
-
-# rubocop:disable Metrics/ModuleLength
 module Bolognese
   module Writers
     module HykuAddonsWorkFormFieldsWriter

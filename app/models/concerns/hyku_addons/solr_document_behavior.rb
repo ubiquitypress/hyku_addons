@@ -18,6 +18,7 @@ module HykuAddons
       registered_attributes.collect { |attr| [attr, send(attr)] }.to_h
     end
 
+    # rubocop:disable Metrics/BlockLength
     included do
       class_attribute :registered_attributes
       # Pre-seed registered attributes because they have already been created before this module is included
@@ -131,15 +132,16 @@ module HykuAddons
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(
-        contributor: ['contributor_display_ssim', 'editor_display_ssim', 'funder_tesim'],
-        creator: 'creator_display_ssim',
-        date: 'date_published_tesim',
-        description: 'abstract_oai_tesim',
-        identifier: ['official_link_oai_tesim', 'doi_tesim', 'all_orcid_isni_tesim', 'work_tenant_url_tesim', 'collection_tenant_url_tesim'],
-        relation: 'journal_title_tesim',
-        rights: 'license_tesim',
-        subject: 'keyword_tesim'
+        contributor: ["contributor_display_ssim", "editor_display_ssim", "funder_tesim"],
+        creator: "creator_display_ssim",
+        date: "date_published_tesim",
+        description: "abstract_oai_tesim",
+        identifier: ["official_link_oai_tesim", "doi_tesim", "all_orcid_isni_tesim", "work_tenant_url_tesim", "collection_tenant_url_tesim"],
+        relation: "journal_title_tesim",
+        rights: "license_tesim",
+        subject: "keyword_tesim"
       )
     end
+    # rubocop:enable Metrics/BlockLength
   end
 end

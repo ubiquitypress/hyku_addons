@@ -1,4 +1,14 @@
 # frozen_string_literal: true
+
+# This module controls the following:
+#  + Which attributes can have searches ran against
+#  + The facets you see on the left of the search page
+#  + Adding search fields and how they should behave when searched against
+#  + Solr fields to be displayed in the show (single result) view
+
+# rubocop:disable Metrics/LineLength
+# rubocop:disable Metrics/BlockLength
+# rubocop:disable Metrics/ModuleLength
 module HykuAddons
   module CatalogControllerBehavior
     extend ActiveSupport::Concern
@@ -12,31 +22,40 @@ module HykuAddons
         config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 5
         config.add_facet_field "creator_display_ssim", label: "Creator", limit: 5
         config.add_facet_field solr_name("keyword", :facetable), limit: 5
-        config.add_facet_field solr_name('member_of_collections', :symbol), limit: 5, label: 'Collections'
-        config.add_facet_field solr_name("institution", :facetable), limit: 5, label: 'Institution'
-        config.add_facet_field solr_name("language", :facetable), limit: 5, label: 'Language'
-        config.add_facet_field solr_name("org_unit", :facetable), limit: 5, label: 'Department'
-        config.add_facet_field solr_name("audience", :facetable), limit: 5, label: 'OER Audience', if: proc { |context, _config, _opts| context.send(:current_account)&.settings&.dig("locale_name") == "redlands" }
-        config.add_facet_field 'file_availability', query: {
+        config.add_facet_field solr_name("member_of_collections", :symbol), limit: 5, label: "Collections"
+        config.add_facet_field solr_name("institution", :facetable), limit: 5, label: "Institution"
+        config.add_facet_field solr_name("language", :facetable), limit: 5, label: "Language"
+        config.add_facet_field solr_name("org_unit", :facetable), limit: 5, label: "Department"
+        config.add_facet_field solr_name("audience", :facetable), limit: 5, label: "OER Audience", if: proc { |context, _config, _opts| context.send(:current_account)&.settings&.dig("locale_name") == "redlands" }
+        config.add_facet_field "file_availability", query: {
           # TODO: use i18n
-          available: { label: 'File available from this repository', fq: 'generic_type_sim:Work AND ({!join from=id to=file_set_ids_ssim}visibility_ssi:open)' },
-          external_link: { label: 'External link (access may be restricted)', fq: 'generic_type_sim:Work AND -doi_status_when_public_ssi:findable AND -doi_status_when_public_ssi:registered AND official_link_tesim:[* TO *]' },
-          not_available: { label: 'File not available', fq: 'generic_type_sim:Work AND ({!join from=id to=file_set_ids_ssim}-visibility_ssi:open) AND ((*:* AND -official_link_tesim:[* TO *]) OR ((doi_status_when_public_ssi:findable OR doi_status_when_public_ssi:registered) AND official_link_tesim:[* TO *]))' }
+          available: {
+            label: "File available from this repository",
+            fq: "generic_type_sim:Work AND ({!join from=id to=file_set_ids_ssim}visibility_ssi:open)"
+          },
+          external_link: {
+            label: "External link (access may be restricted)",
+            fq: "generic_type_sim:Work AND -doi_status_when_public_ssi:findable AND -doi_status_when_public_ssi:registered AND official_link_tesim:[* TO *]"
+          },
+          not_available: {
+            label: "File not available",
+            fq: "generic_type_sim:Work AND ({!join from=id to=file_set_ids_ssim}-visibility_ssi:open) AND ((*:* AND -official_link_tesim:[* TO *]) OR ((doi_status_when_public_ssi:findable OR doi_status_when_public_ssi:registered) AND official_link_tesim:[* TO *]))"
+          }
         }
         config.add_facet_fields_to_solr_request!
 
         # Re-configure index fields
         config.index_fields = {}
-        config.add_index_field solr_name("title", :stored_searchable), label: "Title", itemprop: 'name', if: false
-        config.add_index_field "creator_display_ssim", label: 'Creator', itemprop: 'creator', link_to_search: 'creator_display_ssim'
-        config.add_index_field "contributor_display_ssim", label: 'Contributor', itemprop: 'contributor', link_to_search: 'contributor_display_ssim'
+        config.add_index_field solr_name("title", :stored_searchable), label: "Title", itemprop: "name", if: false
+        config.add_index_field "creator_display_ssim", label: "Creator", itemprop: "creator", link_to_search: "creator_display_ssim"
+        config.add_index_field "contributor_display_ssim", label: "Contributor", itemprop: "contributor", link_to_search: "contributor_display_ssim"
         config.add_index_field solr_name("institution", :stored_searchable), label: "Institution", if: false # FIXME: Only when in shared search
         config.add_index_field solr_name("date_published", :stored_searchable), label: "Date Published"
-        config.add_index_field solr_name("date_created", :stored_searchable), itemprop: 'dateCreated'
+        config.add_index_field solr_name("date_created", :stored_searchable), itemprop: "dateCreated"
         config.add_index_field solr_name("resource_type", :stored_searchable), label: "Resource Type"
         config.add_index_field solr_name("embargo_release_date", :stored_sortable, type: :date), label: "Embargo release date", helper_method: :human_readable_date
         config.add_index_field solr_name("lease_expiration_date", :stored_sortable, type: :date), label: "Lease expiration date", helper_method: :human_readable_date
-        config.add_index_field solr_name("member_of_collections", :symbol), label: 'Collection', link_to_search: solr_name("member_of_collections", :symbol)
+        config.add_index_field solr_name("member_of_collections", :symbol), label: "Collection", link_to_search: solr_name("member_of_collections", :symbol)
 
         # Re-configure show fields
         config.show_fields = {}
@@ -83,7 +102,7 @@ module HykuAddons
         config.add_show_field solr_name("issn", :stored_searchable)
         config.add_show_field solr_name("eissn", :stored_searchable)
         config.add_show_field solr_name("current_he_institution", :stored_searchable)
-        config.add_show_field solr_name('extent', :stored_searchable)
+        config.add_show_field solr_name("extent", :stored_searchable)
         config.add_show_field solr_name("institution", :stored_searchable)
         config.add_show_field solr_name("org_unit", :stored_searchable)
         config.add_show_field solr_name("refereed", :stored_searchable)
@@ -100,23 +119,23 @@ module HykuAddons
         config.add_show_field solr_name("rights_holder", :stored_searchable)
         config.add_show_field solr_name("dewey", :stored_searchable)
         config.add_show_field solr_name("library_of_congress_classification", :stored_searchable)
-        config.add_show_field solr_name('page_display_order_number', :stored_searchable)
-        config.add_show_field solr_name('additional_links', :stored_searchable)
-        config.add_show_field solr_name('irb_status', :stored_searchable)
-        config.add_show_field solr_name('irb_number', :stored_searchable)
-        config.add_show_field solr_name('is_included_in', :stored_searchable)
-        config.add_show_field solr_name('degree', :stored_searchable)
-        config.add_show_field solr_name('reading_level', :stored_searchable)
-        config.add_show_field solr_name('challenged', :stored_searchable)
-        config.add_show_field solr_name('location', :stored_searchable)
-        config.add_show_field solr_name('outcome', :stored_searchable)
-        config.add_show_field solr_name('participant', :stored_searchable)
-        config.add_show_field solr_name('photo_caption', :stored_searchable)
-        config.add_show_field solr_name('photo_description', :stored_searchable)
+        config.add_show_field solr_name("page_display_order_number", :stored_searchable)
+        config.add_show_field solr_name("additional_links", :stored_searchable)
+        config.add_show_field solr_name("irb_status", :stored_searchable)
+        config.add_show_field solr_name("irb_number", :stored_searchable)
+        config.add_show_field solr_name("is_included_in", :stored_searchable)
+        config.add_show_field solr_name("degree", :stored_searchable)
+        config.add_show_field solr_name("reading_level", :stored_searchable)
+        config.add_show_field solr_name("challenged", :stored_searchable)
+        config.add_show_field solr_name("location", :stored_searchable)
+        config.add_show_field solr_name("outcome", :stored_searchable)
+        config.add_show_field solr_name("participant", :stored_searchable)
+        config.add_show_field solr_name("photo_caption", :stored_searchable)
+        config.add_show_field solr_name("photo_description", :stored_searchable)
 
         # Re-configure search fields
         config.search_fields = {}
-        config.add_search_field('all_fields', label: 'All Fields', include_in_advanced_search: false) do |field|
+        config.add_search_field("all_fields", label: "All Fields", include_in_advanced_search: false) do |field|
           all_names = config.show_fields.values.map(&:field).join(" ")
           title_name = solr_name("title", :stored_searchable)
           field.solr_parameters = {
@@ -130,7 +149,7 @@ module HykuAddons
         # of Solr search fields.
         # creator, title, description, publisher, date_created,
         # subject, language, resource_type, format, identifier, based_near,
-        config.add_search_field('contributor') do |field|
+        config.add_search_field("contributor") do |field|
           # solr_parameters hash are sent to Solr as ordinary url query params.
           field.solr_parameters = { "spellcheck.dictionary": "contributor" }
 
@@ -145,7 +164,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('creator') do |field|
+        config.add_search_field("creator") do |field|
           field.solr_parameters = { "spellcheck.dictionary": "creator" }
           solr_name = "creator_display_ssim"
           field.solr_local_parameters = {
@@ -154,7 +173,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('editor') do |field|
+        config.add_search_field("editor") do |field|
           field.solr_parameters = { "spellcheck.dictionary": "editor" }
           solr_name = "editor_display_ssim"
           field.solr_local_parameters = {
@@ -163,7 +182,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('title') do |field|
+        config.add_search_field("title") do |field|
           field.solr_parameters = {
             "spellcheck.dictionary": "title"
           }
@@ -174,7 +193,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('description') do |field|
+        config.add_search_field("description") do |field|
           field.label = "Abstract or Summary"
           field.solr_parameters = {
             "spellcheck.dictionary": "description"
@@ -186,7 +205,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('publisher') do |field|
+        config.add_search_field("publisher") do |field|
           field.solr_parameters = {
             "spellcheck.dictionary": "publisher"
           }
@@ -197,7 +216,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('date_created') do |field|
+        config.add_search_field("date_created") do |field|
           field.solr_parameters = {
             "spellcheck.dictionary": "date_created"
           }
@@ -208,7 +227,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('subject') do |field|
+        config.add_search_field("subject") do |field|
           field.solr_parameters = {
             "spellcheck.dictionary": "subject"
           }
@@ -219,7 +238,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('language') do |field|
+        config.add_search_field("language") do |field|
           field.solr_parameters = {
             "spellcheck.dictionary": "language"
           }
@@ -230,7 +249,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('resource_type') do |field|
+        config.add_search_field("resource_type") do |field|
           field.solr_parameters = {
             "spellcheck.dictionary": "resource_type"
           }
@@ -241,7 +260,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('format') do |field|
+        config.add_search_field("format") do |field|
           field.include_in_advanced_search = false
           field.solr_parameters = {
             "spellcheck.dictionary": "format"
@@ -253,7 +272,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('identifier') do |field|
+        config.add_search_field("identifier") do |field|
           field.include_in_advanced_search = false
           field.solr_parameters = {
             "spellcheck.dictionary": "identifier"
@@ -265,7 +284,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('based_near_label') do |field|
+        config.add_search_field("based_near_label") do |field|
           field.label = "Location"
           field.solr_parameters = {
             "spellcheck.dictionary": "based_near_label"
@@ -277,7 +296,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('keyword') do |field|
+        config.add_search_field("keyword") do |field|
           field.solr_parameters = {
             "spellcheck.dictionary": "keyword"
           }
@@ -288,7 +307,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('depositor') do |field|
+        config.add_search_field("depositor") do |field|
           solr_name = solr_name("depositor", :stored_searchable)
           field.solr_local_parameters = {
             qf: solr_name,
@@ -296,7 +315,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('rights_statement') do |field|
+        config.add_search_field("rights_statement") do |field|
           solr_name = solr_name("rights_statement", :stored_searchable)
           field.solr_local_parameters = {
             qf: solr_name,
@@ -304,7 +323,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('license') do |field|
+        config.add_search_field("license") do |field|
           solr_name = solr_name("license", :stored_searchable)
           field.solr_local_parameters = {
             qf: solr_name,
@@ -312,7 +331,7 @@ module HykuAddons
           }
         end
 
-        config.add_search_field('extent') do |field|
+        config.add_search_field("extent") do |field|
           solr_name = solr_name("extent", :stored_searchable)
           field.solr_local_parameters = {
             qf: solr_name,
@@ -338,7 +357,7 @@ module HykuAddons
           document: {
             limit: 100, # number of records returned with each request, default: 15
             set_fields: [ # ability to define ListSets, optional, default: nil
-              { label: 'collection', solr_field: 'isPartOf_ssim' }
+              { label: "collection", solr_field: "isPartOf_ssim" }
             ]
           }
         }
@@ -348,7 +367,7 @@ module HykuAddons
 
         def routing_error_unless_feature_enabled
           return if Flipflop.enabled?(:oai_endpoint)
-          raise(ActionController::RoutingError.new('OAI Not enabled'), 'Enable the OAI Endpoint feature first')
+          raise(ActionController::RoutingError.new("OAI Not enabled"), "Enable the OAI Endpoint feature first")
         end
 
         def oai_account_or_default_settings(controller, attr)
@@ -357,3 +376,6 @@ module HykuAddons
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength
+# rubocop:enable Metrics/BlockLength
+# rubocop:enable Metrics/LineLength

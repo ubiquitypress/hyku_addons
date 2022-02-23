@@ -27,7 +27,7 @@ class Dataset < ActiveFedora::Base
 
   self.indexer = DatasetIndexer
 
-  validates :title, presence: { message: 'Your work must have a title.' }
+  validates :title, presence: { message: "Your work must have a title." }
 
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)

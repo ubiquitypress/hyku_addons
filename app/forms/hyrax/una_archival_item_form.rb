@@ -27,20 +27,15 @@ module Hyrax
     def self.build_permitted_params
       super.tap do |permitted_params|
         permitted_params << common_fields
-        permitted_params << [:title, :resource_type, :creator, :alt_email, :abstract,
-                             :keyword, :subject, :date_published, :alternate_identifier,
-                             :library_of_congress_classification, :dewey, :related_identifier,
-                             :adapted_from, :additional_links, :related_material,
-                             :related_url, :source, :isbn, :issn, :eissn, :publisher,
-                             :place_of_publication, :citation, :funder, :project_name,
-                             :fndr_project_ref, :funding_description, :event_title,
-                             :event_location, :event_date, :related_exhibition,
-                             :related_exhibition_date, :license, :rights_holder,
-                             :rights_statement, :rights_statement_text, :contributor,
-                             :medium, :extent, :duration, :is_format_of, :language,
-                             :prerequisites, :location, :longitude, :latitude,
-                             :georeferenced, :time, :irb_number, :irb_status,
-                             :related_exhibition_venue, :add_info]
+        permitted_params << [:title, :resource_type, :creator, :alt_email, :abstract, :keyword, :subject,
+                             :date_published, :alternate_identifier, :library_of_congress_classification, :dewey,
+                             :related_identifier, :adapted_from, :additional_links, :related_material, :related_url,
+                             :source, :isbn, :issn, :eissn, :publisher, :place_of_publication, :citation, :funder,
+                             :project_name, :fndr_project_ref, :funding_description, :event_title, :event_location,
+                             :event_date, :related_exhibition, :related_exhibition_date, :license, :rights_holder,
+                             :rights_statement, :rights_statement_text, :contributor, :medium, :extent, :duration,
+                             :is_format_of, :language, :prerequisites, :location, :longitude, :latitude,
+                             :georeferenced, :time, :irb_number, :irb_status, :related_exhibition_venue, :add_info]
       end
     end
   end

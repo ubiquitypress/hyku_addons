@@ -1,7 +1,7 @@
 # frozen_string_literal: true
+
 require "bolognese"
 
-# rubocop:disable Metrics/ModuleLength
 module Bolognese
   module Readers
     module HykuAddonsWorkReader

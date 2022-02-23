@@ -7,7 +7,7 @@ module HykuAddons
       return super if non_tenant_job?
       switch do
         return super unless Flipflop.enabled?(:import_mode)
-        [current_account.name, 'import', super].join(ActiveJob::Base.queue_name_delimiter)
+        [current_account.name, "import", super].join(ActiveJob::Base.queue_name_delimiter)
       end
     end
   end

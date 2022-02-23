@@ -5,10 +5,6 @@ module HykuAddons
     include ExporterOverrides
     include ImporterOverrides
 
-    def self.matcher_class
-      HykuAddons::CsvMatcher
-    end
-
     # Override to allow `id` as system identifier field
     def valid_system_id(model_class)
       return true if Bulkrax.system_identifier_field == "id"
@@ -35,6 +31,7 @@ module HykuAddons
       begin
         super
       rescue
+        nil
       end || factory.find
     end
 

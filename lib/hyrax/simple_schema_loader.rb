@@ -87,6 +87,7 @@ module Hyrax
       # @return [Hash]
       def schema_config(schema_name)
         schema_config_path = config_paths(schema_name).find { |path| File.exist? path }
+
         raise(UndefinedSchemaError, "No schema defined: #{schema_name}") unless schema_config_path
 
         YAML.safe_load(File.open(schema_config_path))

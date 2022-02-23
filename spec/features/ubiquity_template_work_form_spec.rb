@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require "rails_helper"
 require HykuAddons::Engine.root.join("spec", "support", "fill_in_fields.rb").to_s
 require HykuAddons::Engine.root.join("spec", "support", "work_form_helpers.rb").to_s
 
-RSpec.feature "Create a UbiquityTemplateWork", js: true do
+RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:work_type) { "ubiquity_template_work" }
 
   let(:model) { work_type.classify.constantize }
@@ -21,6 +20,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
   let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
   let(:title) { "Ubiquity Template Work Item" }
   let(:alt_title) { ["Alt Title 1", "Alt Title 2"] }
+  let(:doi) { "10.1521/soco.23.1.118.59197" }
   let(:creator) do
     [
       {
@@ -43,7 +43,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       }
     ]
   end
-
   let(:expected_creator) do
     [
       {
@@ -67,7 +66,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
       }
     ]
   end
-
   let(:contributor) do
     [
       {
@@ -76,7 +74,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         contributor_given_name: "Johnny",
         contributor_orcid: "0000-1111-2222-3333",
         contributor_institutional_relationship: "Staff member",
-        contributor_isni: "1234567890"
+        contributor_isni: "1234567890",
+        contributor_role: ["Actor"]
       },
       {
         contributor_name_type: "Organisational",
@@ -84,7 +83,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         contributor_ror: "ror.org/1234",
         contributor_grid: "grid.com/1234",
         contributor_wikidata: "wikidata.org/1234",
-        contributor_isni: "1234567890"
+        contributor_isni: "1234567890",
+        contributor_role: ["Actor"]
       }
     ]
   end
@@ -293,6 +293,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
 
       # Required fields
       fill_in_text_field(:title, title)
+      fill_in_text_field(:doi, doi)
       fill_in_multiple_text_fields(:alt_title, alt_title)
       fill_in_select(:resource_type, resource_type.map { |h| h["label"] }.first)
       fill_in_cloneable(:creator, creator)
@@ -422,6 +423,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true do
         work = work_type.classify.constantize.find(work_id)
 
         expect(work.title).to eq([title])
+        expect(work.doi).to eq(doi)
         expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
         expect(work.date_published).to eq(normalize_date(date_published).first)
         # Cloneable fields use the label to select the option, but save the id to the work

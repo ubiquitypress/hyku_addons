@@ -5,7 +5,8 @@ RSpec.describe Hyku::API::V1::CollectionController, type: :request, clean: true,
   let(:account) { create(:account) }
   let(:cname) { (account.search_only? ? work.to_solr.dig("account_cname_tesim")&.first : account.cname) }
   let(:collection) { create(:collection, date_created: ["1992-12-31"], description: ["This is a test collection"], title: ["Test Title"], visibility: "open") }
-  let(:collection_branding_instance) do
+
+  let(:banner) do
     instance_double(CollectionBrandingInfo,
                     collection_id: collection.id, role: "banner",
                     local_path: "/fake/path/to/banner.png",
@@ -14,7 +15,39 @@ RSpec.describe Hyku::API::V1::CollectionController, type: :request, clean: true,
                     height: "", width: "")
   end
 
-  let(:collection_branding_list) { class_double(CollectionBrandingInfo) }
+  let(:logo) do
+    instance_double(CollectionBrandingInfo,
+                    collection_id: collection.id, role: "logo",
+                    local_path: "/fake/path/to/logo.png",
+                    alt_text: "This is the logo",
+                    target_url: "http://example.com/",
+                    height: "", width: "")
+  end
+
+  let(:results) do
+    { "cname" => cname.to_s,
+      "collection_banner_url" => "http://#{cname}/fake/path/to/banner.png",
+      "collection_logo_url" => "http://#{cname}/fake/path/to/logo.png",
+      "date_created" => "1992-12-31",
+      "date_published" => nil,
+      "description" => "This is a test collection",
+      "keywords" => nil,
+      "language" => nil,
+      "license_for_api_tesim" => nil,
+      "publisher" => nil,
+      "related_url" => nil,
+      "resource_type" => nil,
+      "rights_statements_for_api_tesim" => nil,
+      "thumbnail_base64_string" => nil,
+      "thumbnail_url" => nil,
+      "title" => collection.title.first,
+      "total_works" => 0,
+      "type" => "collection",
+      "uuid" => collection.id.to_s,
+      "visibility" => "open",
+      "volumes" => nil,
+      "works" => [] }
+  end
 
   before do
     allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
@@ -31,41 +64,23 @@ RSpec.describe Hyku::API::V1::CollectionController, type: :request, clean: true,
   end
 
   context "when repository has content" do
-    let(:collection_branding_info) { class_double("CollectionBrandingInfo") }
     let(:json_response) { JSON.parse(response.body) }
 
     before do
-      allow(CollectionBrandingInfo).to receive(:where).with(collection_id: collection.id) { collection_branding_list }
-      allow(collection_branding_list).to receive(:where).and_return(collection_branding_list)
-      allow(collection_branding_list).to receive(:first).and_return(collection_branding_instance)
+      collection_branding_list = class_double(CollectionBrandingInfo)
+      collection_logo_list = class_double(CollectionBrandingInfo)
+      allow(CollectionBrandingInfo).to receive(:where).with(collection_id: collection.id, role: "banner") { collection_branding_list }
+      allow(CollectionBrandingInfo).to receive(:where).with(collection_id: collection.id, role: "logo") { collection_logo_list }
+      allow(collection_branding_list).to receive(:first).and_return(banner)
+      allow(collection_logo_list).to receive(:first).and_return(logo)
     end
 
-    # rubocop:disable  RSpec/ExampleLength
-    it "returns correct collection json" do
-      get "/api/v1/tenant/#{account.tenant}/collection/#{collection.id}"
-      expect(response.status).to eq(200)
-      expect(json_response).to include("cname" => cname.to_s,
-                                       "collection_banner_url" => "http://#{cname}/fake/path/to/banner.png",
-                                       "date_created" => "1992-12-31",
-                                       "date_published" => nil,
-                                       "description" => "This is a test collection",
-                                       "keywords" => nil,
-                                       "language" => nil,
-                                       "license_for_api_tesim" => nil,
-                                       "publisher" => nil,
-                                       "related_url" => nil,
-                                       "resource_type" => nil,
-                                       "rights_statements_for_api_tesim" => nil,
-                                       "thumbnail_base64_string" => nil,
-                                       "thumbnail_url" => nil,
-                                       "title" => collection.title.first,
-                                       "total_works" => 0,
-                                       "type" => "collection",
-                                       "uuid" => collection.id.to_s,
-                                       "visibility" => "open",
-                                       "volumes" => nil,
-                                       "works" => [])
-      # rubocop:enable  RSpec/ExampleLength
+    context "fetching banner" do
+      it "returns correct collection json" do
+        get "/api/v1/tenant/#{account.tenant}/collection/#{collection.id}"
+        expect(response.status).to eq(200)
+        expect(json_response).to include(results)
+      end
     end
   end
 end

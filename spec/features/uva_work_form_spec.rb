@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require "rails_helper"
 require HykuAddons::Engine.root.join("spec", "support", "fill_in_fields.rb").to_s
 require HykuAddons::Engine.root.join("spec", "support", "work_form_helpers.rb").to_s
 
-RSpec.feature "Create a UvaWork", js: true do
+RSpec.feature "Create a UvaWork", js: true, slow: true do
   let(:work_type) { "uva_work" }
 
   let(:model) { work_type.classify.constantize }
@@ -21,6 +20,7 @@ RSpec.feature "Create a UvaWork", js: true do
   let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
 
   let(:title) { "UVA Work Item" }
+  let(:doi) { "10.1521/soco.23.1.118.59197" }
   let(:creator) do
     [
       {
@@ -153,6 +153,7 @@ RSpec.feature "Create a UvaWork", js: true do
       click_on "Additional fields"
 
       fill_in_text_field(:title, title)
+      fill_in_text_field(:doi, doi)
       fill_in_cloneable(:creator, creator)
       fill_in_select(:resource_type, resource_type.map { |h| h["label"] }.first)
       fill_in_textarea(:abstract, abstract)
@@ -193,6 +194,7 @@ RSpec.feature "Create a UvaWork", js: true do
         work = work_type.classify.constantize.find(work_id)
 
         expect(work.title).to eq([title])
+        expect(work.doi).to eq(doi)
         expect(work.creator).to eq([expected_creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
         expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
         expect(work.abstract).to eq(abstract)

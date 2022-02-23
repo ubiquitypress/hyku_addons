@@ -22,6 +22,8 @@ module HykuAddons
         end
 
         def transform_date(date_hash, field)
+          return date_hash unless date_hash.is_a? Hash
+
           date = date_hash["#{field}_year"]
           date << "-#{date_hash["#{field}_month"].to_i}" if date_hash["#{field}_month"].present?
           date << "-#{date_hash["#{field}_day"].to_i}" if date_hash["#{field}_month"].present? && date_hash["#{field}_day"].present?

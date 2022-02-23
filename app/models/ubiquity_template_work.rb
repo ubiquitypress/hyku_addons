@@ -2,7 +2,6 @@
 
 class UbiquityTemplateWork < ActiveFedora::Base
   include Hyrax::WorkBehavior
-  include Hyrax::DOI::DOIBehavior
   include Hyrax::DOI::DataCiteDOIBehavior
 
   include HykuAddons::Schema::WorkBase
@@ -13,5 +12,5 @@ class UbiquityTemplateWork < ActiveFedora::Base
 
   self.indexer = UbiquityTemplateWorkIndexer
 
-  validates :title, presence: { message: 'Your work must have a title.' }
+  validates :title, presence: { message: "Your work must have a title." }
 end

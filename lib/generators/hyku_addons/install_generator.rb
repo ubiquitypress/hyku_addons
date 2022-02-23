@@ -12,40 +12,45 @@ module HykuAddons
         7. Injects CSS
         8. Injects helpers
         9. Installs workflows
-        10. Install Coccon
+        10. Install Cocoon
+        11. Install hyrax-autopopulation
     EOS
 
-    source_root File.expand_path('templates', __dir__)
+    source_root File.expand_path("templates", __dir__)
 
     def install_hyrax_doi
-      generate 'hyrax:doi:install --datacite'
+      generate "hyrax:doi:install --datacite"
     end
 
     def install_hyrax_hirmeos
-      generate 'hyrax:hirmeos:install'
+      generate "hyrax:hirmeos:install"
     end
 
     def install_hyrax_orcid
-      generate 'hyrax:orcid:install'
+      generate "hyrax:orcid:install"
     end
 
     def install_cocoon
-      generate 'cocoon:install'
+      generate "cocoon:install"
+    end
+
+    def install_hyrax_autopopulation
+      generate "hyrax:autopopulation:install"
     end
 
     def inject_overrides_into_curation_concerns
-      insert_into_file(Rails.root.join('app', 'models', 'generic_work.rb'), before: /^  include ::Hyrax::BasicMetadata/) do
+      insert_into_file(Rails.root.join("app", "models", "generic_work.rb"), before: /^  include ::Hyrax::BasicMetadata/) do
         "\n  # HykuAddons initializer will include more modules and then close the work with this include\n  #"
       end
-      insert_into_file(Rails.root.join('app', 'models', 'image.rb'), before: /^  include ::Hyrax::BasicMetadata/) do
+      insert_into_file(Rails.root.join("app", "models", "image.rb"), before: /^  include ::Hyrax::BasicMetadata/) do
         "\n  # HykuAddons initializer will include more modules and then close the work with this include\n  #"
       end
 
       # Replace hyku override to avoid #doi and #isbn methods
-      gsub_file(Rails.root.join('app', 'presenters', 'hyrax', 'generic_work_presenter.rb'), '< Hyku::WorkShowPresenter', '< Hyrax::WorkShowPresenter')
-      gsub_file(Rails.root.join('app', 'presenters', 'hyrax', 'image_presenter.rb'), '< Hyku::WorkShowPresenter', '< Hyrax::WorkShowPresenter')
+      gsub_file(Rails.root.join("app", "presenters", "hyrax", "generic_work_presenter.rb"), "< Hyku::WorkShowPresenter", "< Hyrax::WorkShowPresenter")
+      gsub_file(Rails.root.join("app", "presenters", "hyrax", "image_presenter.rb"), "< Hyku::WorkShowPresenter", "< Hyrax::WorkShowPresenter")
       # TODO: contribute this change upstream
-      gsub_file(Rails.root.join('app', 'controllers', 'hyrax', 'images_controller.rb'), 'Hyku::WorkShowPresenter', 'Hyrax::ImagePresenter')
+      gsub_file(Rails.root.join("app", "controllers", "hyrax", "images_controller.rb"), "Hyku::WorkShowPresenter", "Hyrax::ImagePresenter")
     end
 
     def copy_controlled_vocabularies
@@ -53,19 +58,19 @@ module HykuAddons
     end
 
     def inject_javascript
-      insert_into_file(Rails.root.join('app', 'assets', 'javascripts', 'application.js'), after: /require hyrax$/) do
+      insert_into_file(Rails.root.join("app", "assets", "javascripts", "application.js"), after: /require hyrax$/) do
         "\n//= require hyku_addons"
       end
     end
 
     def inject_stylesheet
-      insert_into_file(Rails.root.join('app', 'assets', 'stylesheets', 'application.css'), after: /require hyrax$/) do
+      insert_into_file(Rails.root.join("app", "assets", "stylesheets", "application.css"), after: /require hyrax$/) do
         "\n *= require hyku_addons/application"
       end
     end
 
     def inject_into_helper
-      insert_into_file(Rails.root.join('app', 'helpers', 'hyrax_helper.rb'), after: 'include Hyrax::DOI::HelperBehavior') do
+      insert_into_file(Rails.root.join("app", "helpers", "hyrax_helper.rb"), after: "include Hyrax::DOI::HelperBehavior") do
         "\n" \
         "  # Helpers provided by hyku_addons plugin.\n" \
         "  include HykuAddons::HelperBehavior"
@@ -76,7 +81,7 @@ module HykuAddons
     # To load these in existing tenants run:
     #  `rake tenantize:task[hyrax:workflow:load]`
     def install_workflows
-      template('hyku_addons_mediated_deposit_workflow.json.erb', "config/workflows/hyku_addons_mediated_deposit_workflow.json")
+      template("hyku_addons_mediated_deposit_workflow.json.erb", "config/workflows/hyku_addons_mediated_deposit_workflow.json")
     end
   end
 end

@@ -30,6 +30,12 @@ module HykuAddons
         end
       end
 
+      def initialize(model, current_ability, controller)
+        model.admin_set_id = controller.params["admin_set_id"] if simplified_admin_set?(controller)
+
+        super(model, current_ability, controller)
+      end
+
       def schema_driven?
         true
       end
@@ -38,13 +44,8 @@ module HykuAddons
         pt = primary_fields | super
         pt += %i[admin_set_id] if Flipflop.enabled?(:simplified_admin_set_selection)
         pt += %i[doi]
-        pt
-      end
 
-      def initialize(model, current_ability, controller)
-        model.admin_set_id = controller.params["admin_set_id"] if simplified_admin_set?(controller)
-
-        super(model, current_ability, controller)
+        pt.uniq
       end
 
       # Helper methods for JSON fields

@@ -49,7 +49,7 @@ module Hyrax
         end
 
         def key_value_list_for(a_hash)
-          a_hash.sort_by { |key| key }.to_h.map do |k, v|
+          a_hash.sort.to_h.map do |k, v|
             @view_context.content_tag :p do
               @view_context.content_tag(:strong, "#{k}: ") + v.to_s
             end
@@ -57,7 +57,7 @@ module Hyrax
         end
 
         def render_validation_issues(validation_errors)
-          @view_context.content_tag :table, class: 'table' do
+          @view_context.content_tag :table, class: "table" do
             thead = validation_table_header
             tbody = @view_context.content_tag :tbody do
               validation_errors.sort_by { |error| error[:path] }.map do |diff_entry|
@@ -82,13 +82,13 @@ module Hyrax
 
         def diff_entry_html(diff_entry)
           label_klass = case diff_entry[:op]&.to_s
-                        when 'add'
-                          'success'
-                        when 'move'
-                          'info'
-                        when 'remove'
-                          'danger'
-                        else 'info'
+                        when "add"
+                          "success"
+                        when "move"
+                          "info"
+                        when "remove"
+                          "danger"
+                        else "info"
                         end
           @view_context.content_tag :tr, class: "bg-#{label_klass} overflow-wrap-break" do
             diff_entry_item(diff_entry[:path], diff_entry[:source_v], diff_entry[:dest_v])
