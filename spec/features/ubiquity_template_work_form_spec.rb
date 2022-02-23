@@ -5,6 +5,7 @@ require HykuAddons::Engine.root.join("spec", "support", "work_form_helpers.rb").
 
 RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:work_type) { "ubiquity_template_work" }
+  let(:work) { work_type.classify.constantize.find(work_uuid_from_url) }
 
   let(:model) { work_type.classify.constantize }
   let(:field_config) { "hyrax/#{work_type}_form".classify.constantize.field_configs }
@@ -416,11 +417,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
         %i[published accepted submitted].each { |d| expect(page).to have_content(normalize_date(send("date_#{d}".to_sym)).first) }
         duration.each { |at| expect(page).to have_content(at) }
         description.each { |at| expect(page).to have_content(at) }
-
-        # Get the actual work from the URL param
-        current_uri = URI.parse(page.current_url)
-        work_id = current_uri.path.split("/").last
-        work = work_type.classify.constantize.find(work_id)
 
         expect(work.title).to eq([title])
         expect(work.doi).to eq(doi)

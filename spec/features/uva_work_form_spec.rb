@@ -5,6 +5,7 @@ require HykuAddons::Engine.root.join("spec", "support", "work_form_helpers.rb").
 
 RSpec.feature "Create a UvaWork", js: true, slow: true do
   let(:work_type) { "uva_work" }
+  let(:work) { work_type.classify.constantize.find(work_uuid_from_url) }
 
   let(:model) { work_type.classify.constantize }
   let(:field_config) { "hyrax/#{work_type}_form".classify.constantize.field_configs }
@@ -187,11 +188,6 @@ RSpec.feature "Create a UvaWork", js: true, slow: true do
         expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
         expect(page).to have_content("#{contributor.first.dig(:contributor_family_name)}, #{contributor.first.dig(:contributor_given_name)}")
         expect(page).to have_content(normalize_date(date_published).first)
-
-        # Get the actual work from the URL param
-        current_uri = URI.parse(page.current_url)
-        work_id = current_uri.path.split("/").last
-        work = work_type.classify.constantize.find(work_id)
 
         expect(work.title).to eq([title])
         expect(work.doi).to eq(doi)
