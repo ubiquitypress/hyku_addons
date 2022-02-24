@@ -314,7 +314,7 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
     it "imports using import queue" do
       expect do
         perform_enqueued_jobs do
-          Bulkrax::ImporterJob.perform_now(importer.id)
+          Bulkrax::ImporterJob.perform_later(importer.id)
         end
       end.to have_performed_job(Bulkrax::ImporterJob).on_queue("x_import_import").at_least(:once)
         .and have_performed_job(Hyrax::DOI::RegisterDOIJob).on_queue("x_import_default").at_least(:once)

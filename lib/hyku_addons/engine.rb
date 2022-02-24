@@ -155,11 +155,12 @@ module HykuAddons
       # HykuAddons::ReindexModelJob is a bulk job and will not be called from actor stack
       # HykuAddons::ToggleDisplayProfileJob is another bulk job
 
+      Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
+      Bulkrax::ExportersController.include HykuAddons::ExportersControllerOverride
+
       # Bulk mode behaviors
       ::ActiveJob::Base.include HykuAddons::ImportMode
       ## Bulkrax
-      Bulkrax::ImportersController.include HykuAddons::ImporterControllerBehavior
-      Bulkrax::ExportersController.include HykuAddons::ExportersControllerOverride
       Bulkrax::ImporterJob.include HykuAddons::PortableBulkraxImporterBehavior
       Bulkrax::ImportWorkJob.include HykuAddons::PortableBulkraxEntryBehavior
       Bulkrax::DeleteWorkJob.include HykuAddons::PortableBulkraxEntryBehavior
