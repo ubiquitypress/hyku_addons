@@ -64,10 +64,10 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:language_options) { HykuAddons::LanguageService.new(model: model).active_elements.sample(2) }
   let(:subject_text) { ["A subject"] }
   let(:mesh) { ["A mesh"] }
-  let(:add_info) { "Some additional information" }
+  let(:add_info) { ["Some additional information"] }
   let(:doi) { "10.1521/soco.23.1.118.59197" }
 
-  let(:advisor) { "advisor" }
+  let(:advisor) { ["advisor"] }
   let(:publisher) { ["publisher1", "publisher2"] }
   let(:repository_space_options) { HykuAddons::RepositorySpaceService.new(model: model).active_elements.first }
   let(:source_data) { ["source 1", "Source 2"] }
@@ -147,7 +147,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       before do
         add_visibility
         add_agreement
-        ss
         submit
       end
 
@@ -162,7 +161,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           expect(page).to have_content(resource_type.map { |h| h["id"] }.first)
           alt_title.each { |at| expect(page).to have_content(at) }
           expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
-          expect(page).to have_content(normalize_date(published_date).first)
+          expect(page).to have_content(normalize_date(date_published).first)
 
           expect(work.title).to eq([title])
           expect(work.alt_title).to eq(alt_title)
@@ -193,7 +192,8 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           expect(work.committee_member).to eq(committee_member)
           expect(work.time).to eq(time)
           expect(work.part_of).to eq(part_of)
-          expect(work.rights_statement).to eq(rights_statement_options.first["id"])
+          # Rights statement is always saved as a multiple field
+          expect(work.rights_statement).to eq([rights_statement_options.first["id"]])
           expect(work.qualification_subject_text).to eq(qualification_subject_text)
           expect(work.qualification_grantor).to eq(qualification_grantor)
           expect(work.qualification_level).to eq(qualification_level_options.map { |h| h["id"] }.first)
