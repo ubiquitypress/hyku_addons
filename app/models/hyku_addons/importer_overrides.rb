@@ -137,7 +137,7 @@ module HykuAddons
 
       def create_metadata
         self.parsed_metadata = {}
-        parsed_metadata[Bulkrax.system_identifier_field] = record["source_identifier"]
+        parsed_metadata[::Bulkrax.system_identifier_field] = record["source_identifier"]
         parsed_metadata["id"] = record["id"] if record["id"].present?
 
         record.each do |key, value|

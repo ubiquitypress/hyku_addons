@@ -7,18 +7,14 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
   # let! is needed below to ensure that this user is created for file attachment because this is the depositor in the CSV fixtures
   let!(:depositor) { build_stubbed(:user, email: "batchuser@example.com") }
   let(:importer) do
-    create(:bulkrax_importer_csv,
-           user: user,
-           field_mapping: Bulkrax.field_mappings["HykuAddons::CsvParser"],
-           parser_klass: "HykuAddons::CsvParser",
-           parser_fields: { "import_file_path" => import_batch_file },
-           limit: 0)
+    create(:bulkrax_importer_csv, user: user, field_mapping: ::Bulkrax.field_mappings["HykuAddons::CsvParser"], parser_klass: "HykuAddons::CsvParser", parser_fields: { "import_file_path" => import_batch_file }, limit: 0)
   end
   let(:import_batch_file) { "spec/fixtures/csv/pacific_articles.metadata.csv" }
 
   before do
-    # Make sure default admin set exists
-    stub_request(:get, Addressable::Template.new("#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}")).to_return(status: 200)
+    url = "#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}"
+    stub_request(:get, Addressable::Template.new(url)).to_return(status: 200)
+
     allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
   end
 

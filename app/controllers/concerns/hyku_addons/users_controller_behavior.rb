@@ -20,6 +20,7 @@ module HykuAddons
       @user_works = Hyrax::PresenterFactory.build_for(ids: user_document_id_list,
                                                       presenter_class: Hyku::WorkShowPresenter,
                                                       presenter_args: current_ability)
+
       collection_search_builder = Hyrax::CollectionSearchBuilder.new(self).with_access(:read).rows(1_000_000)
       @collection_docs = repository.search(collection_search_builder).documents
     end

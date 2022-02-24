@@ -6,7 +6,7 @@ namespace :hyku do
       desc "Validate a Bulkrax Importer"
       task :http, [:tenant, :importer, :source_path, :source_auth, :destination_path, :destination_auth] => [:environment] do |_t, args|
         account = load_account(args[:tenant])
-        importer = Bulkrax::Importer.find(args[:importer])
+        importer = ::Bulkrax::Importer.find(args[:importer])
         validate_http_params(args)
 
         importer.entries.find_each.map do |entry|
@@ -17,7 +17,7 @@ namespace :hyku do
 
       task :cookies, [:tenant, :importer, :source_path, :source_cookie, :destination_path, :destination_cookie] => [:environment] do |_t, args|
         account = load_account(args[:tenant])
-        importer = Bulkrax::Importer.find(args[:importer])
+        importer = ::Bulkrax::Importer.find(args[:importer])
         validate_cookie_params(args)
         importer.entries.find_each.map do |entry|
           next unless entry.is_a?(HykuAddons::CsvEntry)
@@ -27,7 +27,7 @@ namespace :hyku do
 
       task :csv, [:tenant, :importer, :klass] => [:environment] do |_t, args|
         account = load_account(args[:tenant])
-        importer = Bulkrax::Importer.find(args[:importer])
+        importer = ::Bulkrax::Importer.find(args[:importer])
 
         importer.entries.find_each.map do |entry|
           next unless entry.is_a?(HykuAddons::CsvEntry)
@@ -37,10 +37,10 @@ namespace :hyku do
     end
 
     namespace :entries do
-      desc "Validate a Bulkrax Entry"
+      desc "Validate a ::Bulkrax Entry"
       task :http, [:tenant, :entry, :source_path, :source_auth, :destination_path, :destination_auth] => [:environment] do |_t, args|
         account = load_account(args[:tenant])
-        entry = Bulkrax::Entry.find(args[:entry])
+        entry = ::Bulkrax::Entry.find(args[:entry])
         exit(1) unless entry.is_a?(HykuAddons::CsvEntry)
 
         HykuAddons::ValidateImporterEntryJob.perform_later(account, entry, source_auth_options(args), destination_auth_options(args))
@@ -48,7 +48,7 @@ namespace :hyku do
 
       task :cookies, [:tenant, :entry, :source_path, :source_cookie, :destination_path, :destination_cookie] => [:environment] do |_t, args|
         account = load_account(args[:tenant])
-        entry = Bulkrax::Entry.find(args[:entry])
+        entry = ::Bulkrax::Entry.find(args[:entry])
         validate_cookie_params(args)
         exit(1) unless entry.is_a?(HykuAddons::CsvEntry)
 
@@ -57,7 +57,7 @@ namespace :hyku do
 
       task :csv, [:tenant, :entry, :klass] => [:environment] do |_t, args|
         account = load_account(args[:tenant])
-        entry = Bulkrax::Entry.find(args[:entry])
+        entry = ::Bulkrax::Entry.find(args[:entry])
         exit(1) unless entry.is_a?(HykuAddons::CsvEntry)
 
         HykuAddons::ValidateCsvImporterEntryJob.perform_later(account, entry, args[:klass])
