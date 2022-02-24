@@ -97,7 +97,7 @@ module HykuAddons
       end
 
       # Override import mode
-      def total_collection_entries
+      def total_entries
         return 0 unless works || @use_work_ids
 
         if @use_work_ids

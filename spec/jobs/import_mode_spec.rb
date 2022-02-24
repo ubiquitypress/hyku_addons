@@ -38,41 +38,42 @@ RSpec.describe HykuAddons::ImportMode, type: :job do
         end
       end
 
-      # rubocop:disable RSpec/MessageChain
       [HykuAddons::PortableBulkraxEntryBehavior, HykuAddons::PortableBulkraxImporterBehavior, HykuAddons::PortableActiveFedoraBehavior, HykuAddons::PortableGenericBehavior].each do |strategy|
         context "the job with #{strategy} included" do
           let(:bulkrax_entry) { double }
+          let(:activefedora_record) { double }
           let(:bulkrax_importer) { double }
-          let(:bulkrax_importer_run) { double }
+          let(:parser) { double }
 
           before do
             job.include strategy
 
             if strategy == HykuAddons::PortableActiveFedoraBehavior
-              allow(ActiveFedora::Base).to receive_message_chain(:find, :source_identifier)
+              allow(ActiveFedora::Base).to receive(:find).and_return(activefedora_record)
+              allow(activefedora_record).to receive(:source_identifier)
             elsif strategy == HykuAddons::PortableBulkraxImporterBehavior
               allow(Bulkrax::Importer).to receive(:find).and_return(bulkrax_importer)
-              allow(bulkrax_importer).to receive_message_chain(:importer_runs, :first).and_return(bulkrax_importer_run)
+              allow(bulkrax_importer).to receive(:parser).and_return(parser)
             end
 
             allow(Bulkrax::Entry).to receive(:find_by_identifier).and_return(bulkrax_entry)
-            allow(bulkrax_entry).to receive_message_chain(:importerexporter, :importer_runs, :first).and_return(bulkrax_importer_run)
+            allow(Bulkrax::Entry).to receive(:find).and_return(bulkrax_entry)
+            allow(bulkrax_entry).to receive(:parser).and_return(parser)
           end
 
           it "returns special queue name if the entry is marked bulk" do
-            allow(bulkrax_importer_run).to receive(:total_collection_entries).and_return(25)
+            allow(parser).to receive(:total).and_return(25)
 
             expect(job.new.queue_name).to eq "moominU_import_test"
           end
 
           it "returns super if the entry is not marked bulk" do
-            allow(bulkrax_importer_run).to receive(:total_collection_entries).and_return(2)
+            allow(parser).to receive(:total).and_return(2)
 
             expect(job.new.queue_name).to eq "test"
           end
         end
       end
-      # rubocop:enable RSpec/MessageChain
     end
   end
 end

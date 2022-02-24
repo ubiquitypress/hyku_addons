@@ -19,18 +19,20 @@ module HykuAddons
 
     private
 
-      def total_collection_entries
+      def total_entries
         portable_object
-          &.importerexporter
-          &.importer_runs
-          &.first
-          &.total_collection_entries || 0
+          &.parser
+          &.total || 0
       rescue NameError
         0
       end
 
       def bulk?
-        total_collection_entries > 20 || false
+        (total_entries > bulkrax_bulk_job_threshold) || false
+      end
+
+      def bulkrax_bulk_job_threshold
+        ENV["BULKRAX_BULK_JOB_THRESHOLD"] || 10
       end
   end
 end

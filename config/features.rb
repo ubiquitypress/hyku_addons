@@ -14,10 +14,6 @@ Flipflop.configure do
           default: true,
           description: "Shows collections, importer and exporter links on the sidebar for non admin users"
 
-  feature :import_mode,
-          default: false,
-          description: "Import mode - Background jobs are run on specially named queues"
-
   # If this is turned on by default inside the specs, it'll break a lot of them with the on-create callbacks
   feature :task_master,
           default: ENV["PUBSUB_SERVICEACCOUNT_KEY"].present? && !Rails.env.test?,

@@ -306,25 +306,6 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
     end
   end
 
-  describe "bulk queue assignment" do
-    # This file has more than 20 rows so by default will use import mode
-    let(:import_batch_file) { "spec/fixtures/csv/publication_date.csv" }
-
-    it "imports using import queue" do
-      # Setup the bulkrax importer object with the correct number of entries
-      # Then assert for each job that *could* be called that it is called in the correct queue
-
-      assert_performed_with(job: HykuAddons::ImportWorkCollectionJob, queue: "x_import_import") do
-        importer.import_collections
-
-        importer.import_works
-      end
-
-      # Hyrax::Hirmeos::HirmeosWorkRegistrationJob
-      # Hyrax::DOI::RegisterDOIJob
-    end
-  end
-
   describe "full import" do
     it "creates collections and works" do
       expect do
@@ -456,20 +437,18 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
         .to_return(status: 200, body: "", headers: {})
     end
 
-    context "when import_mode is enabled" do
-      it "calls the DOI Job" do
-        allow(Hyrax::DOI::RegisterDOIJob).to receive(:perform_later).and_call_original
-        allow(Hyrax::Identifier::Dispatcher).to receive(:for).and_call_original
+    it "calls the DOI Job" do
+      allow(Hyrax::DOI::RegisterDOIJob).to receive(:perform_later).and_call_original
+      allow(Hyrax::Identifier::Dispatcher).to receive(:for).and_call_original
 
-        perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
-          Bulkrax::ImporterJob.perform_now(importer.id)
-        end
-
-        # This tests that the job is enqueued
-        expect(Hyrax::DOI::RegisterDOIJob).to have_received(:perform_later).exactly(12).times
-        # This tests that the job is actually performed, as its only step is to call this class.
-        expect(Hyrax::Identifier::Dispatcher).to have_received(:for).exactly(12).times
+      perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
+        Bulkrax::ImporterJob.perform_now(importer.id)
       end
+
+      # This tests that the job is enqueued
+      expect(Hyrax::DOI::RegisterDOIJob).to have_received(:perform_later).exactly(12).times
+      # This tests that the job is actually performed, as its only step is to call this class.
+      expect(Hyrax::Identifier::Dispatcher).to have_received(:for).exactly(12).times
     end
 
     context "when the work does not exist" do

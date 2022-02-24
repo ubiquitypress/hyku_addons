@@ -8,8 +8,9 @@ module HykuAddons
 
     # FIXME: Override to make debugging easier
     def perform_method
-      return :perform_now unless Rails.env.production?
-      super
+      # return :perform_now unless Rails.env.production?
+      # super
+      :perform_later
     end
 
     def file_paths
