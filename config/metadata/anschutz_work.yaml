@@ -433,7 +433,7 @@ attributes:
       type: text
   rights_statement:
     predicate: http://www.europeana.eu/schemas/edm/rights
-    multiple: false
+    multiple: true
     index_keys:
     - rights_statement_tesim
     form:
