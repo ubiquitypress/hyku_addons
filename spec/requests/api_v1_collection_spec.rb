@@ -24,6 +24,8 @@ RSpec.describe Hyku::API::V1::CollectionController, type: :request, clean: true,
                     height: "", width: "")
   end
 
+  let(:json_response) { JSON.parse(response.body) }
+
   let(:results) do
     { "cname" => cname.to_s,
       "collection_banner_url" => "http://#{cname}/fake/path/to/banner.png",
@@ -64,8 +66,6 @@ RSpec.describe Hyku::API::V1::CollectionController, type: :request, clean: true,
   end
 
   context "when repository has content" do
-    let(:json_response) { JSON.parse(response.body) }
-
     before do
       collection_branding_list = class_double(CollectionBrandingInfo)
       collection_logo_list = class_double(CollectionBrandingInfo)
@@ -75,7 +75,7 @@ RSpec.describe Hyku::API::V1::CollectionController, type: :request, clean: true,
       allow(collection_logo_list).to receive(:first).and_return(logo)
     end
 
-    context "fetching banner" do
+    context "fetching banner and logo" do
       it "returns correct collection json" do
         get "/api/v1/tenant/#{account.tenant}/collection/#{collection.id}"
         expect(response.status).to eq(200)

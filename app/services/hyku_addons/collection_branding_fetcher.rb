@@ -36,7 +36,7 @@ module HykuAddons
         {
           scheme: Rails.application.routes.default_url_options.fetch(:protocol, "http"),
           host: @cname,
-          path: role.local_path,
+          path: "/" + role.local_path.split("/")[-4..-1].join("/"),
           alt_text: role.alt_text
         }
       end
