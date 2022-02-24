@@ -306,6 +306,23 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
     end
   end
 
+  # rubocop:disable Layout/MultilineMethodCallIndentation
+  describe "bulk queue assignment" do
+    # This file has more than 20 rows so by default will use import mode
+    let(:import_batch_file) { "spec/fixtures/csv/publication_date.csv" }
+
+    it "imports using import queue" do
+      expect do
+        perform_enqueued_jobs do
+          Bulkrax::ImporterJob.perform_now(importer.id)
+        end
+      end.to have_performed_job(Bulkrax::ImporterJob).on_queue("x_import_import").at_least(:once)
+        .and have_performed_job(Hyrax::DOI::RegisterDOIJob).on_queue("x_import_default").at_least(:once)
+        .and have_performed_job(Hyrax::Hirmeos::HirmeosWorkRegistrationJob).on_queue("x_import_default").at_least(:once)
+    end
+  end
+  # rubocop:enable Layout/MultilineMethodCallIndentation
+
   describe "full import" do
     it "creates collections and works" do
       expect do
