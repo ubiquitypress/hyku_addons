@@ -14,6 +14,11 @@ module HykuAddons
       scope :with_public_profile, -> { where(display_profile: true) }
     end
 
+    # _obj is required but is not used
+    def mailboxer_email(_obj)
+      email
+    end
+
     def display_profile_visibility
       PROFILE_VISIBILITY[display_profile ? :open : :closed]
     end

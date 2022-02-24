@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 RSpec.describe "Sign Up", type: :feature do
-  let(:account) { FactoryBot.create(:account) }
+  let(:account) { create(:account) }
 
   before do
     Site.update(account: account)
@@ -31,10 +29,14 @@ RSpec.describe "Sign Up", type: :feature do
   end
 
   context "with account signup diabled" do
-    it "does not allow a user to create an account" do
+    before do
       account.allow_signup = "false"
       account.save!
+
       visit "/users/sign_up"
+    end
+
+    it "does not allow a user to create an account" do
       expect(page).to have_content("Account registration is disabled")
     end
   end

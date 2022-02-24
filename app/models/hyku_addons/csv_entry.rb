@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 module HykuAddons
-  class CsvEntry < Bulkrax::CsvEntry
+  class CsvEntry < ::Bulkrax::CsvEntry
     include ExporterOverrides
     include ImporterOverrides
 
     # Override to allow `id` as system identifier field
     def valid_system_id(model_class)
-      return true if Bulkrax.system_identifier_field == "id"
-      # Collection and AdminSet are handled differently so don't worry about them
-      return true if model_class == Collection || model_class == AdminSet
-      return true if model_class.properties.keys.include?(Bulkrax.system_identifier_field)
-      raise("#{model_class} does not implement the system_identifier_field: #{Bulkrax.system_identifier_field}")
+      return true if ::Bulkrax.system_identifier_field == "id"
+      return true if model_class == Collection || model_class == AdminSet # Collection and AdminSet are handled differently so don't worry about them
+      return true if model_class.properties.keys.include?(::Bulkrax.system_identifier_field)
+
+      raise("#{model_class} does not implement the system_identifier_field: #{::Bulkrax.system_identifier_field}")
     end
 
     def find_collection(collection_identifier)
@@ -38,8 +38,8 @@ module HykuAddons
     private
 
       def current_doi_status
-        query = { Bulkrax.system_identifier_field => record["source_identifier"] }
-        match = factory_class.where(query).detect { |m| m.send(Bulkrax.system_identifier_field).include?(record["source_identifier"]) }
+        query = { ::Bulkrax.system_identifier_field => record["source_identifier"] }
+        match = factory_class.where(query).detect { |m| m.send(::Bulkrax.system_identifier_field).include?(record["source_identifier"]) }
 
         match&.doi_status_when_public
       end

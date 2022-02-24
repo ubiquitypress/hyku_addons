@@ -38,6 +38,8 @@ module HykuAddons
       def call_collection_job(item_entry_class, item_id, item_metadata)
         return if item_id.empty?
 
+        # Bulkrax uses the `Bulkrax::Importer` string as a "type" for the polymorphic object, so this does not need
+        # to be namespaced like other occurances of the `::Bulkrax` module.
         new_entry = find_or_create_entry(item_entry_class, item_id, "Bulkrax::Importer", item_metadata)
 
         begin
@@ -51,7 +53,6 @@ module HykuAddons
         {
           title: [admin_set],
           # Allow Hyku to generate a UUID for the admin set
-          # Bulkrax.system_identifier_field => nil,
           visibility: "open",
           collection_type_gid: Hyrax::CollectionType.find_or_create_admin_set_type.gid
         }
@@ -60,7 +61,7 @@ module HykuAddons
       def collection_metadata(collection)
         {
           title: [collection[:title]],
-          Bulkrax.system_identifier_field => collection[:id],
+          ::Bulkrax.system_identifier_field => collection[:id],
           id: collection[:id],
           visibility: "open",
           collection_type_gid: Hyrax::CollectionType.find_or_create_default_collection_type.gid
@@ -68,7 +69,7 @@ module HykuAddons
       end
 
       def collection_delimiter
-        Regexp.new(Bulkrax.field_mappings["HykuAddons::CsvParser"]&.dig("collection", :split) || %r{\|})
+        Regexp.new(::Bulkrax.field_mappings["HykuAddons::CsvParser"]&.dig("collection", :split) || %r{\|})
       end
 
       def collection_prefix

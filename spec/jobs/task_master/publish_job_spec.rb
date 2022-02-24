@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 RSpec.describe HykuAddons::TaskMaster::PublishJob, type: :job do
   let(:work) { create(:work) }
   let(:service_class) { HykuAddons::TaskMaster::PublishService }
@@ -14,6 +12,10 @@ RSpec.describe HykuAddons::TaskMaster::PublishJob, type: :job do
 
   before do
     allow(Site).to receive(:instance).and_return(site)
+  end
+
+  it "has its callback available" do
+    expect(Hyrax.config.callback.enabled).to include(:task_master_after_create_fileset)
   end
 
   describe ".perform_later" do

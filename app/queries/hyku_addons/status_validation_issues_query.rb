@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module HykuAddons
   class StatusValidationIssuesQuery < HykuAddons::BaseQuery
-    def initialize(relation = Bulkrax::Status.all)
+    def initialize(relation = ::Bulkrax::Status.all)
       super(relation)
     end
 
