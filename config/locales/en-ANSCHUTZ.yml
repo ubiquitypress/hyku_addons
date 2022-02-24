@@ -61,6 +61,7 @@ en-ANSCHUTZ:
         qualification_name: Thesis Degree
         is_format_of: Is Format Of
         part_of: Is Part Of
+        repository_space: Publisher
     hints:
       defaults:
         abstract: "Abstract or short description of content"
