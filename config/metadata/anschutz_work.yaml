@@ -441,6 +441,7 @@ attributes:
       primary: false
       multiple: false
       type: select
+      include_blank: false
       authority: HykuAddons::RightsStatementService
   qualification_subject_text:
     type: string

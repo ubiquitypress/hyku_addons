@@ -25,11 +25,11 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:permission_options) do
     { permission_template_id: permission_template.id, agent_type: "user", agent_id: user.user_key, access: "deposit" }
   end
-  # The organisation option changes depending on the local, so we need to use this to ensure we select the right one
-  let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
 
   let(:title) { "Ubiquity Template Work Item" }
   let(:alt_title) { ["Alt Title 1", "Alt Title 2"] }
+  # The organisation option changes depending on the local, so we need to use this to ensure we select the right one
+  let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
   let(:creator) do
     [
       {
@@ -82,7 +82,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:committee_member) { ["Commitee member 1", "Commitee member 2"] }
   let(:time) { "time" }
   let(:part_of) { ["part_of123", "part_of456"] }
-  let(:rights_statement_options) { HykuAddons::RightsStatementService.new(model: model).active_elements.sample(1).first }
+  let(:rights_statement_options) { HykuAddons::RightsStatementService.new(model: model).active_elements.sample(1) }
   let(:qualification_subject_text) { ["Qualification statement text 1", "Qualification statement text 2"] }
   let(:qualification_grantor) { "qualification_grantor" }
   let(:qualification_level_options) { HykuAddons::QualificationLevelService.new(model: model).active_elements.sample(1) }
@@ -135,7 +135,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       fill_in_multiple_text_fields(:committee_member, committee_member)
       fill_in_text_field(:time, time)
       fill_in_multiple_text_fields(:part_of, part_of)
-      fill_in_select(:rights_statement, rights_statement_options["label"])
+      fill_in_select(:rights_statement, rights_statement_options.first["label"])
       fill_in_multiple_text_fields(:qualification_subject_text, qualification_subject_text)
       fill_in_text_field(:qualification_grantor, qualification_grantor)
       fill_in_select(:qualification_level, qualification_level_options.map { |h| h["label"] }.first)
@@ -193,7 +193,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           expect(work.committee_member).to eq(committee_member)
           expect(work.time).to eq(time)
           expect(work.part_of).to eq(part_of)
-          expect(work.rights_statement).to eq(rights_statement_options["id"])
+          expect(work.rights_statement).to eq(rights_statement_options.first["id"])
           expect(work.qualification_subject_text).to eq(qualification_subject_text)
           expect(work.qualification_grantor).to eq(qualification_grantor)
           expect(work.qualification_level).to eq(qualification_level_options.map { |h| h["id"] }.first)
