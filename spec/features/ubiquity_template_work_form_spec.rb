@@ -18,10 +18,11 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
     { permission_template_id: permission_template.id, agent_type: "user", agent_id: user.user_key, access: "deposit" }
   end
   # The organisation option changes depending on the local, so we need to use this to ensure we select the right one
-  let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
   let(:title) { "Ubiquity Template Work Item" }
   let(:alt_title) { ["Alt Title 1", "Alt Title 2"] }
-  let(:doi) { "10.1521/soco.23.1.118.59197" }
+  # The organisation option changes depending on the local, so we need to use this to ensure we select the right one
+  let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
+  # The order of the items in each hash must match the order of the fields in the work form
   let(:creator) do
     [
       {
@@ -32,33 +33,12 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
         creator_suffix: "Mr",
         creator_orcid: "0000-0000-1111-2222",
         creator_institutional_relationship: "Research associate",
-        creator_isni: "56273930281"
-      },
-      {
-        creator_name_type: "Organisational",
-        creator_organization_name: "A Test Company Name",
-        creator_ror: "ror.org/123456",
-        creator_grid: "grid.org/098765",
-        creator_wikidata: "wiki.com/123",
-        creator_isni: "1234567890"
-      }
-    ]
-  end
-  let(:expected_creator) do
-    [
-      {
-        creator_name_type: "Personal",
-        creator_family_name: "Smithy",
-        creator_given_name: "Johnny",
-        creator_middle_name: "J.",
-        creator_suffix: "Mr",
-        creator_orcid: "0000-0000-1111-2222",
-        creator_institutional_relationship: "Research associate",
         creator_isni: "56273930281",
+        # This is a hidden field set in the form, but we want to be able to check its value is set
         creator_profile_visibility: User::PROFILE_VISIBILITY[:closed]
       },
       {
-        creator_name_type: "Organisational",
+        creator_name_type: organisation_option["label"],
         creator_organization_name: "A Test Company Name",
         creator_ror: "ror.org/123456",
         creator_grid: "grid.org/098765",
@@ -67,6 +47,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       }
     ]
   end
+  let(:doi) { ["10.1521/soco.23.1.118.59197"] }
   let(:contributor) do
     [
       {
@@ -425,7 +406,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
         expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
         expect(work.date_published).to eq(normalize_date(date_published).first)
         # Cloneable fields use the label to select the option, but save the id to the work
-        expect(work.creator).to eq([expected_creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
+        expect(work.creator).to eq([creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
         expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
         expect(work.editor).to eq([editor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
         expect(work.description).to eq(description)
