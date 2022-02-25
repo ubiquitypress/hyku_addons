@@ -285,14 +285,15 @@ attributes:
   doi:
     type: string
     predicate: http://purl.org/ontology/bibo/doi
-    multiple: false
+    multiple: true
     index_keys:
-    - doi_ssi
+    - doi_tesim
     form:
       required: false
       primary: true
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   media:
     type: string
     predicate: http://www.loc.gov/mods/rdf/v1#physicalForm
