@@ -1,13 +1,14 @@
 ---
+# DOI needs to be multiple for backwards compatibility, however it needs to display only a single input field
 doi:
   type: string
   predicate: http://purl.org/ontology/bibo/doi
-  multiple: false
+  multiple: true
   index_keys:
-    - doi_ssi
+  - doi_tesim
   form:
     required: false
     primary: true
-    multiple: false
+    multiple: true
     type: text
-
+    input: single_multi_value

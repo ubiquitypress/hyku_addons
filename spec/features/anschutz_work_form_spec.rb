@@ -65,7 +65,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:subject_text) { ["A subject"] }
   let(:mesh) { ["A mesh"] }
   let(:add_info) { ["Some additional information"] }
-  let(:doi) { "10.1521/soco.23.1.118.59197" }
+  let(:doi) { ["10.1521/soco.23.1.118.59197"] }
 
   let(:advisor) { ["advisor"] }
   let(:publisher) { ["publisher1", "publisher2"] }
