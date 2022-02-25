@@ -7,6 +7,7 @@ module HykuAddons
 
       include HykuAddons::NoteBehavior
       include HykuAddons::SourceLocationBehavior
+      include Hyrax::Autopopulation::AutopopulationProperty
       include HykuAddons::TaskMaster::WorkBehavior
 
       # Needs to be defined before schema is included

@@ -4,6 +4,8 @@ module HykuAddons
   module SolrDocumentBehavior
     extend ActiveSupport::Concern
 
+    include Hyrax::Autopopulation::SolrDocumentBehavior
+
     class_methods do
       # Override to register the attributes for #attributes method below
       def attribute(name, type, field)
