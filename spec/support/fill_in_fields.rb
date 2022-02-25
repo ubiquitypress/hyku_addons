@@ -93,6 +93,7 @@ end
 # @param values [Hash, Array] the hash (or array of hashes) where each key is the name of the subfield
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/CyclomaticComplexity
 def fill_in_cloneable(field, values)
   values = Array.wrap(values)
 
@@ -120,6 +121,7 @@ def fill_in_cloneable(field, values)
 
         when "hidden"
           # When there is a hidden field, we shouldn't be updating that as its outside of the scope of Capybara
+          nil # Rubocop
 
         when nil
           raise "The field #{subfield}, could not be found in the Schema for #{work_type.classify}."
@@ -142,6 +144,7 @@ def fill_in_cloneable(field, values)
 end
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/CyclomaticComplexity
 
 # FIll in a multiple select field
 #
