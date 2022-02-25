@@ -4,6 +4,7 @@ module HykuAddons
   module WorkBase
     extend ActiveSupport::Concern
 
+    include Hyrax::Autopopulation::AutopopulationProperty
     include HykuAddons::TaskMaster::WorkBehavior
 
     # TODO: Review indexing and switch to mostly _ssim instead of _tesim
