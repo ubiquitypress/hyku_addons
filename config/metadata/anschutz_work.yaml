@@ -107,6 +107,14 @@ attributes:
           type: text
           display_for:
           - Personal
+      creator_profile_visibility:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: hidden
+          display_for:
+            - Personal
       creator_organization_name:
         type: string
         form:

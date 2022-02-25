@@ -30,6 +30,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:alt_title) { ["Alt Title 1", "Alt Title 2"] }
   # The organisation option changes depending on the local, so we need to use this to ensure we select the right one
   let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
+  # The order of the items in each hash must match the order of the fields in the work form
   let(:creator) do
     [
       {
@@ -38,9 +39,12 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
         creator_given_name: "Johnny",
         creator_middle_name: "J.",
         creator_suffix: "Mr",
+        creator_role: ["Actor"],
+        creator_institution: ["Test Org"],
         creator_orcid: "0000-0000-1111-2222",
         creator_institutional_email: "test@test.com",
-        creator_role: ["Actor"]
+        # This is a hidden field set in the form, but we want to be able to check its value is set
+        creator_profile_visibility: User::PROFILE_VISIBILITY[:closed]
       },
       {
         creator_name_type: organisation_option["label"],
@@ -50,10 +54,6 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
         creator_wikidata: "wiki.com/123"
       }
     ]
-  end
-  let(:expected_creator) do
-    expected = creator.first.merge(creator_profile_visibility: User::PROFILE_VISIBILITY[:closed])
-    expected
   end
   let(:abstract) { "Some additional information 123" }
   let(:date_published) { { year: "2020", month: "02", day: "02" } }
@@ -165,7 +165,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
 
           expect(work.title).to eq([title])
           expect(work.alt_title).to eq(alt_title)
-          expect(work.creator).to eq([expected_creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
+          expect(work.creator).to eq([creator.to_json])
           expect(work.abstract).to eq(abstract)
           expect(work.date_published).to eq(normalize_date(date_published).first)
           expect(work.date_published_text).to eq(date_published_text)

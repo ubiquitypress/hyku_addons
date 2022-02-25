@@ -46,6 +46,14 @@ creator_orcid:
     type: text
     display_for:
     - Personal
+creator_profile_visibility:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: hidden
+    display_for:
+      - Personal
 creator_institutional_relationship:
   type: string
   form:
