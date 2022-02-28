@@ -86,6 +86,10 @@ module HykuAddons
       Rails.application.config.session_store :cookie_store, key: "_hyku_session", same_site: :lax
     end
 
+    initializer "hyku_addons.blacklight_config override" do
+      CatalogController.include HykuAddons::CatalogControllerBehavior
+    end
+
     # HykuAddons mixins, monkey patches and modules overrides
     #
     # rubocop:disable Metrics/AbcSize
@@ -133,7 +137,7 @@ module HykuAddons
       ::Hyrax::StatsController.include HykuAddons::StatsControllerBehavior
       Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
       Hyrax::ImagePresenter.include HykuAddons::GenericWorkPresenterBehavior
-      CatalogController.include HykuAddons::CatalogControllerBehavior
+      # CatalogController.include HykuAddons::CatalogControllerBehavior
 
       # Forms
       Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
