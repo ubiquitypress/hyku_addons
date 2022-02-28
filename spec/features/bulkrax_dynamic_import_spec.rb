@@ -40,12 +40,18 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
 
       # Make sure default admin set exists
       AdminSet.find_or_create_default_admin_set_id
+
+      # Stub all requests which match the template URL
       url = "#{Hyrax::Hirmeos::MetricsTracker.translation_base_url}/translate?uri=urn:uuid:{id}"
       template = Addressable::Template.new(url)
       stub_request(:get, template).to_return(status: 200)
+
       allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
 
+      # A `let` or instance varible cannot be used as they are cached when set
       self.model_name = work_type
+
+      # Build the CSV and place it in the temp directory
       create_csv
     end
 
