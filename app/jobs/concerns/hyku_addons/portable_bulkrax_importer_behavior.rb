@@ -8,7 +8,7 @@ module HykuAddons
 
       def portable_object
         puts "Bulkrax Importer"
-        Bulkrax::Importer.find(arguments[0])
+        ::Bulkrax::Importer.find(arguments[0])
       end
   end
 end

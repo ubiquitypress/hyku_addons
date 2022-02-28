@@ -4,8 +4,6 @@ module HykuAddons
   class CsvParser < ::Bulkrax::CsvParser
     include HykuAddons::CollectionBehavior
 
-    BULKRAX_IMPORT_THRESHOLD = 0
-
     # FIXME: Override to make debugging easier
     def perform_method
       return :perform_now unless Rails.env.production?
@@ -94,14 +92,6 @@ module HykuAddons
                             entries_to_export.limit(total)
                           end
       entries_to_export
-    end
-
-    def bulk?
-      total >= bulkrax_import_threshold
-    end
-
-    def bulkrax_import_threshold
-      (BULKRAX_IMPORT_THRESHOLD || 0).freeze
     end
 
     # See https://stackoverflow.com/questions/2650517/count-the-number-of-lines-in-a-file-without-reading-entire-file-into-memory

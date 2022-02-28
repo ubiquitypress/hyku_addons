@@ -9,7 +9,7 @@ module HykuAddons
       def portable_object
         puts "Bulkrax Portable"
         # Collections cannot be found by identifier
-        Bulkrax::Entry.find(arguments[0])
+        ::Bulkrax::Entry.find(arguments[0])
       end
   end
 end

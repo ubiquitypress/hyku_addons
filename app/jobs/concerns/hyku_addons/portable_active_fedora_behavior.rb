@@ -9,7 +9,7 @@ module HykuAddons
       def portable_object
         puts "AF portable object"
         source_id = ActiveFedora::Base.find(arguments[0])&.source_identifier
-        Bulkrax::Entry.find_by_identifier(source_id)
+        ::Bulkrax::Entry.find_by_identifier(source_id)
       end
   end
 end

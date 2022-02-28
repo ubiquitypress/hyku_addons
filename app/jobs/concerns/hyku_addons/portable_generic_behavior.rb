@@ -9,9 +9,9 @@ module HykuAddons
       def portable_object
         puts "Generic Portable"
         if arguments[0]&.source_identifier
-          Bulkrax::Entry.find_by_identifier(arguments[0]&.source_identifier)
+          ::Bulkrax::Entry.find_by_identifier(arguments[0]&.source_identifier)
         else
-          Bulkrax::Entry.find_by_identifier(arguments[0]&.id)
+          ::Bulkrax::Entry.find_by_identifier(arguments[0]&.id)
         end
       end
   end

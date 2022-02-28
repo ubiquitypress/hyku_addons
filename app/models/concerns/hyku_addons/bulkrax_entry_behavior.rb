@@ -10,9 +10,5 @@ module HykuAddons
               as: :statusable
       # scope :with_issues_on_field, lambda{ |field| where("error_backtrace LIKE ?", "%#{field}%") }
     end
-
-    def current_batch_size
-      importerexporter&.importer_runs&.first&.total_collection_entries || 0
-    end
   end
 end
