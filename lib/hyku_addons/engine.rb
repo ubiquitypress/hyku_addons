@@ -86,7 +86,7 @@ module HykuAddons
       Rails.application.config.session_store :cookie_store, key: "_hyku_session", same_site: :lax
     end
 
-    initializer 'hyku_addons.blacklight_config override' do
+    initializer "hyku_addons.blacklight_config override" do
       CatalogController.include HykuAddons::CatalogControllerBehavior
     end
 
