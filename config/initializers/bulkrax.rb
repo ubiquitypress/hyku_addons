@@ -7,7 +7,6 @@
   config.reserved_properties -= ["depositor"]
   config.parsers += [{ class_name: "HykuAddons::CsvParser", name: "Ubiquity Repositiories CSV", partial: "csv_fields" }]
 
-  # NOTE: The splits are passed to a Regexp instance, which is passed to split.
   # NOTE(1): The splits are passed to a Regexp instance, which is passed to split.
   #
   # They must use single quotes with a backslash `'\|'` or double quotes with two backslashes `"\\|"`.
