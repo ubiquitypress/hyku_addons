@@ -65,7 +65,6 @@
     "place_of_publication" => { split: '\|' },
     "is_format_of" => { split: '\|' },
     "creator_profile_visibility" => { excluded: true }
-
   }
   # rubocop:enable Style/StringLiterals
 end
