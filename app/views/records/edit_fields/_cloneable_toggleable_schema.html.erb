@@ -11,7 +11,10 @@
     f: f,
     field_type: config[:type],
     field_slug: subfield,
-    field_args: { data: { required: config[:required], cloneable: config[:multiple] } }.merge(config[:attributes] || {})
+		field_args: {
+			include_blank: config[:include_blank].nil? || config[:include_blank].present? ? (config[:include_blank] || true) : false,
+			data: { required: config[:required], cloneable: config[:multiple] }
+		}.merge(config[:attributes] || {})
   } %>
 
   <% if config[:type] == "select" %>

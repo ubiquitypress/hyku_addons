@@ -81,6 +81,7 @@ attributes:
           multiple: true
           type: select
           authority: HykuAddons::RoleService
+          include_blank: true
           display_for:
           - Personal
       creator_institution:
