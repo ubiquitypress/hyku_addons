@@ -5,6 +5,8 @@ extend HyraxHelper
 
 # rubocop:disable Metrics/BlockLength
 json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.member_of_collection_ids & collection_docs.pluck("id")] do
+  work_account_cname = @account.search_only? ? work.try(:solr_document)&.to_h&.dig("account_cname_tesim")&.first : @account.cname
+  locale = get_work_locale(work_account_cname)
   json.uuid work.id
   json.abstract work.try(:solr_document)&.to_h&.dig("abstract_tesim")&.first
   json.adapted_from work.try(:solr_document)&.to_h&.dig("adapted_from_tesim")
@@ -22,7 +24,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.buy_book work.try(:solr_document)&.to_h&.dig("buy_book_tesim")
   json.challenged work.try(:solr_document)&.to_h&.dig("challenged_tesim")
   json.citation work.try(:solr_document)&.to_h&.dig("citation_tesim")
-  json.cname @account.search_only? ? work.try(:solr_document)&.to_h&.dig("account_cname_tesim")&.first : @account.cname
+  json.cname work_account_cname
   json.committee_member work.try(:solr_document)&.to_h&.dig("committee_member_tesim")
 
   creator = work.creator.try(:first)
@@ -75,7 +77,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.keywords work.keyword
 
   if work.try(:solr_document)&.to_h&.dig("language_tesim").present?
-    language_service = HykuAddons::LanguageService.new
+    language_service = HykuAddons::LanguageService.new(locale: locale)
     languages = work.language.map do |id|
       language_service.label(id)
     rescue
@@ -87,7 +89,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.library_of_congress_classification work.try(:solr_document)&.to_h&.dig("library_of_congress_classification_tesim")
 
   license = work.try(:solr_document)&.to_h&.dig("license_tesim")
-  license_hash = HykuAddons::LicenseService.new.select_all_options.to_h
+  license_hash = HykuAddons::LicenseService.new(locale: locale).select_all_options.to_h
   if license.present?
     json.license do
       json.array! license do |item|
@@ -123,7 +125,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.qualification_grantor work.try(:solr_document)&.to_h&.dig("qualification_grantor_tesim")
   json.qualification_level work.try(:solr_document)&.to_h&.dig("qualification_level_tesim")
 
-  qualification_name_service = HykuAddons::QualificationNameService.new
+  qualification_name_service = HykuAddons::QualificationNameService.new(locale: locale)
   id = work.try(:qualification_name)&.first
   json.qualification_name qualification_name_service.label(id) if id.present?
 
@@ -156,7 +158,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.related_material work.try(:solr_document)&.to_h&.dig("related_material_tesim")
   json.related_url work.try(:solr_document)&.to_h&.dig("related_url_tesim")
 
-  repository_space_service = HykuAddons::RepositorySpaceService.new
+  repository_space_service = HykuAddons::RepositorySpaceService.new(locale: locale)
   id = work.try(:solr_document)&.to_h&.dig("repository_space_tesim")&.first
   json.repository_space repository_space_service.label(id) if id.present?
 
