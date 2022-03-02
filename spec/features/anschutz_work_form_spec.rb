@@ -65,7 +65,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:subject_text) { ["A subject"] }
   let(:mesh) { ["A mesh"] }
   let(:add_info) { ["Some additional information"] }
-  let(:doi) { ["10.1521/soco.23.1.118.59197"] }
+  let(:doi) { "10.1521/soco.23.1.118.59197" }
 
   let(:advisor) { ["advisor"] }
   let(:publisher) { ["publisher1", "publisher2"] }
@@ -162,7 +162,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           alt_title.each { |at| expect(page).to have_content(at) }
           expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
           expect(page).to have_content(normalize_date(date_published).first)
-          expect(page).to have_content(doi.first)
+          expect(page).to have_content(doi)
 
           expect(work.title).to eq([title])
           expect(work.alt_title).to eq(alt_title)

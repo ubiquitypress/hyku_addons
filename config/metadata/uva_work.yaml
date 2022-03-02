@@ -194,16 +194,14 @@ attributes:
   doi:
     type: string
     predicate: http://purl.org/ontology/bibo/doi
-    multiple: true
+    multiple: false
     index_keys:
-    - doi_tesim
     - doi_ssi
     form:
       required: false
       primary: true
-      multiple: true
+      multiple: false
       type: text
-      input: single_multi_value
   keyword:
     predicate: http://purl.org/dc/elements/1.1/relation
     multiple: true

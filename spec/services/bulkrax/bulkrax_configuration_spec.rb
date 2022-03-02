@@ -40,7 +40,6 @@ RSpec.describe Bulkrax do
         "qualification_subject_text" => { split: '\|' },
         "related_url" => { split: '\|' },
         "collection" => { split: '\|' },
-        "doi" => { split: '\|' },
         "place_of_publication" => { split: '\|' },
         "is_format_of" => { split: '\|' },
         "creator_profile_visibility" => { excluded: true }

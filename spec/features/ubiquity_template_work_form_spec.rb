@@ -55,7 +55,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       }
     ]
   end
-  let(:doi) { ["10.1521/soco.23.1.118.59197"] }
+  let(:doi) { "10.1521/soco.23.1.118.59197" }
   let(:contributor) do
     [
       {
@@ -401,7 +401,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           %i[published accepted submitted].each { |d| expect(page).to have_content(normalize_date(send("date_#{d}".to_sym)).first) }
           duration.each { |at| expect(page).to have_content(at) }
           description.each { |at| expect(page).to have_content(at) }
-          expect(page).to have_content(doi.first)
+          expect(page).to have_content(doi)
 
           expect(work.title).to eq([title])
           expect(work.doi).to eq(doi)
