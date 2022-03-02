@@ -19,6 +19,11 @@ RSpec.describe HykuAddons::QaSelectService do
       HashWithIndifferentAccess.new(term: "Tenant Active Label", label: "Tenant Active Label", id: "tenant-active-id", active: true)
     ]
   end
+  let(:another_tenant_authority_map) do
+    [
+      HashWithIndifferentAccess.new(term: "Another Tenant Active Label", label: "Another Tenant Active Label", id: "another-tenant-active-id", active: true)
+    ]
+  end
   let(:model_tenant_authority_map) do
     [
       HashWithIndifferentAccess.new(term: "Model Tenant Active Label", label: "Model Tenant Active Label", id: "model-tenant-active-id", active: true)
@@ -28,6 +33,7 @@ RSpec.describe HykuAddons::QaSelectService do
   let(:authority) { FakeAuthority }
   let(:authority_name) { "respect_my" }
   let(:tenant_authority_name) { "#{authority_name}-TENANT" }
+  let(:another_tenant_authority_name) { "#{authority_name}-TENANT2" }
   let(:model_authority_name) { "#{authority_name}-MODEL_CLASS" }
   let(:model_tenant_authority_name) { "#{authority_name}-MODEL_CLASS-TENANT" }
   let(:qa_select_service) { described_class.new(authority_name) }
@@ -41,6 +47,7 @@ RSpec.describe HykuAddons::QaSelectService do
     allow(Qa::Authorities::Local).to receive(:subauthority_for).with(model_authority_name).and_return(authority.new(model_authority_map))
     allow(Qa::Authorities::Local).to receive(:subauthority_for).with(tenant_authority_name).and_return(authority.new(tenant_authority_map))
     allow(Qa::Authorities::Local).to receive(:subauthority_for).with(model_tenant_authority_name).and_return(authority.new(model_tenant_authority_map))
+    allow(Qa::Authorities::Local).to receive(:subauthority_for).with(another_tenant_authority_name).and_return(authority.new(another_tenant_authority_map))
     allow(Qa::Authorities::Local).to receive(:subauthorities).and_return(subauthorities)
     allow(Site).to receive(:instance).and_return(site)
     stub_const("ModelClass", model_class)
@@ -74,6 +81,13 @@ RSpec.describe HykuAddons::QaSelectService do
 
       it "will be model tenant terms" do
         expect(described_class.new(authority_name, model: ModelClass).select_all_options).to eq([["Model Tenant Active Label", "model-tenant-active-id"]])
+      end
+    end
+    context "with locale override" do
+      let(:subauthorities) { [authority_name, model_tenant_authority_name, model_authority_name, tenant_authority_name, another_tenant_authority_name] }
+
+      it "will be another tenants terms" do
+        expect(described_class.new(authority_name, model: nil, locale: "tenant2").select_all_options).to eq([["Another Tenant Active Label", "another-tenant-active-id"]])
       end
     end
   end

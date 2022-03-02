@@ -2,9 +2,10 @@
 module HykuAddons
   class QaSelectService < Hyrax::QaSelectService
     # model - CurationConcern model
-    def initialize(authority_name, model: nil)
+    def initialize(authority_name, model: nil, locale: nil)
       @authority_name = authority_name
       @model = model
+      @locale = locale
 
       # Search for authority with the following precedence:
       # authority_name-MODEL_NAME-TENANT-NAME
@@ -41,8 +42,9 @@ module HykuAddons
       end
 
       def tenant_locale
-        @tenant_locale ||= begin
-          return unless (account = Site.instance&.account)
+        @_tenant_locale ||= begin
+          return @locale.to_s.upcase if @locale.present?
+          return unless account = Site.instance&.account
 
           locale_name = account.settings&.dig("locale_name").presence || account.name
 
