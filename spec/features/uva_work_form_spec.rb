@@ -17,6 +17,13 @@ RSpec.feature "Create a UvaWork", js: true, slow: true do
   let(:permission_options) do
     { permission_template_id: permission_template.id, agent_type: "user", agent_id: user.user_key, access: "deposit" }
   end
+  let(:headers) do
+    {
+      "Accept" => "application/json",
+      "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+      "User-Agent" => "Faraday v0.17.4"
+    }
+  end
 
   let(:title) { "UVA Work Item" }
   # The organisation option changes depending on the local, so we need to use this to ensure we select the right one
@@ -107,19 +114,11 @@ RSpec.feature "Create a UvaWork", js: true, slow: true do
     Hyrax::PermissionTemplateAccess.create!(permission_options)
 
     stub_request(:get, "http://api.crossref.org/funders?query=A%20funder")
-      .with(headers: {
-              "Accept" => "application/json",
-              "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-              "User-Agent" => "Faraday v0.17.4"
-            })
+      .with(headers: headers)
       .to_return(status: 200, body: "", headers: {})
 
     stub_request(:get, "http://api.crossref.org/funders?query=Another%20funder")
-      .with(headers: {
-              "Accept" => "application/json",
-              "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-              "User-Agent" => "Faraday v0.17.4"
-            })
+      .with(headers: headers)
       .to_return(status: 200, body: "", headers: {})
 
     login_as user
@@ -156,32 +155,34 @@ RSpec.feature "Create a UvaWork", js: true, slow: true do
       end
 
       it "redirects to the work show page" do
-        # Ensure the basic data is being prenented and we're on the right page
-        expect(page).to have_selector("h1", text: work_type.titleize, wait: 20)
-        expect(page).to have_selector("h2", text: title, wait: 20)
-        expect(page).to have_selector("span", text: "Public")
-        expect(page).to have_content("Your files are being processed by Hyku in the background.")
+        aggregate_failures "testing the saved data" do
+          # Ensure the basic data is being prenented and we're on the right page
+          expect(page).to have_selector("h1", text: work_type.titleize, wait: 20)
+          expect(page).to have_selector("h2", text: title, wait: 20)
+          expect(page).to have_selector("span", text: "Public")
+          expect(page).to have_content("Your files are being processed by Hyku in the background.")
 
-        expect(page).to have_content(resource_type.map { |h| h["id"] }.first)
-        expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
-        expect(page).to have_content("#{contributor.first.dig(:contributor_family_name)}, #{contributor.first.dig(:contributor_given_name)}")
-        expect(page).to have_content(normalize_date(date_published).first)
+          expect(page).to have_content(resource_type.map { |h| h["id"] }.first)
+          expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
+          expect(page).to have_content("#{contributor.first.dig(:contributor_family_name)}, #{contributor.first.dig(:contributor_given_name)}")
+          expect(page).to have_content(normalize_date(date_published).first)
 
-        expect(work.title).to eq([title])
-        expect(work.doi).to eq(doi)
-        expect(work.creator).to eq([creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
-        expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
-        expect(work.abstract).to eq(abstract)
-        expect(work.license).to eq(license_options.map { |h| h["id"] })
-        expect(work.publisher).to eq(publisher)
-        expect(work.keyword).to eq(keyword)
-        expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
-        expect(work.language).to eq(language_options.map { |h| h["id"] })
-        expect(work.date_published).to eq(normalize_date(date_published).first)
-        expect(work.related_url).to eq(related_url)
-        expect(work.funder).to eq([funder.to_json])
-        expect(work.add_info).to eq(add_info)
-        expect(work.source).to eq(source_data)
+          expect(work.title).to eq([title])
+          expect(work.doi).to eq(doi)
+          expect(work.creator).to eq([creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
+          expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
+          expect(work.abstract).to eq(abstract)
+          expect(work.license).to eq(license_options.map { |h| h["id"] })
+          expect(work.publisher).to eq(publisher)
+          expect(work.keyword).to eq(keyword)
+          expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
+          expect(work.language).to eq(language_options.map { |h| h["id"] })
+          expect(work.date_published).to eq(normalize_date(date_published).first)
+          expect(work.related_url).to eq(related_url)
+          expect(work.funder).to eq([funder.to_json])
+          expect(work.add_info).to eq(add_info)
+          expect(work.source).to eq(source_data)
+        end
       end
     end
   end

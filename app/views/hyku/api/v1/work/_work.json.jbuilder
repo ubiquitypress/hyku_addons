@@ -3,6 +3,8 @@
 # Required to use helpers in the jbuilder context - https://github.com/rails/jbuilder/issues/227#issuecomment-461477721
 extend HyraxHelper
 
+# NOTE: The `work` variable below is actually a presenter for the work type
+
 # rubocop:disable Metrics/BlockLength
 json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.member_of_collection_ids & collection_docs.pluck("id")] do
   json.uuid work.id

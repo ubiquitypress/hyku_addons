@@ -270,6 +270,7 @@ attributes:
     multiple: true
     index_keys:
     - doi_tesim
+    - doi_ssi
     form:
       required: false
       primary: true
