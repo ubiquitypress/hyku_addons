@@ -103,6 +103,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
     json.license []
   end
 
+  json.locale locale
   json.location work.try(:solr_document)&.to_h&.dig("location_tesim")
   json.latitude work.try(:solr_document)&.to_h&.dig("latitude_tesim")
   json.longitude work.try(:solr_document)&.to_h&.dig("longitude_tesim")
