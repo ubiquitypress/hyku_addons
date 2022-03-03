@@ -10,7 +10,6 @@ module HykuAddons
     include HykuAddons::NotesTabFormHelper
     include HykuAddons::OrcidHelperBehavior
     include HykuAddons::CrossTenantSharedSearchHelper
-    include HykuAddons::WorkLocaleHelper
 
     def account_setting_title(setting_name)
       title_key = "settings.titles.#{setting_name}"
