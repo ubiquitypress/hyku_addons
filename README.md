@@ -21,6 +21,10 @@ And then execute:
 $ bundle
 ```
 
+## Structure
+
+https://github.com/ubiquitypress/hyku_addons/wiki/HykuAddons:-Structure
+
 ## How it works
 
 ### Routes
@@ -66,6 +70,10 @@ https://github.com/ubiquitypress/hyku_addons/wiki/HykuAddons:-Creating-new-work-
 ### Local Development
 
 https://github.com/ubiquitypress/hyku_addons/wiki/HykuAddons:-Local-Development
+
+### Debugging
+
+https://github.com/ubiquitypress/hyku_addons/wiki/HykuAddons:-Debugging
 
 #### Create an Tenant (Account) and setting up Hyku Addons
 
