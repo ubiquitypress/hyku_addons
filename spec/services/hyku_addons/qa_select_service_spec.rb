@@ -83,11 +83,16 @@ RSpec.describe HykuAddons::QaSelectService do
         expect(described_class.new(authority_name, model: ModelClass).select_all_options).to eq([["Model Tenant Active Label", "model-tenant-active-id"]])
       end
     end
+
     context "with locale override" do
       let(:subauthorities) { [authority_name, model_tenant_authority_name, model_authority_name, tenant_authority_name, another_tenant_authority_name] }
 
       it "will be another tenants terms" do
         expect(described_class.new(authority_name, model: nil, locale: "tenant2").select_all_options).to eq([["Another Tenant Active Label", "another-tenant-active-id"]])
+      end
+
+      it "returns the default if the locale doesn't have a YAML" do
+        expect(described_class.new(authority_name, model: nil, locale: "tenant3").select_all_options).to eq([["Active Label", "active-id"], ["Inactive Label", "inactive-id"], ["Active No Term", "active-no-term-id"]])
       end
     end
   end
