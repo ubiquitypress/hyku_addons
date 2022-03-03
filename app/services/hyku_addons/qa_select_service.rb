@@ -44,7 +44,7 @@ module HykuAddons
       def tenant_locale
         @_tenant_locale ||= begin
           return @locale.to_s.upcase if @locale.present?
-          return unless account = Site.instance&.account
+          return unless account == Site.instance&.account
 
           locale_name = account.settings&.dig("locale_name").presence || account.name
 

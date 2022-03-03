@@ -6,7 +6,7 @@ extend HyraxHelper
 # rubocop:disable Metrics/BlockLength
 json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.member_of_collection_ids & collection_docs.pluck("id")] do
   work_account_cname = @account.search_only? ? work.try(:solr_document)&.to_h&.dig("account_cname_tesim")&.first : @account.cname
-  locale = get_work_locale(work_account_cname)
+  locale = @account.search_only? ? get_work_locale(work_account_cname) : nil
   json.uuid work.id
   json.abstract work.try(:solr_document)&.to_h&.dig("abstract_tesim")&.first
   json.adapted_from work.try(:solr_document)&.to_h&.dig("adapted_from_tesim")
