@@ -2,8 +2,8 @@
 
 module HykuAddons
   class CurrentHeInstitutionService < HykuAddons::QaSelectService
-    def initialize(model: nil)
-      super("current_he_institution", model: model)
+    def initialize(model: nil, locale: nil)
+      super("current_he_institution", model: model, locale: locale)
     end
 
     def select_active_options_isni
