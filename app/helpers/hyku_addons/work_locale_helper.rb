@@ -3,8 +3,7 @@
 module HykuAddons
   module WorkLocaleHelper
     def get_work_locale(cname)
-      AccountElevator.switch!(cname)
-      Site.account.settings&.dig("locale_name")
+      Account.find_by(cname: cname).locale_name
     end
   end
 end
