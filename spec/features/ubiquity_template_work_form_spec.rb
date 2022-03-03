@@ -401,7 +401,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           %i[published accepted submitted].each { |d| expect(page).to have_content(normalize_date(send("date_#{d}".to_sym)).first) }
           duration.each { |at| expect(page).to have_content(at) }
           description.each { |at| expect(page).to have_content(at) }
-          expect(page).to have_content(doi)
+          expect(page).to have_content("https://doi.org/#{doi}")
 
           expect(work.title).to eq([title])
           expect(work.doi).to eq(doi)

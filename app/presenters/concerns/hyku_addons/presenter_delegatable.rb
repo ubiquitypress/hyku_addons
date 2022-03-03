@@ -9,7 +9,10 @@ module HykuAddons
     end
 
     included do
-      delegate(*delegated_methods, to: :solr_document)
+      # Check if any other concerns have registered methods before delegating, which prevents
+      # concerns like Hyrax::DOI::DOIPresenterBehavior trying to register a helper `doi` method
+      # which is not called, as we already delegated the method and it could not be overwritten.
+      delegated_methods.each { |method| delegate(method, to: :solr_document) unless instance_methods.include?(method) }
 
       # NOTE:
       # I hate this being here, and wonder if it wouldn't be better to just include it on every

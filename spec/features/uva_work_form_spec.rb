@@ -166,7 +166,7 @@ RSpec.feature "Create a UvaWork", js: true, slow: true do
           expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
           expect(page).to have_content("#{contributor.first.dig(:contributor_family_name)}, #{contributor.first.dig(:contributor_given_name)}")
           expect(page).to have_content(normalize_date(date_published).first)
-          expect(page).to have_content(doi)
+          expect(page).to have_content("https://doi.org/#{doi}")
 
           expect(work.title).to eq([title])
           expect(work.doi).to eq(doi)
