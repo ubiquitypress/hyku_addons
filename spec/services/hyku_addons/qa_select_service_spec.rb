@@ -91,4 +91,10 @@ RSpec.describe HykuAddons::QaSelectService do
       end
     end
   end
+
+  describe "#tenant_locale" do
+    it "returns the locale name upcased" do
+      expect(described_class.new(authority_name, model: nil, locale: "tenant2").send(:tenant_locale)).to eq("TENANT2")
+    end
+  end
 end
