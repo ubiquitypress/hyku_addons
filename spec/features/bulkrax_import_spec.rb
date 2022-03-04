@@ -16,6 +16,12 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
     stub_request(:get, Addressable::Template.new(url)).to_return(status: 200)
 
     allow(Hyrax::Hirmeos::HirmeosFileUpdaterJob).to receive(:perform_later)
+
+    allow(Apartment::Tenant).to receive(:current).and_return("x")
+    allow(Account).to receive(:find_by).with(tenant: "x").and_return(instance_double(Account, name: "x"))
+    allow(Apartment::Tenant).to receive(:switch).with("x") do |&block|
+      block.call
+    end
   end
 
   describe "import works" do
@@ -300,6 +306,23 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
     end
   end
 
+  # rubocop:disable Layout/MultilineMethodCallIndentation
+  describe "bulk queue assignment" do
+    # This file has more than 20 rows so by default will use import mode
+    let(:import_batch_file) { "spec/fixtures/csv/publication_date.csv" }
+
+    it "imports using import queue" do
+      expect do
+        perform_enqueued_jobs do
+          Bulkrax::ImporterJob.perform_later(importer.id)
+        end
+      end.to have_performed_job(Bulkrax::ImporterJob).on_queue("x_import_import").at_least(:once)
+        .and have_performed_job(Hyrax::DOI::RegisterDOIJob).on_queue("x_import_default").at_least(:once)
+        .and have_performed_job(Hyrax::Hirmeos::HirmeosWorkRegistrationJob).on_queue("x_import_default").at_least(:once)
+    end
+  end
+  # rubocop:enable Layout/MultilineMethodCallIndentation
+
   describe "full import" do
     it "creates collections and works" do
       expect do
@@ -431,31 +454,18 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
         .to_return(status: 200, body: "", headers: {})
     end
 
-    context "when import_mode is enabled" do
-      it "calls the DOI Job" do
-        allow(Flipflop).to receive(:enabled?).and_call_original
-        allow(Flipflop).to receive(:enabled?).with(:import_mode).and_return(true).at_least(:once)
+    it "calls the DOI Job" do
+      allow(Hyrax::DOI::RegisterDOIJob).to receive(:perform_later).and_call_original
+      allow(Hyrax::Identifier::Dispatcher).to receive(:for).and_call_original
 
-        allow(Apartment::Tenant).to receive(:current).and_return("x")
-        allow(Account).to receive(:find_by).with(tenant: "x").and_return(instance_double(Account, name: "x"))
-        allow(Apartment::Tenant).to receive(:switch).with("x") do |&block|
-          block.call
-        end
-
-        allow(Hyrax::DOI::RegisterDOIJob).to receive(:perform_later).and_call_original
-        allow(Hyrax::Identifier::Dispatcher).to receive(:for).and_call_original
-
-        perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
-          Bulkrax::ImporterJob.perform_now(importer.id)
-        end
-
-        expect(Flipflop).to have_received(:enabled?).with(:import_mode).at_least(:once)
-
-        # This tests that the job is enqueued
-        expect(Hyrax::DOI::RegisterDOIJob).to have_received(:perform_later).exactly(12).times
-        # This tests that the job is actually performed, as its only step is to call this class.
-        expect(Hyrax::Identifier::Dispatcher).to have_received(:for).exactly(12).times
+      perform_enqueued_jobs(only: [Bulkrax::ImporterJob, Hyrax::DOI::RegisterDOIJob]) do
+        Bulkrax::ImporterJob.perform_now(importer.id)
       end
+
+      # This tests that the job is enqueued
+      expect(Hyrax::DOI::RegisterDOIJob).to have_received(:perform_later).exactly(12).times
+      # This tests that the job is actually performed, as its only step is to call this class.
+      expect(Hyrax::Identifier::Dispatcher).to have_received(:for).exactly(12).times
     end
 
     context "when the work does not exist" do

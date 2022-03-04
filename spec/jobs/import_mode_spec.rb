@@ -1,23 +1,11 @@
 # frozen_string_literal: true
 
 RSpec.describe HykuAddons::ImportMode, type: :job do
-  before do
-    allow(Apartment::Tenant).to receive(:current).and_return("x")
-    allow(Account).to receive(:find_by).with(tenant: "x").and_return(account)
-    allow(Apartment::Tenant).to receive(:switch).with("x") do |&block|
-      block.call
-    end
-
-    allow(Flipflop).to receive(:enabled?).with(:import_mode).and_return(import_mode)
-  end
-
   let(:job) do
     Class.new(ApplicationJob) do
       queue_as :test
     end
   end
-  let(:account) { FactoryBot.build(:account, name: "moominU") }
-  let(:import_mode) { false }
 
   describe "queue_name" do
     context "with non_tenant_job" do
@@ -28,22 +16,63 @@ RSpec.describe HykuAddons::ImportMode, type: :job do
         end
       end
 
-      it "returns super if non_tenant_job" do
+      it "returns original queue name if non_tenant_job" do
         expect(job.new.queue_name).to eq "test"
       end
     end
 
-    context "when not in import mode" do
-      it "returns super if not in import mode" do
-        expect(job.new.queue_name).to eq "test"
+    context "with a tenant job" do
+      let(:account) { FactoryBot.build(:account, name: "moominU") }
+
+      before do
+        allow(Apartment::Tenant).to receive(:current).and_return("x")
+        allow(Account).to receive(:find_by).with(tenant: "x").and_return(account)
+        allow(Apartment::Tenant).to receive(:switch).with("x") do |&block|
+          block.call
+        end
       end
-    end
 
-    context "when in import mode" do
-      let(:import_mode) { true }
+      context "a job without a strategy included" do
+        it "returns original queue name" do
+          expect(job.new.queue_name).to eq "test"
+        end
+      end
 
-      it "returns special queue name if in import mode" do
-        expect(job.new.queue_name).to eq "moominU_import_test"
+      [HykuAddons::PortableBulkraxEntryBehavior, HykuAddons::PortableBulkraxImporterBehavior, HykuAddons::PortableActiveFedoraBehavior, HykuAddons::PortableGenericBehavior].each do |strategy|
+        context "the job with #{strategy} included" do
+          let(:bulkrax_entry) { double }
+          let(:activefedora_record) { double }
+          let(:bulkrax_importer) { double }
+          let(:parser) { double }
+
+          before do
+            job.include strategy
+
+            if strategy == HykuAddons::PortableActiveFedoraBehavior
+              allow(ActiveFedora::Base).to receive(:find).and_return(activefedora_record)
+              allow(activefedora_record).to receive(:source_identifier)
+            elsif strategy == HykuAddons::PortableBulkraxImporterBehavior
+              allow(Bulkrax::Importer).to receive(:find).and_return(bulkrax_importer)
+              allow(bulkrax_importer).to receive(:parser).and_return(parser)
+            end
+
+            allow(Bulkrax::Entry).to receive(:find_by_identifier).and_return(bulkrax_entry)
+            allow(Bulkrax::Entry).to receive(:find).and_return(bulkrax_entry)
+            allow(bulkrax_entry).to receive(:parser).and_return(parser)
+          end
+
+          it "returns special queue name if the entry is marked bulk" do
+            allow(parser).to receive(:total).and_return(25)
+
+            expect(job.new.queue_name).to eq "moominU_import_test"
+          end
+
+          it "returns super if the entry is not marked bulk" do
+            allow(parser).to receive(:total).and_return(2)
+
+            expect(job.new.queue_name).to eq "test"
+          end
+        end
       end
     end
   end

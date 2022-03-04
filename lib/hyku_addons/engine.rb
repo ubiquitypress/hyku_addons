@@ -155,13 +155,34 @@ module HykuAddons
       Hyrax::WorkIndexer.include HykuAddons::WorkIndexerBehavior
 
       # Jobs
-      ::ActiveJob::Base.include HykuAddons::ImportMode
       ::CleanupAccountJob.prepend HykuAddons::CleanupAccountJobBehavior
       ::CreateFcrepoEndpointJob.prepend HykuAddons::CreateFcrepoEndpointJobOverride
       ::RemoveSolrCollectionJob.prepend HykuAddons::RemoveSolrCollectionJobOverride
       # Overrides for shared_search, remove when we start using Hyku-3
       ::CreateSolrCollectionJob.prepend HykuAddons::CreateSolrCollectionJobOverride
       AttachFilesToWorkJob.prepend HykuAddons::WorkFileSetPersmissionsBehavior
+
+      ## Bulk mode behavior Jobs
+      ::ActiveJob::Base.include HykuAddons::ImportMode
+
+      ### Bulkrax
+      ::Bulkrax::ImporterJob.include HykuAddons::PortableBulkraxImporterBehavior
+      ::Bulkrax::ImportWorkJob.include HykuAddons::PortableBulkraxEntryBehavior
+      ::Bulkrax::DeleteWorkJob.include HykuAddons::PortableBulkraxEntryBehavior
+      HykuAddons::ImportWorkCollectionJob.include HykuAddons::PortableBulkraxEntryBehavior
+
+      ### Related Gems
+      Hyrax::Hirmeos::HirmeosWorkRegistrationJob.include HykuAddons::PortableActiveFedoraBehavior
+      Hyrax::Hirmeos::HirmeosWorkUpdaterJob.include HykuAddons::PortableActiveFedoraBehavior
+      Hyrax::DOI::RegisterDOIJob.include HykuAddons::PortableGenericBehavior
+
+      ### Hyrax
+      Hyrax::GrantEditToMembersJob.include HykuAddons::PortableGenericBehavior
+      Hyrax::ContentEventJob.include HykuAddons::PortableGenericBehavior
+      Hyrax::ContentDepositEventJob.include HykuAddons::PortableGenericBehavior
+
+      # HykuAddons::ReindexModelJob is a bulk job and will not be called from actor stack
+      # HykuAddons::ToggleDisplayProfileJob is another bulk job
 
       # Misc
       ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
