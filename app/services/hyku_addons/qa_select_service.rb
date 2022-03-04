@@ -2,9 +2,10 @@
 module HykuAddons
   class QaSelectService < Hyrax::QaSelectService
     # model - CurationConcern model
-    def initialize(authority_name, model: nil)
+    def initialize(authority_name, model: nil, locale: nil)
       @authority_name = authority_name
       @model = model
+      @locale = locale
 
       # Search for authority with the following precedence:
       # authority_name-MODEL_NAME-TENANT-NAME
@@ -25,15 +26,15 @@ module HykuAddons
     private
 
       def tenant_authority_name
-        [@authority_name, tenant_locale].compact.join("-")
+        prepare([@authority_name, tenant_locale])
       end
 
       def model_authority_name
-        [@authority_name, model_name].compact.join("-")
+        prepare([@authority_name, model_name])
       end
 
       def model_tenant_authority_name
-        [@authority_name, model_name, tenant_locale].compact.join("-")
+        prepare([@authority_name, model_name, tenant_locale])
       end
 
       def model_name
@@ -41,13 +42,19 @@ module HykuAddons
       end
 
       def tenant_locale
-        @tenant_locale ||= begin
-          return unless (account = Site.instance&.account)
+        @tenant_locale ||= (@locale || account_locale).to_s.upcase
+      end
 
-          locale_name = account.settings&.dig("locale_name").presence || account.name
+      def account_locale
+        account&.settings&.dig("locale_name").presence || account&.name
+      end
 
-          locale_name&.upcase
-        end
+      def account
+        Site.instance&.account
+      end
+
+      def prepare(array)
+        array.reject(&:blank?).join("-")
       end
   end
 end
