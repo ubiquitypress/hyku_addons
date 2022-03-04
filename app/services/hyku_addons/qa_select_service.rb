@@ -26,15 +26,15 @@ module HykuAddons
     private
 
       def tenant_authority_name
-        [@authority_name, tenant_locale].reject(&:blank?).join("-")
+        prepare([@authority_name, tenant_locale])
       end
 
       def model_authority_name
-        [@authority_name, model_name].reject(&:blank?).join("-")
+        prepare([@authority_name, model_name])
       end
 
       def model_tenant_authority_name
-        [@authority_name, model_name, tenant_locale].reject(&:blank?).join("-")
+        prepare([@authority_name, model_name, tenant_locale])
       end
 
       def model_name
@@ -51,6 +51,10 @@ module HykuAddons
 
       def account
         Site.instance&.account
+      end
+
+      def prepare(array)
+        array.reject(&:blank?).join("-")
       end
   end
 end
