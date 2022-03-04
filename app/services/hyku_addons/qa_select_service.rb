@@ -26,31 +26,32 @@ module HykuAddons
     private
 
       def tenant_authority_name
-        [@authority_name, tenant_locale].compact.join("-")
+        [@authority_name, tenant_locale].reject(&:blank?).join("-")
       end
 
       def model_authority_name
-        [@authority_name, model_name].compact.join("-")
+        [@authority_name, model_name].reject(&:blank?).join("-")
       end
 
       def model_tenant_authority_name
-        [@authority_name, model_name, tenant_locale].compact.join("-")
+        [@authority_name, model_name, tenant_locale].reject(&:blank?).join("-")
       end
 
       def model_name
         @model_name ||= @model&.name&.underscore&.upcase
       end
 
+
       def tenant_locale
-        @_tenant_locale ||= begin
-          return @locale.to_s.upcase if @locale.present?
-          account = Site.instance&.account
-          return unless account.present?
+        @tenant_locale ||= (@locale || account_locale).to_s.upcase
+      end
 
-          locale_name = account.settings&.dig("locale_name").presence || account.name
+      def account_locale
+        account&.settings&.dig("locale_name").presence || account&.name
+      end
 
-          locale_name&.upcase
-        end
+      def account
+        Site.instance&.account
       end
   end
 end
