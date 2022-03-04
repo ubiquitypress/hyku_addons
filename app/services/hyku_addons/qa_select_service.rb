@@ -41,7 +41,6 @@ module HykuAddons
         @model_name ||= @model&.name&.underscore&.upcase
       end
 
-
       def tenant_locale
         @tenant_locale ||= (@locale || account_locale).to_s.upcase
       end

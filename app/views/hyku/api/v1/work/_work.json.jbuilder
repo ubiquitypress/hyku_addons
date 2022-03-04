@@ -7,7 +7,7 @@ extend HyraxHelper
 json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.member_of_collection_ids & collection_docs.pluck("id")] do
   work_account_cname = @account.cname
   locale = nil
-  @account.search_only?
+  if @account.search_only?
     work_account_cname = work.try(:solr_document)&.to_h&.dig("account_cname_tesim")&.first
     locale = Account.find_by(cname: work_account_cname).locale_name
   end
