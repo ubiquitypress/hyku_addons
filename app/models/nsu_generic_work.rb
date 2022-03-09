@@ -72,10 +72,6 @@ class NsuGenericWork < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :add_info, predicate: ::RDF::Vocab::BIBO.term(:Note), multiple: true do |index|
-    index.as :stored_searchable
-  end
-
   property :book_title, predicate: ::RDF::Vocab::BIBO.term(:Proceedings), multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
