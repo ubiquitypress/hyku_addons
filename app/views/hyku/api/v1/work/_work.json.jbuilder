@@ -9,7 +9,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   locale = nil
   if @account.search_only?
     work_account_cname = work.try(:solr_document)&.to_h&.dig("account_cname_tesim")&.first
-    locale = Account.find_by(cname: work_account_cname).locale_name
+    locale = work_account_cname.present? ? Account.find_by(cname: work_account_cname)&.locale_name : nil
   end
 
   json.uuid work.id
