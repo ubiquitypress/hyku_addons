@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable  Metrics/ClassLength
 class NsuGenericWork < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include Hyrax::DOI::DOIBehavior
@@ -216,4 +215,3 @@ class NsuGenericWork < ActiveFedora::Base
 
   include ::Hyrax::BasicMetadata
 end
-# rubocop:enable  Metrics/ClassLength
