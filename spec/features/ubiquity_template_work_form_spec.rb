@@ -5,6 +5,7 @@ require HykuAddons::Engine.root.join("spec", "support", "work_form_helpers.rb").
 
 RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:work_type) { "ubiquity_template_work" }
+  let(:work) { work_type.classify.constantize.find(work_uuid_from_url) }
 
   let(:model) { work_type.classify.constantize }
   let(:field_config) { "hyrax/#{work_type}_form".classify.constantize.field_configs }
@@ -16,11 +17,20 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:permission_options) do
     { permission_template_id: permission_template.id, agent_type: "user", agent_id: user.user_key, access: "deposit" }
   end
+  let(:headers) do
+    {
+      "Accept" => "application/json",
+      "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+      "User-Agent" => "Faraday v0.17.4"
+    }
+  end
+
   # The organisation option changes depending on the local, so we need to use this to ensure we select the right one
-  let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
   let(:title) { "Ubiquity Template Work Item" }
   let(:alt_title) { ["Alt Title 1", "Alt Title 2"] }
-  let(:doi) { "10.1521/soco.23.1.118.59197" }
+  # The organisation option changes depending on the local, so we need to use this to ensure we select the right one
+  let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
+  # The order of the items in each hash must match the order of the fields in the work form
   let(:creator) do
     [
       {
@@ -31,33 +41,12 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
         creator_suffix: "Mr",
         creator_orcid: "0000-0000-1111-2222",
         creator_institutional_relationship: "Research associate",
-        creator_isni: "56273930281"
-      },
-      {
-        creator_name_type: "Organisational",
-        creator_organization_name: "A Test Company Name",
-        creator_ror: "ror.org/123456",
-        creator_grid: "grid.org/098765",
-        creator_wikidata: "wiki.com/123",
-        creator_isni: "1234567890"
-      }
-    ]
-  end
-  let(:expected_creator) do
-    [
-      {
-        creator_name_type: "Personal",
-        creator_family_name: "Smithy",
-        creator_given_name: "Johnny",
-        creator_middle_name: "J.",
-        creator_suffix: "Mr",
-        creator_orcid: "0000-0000-1111-2222",
-        creator_institutional_relationship: "Research associate",
         creator_isni: "56273930281",
+        # This is a hidden field set in the form, but we want to be able to check its value is set
         creator_profile_visibility: User::PROFILE_VISIBILITY[:closed]
       },
       {
-        creator_name_type: "Organisational",
+        creator_name_type: organisation_option["label"],
         creator_organization_name: "A Test Company Name",
         creator_ror: "ror.org/123456",
         creator_grid: "grid.org/098765",
@@ -66,6 +55,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       }
     ]
   end
+  let(:doi) { "10.1521/soco.23.1.118.59197" }
   let(:contributor) do
     [
       {
@@ -268,19 +258,11 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
     Hyrax::PermissionTemplateAccess.create!(permission_options)
 
     stub_request(:get, "http://api.crossref.org/funders?query=A%20funder")
-      .with(headers: {
-              "Accept" => "application/json",
-              "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-              "User-Agent" => "Faraday v0.17.4"
-            })
+      .with(headers: headers)
       .to_return(status: 200, body: "", headers: {})
 
     stub_request(:get, "http://api.crossref.org/funders?query=Another%20funder")
-      .with(headers: {
-              "Accept" => "application/json",
-              "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-              "User-Agent" => "Faraday v0.17.4"
-            })
+      .with(headers: headers)
       .to_return(status: 200, body: "", headers: {})
 
     login_as user
@@ -406,126 +388,124 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
 
       it "redirects to the work show page" do
         # Ensure the basic data is being prenented and we're on the right page
-        expect(page).to have_selector("h1", text: work_type.titleize, wait: 20)
-        expect(page).to have_selector("h2", text: title, wait: 20)
-        expect(page).to have_selector("span", text: "Public")
-        expect(page).to have_content("Your files are being processed by Hyku in the background.")
+        aggregate_failures "testing the saved data" do
+          expect(page).to have_selector("h1", text: work_type.titleize, wait: 20)
+          expect(page).to have_selector("h2", text: title, wait: 20)
+          expect(page).to have_selector("span", text: "Public")
+          expect(page).to have_content("Your files are being processed by Hyku in the background.")
 
-        expect(page).to have_content(resource_type.map { |h| h["id"] }.first)
-        alt_title.each { |at| expect(page).to have_content(at) }
-        expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
-        expect(page).to have_content("#{contributor.first.dig(:contributor_family_name)}, #{contributor.first.dig(:contributor_given_name)}")
-        %i[published accepted submitted].each { |d| expect(page).to have_content(normalize_date(send("date_#{d}".to_sym)).first) }
-        duration.each { |at| expect(page).to have_content(at) }
-        description.each { |at| expect(page).to have_content(at) }
+          expect(page).to have_content(resource_type.map { |h| h["id"] }.first)
+          alt_title.each { |at| expect(page).to have_content(at) }
+          expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
+          expect(page).to have_content("#{contributor.first.dig(:contributor_family_name)}, #{contributor.first.dig(:contributor_given_name)}")
+          %i[published accepted submitted].each { |d| expect(page).to have_content(normalize_date(send("date_#{d}".to_sym)).first) }
+          duration.each { |at| expect(page).to have_content(at) }
+          description.each { |at| expect(page).to have_content(at) }
+          expect(page).to have_content("https://doi.org/#{doi}")
 
-        # Get the actual work from the URL param
-        current_uri = URI.parse(page.current_url)
-        work_id = current_uri.path.split("/").last
-        work = work_type.classify.constantize.find(work_id)
-
-        expect(work.title).to eq([title])
-        expect(work.doi).to eq(doi)
-        expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
-        expect(work.date_published).to eq(normalize_date(date_published).first)
-        # Cloneable fields use the label to select the option, but save the id to the work
-        expect(work.creator).to eq([expected_creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
-        expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
-        expect(work.editor).to eq([editor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
-        expect(work.description).to eq(description)
-        expect(work.keyword).to eq(keyword)
-        expect(work.source).to eq(source_data)
-        expect(work.license).to eq(license_options.map { |h| h["id"] })
-        expect(work.rights_statement).to eq(rights_statement_options.map { |h| h["id"] })
-        expect(work.publisher).to eq(publisher)
-        expect(work.subject).to eq(subject_options.map { |h| h["id"] })
-        expect(work.language).to eq(language_options.map { |h| h["id"] })
-        expect(work.related_url).to eq(related_url)
-        expect(work.source).to eq(source_data)
-        expect(work.abstract).to eq(abstract)
-        expect(work.media).to eq(media)
-        expect(work.duration).to eq(duration)
-        expect(work.institution).to eq(institution_options.map { |h| h["id"] })
-        expect(work.org_unit).to eq(org_unit)
-        expect(work.project_name).to eq(project_name)
-        expect(work.funder).to eq([funder.to_json])
-        expect(work.fndr_project_ref).to eq(fndr_project_ref)
-        expect(work.event_title).to eq(event_title)
-        expect(work.event_location).to eq(event_location)
-        expect(work.event_date).to eq(event_date.map { |date| normalize_date(date) }.flatten)
-        expect(work.series_name).to eq(series_name)
-        expect(work.book_title).to eq(book_title)
-        expect(work.journal_title).to eq(journal_title)
-        expect(work.alternative_journal_title).to eq(alternative_journal_title)
-        expect(work.volume).to eq(volume)
-        expect(work.edition).to eq(edition)
-        expect(work.version_number).to eq(version_number)
-        expect(work.issue).to eq(issue)
-        expect(work.pagination).to eq(pagination)
-        expect(work.article_num).to eq(article_num)
-        expect(work.place_of_publication).to eq(place_of_publication)
-        expect(work.isbn).to eq(isbn)
-        expect(work.issn).to eq(issn)
-        expect(work.eissn).to eq(eissn)
-        # We need to test the first item or an ActiveTripple::Relation is returned
-        expect(work.current_he_institution.first).to eq(current_he_institution_data.to_json)
-        expect(work.date_accepted).to eq(normalize_date(date_accepted).first)
-        expect(work.date_submitted).to eq(normalize_date(date_submitted).first)
-        expect(work.official_link).to eq(official_link)
-        expect(work.related_exhibition).to eq(related_exhibition)
-        expect(work.related_exhibition_venue).to eq(related_exhibition_venue)
-        expect(work.related_exhibition_date).to eq(related_exhibition_date.map { |date| normalize_date(date) }.flatten)
-        expect(work.rights_holder).to eq(rights_holder)
-        expect(work.related_exhibition_venue).to eq(related_exhibition_venue)
-        expect(work.qualification_name).to eq(qualification_name_options.map { |h| h["id"] }.first)
-        expect(work.qualification_level).to eq(qualification_level_options.map { |h| h["id"] }.first)
-        expect(work.alternate_identifier.first).to eq(alternate_identifier.to_json)
-        expect(work.related_identifier.first).to eq(related_identifier_id.to_json)
-        expect(work.refereed).to eq(refereed_options.map { |h| h["id"] }.first)
-        expect(work.dewey).to eq(dewey)
-        expect(work.library_of_congress_classification).to eq(library_of_congress_classification)
-        expect(work.add_info).to eq(add_info)
-        expect(work.page_display_order_number).to eq(page_display_order_number)
-        expect(work.irb_number).to eq(irb_number)
-        expect(work.irb_status).to eq(irb_status_options.map { |h| h["id"] }.first)
-        expect(work.additional_links).to eq(additional_links)
-        expect(work.is_included_in).to eq(is_included_in)
-        expect(work.buy_book).to eq(buy_book)
-        expect(work.challenged).to eq(challenged)
-        expect(work.outcome).to eq(outcome)
-        expect(work.participant).to eq(participant)
-        expect(work.reading_level).to eq(reading_level)
-        expect(work.photo_caption).to eq(photo_caption)
-        expect(work.photo_description).to eq(photo_description)
-        expect(work.degree).to eq(degree)
-        expect(work.longitude).to eq(longitude)
-        expect(work.latitude).to eq(latitude)
-        expect(work.alt_email).to eq(alt_email)
-        expect(work.alt_book_title).to eq(alt_book_title)
-        expect(work.table_of_contents).to eq(table_of_contents)
-        expect(work.prerequisites).to eq(prerequisites)
-        expect(work.suggested_student_reviewers).to eq(suggested_student_reviewers)
-        expect(work.suggested_reviewers).to eq(suggested_reviewers)
-        expect(work.adapted_from).to eq(adapted_from)
-        expect(work.audience).to eq(audience_options.map { |h| h["id"] })
-        expect(work.related_material).to eq(related_material)
-        expect(work.advisor).to eq(advisor)
-        expect(work.subject_text).to eq(subject_text)
-        expect(work.mesh).to eq(mesh)
-        expect(work.journal_frequency).to eq(journal_frequency)
-        expect(work.funding_description).to eq(funding_description)
-        expect(work.citation).to eq(citation)
-        expect(work.references).to eq(references)
-        expect(work.extent).to eq(extent)
-        expect(work.medium).to eq(medium)
-        expect(work.committee_member).to eq(committee_member)
-        expect(work.time).to eq(time)
-        expect(work.qualification_grantor).to eq(qualification_grantor)
-        expect(work.date_published_text).to eq(date_published_text)
-        expect(work.rights_statement_text).to eq(rights_statement_text)
-        expect(work.qualification_subject_text).to eq(qualification_subject_text)
-        expect(work.georeferenced).to eq(georeferenced_options.map { |h| h["id"] }.first.to_s)
-        expect(work.repository_space).to eq(repository_space_option["id"])
+          expect(work.title).to eq([title])
+          expect(work.doi).to eq(doi)
+          expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
+          expect(work.date_published).to eq(normalize_date(date_published).first)
+          # Cloneable fields use the label to select the option, but save the id to the work
+          expect(work.creator).to eq([creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
+          expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
+          expect(work.editor).to eq([editor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
+          expect(work.description).to eq(description)
+          expect(work.keyword).to eq(keyword)
+          expect(work.source).to eq(source_data)
+          expect(work.license).to eq(license_options.map { |h| h["id"] })
+          expect(work.rights_statement).to eq(rights_statement_options.map { |h| h["id"] })
+          expect(work.publisher).to eq(publisher)
+          expect(work.subject).to eq(subject_options.map { |h| h["id"] })
+          expect(work.language).to eq(language_options.map { |h| h["id"] })
+          expect(work.related_url).to eq(related_url)
+          expect(work.source).to eq(source_data)
+          expect(work.abstract).to eq(abstract)
+          expect(work.media).to eq(media)
+          expect(work.duration).to eq(duration)
+          expect(work.institution).to eq(institution_options.map { |h| h["id"] })
+          expect(work.org_unit).to eq(org_unit)
+          expect(work.project_name).to eq(project_name)
+          expect(work.funder).to eq([funder.to_json])
+          expect(work.fndr_project_ref).to eq(fndr_project_ref)
+          expect(work.event_title).to eq(event_title)
+          expect(work.event_location).to eq(event_location)
+          expect(work.event_date).to eq(event_date.map { |date| normalize_date(date) }.flatten)
+          expect(work.series_name).to eq(series_name)
+          expect(work.book_title).to eq(book_title)
+          expect(work.journal_title).to eq(journal_title)
+          expect(work.alternative_journal_title).to eq(alternative_journal_title)
+          expect(work.volume).to eq(volume)
+          expect(work.edition).to eq(edition)
+          expect(work.version_number).to eq(version_number)
+          expect(work.issue).to eq(issue)
+          expect(work.pagination).to eq(pagination)
+          expect(work.article_num).to eq(article_num)
+          expect(work.place_of_publication).to eq(place_of_publication)
+          expect(work.isbn).to eq(isbn)
+          expect(work.issn).to eq(issn)
+          expect(work.eissn).to eq(eissn)
+          # We need to test the first item or an ActiveTripple::Relation is returned
+          expect(work.current_he_institution.first).to eq(current_he_institution_data.to_json)
+          expect(work.date_accepted).to eq(normalize_date(date_accepted).first)
+          expect(work.date_submitted).to eq(normalize_date(date_submitted).first)
+          expect(work.official_link).to eq(official_link)
+          expect(work.related_exhibition).to eq(related_exhibition)
+          expect(work.related_exhibition_venue).to eq(related_exhibition_venue)
+          expect(work.related_exhibition_date).to eq(related_exhibition_date.map { |date| normalize_date(date) }.flatten)
+          expect(work.rights_holder).to eq(rights_holder)
+          expect(work.related_exhibition_venue).to eq(related_exhibition_venue)
+          expect(work.qualification_name).to eq(qualification_name_options.map { |h| h["id"] }.first)
+          expect(work.qualification_level).to eq(qualification_level_options.map { |h| h["id"] }.first)
+          expect(work.alternate_identifier.first).to eq(alternate_identifier.to_json)
+          expect(work.related_identifier.first).to eq(related_identifier_id.to_json)
+          expect(work.refereed).to eq(refereed_options.map { |h| h["id"] }.first)
+          expect(work.dewey).to eq(dewey)
+          expect(work.library_of_congress_classification).to eq(library_of_congress_classification)
+          expect(work.add_info).to eq(add_info)
+          expect(work.page_display_order_number).to eq(page_display_order_number)
+          expect(work.irb_number).to eq(irb_number)
+          expect(work.irb_status).to eq(irb_status_options.map { |h| h["id"] }.first)
+          expect(work.additional_links).to eq(additional_links)
+          expect(work.is_included_in).to eq(is_included_in)
+          expect(work.buy_book).to eq(buy_book)
+          expect(work.challenged).to eq(challenged)
+          expect(work.outcome).to eq(outcome)
+          expect(work.participant).to eq(participant)
+          expect(work.reading_level).to eq(reading_level)
+          expect(work.photo_caption).to eq(photo_caption)
+          expect(work.photo_description).to eq(photo_description)
+          expect(work.degree).to eq(degree)
+          expect(work.longitude).to eq(longitude)
+          expect(work.latitude).to eq(latitude)
+          expect(work.alt_email).to eq(alt_email)
+          expect(work.alt_book_title).to eq(alt_book_title)
+          expect(work.table_of_contents).to eq(table_of_contents)
+          expect(work.prerequisites).to eq(prerequisites)
+          expect(work.suggested_student_reviewers).to eq(suggested_student_reviewers)
+          expect(work.suggested_reviewers).to eq(suggested_reviewers)
+          expect(work.adapted_from).to eq(adapted_from)
+          expect(work.audience).to eq(audience_options.map { |h| h["id"] })
+          expect(work.related_material).to eq(related_material)
+          expect(work.advisor).to eq(advisor)
+          expect(work.subject_text).to eq(subject_text)
+          expect(work.mesh).to eq(mesh)
+          expect(work.journal_frequency).to eq(journal_frequency)
+          expect(work.funding_description).to eq(funding_description)
+          expect(work.citation).to eq(citation)
+          expect(work.references).to eq(references)
+          expect(work.extent).to eq(extent)
+          expect(work.medium).to eq(medium)
+          expect(work.committee_member).to eq(committee_member)
+          expect(work.time).to eq(time)
+          expect(work.qualification_grantor).to eq(qualification_grantor)
+          expect(work.date_published_text).to eq(date_published_text)
+          expect(work.rights_statement_text).to eq(rights_statement_text)
+          expect(work.qualification_subject_text).to eq(qualification_subject_text)
+          expect(work.georeferenced).to eq(georeferenced_options.map { |h| h["id"] }.first.to_s)
+          expect(work.repository_space).to eq(repository_space_option["id"])
+        end
       end
     end
   end

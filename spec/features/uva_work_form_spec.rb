@@ -5,6 +5,7 @@ require HykuAddons::Engine.root.join("spec", "support", "work_form_helpers.rb").
 
 RSpec.feature "Create a UvaWork", js: true, slow: true do
   let(:work_type) { "uva_work" }
+  let(:work) { work_type.classify.constantize.find(work_uuid_from_url) }
 
   let(:model) { work_type.classify.constantize }
   let(:field_config) { "hyrax/#{work_type}_form".classify.constantize.field_configs }
@@ -16,11 +17,18 @@ RSpec.feature "Create a UvaWork", js: true, slow: true do
   let(:permission_options) do
     { permission_template_id: permission_template.id, agent_type: "user", agent_id: user.user_key, access: "deposit" }
   end
-  # The organisation option changes depending on the local, so we need to use this to ensure we select the right one
-  let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
+  let(:headers) do
+    {
+      "Accept" => "application/json",
+      "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+      "User-Agent" => "Faraday v0.17.4"
+    }
+  end
 
   let(:title) { "UVA Work Item" }
-  let(:doi) { "10.1521/soco.23.1.118.59197" }
+  # The organisation option changes depending on the local, so we need to use this to ensure we select the right one
+  let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
+  # The order of the items in each hash must match the order of the fields in the work form
   let(:creator) do
     [
       {
@@ -33,35 +41,12 @@ RSpec.feature "Create a UvaWork", js: true, slow: true do
         creator_department: "Development",
         creator_institution: "Test Inst.",
         creator_orcid: "0000-0000-1111-2222",
-        creator_isni: "56273930281"
-      },
-      {
-        creator_name_type: "Organisational",
-        creator_organization_name: "A Test Company Name",
-        creator_ror: "ror.org/123456",
-        creator_grid: "grid.org/098765",
-        creator_wikidata: "wiki.com/123",
-        creator_isni: "1234567890"
-      }
-    ]
-  end
-  let(:expected_creator) do
-    [
-      {
-        creator_name_type: "Personal",
-        creator_computing_id: "1234",
-        creator_family_name: "Johnny",
-        creator_given_name: "Smithy",
-        creator_middle_name: "J.",
-        creator_suffix: "Mr",
-        creator_department: "Development",
-        creator_institution: "Test Inst.",
-        creator_orcid: "0000-0000-1111-2222",
         creator_isni: "56273930281",
+        # This is a hidden field set in the form, but we want to be able to check its value is set
         creator_profile_visibility: User::PROFILE_VISIBILITY[:closed]
       },
       {
-        creator_name_type: "Organisational",
+        creator_name_type: organisation_option["label"],
         creator_organization_name: "A Test Company Name",
         creator_ror: "ror.org/123456",
         creator_grid: "grid.org/098765",
@@ -75,6 +60,7 @@ RSpec.feature "Create a UvaWork", js: true, slow: true do
   let(:license_options) { HykuAddons::LicenseService.new(model: model).active_elements.sample(2) }
   let(:publisher) { ["publisher1", "publisher2"] }
   let(:keyword) { ["keyword1", "keyword2"] }
+  let(:doi) { "10.1521/soco.23.1.118.59197" }
   let(:contributor) do
     [
       {
@@ -128,19 +114,11 @@ RSpec.feature "Create a UvaWork", js: true, slow: true do
     Hyrax::PermissionTemplateAccess.create!(permission_options)
 
     stub_request(:get, "http://api.crossref.org/funders?query=A%20funder")
-      .with(headers: {
-              "Accept" => "application/json",
-              "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-              "User-Agent" => "Faraday v0.17.4"
-            })
+      .with(headers: headers)
       .to_return(status: 200, body: "", headers: {})
 
     stub_request(:get, "http://api.crossref.org/funders?query=Another%20funder")
-      .with(headers: {
-              "Accept" => "application/json",
-              "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-              "User-Agent" => "Faraday v0.17.4"
-            })
+      .with(headers: headers)
       .to_return(status: 200, body: "", headers: {})
 
     login_as user
@@ -177,37 +155,35 @@ RSpec.feature "Create a UvaWork", js: true, slow: true do
       end
 
       it "redirects to the work show page" do
-        # Ensure the basic data is being prenented and we're on the right page
-        expect(page).to have_selector("h1", text: work_type.titleize, wait: 20)
-        expect(page).to have_selector("h2", text: title, wait: 20)
-        expect(page).to have_selector("span", text: "Public")
-        expect(page).to have_content("Your files are being processed by Hyku in the background.")
+        aggregate_failures "testing the saved data" do
+          # Ensure the basic data is being prenented and we're on the right page
+          expect(page).to have_selector("h1", text: work_type.titleize, wait: 20)
+          expect(page).to have_selector("h2", text: title, wait: 20)
+          expect(page).to have_selector("span", text: "Public")
+          expect(page).to have_content("Your files are being processed by Hyku in the background.")
 
-        expect(page).to have_content(resource_type.map { |h| h["id"] }.first)
-        expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
-        expect(page).to have_content("#{contributor.first.dig(:contributor_family_name)}, #{contributor.first.dig(:contributor_given_name)}")
-        expect(page).to have_content(normalize_date(date_published).first)
+          expect(page).to have_content(resource_type.map { |h| h["id"] }.first)
+          expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
+          expect(page).to have_content("#{contributor.first.dig(:contributor_family_name)}, #{contributor.first.dig(:contributor_given_name)}")
+          expect(page).to have_content(normalize_date(date_published).first)
+          expect(page).to have_content("https://doi.org/#{doi}")
 
-        # Get the actual work from the URL param
-        current_uri = URI.parse(page.current_url)
-        work_id = current_uri.path.split("/").last
-        work = work_type.classify.constantize.find(work_id)
-
-        expect(work.title).to eq([title])
-        expect(work.doi).to eq(doi)
-        expect(work.creator).to eq([expected_creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
-        expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
-        expect(work.abstract).to eq(abstract)
-        expect(work.license).to eq(license_options.map { |h| h["id"] })
-        expect(work.publisher).to eq(publisher)
-        expect(work.keyword).to eq(keyword)
-        expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
-        expect(work.language).to eq(language_options.map { |h| h["id"] })
-        expect(work.date_published).to eq(normalize_date(date_published).first)
-        expect(work.related_url).to eq(related_url)
-        expect(work.funder).to eq([funder.to_json])
-        expect(work.add_info).to eq(add_info)
-        expect(work.source).to eq(source_data)
+          expect(work.title).to eq([title])
+          expect(work.doi).to eq(doi)
+          expect(work.creator).to eq([creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
+          expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
+          expect(work.abstract).to eq(abstract)
+          expect(work.license).to eq(license_options.map { |h| h["id"] })
+          expect(work.publisher).to eq(publisher)
+          expect(work.keyword).to eq(keyword)
+          expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
+          expect(work.language).to eq(language_options.map { |h| h["id"] })
+          expect(work.date_published).to eq(normalize_date(date_published).first)
+          expect(work.related_url).to eq(related_url)
+          expect(work.funder).to eq([funder.to_json])
+          expect(work.add_info).to eq(add_info)
+          expect(work.source).to eq(source_data)
+        end
       end
     end
   end

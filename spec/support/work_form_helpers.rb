@@ -29,7 +29,9 @@ end
 # @return [void]
 def add_agreement
   within(".panel-footer") do
+    have_selector("#agreement", wait: 5)
     find("#agreement").check
+    ss
   end
 end
 
@@ -38,9 +40,16 @@ end
 # @return [void]
 def submit
   within(".panel-footer") do
-    ss
+    have_selector("[name=save_with_files]", wait: 5)
     find("[name=save_with_files]").click
+    ss
   end
+end
+
+# Get the actual work from the URL param
+def work_uuid_from_url
+  current_uri = URI.parse(page.current_url)
+  current_uri.path.split("/").last
 end
 
 # Helper method to save a screenshot. Screenshots will be saved to spec/internal_test_hyku/tmp/capybara

@@ -1,13 +1,12 @@
 ---
-doi:
+  doi:
   type: string
   predicate: http://purl.org/ontology/bibo/doi
   multiple: false
   index_keys:
-    - doi_ssi
+  - doi_ssi
   form:
     required: false
     primary: true
     multiple: false
     type: text
-

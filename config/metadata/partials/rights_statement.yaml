@@ -1,0 +1,13 @@
+---
+rights_statement:
+  predicate: http://www.europeana.eu/schemas/edm/rights
+  multiple: true
+  index_keys:
+  - rights_statement_tesim
+  form:
+    required: false
+    primary: false
+    multiple: false
+    type: select
+    include_blank: false
+    authority: HykuAddons::RightsStatementService

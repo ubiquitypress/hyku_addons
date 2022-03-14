@@ -11,17 +11,17 @@ module CsvReaderHelper
       attribute_name = attribute.first.to_s
       attribute_properties = attribute.last
 
-      if work.respond_to?(attribute_name)
-        if attribute_properties.dig(:subfields)
-          attribute_properties[:subfields].keys.reject { |k| untested_attributes.include?(k) }.each do |subfield|
-            expectations << get_expectations_for_subfield(attribute_name, subfield, attribute_properties[:multiple], row, work)
-          end
-        else
-          # TODO: Bulkrax sets rights_statement as a multiple field, but it is not
-          wrongly_configured_fields = ["rights_statement"]
-          attribute_multiple = attribute_properties[:multiple] || wrongly_configured_fields.include?(attribute_name)
-          expectations << get_expectations_for_field(attribute_name, attribute_multiple, row, work)
+      next unless work.respond_to?(attribute_name)
+
+      if attribute_properties.dig(:subfields)
+        attribute_properties[:subfields].keys.reject { |k| untested_attributes.include?(k) }.each do |subfield|
+          expectations << get_expectations_for_subfield(attribute_name, subfield, attribute_properties[:multiple], row, work)
         end
+      else
+        # TODO: Bulkrax sets rights_statement as a multiple field, but it is not
+        wrongly_configured_fields = ["rights_statement"]
+        attribute_multiple = attribute_properties[:multiple] || wrongly_configured_fields.include?(attribute_name)
+        expectations << get_expectations_for_field(attribute_name, attribute_multiple, row, work)
       end
     end
 

@@ -38,8 +38,10 @@ RSpec.describe Bulkrax do
         "add_info" => { split: '\|' },
         "part_of" => { split: '\|' },
         "qualification_subject_text" => { split: '\|' },
-        "collection" => { split: '\|' },
         "related_url" => { split: '\|' },
+        "collection" => { split: '\|' },
+        "place_of_publication" => { split: '\|' },
+        "is_format_of" => { split: '\|' },
         "creator_profile_visibility" => { excluded: true }
       }
     end

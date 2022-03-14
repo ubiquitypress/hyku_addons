@@ -93,6 +93,7 @@ end
 # @param values [Hash, Array] the hash (or array of hashes) where each key is the name of the subfield
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/CyclomaticComplexity
 def fill_in_cloneable(field, values)
   values = Array.wrap(values)
 
@@ -110,15 +111,23 @@ def fill_in_cloneable(field, values)
         # We can't delete the name type or it is removed from the object entirely
         next if subfield == "#{field}_name_type".to_sym
 
-        # HACK: This should be temporary, to get around funder awards being an array but this not yet supporting
+        # HACK: To get around funder awards being an array but this method not yet supporting
         # the nested cloneable subfields and clicking links which that would require.
         val = Array.wrap(val).first
 
-        case field_config.dig(field, :subfields, subfield, :type)
+        case field_config.dig(field, :subfields, subfield.to_sym, :type)
         when "select"
           group.find("select.#{work_type}_#{subfield}").find(:option, val).select_option
+
+        when "hidden"
+          # When there is a hidden field, we shouldn't be updating that as its outside of the scope of Capybara
+          nil # Rubocop
+
+        when nil
+          raise "The field #{subfield}, could not be found in the Schema for #{work_type.classify}."
+
         else
-          # Some JSON fields have a field labelled after the parent, but s the parent class is used to identify
+          # Some JSON fields have a field labelled after the parent, but the parent class is used to identify
           # the fields, it will appear on both f them, so causing a "duplicate element found" error. An example of this
           # is alternate_identifier, which has fields alternate_identifier and alternate_identifer_type
           group.find_all("input.#{work_type}_#{subfield}")[0].set(val)
@@ -135,6 +144,7 @@ def fill_in_cloneable(field, values)
 end
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/CyclomaticComplexity
 
 # FIll in a multiple select field
 #

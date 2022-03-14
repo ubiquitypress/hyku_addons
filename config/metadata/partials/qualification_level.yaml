@@ -1,0 +1,13 @@
+---
+qualification_level:
+  type: string
+  predicate: http://id.loc.gov/ontologies/bibframe/degree
+  multiple: false
+  index_keys:
+  - qualification_level_tesim
+  form:
+    required: false
+    primary: false
+    multiple: false
+    type: select
+    authority: HykuAddons::QualificationLevelService

@@ -1,0 +1,13 @@
+---
+qualification_name:
+  type: string
+  predicate: http://schema.org/qualifications
+  multiple: false
+  index_keys:
+  - qualification_name_tesim
+  form:
+    required: false
+    primary: false
+    multiple: false
+    type: select
+    authority: HykuAddons::QualificationNameService
