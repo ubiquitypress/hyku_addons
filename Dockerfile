@@ -53,10 +53,10 @@ RUN apt clean && \
 
 # If changes are made to fits version or location, amend `LD_LIBRARY_PATH` in docker-compose.yml accordingly.
 RUN mkdir -p /opt/fits && \
-    curl -fsSL -o /opt/fits/fits-latest.zip https://projects.iq.harvard.edu/files/fits/files/fits-1.3.0.zip && \
-    cd /opt/fits && unzip fits-latest.zip && \
-    chmod +X /opt/fits/fits.sh
-ENV PATH="/opt/fits:${PATH}"
+		curl -fsSL -o /opt/fits/fits-latest.zip https://projects.iq.harvard.edu/files/fits/files/fits-1.3.0.zip && \
+		cd /opt/fits && unzip fits-latest.zip && \
+		chmod +X /opt/fits/fits.sh
+ENV PATH=/opt/fits:$PATH
 
 # Entry point from the docker-compose - last stage as Docker works backwards
 FROM dependencies_image as development_image
@@ -75,10 +75,9 @@ COPY --chown=app:app spec/internal_test_hyku/Gemfile ./spec/internal_test_hyku/G
 COPY --chown=app:app spec/internal_test_hyku/Gemfile.lock ./spec/internal_test_hyku/Gemfile.lock
 
 ENV CFLAGS=-Wno-error=format-overflow
-
 RUN bundle config build.nokogiri --use-system-libraries && \
     bundle config set without "production" && \
     bundle config set with "aws development test postgres" && \
     setuser app bundle install --jobs=4 --retry=3 && \
-    chmod 777  -R .bundle/*  # Otherwise `app` owns this file and the host cannot run bundler commands
+    chmod 777 -R .bundle/*  # Otherwise `app` owns this file and the host cannot run bundler commands
 
