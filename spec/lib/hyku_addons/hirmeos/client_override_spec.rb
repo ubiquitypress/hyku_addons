@@ -17,8 +17,8 @@ RSpec.describe HykuAddons::Hirmeos::ClientOverride do
     stub_request(:any, "https://translator.example.com/works")
   end
 
-  describe '#generate_token' do
-    it 'generates a token for authentication' do
+  describe "#generate_token" do
+    it "generates a token for authentication" do
       sample_payload = {
         "app": "hyku",
         "purpose": "test"
@@ -30,7 +30,7 @@ RSpec.describe HykuAddons::Hirmeos::ClientOverride do
     end
   end
 
-  it 'takes a default payload structure' do
+  it "takes a default payload structure" do
     puts "CLIENT SECRET IS #{client.secret}"
     token = client.generate_token
     decoded_token = JWT.decode token, client.secret
