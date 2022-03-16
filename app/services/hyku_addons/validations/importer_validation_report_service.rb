@@ -6,7 +6,7 @@ module HykuAddons
         raise ArgumentError, "You need to pass a valid importer" unless importer.present?
         @importer = importer
         @field = field
-        @statuses = Bulkrax::Status.where(statusable_type: "Bulkrax::Entry").where(statusable_id: @importer.entry_ids)
+        @statuses = ::Bulkrax::Status.where(statusable_type: "Bulkrax::Entry").where(statusable_id: @importer.entry_ids)
       end
 
       def perform
