@@ -94,7 +94,7 @@ module HykuAddons
         ActionController::Base.perform_caching = is_enabled
 
         if is_enabled
-          redis_config = { url: Redis.current.id, namespace: redis_endpoint.options["namespace"] }
+          redis_config = { url: ENV['REDIS_URL'], namespace: redis_endpoint.options["namespace"] }
           Rails.application.config.cache_store = :redis_cache_store, redis_config
         else
           Rails.application.config.cache_store = :file_store, Settings.cache_filesystem_root
