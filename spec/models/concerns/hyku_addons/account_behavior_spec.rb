@@ -13,6 +13,9 @@ RSpec.describe HykuAddons::AccountBehavior, type: :model do
       account.build_datacite_endpoint(mode: :test, prefix: "10.1234", username: "user123", password: "pass123")
       allow(Flipflop).to receive(:enabled?).with(:cache_api).and_return(cache_enabled)
       ENV["REDIS_URL"] = "redis://localhost:6379/0"
+      account.switch!
+    end
+
     after do
       account.reset!
     end
