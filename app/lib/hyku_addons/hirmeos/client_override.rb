@@ -14,7 +14,7 @@ module HykuAddons
           {
             'authority': "user",
             'email': "",
-            'exp': Time.now.to_i + 900, # 15 minutes from creation recommended, which is 900 seconds
+            'exp': 15.minutes.from_now.to_i
             'iat': Time.now.to_i,
             'name': "",
             'sub': ""
@@ -23,7 +23,7 @@ module HykuAddons
 
         def connection_for(url)
           Faraday.new(url) do |conn|
-            conn.adapter Faraday.default_adapter # net/http
+            conn.adapter Faraday.default_adapter
             conn.authorization :Bearer, generate_token
           end
         end
