@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require "hyku_addons/work_factory"
+require "hyku_addons/hirmeos/work_factory"
 require "rails_helper"
 
 RSpec.describe HykuAddons::WorkFactory do

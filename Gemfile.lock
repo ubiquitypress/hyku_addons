@@ -67,7 +67,7 @@ GIT
 
 GIT
   remote: https://github.com/ubiquitypress/hyrax-hirmeos.git
-  revision: d6426f33b5034fb64ed2b95e6764faaece8b8a8c
+  revision: c0db943124ba5c7f80b3a1165857c5dd9e29f740
   branch: main
   specs:
     hyrax-hirmeos (0.1.0)

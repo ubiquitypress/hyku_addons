@@ -150,6 +150,9 @@ module HykuAddons
       ::Hyku::API::V1::HighlightsController.prepend HykuAddons::HighlightsControllerBehavior
       ::Hyku::API::V1::UsersController.prepend HykuAddons::UsersControllerBehavior
 
+      # Hyrax Hirmeos
+      ::Hyrax::Hirmeos::Client.prepend HykuAddons::Hirmeos::ClientOverride
+
       # Indexers
       ::Hyrax::CollectionIndexer.prepend HykuAddons::CollectionIndexerOverride
       Hyrax::WorkIndexer.include HykuAddons::WorkIndexerBehavior
