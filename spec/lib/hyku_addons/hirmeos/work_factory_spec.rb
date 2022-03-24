@@ -22,6 +22,9 @@ RSpec.describe HykuAddons::WorkFactory do
           uri: "http://localhost:3000/concern/generic_works/#{work.id}"
         },
         {
+          uri: "https://#{account.frontend_url}/work/sc/#{work.id}"
+        },
+        {
           uri: "https://#{account.frontend_url}/work/ns/#{work.id}"
         },
         {
