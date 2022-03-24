@@ -14,7 +14,7 @@ module HykuAddons
           {
             'authority': "user",
             'email': "",
-            'exp': 15.minutes.from_now.to_i
+            'exp': 15.minutes.from_now.to_i,
             'iat': Time.now.to_i,
             'name': "",
             'sub': ""
