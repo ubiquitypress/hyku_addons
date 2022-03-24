@@ -15,6 +15,14 @@ module HykuAddons
       format_url(fetch_collection_branding(role))
     end
 
+    def alt_text_for(role)
+      fetch_collection_branding(role).alt_text
+    end
+
+    def target_url_for(role)
+      fetch_collection_branding(role).target_url
+    end
+
     private
 
       # Fetch first banner or logo file information attached to collection if it exists

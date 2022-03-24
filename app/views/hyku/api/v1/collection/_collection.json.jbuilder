@@ -37,6 +37,8 @@ json.cache! [@account, :collections, collection.id, collection.solr_document[:_v
 
   json.collection_banner_url branding_fetcher.url_for("banner")
   json.collection_logo_url branding_fetcher.url_for("logo")
+  json.collection_logo_alt_text branding_fetcher.alt_text_for("logo")
+  json.collection_logo_target_url branding_fetcher.target_url_for("logo")
 end
 
 if local_assigns[:include_works]
