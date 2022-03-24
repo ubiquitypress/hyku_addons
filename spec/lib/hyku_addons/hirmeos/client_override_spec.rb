@@ -4,12 +4,11 @@ require "rails_helper"
 
 RSpec.describe HykuAddons::Hirmeos::ClientOverride do
   subject(:client) do
-    Hyrax::Hirmeos::Client.new("UsernameTest",
-                               "Password",
-                               "https://metrics.example.com",
-                               "https://translator.example.com",
-                               "https://tokens.example.com",
-                               "myt$stkey")
+    Hyrax::Hirmeos::Client.new(username: "UsernameTest",
+                               password: "Password",
+                               secret: "myt$stkey",
+                               translation_base_url: "https://translator.example.com",
+                               token_base_url: "https://tokens.example.com",)
   end
   let(:work) { create(:work) }
 
@@ -25,15 +24,14 @@ RSpec.describe HykuAddons::Hirmeos::ClientOverride do
       }
       token = client.generate_token(sample_payload)
       expect(token).to be_present
-      decoded_token = JWT.decode token, client.secret
+      decoded_token = JWT.decode token, client.instance_variable_get(:@secret)
       expect(decoded_token).to include(hash_including("app" => "hyku", "purpose" => "test"))
     end
   end
 
   it "takes a default payload structure" do
-    puts "CLIENT SECRET IS #{client.secret}"
     token = client.generate_token
-    decoded_token = JWT.decode token, client.secret
+    decoded_token = JWT.decode token, client.instance_variable_get(:@secret)
     expect(decoded_token).to include(hash_including("iat" => a_kind_of(Integer), "exp" => a_kind_of(Integer)))
   end
 
