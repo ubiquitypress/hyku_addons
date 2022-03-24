@@ -8,7 +8,7 @@ RSpec.describe HykuAddons::Hirmeos::ClientOverride do
                                password: "Password",
                                secret: "myt$stkey",
                                translation_base_url: "https://translator.example.com",
-                               token_base_url: "https://tokens.example.com",)
+                               token_base_url: "https://tokens.example.com")
   end
   let(:work) { create(:work) }
 
