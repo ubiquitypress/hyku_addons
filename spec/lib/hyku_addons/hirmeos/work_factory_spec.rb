@@ -1,8 +1,7 @@
 # frozen_string_literal: true
-require "hyku_addons/hirmeos/work_factory"
 require "rails_helper"
 
-RSpec.describe HykuAddons::WorkFactory do
+RSpec.describe HykuAddons::Hirmeos::WorkFactory do
   WebMock.allow_net_connect!
   let(:work) { build_stubbed(:work) }
   let(:account) { build_stubbed(:account) }
