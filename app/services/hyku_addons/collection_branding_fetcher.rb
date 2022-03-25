@@ -16,11 +16,11 @@ module HykuAddons
     end
 
     def alt_text_for(role)
-      fetch_collection_branding(role).alt_text
+      fetch_collection_branding(role)&.alt_text
     end
 
     def target_url_for(role)
-      fetch_collection_branding(role).target_url
+      fetch_collection_branding(role)&.target_url
     end
 
     private
