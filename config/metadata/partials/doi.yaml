@@ -2,11 +2,11 @@
   doi:
   type: string
   predicate: http://purl.org/ontology/bibo/doi
-  multiple: false
+  multiple: true
   index_keys:
   - doi_ssi
   form:
     required: false
     primary: true
-    multiple: false
+    multiple: true
     type: text
