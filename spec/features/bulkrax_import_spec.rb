@@ -452,9 +452,9 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
         expect(Flipflop).to have_received(:enabled?).with(:import_mode).at_least(:once)
 
         # This tests that the job is enqueued
-        expect(Hyrax::DOI::RegisterDOIJob).to have_received(:perform_later).exactly(12).times
+        expect(Hyrax::DOI::RegisterDOIJob).to have_received(:perform_later).exactly(13).times
         # This tests that the job is actually performed, as its only step is to call this class.
-        expect(Hyrax::Identifier::Dispatcher).to have_received(:for).exactly(12).times
+        expect(Hyrax::Identifier::Dispatcher).to have_received(:for).exactly(13).times
       end
     end
 
@@ -464,8 +464,11 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
           Bulkrax::ImporterJob.perform_now(importer.id)
         end
 
+        anschutz_work = AnschutzWork.where(source_identifier: "external-id-13")
+
         expect(GenericWork.all.pluck(:doi)).to eq([[], [], ["10.1234/abcdef"], [], ["10.1234/abcdef"], ["10.1234/abcdef"], [], ["10.1234/abcdef"], ["10.1234/abcdef"], ["10.1234/abcdef"], ["10.1234/abcdef"], ["10.1234/abcdef"]])
         expect(GenericWork.all.pluck(:doi_status_when_public)).to eq([nil, nil, "draft", nil, "draft", "registered", nil, "draft", "registered", "findable", "findable", "findable"])
+        expect(anschutz_work.first.doi).to be_present
       end
     end
 

@@ -10,4 +10,7 @@ class AnschutzWork < ActiveFedora::Base
   self.indexer = AnschutzWorkIndexer
 
   validates :title, presence: { message: "Your work must have a title." }
+  def doi_registrar_opts
+    {}
+  end
 end
