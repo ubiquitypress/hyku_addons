@@ -176,7 +176,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           expect(work.subject_text).to eq(subject_text)
           expect(work.mesh).to eq(mesh)
           expect(work.add_info).to eq(add_info)
-          expect(work.doi).to eq(doi)
+          expect(work.doi).to eq([doi])
 
           expect(work.advisor).to eq(advisor)
           expect(work.publisher).to eq(publisher)

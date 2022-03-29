@@ -404,7 +404,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           expect(page).to have_content("https://doi.org/#{doi}")
 
           expect(work.title).to eq([title])
-          expect(work.doi).to eq(doi)
+          expect(work.doi).to eq([doi])
           expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
           expect(work.date_published).to eq(normalize_date(date_published).first)
           # Cloneable fields use the label to select the option, but save the id to the work
