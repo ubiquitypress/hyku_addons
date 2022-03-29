@@ -291,7 +291,7 @@ attributes:
     form:
       required: false
       primary: true
-      multiple: false
+      multiple: true
       type: text
   media:
     type: string
