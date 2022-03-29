@@ -285,7 +285,7 @@ attributes:
   doi:
     type: string
     predicate: http://purl.org/ontology/bibo/doi
-    multiple: false
+    multiple: true
     index_keys:
     - doi_ssi
     form:
