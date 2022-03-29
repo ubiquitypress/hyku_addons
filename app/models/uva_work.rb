@@ -12,4 +12,7 @@ class UvaWork < ActiveFedora::Base
   self.indexer = UbiquityTemplateWorkIndexer
 
   validates :title, presence: { message: "Your work must have a title." }
+  def doi_registrar_opts
+    {}
+  end
 end

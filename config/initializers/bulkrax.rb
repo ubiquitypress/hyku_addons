@@ -62,6 +62,7 @@
     "collection" => { split: '\|' },
     "place_of_publication" => { split: '\|' },
     "is_format_of" => { split: '\|' },
+    "doi" => { split: '\|' },
     "creator_profile_visibility" => { excluded: true }
   }
   # rubocop:enable Style/StringLiterals

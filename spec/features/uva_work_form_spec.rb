@@ -169,7 +169,7 @@ RSpec.feature "Create a UvaWork", js: true, slow: true do
           expect(page).to have_content("https://doi.org/#{doi}")
 
           expect(work.title).to eq([title])
-          expect(work.doi).to eq(doi)
+          expect(work.doi).to eq([doi])
           expect(work.creator).to eq([creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
           expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
           expect(work.abstract).to eq(abstract)

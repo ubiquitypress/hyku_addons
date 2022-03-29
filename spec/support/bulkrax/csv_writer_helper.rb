@@ -16,7 +16,7 @@ module CsvWriterHelper
 
     CSV.open(file, "wb", headers: headers, write_headers: true) do |row|
       number_of_records.times.each do |i|
-        hardcoded_fields = ["id-#{i}", "source-#{i}", model_name, depositor.email, "Test Title #{i}", "https://fake.url.com/"]
+        hardcoded_fields = ["id-#{i}", "source-#{i}", model_name, depositor.email, "Test Title #{i}", "https://fake.url.com/", "10.1521/soco.23.1.118.59197"]
         row << hardcoded_fields + fake_row_data(i)
       end
     end
@@ -35,7 +35,7 @@ module CsvWriterHelper
   # Subfields should be merged with regular fields as the importer treats them like any other column header
   def headers
     subfields_with_suffixes = subfields.transform_keys { |k| "#{k}_1".to_sym }
-    hardcoded_fields = %w[id source_identifier model depositor title related_url]
+    hardcoded_fields = %w[id source_identifier model depositor title related_url doi]
     hardcoded_fields + field_configs_without_subfields.merge!(subfields_with_suffixes).keys
   end
 

@@ -60,6 +60,8 @@ module HykuAddons
 
       # Remove the Hyrax Orcid pipeline as its not required within HykuAddons
       ::Blacklight::Rendering::Pipeline.operations.delete(Hyrax::Orcid::Blacklight::Rendering::PipelineJsonExtractor)
+
+      ::Hyrax::Actors::DOIActor.prepend HykuAddons::Actors::DOIActorBehavior
     end
 
     # Add migrations to parent app paths
@@ -137,7 +139,9 @@ module HykuAddons
       ::Hyrax::StatsController.include HykuAddons::StatsControllerBehavior
       Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
       Hyrax::ImagePresenter.include HykuAddons::GenericWorkPresenterBehavior
-      # CatalogController.include HykuAddons::CatalogControllerBehavior
+
+      # DOI
+      Hyrax::DOI::DataCiteRegistrar.prepend HykuAddons::DOI::DataCiteRegistrarBehavior
 
       # Forms
       Hyrax::GenericWorkForm.include HykuAddons::GenericWorkFormOverrides
