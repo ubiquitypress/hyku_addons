@@ -92,7 +92,7 @@ class UnaArchivalItem < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
-  property :event_location, predicate: ::RDF::Vocab::Bibframe.eventPlace, multiple: false  do |index|
+  property :event_location, predicate: ::RDF::Vocab::Bibframe.eventPlace, multiple: false do |index|
     index.as :stored_searchable
   end
 
