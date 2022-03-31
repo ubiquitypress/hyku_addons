@@ -93,7 +93,7 @@ en:
         label: Role
         placeholder: " "
       creator_institutional_email:
-        label: Creator Institutional Email
+        label: Creator institutional email
         placeholder: " "
         help_text: Enter the institutional email associated with this creator
     contributor:

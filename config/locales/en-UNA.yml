@@ -60,7 +60,6 @@ en-UNA:
       defaults:
         alt_title: Alternative Title
         alt_email: Alternative Email
-        resource_type: Document Type
         keyword: Keywords
         adapted_from: Adapted From
         additional_links: Additional Links

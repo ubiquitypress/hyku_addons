@@ -50,11 +50,11 @@ terms:
  - id: Music
    term: Music
    active: true
- - id: Performing arts
-   term: Performing arts
-   active: true
  - id: Optometry/Visual sciences
    term: Optometry/Visual sciences
+   active: true
+ - id: Performing arts
+   term: Performing arts
    active: true
  - id: Philosophy
    term: Philosophy

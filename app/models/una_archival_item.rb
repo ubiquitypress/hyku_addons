@@ -32,7 +32,7 @@ class UnaArchivalItem < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :place_of_publication, predicate: ::RDF::Vocab::BF2.term(:Place) do |index|
+  property :place_of_publication, predicate: ::RDF::Vocab::BF2.term(:Place), multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
 
@@ -40,7 +40,7 @@ class UnaArchivalItem < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :medium, predicate: ::RDF::Vocab::DC.medium do |index|
+  property :medium, predicate: ::RDF::Vocab::DC.medium, multiple: false do |index|
     index.as :stored_searchable
   end
 
@@ -60,11 +60,11 @@ class UnaArchivalItem < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
-  property :citation, predicate: ::RDF::Vocab::DC.term(:bibliographicCitation) do |index|
+  property :citation, predicate: ::RDF::Vocab::DC.term(:bibliographicCitation), multiple: false do |index|
     index.as :stored_searchable
   end
 
-  property :funding_description, predicate: ::RDF::Vocab::MARCRelators.spn do |index|
+  property :funding_description, predicate: ::RDF::Vocab::MARCRelators.spn, multiple: false do |index|
     index.as :stored_searchable
   end
 
@@ -88,27 +88,27 @@ class UnaArchivalItem < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :event_title, predicate: ::RDF::Vocab::BF2.term(:Event) do |index|
+  property :event_title, predicate: ::RDF::Vocab::BF2.term(:Event), multiple: false do |index|
     index.as :stored_searchable, :facetable
   end
 
-  property :event_location, predicate: ::RDF::Vocab::Bibframe.eventPlace do |index|
+  property :event_location, predicate: ::RDF::Vocab::Bibframe.eventPlace, multiple: false  do |index|
     index.as :stored_searchable
   end
 
-  property :event_date, predicate: ::RDF::Vocab::Bibframe.eventDate do |index|
+  property :event_date, predicate: ::RDF::Vocab::Bibframe.eventDate, multiple: false do |index|
     index.as :stored_searchable
   end
 
-  property :related_exhibition, predicate: ::RDF::Vocab::SCHEMA.term(:ExhibitionEvent) do |index|
+  property :related_exhibition, predicate: ::RDF::Vocab::SCHEMA.term(:ExhibitionEvent), multiple: false do |index|
     index.as :stored_searchable
   end
 
-  property :related_exhibition_date, predicate: ::RDF::Vocab::SCHEMA.term(:Date) do |index|
+  property :related_exhibition_date, predicate: ::RDF::Vocab::SCHEMA.term(:Date), multiple: false do |index|
     index.as :stored_searchable
   end
 
-  property :related_exhibition_venue, predicate: ::RDF::Vocab::SCHEMA.EventVenue, multiple: true do |index|
+  property :related_exhibition_venue, predicate: ::RDF::Vocab::SCHEMA.EventVenue, multiple: false do |index|
     index.as :stored_searchable
   end
 
@@ -116,11 +116,11 @@ class UnaArchivalItem < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :duration, predicate: ::RDF::Vocab::BF2.duration, multiple: true do |index|
+  property :duration, predicate: ::RDF::Vocab::BF2.duration, multiple: false do |index|
     index.as :stored_searchable
   end
 
-  property :is_format_of, predicate: ::RDF::Vocab::DC.isFormatOf, multiple: true do |index|
+  property :is_format_of, predicate: ::RDF::Vocab::DC.isFormatOf, multiple: false do |index|
     index.as :stored_searchable
   end
 

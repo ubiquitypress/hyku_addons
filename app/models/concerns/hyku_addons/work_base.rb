@@ -62,7 +62,7 @@ module HykuAddons
         index.as :stored_searchable
       end
 
-      property :library_of_congress_classification, predicate: ::RDF::Vocab::BF2.term(:ClassificationLcc) do |index|
+      property :library_of_congress_classification, predicate: ::RDF::Vocab::BF2.term(:ClassificationLcc), multiple: false do |index|
         index.as :stored_searchable, :facetable
       end
 
