@@ -22,7 +22,11 @@ en:
           department: Department
           bio: Personal Biography
           telephone: Phone Number
-          website: Website          
+          website: Website
+      collections:
+          form_branding:
+            banner:
+              description: An image to be displayed at the top of the collection page.  For best results, upload an image (JPG, GIF or PNG) that is at least 120 pixels tall and 1500 pixels wide.         
   simple_form:
     hints:
       defaults:
