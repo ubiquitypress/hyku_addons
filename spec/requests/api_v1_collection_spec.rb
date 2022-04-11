@@ -24,6 +24,24 @@ RSpec.describe Hyku::API::V1::CollectionController, type: :request, clean: true,
                     height: "", width: "")
   end
 
+  let(:logo_2) do
+    instance_double(CollectionBrandingInfo,
+                    collection_id: collection.id, role: "logo",
+                    local_path: "/fake/path/to/logo2.png",
+                    alt_text: "second logo",
+                    target_url: "http://example-images.com/",
+                    height: "", width: "")
+  end
+
+  let(:api_multiple_collection_logo) do
+    [{ "target_url" => "http://example.com/", "alt_text" => "This is the logo", "url" => "http://#{cname}/fake/path/to/logo.png", "positions" => 0 },
+     { "target_url" => "http://example-images.com/", "alt_text" => "second logo", "url" => "http://#{cname}/fake/path/to/logo2.png", "positions" => 1 }]
+  end
+
+  let(:api_multiple_collection_banner) do
+    [{ "target_url" => "http://example.com/", "alt_text" => "This is the banner", "url" => "http://#{cname}/fake/path/to/banner.png", "positions" => 0 }]
+  end
+
   let(:json_response) { JSON.parse(response.body) }
 
   let(:results) do
@@ -32,6 +50,8 @@ RSpec.describe Hyku::API::V1::CollectionController, type: :request, clean: true,
       "collection_logo_url" => "http://#{cname}/fake/path/to/logo.png",
       "collection_logo_alt_text" => "This is the logo",
       "collection_logo_target_url" => "http://example.com/",
+      "collection_logo" => api_multiple_collection_logo,
+      "collection_banner" => api_multiple_collection_banner,
       "date_created" => "1992-12-31",
       "date_published" => nil,
       "description" => "This is a test collection",
@@ -71,8 +91,8 @@ RSpec.describe Hyku::API::V1::CollectionController, type: :request, clean: true,
     before do
       collection_branding_list = class_double(CollectionBrandingInfo)
       collection_logo_list = class_double(CollectionBrandingInfo)
-      allow(CollectionBrandingInfo).to receive(:where).with(collection_id: collection.id, role: "banner") { collection_branding_list }
-      allow(CollectionBrandingInfo).to receive(:where).with(collection_id: collection.id, role: "logo") { collection_logo_list }
+      allow(CollectionBrandingInfo).to receive(:where).with(collection_id: collection.id, role: "banner") { [banner] }
+      allow(CollectionBrandingInfo).to receive(:where).with(collection_id: collection.id, role: "logo") { [logo, logo_2] }
       allow(collection_branding_list).to receive(:first).and_return(banner)
       allow(collection_logo_list).to receive(:first).and_return(logo)
     end
