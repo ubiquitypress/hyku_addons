@@ -12,15 +12,21 @@ module HykuAddons
     def url_for(role)
       return unless ["banner", "logo"].include? role
 
-      format_url(fetch_collection_branding(role))
+      format_url(fetch_collection_branding(role)&.first)
     end
 
     def alt_text_for(role)
-      fetch_collection_branding(role)&.alt_text
+      fetch_collection_branding(role)&.first&.alt_text
     end
 
     def target_url_for(role)
-      fetch_collection_branding(role)&.target_url
+      fetch_collection_branding(role)&.first&.target_url
+    end
+
+    def get_details_for(role)
+      fetch_collection_branding(role).each_with_index.map do |record, index|
+        { "target_url": record.target_url, "alt_text": record.alt_text, "url": format_url(record), positions: index }
+      end
     end
 
     private
@@ -30,7 +36,7 @@ module HykuAddons
         return if @cname.nil?
 
         AccountElevator.switch!(cname)
-        CollectionBrandingInfo.where(collection_id: @collection_id.to_s, role: role)&.first
+        CollectionBrandingInfo.where(collection_id: @collection_id.to_s, role: role)
       end
 
       # Build component for collection json
