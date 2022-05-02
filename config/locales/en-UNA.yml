@@ -60,7 +60,7 @@ en-UNA:
       defaults:
         alt_title: Alternative Title
         alt_email: Alternative Email
-        resource_type: Document Type
+        resource_type: Resource Type
         keyword: Keywords
         adapted_from: Adapted From
         additional_links: Additional Links
@@ -77,7 +77,7 @@ en-UNA:
         refereed: Peer reviewed?
         citation: Bibliographic Citation
         medium: Format(s)
-        extent: Content Length or Size
+        extent: Content length or Size
         language: Language(s)
         org_unit: Department
         version_number: Document Version
