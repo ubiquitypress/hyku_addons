@@ -21,4 +21,5 @@ json.cache! [:tenants, account, content_blocks] do
   # Avoid returning attributes beyond what the original UP API returned for now
   json.partial! "site", account: account, site: site
   json.content_block content_blocks
+  json.annotation Flipflop.enabled?(:annotation)
 end

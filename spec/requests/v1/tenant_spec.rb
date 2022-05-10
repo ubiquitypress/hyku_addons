@@ -37,6 +37,21 @@ RSpec.describe Hyku::API::V1::TenantController, type: :request, clean: true, mul
       expect(json_response.dig("settings", "google_scholarly_work_types")).to eq(["Book"])
     end
 
+    context "annotations for pdf_viewer" do
+      let(:parsed_response) { JSON.parse(response.body)&.fetch("annotation") }
+
+      it "includes annotation status" do
+        get "/api/v1/tenant/#{account.tenant}"
+        expect(parsed_response).to be_falsey
+      end
+
+      it "can return true when annotation is on" do
+        allow(Flipflop).to receive(:enabled?).with(:annotation).and_return(true)
+        get "/api/v1/tenant/#{account.tenant}"
+        expect(parsed_response).to be_truthy
+      end
+    end
+
     context "with private settings do" do
       before do
         Account.private_settings.each do |setting|
