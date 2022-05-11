@@ -16,7 +16,7 @@ en:
           delete_picture: Delete picture
           delete_picture_data_content: If you would like to remove your picture entirely, check the box and save your profile.
           delete_picture_data_original_title: Delete Picture
-          allow_public_display: Allow user profile and information to be visable to the public.
+          allow_public_display: Allow user profile and information to be visible to the public.
           display_name: Name
           help_name: Enter your name as you would like it displayed on the Author profile page
           department: Department
@@ -26,7 +26,7 @@ en:
       collections:
           form_branding:
             banner:
-              description: An image to be displayed at the top of the collection page.  For best results, upload an image (JPG, GIF or PNG) that is at least 120 pixels tall and 1500 pixels wide.         
+              description: An image to be displayed at the top of the collection page.  For best results, upload an image (JPG, GIF or PNG) that is at least 120 pixels tall and 1500 pixels wide.
   simple_form:
     hints:
       defaults:
