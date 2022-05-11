@@ -3,10 +3,11 @@ require "rails_helper"
 
 RSpec.describe Hyku::API::V1::UsersController, type: :request, clean: true, multitenant: true do
   let(:account) { create(:account) }
-  let(:public_user) { create(:user, display_profile: true) }
+  let(:public_user) { create(:user, display_profile: true, avatar: file_fixture("up.png").open) }
   let(:public_user_2) { create(:user, display_profile: true) }
   let(:private_user) { create(:user) }
   let(:json_response) { JSON.parse(response.body) }
+  let(:avatar_url) { "http://www.example.com#{public_user&.avatar&.url(:thumb)}" }
 
   before do
     allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
@@ -32,7 +33,7 @@ RSpec.describe Hyku::API::V1::UsersController, type: :request, clean: true, mult
   end
 
   describe "/users/:email" do
-    context "When user does not want to be publically avalible" do
+    context "When user does not want to be publically available" do
       it "Does not display user json" do
         get "/api/v1/tenant/#{account.tenant}/users/#{private_user.email}"
 
@@ -61,12 +62,13 @@ RSpec.describe Hyku::API::V1::UsersController, type: :request, clean: true, mult
                                          "website" => nil,
                                          "affiliation" => nil,
                                          "telephone" => nil,
-                                         "avatar_file_name" => nil,
-                                         "avatar_content_type" => nil,
-                                         "avatar_file_size" => nil,
-                                         "avatar_updated_at" => nil,
+                                         "avatar_file_name" => public_user&.avatar_file_name,
+                                         "avatar_content_type" => public_user&.avatar_content_type,
+                                         "avatar_file_size" => public_user&.avatar_file_size,
+                                         "avatar_updated_at" => public_user&.avatar_updated_at,
                                          "biography" => nil,
-                                         "works" => [])
+                                         "works" => [],
+                                         "avatar_picture_url" => avatar_url)
       end
     end
   end

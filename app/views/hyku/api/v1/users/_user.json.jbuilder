@@ -24,6 +24,9 @@ json.avatar_content_type user.avatar_content_type
 json.avatar_file_size user.avatar_file_size
 json.avatar_updated_at user.avatar_updated_at
 
+uri = URI(request.original_url)
+json.avatar_picture_url "#{uri.scheme}://#{uri.host}#{user&.avatar&.url(:thumb)}"
+
 json.works do
   json.partial! "hyku/api/v1/work/work", collection: @user_works, as: :work, collection_docs: @collection_docs
 end
