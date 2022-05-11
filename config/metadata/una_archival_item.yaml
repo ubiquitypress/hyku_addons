@@ -193,9 +193,10 @@ attributes:
     form:
       required: false
       primary: true
-      multiple: false
+      multiple: true
       type: select
       authority: HykuAddons::SubjectService
+      input: single_multi_value_select
   date_published:
     type: string
     predicate: http://purl.org/dc/terms/available
@@ -241,8 +242,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   dewey:
     type: string
     predicate: http://schema.org/CategoryCode
@@ -330,8 +332,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   source:
     predicate: http://purl.org/dc/terms/source
     multiple: true
@@ -340,8 +343,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   isbn:
     type: string
     predicate: http://purl.org/ontology/bibo/isbn
@@ -383,8 +387,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   place_of_publication:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/Place
@@ -395,8 +400,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   citation:
     type: string
     predicate: http://purl.org/dc/terms/bibliographicCitation
@@ -406,8 +412,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   funder:
     type: string
     predicate: http://id.loc.gov/vocabulary/relators/fnd
@@ -499,8 +506,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   event_location:
     type: string
     predicate: http://bibframe.org/vocab/eventPlace
@@ -510,8 +518,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   event_date:
     type: string
     predicate: http://bibframe.org/vocab/eventDate
@@ -521,8 +530,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: date
+      input: single_multi_value_select
   related_exhibition:
     type: string
     predicate: http://schema.org/ExhibitionEvent
@@ -532,8 +542,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   related_exhibition_venue:
     type: string
     predicate: http://schema.org/EventVenue
@@ -543,8 +554,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   related_exhibition_date:
     type: string
     predicate: http://schema.org/Date
@@ -554,8 +566,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: date
+      input: single_multi_value_select
   license:
     predicate: http://purl.org/dc/terms/rights
     multiple: true
@@ -564,10 +577,11 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: select
       authority: HykuAddons::LicenseService
       include_blank: true
+      input: single_multi_value_select
   rights_holder:
     type: string
     predicate: http://purl.org/dc/terms/rightsHolder
@@ -577,8 +591,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   rights_statement:
     predicate: http://www.europeana.eu/schemas/edm/rights
     multiple: true
@@ -727,8 +742,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   is_format_of:
     type: string
     predicate: http://purl.org/dc/terms/isFormatOf
@@ -738,8 +754,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   language:
     predicate: http://purl.org/dc/elements/1.1/language
     multiple: true
@@ -748,10 +765,11 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: select
       authority: HykuAddons::LanguageService
       include_blank: true
+      input: single_multi_value_select
   prerequisites:
     type: string
     predicate: http://creativecommons.org/ns#Requirement
