@@ -1,0 +1,8 @@
+it:
+  hyrax:
+    icons:
+      ung_book_chapter: "fa fa-file-text-o"
+    select_type:
+      ung_book_chapter:
+        description:  "Ung Book Chapter opere"
+        name: "Ung Book Chapter"
