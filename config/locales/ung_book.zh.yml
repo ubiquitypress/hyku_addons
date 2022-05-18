@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      ung_book: "fa fa-file-text-o"
+    select_type:
+      ung_book:
+        # TODO: translate `human_name` into Chinese
+        description:  "Ung Book 作品"
+        name:  "Ung Book"
+        # TODO: translate `human_name` into Chinese
