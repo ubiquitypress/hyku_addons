@@ -55,7 +55,7 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
       create_csv
     end
 
-    it "imports #{work_type} works" do
+    xit "imports #{work_type} works" do
       expect do
         perform_enqueued_jobs(only: Bulkrax::ImporterJob) do
           importer.import_collections
