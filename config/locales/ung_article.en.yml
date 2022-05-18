@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      ung_article: "fa fa-file-text-o"
+    select_type:
+      ung_article:
+        description: "Ung Article"
+        name: "Ung Article"
