@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      ung_book:     'fa fa-file-text-o'
+    select_type:
+      ung_book:
+        # TODO: translate `human_name` into Spanish
+        description:        "Ung Book trabajos"
+        name:               "Ung Book"
+        # TODO: translate `human_name` into Spanish

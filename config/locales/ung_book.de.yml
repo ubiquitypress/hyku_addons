@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      ung_book: "fa fa-file-text-o"
+    select_type:
+      ung_book:
+        description: "Ung Book Werke"
+        name: "Ung Book"
