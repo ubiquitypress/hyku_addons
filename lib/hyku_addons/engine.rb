@@ -172,7 +172,7 @@ module HykuAddons
 
       # Misc
       ActiveSupport::Cache::Store.prepend HykuAddons::CacheLogger
-      Hyrax::Workflow::AbstractNotification.include HykuAddons::WorkflowBehavior
+      Hyrax::Workflow::AbstractNotification.prepend HykuAddons::WorkflowBehavior
       Mailboxer::MessageMailer.prepend HykuAddons::MailboxerMessageMailerBehavior
 
       # Models / Records

@@ -7,8 +7,10 @@ module HykuAddons
     private
 
       def document_path
-        key = document.model_name.singular_route_key
-        Rails.application.routes.url_helpers.send(key + "_url", document.id, host: Site.instance.account.cname, protocol: :https)
+        host = Site.instance.account.cname
+        protocol = Rails.env == "development" || Rails.env == "test" ? "http" : "https"
+        work_type = document.model_name.plural
+        "#{protocol}://#{host}/concern/#{work_type}/#{document.id}"
       end
   end
 end
