@@ -33,6 +33,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "google-cloud-pubsub", "~> 2.6.1"
 
   spec.add_dependency "hyrax", "~> 2.8"
+  spec.add_dependency "rdf", "3.2.4"
+  spec.add_dependency "rdf-n3", "3.1.1"
   spec.add_dependency "hyrax-doi"
   spec.add_dependency "bolognese"
 
