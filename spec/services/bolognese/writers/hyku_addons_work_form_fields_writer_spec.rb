@@ -42,7 +42,7 @@ RSpec.describe Bolognese::Writers::HykuAddonsWorkFormFieldsWriter do
       {
         "Accept" => "*/*",
         "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-        "User-Agent" => "Faraday v0.17.4"
+        "User-Agent" => "Faraday v0.17.5"
       }
     end
     let(:meta) { Bolognese::Metadata.new(input: fixture) }
