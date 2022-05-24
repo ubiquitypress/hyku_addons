@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      ung_dataset: "fa fa-file-text-o"
+    select_type:
+      ung_datatset:
+        description: "Ung Dataset Werke"
+        name: "Ung Dataset"

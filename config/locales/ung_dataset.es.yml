@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      ung_dataset:     'fa fa-file-text-o'
+    select_type:
+      ung_dataset:
+        # TODO: translate `human_name` into Spanish
+        description:        "Ung Dataset trabajos"
+        name:               "Ung Dataset"
+        # TODO: translate `human_name` into Spanish
