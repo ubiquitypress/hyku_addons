@@ -486,7 +486,7 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
               "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
               "Authorization" => "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
               "Content-Type" => "application/xml;charset=UTF-8",
-              "User-Agent" => "Faraday v0.17.4"
+              "User-Agent" => "Faraday v0.17.5"
             }
           )
           .to_return(status: 200, body: "", headers: {})

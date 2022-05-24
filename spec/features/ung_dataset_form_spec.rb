@@ -21,7 +21,7 @@ RSpec.feature "Create a UngDataset", js: true, slow: true do
     {
       "Accept" => "application/json",
       "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-      "User-Agent" => "Faraday v0.17.4"
+      "User-Agent" => "Faraday v0.17.5"
     }
   end
 
