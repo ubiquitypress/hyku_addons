@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      ung_thesis_dissertation: "fa fa-file-text-o"
+    select_type:
+      ung_thesis_dissertation:
+        # TODO: translate `human_name` into Chinese
+        description:  "Ung Thesis Dissertation 作品"
+        name:  "Ung Thesis Dissertation"
+        # TODO: translate `human_name` into Chinese
