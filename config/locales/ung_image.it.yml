@@ -1,0 +1,8 @@
+it:
+  hyrax:
+    icons:
+      ung_image: "fa fa-file-text-o"
+    select_type:
+      ung_image:
+        description:  "Ung Image opere"
+        name: "Ung Image"
