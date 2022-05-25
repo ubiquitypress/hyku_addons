@@ -20,7 +20,7 @@
     </div>
   <% end %>
 
-  
+	<% if f.object.respond_to?(:doi) %>
   <div class="row">
     <div class="col-xs-12 col-sm-8">
       <div class="panel panel-default">
@@ -43,7 +43,7 @@
       </div>
     </div>
   </div>
-  
+  <% end %>
 
   <% if Flipflop.batch_upload? && f.object.new_record? %>
     <% provide :metadata_tab do %>

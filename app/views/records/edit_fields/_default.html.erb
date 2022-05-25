@@ -35,7 +35,10 @@
   <% options.merge!(as: config[:input]) if config[:input].present? %>
 
   <!-- schema - _default - <%= key %> -->
-  <%= f.input key, options %>
+  <!-- for ung_image work-type, doi was removed from config/metadata/ung_image.yaml and
+       the form failed to load because this line began to throw error meaning doi was still passed in
+       and I could not trace from where, hence if condition was added  -->
+  <%= f.input key, options if key != :doi || (key == :doi && f.object.respond_to?(:doi) ) %>
 
 <% else %>
   <!-- legacy - _default -->
