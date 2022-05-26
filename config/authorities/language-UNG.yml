@@ -1,0 +1,34 @@
+terms:
+  - id: eng
+    term: English
+    active: true
+  - id: ara
+    term: Arabic
+    active: true
+  - id: zho
+    term: Chinese
+    active: true
+  - id: deu
+    term: German
+    active: true
+  - id: fra
+    term: French
+    active: true
+  - id: ita
+    term: Italian
+    active: true
+  - id: jna
+    term: Japanese
+    active: true
+  - id: kor
+    term: Korean
+    active: true
+  - id: por
+    term: Portuguese
+    active: true
+  - id: rus
+    term: Russian
+    active: true
+  - id: spa
+    term: Spanish
+    active: true

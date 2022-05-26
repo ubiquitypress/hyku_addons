@@ -1,0 +1,90 @@
+
+
+
+
+
+
+
+
+
+
+
+
+MS - Counseling
+MS - Criminal Justice
+MS - Human Services Delivery & Administration
+MS - Kinesiology
+MSN - Family Nurse Practitioner
+MSN - Nursing Education
+Ph.D - Criminal Justice
+PPDPT - Physical Therapy
+
+
+
+terms:
+- id: BA-BS
+  term: BA/BS - Honor's
+  active: true
+- id: DNP
+  term: DNP - Nursing Practice
+  active: true
+- id: DPT
+  term: DPT - Physical Therapy
+  active: true
+- id: EdD
+  term: Ed.D - Higher Education Leadership & Practice
+  active: true
+- id: MAcc
+  term: M.Acc. - Accounting
+  active: true
+- id: MEd-CurriculumInstruction
+  term: M.Ed - Curriculum & Instruction
+  active: true
+- id: MEd-EarlyChildhoodEducation
+  term: M.Ed - Early Childhood Education
+  active: true
+- id: MEd-MiddleGradesMathScience
+  term: M.Ed - Middle Grades Math & Science
+  active: true
+- id: MA-History
+  term: MA - History
+  active: true
+- id: MAIA
+  term: MAIA - International Affairs
+  active: true
+- id: MAT
+  term: MAT - Teaching
+  active: true
+- id: MBA
+  term: MBA - Business Administration
+  active: true
+- id: MPA
+  term: MPA - Public Administration
+  active: true
+- id: MSc-AthleticTraining
+  term: MS - Athletic Training
+  active: true
+- id: MSc-Counseling
+  term: MS - Counseling
+  active: true
+- id: MSc-CriminalJustice
+  term: MS - Criminal Justice
+  active: true
+- id: MSc-HumanServicesDeliveryAdministration
+  term: MS - Human Services Delivery & Administration
+  active: true
+- id: MSc-Kinesiology
+  term: MS - Kinesiology
+  active: true
+- id: MSN-FamilyNursePractitioner
+  term: MSN - Family Nurse Practitioner
+  active: true
+- id: MSN-NursingEducation
+  term: MSN - Nursing Education
+  active: true
+- id: PhD-CriminalJustice
+  term: Ph.D - Criminal Justice
+  active: true
+- id: PPDPT
+  term: PPDPT - Physical Therapy
+  active: true
