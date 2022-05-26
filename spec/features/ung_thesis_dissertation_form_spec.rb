@@ -3,8 +3,8 @@
 require HykuAddons::Engine.root.join("spec", "support", "fill_in_fields.rb").to_s
 require HykuAddons::Engine.root.join("spec", "support", "work_form_helpers.rb").to_s
 
-RSpec.feature "Create a UngImage", js: true, slow: true do
-  let(:work_type) { "ung_image" }
+RSpec.feature "Create a UngThesisDissertation", js: true, slow: true do
+  let(:work_type) { "ung_thesis_dissertation" }
   let(:work) { work_type.classify.constantize.find(work_uuid_from_url) }
 
   let(:model) { work_type.classify.constantize }
@@ -85,13 +85,7 @@ RSpec.feature "Create a UngImage", js: true, slow: true do
   let(:subject_options) { HykuAddons::SubjectService.new(model: model).active_elements.sample(2) }
   let(:language_options) { HykuAddons::LanguageService.new(model: model).active_elements.sample(2) }
   let(:abstract) { "This is the abstract text" }
-  let(:institution_options) { HykuAddons::InstitutionService.new(model: model).active_elements.sample(2) }
-  let(:alternate_identifier) do
-    [
-      { alternate_identifier: "123456", alternate_identifier_type: "Alt Ident." },
-      { alternate_identifier: "098765", alternate_identifier_type: "Alt Ident. 2" }
-    ]
-  end
+
   # NOTE: related_identifier isn't great, but the nested hash is difficult to store and refer to different hash values
   let(:related_identifier) { "123456" }
   let(:related_identifier_type_options) { HykuAddons::RelatedIdentifierTypeService.new(model: model).active_elements.sample(1) }
@@ -115,28 +109,27 @@ RSpec.feature "Create a UngImage", js: true, slow: true do
     ]
   end
   let(:add_info) { "Some additional information" }
-  let(:time) { "time" }
-  let(:extent) { "extent" }
   let(:longitude) { "0.124356" }
   let(:latitude) { "1.345678" }
   let(:location) { "london" }
   let(:official_link) { "http://test312.com" }
-  let(:library_of_congress_classification) { ["1234", "5678"] }
-  let(:event_title) { ["Event1", "Event2"] }
-  let(:event_location) { ["Location1", "Location2"] }
-  let(:event_date) { [{ year: "2022", month: "02", day: "02" }, { year: "2023", month: "03", day: "03" }] }
-  let(:related_exhibition) { ["Exhibition1", "Exhibition2"] }
-  let(:related_exhibition_venue) { ["Exhibition venue 1", "Exhibition venue 2"] }
-  let(:related_exhibition_date) { [{ year: "2022", month: "02", day: "02" }, { year: "2023", month: "03", day: "03" }] }
   let(:rights_holder) { ["Holder1", "Holder2"] }
   let(:rights_statement_options) { HykuAddons::RightsStatementService.new(model: model).active_elements.sample(1) }
   let(:rights_statement_text) { "rights_statement_text" }
-
-  let(:extent) { "extent" }
-  let(:medium) { ["medium1", "medium2"] }
-  let(:duration) { ["1 minute", "7 hours"] }
   let(:georeferenced_options) { HykuAddons::GeoreferencedService.new(model: model).active_elements.sample(1) }
-  let(:is_format_of) { ["format_of123", "format_of456"] }
+
+  let(:citation) { ["citation1", "citation2"] }
+  let(:degree) { "Degree Name" }
+  let(:qualification_grantor) { ["qualification_grantor", "qualification_grantor_1"] }
+  let(:qualification_name_options) { HykuAddons::QualificationNameService.new(model: model).active_elements.sample(1) }
+  let(:qualification_level_options) { HykuAddons::QualificationLevelService.new(model: model).active_elements.sample(1) }
+  let(:advisor) { "advisor" }
+  let(:committee_member) { ["Commitee member 1", "Commitee member 2"] }
+  let(:org_unit) { ["Unit1", "Unit2"] }
+  let(:additional_links) { "http://sample312.com" }
+  let(:related_url) { ["http://test.com", "https://www.test123.com"] }
+  let(:related_material) { "related_material" }
+  let(:place_of_publication) { ["Place1", "Place2"] }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -160,7 +153,6 @@ RSpec.feature "Create a UngImage", js: true, slow: true do
       fill_in_cloneable(:creator, creator)
       fill_in_date(:date_published, date_published)
       fill_in_cloneable(:contributor, contributor)
-      fill_in_cloneable(:related_identifier, related_identifier_label)
 
       # Additional fields
       fill_in_multiple_text_fields(:keyword, keyword)
@@ -168,35 +160,31 @@ RSpec.feature "Create a UngImage", js: true, slow: true do
       fill_in_multiple_selects(:subject, subject_options.map { |h| h["label"] })
       fill_in_multiple_selects(:language, language_options.map { |h| h["label"] })
       fill_in_textarea(:abstract, abstract)
-      fill_in_multiple_selects(:institution, institution_options.map { |h| h["label"] })
 
-      fill_in_cloneable(:alternate_identifier, alternate_identifier)
+      fill_in_cloneable(:related_identifier, related_identifier_label)
       fill_in_textarea(:add_info, add_info)
-      fill_in_text_field(:time, time)
 
       fill_in_text_field(:longitude, longitude)
       fill_in_text_field(:latitude, latitude)
       fill_in_text_field(:location, location)
-      fill_in_text_field(:extent, extent)
       fill_in_text_field(:official_link, official_link)
-      fill_in_text_field(:library_of_congress_classification, library_of_congress_classification.first)
-      fill_in_text_field(:event_title, event_title.first)
-      fill_in_text_field(:event_location, event_location.first)
-      fill_in_date(:event_date, event_date.first)
-
-      fill_in_text_field(:related_exhibition, related_exhibition.first)
-      fill_in_text_field(:related_exhibition_venue, related_exhibition_venue.first)
-      fill_in_date(:related_exhibition_date, related_exhibition_date.first)
       fill_in_text_field(:rights_holder, rights_holder.first)
 
       fill_in_select(:rights_statement, rights_statement_options.map { |h| h["label"] }.first)
       fill_in_text_field(:rights_statement_text, rights_statement_text)
-
-      fill_in_text_field(:extent, extent)
-      fill_in_text_field(:medium, medium.first)
-      fill_in_text_field(:duration, duration.first)
       fill_in_select(:georeferenced, georeferenced_options.map { |h| h["label"] }.first)
-      fill_in_text_field(:is_format_of, is_format_of.first)
+
+      fill_in_select(:qualification_name, qualification_name_options.map { |h| h["label"] }.first)
+      fill_in_select(:qualification_level, qualification_level_options.map { |h| h["label"] }.first)
+      fill_in_multiple_text_fields(:qualification_grantor, qualification_grantor)
+      fill_in_text_field(:advisor, advisor)
+      fill_in_multiple_text_fields(:committee_member, committee_member)
+      fill_in_multiple_text_fields(:org_unit, org_unit)
+      fill_in_text_field(:additional_links, additional_links)
+      fill_in_text_field(:related_url, related_url.first)
+      fill_in_textarea(:related_material, related_material)
+      fill_in_text_field(:place_of_publication, place_of_publication.first)
+      fill_in_multiple_text_fields(:citation, citation)
     end
 
     describe "submitting the form" do
@@ -232,33 +220,29 @@ RSpec.feature "Create a UngImage", js: true, slow: true do
           expect(work.license).to eq(license_options.map { |h| h["id"] })
           expect(work.subject).to eq(subject_options.map { |h| h["id"] })
           expect(work.language).to eq(language_options.map { |h| h["id"] })
-          expect(work.abstract).to eq(abstract)
-          expect(work.institution).to eq(institution_options.map { |h| h["id"] })
-          expect(work.alternate_identifier.first).to eq(alternate_identifier.to_json)
+          # expect(work.abstract).to eq(abstract)
           expect(work.related_identifier.first).to eq(related_identifier_id.to_json)
           expect(work.add_info).to eq(add_info)
 
-          expect(work.time).to eq(time)
           expect(work.longitude).to eq(longitude)
           expect(work.latitude).to eq(latitude)
           expect(work.location).to eq(location)
-          expect(work.extent).to eq(extent)
-          expect(work.library_of_congress_classification).to eq([library_of_congress_classification.first])
-          expect(work.event_title).to eq(event_title.first)
-          expect(work.event_location).to eq(event_location.first)
-          expect(work.event_date).to eq(event_date.map { |date| normalize_date(date) }.flatten.first)
-          expect(work.related_exhibition).to eq(related_exhibition.first)
-          expect(work.related_exhibition_venue).to eq(related_exhibition_venue.first)
-          expect(work.related_exhibition_date).to eq(related_exhibition_date.map { |date| normalize_date(date) }.flatten.first)
           expect(work.rights_holder).to eq([rights_holder.first])
           expect(work.rights_statement).to eq(rights_statement_options.map { |h| h["id"] })
           expect(work.rights_statement_text).to eq(rights_statement_text)
-
-          expect(work.extent).to eq(extent)
-          expect(work.medium).to eq(medium.first)
-          expect(work.duration).to eq(duration.first)
           expect(work.georeferenced).to eq(georeferenced_options.map { |h| h["id"] }.first.to_s)
-          expect(work.is_format_of).to eq(is_format_of.first)
+          expect(work.citation).to eq(citation)
+
+          expect(work.qualification_name).to eq(qualification_name_options.map { |h| h["id"] }.first)
+          expect(work.qualification_level).to eq(qualification_level_options.map { |h| h["id"] }.first)
+          expect(work.qualification_grantor).to eq(qualification_grantor)
+          expect(work.advisor).to eq(advisor)
+          expect(work.committee_member).to eq(committee_member)
+          expect(work.org_unit).to eq(org_unit)
+          expect(work.additional_links).to eq(additional_links)
+          expect(work.related_url).to eq([related_url.first])
+          expect(work.related_material).to eq(related_material)
+          expect(work.place_of_publication).to eq([place_of_publication.first])
         end
       end
     end

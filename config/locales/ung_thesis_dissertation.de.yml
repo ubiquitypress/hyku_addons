@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      ung_thesis_dissertation: "fa fa-file-text-o"
+    select_type:
+      ung_thesis_dissertation:
+        description: "Ung Thesis Dissertation Werke"
+        name: "Ung Thesis Dissertation"
