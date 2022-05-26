@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      ung_time_based_media: "fa fa-file-text-o"
+    select_type:
+      ung_time_based_media:
+        # TODO: translate `human_name` into Chinese
+        description:  "Ung Time Based Media 作品"
+        name:  "Ung Time Based Media"
+        # TODO: translate `human_name` into Chinese
