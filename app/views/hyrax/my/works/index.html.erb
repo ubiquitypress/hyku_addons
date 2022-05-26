@@ -13,11 +13,13 @@
 //]]>
 </script>
 
+<% dispay_select_work_page_on_button_click = Flipflop.enabled?(:simplified_admin_set_selection) ? true : @create_work_presenter.many? %>
+
 <% provide :page_header do %>
   <h1><span class="fa fa-file" aria-hidden="true"></span> <%= t("hyrax.admin.sidebar.works") %></h1>
   <% if current_ability.can_create_any_work? %>
     <div class="pull-right">
-      <% if @create_work_presenter.many? %>
+      <% if dispay_select_work_page_on_button_click %>
         <% if Flipflop.batch_upload? %>
           <%= link_to(
                 t(:'helpers.action.batch.new'),
@@ -74,4 +76,6 @@
   </div>
 </div>
 
-<%= render 'shared/select_work_type_modal', create_work_presenter: @create_work_presenter if @create_work_presenter.many? %>
+<%# render 'shared/select_work_type_modal', create_work_presenter: @create_work_presenter if @create_work_presenter.many? %>
+
+<%= render 'shared/select_work_type_modal', create_work_presenter: @create_work_presenter if dispay_select_work_page_on_button_click %>
