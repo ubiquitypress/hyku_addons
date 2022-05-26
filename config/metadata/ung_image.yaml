@@ -24,6 +24,7 @@ attributes:
       primary: true
       multiple: true
       type: text
+      input: single_multi_value
   resource_type:
     predicate: http://purl.org/dc/terms/type
     multiple: true
@@ -259,6 +260,7 @@ attributes:
       primary: false
       multiple: true
       type: text
+      input: single_multi_value
   related_identifier:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/identifiedBy
@@ -296,30 +298,32 @@ attributes:
   event_title:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/Event
-    multiple: false
+    multiple: true
     index_keys:
     - event_title_tesim
     - event_title_sim
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: multiple
       type: text
+      input: single_multi_value
   event_location:
     type: string
     predicate: http://bibframe.org/vocab/eventPlace
-    multiple: false
+    multiple: true
     index_keys:
     - event_location_tesim
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   event_date:
     type: string
     predicate: http://bibframe.org/vocab/eventDate
-    multiple: false
+    multiple: true
     index_keys:
     - event_date_tesim
     form:
@@ -330,29 +334,31 @@ attributes:
   related_exhibition:
     type: string
     predicate: http://schema.org/ExhibitionEvent
-    multiple: false
+    multiple: true
     index_keys:
     - related_exhibition_tesim
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   related_exhibition_venue:
     type: string
     predicate: http://schema.org/EventVenue
-    multiple: false
+    multiple: true
     index_keys:
     - related_exhibition_venue_tesim
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   related_exhibition_date:
     type: string
     predicate: http://schema.org/Date
-    multiple: false
+    multiple: true
     index_keys:
     - related_exhibition_date_tesim
     form:
@@ -382,17 +388,19 @@ attributes:
       primary: false
       multiple: true
       type: text
+      input: single_multi_value
   rights_statement:
     predicate: http://www.europeana.eu/schemas/edm/rights
-    multiple: false
+    multiple: true
     index_keys:
     - rights_statement_tesim
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: select
       authority: HykuAddons::RightsStatementService
+      input: single_multi_value_select
   rights_statement_text:
     type: string
     predicate: http://purl.org/dc/elements/1.1/rights
@@ -511,14 +519,15 @@ attributes:
   medium:
     type: string
     predicate: http://purl.org/dc/terms/medium
-    multiple: false
+    multiple: true
     index_keys:
     - medium_tesim
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   extent:
     type: string
     predicate: http://purl.org/dc/terms/extent
@@ -533,14 +542,15 @@ attributes:
   duration:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/duration
-    multiple: false
+    multiple: true
     index_keys:
     - duration_tesim
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
   is_format_of:
     type: string
     predicate: http://purl.org/dc/terms/isFormatOf

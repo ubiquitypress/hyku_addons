@@ -1,0 +1,16 @@
+terms:
+  - id: Administrator
+    term: Administrator
+    active: true
+  - id: Faculty
+    term: Faculty
+    active: true
+  - id: Graduate Student
+    term: Graduate Student
+    active: true
+  - id: Staff
+    term: Staff
+    active: true
+  - id: Undergraduate Student
+    term: Undergraduate Student
+    active: true

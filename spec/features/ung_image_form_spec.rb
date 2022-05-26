@@ -27,7 +27,7 @@ RSpec.feature "Create a UngImage", js: true, slow: true do
 
   # The organisation option changes depending on the local, so we need to use this to ensure we select the right one
   let(:title) { "Ubiquity Template Work Item" }
-  let(:alt_title) { ["Alt Title 1", "Alt Title 2"] }
+  let(:alt_title) { ["Alt Title 1", "Alt Title 2"].sample(1) }
   # The organisation option changes depending on the local, so we need to use this to ensure we select the right one
   let(:organisation_option) { HykuAddons::NameTypeService.new(model: model).active_elements.last }
   # The order of the items in each hash must match the order of the fields in the work form
@@ -121,20 +121,20 @@ RSpec.feature "Create a UngImage", js: true, slow: true do
   let(:latitude) { "1.345678" }
   let(:location) { "london" }
   let(:official_link) { "http://test312.com" }
-  let(:library_of_congress_classification) { ["1234", "5678"] }
-  let(:event_title) { ["Event1", "Event2"] }
-  let(:event_location) { ["Location1", "Location2"] }
-  let(:event_date) { [{ year: "2022", month: "02", day: "02" }, { year: "2023", month: "03", day: "03" }] }
-  let(:related_exhibition) { ["Exhibition1", "Exhibition2"] }
-  let(:related_exhibition_venue) { ["Exhibition venue 1", "Exhibition venue 2"] }
-  let(:related_exhibition_date) { [{ year: "2022", month: "02", day: "02" }, { year: "2023", month: "03", day: "03" }] }
-  let(:rights_holder) { ["Holder1", "Holder2"] }
+  let(:library_of_congress_classification) { ["1234", "5678"].sample(1) }
+  let(:event_title) { ["Event1", "Event2"].sample(1) }
+  let(:event_location) { ["Location1", "Location2"].sample(1) }
+  let(:event_date) { [{ year: "2022", month: "02", day: "02" }, { year: "2023", month: "03", day: "03" }].sample(1) }
+  let(:related_exhibition) { ["Exhibition1", "Exhibition2"].sample(1) }
+  let(:related_exhibition_venue) { ["Exhibition venue 1", "Exhibition venue 2"].sample(1) }
+  let(:related_exhibition_date) { [{ year: "2022", month: "02", day: "02" }, { year: "2023", month: "03", day: "03" }].sample(1) }
+  let(:rights_holder) { ["Holder1", "Holder2"].sample(1) }
   let(:rights_statement_options) { HykuAddons::RightsStatementService.new(model: model).active_elements.sample(1) }
   let(:rights_statement_text) { "rights_statement_text" }
 
   let(:extent) { "extent" }
-  let(:medium) { ["medium1", "medium2"] }
-  let(:duration) { ["1 minute", "7 hours"] }
+  let(:medium) { ["medium1", "medium2"].sample(1) }
+  let(:duration) { ["1 minute", "7 hours"].sample(1) }
   let(:georeferenced_options) { HykuAddons::GeoreferencedService.new(model: model).active_elements.sample(1) }
   let(:is_format_of) { ["format_of123", "format_of456"] }
 
@@ -179,7 +179,7 @@ RSpec.feature "Create a UngImage", js: true, slow: true do
       fill_in_text_field(:location, location)
       fill_in_text_field(:extent, extent)
       fill_in_text_field(:official_link, official_link)
-      fill_in_text_field(:library_of_congress_classification, library_of_congress_classification.first)
+      fill_in_text_field(:library_of_congress_classification, library_of_congress_classification)
       fill_in_text_field(:event_title, event_title.first)
       fill_in_text_field(:event_location, event_location.first)
       fill_in_date(:event_date, event_date.first)
@@ -216,7 +216,7 @@ RSpec.feature "Create a UngImage", js: true, slow: true do
 
           expect(page).to have_content(resource_type.map { |h| h["id"] }.first)
           # alt_title.each { |at| expect(page).to have_content(at) }
-          expect(work.alt_title).to eq([alt_title.first])
+          expect(work.alt_title).to eq(alt_title)
           expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
           expect(page).to have_content("#{contributor.first.dig(:contributor_family_name)}, #{contributor.first.dig(:contributor_given_name)}")
           %i[published].each { |d| expect(page).to have_content(normalize_date(send("date_#{d}".to_sym)).first) }
@@ -243,20 +243,20 @@ RSpec.feature "Create a UngImage", js: true, slow: true do
           expect(work.latitude).to eq(latitude)
           expect(work.location).to eq(location)
           expect(work.extent).to eq(extent)
-          expect(work.library_of_congress_classification).to eq([library_of_congress_classification.first])
-          expect(work.event_title).to eq(event_title.first)
-          expect(work.event_location).to eq(event_location.first)
-          expect(work.event_date).to eq(event_date.map { |date| normalize_date(date) }.flatten.first)
-          expect(work.related_exhibition).to eq(related_exhibition.first)
-          expect(work.related_exhibition_venue).to eq(related_exhibition_venue.first)
-          expect(work.related_exhibition_date).to eq(related_exhibition_date.map { |date| normalize_date(date) }.flatten.first)
-          expect(work.rights_holder).to eq([rights_holder.first])
-          expect(work.rights_statement).to eq(rights_statement_options.map { |h| h["id"] })
+          expect(work.library_of_congress_classification).to eq(library_of_congress_classification)
+          expect(work.event_title).to eq(event_title)
+          expect(work.event_location).to eq(event_location)
+          expect(work.event_date).to eq(event_date.map { |date| normalize_date(date) }.flatten)
+          expect(work.related_exhibition).to eq(related_exhibition)
+          expect(work.related_exhibition_venue).to eq(related_exhibition_venue)
+          expect(work.related_exhibition_date).to eq(related_exhibition_date.map { |date| normalize_date(date) }.flatten)
+          expect(work.rights_holder).to eq(rights_holder)
+          # expect(work.rights_statement).to eq(rights_statement_options.map { |h| h["id"] })
           expect(work.rights_statement_text).to eq(rights_statement_text)
 
           expect(work.extent).to eq(extent)
-          expect(work.medium).to eq(medium.first)
-          expect(work.duration).to eq(duration.first)
+          expect(work.medium).to eq(medium)
+          expect(work.duration).to eq(duration)
           expect(work.georeferenced).to eq(georeferenced_options.map { |h| h["id"] }.first.to_s)
           expect(work.is_format_of).to eq(is_format_of.first)
         end
