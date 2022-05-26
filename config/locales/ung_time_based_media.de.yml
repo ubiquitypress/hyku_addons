@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      ung_time_based_media: "fa fa-file-text-o"
+    select_type:
+      ung_time_based_media:
+        description: "Ung Time Based Media Werke"
+        name: "Ung Time Based Media"
