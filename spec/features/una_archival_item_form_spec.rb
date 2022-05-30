@@ -102,6 +102,25 @@ RSpec.feature "Create a UnaArchivalItem", js: true, slow: true do
       }
     ]
   end
+  let(:alternate_identifier) do
+    [
+      { alternate_identifier: "123456", alternate_identifier_type: "Alt Ident." },
+      { alternate_identifier: "098765", alternate_identifier_type: "Alt Ident. 2" }
+    ].sample(1)
+  end
+  # NOTE: related_identifier isn't great, but the nested hash is difficult to store and refer to different hash values
+  let(:related_identifier) { "123456" }
+  let(:related_identifier_type_options) { HykuAddons::RelatedIdentifierTypeService.new(model: model).active_elements.sample(1) }
+  let(:relation_type_options) { HykuAddons::RelationTypeService.new(model: model).active_elements.sample(1) }
+  let(:related_identifier_label) do
+    [
+      {
+        related_identifier: related_identifier,
+        related_identifier_type: related_identifier_type_options.map { |h| h["label"] }.first,
+        relation_type: relation_type_options.map { |h| h["label"] }.first
+      }
+    ]
+  end
   let(:add_info) { "Some additional information" }
   let(:source_data) { ["source 1", "Source 2"] }
   let(:related_url) { ["http://test.com", "https://www.test123.com"] }
@@ -140,6 +159,7 @@ RSpec.feature "Create a UnaArchivalItem", js: true, slow: true do
       fill_in_date(:date_published, date_published)
       fill_in_cloneable(:funder, funder)
       fill_in_textarea(:add_info, add_info)
+      fill_in_cloneable(:alternate_identifier, alternate_identifier)
     end
 
     describe "submitting the form" do
@@ -171,6 +191,7 @@ RSpec.feature "Create a UnaArchivalItem", js: true, slow: true do
           expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
           expect(work.funder).to eq([funder.to_json])
           expect(work.add_info).to eq(add_info)
+          expect(work.alternate_identifier).to eq([alternate_identifier.to_json])
         end
       end
     end

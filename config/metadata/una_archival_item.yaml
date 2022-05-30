@@ -217,8 +217,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
     subfields:
       alternate_identifier:
         type: string
@@ -530,9 +531,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: true
+      multiple: false
       type: date
-      input: single_multi_value_select
+      #input: single_multi_value_select
   related_exhibition:
     type: string
     predicate: http://schema.org/ExhibitionEvent
@@ -566,9 +567,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: true
+      multiple: false
       type: date
-      input: single_multi_value_select
+      #input: single_multi_value_select
   license:
     predicate: http://purl.org/dc/terms/rights
     multiple: true
@@ -722,6 +723,7 @@ attributes:
       primary: false
       multiple: true
       type: text
+      input: single_multi_value
   extent:
     type: string
     predicate: http://purl.org/dc/terms/extent

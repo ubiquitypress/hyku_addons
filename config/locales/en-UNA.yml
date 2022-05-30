@@ -77,7 +77,7 @@ en-UNA:
         refereed: Peer reviewed?
         citation: Bibliographic Citation
         medium: Format(s)
-        extent: Content length or Size
+        extent: Content length or size
         language: Language(s)
         org_unit: Department
         version_number: Document Version
@@ -86,3 +86,4 @@ en-UNA:
         book_title: Title of Book
         alt_book_title: Alternative Book Title
         pagination: Page Numbers
+        source: Original Source

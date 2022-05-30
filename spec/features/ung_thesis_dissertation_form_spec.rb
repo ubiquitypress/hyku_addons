@@ -75,7 +75,7 @@ RSpec.feature "Create a UngThesisDissertation", js: true, slow: true do
         contributor_isni: "1234567890",
         contributor_role: ["Actor"]
       }
-    ]
+    ].sample(1)
   end
 
   let(:resource_type) { HykuAddons::ResourceTypesService.new(model: model).active_elements.sample(1) }
@@ -129,7 +129,7 @@ RSpec.feature "Create a UngThesisDissertation", js: true, slow: true do
   let(:additional_links) { "http://sample312.com" }
   let(:related_url) { ["http://test.com", "https://www.test123.com"] }
   let(:related_material) { "related_material" }
-  let(:place_of_publication) { ["Place1", "Place2"] }
+  let(:place_of_publication) { ["Place1", "Place2"].sample(1) }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -152,7 +152,7 @@ RSpec.feature "Create a UngThesisDissertation", js: true, slow: true do
       fill_in_select(:resource_type, resource_type.map { |h| h["label"] }.first)
       fill_in_cloneable(:creator, creator)
       fill_in_date(:date_published, date_published)
-      fill_in_cloneable(:contributor, contributor)
+      fill_in_cloneable(:contributor, contributor.first)
 
       # Additional fields
       fill_in_multiple_text_fields(:keyword, keyword)
@@ -242,7 +242,7 @@ RSpec.feature "Create a UngThesisDissertation", js: true, slow: true do
           expect(work.additional_links).to eq(additional_links)
           expect(work.related_url).to eq([related_url.first])
           expect(work.related_material).to eq(related_material)
-          expect(work.place_of_publication).to eq([place_of_publication.first])
+          expect(work.place_of_publication).to eq(place_of_publication)
         end
       end
     end
