@@ -284,6 +284,7 @@ attributes:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/identifiedBy
     multiple: true
+    input: single_multi_value
     index_keys:
     - related_identifier_tesim
     form:
@@ -370,6 +371,7 @@ attributes:
       primary: false
       multiple: true
       type: text
+      input: single_multi_value
   citation:
     type: string
     predicate: http://purl.org/dc/terms/bibliographicCitation
@@ -500,8 +502,9 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
+      input: single_multi_value
     subfields:
       contributor_name_type:
         type: string
