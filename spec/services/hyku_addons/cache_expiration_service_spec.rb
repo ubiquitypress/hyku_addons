@@ -29,7 +29,7 @@ RSpec.describe HykuAddons::CacheExpirationService do
 
     before do
       allow(ActiveSupport::Cache).to receive(:lookup_store).and_return(mock_cache)
-      service.perform
+      service.expire_cache_for(account)
     end
 
     it "clears the tenant Rails cache" do

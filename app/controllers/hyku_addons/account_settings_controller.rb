@@ -4,6 +4,7 @@ module HykuAddons
   class AccountSettingsController < ::AdminController
     before_action :set_account
     before_action :map_array_fields, only: [:update, :update_single]
+    after_action :clear_cache, only: [:update, :update_single]
 
     def edit
       # instance variables to pass values to the js.erb files
@@ -56,6 +57,12 @@ module HykuAddons
 
           params["account"]["settings"][key].map! { |str| str.split(" ") }.flatten!
         end
+      end
+
+      # Since the api works endpoint is cached without clearing
+      # the cache things linke hypothesis annotation won't work
+      def clear_cache
+        HykuAddons::CacheExpirationService.new.expire_cache_for(@account) if Flipflop.enabled?(:cache_api)
       end
   end
 end
