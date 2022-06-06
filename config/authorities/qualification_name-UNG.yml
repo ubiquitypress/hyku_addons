@@ -65,3 +65,6 @@ terms:
 - id: PPDPT
   term: PPDPT - Physical Therapy
   active: true
+- id: MSc
+  term: MS
+  active: false
