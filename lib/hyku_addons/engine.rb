@@ -200,6 +200,8 @@ module HykuAddons
       Hyrax::Workflow::ChangesRequiredNotification.prepend HykuAddons::Workflow::ChangesRequiredNotification
       Hyrax::Workflow::DepositedNotification.prepend HykuAddons::Workflow::DepositedNotification
       Hyrax::Workflow::PendingReviewNotification.prepend HykuAddons::Workflow::PendingReviewNotification
+
+      Hyrax::AvatarUploader.prepend HykuAddons::Uploader::AvatarUploader
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength
