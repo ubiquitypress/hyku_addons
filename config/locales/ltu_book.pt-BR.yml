@@ -1,0 +1,8 @@
+pt-BR:
+  hyrax:
+    icons:
+      ltu_book: "fa fa-file-text-o"
+    select_type:
+      ltu_book:
+        description: "Ltu Book trabalhos"
+        name: "Ltu Book"

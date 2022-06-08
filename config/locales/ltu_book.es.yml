@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      ltu_book:     'fa fa-file-text-o'
+    select_type:
+      ltu_book:
+        # TODO: translate `human_name` into Spanish
+        description:        "Ltu Book trabajos"
+        name:               "Ltu Book"
+        # TODO: translate `human_name` into Spanish
