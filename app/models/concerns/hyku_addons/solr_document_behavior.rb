@@ -83,6 +83,7 @@ module HykuAddons
       attribute :editor_display, SolrDocument::Solr::Array, "editor_display_ssim"
       attribute :dewey, SolrDocument::Solr::Array, solr_name("dewey")
       attribute :library_of_congress_classification, SolrDocument::Solr::Array, solr_name("library_of_congress_classification")
+      attribute :library_of_congress_subject_headings_text, SolrDocument::Solr::Array, solr_name("library_of_congress_subject_headings_text")
       attribute :alt_title, SolrDocument::Solr::Array, solr_name("alt_title")
       attribute :alternative_journal_title, SolrDocument::Solr::Array, solr_name("alternative_journal_title")
       attribute :page_display_order_number, SolrDocument::Solr::Array, solr_name("page_display_order_number")

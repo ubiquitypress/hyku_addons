@@ -1,0 +1,9 @@
+terms:
+  - id: Book
+    term: Book
+  - id: Pamphlet
+    term: Pamphlet
+  - id: Report
+    term: Report
+  - id: Other
+    term: Other

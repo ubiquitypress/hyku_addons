@@ -61,6 +61,7 @@ Hyrax.config do |config|
   config.register_curation_concern :ung_thesis_dissertation
   config.register_curation_concern :ung_time_based_media
   config.register_curation_concern :ltu_article
+  config.register_curation_concern :ltu_book
 
   config.license_service_class = HykuAddons::LicenseService
 
