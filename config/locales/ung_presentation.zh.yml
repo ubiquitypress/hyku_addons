@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      ung_presentation: "fa fa-file-text-o"
+    select_type:
+      ung_presentation:
+        # TODO: translate `human_name` into Chinese
+        description:  "Ung Presentation 作品"
+        name:  "Ung Presentation"
+        # TODO: translate `human_name` into Chinese
