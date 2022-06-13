@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      ung_presentation:     'fa fa-file-text-o'
+    select_type:
+      ung_presentation:
+        # TODO: translate `human_name` into Spanish
+        description:        "Ung Presentation trabajos"
+        name:               "Ung Presentation"
+        # TODO: translate `human_name` into Spanish

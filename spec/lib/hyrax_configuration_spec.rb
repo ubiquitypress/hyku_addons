@@ -17,7 +17,7 @@ RSpec.describe Hyrax do
          RedlandsChaptersAndBookSection, RedlandsConferencesReportsAndPaper, RedlandsOpenEducationalResource,
          RedlandsMedia, RedlandsStudentWork, UbiquityTemplateWork, UnaArchivalItem, UnaArticle, UnaBook,
          UnaChaptersAndBookSection, UnaExhibition, UnaImage, UnaPresentation, UnaThesisOrDissertation,
-         UnaTimeBasedMedia, UvaWork, UngArticle, UngBook, UngBookChapter, UngDataset, UngImage,
+         UnaTimeBasedMedia, UvaWork, UngArticle, UngBook, UngBookChapter, UngDataset, UngImage, UngPresentation,
          UngThesisDissertation, UngTimeBasedMedia, LtuArticle, LtuBook]
       end
 

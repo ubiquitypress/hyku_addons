@@ -1,0 +1,8 @@
+pt-BR:
+  hyrax:
+    icons:
+      ung_presentation: "fa fa-file-text-o"
+    select_type:
+      ung_presentation:
+        description: "Ung Presentation trabalhos"
+        name: "Ung Presentation"
