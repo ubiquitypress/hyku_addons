@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      ung_archival_material: "fa fa-file-text-o"
+    select_type:
+      ung_archival_material:
+        description: "Ung Archival Material Werke"
+        name: "Ung Archival Material"

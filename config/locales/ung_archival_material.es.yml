@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      ung_archival_material:     'fa fa-file-text-o'
+    select_type:
+      ung_archival_material:
+        # TODO: translate `human_name` into Spanish
+        description:        "Ung Archival Material trabajos"
+        name:               "Ung Archival Material"
+        # TODO: translate `human_name` into Spanish
