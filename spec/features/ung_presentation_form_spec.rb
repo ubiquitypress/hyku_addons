@@ -100,7 +100,6 @@ RSpec.feature "Create a UngPresentation", js: true, slow: true do
   let(:org_unit) { ["Unit1", "Unit2"] }
   let(:doi) { "10.1521/soco.23.1.118.59197" }
 
-
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
     Hyrax::PermissionTemplateAccess.create!(permission_options)
