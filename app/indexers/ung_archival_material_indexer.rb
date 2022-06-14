@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 class UngArchivalMaterialIndexer < Hyrax::WorkIndexer
+  include Hyrax::Indexer(:ung_archival_material)
   # This indexes the default metadata. You can remove it if you want to
   # provide your own metadata and indexing.
   include Hyrax::IndexesBasicMetadata
