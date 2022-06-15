@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      ltu_dataset:     'fa fa-file-text-o'
+    select_type:
+      ltu_dataset:
+        # TODO: translate `human_name` into Spanish
+        description:        "Ltu Dataset trabajos"
+        name:               "Ltu Dataset"
+        # TODO: translate `human_name` into Spanish

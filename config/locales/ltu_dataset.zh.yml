@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      ltu_dataset: "fa fa-file-text-o"
+    select_type:
+      ltu_dataset:
+        # TODO: translate `human_name` into Chinese
+        description:  "Ltu Dataset 作品"
+        name:  "Ltu Dataset"
+        # TODO: translate `human_name` into Chinese

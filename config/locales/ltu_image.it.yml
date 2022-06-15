@@ -1,0 +1,8 @@
+it:
+  hyrax:
+    icons:
+      ltu_image: "fa fa-file-text-o"
+    select_type:
+      ltu_image:
+        description:  "Ltu Image opere"
+        name: "Ltu Image"
