@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      ltu_time_based_media: "fa fa-file-text-o"
+    select_type:
+      ltu_time_based_media:
+        description: "Ltu Time Based Media"
+        name: "Ltu Time Based Media"
