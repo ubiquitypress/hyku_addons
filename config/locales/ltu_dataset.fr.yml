@@ -1,0 +1,8 @@
+fr:
+  hyrax:
+    icons:
+      ltu_dataset:     'fa fa-file-text-o'
+    select_type:
+      ltu_dataset:
+        description:        "Ltu Dataset œuvres"
+        name:               "Ltu Dataset"
