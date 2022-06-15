@@ -18,7 +18,8 @@ RSpec.describe Hyrax do
          RedlandsMedia, RedlandsStudentWork, UbiquityTemplateWork, UnaArchivalItem, UnaArticle, UnaBook,
          UnaChaptersAndBookSection, UnaExhibition, UnaImage, UnaPresentation, UnaThesisOrDissertation,
          UnaTimeBasedMedia, UvaWork, UngArticle, UngBook, UngBookChapter, UngDataset, UngImage, UngPresentation,
-         UngThesisDissertation, UngTimeBasedMedia, UngArchivalMaterial, LtuArticle, LtuBook]
+         UngThesisDissertation, UngTimeBasedMedia, UngArchivalMaterial, LtuArticle, LtuBook,
+         LtuBookChapter]
       end
 
       it "registered the correct curation concerns" do

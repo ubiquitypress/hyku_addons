@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      ltu_book_chapter: "fa fa-file-text-o"
+    select_type:
+      ltu_book_chapter:
+        description: "Ltu Book Chapter"
+        name: "Ltu Book Chapter"
