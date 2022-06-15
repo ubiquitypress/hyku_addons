@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      ltu_thesis_dissertation: "fa fa-file-text-o"
+    select_type:
+      ltu_thesis_dissertation:
+        description: "Ltu Thesis Dissertation Werke"
+        name: "Ltu Thesis Dissertation"

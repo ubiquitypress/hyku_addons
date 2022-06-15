@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      ltu_thesis_dissertation:     'fa fa-file-text-o'
+    select_type:
+      ltu_thesis_dissertation:
+        # TODO: translate `human_name` into Spanish
+        description:        "Ltu Thesis Dissertation trabajos"
+        name:               "Ltu Thesis Dissertation"
+        # TODO: translate `human_name` into Spanish
