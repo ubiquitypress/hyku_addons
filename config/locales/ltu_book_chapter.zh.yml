@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      ltu_book_chapter: "fa fa-file-text-o"
+    select_type:
+      ltu_book_chapter:
+        # TODO: translate `human_name` into Chinese
+        description:  "Ltu Book Chapter 作品"
+        name:  "Ltu Book Chapter"
+        # TODO: translate `human_name` into Chinese
