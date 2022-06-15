@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      ltu_presentation: "fa fa-file-text-o"
+    select_type:
+      ltu_presentation:
+        # TODO: translate `human_name` into Chinese
+        description:  "Ltu Presentation 作品"
+        name:  "Ltu Presentation"
+        # TODO: translate `human_name` into Chinese
