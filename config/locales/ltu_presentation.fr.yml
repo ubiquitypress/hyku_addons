@@ -1,0 +1,8 @@
+fr:
+  hyrax:
+    icons:
+      ltu_presentation:     'fa fa-file-text-o'
+    select_type:
+      ltu_presentation:
+        description:        "Ltu Presentation œuvres"
+        name:               "Ltu Presentation"
