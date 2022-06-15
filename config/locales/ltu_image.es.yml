@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      ltu_image:     'fa fa-file-text-o'
+    select_type:
+      ltu_image:
+        # TODO: translate `human_name` into Spanish
+        description:        "Ltu Image trabajos"
+        name:               "Ltu Image"
+        # TODO: translate `human_name` into Spanish
