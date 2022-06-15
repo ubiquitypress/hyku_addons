@@ -66,6 +66,7 @@ Hyrax.config do |config|
   config.register_curation_concern :ltu_book
   config.register_curation_concern :ltu_book_chapter
   config.register_curation_concern :ltu_dataset
+  config.register_curation_concern :ltu_image
 
   config.license_service_class = HykuAddons::LicenseService
 
