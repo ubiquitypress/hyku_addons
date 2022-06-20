@@ -13,6 +13,8 @@ module HykuAddons
         self.field_configs = {}
         self.internal_terms = [] # Internal hyrax terms which don't require form fields
 
+        # disable rubocop because we can refactor this method at a later time
+        # rubocop:disable Metrics/MethodLength
         def self.build_permitted_params
           super.tap do |permitted_params|
             model_class.json_fields.deep_symbolize_keys.each do |field, field_config|
@@ -26,8 +28,15 @@ module HykuAddons
             model_class.date_fields.each do |field|
               permitted_params << { field => ["#{field}_year".to_sym, "#{field}_month".to_sym, "#{field}_day".to_sym] }
             end
+
+            # to address saving of any old field that was single but changed to multiple
+            ["rights_statement"].each do |field|
+              next unless field_configs[field.to_sym][:multiple]
+              permitted_params << { field => [] }
+            end
           end
         end
+        # rubocop:enable Metrics/MethodLength
       end
 
       def initialize(model, current_ability, controller)
