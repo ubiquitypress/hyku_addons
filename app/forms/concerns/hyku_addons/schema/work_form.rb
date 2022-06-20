@@ -31,7 +31,7 @@ module HykuAddons
 
             # to address saving of any old field that was single but changed to multiple
             ["rights_statement"].each do |field|
-              next unless field_configs[field.to_sym][:multiple]
+              next unless field_configs.dig(field.to_sym, :multiple)
               permitted_params << { field => [] }
             end
           end
