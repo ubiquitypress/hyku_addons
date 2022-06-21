@@ -176,7 +176,7 @@ RSpec.feature "Create a UngBook", js: true, slow: true do
       # Additional fields
       fill_in_multiple_text_fields(:keyword, keyword)
       fill_in_multiple_selects(:license, license_options.map { |h| h["label"] })
-      fill_in_select(:rights_statement, rights_statement_options.map { |h| h["label"] }.first)
+      fill_in_multiple_selects(:rights_statement, rights_statement_options.map { |h| h["label"] })
       fill_in_multiple_selects(:subject, subject_options.map { |h| h["label"] })
       fill_in_multiple_selects(:language, language_options.map { |h| h["label"] })
       fill_in_textarea(:abstract, abstract)
