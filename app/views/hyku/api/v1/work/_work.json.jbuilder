@@ -45,11 +45,11 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
 
   date_accepted = work.try(:solr_document)&.to_h&.dig("date_accepted_tesim")
   formated_date_accepted = format_api_date(date_accepted&.first)
-  json.date_accepted formated_date_accepted.present? ? Array.wrap(formated_date_accepted) : []
+  json.date_accepted formated_date_accepted.present? ? Array.wrap(formated_date_accepted) : nil
 
   date_published = work.try(:solr_document)&.to_h&.dig("date_published_tesim")
   format_date_published = format_api_date(date_published&.first)
-  json.date_published format_date_published.present? ? Array.wrap(format_date_published) : []
+  json.date_published format_date_published.present? ? Array.wrap(format_date_published) : nil
 
   json.date_published_text work.try(:solr_document)&.to_h&.dig("date_published_text_tesim")
   json.date_submitted work.date_uploaded
