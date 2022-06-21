@@ -40,8 +40,17 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   contributor = work.contributor.try(:first)
   json.contributor contributor.present? ? JSON.parse(contributor) : []
 
-  json.date_accepted work.try(:solr_document)&.to_h&.dig("date_accepted_tesim")
-  json.date_published work.try(:solr_document)&.to_h&.dig("date_published_tesim")
+  editor = work.editor.try(:first)
+  json.editor editor.present? ? JSON.parse(editor) : []
+
+  date_accepted = work.try(:solr_document)&.to_h&.dig("date_accepted_tesim")
+  formated_date_accepted = format_api_date(date_accepted&.first)
+  json.date_accepted formated_date_accepted.present? ? Array.wrap(formated_date_accepted) : nil
+
+  date_published = work.try(:solr_document)&.to_h&.dig("date_published_tesim")
+  format_date_published = format_api_date(date_published&.first)
+  json.date_published format_date_published.present? ? Array.wrap(format_date_published) : nil
+
   json.date_published_text work.try(:solr_document)&.to_h&.dig("date_published_text_tesim")
   json.date_submitted work.date_uploaded
   json.degree work.try(:solr_document)&.to_h&.dig("degree_tesim")
@@ -94,6 +103,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   end
 
   json.library_of_congress_classification work.try(:solr_document)&.to_h&.dig("library_of_congress_classification_tesim")
+  json.library_of_congress_subject_headings_text work.try(:solr_document)&.to_h&.dig("library_of_congress_subject_headings_text_tesim")
 
   license = work.try(:solr_document)&.to_h&.dig("license_tesim")
   license_hash = HykuAddons::LicenseService.new(locale: locale).select_all_options.to_h

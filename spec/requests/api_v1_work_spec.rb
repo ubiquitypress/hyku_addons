@@ -44,9 +44,9 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
       contributor_orcid: "https://orcid.org/#{contributor1_orcid}"
     }
   end
-  let(:date_accepted) { "2018-01-02" }
+  let(:date_accepted) { "2018-1-02" }
   let(:date_created) { "#{created_year}-01-01" }
-  let(:date_published) { "#{published_year}-03-12" }
+  let(:date_published) { "#{published_year}-3-12" }
   let(:date_submitted) { "2019-01-02" }
   let(:doi) { "10.18130/v3-k4an-w022" }
   let(:duration1) { "duration1" }
@@ -95,6 +95,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
   let(:title) { "Moomin" }
   let(:version_number) { "3" }
   let(:volume) { 2 }
+  let(:library_of_congress_subject_headings_text) { "big heading" }
 
   let(:attributes) do
     {
@@ -181,6 +182,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                          "committee_member" => nil,
                                          "contributor" => [],
                                          "creator" => [],
+                                         "editor" => [],
                                          "date_accepted" => nil,
                                          "date_published" => nil,
                                          "date_published_text" => nil,
@@ -276,6 +278,8 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
 
       context "with data when it exists" do
         let(:work) { GenericWork.new(attributes) }
+        let(:editor_2) { JSON.parse(work.editor.first) }
+
         it "returns work json" do
           work.save!
           get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
@@ -314,8 +318,9 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                                            "creator_given_name" => "Johnny",
                                                            "creator_name_type" => "Personal",
                                                            "creator_institutional_email" => "fake.email@test.com" }],
+                                           "editor" => editor_2,
                                            "date_accepted" => ["2018-01-02"],
-                                           "date_published" => ["1946-03-12"],
+                                           "date_published" => ["#{published_year}-03-12"],
                                            "date_published_text" => nil,
                                            "date_submitted" => nil,
                                            "degree" => nil,
@@ -403,6 +408,17 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "volume" => nil,
                                            "work_type" => "GenericWork",
                                            "workflow_status" => nil)
+        end
+      end
+
+      context "with LtuBook new field when it exists" do
+        let(:work) { LtuBook.new(title: [title], visibility: "open", library_of_congress_subject_headings_text: [library_of_congress_subject_headings_text], creator: [[creator1, creator2].to_json]) }
+        let(:editor_2) { JSON.parse(work.editor.first) }
+        it "returns new field added work json" do
+          work.save!
+          get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
+
+          expect(json_response).to include("library_of_congress_subject_headings_text" => work.library_of_congress_subject_headings_text)
         end
       end
     end
