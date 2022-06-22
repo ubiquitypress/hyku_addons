@@ -14,6 +14,9 @@ terms:
   - id: Staff Member
     term: Staff Member
     active: true
+  - id: Student
+    term: Student
+    active: true
   - id: Student Employee
     term: Student Employee
     active: true
