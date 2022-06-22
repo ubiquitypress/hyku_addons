@@ -1,0 +1,13 @@
+terms:
+- id: Faculty
+  term: Faculty
+  active: true
+- id: Research Associate
+  term: Research Associate
+  active: true
+- id: Staff
+  term: Staff
+  active: true
+- id: Student
+  term: Student
+  active: true
