@@ -1,0 +1,31 @@
+terms:
+  - term: Undergraduate -- General Education
+    id: Undergraduate -- General Education
+    active: true
+  - term: Undergraduate -- Lower Division
+    id: Undergraduate -- Lower Division
+    active: true
+  - term: Undergraduate -- Upper Division
+    id: Undergraduate -- Upper Division
+    active: true
+  - term: Graduate
+    id: Graduate
+    active: true
+  - term: High School -- Dual Enrollment
+    id: High School -- Dual Enrollment
+    active: true
+  - term: Pre-Professional
+    id: Pre-Professional
+    active: true
+  - term: Professional
+    id: Professional
+    active: true
+  - term: Associate
+    id: Associate
+    active: true
+  - term: Undergraduate Certificate
+    id: Undergraduate Certificate
+    active: true
+  - term: Graduate Certificate
+    id: Graduate Certificate
+    active: true
