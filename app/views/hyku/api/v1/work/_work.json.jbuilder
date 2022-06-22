@@ -119,19 +119,19 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
     json.license []
   end
 
-  rights_statement = work.try(:solr_document)&.to_h&.dig('rights_statement_tesim')
+  rights_statement = work.try(:solr_document)&.to_h&.dig("rights_statement_tesim")
   rights_statement_hash = Hyrax::RightsStatementService.new.select_all_options.to_h
   if rights_statement.present?
     json.rights_statement do
       json.array! rights_statement do |item|
         if rights_statement_hash.values.include?(item)
-          json.name  rights_statement_hash.key(item)
+          json.name rights_statement_hash.key(item)
           json.link item
         end
       end
     end
   else
-    json.rights_statement   []
+    json.rights_statement []
   end
 
   json.locale locale
