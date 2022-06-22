@@ -40,7 +40,7 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   contributor = work.contributor.try(:first)
   json.contributor contributor.present? ? JSON.parse(contributor) : []
 
-  editor = work.editor.try(:first)
+  editor = work.try(:editor).try(:first)
   json.editor editor.present? ? JSON.parse(editor) : []
 
   date_accepted = work.try(:solr_document)&.to_h&.dig("date_accepted_tesim")
