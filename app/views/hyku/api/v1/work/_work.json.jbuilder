@@ -21,7 +21,6 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.additional_links work.try(:solr_document)&.to_h&.dig("additional_links_tesim")
   json.admin_set_name work.admin_set.first
   json.advisor work.try(:solr_document)&.to_h&.dig("advisor_tesim")
-  json.alternate_identifier work.try(:solr_document)&.to_h&.dig("alternate_identifier_tesim")
   json.alternative_journal_title work.try(:solr_document)&.to_h&.dig("alternative_journal_title_tesim")
   json.alternative_book_title work.try(:solr_document)&.to_h&.dig("alt_book_title_tesim")
   json.alternative_title work.try(:solr_document)&.to_h&.dig("alt_title_tesim")
@@ -120,6 +119,21 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
     json.license []
   end
 
+  rights_statement = work.try(:solr_document)&.to_h&.dig("rights_statement_tesim")
+  rights_statement_hash = Hyrax::RightsStatementService.new.select_all_options.to_h
+  if rights_statement.present?
+    json.rights_statement do
+      json.array! rights_statement do |item|
+        if rights_statement_hash.values.include?(item)
+          json.name rights_statement_hash.key(item)
+          json.link item
+        end
+      end
+    end
+  else
+    json.rights_statement []
+  end
+
   json.locale locale
   json.location work.try(:solr_document)&.to_h&.dig("location_tesim")
   json.latitude work.try(:solr_document)&.to_h&.dig("latitude_tesim")
@@ -173,6 +187,23 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
     end
   end
 
+  alternate_identifier = work.try(:solr_document)&.to_h&.dig("alternate_identifier_tesim")&.first
+  if alternate_identifier.present?
+    alternate_identifier_array = begin
+                                 JSON.parse(alternate_identifier)
+                               rescue JSON::ParserError
+                                 nil
+                               end
+    if alternate_identifier_array.present?
+      json.alternate_identifier do
+        json.array! alternate_identifier_array do |hash|
+          json.name hash["alternate_identifier"]
+          json.type hash["alternate_identifier_type"]
+        end
+      end
+    end
+  end
+
   json.related_material work.try(:solr_document)&.to_h&.dig("related_material_tesim")
   json.related_url work.try(:solr_document)&.to_h&.dig("related_url_tesim")
 
@@ -183,7 +214,6 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.time work.try(:solr_document)&.to_h&.dig("time_tesim")
   json.resource_type work.resource_type
   json.rights_holder work.try(:solr_document)&.to_h&.dig("rights_holder_tesim")
-  json.rights_statement work.rights_statement
   json.rights_statement_text work.try(:solr_document)&.to_h&.dig("rights_statement_text_tesim")
   json.series_name work.try(:solr_document)&.to_h&.dig("series_name_tesim")
   json.source work.source

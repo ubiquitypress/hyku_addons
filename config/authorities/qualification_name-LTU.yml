@@ -1,0 +1,373 @@
+terms:
+- id: AAMAP
+  term: Associates Degree Media Arts & Production
+  active: true
+- id: AARTB
+  term: Associates Degree Radio & TV Broadcasting
+  active: true
+- id: AS GEN STUD
+  term: Associates Degree General Studies
+  active: true
+- id: AS GS EMC
+  term: Associates Degree General Studies
+  active: true
+- id: BA
+  term: Bachelor of Arts
+  active: true
+- id: BA ENG COMM
+  term: Bachelor of Arts English & Communication
+  active: true
+- id: BA INT ARCH
+  term: Bachelor of Arts Interior Architecture
+  active: true
+- id: BFA
+  term: Bachelor of Fine Arts
+  active: true
+- id: BFA GA
+  term: Bachelor of Fine Arts Game Art
+  active: true
+- id: BFA GAME DES
+  term: Bachelor of Fine Arts Game Design
+  active: true
+- id: BFA GRAPHIC DES
+  term: Bachelor of Fine Arts Graphic Design
+  active: true
+- id: BFA ID
+  term: Bachelor of Fine Arts Interaction Design
+  active: true
+- id: BMA PDC
+  term: Bachelor Broadcast Media Arts
+  active: true
+- id: BMCARCHENG
+  term: Bachelor of Management Studies Architectural Engineering
+  active: true
+- id: BA MEDIACOM
+  term: Bachelor of Arts Media Communication
+  active: true
+- id: BS
+  term: Bachelor of Science
+  active: true
+- id: BSAET
+  term: Bachelor of Science Audio Engineering Technology
+  active: true
+- id: BSArch
+  term: Bachelor of Science Architecture
+  active: true
+- id: BSBA
+  term: Bachelor of Science Business Administration
+  active: true
+- id: BSBA ACCOUNT
+  term: Bachelor of Science Business Administration Accounting
+  active: true
+- id: BSBA FIN
+  term: Bachelor of Science Business Administration Finance
+  active: true
+- id: BSBA INFTECH
+  term: Bachelor of Science Business Administration Information Technology
+  active: true
+- id: BSBA MARK
+  term: Bachelor of Science Business Administration Marketing
+  active: true
+- id: BS BDA
+  term: Bachelor of Science Business Data Analytics
+  active: true
+- id: BS BIOLOGY
+  term: Bachelor of Science Biology
+  active: true
+- id: BS BIO ENG
+  term: Bachelor of Science Biomedical Engineering
+  active: true
+- id: BS BIOMED ENG
+  term: Bachelor of Science Biomedical Engineering
+  active: true
+- id: BS CETM
+  term: Bachelor of Science Construction Engineering Technology & Management
+  active: true
+- id: BS CHEMISTRY
+  term: Bachelor of Science Chemistry
+  active: true
+- id: BS CHEM BIOL
+  term: Bachelor of Science Chemical Biology
+  active: true
+- id: BS CIVIL ENG
+  term: Bachelor of Science Civil Engineering
+  active: true
+- id: BS COMP ENG
+  term: Bachelor of Science Computer Engineering
+  active: true
+- id: BS COMP SCI
+  term: Bachelor of Science Computer Science
+  active: true
+- id: BS DATA SCI
+  term: Bachelor of Science Data Science
+  active: true
+- id: BS ELEC ENGR
+  term: Bachelor of Science Electrical Engineering
+  active: true
+- id: BS ENGR TECH
+  term: Bachelor of Science Mechanical & Manufacturing Engineering Technology
+  active: true
+- id: BS ENV CHEM
+  term: Bachelor of Science Environmental Chemistry
+  active: true
+- id: BS ESE
+  term: Bachelor of Science Embedded Software Engineering
+  active: true
+- id: BSIE
+  term: Bachelor of Science Industrial Engineering
+  active: true
+- id: BS IND DES
+  term: Bachelor of Science Industrial Design
+  active: true
+- id: BS IND ENGR
+  term: Bachelor of Science
+  active: true
+- id: BS INT DES
+  term: Bachelor of Science Interior Design
+  active: true
+- id: BS IT
+  term: Bachelor of Science Information Technology
+  active: true
+- id: BS MATH/CS
+  term: Bachelor of Science & Computer Science
+  active: true
+- id: BS MCB
+  term: Bachelor of Science Molecular and Cell Biology
+  active: true
+- id: BS MECH ENGR
+  term: Bachelor of Science Mechanical Engineering
+  active: true
+- id: BS MEDIACOMM
+  term: Bachelor of Science Media Communication
+  active: true
+- id: BS MMET
+  term: Bachelor of Science Mechanical and Manufacturing Engineering Technology
+  active: true
+- id: BSMS
+  term: Bachelor of Science Mathematical Sciences
+  active: true
+- id: BSN
+  term: Bachelor of Science Nursing
+  active: true
+- id: BS PHY/COMP
+  term: Bachelor of Science Physics and Computer Science
+  active: true
+- id: BS PSYCH
+  term: Bachelor of Science Psychology
+  active: true
+- id: BS PHYSICS
+  term: Bachelor of Science Physics
+  active: true
+- id: BS ROBOT ENG
+  term: Bachelor of Science Robotics Engineering
+  active: true
+- id: BS TRANS DES
+  term: Bachelor of Science Transportation Design
+  active: true
+- id: BS TECH HUM
+  term: Bachelor of Science Technological Humanities
+  active: true
+- id: C AFM HEALTH
+  term: Certificate Accounting, Finance, Marketing Healthcare
+  active: true
+- id: C AREO ENGR
+  term: Certificate Aeronautical Engineering
+  active: true
+- id: C BIM
+  term: Certificate Building Info Modeling
+  active: true
+- id: C BLDG MODEL
+  term: Certificate Building Info Modeling
+  active: true
+- id: C COMPSCI
+  term: Certificate Computer Science
+  active: true
+- id: C CYBERSEC
+  term: Certificate Cybersecurity
+  active: true
+- id: C DES THINK
+  term: Certificate Design Thinking
+  active: true
+- id: C ELEC POWER
+  term: Certificate Electrical Power Systems
+  active: true
+- id: C EMB SYS
+  term: Certificate Embedded Systems
+  active: true
+- id: C ENERGY
+  term: Certificate Energy Engineering
+  active: true
+- id: C GIS
+  term: Certificate Geographic Info Systems
+  active: true
+- id: C GSD
+  term: Certficate Game Software Development
+  active: true
+- id: C HC MGMT
+  term: Certificate Healthcare Management
+  active: true
+- id: C INTPROJDEL
+  term: Certificate Integrated Project Delivery
+  active: true
+- id: C IT HC GLOB
+  term: Certificate IT Healthcare & Global HC Systems
+  active: true
+- id: C LS SIGMA
+  term: Certificate Lean Six Sigma
+  active: true
+- id: C PID
+  term: Certficate Public Interest Design
+  active: true
+- id: C PREMED
+  term: Certificate Premedical Studies
+  active: true
+- id: C PSYCHOLOGY
+  term: Certificate Industrial & Organizational Psychology
+  active: true
+- id: C TECCOM
+  term: Certificate Telecommunications
+  active: true
+- id: C TRANS ENGR
+  term: Certificate Transportation Engineering
+  active: true
+- id: C PROJMGT
+  term: Certificate Project Management
+  active: true
+- id: C TELECOMM
+  term: Certificate Telecommunications
+  active: true
+- id: C WEBDEV
+  term: Certificate Web Development
+  active: true
+- id: DBA
+  term: Doctor Business Administration
+  active: true
+- id: DEMS
+  term: Doctor Engineering Management Systems
+  active: true
+- id: DMA PDC
+  term: Digital Media Arts
+  active: true
+- id: DME
+  term: Doctor Mechanical Engineering
+  active: true
+- id: DMIT
+  term: Doctor Manufacturing Information Technology
+  active: true
+- id: DPH CIV-ENG
+  term: PhD. Civil Engineering
+  active: true
+- id: GFX PDC
+  term: Graphic Design
+  active: true
+- id: MA LM GLOBAL
+  term: Master of Arts Global Leadership & Management
+  active: true
+- id: M. ArchCiv
+  term: Master of Science Architecture & Civil Engineering
+  active: true
+- id: M. Arch 
+  term: Master of Arts Architecture
+  active: true
+- id: M. Arch/BSCTM
+  term: Master of Architecture & Construction Engineering Technology & Management
+  active: true
+- id: M. Arch/MBA
+  term: Master of Architecture & Business Administration
+  active: true
+- id: MBA
+  term: Master of Business Administration
+  active: true
+- id: MBA IT
+  term: Master of Business Administration
+  active: true
+- id: MCEM
+  term: Master Construction Engineering Management
+  active: true
+- id: MCONSENGR
+  term: Master of Arts Construction Engineering Management
+  active: true
+- id: MEMGT
+  term: Master of Science Engineering Management
+  active: true
+- id: MSAE
+  term: Master of Science Automotive Engineering
+  active: true
+- id: MSAI
+  term: Master of Science Artificial Intelligence
+  active: true
+- id: MS ARCH ENG
+  term: Master of Science Architectural Engineering
+  active: true
+- id: MS AUTO ENG
+  term: Master of Science Automotive Engineering
+  active: true
+- id: MSBDA
+  term: Master of Science Businhess Data Analytics
+  active: true
+- id: MSBME
+  term: Master of Science Biomedical Engineering
+  active: true
+- id: MSCVP
+  term: Master of Science Cardiovascular Perfusion
+  active: true
+- id: MS CIVIL ENG
+  term: Master of Science Civil Engineering
+  active: true
+- id: MS COMP SCI 
+  term: Master of Science Computer Science
+  active: true
+- id: MSECE
+  term: Master of Science Electrical & Computer Engineering
+  active: true
+- id: MSEQ
+  term: Master of Science Engineering Quality
+  active: true
+- id: MSET
+  term: Master of Science Engineering Technology
+  active: true
+- id: MSHA
+  term: Master of Science Healthcare Administration
+  active: true
+- id: MSIE
+  term: Master of Science Industrial Engineering
+  active: true
+- id: MSIE/MEM
+  term: Master of Science Industrial Engineering
+  active: true
+- id: MSIT
+  term: Master of Science Information Technology
+  active: true
+- id: MS MATH/CS
+  term: Master of Science Mathematics & Computer Science
+  active: true
+- id: MS MECH ENGR
+  term: Master of Science Mechanical Engineering
+  active: true
+- id: MSPA
+  term: Master of Science Physician Assistant Studies
+  active: true
+- id: MS MRE
+  term: Master of Science Mechatronics & Robotics Engineering
+  active: true
+- id: MSMSE
+  term: Master of Science Mechatronic Systems Engineering
+  active: true
+- id: MS TECH COMM
+  term: Master of Science Technical Communication
+  active: true
+- id: MUD
+  term: Master Urban Design
+  active: true
+- id: PhD
+  term: Doctor of Philosphy
+  active: true
+- id: PhD CIV ENG
+  term: PhD. Civil Engineering
+  active: true
+- id: PhD MECH ENG
+  term: PhD. Mechanical Engineering
+  active: true
+- id: OTHER
+  term: Other
+  active: true
