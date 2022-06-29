@@ -139,6 +139,9 @@ module HykuAddons
         self.parsed_metadata = {}
         parsed_metadata[::Bulkrax.system_identifier_field] = record["source_identifier"]
         parsed_metadata["id"] = record["id"] if record["id"].present?
+        # Adding parsed_metadata["model"] manually because it always use the default without
+        # this work around. The default can be seen by running Bulkrax.default_work_type
+        parsed_metadata["model"] = raw_metadata["model"]
 
         record.each do |key, value|
           next if key == "collection"
