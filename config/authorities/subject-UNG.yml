@@ -2,8 +2,14 @@ terms:
  - id: Accounting & Law
    term: Accounting & Law
    active: true
+ - id: Appalachian Studies
+   term: Appalachian Studies
+   active: true  
  - id: Biology
    term: Biology
+   active: true
+ - id: Business
+   term: Business
    active: true
  - id: Chemistry & Biochemistry
    term: Chemistry & Biochemistry
@@ -14,14 +20,23 @@ terms:
  - id: Computer Science & Information Systems
    term: Computer Science & Information Systems
    active: true
+ - id: Counseling
+   term: Counseling
+   active: true
  - id: Criminal Justice
    term: Criminal Justice
    active: true
  - id: Economics & Finance
    term: Economics & Finance
    active: true
+ - id: Education
+   term: Education
+   active: true
  - id: Elementary & Special Education
    term: Elementary & Special Education
+   active: true
+ - id: English
+   term: English
    active: true
  - id: Environmental Spatial Analysis
    term: Environmental Spatial Analysis
@@ -32,11 +47,17 @@ terms:
  - id: Interdisciplinary Healthcare
    term: Interdisciplinary Healthcare
    active: true
+ - id: Interdisciplinary Studies
+   term: Interdisciplinary Studies
+   active: true
  - id: Interdisciplinary Studies/University
    term: Interdisciplinary Studies/University
    active: true
  - id: Kinesiology
    term: Kinesiology
+   active: true
+ - id: Library Science
+   term: Library Science
    active: true
  - id: Management & Marketing
    term: Management & Marketing
