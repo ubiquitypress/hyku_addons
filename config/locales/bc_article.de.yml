@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      bc_article: "fa fa-file-text-o"
+    select_type:
+      bc_article:
+        description: "Bc Article Werke"
+        name: "Bc Article"

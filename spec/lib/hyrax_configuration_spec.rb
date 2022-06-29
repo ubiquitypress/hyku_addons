@@ -19,7 +19,8 @@ RSpec.describe Hyrax do
          UnaChaptersAndBookSection, UnaExhibition, UnaImage, UnaPresentation, UnaThesisOrDissertation,
          UnaTimeBasedMedia, UvaWork, UngArticle, UngBook, UngBookChapter, UngDataset, UngImage, UngPresentation,
          UngThesisDissertation, UngTimeBasedMedia, UngArchivalMaterial, LtuArticle, LtuBook,
-         LtuBookChapter, LtuDataset, LtuImage, LtuPresentation, LtuThesisDissertation, LtuTimeBasedMedia]
+         LtuBookChapter, LtuDataset, LtuImage, LtuPresentation, LtuThesisDissertation, LtuTimeBasedMedia,
+         BcArticle]
       end
 
       it "registered the correct curation concerns" do
