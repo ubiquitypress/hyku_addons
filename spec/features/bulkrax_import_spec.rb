@@ -604,4 +604,43 @@ RSpec.describe "Bulkrax import", clean: true, slow: true do
       end
     end
   end
+
+  describe "can parse imported data for schema and non-schema works" do
+    let(:importer) do
+      create(:bulkrax_importer_csv,
+             user: user,
+             field_mapping: Bulkrax.field_mappings["HykuAddons::CsvParser"],
+             parser_klass: "HykuAddons::CsvParser",
+             parser_fields: { "import_file_path" => "spec/fixtures/csv/ung_time_base.csv" },
+             limit: 0)
+    end
+
+    let(:records) do
+      HykuAddons::CsvEntry.read_data("spec/fixtures/csv/ung_time_base.csv").map { |record_data| HykuAddons::CsvEntry.data_for_entry(record_data) }
+    end
+
+    let(:hash_keys) { [:institution, :model, :title, :source_identifier, :org_unit] }
+    let(:select_from_hash) { records.first.slice(*hash_keys) }
+
+    let(:csv_entry) do
+      HykuAddons::CsvEntry.new(raw_metadata: select_from_hash, importerexporter_id: importer.id)
+    end
+    context "Ensure parsed_data contains correct values" do
+      before do
+        csv_entry.build_metadata
+      end
+
+      it "csv_entry parsed_data has model value & does not use Bulkrax.default_work_type ie AnschutzWork" do
+        expect(csv_entry.parsed_metadata["model"]).to eq "UngTimeBasedMedia"
+      end
+
+      it "csv_entry parsed_data has institution value" do
+        expect(csv_entry.parsed_metadata["institution"]).to eq ["Dahlonega"]
+      end
+
+      it "csv_entry parsed_data has org_unit value" do
+        expect(csv_entry.parsed_metadata["org_unit"]).to eq ["Emory University, <--Please Select Department-->, Research and Engagement"]
+      end
+    end
+  end
 end
