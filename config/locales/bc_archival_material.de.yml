@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      bc_archival_material: "fa fa-file-text-o"
+    select_type:
+      bc_archival_material:
+        description: "Bc Archival Material Werke"
+        name: "Bc Archival Material"
