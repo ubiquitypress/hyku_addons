@@ -1,0 +1,8 @@
+fr:
+  hyrax:
+    icons:
+      bc_book:     'fa fa-file-text-o'
+    select_type:
+      bc_bok:
+        description:        "Bc Book œuvres"
+        name:               "Bc Book"
