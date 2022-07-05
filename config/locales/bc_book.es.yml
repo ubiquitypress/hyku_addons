@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      bc_book:     'fa fa-file-text-o'
+    select_type:
+      bc_book:
+        # TODO: translate `human_name` into Spanish
+        description:        "Bc Book trabajos"
+        name:               "Bc Book"
+        # TODO: translate `human_name` into Spanish
