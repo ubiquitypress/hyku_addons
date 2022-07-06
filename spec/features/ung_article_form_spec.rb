@@ -210,7 +210,7 @@ RSpec.feature "Create a UngArticle", js: true, slow: true do
           expect(work.rights_statement).to eq(rights_statement_options.map { |h| h["id"] })
           expect(work.subject).to eq(subject_options.map { |h| h["id"] })
           expect(work.language).to eq(language_options.map { |h| h["id"] })
-          # expect(work.abstract).to eq(abstract)
+          expect(work.abstract).to eq(abstract)
           expect(work.institution).to eq(institution_options.map { |h| h["id"] })
           expect(work.org_unit).to eq(org_unit)
           expect(work.journal_title).to eq(journal_title)

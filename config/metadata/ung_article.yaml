@@ -494,7 +494,7 @@ attributes:
     form:
       required: false
       primary: false
-      multiple: true
+      multiple: false
       type: textarea
   date_accepted:
     type: string
