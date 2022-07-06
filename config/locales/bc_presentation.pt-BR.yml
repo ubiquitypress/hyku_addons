@@ -1,0 +1,8 @@
+pt-BR:
+  hyrax:
+    icons:
+      bc_presentation: "fa fa-file-text-o"
+    select_type:
+      bc_presentation:
+        description: "Bc Presentation trabalhos"
+        name: "Bc Presentation"

@@ -1,0 +1,8 @@
+it:
+  hyrax:
+    icons:
+      bc_presentation: "fa fa-file-text-o"
+    select_type:
+      bc_presentation:
+        description:  "Bc Presentation opere"
+        name: "Bc Presentation"
