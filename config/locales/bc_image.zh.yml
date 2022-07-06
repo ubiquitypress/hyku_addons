@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      bc_image: "fa fa-file-text-o"
+    select_type:
+      bc_image:
+        # TODO: translate `human_name` into Chinese
+        description:  "Bc Image 作品"
+        name:  "Bc Image"
+        # TODO: translate `human_name` into Chinese
