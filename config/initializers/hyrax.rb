@@ -73,6 +73,7 @@ Hyrax.config do |config|
   config.register_curation_concern :bc_article
   config.register_curation_concern :bc_book
   config.register_curation_concern :bc_archival_material
+  config.register_curation_concern :bc_image
 
   config.license_service_class = HykuAddons::LicenseService
 
