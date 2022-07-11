@@ -128,6 +128,8 @@ RSpec.feature "Create a UngArticle", js: true, slow: true do
   let(:irb_number) { "123" }
   let(:mesh) { ["mesh1", "mesh2"] }
   let(:rights_statement_text) { "rights_statement_text" }
+  let(:place_of_publication) { ["Place1", "Place2"].sample(1) }
+  let(:publisher) { ["publisher1", "publisher2"].sample(1) }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -174,6 +176,8 @@ RSpec.feature "Create a UngArticle", js: true, slow: true do
       fill_in_text_field(:irb_number, irb_number)
       fill_in_multiple_text_fields(:mesh, mesh)
       fill_in_text_field(:rights_statement_text, rights_statement_text)
+      fill_in_text_field(:publisher, publisher.first)
+      fill_in_text_field(:place_of_publication, place_of_publication.first)
     end
 
     describe "submitting the form" do
@@ -226,6 +230,8 @@ RSpec.feature "Create a UngArticle", js: true, slow: true do
           expect(work.irb_number).to eq(irb_number)
           expect(work.mesh).to eq(mesh)
           expect(work.rights_statement_text).to eq(rights_statement_text)
+          expect(work.publisher).to eq(publisher)
+          expect(work.place_of_publication).to eq(place_of_publication)
         end
       end
     end
