@@ -124,6 +124,9 @@ RSpec.feature "Create a UngArchivalMaterial", js: true, slow: true do
   let(:extent) { "extent" }
   let(:medium) { ["medium1", "medium2"].sample(1) }
   let(:is_format_of) { ["format_of123", "format_of456"].sample(1) }
+  let(:place_of_publication) { ["Place1", "Place2"] }
+  let(:publisher) { ["publisher1", "publisher2"].sample(1) }
+  let(:citation) { ["citation1", "citation2"] }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -172,6 +175,9 @@ RSpec.feature "Create a UngArchivalMaterial", js: true, slow: true do
       fill_in_text_field(:extent, extent)
       fill_in_text_field(:medium, medium.first)
       fill_in_text_field(:is_format_of, is_format_of.first)
+      fill_in_text_field(:publisher, publisher.first)
+      fill_in_multiple_text_fields(:citation, citation)
+      fill_in_multiple_text_fields(:place_of_publication, place_of_publication)
     end
 
     describe "submitting the form" do
@@ -222,6 +228,9 @@ RSpec.feature "Create a UngArchivalMaterial", js: true, slow: true do
           expect(work.extent).to eq(extent)
           expect(work.medium).to eq(medium)
           expect(work.is_format_of).to eq(is_format_of)
+          expect(work.citation).to eq(citation)
+          expect(work.publisher).to eq(publisher)
+          expect(work.place_of_publication).to eq(place_of_publication)
         end
       end
     end
