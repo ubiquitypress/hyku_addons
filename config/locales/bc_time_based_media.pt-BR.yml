@@ -1,0 +1,8 @@
+pt-BR:
+  hyrax:
+    icons:
+      bc_time_based_media: "fa fa-file-text-o"
+    select_type:
+      bc_time_based_media:
+        description: "Bc Time Based Media trabalhos"
+        name: "Bc Time Based Media"

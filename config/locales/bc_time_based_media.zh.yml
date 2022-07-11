@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      bc_time_based_media: "fa fa-file-text-o"
+    select_type:
+      bc_time_based_media:
+        # TODO: translate `human_name` into Chinese
+        description:  "Bc Time Based Media 作品"
+        name:  "Bc Time Based Media"
+        # TODO: translate `human_name` into Chinese

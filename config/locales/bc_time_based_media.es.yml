@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      bc_time_based_media:     'fa fa-file-text-o'
+    select_type:
+      bc_time_based_media:
+        # TODO: translate `human_name` into Spanish
+        description:        "Bc Time Based Media trabajos"
+        name:               "Bc Time Based Media"
+        # TODO: translate `human_name` into Spanish
