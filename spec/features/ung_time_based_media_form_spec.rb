@@ -133,6 +133,7 @@ RSpec.feature "Create a UngTimeBasedMedia", js: true, slow: true do
   let(:time) { "time" }
   let(:irb_number) { "123" }
   let(:irb_status_options) { HykuAddons::IrbStatusService.new(model: model).active_elements.sample(1) }
+  let(:place_of_publication) { ["Place1", "Place2"].sample(1) }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -191,6 +192,7 @@ RSpec.feature "Create a UngTimeBasedMedia", js: true, slow: true do
       fill_in_text_field(:time, time)
       fill_in_text_field(:irb_number, irb_number)
       fill_in_select(:irb_status, irb_status_options.map { |h| h["label"] }.first)
+      fill_in_text_field(:place_of_publication, place_of_publication.first)
     end
 
     describe "submitting the form" do
@@ -252,6 +254,7 @@ RSpec.feature "Create a UngTimeBasedMedia", js: true, slow: true do
           expect(work.time).to eq(time)
           expect(work.irb_number).to eq(irb_number)
           expect(work.irb_status).to eq(irb_status_options.map { |h| h["id"] }.first)
+          expect(work.place_of_publication).to eq(place_of_publication)
         end
       end
     end

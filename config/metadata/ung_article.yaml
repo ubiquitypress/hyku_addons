@@ -337,6 +337,30 @@ attributes:
           type: select
           authority: HykuAddons::RelationTypeService
           include_blank: true
+  publisher:
+    predicate: http://purl.org/dc/elements/1.1/publisher
+    multiple: true
+    index_keys:
+    - publisher_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+      input: single_multi_value
+  place_of_publication:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/Place
+    multiple: true
+    index_keys:
+    - place_of_publication_tesim
+    - place_of_publication_sim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+      input: single_multi_value
   license:
     predicate: http://purl.org/dc/terms/rights
     multiple: true
