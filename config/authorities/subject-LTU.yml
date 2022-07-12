@@ -221,3 +221,6 @@ terms:
   - term: Urban Design
     id: Urban Design
     active: true
+  - term: Writing
+    id: Writing
+    active: true

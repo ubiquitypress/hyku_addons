@@ -1,0 +1,28 @@
+en-LTU:
+  # GenericWork help text and form labels
+  hyrax:
+    select_type:
+      ltu_article:
+        name: Article
+        description: ""
+      ltu_book:
+        name: Book
+        description: ""
+      ltu_book_chapter:
+        name: Book Chapter
+        description: ""
+      ltu_dataset:
+        name: Dataset
+        description: ""
+      ltu_image:
+        name: Image
+        description: ""
+      ltu_presentation:
+       name: Presentation
+       description: ""
+      ltu_time_based_media:
+       name: Time Based Media
+       description: ""
+      ltu_thesis_dissertation_capstone:
+       name: Thesis Dissertation Capstone
+       description: ""

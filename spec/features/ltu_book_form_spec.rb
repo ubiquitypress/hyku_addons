@@ -125,10 +125,10 @@ RSpec.feature "Create a LtuBook", js: true, slow: true do
   let(:extent) { "extent" }
   let(:table_of_contents) { "table_of_contents" }
   let(:edition) { "2" }
+  let(:mesh) { ["mesh1", "mesh2"] }
   let(:isbn) { "1234567890" }
   let(:place_of_publication) { ["Place1", "Place2"].sample(1) }
 
-  let(:subject_text) { ["subject1", "subject2"] }
   let(:rights_statement_text) { "rights_statement_text" }
   let(:medium) { ["medium1", "medium2"].sample(1) }
 
@@ -199,9 +199,9 @@ RSpec.feature "Create a LtuBook", js: true, slow: true do
       fill_in_multiple_text_fields(:library_of_congress_subject_headings_text, library_of_congress_subject_headings_text)
       fill_in_text_field(:publisher, publisher.first)
 
-      fill_in_multiple_text_fields(:subject_text, subject_text)
       fill_in_text_field(:rights_statement_text, rights_statement_text)
       fill_in_text_field(:medium, medium.first)
+      fill_in_multiple_text_fields(:mesh, mesh)
     end
 
     describe "submitting the form" do
@@ -255,9 +255,9 @@ RSpec.feature "Create a LtuBook", js: true, slow: true do
           expect(work.publisher).to eq(publisher)
           expect(work.library_of_congress_subject_headings_text).to eq(library_of_congress_subject_headings_text)
 
-          expect(work.subject_text).to eq(subject_text)
           expect(work.rights_statement_text).to eq(rights_statement_text)
           expect(work.medium).to eq(medium)
+          expect(work.mesh).to eq(mesh)
         end
       end
     end

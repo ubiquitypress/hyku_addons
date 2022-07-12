@@ -1,0 +1,31 @@
+en-UNG:
+  # GenericWork help text and form labels
+  hyrax:
+    select_type:
+      ung_article:
+        name: Article
+        description: ""
+      ung_book:
+        name: Book
+        description: ""
+      ung_book_chapter:
+        name: Book Chapter
+        description: ""
+      ung_dataset:
+        name: Dataset
+        description: ""
+      ung_image:
+        name: Image
+        description: ""
+      ung_presentation:
+       name: Presentation
+       description: ""
+      ung_time_based_media:
+       name: Time Based Media
+       description: ""
+      ung_thesis_dissertation_capstone:
+       name: Thesis Dissertation Capstone
+       description: ""
+      ung_archival_material:
+        name: Archival Material
+        description: ""

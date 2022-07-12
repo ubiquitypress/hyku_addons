@@ -163,7 +163,7 @@ attributes:
     index_keys:
     - alt_email_tesim
     form:
-      required: true
+      required: false
       primary: true
       multiple: true
       type: text
@@ -194,7 +194,7 @@ attributes:
     index_keys:
     - subject_tesim
     form:
-      required: true
+      required: false
       primary: true
       multiple: true
       type: select
@@ -217,7 +217,7 @@ attributes:
     index_keys:
     - language_tesim
     form:
-      required: true
+      required: false
       primary: true
       multiple: true
       type: select
@@ -228,7 +228,7 @@ attributes:
     index_keys:
     - publisher_tesim
     form:
-      required: true
+      required: false
       primary: true
       multiple: true
       type: text

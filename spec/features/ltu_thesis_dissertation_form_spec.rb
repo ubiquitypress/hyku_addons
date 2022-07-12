@@ -125,6 +125,8 @@ RSpec.feature "Create a LtuThesisDissertation", js: true, slow: true do
   let(:related_material) { "related_material" }
   let(:place_of_publication) { ["Place1", "Place2"].sample(1) }
   let(:alt_email) { ["email@test.com", "another@test.com"] }
+  let(:library_of_congress_subject_headings_text) { ["1234", "5678"] }
+  let(:mesh) { ["mesh1", "mesh2"] }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -174,6 +176,8 @@ RSpec.feature "Create a LtuThesisDissertation", js: true, slow: true do
       fill_in_text_field(:place_of_publication, place_of_publication.first)
       fill_in_multiple_text_fields(:citation, citation)
       fill_in_multiple_text_fields(:alt_email, alt_email)
+      fill_in_multiple_text_fields(:mesh, mesh)
+      fill_in_multiple_text_fields(:library_of_congress_subject_headings_text, library_of_congress_subject_headings_text)
     end
 
     describe "submitting the form" do
@@ -226,6 +230,8 @@ RSpec.feature "Create a LtuThesisDissertation", js: true, slow: true do
           expect(work.related_material).to eq(related_material)
           expect(work.place_of_publication).to eq(place_of_publication)
           expect(work.alt_email).to eq(alt_email)
+          expect(work.library_of_congress_subject_headings_text).to eq(library_of_congress_subject_headings_text)
+          expect(work.mesh).to eq(mesh)
         end
       end
     end

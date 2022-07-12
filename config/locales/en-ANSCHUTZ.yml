@@ -1,4 +1,9 @@
 en-ANSCHUTZ:
+  hyrax:
+    select_type:
+      anschutz_work:
+        name: Anschutz Work
+        description: ""
   simple_form:
     creator:
       creator_name_type:

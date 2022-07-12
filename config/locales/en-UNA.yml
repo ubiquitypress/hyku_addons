@@ -1,4 +1,33 @@
 en-UNA:
+  hyrax:
+    select_type:
+      una_article:
+        name: Article
+        description: ""
+      una_book:
+        name: Book
+        description: ""
+      una_book_chapter:
+        name: Book Chapter
+        description: ""
+      una_dataset:
+        name: Dataset
+        description: ""
+      una_image:
+        name: Image
+        description: ""
+      una_presentation:
+       name: Presentation
+       description: ""
+      una_time_based_media:
+       name: Time Based Media
+       description: ""
+      una_thesis_dissertation_capstone:
+       name: Thesis Dissertation Capstone
+       description: ""
+      una_archival_material:
+        name: Archival Material
+        description: ""
   simple_form:
     creator:
       creator_name_type:
