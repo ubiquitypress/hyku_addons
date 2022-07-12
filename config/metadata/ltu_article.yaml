@@ -190,6 +190,19 @@ attributes:
       primary: false
       multiple: true
       type: text
+  library_of_congress_subject_headings_text:
+    type: string
+    predicate: https://id.loc.gov/ontologies/bibframe.html#c_ClassificationLcc
+    multiple: true
+    index_keys:
+    - library_of_congress_subject_headings_text_tesim
+    - library_of_congress_subject_headings_text_sim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+      input: single_multi_value
   subject:
     predicate: http://purl.org/dc/elements/1.1/subject
     multiple: true
