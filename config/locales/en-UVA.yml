@@ -11,6 +11,10 @@ en-UVA:
       contributor_given_name:
         label: First Name
   hyrax:
+    select_type:
+      uva_work:
+        name: Uva Work
+        description: ""
     simple_form:
       labels:
         defaults:
