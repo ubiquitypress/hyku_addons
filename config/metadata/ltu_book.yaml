@@ -201,12 +201,24 @@ attributes:
       primary: false
       multiple: true
       type: text
-  subject_text:
+  library_of_congress_subject_headings_text:
     type: string
-    predicate: http://purl.org/dc/terms/subject
+    predicate: https://id.loc.gov/ontologies/bibframe.html#c_ClassificationLcc
     multiple: true
     index_keys:
-    - subject_text_tesim
+    - library_of_congress_subject_headings_text_tesim
+    - library_of_congress_subject_headings_text_sim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+  mesh:
+    type: string
+    predicate: http://purl.org/dc/terms/MESH
+    multiple: true
+    index_keys:
+    - mesh_tesim
     form:
       required: false
       primary: false
@@ -615,18 +627,6 @@ attributes:
       multiple: false
       type: select
       authority: HykuAddons::RefereedService
-  library_of_congress_subject_headings_text:
-    type: string
-    predicate: https://id.loc.gov/ontologies/bibframe.html#c_ClassificationLcc
-    multiple: true
-    index_keys:
-    - library_of_congress_subject_headings_text_tesim
-    - library_of_congress_subject_headings_text_sim
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: text
   add_info:
     type: string
     predicate: http://purl.org/ontology/bibo/Note
