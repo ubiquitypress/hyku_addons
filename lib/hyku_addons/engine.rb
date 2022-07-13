@@ -202,6 +202,8 @@ module HykuAddons
       Hyrax::Workflow::PendingReviewNotification.prepend HykuAddons::Workflow::PendingReviewNotification
 
       Hyrax::AvatarUploader.prepend HykuAddons::Uploader::AvatarUploader
+      Hyrax::Actors::EmbargoActor.prepend HykuAddons::HyraxEmbargoActorOverride
+      Hyrax::Actors::LeaseActor.prepend HykuAddons::HyraxLeaseActorOverride
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength

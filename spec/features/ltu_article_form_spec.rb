@@ -125,7 +125,7 @@ RSpec.feature "Create a LtuArticle", js: true, slow: true do
   let(:add_info) { "Some additional information" }
   let(:mesh) { ["mesh1", "mesh2"] }
   let(:rights_statement_text) { "rights_statement_text" }
-  let(:library_of_congress_subject_headings_text) { ["1234", "5678"].sample(1) }
+  let(:library_of_congress_subject_headings_text) { ["1234", "5678"] }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -168,7 +168,7 @@ RSpec.feature "Create a LtuArticle", js: true, slow: true do
       fill_in_textarea(:add_info, add_info)
       fill_in_multiple_text_fields(:mesh, mesh)
       fill_in_text_field(:rights_statement_text, rights_statement_text)
-      fill_in_text_field(:library_of_congress_subject_headings_text, library_of_congress_subject_headings_text.first)
+      fill_in_multiple_text_fields(:library_of_congress_subject_headings_text, library_of_congress_subject_headings_text)
     end
 
     describe "submitting the form" do
