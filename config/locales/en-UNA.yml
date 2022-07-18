@@ -7,8 +7,8 @@ en-UNA:
       una_book:
         name: Book
         description: ""
-      una_book_chapter:
-        name: Book Chapter
+      una_chapters_and_book_section:
+        name: Chapters And Book Section
         description: ""
       una_dataset:
         name: Dataset
@@ -22,11 +22,14 @@ en-UNA:
       una_time_based_media:
        name: Time Based Media
        description: ""
-      una_thesis_dissertation_capstone:
-       name: Thesis Dissertation Capstone
+      una_thesis_dissertation:
+       name: Thesis Dissertation
        description: ""
-      una_archival_material:
-        name: Archival Material
+      una_exhibition:
+        name: Exhibition
+        description: ""
+      una_archival_item:
+        name: Archival Item
         description: ""
   simple_form:
     creator:

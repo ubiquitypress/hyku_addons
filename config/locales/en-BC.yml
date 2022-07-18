@@ -1,31 +1,28 @@
-en-UNG:
+en-BC:
   # GenericWork help text and form labels
   hyrax:
     select_type:
-      ung_article:
+      bc_article:
         name: Article
         description: ""
-      ung_book:
+      bc_book:
         name: Book
         description: ""
-      ung_book_chapter:
-        name: Book Chapter
+      bc_chapters_book_setcions:
+        name: Chapters And Book Sections
         description: ""
-      ung_dataset:
-        name: Dataset
+      bc_archival_and_legal_materials:
+        name: Archival And Legal Materials
         description: ""
-      ung_image:
+      bc_image:
         name: Image
         description: ""
-      ung_presentation:
+      bc_presentation:
        name: Presentation
        description: ""
-      ung_time_based_media:
+      bc_time_based_media:
        name: Time Based Media
        description: ""
-      ung_thesis_dissertation:
-       name: Thesis Dissertation
-       description: ""
-      ung_archival_material:
+      bc_archival_material:
         name: Archival Material
         description: ""
