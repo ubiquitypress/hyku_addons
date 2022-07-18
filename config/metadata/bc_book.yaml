@@ -344,9 +344,10 @@ attributes:
     - doi_ssi
     form:
       required: false
-      primary: true
+      primary: false
       multiple: true
       type: text
+      input: single_multi_value
   isbn:
     type: string
     predicate: http://purl.org/ontology/bibo/isbn
@@ -404,17 +405,6 @@ attributes:
       multiple: true
       type: text
       input: single_multi_value
-  license:
-    predicate: http://purl.org/dc/terms/rights
-    multiple: true
-    index_keys:
-    - license_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: select
-      authority: HykuAddons::LicenseService
   language:
     predicate: http://purl.org/dc/elements/1.1/language
     multiple: true
@@ -426,6 +416,18 @@ attributes:
       multiple: true
       type: select
       authority: HykuAddons::LanguageService
+      input: single_multi_value_select
+  license:
+    predicate: http://purl.org/dc/terms/rights
+    multiple: true
+    index_keys:
+    - license_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: select
+      authority: HykuAddons::LicenseService
   rights_holder:
     type: string
     predicate: http://purl.org/dc/terms/rightsHolder

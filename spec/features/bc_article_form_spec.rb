@@ -96,30 +96,8 @@ RSpec.feature "Create a BcArticle", js: true, slow: true do
       { alternate_identifier: "098765", alternate_identifier_type: "Alt Ident. 2" }
     ]
   end
-  # NOTE: related_identifier isn't great, but the nested hash is difficult to store and refer to different hash values
-  let(:related_identifier) { "123456" }
-  let(:related_identifier_type_options) { HykuAddons::RelatedIdentifierTypeService.new(model: model).active_elements.sample(1) }
-  let(:relation_type_options) { HykuAddons::RelationTypeService.new(model: model).active_elements.sample(1) }
-  let(:related_identifier_label) do
-    [
-      {
-        related_identifier: related_identifier,
-        related_identifier_type: related_identifier_type_options.map { |h| h["label"] }.first,
-        relation_type: relation_type_options.map { |h| h["label"] }.first
-      }
-    ]
-  end
-  let(:related_identifier_id) do
-    [
-      {
-        related_identifier: related_identifier,
-        related_identifier_type: related_identifier_type_options.map { |h| h["id"] }.first,
-        relation_type: relation_type_options.map { |h| h["id"] }.first
-      }
-    ]
-  end
+
   let(:add_info) { "Some additional information" }
-  let(:mesh) { ["mesh1", "mesh2"] }
   let(:rights_statement_text) { "rights_statement_text" }
   let(:article_num) { "5" }
   let(:publisher) { ["publisher1", "publisher2"] }
@@ -163,9 +141,7 @@ RSpec.feature "Create a BcArticle", js: true, slow: true do
 
       fill_in_multiple_text_fields(:rights_holder, rights_holder)
       fill_in_cloneable(:alternate_identifier, alternate_identifier)
-      fill_in_cloneable(:related_identifier, related_identifier_label)
       fill_in_textarea(:add_info, add_info)
-      fill_in_multiple_text_fields(:mesh, mesh)
       fill_in_text_field(:rights_statement_text, rights_statement_text)
       fill_in_text_field(:article_num, article_num)
       fill_in_multiple_text_fields(:publisher, publisher)
@@ -215,9 +191,7 @@ RSpec.feature "Create a BcArticle", js: true, slow: true do
           expect(work.volume).to eq(volume)
           expect(work.rights_holder).to eq(rights_holder)
           expect(work.alternate_identifier.first).to eq(alternate_identifier.to_json)
-          expect(work.related_identifier.first).to eq(related_identifier_id.to_json)
           expect(work.add_info).to eq(add_info)
-          expect(work.mesh).to eq(mesh)
           expect(work.rights_statement_text).to eq(rights_statement_text)
           expect(work.article_num).to eq(article_num)
           expect(work.publisher).to eq(publisher)

@@ -85,11 +85,11 @@ RSpec.feature "Create a BcArchivalMaterial", js: true, slow: true do
   let(:abstract) { "This is the abstract text" }
 
   let(:location) { "london" }
-  let(:rights_holder) { ["Holder1", "Holder2"].sample(1) }
+  let(:rights_holder) { ["Holder1", "Holder2"] }
   let(:rights_statement_options) { HykuAddons::RightsStatementService.new(model: model).active_elements.sample(1) }
   let(:rights_statement_text) { "rights_statement_text" }
 
-  let(:related_url) { ["http://test.com", "https://www.test123.com"].sample(1) }
+  let(:related_url) { ["http://test.com", "https://www.test123.com"] }
   let(:related_exhibition) { ["Exhibition1", "Exhibition2"].sample(1) }
   let(:related_exhibition_venue) { ["Exhibition venue 1", "Exhibition venue 2"].sample(1) }
   let(:related_exhibition_date) { [{ year: "2022", month: "02", day: "02" }, { year: "2023", month: "03", day: "03" }].sample(1) }
@@ -97,7 +97,7 @@ RSpec.feature "Create a BcArchivalMaterial", js: true, slow: true do
   let(:time) { "time" }
 
   let(:extent) { "extent" }
-  let(:medium) { ["medium1", "medium2"] }
+  let(:medium) { ["medium1", "medium2"].sample(1) }
   let(:is_format_of) { ["format_of123", "format_of456"].sample(1) }
   let(:alternate_identifier) do
     [
@@ -106,6 +106,9 @@ RSpec.feature "Create a BcArchivalMaterial", js: true, slow: true do
     ].sample(1)
   end
   let(:language_options) { HykuAddons::LanguageService.new(model: model).active_elements.sample(1) }
+  let(:citation) { ["citation1", "citation2"] }
+  let(:license_options) { HykuAddons::LicenseService.new(model: model).active_elements.sample(1) }
+  let(:add_info) { "Some additional information" }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -136,23 +139,26 @@ RSpec.feature "Create a BcArchivalMaterial", js: true, slow: true do
       fill_in_textarea(:abstract, abstract)
 
       fill_in_text_field(:location, location)
-      fill_in_text_field(:rights_holder, rights_holder.first)
+      fill_in_multiple_text_fields(:rights_holder, rights_holder)
 
       fill_in_select(:rights_statement, rights_statement_options.map { |h| h["label"] }.first)
       fill_in_text_field(:rights_statement_text, rights_statement_text)
 
-      fill_in_text_field(:related_url, related_url.first)
-      fill_in_text_field(:related_exhibition, related_exhibition)
-      fill_in_text_field(:related_exhibition_venue, related_exhibition_venue)
-      fill_in_date(:related_exhibition_date, related_exhibition_date)
-      fill_in_multiple_text_fields(:duration, duration)
+      fill_in_multiple_text_fields(:related_url, related_url)
+      fill_in_text_field(:related_exhibition, related_exhibition.first)
+      fill_in_text_field(:related_exhibition_venue, related_exhibition_venue.first)
+      fill_in_date(:related_exhibition_date, related_exhibition_date.first)
+      fill_in_text_field(:duration, duration.first)
       fill_in_text_field(:time, time)
 
       fill_in_text_field(:extent, extent)
-      fill_in_multiple_text_fields(:medium, medium)
+      fill_in_text_field(:medium, medium.first)
       fill_in_text_field(:is_format_of, is_format_of.first)
       fill_in_cloneable(:alternate_identifier, alternate_identifier.first)
-      fill_in_multiple_selects(:language, language_options.map { |h| h["label"] })
+      fill_in_select(:language, language_options.map { |h| h["label"] })
+      fill_in_multiple_text_fields(:citation, citation)
+      fill_in_select(:license, license_options.map { |h| h["label"] })
+      fill_in_textarea(:add_info, add_info)
     end
 
     describe "submitting the form" do
@@ -187,7 +193,7 @@ RSpec.feature "Create a BcArchivalMaterial", js: true, slow: true do
           # expect(work.abstract).to eq(abstract)
 
           expect(work.location).to eq(location)
-          expect(work.rights_holder).to eq([rights_holder.first])
+          expect(work.rights_holder).to eq(rights_holder)
           expect(work.rights_statement).to eq(rights_statement_options.map { |h| h["id"] })
           expect(work.rights_statement_text).to eq(rights_statement_text)
 
@@ -203,6 +209,9 @@ RSpec.feature "Create a BcArchivalMaterial", js: true, slow: true do
           expect(work.is_format_of).to eq(is_format_of.first)
           expect(work.alternate_identifier.first).to eq(alternate_identifier.to_json)
           expect(work.language).to eq(language_options.map { |h| h["id"] })
+          expect(work.citation).to eq(citation)
+          expect(work.license).to eq(license_options.map { |h| h["id"] })
+          expect(work.add_info).to eq(add_info)
         end
       end
     end
