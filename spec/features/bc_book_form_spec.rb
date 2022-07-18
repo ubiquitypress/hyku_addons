@@ -85,7 +85,7 @@ RSpec.feature "Create a BcBook", js: true, slow: true do
   let(:license_options) { HykuAddons::LicenseService.new(model: model).active_elements.sample(2) }
   let(:rights_statement_options) { HykuAddons::RightsStatementService.new(model: model).active_elements.sample(1) }
   let(:subject_options) { HykuAddons::SubjectService.new(model: model).active_elements.sample(2) }
-  let(:language_options) { HykuAddons::LanguageService.new(model: model).active_elements.sample(2) }
+  let(:language_options) { HykuAddons::LanguageService.new(model: model).active_elements.sample(1) }
   let(:abstract) { "This is the abstract text" }
   let(:rights_holder) { ["Holder1", "Holder2"] }
   let(:alternate_identifier) do
@@ -135,7 +135,7 @@ RSpec.feature "Create a BcBook", js: true, slow: true do
       fill_in_multiple_selects(:license, license_options.map { |h| h["label"] })
       fill_in_multiple_selects(:rights_statement, rights_statement_options.map { |h| h["label"] })
       fill_in_multiple_selects(:subject, subject_options.map { |h| h["label"] })
-      fill_in_multiple_selects(:language, language_options.map { |h| h["label"] })
+      fill_in_select(:language, language_options.map { |h| h["label"] })
       fill_in_textarea(:abstract, abstract)
 
       fill_in_multiple_text_fields(:rights_holder, rights_holder)

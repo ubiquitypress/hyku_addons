@@ -195,142 +195,16 @@ attributes:
     - subject_tesim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: true
       type: select
       authority: HykuAddons::SubjectService
       input: single_multi_value_select
-  official_link:
-    type: string
-    predicate: http://schema.org/url
-    multiple: false
-    index_keys:
-    - official_link_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-      type: text
-  related_url:
-    predicate: http://www.w3.org/2000/01/rdf-schema#seeAlso
-    multiple: true
-    index_keys:
-    - related_url_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: text
-  alternate_identifier:
-    type: string
-    predicate: http://id.loc.gov/ontologies/bibframe/Local
-    multiple: true
-    index_keys:
-    - alternate_identifier_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: text
-      input: single_multi_value
-    subfields:
-      alternate_identifier:
-        type: string
-        form:
-          multiple: false
-          required: false
-          type: text
-      alternate_identifier_type:
-        type: string
-        form:
-          required: false
-          multiple: false
-          type: text
-  event_title:
-    type: string
-    predicate: http://id.loc.gov/ontologies/bibframe/Event
-    multiple: true
-    index_keys:
-    - event_title_tesim
-    - event_title_sim
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: text
-      input: single_multi_value
-  event_location:
-    type: string
-    predicate: http://bibframe.org/vocab/eventPlace
-    multiple: true
-    index_keys:
-    - event_location_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: text
-      input: single_multi_value
-  event_date:
-    type: string
-    predicate: http://bibframe.org/vocab/eventDate
-    multiple: true
-    index_keys:
-    - event_date_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-      type: date
-  license:
-    predicate: http://purl.org/dc/terms/rights
-    multiple: true
-    index_keys:
-    - license_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: select
-      authority: HykuAddons::LicenseService
-  rights_holder:
-    type: string
-    predicate: http://purl.org/dc/terms/rightsHolder
-    multiple: true
-    index_keys:
-    - rights_holder_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: text
-  rights_statement:
-    predicate: http://www.europeana.eu/schemas/edm/rights
-    multiple: false
-    index_keys:
-    - rights_statement_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-      type: select
-      authority: HykuAddons::RightsStatementService
-  rights_statement_text:
-    type: string
-    predicate: http://purl.org/dc/elements/1.1/rights
-    multiple: false
-    index_keys:
-    - rights_statement_text_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-      type: text
   contributor:
     predicate: http://purl.org/dc/elements/1.1/contributor
     multiple: true
     index_keys:
-    - contributor_tesim
+      - contributor_tesim
     form:
       required: false
       primary: false
@@ -339,36 +213,36 @@ attributes:
       input: single_multi_value
     subfields:
       contributor_name_type:
-        type: string
-        form:
-          required: false
-          multiple: false
-          type: select
-          authority: HykuAddons::NameTypeService
+       type: string
+       form:
+         required: false
+         multiple: false
+         type: select
+         authority: HykuAddons::NameTypeService
       contributor_family_name:
         type: string
         form:
-          required: false
-          multiple: false
-          type: text
-          display_for:
-          - Personal
+         required: false
+         multiple: false
+         type: text
+         display_for:
+         - Personal
       contributor_given_name:
         type: string
         form:
-          required: false
-          multiple: false
-          type: text
-          display_for:
-          - Personal
+         required: false
+         multiple: false
+         type: text
+         display_for:
+         - Personal
       contributor_orcid:
         type: string
         form:
-          required: false
-          multiple: false
-          type: text
-          display_for:
-          - Personal
+         required: false
+         multiple: false
+         type: text
+         display_for:
+         - Personal
       contributor_institutional_relationship:
         type: string
         form:
@@ -377,7 +251,7 @@ attributes:
           type: select
           authority: HykuAddons::ContributorInstitutionalRelationshipService
           attributes:
-            multiple: multiple
+           multiple: multiple
           display_for:
           - Personal
       contributor_organization_name:
@@ -431,6 +305,144 @@ attributes:
           display_for:
           - Personal
           - Organizational
+  alternate_identifier:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/Local
+    multiple: true
+    index_keys:
+    - alternate_identifier_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+      input: single_multi_value
+    subfields:
+      alternate_identifier:
+        type: string
+        form:
+          multiple: false
+          required: false
+          type: text
+      alternate_identifier_type:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+  official_link:
+    type: string
+    predicate: http://schema.org/url
+    multiple: false
+    index_keys:
+    - official_link_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: text
+  related_url:
+    predicate: http://www.w3.org/2000/01/rdf-schema#seeAlso
+    multiple: true
+    index_keys:
+    - related_url_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+  language:
+    predicate: http://purl.org/dc/elements/1.1/language
+    multiple: true
+    index_keys:
+    - language_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: select
+      authority: HykuAddons::LanguageService
+      input: single_multi_value_select
+  license:
+    predicate: http://purl.org/dc/terms/rights
+    multiple: true
+    index_keys:
+    - license_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: select
+      authority: HykuAddons::LicenseService
+  rights_holder:
+    type: string
+    predicate: http://purl.org/dc/terms/rightsHolder
+    multiple: true
+    index_keys:
+    - rights_holder_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+  rights_statement:
+    predicate: http://www.europeana.eu/schemas/edm/rights
+    multiple: false
+    index_keys:
+    - rights_statement_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: select
+      authority: HykuAddons::RightsStatementService
+  rights_statement_text:
+    type: string
+    predicate: http://purl.org/dc/elements/1.1/rights
+    multiple: false
+    index_keys:
+    - rights_statement_text_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: text
+  event_title:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/Event
+    multiple: true
+    index_keys:
+    - event_title_tesim
+    - event_title_sim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+      input: single_multi_value
+  event_location:
+    type: string
+    predicate: http://bibframe.org/vocab/eventPlace
+    multiple: true
+    index_keys:
+    - event_location_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+      input: single_multi_value
+  event_date:
+    type: string
+    predicate: http://bibframe.org/vocab/eventDate
+    multiple: true
+    index_keys:
+    - event_date_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: date
   medium:
     type: string
     predicate: http://purl.org/dc/terms/medium
@@ -454,29 +466,29 @@ attributes:
       primary: false
       multiple: false
       type: text
-  is_format_of:
-    type: string
-    predicate: http://purl.org/dc/terms/isFormatOf
-    multiple: false
-    index_keys:
-    - is_format_of_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-      type: text
-  language:
-    predicate: http://purl.org/dc/elements/1.1/language
-    multiple: true
-    index_keys:
-    - language_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: select
-      authority: HykuAddons::LanguageService
-      input: single_multi_value_select
+  time:
+   type: string
+   predicate: http://purl.org/dc/terms/temporal
+   multiple: false
+   index_keys:
+   - time_tesim
+   form:
+     required: false
+     primary: false
+     multiple: false
+     type: text
+  location:
+   type: string
+   predicate: http://id.loc.gov/ontologies/bibframe/physicalLocation
+   multiple: false
+   index_keys:
+   - location_tesim
+   - location_sim
+   form:
+     required: false
+     primary: false
+     multiple: false
+     type: text
   longitude:
     type: string
     predicate: http://schema.org/longitude
@@ -499,29 +511,17 @@ attributes:
       primary: false
       multiple: false
       type: text
-  location:
-    type: string
-    predicate: http://id.loc.gov/ontologies/bibframe/physicalLocation
-    multiple: false
-    index_keys:
-    - location_tesim
-    - location_sim
-    form:
-      required: false
-      primary: false
-      multiple: false
-      type: text
-  time:
-    type: string
-    predicate: http://purl.org/dc/terms/temporal
-    multiple: false
-    index_keys:
-    - time_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-      type: text
+  is_format_of:
+   type: string
+   predicate: http://purl.org/dc/terms/isFormatOf
+   multiple: false
+   index_keys:
+   - is_format_of_tesim
+   form:
+     required: false
+     primary: false
+     multiple: false
+     type: text
   add_info:
     type: string
     predicate: http://purl.org/ontology/bibo/Note

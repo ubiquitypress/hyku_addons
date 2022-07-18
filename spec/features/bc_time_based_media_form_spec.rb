@@ -84,29 +84,6 @@ RSpec.feature "Create a BcTimeBasedMedia", js: true, slow: true do
   let(:subject_options) { HykuAddons::SubjectService.new(model: model).active_elements.sample(2) }
   let(:language_options) { HykuAddons::LanguageService.new(model: model).active_elements.sample(1) }
   let(:abstract) { "This is the abstract text" }
-
-  # NOTE: related_identifier isn't great, but the nested hash is difficult to store and refer to different hash values
-  let(:related_identifier) { "123456" }
-  let(:related_identifier_type_options) { HykuAddons::RelatedIdentifierTypeService.new(model: model).active_elements.sample(1) }
-  let(:relation_type_options) { HykuAddons::RelationTypeService.new(model: model).active_elements.sample(1) }
-  let(:related_identifier_label) do
-    [
-      {
-        related_identifier: related_identifier,
-        related_identifier_type: related_identifier_type_options.map { |h| h["label"] }.first,
-        relation_type: relation_type_options.map { |h| h["label"] }.first
-      }
-    ]
-  end
-  let(:related_identifier_id) do
-    [
-      {
-        related_identifier: related_identifier,
-        related_identifier_type: related_identifier_type_options.map { |h| h["id"] }.first,
-        relation_type: relation_type_options.map { |h| h["id"] }.first
-      }
-    ]
-  end
   let(:add_info) { "Some additional information" }
   let(:longitude) { "0.124356" }
   let(:latitude) { "1.345678" }
@@ -116,7 +93,6 @@ RSpec.feature "Create a BcTimeBasedMedia", js: true, slow: true do
   let(:rights_statement_text) { "rights_statement_text" }
 
   let(:degree) { "Degree Name" }
-  let(:additional_links) { "http://sample312.com" }
   let(:related_url) { ["http://test.com", "https://www.test123.com"].sample(1) }
   let(:related_material) { "related_material" }
   let(:event_title) { ["Event1", "Event2"].sample(1) }
@@ -154,8 +130,6 @@ RSpec.feature "Create a BcTimeBasedMedia", js: true, slow: true do
       fill_in_multiple_selects(:subject, subject_options.map { |h| h["label"] })
       fill_in_select(:language, language_options.map { |h| h["label"] })
       fill_in_textarea(:abstract, abstract)
-
-      fill_in_cloneable(:related_identifier, related_identifier_label)
       fill_in_textarea(:add_info, add_info)
 
       fill_in_text_field(:longitude, longitude)
@@ -166,9 +140,7 @@ RSpec.feature "Create a BcTimeBasedMedia", js: true, slow: true do
       fill_in_select(:rights_statement, rights_statement_options.map { |h| h["label"] }.first)
       fill_in_text_field(:rights_statement_text, rights_statement_text)
 
-      fill_in_text_field(:additional_links, additional_links)
       fill_in_text_field(:related_url, related_url.first)
-      fill_in_textarea(:related_material, related_material)
       fill_in_text_field(:event_title, event_title.first)
       fill_in_text_field(:event_location, event_location.first)
       fill_in_date(:event_date, event_date.first)
@@ -208,7 +180,6 @@ RSpec.feature "Create a BcTimeBasedMedia", js: true, slow: true do
           expect(work.subject).to eq(subject_options.map { |h| h["id"] })
           expect(work.language).to eq(language_options.map { |h| h["id"] })
           expect(work.abstract).to eq(abstract)
-          expect(work.related_identifier.first).to eq(related_identifier_id.to_json)
           expect(work.add_info).to eq(add_info)
 
           expect(work.longitude).to eq(longitude)
@@ -218,10 +189,7 @@ RSpec.feature "Create a BcTimeBasedMedia", js: true, slow: true do
           expect(work.rights_statement).to eq(rights_statement_options.map { |h| h["id"] })
           expect(work.rights_statement_text).to eq(rights_statement_text)
 
-          expect(work.additional_links).to eq(additional_links)
           expect(work.related_url).to eq(related_url)
-          expect(work.related_material).to eq(related_material)
-
           expect(work.event_title).to eq(event_title)
           expect(work.event_location).to eq(event_location)
           expect(work.event_date).to eq(event_date.map { |date| normalize_date(date) }.flatten)
