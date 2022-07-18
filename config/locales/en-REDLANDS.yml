@@ -1,4 +1,27 @@
 en-REDLANDS:
+  hyrax:
+    select_type:
+      redlands_article:
+        name: Article
+        description: ""
+      redlands_book:
+        name: Book
+        description: ""
+      redlands_chapters_and_book_section_chapter_book_setcions:
+        name: Chapters And Book Sections
+        description: ""
+      redlands_conferences_reports_and_paper:
+        name: Conferences Reports And Paper
+        description: ""
+      redlands_open_educational_resource:
+        name: Open Educational Resource
+        description: ""
+      redlands_student_work:
+       name: student Work
+       description: ""
+      redlands_media:
+       name: Media
+       description: ""
   simple_form:
     creator:
       creator_name_type:

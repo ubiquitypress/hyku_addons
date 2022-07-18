@@ -1,4 +1,12 @@
 en-NSU:
+  hyrax:
+    select_type:
+      nsu_article:
+        name: Article
+        description: ""
+      nsu_generic_work:
+        name: Generic Work
+        description: ""
   simple_form:
     creator:
       creator_name_type:

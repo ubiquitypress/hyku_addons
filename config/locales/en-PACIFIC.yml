@@ -1,4 +1,36 @@
 en-PACIFIC:
+  hyrax:
+    select_type:
+      pacific_article:
+        name: Article
+        description: ""
+      pacific_book:
+        name: Book
+        description: ""
+      pacific_book_chapter:
+        name: Book Chapter
+        description: ""
+      pacific_news_clipping:
+        name: News Clipping
+        description: ""
+      pacific_image:
+        name: Image
+        description: ""
+      pacific_presentation:
+       name: Presentation
+       description: ""
+      pacific_media:
+       name: Media
+       description: ""
+      pacific_text_work:
+        name: Text Work
+        description:
+      pacific_uncategorized:
+        name: Uncategorized
+        description: ""
+      pacific_thesis_or_dissertation:
+        name: Thesis Or Dissertation
+        description: ""
   work_type_modal:
     admin_set:
       title: Select Collection

@@ -23,6 +23,6 @@ en-LTU:
       ltu_time_based_media:
        name: Time Based Media
        description: ""
-      ltu_thesis_dissertation_capstone:
-       name: Thesis Dissertation Capstone
+      ltu_thesis_dissertation:
+       name: Thesis Dissertation
        description: ""
