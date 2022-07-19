@@ -8,7 +8,7 @@ en-BC:
       bc_book:
         name: Book
         description: ""
-      bc_chapters_book_setcions:
+      bc_chapters_and_book_section:
         name: Chapters And Book Sections
         description: ""
       bc_archival_and_legal_materials:
