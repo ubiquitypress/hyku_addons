@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      bc_chapters_book_section:     'fa fa-file-text-o'
+    select_type:
+      bc_chapters_book_section:
+        # TODO: translate `human_name` into Spanish
+        description:        "Bc ChaptersAndBookSections trabajos"
+        name:               "Bc ChaptersAndBookSections"
+        # TODO: translate `human_name` into Spanish

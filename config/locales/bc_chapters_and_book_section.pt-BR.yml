@@ -1,0 +1,8 @@
+pt-BR:
+  hyrax:
+    icons:
+      bc_chapters_and_book_section: "fa fa-file-text-o"
+    select_type:
+      bc_chapters_and_book_section:
+        description: "Bc ChaptersAndBookSections trabalhos"
+        name: "Bc ChaptersAndBookSections"
