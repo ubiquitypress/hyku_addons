@@ -132,6 +132,7 @@ module HykuAddons
       attribute :georeferenced, SolrDocument::Solr::Array, solr_name("georeferenced")
       attribute :mentor, SolrDocument::Solr::Array, solr_name("mentor")
       attribute :repository_space, SolrDocument::Solr::Array, solr_name("repository_space")
+      attribute :related_entity, SolrDocument::Solr::Array, solr_name("related_entity")
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(

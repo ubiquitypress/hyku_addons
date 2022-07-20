@@ -204,6 +204,23 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
     end
   end
 
+  related_entity = work.try(:solr_document)&.to_h&.dig("related_entity_tesim")&.first
+  if related_entity.present?
+    related_entity_array = begin
+                                 JSON.parse(related_entity)
+                               rescue JSON::ParserError
+                                 nil
+                               end
+    if related_entity_array.present?
+      json.related_entity do
+        json.array! related_entity_array do |hash|
+          json.name hash["related_entity"]
+          json.type hash["related_entity_type"]
+        end
+      end
+    end
+  end
+
   json.related_material work.try(:solr_document)&.to_h&.dig("related_material_tesim")
   json.related_url work.try(:solr_document)&.to_h&.dig("related_url_tesim")
 

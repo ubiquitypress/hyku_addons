@@ -1,0 +1,40 @@
+<% template = @curation_concern.class.to_s.underscore %>
+
+<% array_of_hash.each_with_index do |hash, index| %>
+
+  <div class="ubiquity-meta-related-entity" data-legacy-cloneable-group>
+
+    <label class="control-label multi_value optional" for="<% template %>_related_entity">related entity</label>
+    <p class="help-block">May be used for local identifiers such as project codes, e.g. XTE12.</p>
+    <p class="help-block">Please include a prefix e.g. 'Project ID = XTE12' so a reader can distinguish between multiple identifiers</p>
+
+    <%= text_field_tag "#{template}[related_entity][][related_entity]", hash.dig("related_entity"),
+                       class: "#{template}_related_entity form-control multi-text-field multi_value",
+                       name: "#{template}[related_entity][][related_entity]"
+    %>
+
+    <br>
+    <label class="control-label multi_value optional" for="<% template %>_related_entity_type">
+      Type of related entity</label>
+    <p class="help-block">State the type of related entity.</p>
+
+    <%= select_tag "#{template}[related_entity][][relation_entity_type]",
+          options_for_select(HykuAddons::RelatedEntityTypeService.new.select_active_options.uniq, hash.dig("related_entity_type")),
+          { class: "#{template}_related_entity_type form-control multi-text-field multi_value related_entity_type", prompt: "select one..." } %>
+
+    <br>
+
+    <br>
+    <a href="#" style="color:red;"  class="remove_related_entity form-group" data-removeUbiquityRelatedEntity=".ubiquity-meta-related-entity">
+      <span class="glyphicon glyphicon-remove"></span>
+      <span class="controls-remove-text">Remove</span>
+    </a>
+    |
+
+    <a href="#" class="add_related_entity" data-addUbiquityRelatedEntity=".ubiquity-meta-related-entity">Add another </a>
+
+    <br> <br>
+
+  </div>
+
+<% end %>

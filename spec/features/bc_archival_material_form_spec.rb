@@ -105,6 +105,13 @@ RSpec.feature "Create a BcArchivalMaterial", js: true, slow: true do
       { alternate_identifier: "098765", alternate_identifier_type: "Alt Ident. 2" }
     ].sample(1)
   end
+  let(:related_entity_type_options) { HykuAddons::RelatedEntityTypeService.new(model: model).active_elements.sample(2) }
+  let(:related_entity) do
+    [
+      { related_entity: "873456", related_entity_type: related_entity_type_options.map { |h| h["label"] }.first },
+      { related_entity: "108765", related_entity_type: related_entity_type_options.map { |h| h["label"] }.first }
+    ]
+  end
   let(:language_options) { HykuAddons::LanguageService.new(model: model).active_elements.sample(1) }
   let(:citation) { ["citation1", "citation2"] }
   let(:license_options) { HykuAddons::LicenseService.new(model: model).active_elements.sample(1) }
@@ -159,6 +166,7 @@ RSpec.feature "Create a BcArchivalMaterial", js: true, slow: true do
       fill_in_multiple_text_fields(:citation, citation)
       fill_in_select(:license, license_options.map { |h| h["label"] })
       fill_in_textarea(:add_info, add_info)
+      fill_in_cloneable(:related_entity, related_entity)
     end
 
     describe "submitting the form" do
@@ -212,6 +220,7 @@ RSpec.feature "Create a BcArchivalMaterial", js: true, slow: true do
           expect(work.citation).to eq(citation)
           expect(work.license).to eq(license_options.map { |h| h["id"] })
           expect(work.add_info).to eq(add_info)
+          expect(work.related_entity.first).to eq(related_entity.to_json)
         end
       end
     end

@@ -305,6 +305,32 @@ attributes:
           display_for:
           - Personal
           - Organizational
+  related_entity:
+    type: string
+    predicate: http://purl.org/goodrelations/v1#Business
+    multiple: true
+    index_keys:
+    - related_entity_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+    subfields:
+      related_entity:
+        type: string
+        form:
+          multiple: false
+          required: false
+          type: text
+      related_entity_type:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::RelatedEntityTypeService
+          include_blank: true
   citation:
     type: string
     predicate: http://purl.org/dc/terms/bibliographicCitation

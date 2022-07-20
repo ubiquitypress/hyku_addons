@@ -1,0 +1,19 @@
+terms:
+- id: Agency
+  term: Agency
+  active: true
+- id: Court
+  term: Court
+  active: true
+- id: Plaintiff
+  term: Plaintiff
+  active: true
+- id: Defendant
+  term: Defendant
+  active: true
+- id: Petitioner
+  term: Petitioner
+  active: true
+- id: Respondent
+  term: Respondent
+  active: true

@@ -239,6 +239,15 @@ en:
         label: Type of alternate identifier
         placeholder: ""
         help_text: State the type of alternate identifier.
+    related_entity:
+      related_entity:
+        label: Related Entity
+        placeholder: ""
+        help_text: Please add any related entity.
+      related_entity_type:
+        label: Type of related entity
+        placeholder:
+        help_text: If you have listed a related entity, then please select what type.
   stats:
     reports:
       title: Google Data Studio Chart

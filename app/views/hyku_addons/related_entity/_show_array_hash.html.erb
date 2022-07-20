@@ -1,0 +1,19 @@
+<tr>
+  <th>Related entity</th>
+  <td>
+    <% array_of_hash.each do |hash| %>
+      <ul class="tabular">
+        <li class="attribute related_entity">
+          <% if hash['related_entity'] %>
+            <%= "identifier: #{hash['related_entity']}" %>&nbsp;
+          <% end %>
+        </li>
+        <li class="attribute related_entity_type">
+          <% if hash['related_entity_type'] %>
+            <%= "type: #{hash['related_entity_type']}" %>
+          <% end %>
+        </li>
+      </ul>
+    <% end %>
+  </td>
+</tr>
