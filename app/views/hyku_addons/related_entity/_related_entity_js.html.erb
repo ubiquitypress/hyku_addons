@@ -1,0 +1,34 @@
+<script type="text/javascript">
+
+    // add linked fields
+    $(document).on("turbolinks:load", function(){
+
+        return $("body").on("click", ".add_related_entity", function(event){
+            event.preventDefault();
+            var ubiquityRelatedEntityClass = $(this).attr('data-addUbiquityRelatedEntity');
+            var cloneUbiDiv = $(this).parent('div' + ubiquityRelatedEntityClass).clone();
+            _this = this;
+            cloneUbiDiv.find('input').val('');
+            cloneUbiDiv.find('option').attr('selected', false);
+            $(ubiquityRelatedEntityClass + ':last').after(cloneUbiDiv)
+        });
+    });
+
+    //remove linked fields
+    $(document).on("turbolinks:load", function(){
+        return $("body").on("click", ".remove_alternate_identifier", function(event){
+            event.preventDefault();
+            var ubiquityAlternateIdentifierClass = $(this).attr('data-removeUbiquityAlternateIdentifier');
+            _this = this;
+            removeUbiquityRelatedEntity(_this, ubiquityRelatedEntityClass);
+
+        });
+    });
+
+    function removeUbiquityRelatedEntity(self, related_entityDiv) {
+        if ($(".ubiquity-meta-related-entity").length > 1 ) {
+            $(self).parent('div' + related_entityDiv).remove();
+        }
+    }
+
+</script>

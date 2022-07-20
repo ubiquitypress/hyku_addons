@@ -1,0 +1,34 @@
+<% template = f.object.model.class.to_s.underscore %>
+
+<div class="ubiquity-meta-related-entity" data-legacy-cloneable-group>
+  <label class="control-label multi_value optional" for="<% template %>_related_entity">Related entity</label>
+  <%= Hyrax::Renderers::DepositFormFieldHintRenderer.new.hint("related_entity") %>
+
+  <%= text_field_tag "#{template}[related_entity][][related_entity]", nil,
+                     class: "#{template}_related_entity form-control multi-text-field multi_value",
+                     placeholder: t("simple_form.placeholders.defaults.related_entity"),
+                     name: "#{template}[related_entity][][related_entity]"
+  %>
+
+  <br>
+  <label class="control-label multi_value optional" for="<% template %>_related_entity_type">
+    Type of Related entity</label>
+  <%= Hyrax::Renderers::DepositFormFieldHintRenderer.new.hint("related_entity_type") %>
+
+  <%= select_tag "#{template}[related_entity][][related_entity_type]",
+      content_tag(:option,'select one...',:value=>"")+options_from_collection_for_select(HykuAddons::RelatedEntityTypeService.new.select_active_options.flatten.uniq!, :to_s, :to_s),
+      {:class => "form-control multi-text-field multi_value related_entity_type #{template}_related_identifier_type"} %>
+
+  <br>
+
+  <a href="#" style="color:red;" class="remove_related_entity form-group" data-removeUbiquityRelatedEntity=".ubiquity-meta-related-entity">
+    <span class="glyphicon glyphicon-remove"></span>
+    <span class="controls-remove-text">Remove</span>
+  </a>
+  |
+
+  <a href="#" class="add_related_entity" data-addUbiquityRelatedEntity=".ubiquity-meta-related-entity">Add
+    another </a>
+  <br> <br>
+
+</div>

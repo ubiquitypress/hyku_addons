@@ -1,0 +1,17 @@
+<!-- _related_entity -->
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/cloneable_schema", f: f, key: key %>
+
+<% else %>
+  <div class="legacy-cloneable <%= f.object.model.class.to_s.underscore %>_related_entity" data-legacy-cloneable>
+    <% if  f.object.model.new_record?  %>
+      <%= render "hyku_addons/related_entity/new_form", f: f %>
+
+    <% else %>
+      <% data = get_model(f.object.model.related_entity, f.object.model.class,  'related_entity') || [{}] %>
+      <%= render "hyku_addons/related_entity/edit_form", f: f, array_of_hash: data  %>
+    <% end %>
+
+    <%= render "hyku_addons/related_entity/related_entity_js" %>
+  </div>
+<% end %>
