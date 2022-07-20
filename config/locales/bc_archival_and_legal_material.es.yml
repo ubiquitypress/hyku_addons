@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      bc_archival_and_legal_material:     'fa fa-file-text-o'
+    select_type:
+      bc_archival_and_legal_material:
+        # TODO: translate `human_name` into Spanish
+        description:        "Bc Archival And Legal Materials trabajos"
+        name:               "Bc Archival And Legal Materials"
+        # TODO: translate `human_name` into Spanish

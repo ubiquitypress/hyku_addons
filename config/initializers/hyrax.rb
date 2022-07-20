@@ -72,7 +72,7 @@ Hyrax.config do |config|
   config.register_curation_concern :ltu_time_based_media
   config.register_curation_concern :bc_article
   config.register_curation_concern :bc_book
-  config.register_curation_concern :bc_archival_material
+  config.register_curation_concern :bc_archival_and_legal_material
   config.register_curation_concern :bc_image
   config.register_curation_concern :bc_presentation
   config.register_curation_concern :bc_time_based_media

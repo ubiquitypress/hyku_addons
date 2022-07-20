@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-class BcArchivalMaterialIndexer < Hyrax::WorkIndexer
-  include Hyrax::Indexer(:bc_archival_material)
+class BcArchivalAndLegalMaterialIndexer < Hyrax::WorkIndexer
+  include Hyrax::Indexer(:bc_archival_and_legal_material)
   # This indexes the default metadata. You can remove it if you want to
   # provide your own metadata and indexing.
   include Hyrax::IndexesBasicMetadata

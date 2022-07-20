@@ -3,8 +3,8 @@
 require HykuAddons::Engine.root.join("spec", "support", "fill_in_fields.rb").to_s
 require HykuAddons::Engine.root.join("spec", "support", "work_form_helpers.rb").to_s
 
-RSpec.feature "Create a BcArchivalMaterial", js: true, slow: true do
-  let(:work_type) { "bc_archival_material" }
+RSpec.feature "Create a BcArchivalAndLegalMaterial", js: true, slow: true do
+  let(:work_type) { "bc_archival_and_legal_material" }
   let(:work) { work_type.classify.constantize.find(work_uuid_from_url) }
 
   let(:model) { work_type.classify.constantize }
