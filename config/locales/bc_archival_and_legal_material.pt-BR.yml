@@ -1,0 +1,8 @@
+pt-BR:
+  hyrax:
+    icons:
+      bc_archival_and_legal_material: "fa fa-file-text-o"
+    select_type:
+      bc_archival_and_legal_material:
+        description: "Bc Archival And Legal Materials trabalhos"
+        name: "Bc Archival And Legal Materials"

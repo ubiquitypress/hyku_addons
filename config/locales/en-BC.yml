@@ -11,7 +11,7 @@ en-BC:
       bc_chapters_and_book_section:
         name: Chapters And Book Sections
         description: ""
-      bc_archival_and_legal_materials:
+      bc_archival_and_legal_material:
         name: Archival And Legal Materials
         description: ""
       bc_image:
@@ -23,6 +23,3 @@ en-BC:
       bc_time_based_media:
        name: Time Based Media
        description: ""
-      bc_archival_material:
-        name: Archival Material
-        description: ""
