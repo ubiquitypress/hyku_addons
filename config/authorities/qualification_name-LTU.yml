@@ -77,9 +77,6 @@ terms:
 - id: BS BIO ENG
   term: Bachelor of Science Biomedical Engineering
   active: true
-- id: BS BIOMED ENG
-  term: Bachelor of Science Biomedical Engineering
-  active: true
 - id: BS CETM
   term: Bachelor of Science Construction Engineering Technology & Management
   active: true
@@ -118,9 +115,6 @@ terms:
   active: true
 - id: BS IND DES
   term: Bachelor of Science Industrial Design
-  active: true
-- id: BS IND ENGR
-  term: Bachelor of Science
   active: true
 - id: BS INT DES
   term: Bachelor of Science Interior Design
@@ -268,9 +262,6 @@ terms:
   active: true
 - id: M. Arch 
   term: Master of Arts Architecture
-  active: false
-- id: MAr
-  term: Master of Architecture
   active: true
 - id: M. Arch/BSCTM
   term: Master of Architecture & Construction Engineering Technology & Management
@@ -282,7 +273,7 @@ terms:
   term: Master of Business Administration
   active: true
 - id: MBA IT
-  term: Master of Business Administration
+  term: Master of Business Administration Information Technology
   active: true
 - id: MCEM
   term: Master Construction Engineering Management
@@ -336,7 +327,7 @@ terms:
   term: Master of Science Industrial Engineering
   active: true
 - id: MSIE/MEM
-  term: Master of Science Industrial Engineering
+  term: Master of Science Industrial Engineering Management
   active: true
 - id: MSIT
   term: Master of Science Information Technology
