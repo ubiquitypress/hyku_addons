@@ -130,6 +130,9 @@ RSpec.feature "Create a UngArticle", js: true, slow: true do
   let(:rights_statement_text) { "rights_statement_text" }
   let(:place_of_publication) { ["Place1", "Place2"].sample(1) }
   let(:publisher) { ["publisher1", "publisher2"].sample(1) }
+  let(:issue) { "4" }
+  let(:pagination) { "1-5" }
+  let(:article_num) { "5" }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -178,6 +181,9 @@ RSpec.feature "Create a UngArticle", js: true, slow: true do
       fill_in_text_field(:rights_statement_text, rights_statement_text)
       fill_in_text_field(:publisher, publisher.first)
       fill_in_text_field(:place_of_publication, place_of_publication.first)
+      fill_in_text_field(:issue, issue)
+      fill_in_text_field(:pagination, pagination)
+      fill_in_text_field(:article_num, article_num)
     end
 
     describe "submitting the form" do
@@ -232,6 +238,9 @@ RSpec.feature "Create a UngArticle", js: true, slow: true do
           expect(work.rights_statement_text).to eq(rights_statement_text)
           expect(work.publisher).to eq(publisher)
           expect(work.place_of_publication).to eq(place_of_publication)
+          expect(work.issue).to eq(issue)
+          expect(work.pagination).to eq(pagination)
+          expect(work.article_num).to eq(article_num)
         end
       end
     end
