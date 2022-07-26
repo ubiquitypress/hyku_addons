@@ -257,6 +257,39 @@ attributes:
       primary: false
       multiple: true
       type: text
+  issue:
+    type: string
+    predicate: http://bibframe.org/vocab/Serial
+    multiple: false
+    index_keys:
+    - issue_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: text
+  pagination:
+    type: string
+    predicate: http://purl.org/ontology/bibo/numPages
+    multiple: false
+    index_keys:
+    - pagination_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: text
+  article_num:
+    type: string
+    predicate: http://purl.org/ontology/bibo/number
+    multiple: false
+    index_keys:
+    - article_num_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: text
   doi:
     type: string
     predicate: http://purl.org/ontology/bibo/doi
