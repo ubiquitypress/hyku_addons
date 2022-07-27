@@ -118,8 +118,8 @@ RSpec.feature "Create a LtuDataset", js: true, slow: true do
   let(:add_info) { "Some additional information" }
 
   let(:extent) { "extent" }
-  let(:subject_text) { ["subject1", "subject2"] }
   let(:medium) { ["medium1", "medium2"].sample(1) }
+  let(:library_of_congress_subject_headings_text) { ["1234", "5678"] }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -156,8 +156,8 @@ RSpec.feature "Create a LtuDataset", js: true, slow: true do
       fill_in_textarea(:add_info, add_info)
 
       fill_in_text_field(:extent, extent)
-      fill_in_multiple_text_fields(:subject_text, subject_text)
       fill_in_text_field(:medium, medium.first)
+      fill_in_multiple_text_fields(:library_of_congress_subject_headings_text, library_of_congress_subject_headings_text)
     end
 
     describe "submitting the form" do
@@ -199,8 +199,8 @@ RSpec.feature "Create a LtuDataset", js: true, slow: true do
           expect(work.related_identifier.first).to eq(related_identifier_id.to_json)
           expect(work.add_info).to eq(add_info)
           expect(work.extent).to eq(extent)
-          expect(work.subject_text).to eq(subject_text)
           expect(work.medium).to eq(medium)
+          expect(work.library_of_congress_subject_headings_text).to eq(library_of_congress_subject_headings_text)
         end
       end
     end

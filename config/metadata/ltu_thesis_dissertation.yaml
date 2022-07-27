@@ -200,17 +200,6 @@ attributes:
       primary: false
       multiple: true
       type: text
-  subject:
-    predicate: http://purl.org/dc/elements/1.1/subject
-    multiple: true
-    index_keys:
-    - subject_tesim
-    form:
-      required: false
-      primary: true
-      multiple: true
-      type: select
-      authority: HykuAddons::SubjectService
   degree:
     type: string
     predicate: http://schema.org/evidenceLevel

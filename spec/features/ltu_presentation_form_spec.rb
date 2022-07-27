@@ -81,7 +81,6 @@ RSpec.feature "Create a LtuPresentation", js: true, slow: true do
   let(:resource_type) { HykuAddons::ResourceTypesService.new(model: model).active_elements.sample(1) }
   let(:date_published) { { year: "2020", month: "02", day: "02" } }
   let(:keyword) { ["keyword1", "keyword2"] }
-  let(:subject_options) { HykuAddons::SubjectService.new(model: model).active_elements.sample(2) }
   let(:language_options) { HykuAddons::LanguageService.new(model: model).active_elements.sample(2) }
   let(:abstract) { "This is the abstract text" }
   # NOTE: related_identifier isn't great, but the nested hash is difficult to store and refer to different hash values
@@ -94,6 +93,7 @@ RSpec.feature "Create a LtuPresentation", js: true, slow: true do
   let(:publisher) { ["publisher1", "publisher2"] }
   let(:org_unit) { ["Unit1", "Unit2"] }
   let(:alt_email) { ["email@test.com", "another@test.com"] }
+  let(:library_of_congress_subject_headings_text) { ["1234", "5678"] }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -118,7 +118,6 @@ RSpec.feature "Create a LtuPresentation", js: true, slow: true do
 
       # Additional fields
       fill_in_multiple_text_fields(:keyword, keyword)
-      fill_in_multiple_selects(:subject, subject_options.map { |h| h["label"] })
       fill_in_multiple_selects(:language, language_options.map { |h| h["label"] })
       fill_in_textarea(:abstract, abstract)
       fill_in_textarea(:add_info, add_info)
@@ -130,6 +129,7 @@ RSpec.feature "Create a LtuPresentation", js: true, slow: true do
       fill_in_multiple_text_fields(:publisher, publisher)
       fill_in_multiple_text_fields(:org_unit, org_unit)
       fill_in_multiple_text_fields(:alt_email, alt_email)
+      fill_in_multiple_text_fields(:library_of_congress_subject_headings_text, library_of_congress_subject_headings_text)
     end
 
     describe "submitting the form" do
@@ -161,7 +161,6 @@ RSpec.feature "Create a LtuPresentation", js: true, slow: true do
           expect(work.creator).to eq([creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
           expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
           expect(work.keyword).to eq(keyword)
-          expect(work.subject).to eq(subject_options.map { |h| h["id"] })
           expect(work.language).to eq(language_options.map { |h| h["id"] })
           expect(work.abstract).to eq(abstract)
           expect(work.add_info).to eq(add_info)
@@ -172,6 +171,7 @@ RSpec.feature "Create a LtuPresentation", js: true, slow: true do
 
           expect(work.publisher).to eq(publisher)
           expect(work.org_unit).to eq(org_unit)
+          expect(work.library_of_congress_subject_headings_text).to eq(library_of_congress_subject_headings_text)
         end
       end
     end

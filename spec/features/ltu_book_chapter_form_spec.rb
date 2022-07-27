@@ -124,7 +124,6 @@ RSpec.feature "Create a LtuBookChapter", js: true, slow: true do
   let(:isbn) { "1234567890" }
   let(:place_of_publication) { ["Place1", "Place2"].sample(1) }
 
-  let(:subject_text) { ["subject1", "subject2"] }
   let(:medium) { ["medium1", "medium2"].sample(1) }
   let(:book_title) { "The book title" }
   let(:alt_book_title) { "Another title" }
@@ -151,6 +150,7 @@ RSpec.feature "Create a LtuBookChapter", js: true, slow: true do
       }
     ]
   end
+  let(:library_of_congress_subject_headings_text) { ["1234", "5678"] }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -194,12 +194,12 @@ RSpec.feature "Create a LtuBookChapter", js: true, slow: true do
       fill_in_text_field(:isbn, isbn)
       fill_in_text_field(:publisher, publisher.first)
 
-      fill_in_multiple_text_fields(:subject_text, subject_text)
       fill_in_text_field(:medium, medium.first)
       fill_in_text_field(:book_title, book_title)
       fill_in_text_field(:alt_book_title, alt_book_title)
       fill_in_text_field(:time, time)
       fill_in_text_field(:pagination, pagination)
+      fill_in_multiple_text_fields(:library_of_congress_subject_headings_text, library_of_congress_subject_headings_text)
     end
 
     describe "submitting the form" do
@@ -235,7 +235,7 @@ RSpec.feature "Create a LtuBookChapter", js: true, slow: true do
           expect(work.license).to eq(license_options.map { |h| h["id"] })
           expect(work.rights_statement).to eq(rights_statement_options.map { |h| h["id"] })
           expect(work.language).to eq(language_options.map { |h| h["id"] })
-          # expect(work.abstract).to eq(abstract)
+          expect(work.abstract).to eq(abstract)
           expect(work.institution).to eq(institution_options.map { |h| h["id"] })
           expect(work.rights_holder).to eq(rights_holder)
           expect(work.alternate_identifier.first).to eq(alternate_identifier.to_json)
@@ -248,13 +248,12 @@ RSpec.feature "Create a LtuBookChapter", js: true, slow: true do
           expect(work.edition).to eq(edition)
           expect(work.editor).to eq([editor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
           expect(work.publisher).to eq(publisher)
-
-          expect(work.subject_text).to eq(subject_text)
           expect(work.medium).to eq(medium)
           expect(work.book_title).to eq(book_title)
           expect(work.alt_book_title).to eq(alt_book_title)
           expect(work.time).to eq(time)
           expect(work.pagination).to eq(pagination)
+          expect(work.library_of_congress_subject_headings_text).to eq(library_of_congress_subject_headings_text)
         end
       end
     end
