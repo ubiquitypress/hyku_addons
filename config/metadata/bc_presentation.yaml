@@ -97,6 +97,14 @@ attributes:
           type: text
           display_for:
           - Personal
+      creator_institutional_email:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - Personal
       creator_institutional_relationship:
         type: string
         form:
