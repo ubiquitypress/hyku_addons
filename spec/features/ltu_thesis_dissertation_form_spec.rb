@@ -81,7 +81,6 @@ RSpec.feature "Create a LtuThesisDissertation", js: true, slow: true do
   let(:date_published) { { year: "2020", month: "02", day: "02" } }
   let(:keyword) { ["keyword1", "keyword2"] }
   let(:license_options) { HykuAddons::LicenseService.new(model: model).active_elements.sample(2) }
-  let(:subject_options) { HykuAddons::SubjectService.new(model: model).active_elements.sample(2) }
   let(:language_options) { HykuAddons::LanguageService.new(model: model).active_elements.sample(2) }
   let(:abstract) { "This is the abstract text" }
 
@@ -153,7 +152,6 @@ RSpec.feature "Create a LtuThesisDissertation", js: true, slow: true do
       # Additional fields
       fill_in_multiple_text_fields(:keyword, keyword)
       fill_in_multiple_selects(:license, license_options.map { |h| h["label"] })
-      fill_in_multiple_selects(:subject, subject_options.map { |h| h["label"] })
       fill_in_multiple_selects(:language, language_options.map { |h| h["label"] })
       fill_in_textarea(:abstract, abstract)
 
@@ -209,9 +207,8 @@ RSpec.feature "Create a LtuThesisDissertation", js: true, slow: true do
           expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
           expect(work.keyword).to eq(keyword)
           expect(work.license).to eq(license_options.map { |h| h["id"] })
-          expect(work.subject).to eq(subject_options.map { |h| h["id"] })
           expect(work.language).to eq(language_options.map { |h| h["id"] })
-          # expect(work.abstract).to eq(abstract)
+          expect(work.abstract).to eq(abstract)
           expect(work.related_identifier.first).to eq(related_identifier_id.to_json)
           expect(work.add_info).to eq(add_info)
           expect(work.rights_holder).to eq(rights_holder)

@@ -81,7 +81,6 @@ RSpec.feature "Create a LtuTimeBasedMedia", js: true, slow: true do
   let(:date_published) { { year: "2020", month: "02", day: "02" } }
   let(:keyword) { ["keyword1", "keyword2"] }
   let(:license_options) { HykuAddons::LicenseService.new(model: model).active_elements.sample(2) }
-  let(:subject_options) { HykuAddons::SubjectService.new(model: model).active_elements.sample(2) }
   let(:language_options) { HykuAddons::LanguageService.new(model: model).active_elements.sample(2) }
   let(:abstract) { "This is the abstract text" }
 
@@ -126,6 +125,7 @@ RSpec.feature "Create a LtuTimeBasedMedia", js: true, slow: true do
   let(:time) { "time" }
   let(:irb_number) { "123" }
   let(:irb_status_options) { HykuAddons::IrbStatusService.new(model: model).active_elements.sample(1) }
+  let(:library_of_congress_subject_headings_text) { ["1234", "5678"] }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -152,7 +152,6 @@ RSpec.feature "Create a LtuTimeBasedMedia", js: true, slow: true do
       # Additional fields
       fill_in_multiple_text_fields(:keyword, keyword)
       fill_in_multiple_selects(:license, license_options.map { |h| h["label"] })
-      fill_in_multiple_selects(:subject, subject_options.map { |h| h["label"] })
       fill_in_multiple_selects(:language, language_options.map { |h| h["label"] })
       fill_in_textarea(:abstract, abstract)
 
@@ -176,6 +175,7 @@ RSpec.feature "Create a LtuTimeBasedMedia", js: true, slow: true do
       fill_in_text_field(:time, time)
       fill_in_text_field(:irb_number, irb_number)
       fill_in_select(:irb_status, irb_status_options.map { |h| h["label"] }.first)
+      fill_in_multiple_text_fields(:library_of_congress_subject_headings_text, library_of_congress_subject_headings_text)
     end
 
     describe "submitting the form" do
@@ -206,9 +206,8 @@ RSpec.feature "Create a LtuTimeBasedMedia", js: true, slow: true do
           expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
           expect(work.keyword).to eq(keyword)
           expect(work.license).to eq(license_options.map { |h| h["id"] })
-          expect(work.subject).to eq(subject_options.map { |h| h["id"] })
           expect(work.language).to eq(language_options.map { |h| h["id"] })
-          # expect(work.abstract).to eq(abstract)
+          expect(work.abstract).to eq(abstract)
           expect(work.related_identifier.first).to eq(related_identifier_id.to_json)
           expect(work.add_info).to eq(add_info)
           expect(work.rights_holder).to eq([rights_holder.first])
@@ -228,6 +227,7 @@ RSpec.feature "Create a LtuTimeBasedMedia", js: true, slow: true do
           expect(work.time).to eq(time)
           expect(work.irb_number).to eq(irb_number)
           expect(work.irb_status).to eq(irb_status_options.map { |h| h["id"] }.first)
+          expect(work.library_of_congress_subject_headings_text).to eq(library_of_congress_subject_headings_text)
         end
       end
     end
