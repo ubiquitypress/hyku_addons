@@ -40,6 +40,7 @@ RSpec.feature "Create a BcArticle", js: true, slow: true do
         creator_middle_name: "J.",
         creator_suffix: "Mr",
         creator_orcid: "0000-0000-1111-2222",
+        creator_institutional_email: user.email,
         creator_institutional_relationship: "Research associate",
         creator_isni: "56273930281",
         # This is a hidden field set in the form, but we want to be able to check its value is set
