@@ -52,6 +52,8 @@ RSpec.feature "Create a DenverThesisDissertationCapstone", slow: true do
     fill_in("#{work_type}_title", with: "My Test Work")
     select("Organisational", from: "#{work_type}_creator__creator_name_type")
     fill_in("#{work_type}_creator__creator_organization_name", with: "Ubiquity Press")
+    # Qualification name
+    select("Master of Science", from: "denver_thesis_dissertation_capstone_qualification_name")
     check("agreement")
     click_on("Save")
     expect(page).to have_content("My Test Work")
