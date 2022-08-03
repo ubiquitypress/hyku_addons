@@ -32,6 +32,9 @@ terms:
   - id: Computer Science
     term: Computer Science
     active: true
+  - id: Conservatory of Music
+    term: Conservatory of Music
+    active: true
   - id: Counseling and Human Services
     term: Counseling and Human Services
     active: true
@@ -117,7 +120,10 @@ terms:
     term: Religious Studies
     active: true
   - id: School of Business
-    term: School of Business
+    term: School of Business and Society
+    active: true
+  - id: School of Performing Arts
+    term: School of Performing Arts
     active: true
   - id: Sociology and Anthropology
     term: Sociology and Anthropology
@@ -129,7 +135,7 @@ terms:
     term: Teaching and Learning
     active: true
   - id: Theatre Arts
-    term: Theatre Arts
+    term: Theatre and Dance
     active: true
   - id: Women, Gender, and Sexuality Studies
     term: Women, Gender, and Sexuality Studies
