@@ -1,8 +1,8 @@
 en:
   hyrax:
     icons:
-      bc_chapters_book_section: "fa fa-file-text-o"
+      bc_chapters_and_book_section: "fa fa-file-text-o"
     select_type:
-      bc_chapters_book_section:
+      bc_chapters_and_book_section:
         description: "Bc ChaptersAndBookSections"
         name: "Bc ChaptersAndBookSections"
