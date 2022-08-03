@@ -462,7 +462,7 @@ attributes:
     - license_tesim
     form:
       required: false
-      primary: true
+      primary: false
       multiple: true
       type: select
       authority: HykuAddons::LicenseService
@@ -483,8 +483,8 @@ attributes:
     index_keys:
     - rights_statement_tesim
     form:
-      required: true
-      primary: true
+      required: false
+      primary: false
       multiple: true
       type: select
       authority: HykuAddons::RightsStatementService
