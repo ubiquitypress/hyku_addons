@@ -1,9 +1,11 @@
 terms:
   - id: Book
     term: Book
-  - id: Report
-    term: Report
-  - id: Textbook or Casebook
-    term: Textbook or Casebook
   - id: Magazine
     term: Magazine
+  - id: Report
+    term: Report
+  - id: Student Newspaper
+    term: Student Newspaper
+  - id: Textbook or Casebook
+    term: Textbook or Casebook
