@@ -1,0 +1,328 @@
+terms:
+  - id: Accounting Law
+    term: Accounting Law
+    active: true
+  - id: Administrative Law
+    term: Administrative Law
+    active: true
+  - id: Admiralty
+    term: Admiralty
+    active: true
+  - id: Agency
+    term: Agency
+    active: true
+  - id: Agriculture Law
+    term: Agriculture Law
+    active: true
+  - id: Air and Space Law
+    term: Air and Space Law
+    active: true
+  - id: Animal Law
+    term: Animal Law
+    active: true
+  - id: Banking and Finance Law
+    term: Banking and Finance Law
+    active: true
+  - id: Bankruptcy Law
+    term: Bankruptcy Law
+    active: true
+  - id: Business Organizations Law
+    term: Business Organizations Law
+    active: true
+  - id: Civil Law
+    term: Civil Law
+    active: true
+  - id: Civil Procedure
+    term: Civil Procedure
+    active: true
+  - id: Civil Rights and Discrimination
+    term: Civil Rights and Discrimination
+    active: true
+  - id: Commercial Law
+    term: Commercial Law
+    active: true
+  - id: Common Law
+    term: Common Law
+    active: true
+  - id: Communications Law
+    term: Communications Law
+    active: true
+  - id: Comparative and Foreign Law
+    term: Comparative and Foreign Law
+    active: true
+  - id: Conflict of Laws
+    term: Conflict of Laws
+    active: true
+  - id: Constitutional Law
+    term: Constitutional Law
+    active: true
+  - id: Construction Law
+    term: Construction Law
+    active: true
+  - id: Consumer Protection Law
+    term: Consumer Protection Law
+    active: true
+  - id: Contracts
+    term: Contracts
+    active: true
+  - id: Courts
+    term: Courts
+    active: true
+  - id: Criminal Law
+    term: Criminal Law
+    active: true
+  - id: Criminal Procedure
+    term: Criminal Procedure
+    active: true
+  - id: Disability Law
+    term: Disability Law
+    active: true
+  - id: Disaster Law
+    term: Disaster Law
+    active: true
+  - id: Dispute Resolution and Arbitration
+    term: Dispute Resolution and Arbitration
+    active: true
+  - id: Domestic Law
+    term: Domestic Law
+    active: true
+  - id: Economics
+    term: Economics
+    active: true
+  - id: Education Law
+    term: Education Law
+    active: true
+  - id: Elder Law
+    term: Elder Law
+    active: true
+  - id: Election Law
+    term: Election Law
+    active: true
+  - id: Energy and Utilities Law
+    term: Energy and Utilities Law
+    active: true
+  - id: Entertainment, Arts, and Sports Law
+    term: Entertainment, Arts, and Sports Law
+    active: true
+  - id: Environmental Law
+    term: Environmental Law
+    active: true
+  - id: Estates and Trusts
+    term: Estates and Trusts
+    active: true
+  - id: Evidence
+    term: Evidence
+    active: true
+  - id: First Amendment
+    term: First Amendment
+    active: true
+  - id: Food and Drug Law
+    term: Food and Drug Law
+    active: true
+  - id: Fourteenth Amendment
+    term: Fourteenth Amendment
+    active: true
+  - id: Fourth Amendment
+    term: Fourth Amendment
+    active: true
+  - id: Gender
+    term: Gender
+    active: true
+  - id: Government Contracts
+    term: Government Contracts
+    active: true
+  - id: Health Law and Policy
+    term: Health Law and Policy
+    active: true
+  - id: Housing Law
+    term: Housing Law
+    active: true
+  - id: Human Rights Law
+    term: Human Rights Law
+    active: true
+  - id: Immigration Law
+    term: Immigration Law
+    active: true
+  - id: Indigenous Law
+    term: Indigenous Law
+    active: true
+  - id: Insurance Law
+    term: Insurance Law
+    active: true
+  - id: Intellectual Property Law
+    term: Intellectual Property Law
+    active: true
+  - id: International Law
+    term: International Law
+    active: true
+  - id: International Trade Law
+    term: International Trade Law
+    active: true
+  - id: Internet Law
+    term: Internet Law
+    active: true
+  - id: Judges
+    term: Judges
+    active: true
+  - id: Jurisdiction
+    term: Jurisdiction
+    active: true
+  - id: Jurisprudence
+    term: Jurisprudence
+    active: true
+  - id: Juvenile Law
+    term: Juvenile Law
+    active: true
+  - id: Labor and Employment Law
+    term: Labor and Employment Law
+    active: true
+  - id: Land Use Law
+    term: Land Use Law
+    active: true
+  - id: Law and Economics
+    term: Law and Economics
+    active: true
+  - id: Law and Society
+    term: Law and Society
+    active: true
+  - id: Law Enforcement and Corrections
+    term: Law Enforcement and Corrections
+    active: true
+  - id: Law of the Sea
+    term: Law of the Sea
+    active: true
+  - id: Legal Biography
+    term: Legal Biography
+    active: true
+  - id: Legal Education
+    term: Legal Education
+    active: true
+  - id: Legal Ethics and Professional Responsibility
+    term: Legal Ethics and Professional Responsibility
+    active: true
+  - id: Legal History
+    term: Legal History
+    active: true
+  - id: Legal Profession
+    term: Legal Profession
+    active: true
+  - id: Legal Remedies
+    term: Legal Remedies
+    active: true
+  - id: Legal Writing and Research
+    term: Legal Writing and Research
+    active: true
+  - id: Legislation
+    term: Legislation
+    active: true
+  - id: Library and Information Science
+    term: Library and Information Science
+    active: true
+  - id: Litigation
+    term: Litigation
+    active: true
+  - id: Medical Jurisprudence
+    term: Medical Jurisprudence
+    active: true
+  - id: Military, War, and Peace
+    term: Military, War, and Peace
+    active: true
+  - id: National Security Law
+    term: National Security Law
+    active: true
+  - id: Natural Resources Law
+    term: Natural Resources Law
+    active: true
+  - id: Nonprofit Organizations Law
+    term: Nonprofit Organizations Law
+    active: true
+  - id: Politics
+    term: Politics
+    active: true
+  - id: President/Executive Department
+    term: President/Executive Department
+    active: true
+  - id: Privacy Law
+    term: Privacy Law
+    active: true
+  - id: Property Law and Real Estate
+    term: Property Law and Real Estate
+    active: true
+  - id: Psychology and Psychiatry
+    term: Psychology and Psychiatry
+    active: true
+  - id: Public Law and Legal Theory
+    term: Public Law and Legal Theory
+    active: true
+  - id: Race and Ethnicity
+    term: Race and Ethnicity
+    active: true
+  - id: Religion Law
+    term: Religion Law
+    active: true
+  - id: Reproduction
+    term: Reproduction
+    active: true
+  - id: Retirement Security Law
+    term: Retirement Security Law
+    active: true
+  - id: Rule of Law
+    term: Rule of Law
+    active: true
+  - id: Science and Technology Law
+    term: Science and Technology Law
+    active: true
+  - id: Second Amendment
+    term: Second Amendment
+    active: true
+  - id: Secured Transactions
+    term: Secured Transactions
+    active: true
+  - id: Securities Law
+    term: Securities Law
+    active: true
+  - id: Sex Crimes
+    term: Sex Crimes
+    active: true
+  - id: Sexuality and Sexual Orientation
+    term: Sexuality and Sexual Orientation
+    active: true
+  - id: Social Welfare Law
+    term: Social Welfare Law
+    active: true
+  - id: State and Local Government Law
+    term: State and Local Government Law
+    active: true
+  - id: Supreme Court of the United States
+    term: Supreme Court of the United States
+    active: true
+  - id: Taxation
+    term: Taxation
+    active: true
+  - id: Taxation-Federal
+    term: Taxation-Federal
+    active: true
+  - id: Taxation-Federal Estate and Gift
+    term: Taxation-Federal Estate and Gift
+    active: true
+  - id: Taxation-International
+    term: Taxation-International
+    active: true
+  - id: Taxation-State and Local
+    term: Taxation-State and Local
+    active: true
+  - id: Torts
+    term: Torts
+    active: true
+  - id: Trade Regulation
+    term: Trade Regulation
+    active: true
+  - id: Transportation Law
+    term: Transportation Law
+    active: true
+  - id: Water Law
+    term: Water Law
+    active: true
+  - id: Workers' Compensation Law
+    term: Workers' Compensation Law
+    active: true
