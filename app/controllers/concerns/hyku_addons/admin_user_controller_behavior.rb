@@ -18,10 +18,10 @@ module HykuAddons
 
     private
 
-    def handle_user_with_works(user)
-      user.roles.clear
-      user.add_role("inactive", Site.instance)
-      redirect_to hyrax.admin_users_path, notice: t("hyrax.admin.users.destroy.success", user: user)
-    end
+      def handle_user_with_works(user)
+        user.roles.clear
+        user.add_role("inactive", Site.instance)
+        redirect_to hyrax.admin_users_path, notice: t("hyrax.admin.users.destroy.success", user: user)
+      end
   end
 end
