@@ -74,6 +74,8 @@ module HykuAddons
       def add_default_roles
         return if Account.global_tenant?
 
+        return if guest
+
         add_role :admin, Site.instance unless self.class.joins(:roles).where("roles.name = ?", "admin").any?
         # Role for any given site
         add_role :registered, Site.instance
