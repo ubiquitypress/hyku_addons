@@ -139,7 +139,7 @@ module HykuAddons
       ::Hyrax::StatsController.include HykuAddons::StatsControllerBehavior
       Hyrax::GenericWorkPresenter.include HykuAddons::GenericWorkPresenterBehavior
       Hyrax::ImagePresenter.include HykuAddons::GenericWorkPresenterBehavior
-
+      ::Admin::UsersController.prepend HykuAddons::AdminUserControllerBehavior
       # DOI
       Hyrax::DOI::DataCiteRegistrar.prepend HykuAddons::DOI::DataCiteRegistrarBehavior
 
@@ -191,6 +191,7 @@ module HykuAddons
       Hyrax::CollectionPresenter.include HykuAddons::CollectionPresenterBehavior
       Hyrax::Renderers::LicenseAttributeRenderer.prepend Hyrax::Renderers::LicenseAttributeRendererBehavior
       ::Hyrax::CollectionPresenter.prepend HykuAddons::CollectionPresenterOverride
+      ::Hyrax::Admin::UsersPresenter.prepend HykuAddons::AdminUserPresenterOverride
 
       # Service Endpoints
       ::SolrEndpoint.prepend HykuAddons::SolrEndpointOverride
