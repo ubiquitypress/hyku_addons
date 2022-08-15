@@ -29,6 +29,7 @@ module HykuAddons
         config.add_facet_field solr_name("language", :facetable), limit: 5, label: "Language"
         config.add_facet_field solr_name("org_unit", :facetable), limit: 5, label: "Department"
         config.add_facet_field solr_name("audience", :facetable), limit: 5, label: "OER Audience", if: proc { |context, _config, _opts| context.send(:current_account)&.settings&.dig("locale_name") == "redlands" }
+        config.add_facet_field solr_name("subject", :facetable), limit: 5, label: "Subject"
         config.add_facet_field "file_availability", query: {
           # TODO: use i18n
           available: {
