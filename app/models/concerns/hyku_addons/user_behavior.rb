@@ -8,7 +8,7 @@ module HykuAddons
 
     included do
       before_save :toggle_display_profile
-      before_save :assign_default_role
+      after_save :assign_default_role
 
       validate :email_format
 
@@ -75,9 +75,10 @@ module HykuAddons
       def assign_default_role
         return if Account.global_tenant?
 
-        return if guest
+        return if guest?
 
-        add_role :admin, Site.instance unless self.class.joins(:roles).where("roles.name = ?", "admin").any?
+        return if roles.present?
+
         # Role for any given site
         add_role :registered, Site.instance
       end
