@@ -8,7 +8,7 @@ module HykuAddons
 
     included do
       before_save :toggle_display_profile
-      before_create :add_default_roles
+      after_save :assign_default_role
 
       validate :email_format
 
@@ -17,6 +17,7 @@ module HykuAddons
 
       # copied from hyku models/users to ensure inactive users are not in users page
       scope :for_repository, -> { joins(:roles).where.not(roles: { name: "inactive" }) }
+
       scope :with_public_profile, -> { where(display_profile: true) }
     end
 
@@ -71,12 +72,13 @@ module HykuAddons
       # copied over from hyku models/user.rb
       # If this user is the first user on the tenant, they become its admin
       # unless we are in the global tenant
-      def add_default_roles
+      def assign_default_role
         return if Account.global_tenant?
 
-        return if guest
+        return if guest?
 
-        add_role :admin, Site.instance unless self.class.joins(:roles).where("roles.name = ?", "admin").any?
+        return if roles.present?
+
         # Role for any given site
         add_role :registered, Site.instance
       end

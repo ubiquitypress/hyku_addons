@@ -79,6 +79,17 @@ RSpec.describe HykuAddons::UserBehavior, type: :model do
     end
   end
 
+  describe "callbacks" do
+    let(:user_with_default_role) { build(:user, email: "abc@test.com", password: "abcdefgh", password_confirmation: "abcdefgh") }
+
+    xit "assigns registred as default role" do
+      user_with_default_role.save
+
+      expect(user_with_default_role.roles).to be_truthy
+      expect(user_with_default_role.roles.map(&:name)).to include("registered")
+    end
+  end
+
   describe "#display_profile_visibility" do
     context "when display_profile is true" do
       it "returns a string 'open'" do
