@@ -8,7 +8,7 @@ module HykuAddons
 
     included do
       before_save :toggle_display_profile
-      after_save :assign_default_role
+      before_create :assign_default_role
 
       validate :email_format
 

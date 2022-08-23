@@ -12,6 +12,12 @@ RSpec.describe Admin::UsersController, type: :controller do
     let(:work) { create(:work, visibility: "open", user: user_with_work) }
     let(:main_app) { Rails.application.routes.url_helpers }
 
+    let(:user_with_only_file) { create(:user, email: "fff@test.com", invitation_accepted_at: DateTime.now.utc) }
+    let(:file_set_id) { "bn999672v" }
+    let(:file_set) { instance_double(FileSet, id: file_set_id, uri: "http://127.0.0.1/rest/fake/bn/99/96/72/bn999672v") }
+    let(:file) { Tempfile.new("test.pdf") }
+    let(:uploaded_file) { Hyrax::UploadedFile.create(user: user_with_only_file, file_set_uri: file_set.uri, file: file) }
+
     before do
       allow(Apartment::Tenant).to receive(:switch!).with(account.tenant) do |&block|
         block&.call
@@ -22,9 +28,11 @@ RSpec.describe Admin::UsersController, type: :controller do
         user.add_role("registered", Site.instance)
         user_with_work.add_role("registered", Site.instance)
         user_with_work_file.add_role("registered", Site.instance)
+        user_with_only_file.add_role("registered", Site.instance)
         admin_user.add_role("admin", Site.instance)
         work
         work_with_file
+        uploaded_file
         sign_in admin_user
       end
     end
@@ -78,6 +86,20 @@ RSpec.describe Admin::UsersController, type: :controller do
 
         it "soft deleted user should not be active for devise authentication" do
           expect(user_with_work_file.reload.active_for_authentication?).to be_falsey
+        end
+      end
+
+      context "Soft with deletes User only file and no works" do
+        before do
+          delete :destroy, params: { id: user_with_only_file.email }
+        end
+
+        it "can delete via /admin/users/ soft deletes user with only files" do
+          expect(response).to redirect_to("/admin/users?locale=en")
+        end
+
+        it "flashes a success message on deleting user" do
+          expect(response.request.flash[:notice]).to match(/User "#{user_with_only_file.email}" has been successfully deleted./)
         end
       end
     end
