@@ -25,5 +25,22 @@ namespace :hyku_addons do
         end
       end
     end
+
+    # Usage: app:hyku_addons:file_set:tenant_file_size_total["repo.hyku.docker"]
+    desc "Get total file size for all files by a tenant"
+    task :tenant_file_size_total, [:cname] => :environment do |_t, args|
+      AccountElevator.switch!(args[:cname])
+      files = FileSet.all
+      sleep(0.3)
+
+      file_size_bytes = files.map do |file|
+        file&.file_size&.first&.to_f
+      end.compact.sum
+
+      file_size_megabytes = (file_size_bytes / (1024 * 1024))
+
+
+      puts "#{args[:cname]} files count is #{files.size} and total file size is #{file_size_megabytes.round(2)} mb and #{file_size_bytes.round(2)} bytes"
+    end
   end
 end
