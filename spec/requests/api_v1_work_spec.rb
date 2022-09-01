@@ -47,6 +47,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
   let(:date_accepted) { "2018-1-02" }
   let(:date_created) { "#{created_year}-01-01" }
   let(:date_published) { "#{published_year}-3-12" }
+  let(:event_date) { "#{created_year}-6-4" }
   let(:date_submitted) { "2019-01-02" }
   let(:doi) { "10.18130/v3-k4an-w022" }
   let(:duration1) { "duration1" }
@@ -107,6 +108,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
       creator: [[creator1, creator2].to_json],
       date_accepted: date_accepted,
       date_published: date_published,
+      event_date: [event_date],
       date_submitted: date_submitted,
       doi: [doi],
       duration: [duration1],
@@ -329,7 +331,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "duration" => ["duration1"],
                                            "edition" => ["1"],
                                            "eissn" => ["1234-5678"],
-                                           "event_date" => nil,
+                                           "event_date" => ["#{created_year}-06-04"],
                                            "event_location" => nil,
                                            "event_title" => nil,
                                            "extent" => nil,
