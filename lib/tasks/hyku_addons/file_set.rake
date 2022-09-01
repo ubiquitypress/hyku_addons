@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 namespace :hyku_addons do
   namespace :file_set do
     # Usage: app:hyku_addons:file_set:regenerate_pdf_thumbnails["repo.hyku.docker"]
@@ -39,8 +40,8 @@ namespace :hyku_addons do
 
       file_size_megabytes = (file_size_bytes / (1024 * 1024))
 
-
       puts "#{args[:cname]} files count is #{files.size} and total file size is #{file_size_megabytes.round(2)} mb and #{file_size_bytes.round(2)} bytes"
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
