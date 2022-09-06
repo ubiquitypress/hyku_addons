@@ -46,7 +46,6 @@ RSpec.feature HykuAddons::WorkForm do
     before do
       allow(Flipflop).to receive(:enabled?).and_call_original
       allow(Flipflop).to receive(:enabled?).with(:doi_minting).and_return(true)
-      allow(Flipflop).to receive(:enabled?).with(:doi_settings_options).and_return(true)
     end
 
     context "is not hidden" do
@@ -64,6 +63,8 @@ RSpec.feature HykuAddons::WorkForm do
     context "is hidden" do
       before do
         login_as user
+        flipflop_strategy = Flipflop::FeatureSet.current.test!
+        flipflop_strategy.switch!(:doi_settings_options, true)
       end
 
       it "for normal users" do
@@ -73,7 +74,7 @@ RSpec.feature HykuAddons::WorkForm do
       end
     end
 
-    context "when Flipflop :doi_settings_options is diabled" do
+    context "when Flipflop :doi_settings_options is disabled" do
       before do
         login_as user
         flipflop_strategy = Flipflop::FeatureSet.current.test!
