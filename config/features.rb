@@ -2,6 +2,10 @@
 
 # rubocop:disable Metrics/BlockLength
 Flipflop.configure do
+  feature :doi_settings_options,
+          default: false,
+          description: "Hide DOI settings options"
+
   feature :oai_endpoint,
           default: true,
           description: "Enable OAI-PMH endpoint for harvesting."
