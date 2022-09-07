@@ -120,7 +120,6 @@ services:
 
   db:
     image: postgres:10-alpine
-    platform: linux/amd64
     env_file:
       - ./spec/internal_test_hyku/.env
     environment:
