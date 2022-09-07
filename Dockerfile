@@ -1,5 +1,6 @@
 # Base stage for building final images
-FROM phusion/passenger-ruby27:2.0.0 as base_image
+FROM --platform=linux/amd64 phusion/passenger-ruby27:2.0.0  as base_image
+
 
 RUN apt-get update && \
     install_clean --allow-unauthenticated \
@@ -39,7 +40,7 @@ RUN apt-get update && \
       libpng-dev \
       libltdl-dev && \
     cd /tmp && \
-    curl -fsSL -o ImageMagick.tar.gz https://www.imagemagick.org/download/ImageMagick.tar.gz && \
+    curl -fsSL -o ImageMagick.tar.gz https://imagemagick.org/archive/ImageMagick.tar.gz && \
     DIR_NAME=$(tar -tf ImageMagick.tar.gz | head -1 | cut -f1 -d"/") && \
     tar xzvf ImageMagick.tar.gz && \
     cd $DIR_NAME && \
