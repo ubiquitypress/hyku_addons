@@ -1,6 +1,6 @@
 <% if @curation_concern.respond_to?(:doi) %>
   <aside id="form-progress" class="form-progress panel panel-default">
-    <% if (Flipflop.doi_minting? & !Flipflop.doi_settings_options?) || (Flipflop.doi_settings_options? & current_ability.admin?)  %>
+    <% if (Flipflop.doi_minting? & !Flipflop.hide_doi_options?) || (Flipflop.hide_doi_options? & current_ability.admin?)  %>
       <div class="panel-heading">
         <h3 class="panel-title"><%= t("hyrax.works.progress.doi_options") %></h3>
       </div>
