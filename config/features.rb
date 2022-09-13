@@ -2,9 +2,9 @@
 
 # rubocop:disable Metrics/BlockLength
 Flipflop.configure do
-  feature :doi_settings_options,
+  feature :hide_doi_options,
           default: false,
-          description: "Hide DOI settings options"
+          description: "Hide DOI settings in deposit form for non-admins/managers"
 
   feature :oai_endpoint,
           default: true,

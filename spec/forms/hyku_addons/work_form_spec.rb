@@ -64,7 +64,7 @@ RSpec.feature HykuAddons::WorkForm do
       before do
         login_as user
         flipflop_strategy = Flipflop::FeatureSet.current.test!
-        flipflop_strategy.switch!(:doi_settings_options, true)
+        flipflop_strategy.switch!(:hide_doi_options, true)
       end
 
       it "for normal users" do
@@ -74,11 +74,11 @@ RSpec.feature HykuAddons::WorkForm do
       end
     end
 
-    context "when Flipflop :doi_settings_options is disabled" do
+    context "when Flipflop :hide_doi_options is disabled" do
       before do
         login_as user
         flipflop_strategy = Flipflop::FeatureSet.current.test!
-        flipflop_strategy.switch!(:doi_settings_options, false)
+        flipflop_strategy.switch!(:hide_doi_options, false)
       end
 
       it "is not hidden for normal users" do
