@@ -282,7 +282,7 @@ attributes:
       primary: false
       multiple: true
       type: text
-      input: single_multi_value
+      input: single_multi_valueubi
   alternate_identifier:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/Local
@@ -513,3 +513,16 @@ attributes:
       primary: false
       multiple: false
       type: textarea
+  org_unit:
+    type: string
+    predicate: http://www.w3.org/ns/org#OrganizationalUnit
+    multiple: true
+    index_keys:
+      - org_unit_tesim
+      - org_unit_sim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+
