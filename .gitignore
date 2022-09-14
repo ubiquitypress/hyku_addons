@@ -15,4 +15,4 @@ package.json
 passenger.*pid*
 passenger.*log
 spec/fixtures/csv/*dynamic_data.csv
-./idea
+.idea/
