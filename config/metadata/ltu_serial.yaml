@@ -202,17 +202,6 @@ attributes:
       primary: false
       multiple: true
       type: text
-  subject:
-    predicate: http://purl.org/dc/elements/1.1/subject
-    multiple: true
-    index_keys:
-    - subject_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: select
-      authority: HykuAddons::SubjectService
   date_published:
     type: string
     predicate: http://purl.org/dc/terms/available
