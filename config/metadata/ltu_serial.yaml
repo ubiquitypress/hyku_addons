@@ -282,7 +282,7 @@ attributes:
       primary: false
       multiple: true
       type: text
-      input: single_multi_valueubi
+      input: single_multi_value
   alternate_identifier:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/Local
