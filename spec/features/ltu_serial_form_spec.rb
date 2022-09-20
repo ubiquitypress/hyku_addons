@@ -125,6 +125,14 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
   let(:rights_statement_text) { "rights_statement_text" }
   let(:library_of_congress_subject_headings_text) { ["1234", "5678"] }
 
+
+  let(:time) { "time" }
+  let(:official_link) { "http://test312.com" }
+  let(:issn) { "0987654321" }
+  let(:eissn) { "e-1234567890" }
+  let(:org_unit) { ["Unit1", "Unit2"] }
+
+
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
     Hyrax::PermissionTemplateAccess.create!(permission_options)
@@ -165,6 +173,12 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
       fill_in_multiple_text_fields(:mesh, mesh)
       fill_in_text_field(:rights_statement_text, rights_statement_text)
       fill_in_multiple_text_fields(:library_of_congress_subject_headings_text, library_of_congress_subject_headings_text)
+
+      fill_in_text_field(:time, time)
+      fill_in_text_field(:issn, issn)
+      fill_in_text_field(:eissn, eissn)
+      fill_in_text_field(:official_link, official_link)
+      fill_in_multiple_text_fields(:org_unit, org_unit)
     end
 
     describe "submitting the form" do
@@ -212,6 +226,12 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
           expect(work.mesh).to eq(mesh)
           expect(work.rights_statement_text).to eq(rights_statement_text)
           expect(work.library_of_congress_subject_headings_text).to eq(library_of_congress_subject_headings_text)
+          expect(work.org_unit).to eq(org_unit)
+          expect(work.time).to eq(time)
+          expect(work.essn).to eq(essn)
+          expect(work.issn).to eq(issn)
+          expect(work.official_link).to eq(official_link)
+
         end
       end
     end
