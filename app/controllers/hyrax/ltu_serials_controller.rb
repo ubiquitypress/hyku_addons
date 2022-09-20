@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Hyrax
-  class LtuArticlesController < ApplicationController
+  class LtuSerialsController < ApplicationController
     include Hyrax::WorksControllerBehavior
     include Hyrax::BreadcrumbsForWorks
     include ::HykuAddons::WorksControllerBehavior
