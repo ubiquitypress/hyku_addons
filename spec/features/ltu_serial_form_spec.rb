@@ -209,7 +209,6 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
           expect(work.creator).to eq([creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
           # expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
           expect(work.keyword).to eq(keyword)
-          
           expect(work.language).to eq(language_options.map { |h| h["id"] })
           # expect(work.abstract).to eq(abstract)
           expect(work.institution).to eq(institution_options.map { |h| h["id"] })
