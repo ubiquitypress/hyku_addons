@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      ltu_serial: "fa fa-file-text-o"
+    select_type:
+      ltu_serial:
+        description: "Ltu Serial Werke"
+        name: "Ltu Serial"
