@@ -125,13 +125,11 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
   let(:rights_statement_text) { "rights_statement_text" }
   let(:library_of_congress_subject_headings_text) { ["1234", "5678"] }
 
-
   let(:time) { "time" }
   let(:official_link) { "http://test312.com" }
   let(:issn) { "0987654321" }
   let(:eissn) { "e-1234567890" }
   let(:org_unit) { ["Unit1", "Unit2"] }
-
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -231,7 +229,6 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
           expect(work.essn).to eq(essn)
           expect(work.issn).to eq(issn)
           expect(work.official_link).to eq(official_link)
-
         end
       end
     end

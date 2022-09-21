@@ -6,4 +6,3 @@ module Hyrax
     include ::HykuAddons::PresenterDelegatable
   end
 end
-
