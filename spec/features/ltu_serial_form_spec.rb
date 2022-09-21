@@ -155,7 +155,7 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
 
       # Additional fields
       fill_in_multiple_text_fields(:keyword, keyword)
-      fill_in_multiple_selects(:subject, subject_options.map { |h| h["label"] })
+
       fill_in_select(:language, language_options.map { |h| h["label"] }.first)
       fill_in_textarea(:abstract, abstract)
       fill_in_multiple_selects(:institution, institution_options.map { |h| h["label"] })
@@ -209,7 +209,7 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
           expect(work.creator).to eq([creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
           # expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
           expect(work.keyword).to eq(keyword)
-          expect(work.subject).to eq(subject_options.map { |h| h["id"] })
+          
           expect(work.language).to eq(language_options.map { |h| h["id"] })
           # expect(work.abstract).to eq(abstract)
           expect(work.institution).to eq(institution_options.map { |h| h["id"] })
