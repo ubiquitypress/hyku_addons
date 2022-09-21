@@ -198,7 +198,7 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
           alt_title.each { |at| expect(page).to have_content(at) }
           expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
           expect(page).to have_content("#{contributor.first.dig(:contributor_family_name)}, #{contributor.first.dig(:contributor_given_name)}")
-          %i[published accepted submitted].each { |d| expect(page).to have_content(normalize_date(send("date_#{d}".to_sym)).first) }
+          %i[published].each { |d| expect(page).to have_content(normalize_date(send("date_#{d}".to_sym)).first) }
           expect(page).to have_content("https://doi.org/#{doi}")
 
           expect(work.title).to eq([title])
