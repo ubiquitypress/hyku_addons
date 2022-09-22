@@ -39,7 +39,7 @@ RUN apt-get update && \
       libpng-dev \
       libltdl-dev && \
     cd /tmp && \
-    curl -fsSL -o ImageMagick.tar.gz https://www.imagemagick.org/download/ImageMagick.tar.gz && \
+    curl -fsSL -o ImageMagick.tar.gz https://imagemagick.org/archive/ImageMagick.tar.gz && \
     DIR_NAME=$(tar -tf ImageMagick.tar.gz | head -1 | cut -f1 -d"/") && \
     tar xzvf ImageMagick.tar.gz && \
     cd $DIR_NAME && \

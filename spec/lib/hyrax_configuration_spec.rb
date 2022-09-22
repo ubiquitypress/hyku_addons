@@ -19,7 +19,7 @@ RSpec.describe Hyrax do
          UnaChaptersAndBookSection, UnaExhibition, UnaImage, UnaPresentation, UnaThesisOrDissertation,
          UnaTimeBasedMedia, UvaWork, UngArticle, UngBook, UngBookChapter, UngDataset, UngImage, UngPresentation,
          UngThesisDissertation, UngTimeBasedMedia, UngArchivalMaterial, LtuArticle, LtuBook,
-         LtuBookChapter, LtuDataset, LtuImage, LtuPresentation, LtuThesisDissertation, LtuTimeBasedMedia,
+         LtuBookChapter, LtuDataset, LtuImage, LtuPresentation, LtuThesisDissertation, LtuTimeBasedMedia, LtuSerial,
          BcArticle, BcBook, BcArchivalAndLegalMaterial, BcImage, BcPresentation, BcTimeBasedMedia, BcChaptersAndBookSection]
       end
 
