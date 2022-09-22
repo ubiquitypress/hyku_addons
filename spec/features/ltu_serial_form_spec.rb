@@ -225,7 +225,7 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
           expect(work.library_of_congress_subject_headings_text).to eq(library_of_congress_subject_headings_text)
           expect(work.org_unit).to eq(org_unit)
           expect(work.time).to eq(time)
-          expect(work.essn).to eq(essn)
+          expect(work.essn).to eq(eissn)
           expect(work.issn).to eq(issn)
           expect(work.official_link).to eq(official_link)
         end
