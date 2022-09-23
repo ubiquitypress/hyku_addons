@@ -15,7 +15,6 @@ networks:
   internal:
 
 x-app: &app
-  platform: linux/amd64
   build:
     context: .
     dockerfile: Dockerfile
@@ -137,7 +136,6 @@ services:
 
   redis:
     image: redis:4
-    platform: linux/amd64
     command: redis-server
     volumes:
       - redis:/data
@@ -148,7 +146,6 @@ services:
 
   zoo1:
     image: zookeeper:3.4
-    platform: linux/amd64
     environment:
       ZOO_MY_ID: 1
       ZOO_SERVERS=server.1: zoo1:2888:3888
@@ -167,7 +164,6 @@ services:
   solr:
     image: solr:7.5
     command: solr -c -f -z zoo1:2181
-    platform: linux/amd64
     depends_on:
       - zoo1
     expose:
@@ -180,7 +176,6 @@ services:
 
   fcrepo:
     image: cbeer/fcrepo4:4.7
-    platform: linux/amd64
     env_file:
       - ./spec/internal_test_hyku/.env
     expose:
@@ -194,7 +189,6 @@ services:
 
   chrome:
     image: selenium/standalone-chrome:3.141
-    platform: linux/amd64
     networks:
       internal:
 
