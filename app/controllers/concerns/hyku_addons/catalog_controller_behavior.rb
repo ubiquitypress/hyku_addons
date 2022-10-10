@@ -345,8 +345,8 @@ module HykuAddons
         # Re-configure sort fields
         config.sort_fields = {}
         config.add_sort_field "score desc, #{uploaded_field} desc", label: "relevance"
-        config.add_sort_field "date_published_si desc, #{uploaded_field} desc", label: "date published \u25BC"
-        config.add_sort_field "date_published_si asc, #{uploaded_field} desc", label: "date published \u25B2"
+        config.add_sort_field "date_published_ssi desc, #{uploaded_field} desc", label: "date published \u25BC"
+        config.add_sort_field "date_published_ssi asc, #{uploaded_field} desc", label: "date published \u25B2"
 
         # OAI Config fields
         config.oai = {
