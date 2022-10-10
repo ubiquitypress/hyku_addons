@@ -513,17 +513,6 @@ attributes:
       primary: false
       multiple: false
       type: textarea
-  time:
-    type: string
-    predicate: http://purl.org/dc/terms/temporal
-    multiple: false
-    index_keys:
-      - time_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-      type: text
   official_link:
     type: string
     predicate: http://schema.org/url
@@ -569,4 +558,3 @@ attributes:
       primary: false
       multiple: true
       type: text
-

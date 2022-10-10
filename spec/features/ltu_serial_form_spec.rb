@@ -59,8 +59,8 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
   let(:contributor) do
     [
       {
-        contributor_family_name: "Smithy",
         contributor_name_type: "Personal",
+        contributor_family_name: "Smithy",
         contributor_given_name: "Johnny",
         contributor_orcid: "0000-1111-2222-3333",
         contributor_institutional_relationship: "Staff member",
@@ -125,7 +125,6 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
   let(:rights_statement_text) { "rights_statement_text" }
   let(:library_of_congress_subject_headings_text) { ["1234", "5678"] }
 
-  let(:time) { "time" }
   let(:official_link) { "http://test312.com" }
   let(:issn) { "0987654321" }
   let(:eissn) { "e-1234567890" }
@@ -172,7 +171,6 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
       fill_in_text_field(:rights_statement_text, rights_statement_text)
       fill_in_multiple_text_fields(:library_of_congress_subject_headings_text, library_of_congress_subject_headings_text)
 
-      fill_in_text_field(:time, time)
       fill_in_text_field(:issn, issn)
       fill_in_text_field(:eissn, eissn)
       fill_in_text_field(:official_link, official_link)
@@ -207,7 +205,7 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
           expect(work.date_published).to eq(normalize_date(date_published).first)
           # Cloneable fields use the label to select the option, but save the id to the work
           expect(work.creator).to eq([creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
-          # expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
+          expect(work.contributor).to eq([contributor.to_json.gsub(organisation_option["label"], organisation_option["id"])])
           expect(work.keyword).to eq(keyword)
           expect(work.language).to eq(language_options.map { |h| h["id"] })
           # expect(work.abstract).to eq(abstract)
@@ -224,7 +222,6 @@ RSpec.feature "Create a LtuSerial", js: true, slow: true do
           expect(work.rights_statement_text).to eq(rights_statement_text)
           expect(work.library_of_congress_subject_headings_text).to eq(library_of_congress_subject_headings_text)
           expect(work.org_unit).to eq(org_unit)
-          expect(work.time).to eq(time)
           expect(work.eissn).to eq(eissn)
           expect(work.issn).to eq(issn)
           expect(work.official_link).to eq(official_link)
