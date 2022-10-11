@@ -5,6 +5,7 @@ es:
     select_type:
       ltu_serial:
         # TODO: translate `human_name` into Spanish
-        description:        "Ltu Serial trabajos"
-        name:               "Ltu Serial"
+        # Serial trabajos
+        description:        ""
+        name:               "Serial"
         # TODO: translate `human_name` into Spanish

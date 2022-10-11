@@ -5,6 +5,7 @@ zh:
     select_type:
       ltu_serial:
         # TODO: translate `human_name` into Chinese
-        description:  "Ltu Serial 作品"
-        name:  "Ltu Serial"
+        # Serial 作品
+        description:  ""
+        name:  "Serial"
         # TODO: translate `human_name` into Chinese

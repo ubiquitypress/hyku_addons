@@ -4,5 +4,6 @@ it:
       ltu_serial: "fa fa-file-text-o"
     select_type:
       ltu_serial:
-        description:  "Ltu Serial opere"
-        name: "Ltu Serial"
+        # Serial opere
+        description:  ""
+        name: "Serial"
