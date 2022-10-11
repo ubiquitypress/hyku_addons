@@ -268,6 +268,17 @@ attributes:
       primary: false
       multiple: false
       type: text
+  time:
+    type: string
+    predicate: http://purl.org/dc/terms/temporal
+    multiple: false
+    index_keys:
+      - time_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: text
   pagination:
     type: string
     predicate: http://purl.org/ontology/bibo/numPages

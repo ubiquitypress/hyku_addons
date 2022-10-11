@@ -133,6 +133,7 @@ RSpec.feature "Create a UngArticle", js: true, slow: true do
   let(:issue) { "4" }
   let(:pagination) { "1-5" }
   let(:article_num) { "5" }
+  let(:time) { "time" }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -184,6 +185,7 @@ RSpec.feature "Create a UngArticle", js: true, slow: true do
       fill_in_text_field(:issue, issue)
       fill_in_text_field(:pagination, pagination)
       fill_in_text_field(:article_num, article_num)
+      fill_in_text_field(:time, time)
     end
 
     describe "submitting the form" do
@@ -241,6 +243,7 @@ RSpec.feature "Create a UngArticle", js: true, slow: true do
           expect(work.issue).to eq(issue)
           expect(work.pagination).to eq(pagination)
           expect(work.article_num).to eq(article_num)
+          expect(work.time).to eq(time)
         end
       end
     end
