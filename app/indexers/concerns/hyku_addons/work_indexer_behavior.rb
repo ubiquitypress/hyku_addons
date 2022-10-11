@@ -10,7 +10,7 @@ module HykuAddons
         solr_doc["editor_display_ssim"] = format_names(:editor) if object.respond_to? :editor
         solr_doc[Solrizer.solr_name("account_cname", :stored_searchable)] = Site.instance&.account&.cname
         # creates key with "date_published_ssi"
-        solr_doc[Solrizer.solr_name("date_published", :stored_sortable)] = object.date_published
+        solr_doc[Solrizer.solr_name("date_published", :stored_sortable)] = object.date_published if object.date_published.present?
       end
     end
 
