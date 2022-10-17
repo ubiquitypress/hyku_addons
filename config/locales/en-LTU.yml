@@ -26,3 +26,54 @@ en-LTU:
       ltu_thesis_dissertation:
        name: Thesis Dissertation
        description: ""
+  simple_form:
+    creator:
+      creator_name_type:
+        label: Creator Name Typ
+      creator_suffix:
+        label: Suffix
+      creator_role:
+        label: Role
+        placeholder:
+        help_text: " "
+      creator_institution:
+        label: Institution
+      creator_orcid:
+        label: ORCiD
+        help_text: " "
+        placeholder: " "
+      creator_organization_name:
+        label: Organization Name
+      creator_ror:
+        label: ROR
+        placeholder: " "
+      creator_grid:
+        label: GRID
+        placeholder: " "
+      creator_wikidata:
+        label: Wikidata
+        placeholder: " "
+      creator_isni:
+        label: Creator ISNI
+    contributor:
+      contributor_organization_name:
+        label: Organization Name
+      contributor_family_name:
+        label: Last Name
+      contributor_given_name:
+        label: First Name
+      contributor_isni:
+        label: ISNI
+      contributor_institution:
+        label: Institution
+        placeholder: " "
+        contributor_orcid:
+          label: ORCiD
+        contributor_ror:
+          label: ROR
+        contributor_wikidata:
+          label: Wikidata
+        contributor_role:
+          label: Role
+        contributor_grid:
+          label: GRID
