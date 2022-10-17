@@ -49,6 +49,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
   let(:date_published) { "#{published_year}-3-12" }
   let(:event_date) { "#{created_year}-6-4" }
   let(:date_submitted) { "2019-01-02" }
+  let(:date_uploaded) { "2022/10/11" }
   let(:doi) { "10.18130/v3-k4an-w022" }
   let(:duration1) { "duration1" }
   let(:edition) { "1" }
@@ -110,6 +111,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
       date_published: date_published,
       event_date: [event_date],
       date_submitted: date_submitted,
+      date_uploaded: date_uploaded,
       doi: [doi],
       duration: [duration1],
       edition: edition,
@@ -283,6 +285,9 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
         let(:editor_2) { JSON.parse(work.editor.first) }
 
         it "returns work json" do
+          puts "mama #{attributes.inspect}"
+          puts "apu #{work.to_solr.inspect}"
+
           work.save!
           get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
 
@@ -324,7 +329,7 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
                                            "date_accepted" => ["2018-01-02"],
                                            "date_published" => ["#{published_year}-03-12"],
                                            "date_published_text" => nil,
-                                           "date_submitted" => nil,
+                                           "date_submitted" => "2022-10-11",
                                            "degree" => nil,
                                            "dewey" => nil,
                                            "doi" => "https://doi.org/10.18130/v3-k4an-w022",

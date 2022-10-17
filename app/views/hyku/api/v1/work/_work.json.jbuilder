@@ -51,7 +51,12 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.date_published format_date_published.present? ? Array.wrap(format_date_published) : nil
 
   json.date_published_text work.try(:solr_document)&.to_h&.dig("date_published_text_tesim")
-  json.date_submitted work.date_uploaded
+
+  # in rails console calling to_solr on a work gives the key as date_uploaded_dtsi but in test it is date_uploaded_ssi
+  date_submitted = work.try(:solr_document)&.to_h&.dig("date_uploaded_dtsi") || work.try(:solr_document)&.to_h&.dig("date_uploaded_ssi")
+  format_date_submitted = format_api_date(date_submitted)
+  json.date_submitted format_date_submitted.presence
+
   json.degree work.try(:solr_document)&.to_h&.dig("degree_tesim")
   json.dewey work.try(:solr_document)&.to_h&.dig("dewey_tesim")
 
