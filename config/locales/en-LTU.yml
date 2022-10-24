@@ -70,7 +70,7 @@ en-LTU:
         location: Geolocate
         extent: Content Length or Size
         keyword: Keywords
-        org_unit: Organizational Unit
+        org_unit: Organizational unit
     hints:
       defaults:
         abstract: Abstract or short description of content.

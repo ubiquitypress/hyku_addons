@@ -47,7 +47,7 @@ RSpec.feature HykuAddons::WorkForm do
         expect(page).to have_content(/Creator organization Wikidata/)
       end
 
-      it "Licence should be License" do
+      xit "Licence should be License" do
         expect(page).to have_content(/License/)
       end
 
