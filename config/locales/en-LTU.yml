@@ -1,41 +1,23 @@
 en-LTU:
-  # GenericWork help text and form labels
   hyrax:
     select_type:
-      ltu_article:
+      nsu_article:
         name: Article
         description: ""
-      ltu_book:
-        name: Book
+      nsu_generic_work:
+        name: Generic Work
         description: ""
-      ltu_book_chapter:
-        name: Book Chapter
-        description: ""
-      ltu_dataset:
-        name: Dataset
-        description: ""
-      ltu_image:
-        name: Image
-        description: ""
-      ltu_presentation:
-       name: Presentation
-       description: ""
-      ltu_time_based_media:
-       name: Time Based Media
-       description: ""
-      ltu_thesis_dissertation:
-       name: Thesis Dissertation
-       description: ""
   simple_form:
     creator:
-      creator_name_type:
-        label: Creator Name Typ
+      creator_given_name:
+        label: First Name
+        placeholder: e.g. John
+      creator_middle_name:
+        label: Middle Name
+        placeholder: " "
+        help_text: Please enter the creator's middle name.
       creator_suffix:
         label: Suffix
-      creator_role:
-        label: Role
-        placeholder:
-        help_text: " "
       creator_institution:
         label: Institution
       creator_orcid:
@@ -67,13 +49,37 @@ en-LTU:
       contributor_institution:
         label: Institution
         placeholder: " "
-        contributor_orcid:
-          label: ORCiD
-        contributor_ror:
-          label: ROR
-        contributor_wikidata:
-          label: Wikidata
-        contributor_role:
-          label: Role
-        contributor_grid:
-          label: GRID
+      contributor_orcid:
+        label: ORCiD
+      contributor_ror:
+        label: ROR
+      contributor_wikidata:
+        label: Wikidata
+      contributor_role:
+        label: Role
+      contributor_grid:
+        label: GRID
+  labels:
+    defaults:
+      alt_email: Non-NSU email
+      org_unit: Organizational Unit
+      buy_book: Link to Buy Book
+      official_link: Official URL
+      source: Original Source
+      place_of_publication: Place Published
+      medium: Format(s)
+      extent: Content Length or Size
+      audience: Intended Audience
+      location: Geolocate
+      time: Coverage Span
+      refereed: Peer reviewed?
+      suggested_reviewers: Possible Peer Reviewers
+      suggested_student_reviewers: Possible Peer Reviewers
+      add_info: Notes
+      mesh: MeSH
+      related_identifier: Globally unique identifiers, such as ISNI, ARK etc. For ISBN, ISSN and EISSN, use the specific fields below.
+  hints:
+    defaults:
+      alt_email: Email addresses which can be used by the depositor to receive statistics and communication about the work after leaving the institution - not made public.
+      edition: For books/reports, if this is not the first edition, please specify in the format e.g. 2nd.
+      extent: The extent (size, number, etc.) of the work.

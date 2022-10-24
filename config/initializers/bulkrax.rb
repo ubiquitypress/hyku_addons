@@ -20,7 +20,7 @@
   # value.split(Regexp.new("\\|")) # => ["funder_award_1_1", "funder_award_1_2"]
   # value.split(Regexp.new("\\|")) # => ["funding_description_1_1", "funding_description_1_2"]
   #
-  # NOTE(2): Any fields which Bulkrax should not be parsing can be removed by adding the mapping:
+  # NOTE(2): Any fields which Bulkrax should no be parsing can be removed by adding the mapping:
   # "field_name" => { excluded: true }
   # The Bulkrax dynamic import will also ignore those fields
   # rubocop:enable Style/StringLiterals

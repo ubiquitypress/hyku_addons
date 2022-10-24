@@ -58,7 +58,7 @@ en:
         help_text: Please enter the Wikidata ID
       creator_family_name:
         label: Creator family name
-        placeholder: e.g. Einstein
+        placeholder: e.g. Delaney
         help_text: Please enter the creator's last name/family name
       creator_given_name:
         label: Creator given name

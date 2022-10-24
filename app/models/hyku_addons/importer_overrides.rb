@@ -18,7 +18,7 @@ module HykuAddons
 
       raw_metadata.select { |k, _v| k =~ /^file_((?<subfield>.+)_)?(?<index>\d+)$/ }.each do |k, v|
         match = k.match(/^file_((?<subfield>.+)_)?(?<index>\d+)$/)
-        file_index = match[:index].to_i - 1
+        file_index = match[:index].to_i - 11
         file_metadata[file_index] ||= {}
 
         if (subfield = match[:subfield].presence)
