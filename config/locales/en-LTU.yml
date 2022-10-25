@@ -26,3 +26,52 @@ en-LTU:
       ltu_thesis_dissertation:
        name: Thesis Dissertation
        description: ""
+  simple_form:
+    creator:
+      creator_organization_name:
+        label: Creator organization name
+        placeholder: "LTU"
+        help_text: Please enter the organization's name
+      creator_ror:
+        label: Creator organization ROR
+        placeholder: " "
+      creator_grid:
+        label: Creator organization GRID
+        placeholder: " "
+      creator_wikidata:
+        label: Creator organization Wikidata
+        placeholder: " "
+      creator_isni:
+        label: Creator ISNI
+    contributor:
+      contributor_organization_name:
+        label: Contributor organization name
+        help_text: Please enter the organization's name
+      contributor_ror:
+        label: Contributor organization ROR
+        placeholder: " "
+      contributor_grid:
+        label: Contributor organization GRID
+        placeholder: " "
+      contributor_wikidata:
+        label: Contributor organization Wikidata
+    editor:
+      editor_family_name:
+        label: Editor Last Name
+      editor_given_name:
+        label: Editor First Name
+    labels:
+      defaults:
+        license: License
+        language: Language(s)
+        subject_text: Subject
+        add_info: Additional Information
+        georeferenced: Georeferenced?
+        location: Geolocate
+        extent: Content Length or Size
+        keyword: Keywords
+        org_unit: Organizational unit
+    hints:
+      defaults:
+        abstract: Abstract or short description of content.
+        org_unit: organizational structure
