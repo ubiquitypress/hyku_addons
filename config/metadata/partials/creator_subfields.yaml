@@ -65,6 +65,22 @@ creator_institutional_relationship:
       multiple: multiple
     display_for:
     - Personal
+creator_culture:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: text
+    display_for:
+    - Personal
+creator_date:
+  type: string
+  form:
+    required: false
+    multiple: false
+    type: date
+    display_for:
+    - Personal
 creator_organization_name:
   type: string
   form:

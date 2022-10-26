@@ -1,0 +1,20 @@
+en:
+  hyrax:
+    icons:
+      ltu_image_artifact: "fa fa-file-text-o"
+    select_type:
+      ltu_image_artifact:
+        description: "Ltu Image Artifact"
+        name: "Ltu Image Artifact"
+  simple_form:
+    creator:
+      creator_culture:
+        label: Culture
+        placeholder: "Add culture"
+      creator_date:
+        label: Dates
+    labels:
+      defaults:
+        abstract: Abstract / Description
+        media: Material
+        extent: Measurements

@@ -1,0 +1,8 @@
+pt-BR:
+  hyrax:
+    icons:
+      ltu_image_artifact: "fa fa-file-text-o"
+    select_type:
+      ltu_image_artifact:
+        description: "Ltu Image trabalhos"
+        name: "Ltu Image Artifact"
