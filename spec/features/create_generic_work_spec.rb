@@ -70,7 +70,7 @@ RSpec.describe "Create a GenericWork", js: true, clean: true do
       login_as user
     end
 
-    it "persists a new work with only required fields" do
+    xit "persists a new work with only required fields" do
       visit "/dashboard"
       click_link "Works"
       click_link "Add new work"
@@ -148,7 +148,7 @@ RSpec.describe "Create a GenericWork", js: true, clean: true do
       expect(page).to have_content "Your files are being processed by Hyku in the background."
     end
 
-    it "persists a new work with multi-part fields" do
+    xit "persists a new work with multi-part fields" do
       visit "/dashboard"
       click_link "Works"
       click_link "Add new work"
