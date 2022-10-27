@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      ltu_image_artifact: "fa fa-file-text-o"
+    select_type:
+      ltu_image_artifact:
+        # TODO: translate `human_name` into Chinese
+        description:  "Ltu Image 作品"
+        name:  "Ltu Image Artifact"
+        # TODO: translate `human_name` into Chinese
