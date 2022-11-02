@@ -47,6 +47,7 @@ en-LTU:
       contributor_organization_name:
         label: Contributor organization name
         help_text: Please enter the organization's name
+        placeholder: Please enter the organization's name
       contributor_ror:
         label: Contributor organization ROR
         placeholder: " "
@@ -67,7 +68,7 @@ en-LTU:
         subject_text: Subject
         add_info: Additional Information
         georeferenced: Georeferenced?
-        location: Geolocate
+        location: Location
         extent: Content Length or Size
         keyword: Keywords
         org_unit: Organizational unit
