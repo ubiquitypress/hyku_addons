@@ -73,6 +73,8 @@ RSpec.feature "Create a LtuImageArtifact", js: true, slow: true do
   let(:rights_statement_text) { "rights_statement_text" }
   let(:extent) { "extent" }
   let(:subject_text) { ["subject1", "subject2"] }
+  let(:rights) { ["Rights1", "Rights2"] }
+  let(:style_period_options) { HykuAddons::StylePeriodService.new(model: model).active_elements.sample(2) }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -111,6 +113,8 @@ RSpec.feature "Create a LtuImageArtifact", js: true, slow: true do
 
       fill_in_text_field(:extent, extent)
       fill_in_multiple_text_fields(:subject_text, subject_text)
+      fill_in_multiple_text_fields(:rights, rights)
+      fill_in_multiple_selects(:style_period, style_period_options.map { |h| h["label"] })
     end
 
     describe "submitting the form" do
@@ -146,11 +150,13 @@ RSpec.feature "Create a LtuImageArtifact", js: true, slow: true do
 
           expect(work.extent).to eq(extent)
           expect(work.rights_holder).to eq(rights_holder)
+          expect(work.rights).to eq(rights)
           # expect(work.rights_statement).to eq(rights_statement_options.map { |h| h["id"] })
           expect(work.rights_statement_text).to eq(rights_statement_text)
 
           expect(work.extent).to eq(extent)
           expect(work.subject_text).to eq(subject_text)
+          expect(work.style_period).to eq(style_period_options.map { |h| h["id"] })
         end
       end
     end

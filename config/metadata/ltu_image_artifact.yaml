@@ -250,6 +250,17 @@ attributes:
       multiple: true
       type: select
       authority: HykuAddons::LicenseService
+  rights:
+    type: string
+    predicate: http://purl.org/dc/terms/accessRights
+    multiple: true
+    index_keys:
+    - rights_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
   rights_holder:
     type: string
     predicate: http://purl.org/dc/terms/rightsHolder
@@ -294,6 +305,17 @@ attributes:
       multiple: true
       type: text
       input: single_multi_value
+  style_period:
+    predicate: https://schema.org/pattern
+    multiple: true
+    index_keys:
+    - style_period_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: select
+      authority: HykuAddons::StylePeriodService
   subject_text:
     type: string
     predicate: http://purl.org/dc/terms/subject
