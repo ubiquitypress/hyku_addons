@@ -1,0 +1,19 @@
+terms:
+- id: DPT
+  term: DPT - Physical Therapy
+  active: true
+- id: MA - American Studies
+  term: MA - American Studies
+  active: true
+- id: MS Ed. - Art Education
+  term: MS Ed. - Art Education
+  active: true
+- id: MS - Speech-Pathology
+  term: MS - Speech-Pathology
+  active: true
+- id: MS - Creative Arts Therapy
+  term: MS - Creative Arts Therapy
+  active: true
+- id: MPH - Public Health
+  term: MPH - Public Health
+  active: true

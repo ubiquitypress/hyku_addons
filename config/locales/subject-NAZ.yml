@@ -1,0 +1,166 @@
+terms:
+ - id: Accounting & Finance
+   term: Accounting & finance
+   active: true
+ - id: American Studies
+   term: American Studies
+   active: true
+ - id: Anthropology
+   term: Anthropology
+   active: true
+ - id: Art & Design
+   term: Art & Design
+   active: true
+ - id: Art Education
+   term: Art Education
+   active: true
+ - id: Artificial Intelligence
+   term: Artificial Intelligence
+   active: true
+- id: Biology
+   term: Biology
+   active: true
+ - id: Business & Leadership
+   term: Business & Leadership
+   active: true
+ - id: Chemistry & Biochemistry
+   term: Chemistry & Biochemistry
+   active: true
+ - id: Clinical Laboratory Sciences
+   term: Clinical Laboratory Sciences
+   active: true
+ - id: Communication & Media
+   term: Communication & Media
+   active: true
+ - id: Communication Sciences & Disorders
+   term: Communication Sciences & Disorders
+   active: true
+ - id: Creative Arts Therapy
+   term: Creative Arts Therapy
+   active: true
+ - id: Dance Studies
+   term: Dance Studies
+   active: true
+ - id: Digital Marketing
+   term: Digital Marketing
+   active: true
+ - id: Education - Inclusive Adolescence
+   term: Education - Inclusive Adolescence
+   active: true
+ - id: Education - Inclusive Early Childhood
+   term: Education - Inclusive Early Childhood
+   active: true
+ - id: Education - Literacy
+   term: Education - Literacy
+   active: true
+ - id: English
+   term: English
+   active: true
+ - id: Environmental Science & Sustainability
+   term: Environmental Science & Sustainability
+   active: true
+ - id: Ethical Data Science
+   term: Ethical Data Science
+   active: true
+ - id: Gerontology
+   term: Gerontology
+   active: true
+ - id: Health Sciences
+   term: Health Sciences
+   active: true
+ - id: Higher Education Student Affairs Administration
+   term: Higher Education Student Affairs Administration
+   active: true
+ - id: History
+   term: History
+   active: true
+ - id: Interdisciplinary Studies - Autism
+   term: Interdisciplinary Studies - Autism
+   active: true
+ - id: Interdisciplinary Studies - Developing Child & Families
+   term: Interdisciplinary Studies - Developing Child & Families
+   active: true
+ - id: Interdisciplinary Studies - Interfaith Studies
+   term: Interdisciplinary Studies - Interfaith Studies
+   active: true
+ - id: International & Global Studies
+   term: International & Global Studies
+   active: true
+ - id: International Education
+   term: International Education
+   active: true
+ - id: Legal Studies
+   term: Legal Studies
+   active: true
+ - id: Library and Information Science
+   term: Library and Information Science
+   active: true
+ - id: Management
+   term: Management
+   active: true
+ - id: Mathematics
+   term: Mathematics
+   active: true
+ - id: Museums, Archives, & Public History
+   term: Museums, Archives, & Public History
+   active: true
+ - id: Music
+   term: Music
+   active: true
+ - id: Music Education
+   term: Music Education
+   active: true
+ - id: Music Performance
+   term: Music Performance
+   active: true
+ - id: Music Therapy
+   term: Music Therapy
+   active: true
+ - id: Nursing
+   term: Nursing
+   active: true
+ - id: Occupational Therapy
+   term: Occupational Therapy
+   active: true
+ - id: People Analytics
+   term: People Analytics
+   active: true
+ - id: Philosophy
+   term: Philosophy
+   active: true
+ - id: Physical Therapy
+   term: Physical Therapy
+   active: true
+ - id: Political Science
+   term: Political Science
+   active: true
+ - id: Psychology
+   term: Psychology
+   active: true
+ - id: Public Health
+   term: Public Health
+   active: true
+ - id: Religious Studies
+   term: Religious Studies
+   active: true
+ - id: Social Work
+   term: Social Work
+   active: true
+ - id: Sociology
+   term: Sociology
+   active: true
+ - id: Speech Pathology & Audiology
+   term: Speech Pathology & Audiology
+   active: true
+ - id: Theatre
+   term: Theatre
+   active: true
+ - id: Toxicology
+   term: Toxicology
+   active: true
+ - id: Women & Gender Studies
+   term: Women & Gender Studies
+   active: true
+ - id: World Languages
+   term: World Languages
+   active: true

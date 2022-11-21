@@ -1,0 +1,10 @@
+terms:
+- id: BA
+  term: BA - Honors
+  active: true
+- id: BS
+  term: BS - Honors
+  active: true
+- id: MAT
+  term: MAT - Teaching
+  active: true
