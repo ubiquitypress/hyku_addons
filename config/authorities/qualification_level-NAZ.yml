@@ -1,0 +1,10 @@
+terms:
+- id: Doctoral
+  term: Doctoral
+  active: true
+- id: Honor's/Undergraduate
+  term: Honor's/Undergraduate
+  active: true
+- id: Master's
+  term: Master's
+  active: true
