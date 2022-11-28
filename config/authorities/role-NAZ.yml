@@ -1,0 +1,37 @@
+terms:
+ - id: Author
+   term: Author
+   active: true
+ - id: Contributor
+   term: Contributor
+   active: true
+ - id: Editor
+   term: Editor
+   active: true
+ - id: Interviewee
+   term: Interviewee
+   active: true
+ - id: Interviewer
+   term: Interviewer
+   active: true
+ - id: Presenter
+   term: Presenter
+   active: true
+ - id: Producer
+   term: Producer
+   active: true
+ - id: Researcher
+   term: Researcher
+   active: true
+ - id: Research Group
+   term: Research Group
+   active: true
+ - id: Rights Holder
+   term: Rights Holder
+   active: true
+ - id: Sponsor
+   term: Sponsor
+   active: true
+ - id: Other
+   term: Other
+   active:  true
