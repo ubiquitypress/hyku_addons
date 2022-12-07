@@ -1,6 +1,15 @@
 terms:
+ - id: African American Studies
+   term: African American Studies
+   active: true
+ - id: African Studies
+   term: African Studies
+   active: true
  - id: Africana Studies
    term: Africana Studies
+   active: true
+ - id: Aesthetics
+   term: Aesthetics
    active: true
  - id: American Studies
    term: American Studies
@@ -11,14 +20,20 @@ terms:
  - id: Anthropology & Sociology
    term: Anthropology & Sociology
    active: true
+ - id: Aquatic Sciences
+   term: Acquatic Sciences
+   active: true
  - id: Architectural Studies
    term: Architectural Studies
    active: true
  - id: Art History
    term: Art History
    active: true
- - id: Studio Art
-   term: Studio Art
+ - id: Asian Studies
+   term: Asian Studies
+   active: true
+ - id: Atmospheric Science
+   term: Atmospheric Science
    active: true
  - id: Biochemistry
    term: Biochemistry
@@ -29,17 +44,38 @@ terms:
  - id: Chemistry
    term: Chemistry
    active: true
+ - id: Child Advocacy
+   term: Child Advocacy
+   active: true
+ - id: Civic Engagement and Social Justice
+   term: Civic Engagement and Social Justice
+   active: true
+ - id: Classical Studies
+   term: Classical Studies
+   active: true
  - id: Classics
    term: Classics
    active: true
  - id: Comparative Literature
    term: Comparative Literature
    active: true
+ - id: Computer Science
+   term: Computer Science
+   active: true
+ - id: Critical Museum Studies
+   term: Critical Museum Studies
+   active: true
  - id: Critical Sexuality & Queer Studies
    term: Critical Sexuality & Queer Studies
    active: true
+ - id: Critical Social Studies
+   term: Critical Social Studies
+   active: true
  - id: Dance
    term: Dance
+   active: true
+ - id: Data Analytics
+   term: Data Analytics
    active: true
  - id: Economics
    term: Economics
@@ -49,6 +85,9 @@ terms:
    active: true
  - id: English
    term: English
+   active: true
+ - id: Entrepreneurial Studies
+   term: Entrepreneurial Studies
    active: true
  - id: Environmental Studies
    term: Environmental Studies
@@ -62,24 +101,123 @@ terms:
  - id: Geoscience
    term: Geoscience
    active: true
+ - id: German Area Studies
+   term: German Area Studies
+   active: true
  - id: Greek
    term: Greek
+   active: true
+ - id: History
+   term: History
+   active: true
+ - id: Holocaust Studies
+   term: Holocaust Studies
+   active: true
+ - id: Individual Major
+   term: Individual Major
+   active: true
+ - id: International Relations
+   term: International Relations
    active: true
  - id: Interdisciplinary Studies
    term: Interdisciplinary Studies
    active: true
+ - id: Italian Studies
+   term: Italian Studies
+   active: true
+ - id: Law and Society
+   term: Law and Society
+   active: true
+ - id: Latin
+   term: Latin
+   active: true
+ - id: Latin American Studies
+   term: Latin American Studies
+   active: true
  - id: Library Science
    term: Library Science
+   active: true
+ - id: Management
+   term: Management
    active: true
  - id: Mathematics
    term: Mathematics
    active: true
+ - id: Media and Socienty
+   term: Media and Society
+   active: true
+ - id: Men's Studies
+   term: Men's Studies
+   active: true
  - id: Music
    term: Music
+   active: true
+ - id: Music Administration and Entrepreneurship
+   term: Music Administration and Entrepreneurship
+   active: true
+ - id: Peace Studies
+   term: Peace Studies
+   active: true
+ - id: Philosophy
+   term: Philosophy
+   active: true
+ - id: Physics
+   term: Physics
+   active: true
+ - id: Political Science
+   term: Political Science
+   active: true
+ - id: Public Policy Studies
+   term: Public Policy Studies
+   active: true
+ - id: Religious Studies
+   term: Religious Studies
+   active: true
+ - id: Russian Area Studies
+   term: Russian Area Studies
+   active: true
+ - id: Russian History and Society
+   term: Russian History and Society
+   active: true
+ - id: Russian Language
+   term: Russian Language
+   active: true
+ - id: Russian Language and Culture
+   term: Russian Language and Culture
    active: true
  - id: Psychological Science
    term: Psychological Science
    active: true
+ - id: The Sacred in Cross-Cultural Perspecive
+   term: the Sacred in Cross-Cultural Perspective
+   active: true
+ - id: Social Justice Studies
+   term: Social Justice Studies
+   active: true
+ - id: Sociology
+   term: Sociology
+   active: true
+ - id: Spanish and Hispanic Studies
+   term: Spanish and Hispanic Studies
+   active: true
+ - id: Studio Art
+   term: Studio Art
+   active: true
  - id: Theatre
    term: Theatre
+   active: true
+ - id: Urban Studies
+   term: Urban Studies
+   active: true
+ - id: Women's Studies
+   term: Women's Studies
+   active: true
+ - id: Writing and Rhetoric
+   term: Writing and Rhetoric
+   active: true
+ - id: Writing Colleagues
+   term: Writing Colleagues
+   active: true
+ - id: Other
+   term: Other
    active: true
