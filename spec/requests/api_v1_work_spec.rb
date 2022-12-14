@@ -285,9 +285,6 @@ RSpec.describe Hyku::API::V1::WorkController, type: :request, clean: true, multi
         let(:editor_2) { JSON.parse(work.editor.first) }
 
         it "returns work json" do
-          puts "mama #{attributes.inspect}"
-          puts "apu #{work.to_solr.inspect}"
-
           work.save!
           get "/api/v1/tenant/#{account.tenant}/work/#{work.id}"
 
