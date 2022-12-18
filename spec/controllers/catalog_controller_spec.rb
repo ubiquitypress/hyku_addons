@@ -113,8 +113,8 @@ RSpec.describe CatalogController, clean: true, type: :controller do
     end
   end
 
-  describe "library_of_congress_classification facet" do
-    let!(:work) { LtuImage.new(title: ["Test LTU new facet"], library_of_congress_classification: ["botany"]) }
+  describe "library_of_congress_subject_headings_text facet" do
+    let!(:work) { LtuImage.new(title: ["Test LTU new facet"], library_of_congress_subject_headings_text: ["botany"]) }
 
     before do
       work.save!
@@ -122,9 +122,9 @@ RSpec.describe CatalogController, clean: true, type: :controller do
       sign_in user
     end
 
-    it "the facet count should include library_of_congress_classification" do
-      get "index", params: { q: "", "facet.field" => ["library_of_congress_classification_sim"] }
-      expect(assigns[:response]["facet_counts"]["facet_fields"]["library_of_congress_classification_sim"]).to eq ["botany", 1]
+    it "the facet count should include library_of_congress_subject_headings_text" do
+      get "index", params: { q: "", "facet.field" => ["library_of_congress_subject_headings_text_sim"] }
+      expect(assigns[:response]["facet_counts"]["facet_fields"]["library_of_congress_subject_headings_text_sim"]).to eq ["botany", 1]
     end
   end
 end

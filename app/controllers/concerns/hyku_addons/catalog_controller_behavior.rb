@@ -30,7 +30,7 @@ module HykuAddons
         config.add_facet_field solr_name("org_unit", :facetable), limit: 5, label: "Department"
         config.add_facet_field solr_name("audience", :facetable), limit: 5, label: "OER Audience", if: proc { |context, _config, _opts| context.send(:current_account)&.settings&.dig("locale_name") == "redlands" }
         config.add_facet_field solr_name("subject", :facetable), limit: 5, label: "Subject"
-        config.add_facet_field solr_name("library_of_congress_classification", :facetable), limit: 5, label: "Library of congress classification"
+        config.add_facet_field solr_name("library_of_congress_subject_headings_text", :facetable), limit: 5, label: "Library of congress classification"
         config.add_facet_field "file_availability", query: {
           # TODO: use i18n
           available: {
@@ -122,7 +122,7 @@ module HykuAddons
         config.add_show_field solr_name("official_link", :stored_searchable)
         config.add_show_field solr_name("rights_holder", :stored_searchable)
         config.add_show_field solr_name("dewey", :stored_searchable)
-        config.add_show_field solr_name("library_of_congress_classification", :stored_searchable)
+        config.add_show_field solr_name("library_of_congress_subject_headings_text", :stored_searchable)
         config.add_show_field solr_name("page_display_order_number", :stored_searchable)
         config.add_show_field solr_name("additional_links", :stored_searchable)
         config.add_show_field solr_name("irb_status", :stored_searchable)
