@@ -30,7 +30,7 @@ module HykuAddons
         config.add_facet_field solr_name("org_unit", :facetable), limit: 5, label: "Department"
         config.add_facet_field solr_name("audience", :facetable), limit: 5, label: "OER Audience", if: proc { |context, _config, _opts| context.send(:current_account)&.settings&.dig("locale_name") == "redlands" }
         config.add_facet_field solr_name("subject", :facetable), limit: 5, label: "Subject"
-        config.add_facet_field solr_name("library_of_congress_classification", :facetable), limit: 5, label: "Library of congress classification"
+        config.add_facet_field solr_name("library_of_congress_subject_headings_text", :facetable), limit: 5, label: "Library of congress subject headings text", if: proc { |context, _config, _opts| context.send(:current_account)&.settings&.dig("locale_name") == "ltu" }
         config.add_facet_field "file_availability", query: {
           # TODO: use i18n
           available: {
