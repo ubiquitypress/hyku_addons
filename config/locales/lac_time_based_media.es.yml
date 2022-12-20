@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      lac_time_based_media:  "fa fa-file-text-o"
+    select_type:
+      lac_time_based_media:
+        # TODO: translate `human_name` into Spanish
+        description:        "Lac Time Based Media trabajos"
+        name:               "Lac Time Based Media"
+        # TODO: translate `human_name` into Spanish

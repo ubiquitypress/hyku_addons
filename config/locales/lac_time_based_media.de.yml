@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      lac_time_based_media: "fa fa-file-text-o"
+    select_type:
+      lac_time_based_media:
+        description: "Lac Time Based Media Werke"
+        name: "Lac Time Based Media"
