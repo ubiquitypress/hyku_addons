@@ -79,6 +79,7 @@ Hyrax.config do |config|
   config.register_curation_concern :bc_presentation
   config.register_curation_concern :bc_time_based_media
   config.register_curation_concern :bc_chapters_and_book_section
+  config.register_curation_concern :lac_time_based_media
 
   config.license_service_class = HykuAddons::LicenseService
 

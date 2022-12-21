@@ -1,10 +1,10 @@
 es:
   hyrax:
     icons:
-      ung_thesis_dissertation:     'fa fa-file-text-o'
+      ltu_time_based_media:     'fa fa-file-text-o'
     select_type:
-      ung_thesis_dissertation:
+      ltu_time_based_media:
         # TODO: translate `human_name` into Spanish
-        description:        "Ung Time Based Media trabajos"
-        name:               "Ung Time Based Media"
+        description:        "Ltu Time Based Media trabajos"
+        name:               "Ltu Time Based Media"
         # TODO: translate `human_name` into Spanish
