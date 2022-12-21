@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      lac_book:     'fa fa-file-text-o'
+    select_type:
+      lac_book:
+        # TODO: translate `human_name` into Spanish
+        description:        "Lac Book trabajos"
+        name:               "Lac Book"
+        # TODO: translate `human_name` into Spanish

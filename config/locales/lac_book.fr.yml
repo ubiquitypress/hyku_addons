@@ -1,0 +1,8 @@
+fr:
+  hyrax:
+    icons:
+      lac_book:     'fa fa-file-text-o'
+    select_type:
+      lac_book:
+        description:        "Lac Book œuvres"
+        name:               "Lac Book"
