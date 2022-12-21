@@ -14,6 +14,10 @@ en-LAC:
       defaults:
         time: Coverage Span
         date_published: Date Created
+        extent: Extent
+        medium: File Type
+        is_format_of: Original Format
+        citation: Preferred Citation
   hyrax:
     select_type:
       lac_time_based_media:

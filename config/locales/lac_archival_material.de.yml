@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      lac_archival_material: "fa fa-file-text-o"
+    select_type:
+      lac_archival_material:
+        description: "Lac Archival Material Werke"
+        name: "Lac Archival Material"

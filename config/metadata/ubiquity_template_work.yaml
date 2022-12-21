@@ -1463,6 +1463,17 @@ attributes:
       multiple: true
       type: text
       input: single_multi_value
+  is_format_of:
+    type: string
+    predicate: http://purl.org/dc/terms/isFormatOf
+    multiple: true
+    index_keys:
+    - is_format_of_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
   repository_space:
     predicate: http://rdfs.org/sioc/ns#Space
     multiple: false
