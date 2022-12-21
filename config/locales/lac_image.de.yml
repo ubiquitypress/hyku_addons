@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      lac_image: "fa fa-file-text-o"
+    select_type:
+      lac_image:
+        description: "Lac Image Werke"
+        name: "Lac Image"
