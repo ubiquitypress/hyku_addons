@@ -1,0 +1,8 @@
+fr:
+  hyrax:
+    icons:
+      lac_thesis_dissertation:     'fa fa-file-text-o'
+    select_type:
+      lac_thesis_dissertation:
+        description:        "Lac Thesis Dissertation œuvres"
+        name:               "Lac Thesis Dissertation"

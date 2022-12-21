@@ -82,6 +82,7 @@ Hyrax.config do |config|
   config.register_curation_concern :lac_time_based_media
   config.register_curation_concern :lac_archival_material
   config.register_curation_concern :lac_image
+  config.register_curation_concern :lac_thesis_dissertation
 
   config.license_service_class = HykuAddons::LicenseService
 
