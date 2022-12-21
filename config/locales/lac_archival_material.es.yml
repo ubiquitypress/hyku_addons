@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      lac_archival_material:  "fa fa-file-text-o"
+    select_type:
+      lac_archival_material:
+        # TODO: translate `human_name` into Spanish
+        description:        "Lac Archival Material trabajos"
+        name:               "Lac Archival Material"
+        # TODO: translate `human_name` into Spanish

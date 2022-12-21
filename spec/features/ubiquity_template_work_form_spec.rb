@@ -251,8 +251,9 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:rights_statement_text) { "rights_statement_text" }
   let(:qualification_subject_text) { ["Qualification statement text 1", "Qualification statement text 2"] }
   let(:georeferenced_options) { HykuAddons::GeoreferencedService.new(model: model).active_elements.sample(1) }
-  let(:repository_space_option) { HykuAddons::RepositorySpaceService.new(model: model).active_elements.first }
   let(:access_restrictions) { ["banned"] }
+  let(:is_format_of) { ["format_of123", "format_of456"] }
+  let(:repository_space_option) { HykuAddons::RepositorySpaceService.new(model: model).active_elements.first }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -378,6 +379,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       fill_in_multiple_text_fields(:qualification_subject_text, qualification_subject_text)
       fill_in_select(:georeferenced, georeferenced_options.map { |h| h["label"] }.first)
       fill_in_text_field(:access_restrictions, access_restrictions.first)
+      fill_in_multiple_text_fields(:is_format_of, is_format_of)
       fill_in_select(:repository_space, repository_space_option["label"])
     end
 
@@ -507,6 +509,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           expect(work.qualification_subject_text).to eq(qualification_subject_text)
           expect(work.georeferenced).to eq(georeferenced_options.map { |h| h["id"] }.first.to_s)
           expect(work.access_restrictions).to eq(access_restrictions)
+          expect(work.is_format_of).to eq(is_format_of)
           expect(work.repository_space).to eq(repository_space_option["id"])
         end
       end
