@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      esln_book_chapter:     'fa fa-file-text-o'
+    select_type:
+      esln_book_chapter:
+        # TODO: translate `human_name` into Spanish
+        description:        "Esln Book Chapter trabajos"
+        name:               "Esln Book Chapter"
+        # TODO: translate `human_name` into Spanish
