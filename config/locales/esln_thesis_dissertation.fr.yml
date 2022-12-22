@@ -1,0 +1,8 @@
+fr:
+  hyrax:
+    icons:
+      esln_thesis_dissertation: "fa fa-file-text-o"
+    select_type:
+      esln_thesis_dissertation:
+        description:  "Esln Thesis Dissertation œuvres"
+        name: "Esln Thesis Dissertation"
