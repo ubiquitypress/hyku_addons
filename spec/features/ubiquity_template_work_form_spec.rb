@@ -253,6 +253,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:georeferenced_options) { HykuAddons::GeoreferencedService.new(model: model).active_elements.sample(1) }
   let(:access_restrictions) { ["banned"] }
   let(:is_format_of) { ["format_of123", "format_of456"] }
+  let(:library_of_congress_subject_headings_text) { ["1234", "5678"] }
   let(:repository_space_option) { HykuAddons::RepositorySpaceService.new(model: model).active_elements.first }
 
   before do
@@ -380,6 +381,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       fill_in_select(:georeferenced, georeferenced_options.map { |h| h["label"] }.first)
       fill_in_text_field(:access_restrictions, access_restrictions.first)
       fill_in_multiple_text_fields(:is_format_of, is_format_of)
+      fill_in_multiple_text_fields(:library_of_congress_subject_headings_text, library_of_congress_subject_headings_text)
       fill_in_select(:repository_space, repository_space_option["label"])
     end
 
@@ -510,6 +512,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           expect(work.georeferenced).to eq(georeferenced_options.map { |h| h["id"] }.first.to_s)
           expect(work.access_restrictions).to eq(access_restrictions)
           expect(work.is_format_of).to eq(is_format_of)
+          expect(work.library_of_congress_subject_headings_text).to eq(library_of_congress_subject_headings_text)
           expect(work.repository_space).to eq(repository_space_option["id"])
         end
       end
