@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      esln_book: "fa fa-file-text-o"
+    select_type:
+      esln_book:
+        description: "Esln Book"
+        name: "Esln Book"
