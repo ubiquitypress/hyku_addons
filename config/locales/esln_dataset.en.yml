@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      esln_dataset: "fa fa-file-text-o"
+    select_type:
+      esln_dataset:
+        description: "Esln Dataset"
+        name: "Esln Dataset"

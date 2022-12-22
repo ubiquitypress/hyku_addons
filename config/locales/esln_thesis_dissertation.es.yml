@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      esln_thesis_dissertation: "fa fa-file-text-o"
+    select_type:
+      esln_thesis_dissertation:
+        # TODO: translate `human_name` into Spanish
+        description:  "Esln Thesis Dissertation trabajos"
+        name:  "Esln Thesis Dissertation"
+        # TODO: translate `human_name` into Spanish

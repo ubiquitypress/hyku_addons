@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      esln_dataset:     'fa fa-file-text-o'
+    select_type:
+      esln_dataset:
+        # TODO: translate `human_name` into Spanish
+        description:        "Esln Dataset trabajos"
+        name:               "Esln Dataset"
+        # TODO: translate `human_name` into Spanish
