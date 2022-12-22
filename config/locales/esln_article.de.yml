@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      esln_article: "fa fa-file-text-o"
+    select_type:
+      esln_article:
+        description: "Esln Article Werke"
+        name: "Esln Article"
