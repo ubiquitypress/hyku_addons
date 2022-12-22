@@ -1,0 +1,8 @@
+fr:
+  hyrax:
+    icons:
+      esln_book_chapter:     'fa fa-file-text-o'
+    select_type:
+      esln_book_chapter:
+        description:        "Esln Book Chapter œuvres"
+        name:               "Esln Book Chapter"
