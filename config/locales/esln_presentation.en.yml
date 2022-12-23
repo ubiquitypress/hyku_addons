@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      esln_presentation: "fa fa-file-text-o"
+    select_type:
+      esln_presentation:
+        description: "Esln Presentation"
+        name: "Esln Presentation"

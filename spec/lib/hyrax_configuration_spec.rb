@@ -22,7 +22,8 @@ RSpec.describe Hyrax do
          LtuBookChapter, LtuDataset, LtuImage, LtuPresentation, LtuThesisDissertation, LtuTimeBasedMedia, LtuSerial,
          LtuImageArtifact, BcArticle, BcBook, BcArchivalAndLegalMaterial, BcImage, BcPresentation, BcTimeBasedMedia,
          BcChaptersAndBookSection, LacTimeBasedMedia, LacArchivalMaterial, LacImage, LacThesisDissertation, LacBook,
-         EslnArticle, EslnBook, EslnBookChapter, EslnDataset, EslnThesisDissertation]
+         EslnArticle, EslnBook, EslnBookChapter, EslnDataset, EslnThesisDissertation,
+         EslnPresentation, EslnArchivalMaterial, EslnTemplateWork]
       end
 
       it "registered the correct curation concerns" do

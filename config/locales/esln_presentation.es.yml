@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      esln_presentation: "fa fa-file-text-o"
+    select_type:
+      esln_presentation:
+        # TODO: translate `human_name` into Spanish
+        description:  "Esln Presentation trabajos"
+        name: "Esln Presentation"
+        # TODO: translate `human_name` into Spanish
