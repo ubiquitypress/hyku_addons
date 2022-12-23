@@ -3,8 +3,8 @@
 require HykuAddons::Engine.root.join("spec", "support", "fill_in_fields.rb").to_s
 require HykuAddons::Engine.root.join("spec", "support", "work_form_helpers.rb").to_s
 
-RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
-  let(:work_type) { "ubiquity_template_work" }
+RSpec.feature "Create a EslnTemplateWork", js: true, slow: true do
+  let(:work_type) { "esln_template_work" }
   let(:work) { work_type.classify.constantize.find(work_uuid_from_url) }
 
   let(:model) { work_type.classify.constantize }

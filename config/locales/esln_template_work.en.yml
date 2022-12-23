@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      esln_template_work: "fa fa-file-text-o"
+    select_type:
+      esln_template_work:
+        description: "ESLN Template work works"
+        name: "ESLN Template Work"
