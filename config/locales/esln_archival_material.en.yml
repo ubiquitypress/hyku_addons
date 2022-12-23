@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      esln_archival_material: "fa fa-file-text-o"
+    select_type:
+      esln_archival_material:
+        description: "Esln Archival Material"
+        name: "Esln Archival Material"
