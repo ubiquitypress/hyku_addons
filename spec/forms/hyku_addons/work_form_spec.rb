@@ -88,4 +88,20 @@ RSpec.feature HykuAddons::WorkForm do
       end
     end
   end
+
+  describe "Check that Sherpa romeo text does not appear" do
+    let(:admin) { create(:admin, invitation_accepted_at: DateTime.now.utc) }
+    let(:work_type) { "ubiquity_template_work" }
+    let(:new_work_path) { "concern/#{work_type.to_s.pluralize}/new" }
+
+    before do
+      login_as admin
+    end
+
+    it "when visibiity option open is selected" do
+      visit new_work_path
+      choose("ubiquity_template_work[visibility]", option: "open")
+      expect(page).not_to have_content(/SHERPA\/RoMEO/)
+    end
+  end
 end
