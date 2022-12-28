@@ -98,7 +98,7 @@ RSpec.feature HykuAddons::WorkForm do
       login_as admin
     end
 
-    it "when visibiity option open is clicked" do
+    it "when visibiity option open is selected" do
       visit new_work_path
       choose("ubiquity_template_work[visibility]", option: "open")
       expect(page).not_to have_content(/SHERPA\/RoMEO/)
