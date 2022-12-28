@@ -27,6 +27,9 @@ en:
           form_branding:
             banner:
               description: An image to be displayed at the top of the collection page.  For best results, upload an image (JPG, GIF or PNG) that is at least 120 pixels tall and 1500 pixels wide.
+    visibility:
+      open:
+        warning_html: '<p> <strong>Please note</strong>, making something visible to the world (i.e. marking this as %{label}) may be viewed as publishing which could impact your ability to: </p> <ul> <li>Patent your work</li> <li>Publish your work in a journal</li> </ul>'
   simple_form:
     hints:
       defaults:
