@@ -42,6 +42,24 @@ RSpec.describe CatalogController, type: :request, clean: true, multitenant: true
     ActiveFedora::SolrService.commit
   end
 
+  describe "Search page can load when ltu_time_based_media work exists" do
+    let!(:work) { LtuTimeBasedMedia.create(title: ["Test"], visibility: "open") }
+    let!(:account) { create(:account, name: "normal search") }
+
+    before do
+      host! account.cname
+    end
+
+    it "can load search page do" do
+      get "/catalog?locale=en&search_field=all_fields&q="
+      expect(response.status).to eq(200)
+    end
+
+    it "load search page does not throw error" do
+      expect { get "/catalog?locale=en&search_field=all_fields&q=" }.not_to raise_error(ActionView::Template::Error)
+    end
+  end
+
   describe "Cross Tenant Search" do
     let(:cross_tenant_solr_options) do
       {
