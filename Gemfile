@@ -25,4 +25,3 @@ gemspec
 # gem 'mini_racer'
 
 eval_gemfile File.expand_path("spec/internal_test_hyku/Gemfile", File.dirname(__FILE__))
-
