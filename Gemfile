@@ -26,4 +26,3 @@ gemspec
 
 eval_gemfile File.expand_path("spec/internal_test_hyku/Gemfile", File.dirname(__FILE__))
 
-gem "yaml-lint", "~> 0.0.10"
