@@ -17,37 +17,18 @@ RSpec.describe CatalogController, type: :request, clean: true, multitenant: true
            fcrepo_endpoint: nil)
   end
 
-  before do
-    WebMock.disable!
-    allow(AccountElevator).to receive(:switch!).with(cross_search_tenant_account.cname).and_return("public")
-    allow(Apartment::Tenant.adapter).to receive(:connect_to_new).and_return("")
-    ActiveFedora::SolrService.instance.conn = sample_solr_connection
-    ActiveFedora::SolrService.add(hyku_sample_work.to_solr)
-    ActiveFedora::SolrService.commit
-
-    ActiveFedora::SolrService.reset!
-    ActiveFedora::SolrService.add(work.to_solr)
-    ActiveFedora::SolrService.commit
-  end
-
-  after do
-    WebMock.enable!
-
-    ActiveFedora::SolrService.instance.conn = sample_solr_connection
-    ActiveFedora::SolrService.delete(hyku_sample_work.id)
-    ActiveFedora::SolrService.commit
-
-    ActiveFedora::SolrService.reset!
-    ActiveFedora::SolrService.delete(work.id)
-    ActiveFedora::SolrService.commit
-  end
-
   describe "Search page can load when ltu_time_based_media work exists" do
     let!(:work) { LtuTimeBasedMedia.create(title: ["Test"], visibility: "open") }
     let!(:account) { create(:account, name: "normal search") }
 
     before do
       host! account.cname
+      allow(AccountElevator).to receive(:switch!).with(account.cname).and_return("public")
+      allow(Apartment::Tenant.adapter).to receive(:connect_to_new).and_return("")
+    end
+
+    after do
+      work.destroy
     end
 
     it "can load search page do" do
@@ -60,6 +41,11 @@ RSpec.describe CatalogController, type: :request, clean: true, multitenant: true
     end
   end
 
+  # We disabled rubocop because using instance_double for
+  # blacklight_connection does not work hence we are using allow_any_instance_of(Blacklight::Solr::Repository)
+  # which rubocops screams about.
+  #
+  # rubocop:disable RSpec/AnyInstance
   describe "Cross Tenant Search" do
     let(:cross_tenant_solr_options) do
       {
@@ -72,21 +58,43 @@ RSpec.describe CatalogController, type: :request, clean: true, multitenant: true
 
     let(:black_light_config) { Blacklight::Configuration.new(connection_config: cross_tenant_solr_options) }
 
-    let(:blacklight_solr_repository) { instance_double(Blacklight::Solr::Repository) }
-
     before do
       host! cross_search_tenant_account.cname
+
+      WebMock.disable!
+      allow(AccountElevator).to receive(:switch!).with(cross_search_tenant_account.cname).and_return("public")
+      allow(Apartment::Tenant.adapter).to receive(:connect_to_new).and_return("")
+      ActiveFedora::SolrService.instance.conn = sample_solr_connection
+      ActiveFedora::SolrService.add(hyku_sample_work.to_solr)
+      ActiveFedora::SolrService.commit
+
+      ActiveFedora::SolrService.reset!
+      ActiveFedora::SolrService.add(work.to_solr)
+      ActiveFedora::SolrService.commit
+    end
+
+    after do
+      WebMock.enable!
+
+      ActiveFedora::SolrService.instance.conn = sample_solr_connection
+      ActiveFedora::SolrService.delete(hyku_sample_work.id)
+      ActiveFedora::SolrService.commit
+
+      ActiveFedora::SolrService.reset!
+      ActiveFedora::SolrService.delete(work.id)
+      ActiveFedora::SolrService.commit
     end
 
     context "can fetch data from other tenants" do
-      xit "cross-search-tenant can fetch all record in child tenants" do
+      it "cross-search-tenant can fetch all record in child tenants" do
         connection = RSolr.connect(url: "http://solr:8983/solr/hydra-cross-search-tenant")
-        allow(blacklight_solr_repository).to receive(:build_connection).and_return(connection)
+        allow_any_instance_of(Blacklight::Solr::Repository).to receive(:build_connection).and_return(connection)
         allow(CatalogController).to receive(:blacklight_config).and_return(black_light_config)
 
-        get search_catalog_url, params: { locale: "en", q: "test" }
+        get "http://#{cross_search_tenant_account.cname}/catalog?q=test"
         expect(response.status).to eq(200)
       end
     end
   end
+  # rubocop:enable RSpec/AnyInstance
 end
