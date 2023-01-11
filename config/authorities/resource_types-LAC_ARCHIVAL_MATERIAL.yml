@@ -1,0 +1,17 @@
+terms:
+  - id: Collection
+    term: Collection
+  - id: Text
+    term: Text
+  - id: Image
+    term: Image
+  - id: Sound
+    term: Sound
+  - id: Moving Image
+    term: Moving Image
+  - id: Physical Object
+    term: Physical Object
+  - id: Dataset
+    term: Dataset
+  - id: Event
+    term: Event

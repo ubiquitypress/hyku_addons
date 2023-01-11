@@ -1,0 +1,35 @@
+terms:
+
+- id: BA
+  term: Bachelor of Arts
+  active: true
+- id: BS
+  term: Bachelor of Science
+  active: true
+- id: EdD
+  term: Doctor of Education
+  active: true
+- id: EdS
+  term: Education Specialist
+  active: true
+- id: JD
+  term: Juris Doctor
+  active: true
+- id: LLM
+  term: Master of Laws
+  active: true
+- id: MA
+  term: Master of Arts
+  active: true
+- id: MAT
+  term: Master of Arts in Teaching
+  active: true
+- id: MEd
+  term: Master of Education
+  active: true
+- id: MS
+  term: Master of Science
+  active: true
+- id: MSL
+  term: Master of Studies in Law
+  active: true

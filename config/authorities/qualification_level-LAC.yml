@@ -1,0 +1,13 @@
+terms:
+- id: Bachelor
+  term: Bachelor
+  active: true
+- id: Master
+  term: Master
+  active: true
+- id: Law
+  term: Law
+  active: true
+- id: Doctoral
+  term: Doctoral
+  active: true
