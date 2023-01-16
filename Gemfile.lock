@@ -1219,7 +1219,6 @@ GEM
       rexml
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    yaml-lint (0.0.10)
     zk (1.10.0)
       zookeeper (~> 1.5.0)
     zookeeper (1.5.1)
@@ -1306,7 +1305,6 @@ DEPENDENCIES
   webdrivers (~> 4.0)
   webmock
   willow_sword!
-  yaml-lint (~> 0.0.10)
   zk
 
 BUNDLED WITH
