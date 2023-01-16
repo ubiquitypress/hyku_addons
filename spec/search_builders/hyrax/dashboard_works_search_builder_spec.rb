@@ -3,7 +3,7 @@
 RSpec.describe Hyrax::Dashboard::WorksSearchBuilder do
   let(:user) { create(:user) }
   let(:ability) { ::Ability.new(user) }
-  let(:context) { instance_double(current_ability: ability, current_user: user, blacklight_config: CatalogController.blacklight_config) }
+  let(:context) { OpenStruct.new(current_ability: ability, current_user: user, blacklight_config: CatalogController.blacklight_config) }
   let(:builder) { described_class.new(context) }
 
   describe "search builder .default_processor_chain" do
