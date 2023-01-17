@@ -157,6 +157,10 @@ module HykuAddons
       # Hyrax Hirmeos
       ::Hyrax::Hirmeos::Client.prepend HykuAddons::Hirmeos::ClientOverride
 
+      # Hyrax Autopopulation
+      # Hide in activework from dashboard and search
+      ::Hyrax::WorksSearchBuilder.include ::Hyrax::FilterSuppressed
+
       # Indexers
       ::Hyrax::CollectionIndexer.prepend HykuAddons::CollectionIndexerOverride
       Hyrax::WorkIndexer.include HykuAddons::WorkIndexerBehavior
