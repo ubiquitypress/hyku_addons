@@ -2,7 +2,7 @@
 
 require "maremma"
 
-# Attempts were made to use active_support to override this via module include or prepend
+# Attempts were made to use active_support  or modules to override this via module include or prepend
 # but it did not work hence module_eval was used to re-open the module and override the method in the gem
 #
 Maremma.module_eval do
