@@ -30,8 +30,6 @@ module HykuAddons
     # Without this include, the presenter will be dropped by the autoloader each time a change is made. Because of the
     # way the app is structured, we need to include it here to have the console and server use the same location.
     require HykuAddons::Engine.root.join("app/presenters/hyku_addons/schema/presenter.rb")
-    # overrides maremma to correctly encode text input as utf-8
-    require HykuAddons::Engine.root.join("app/services/maremma_override.rb")
 
     config.before_initialize do
       # Eager load required for overrides in the initializer below
@@ -152,16 +150,13 @@ module HykuAddons
 
       # Hyku API
       ::Hyku::API::V1::SearchController.prepend HykuAddons::SearchControllerBehavior
+      ::Hyku::API::V1::SessionsController.prepend HykuAddons::SessionsControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
       ::Hyku::API::V1::HighlightsController.prepend HykuAddons::HighlightsControllerBehavior
       ::Hyku::API::V1::UsersController.prepend HykuAddons::UsersControllerBehavior
 
       # Hyrax Hirmeos
       ::Hyrax::Hirmeos::Client.prepend HykuAddons::Hirmeos::ClientOverride
-
-      # Hyrax Autopopulation
-      # Hide in activework from dashboard and search
-      ::Hyrax::WorksSearchBuilder.include ::Hyrax::FilterSuppressed
 
       # Indexers
       ::Hyrax::CollectionIndexer.prepend HykuAddons::CollectionIndexerOverride

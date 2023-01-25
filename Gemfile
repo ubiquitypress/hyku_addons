@@ -25,3 +25,9 @@ gemspec
 # gem 'mini_racer'
 
 eval_gemfile File.expand_path("spec/internal_test_hyku/Gemfile", File.dirname(__FILE__))
+
+gem "workos", "~> 2.10"
+
+gem "annotate", "~> 3.2"
+
+gem "awesome_print", "~> 1.9"

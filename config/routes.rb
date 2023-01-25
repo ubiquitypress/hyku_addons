@@ -25,7 +25,14 @@ HykuAddons::Engine.routes.draw do
 
   get "/admin/reports", to: "/hyrax/stats#reports", as: :admin_stats_report
 
+
+  devise_scope :user do
+    get "/sso/login", to:"/hyku/api/v1/sessions#auth", as: :sso_login
+    get "sso/callback", to:"/hyku/api/v1/sessions#callback", as: :sso_callback
+  end
+
   authenticate :user, ->(u) { u.roles_name.include? "admin" } do
     mount Sidekiq::Web => "/sidekiq"
   end
 end
+
