@@ -1,20 +1,19 @@
 module HykuAddons
   module SessionsControllerBehavior
 
-    WORKOS_API_KEY='sk_test_a2V5XzAxR0c3RFJIOURYM0NSNUdCTjU2Q0VCTkVDLFcxUHliQWkzd3lNOFdtZXVRbWVxT3NjNnM'
-    WORKOS_CLIENT_ID='client_01GG7DRH9KVK3QNX2S6RGWA3CQ'
+    WORKOS_API_KEY=ENV["WORKOS_API_KEY"]
+    WORKOS_CLIENT_ID=ENV["WORKOS_CLIENT_ID"]
 
-    def auth
+    def authORGANIZATION
       # The user's organization ID
-      organization = "org_01GP3QSZ0967S8HZ9KYWT63Y1Y"
-
+      organization = ENV["ORGANIZATION_UID"]
       # The callback URI WorkOS should redirect to after the authentication
       redirect_uri = "https://#{request.host}/sso/callback"
       authorization_url = WorkOS::SSO.authorization_url(
         client_id: WORKOS_CLIENT_ID,
         organization: organization,
         redirect_uri: redirect_uri
-      )
+      )   
 
       redirect_to authorization_url
     end
