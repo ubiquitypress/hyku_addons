@@ -13,7 +13,7 @@ module HykuAddons
         client_id: WORKOS_CLIENT_ID,
         organization: organization,
         redirect_uri: redirect_uri
-      )   
+      )
 
       redirect_to authorization_url
     end
