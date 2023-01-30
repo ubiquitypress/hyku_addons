@@ -42,34 +42,34 @@ module HykuAddons
 
       protected
 
-        def topic_name
-          "repository--#{@type}-#{@action}"
-        end
+      def topic_name
+        "repository--#{@type}-#{@action}"
+      end
 
-        def client
-          @client ||= begin
-                        Google::Cloud::PubSub.configure do |config|
-                          config.project_id  = pubsub_credentials.dig("project_id")
-                          config.credentials = pubsub_credentials
-                        end
-
-                        Google::Cloud::PubSub.new
+      def client
+        @client ||= begin
+                      Google::Cloud::PubSub.configure do |config|
+                        config.project_id  = pubsub_credentials.dig("project_id")
+                        config.credentials = pubsub_credentials
                       end
-        end
 
-        def pubsub_credentials
-          raise KeyError, "Service environment variable is not set" unless ENV["PUBSUB_SERVICEACCOUNT_KEY"].present?
+                      Google::Cloud::PubSub.new
+                    end
+      end
 
-          @pubsub_credentials ||= JSON.parse(ENV["PUBSUB_SERVICEACCOUNT_KEY"])
-        end
+      def pubsub_credentials
+        raise KeyError, "Service environment variable is not set" if ENV["PUBSUB_SERVICEACCOUNT_KEY"].blank?
+
+        @pubsub_credentials ||= JSON.parse(ENV["PUBSUB_SERVICEACCOUNT_KEY"])
+      end
 
       private
 
-        def validate_arguments!
-          raise ArgumentError, "Type '#{@type}' is invalid" unless ALLOWED_TYPES.include?(@type.to_s)
-          raise ArgumentError, "Action '#{@action}' is invalid" unless ALLOWED_ACTIONS.include?(@action.to_s)
-          raise ArgumentError, "A JSON string is required" unless @json.is_a?(String)
-        end
+      def validate_arguments!
+        raise ArgumentError, "Type '#{@type}' is invalid" unless ALLOWED_TYPES.include?(@type.to_s)
+        raise ArgumentError, "Action '#{@action}' is invalid" unless ALLOWED_ACTIONS.include?(@action.to_s)
+        raise ArgumentError, "A JSON string is required" unless @json.is_a?(String)
+      end
     end
   end
 end

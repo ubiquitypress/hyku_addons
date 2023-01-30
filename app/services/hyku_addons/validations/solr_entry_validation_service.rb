@@ -76,119 +76,119 @@ module HykuAddons
 
       protected
 
-        # rubocop:disable Metrics/CyclomaticComplexity
-        # rubocop:disable Metrics/PerceivedComplexity
-        def valid_endpoint_params?
-          @source_base_url && ((@source_username && @source_password) || @source_cookie) &&
-            @destination_base_url && ((@destination_username && @destination_password) || @destination_cookie)
-        end
-        # rubocop:enable Metrics/CyclomaticComplexity
-        # rubocop:enable Metrics/PerceivedComplexity
+      # rubocop:disable Metrics/CyclomaticComplexity
+      # rubocop:disable Metrics/PerceivedComplexity
+      def valid_endpoint_params?
+        @source_base_url && ((@source_username && @source_password) || @source_cookie) &&
+          @destination_base_url && ((@destination_username && @destination_password) || @destination_cookie)
+      end
+      # rubocop:enable Metrics/CyclomaticComplexity
+      # rubocop:enable Metrics/PerceivedComplexity
 
-        COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS = %w[
-          organization_name organisation_name given_name middle_name family_name name_type orcid isni ror grid wikidata suffix institution
-        ].freeze
+      COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS = %w[
+        organization_name organisation_name given_name middle_name family_name name_type orcid isni ror grid wikidata suffix institution
+      ].freeze
 
-        def creator_contributor_reevaluation(prefix, old_value)
-          returning_value = []
-          old_value.each do |tesim|
-            tesim = JSON.parse(tesim)[0]
-            COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS.each do |field|
-              tesim["#{prefix}_#{field}"] ||= ""
-            end
-            tesim["#{prefix}_role"] = Array(tesim["#{prefix}_role"].presence)
-            tesim["#{prefix}_position"] ||= "0"
-            tesim["#{prefix}_institutional_relationship"] = Array(tesim["#{prefix}_institutional_relationship"].presence)
-            returning_value.push([tesim].to_json)
+      def creator_contributor_reevaluation(prefix, old_value)
+        returning_value = []
+        old_value.each do |tesim|
+          tesim = JSON.parse(tesim)[0]
+          COMMON_CONTRIBUTOR_AND_CREATOR_FIELDS.each do |field|
+            tesim["#{prefix}_#{field}"] ||= ""
           end
-          returning_value
+          tesim["#{prefix}_role"] = Array(tesim["#{prefix}_role"].presence)
+          tesim["#{prefix}_position"] ||= "0"
+          tesim["#{prefix}_institutional_relationship"] = Array(tesim["#{prefix}_institutional_relationship"].presence)
+          returning_value.push([tesim].to_json)
         end
+        returning_value
+      end
 
-        def reevaluate_creator_tesim(old_value)
-          creator_contributor_reevaluation(:creator, old_value)
-        end
+      def reevaluate_creator_tesim(old_value)
+        creator_contributor_reevaluation(:creator, old_value)
+      end
 
-        def reevaluate_contributor_tesim(old_value)
-          creator_contributor_reevaluation(:contributor, old_value)
-        end
+      def reevaluate_contributor_tesim(old_value)
+        creator_contributor_reevaluation(:contributor, old_value)
+      end
 
-        def reevaluate_date_published_tesim(old_value)
-          [Date.parse(old_value[0]).strftime("%Y-%-m-%-d")]
-        rescue
-          old_value
-        end
+      def reevaluate_date_published_tesim(old_value)
+        [Date.parse(old_value[0]).strftime("%Y-%-m-%-d")]
+      rescue
+        old_value
+      end
 
-        def reevaluate_has_model_ssim(old_value)
-          ["Pacific#{gross_work_type_name(old_value)}"]
-        end
+      def reevaluate_has_model_ssim(old_value)
+        ["Pacific#{gross_work_type_name(old_value)}"]
+      end
 
-        def reevaluate_human_readable_type_tesim(old_value)
-          ["Pacific #{gross_work_type_name(old_value)}"]
-        end
+      def reevaluate_human_readable_type_tesim(old_value)
+        ["Pacific #{gross_work_type_name(old_value)}"]
+      end
 
-        def reevaluate_admin_set_tesim(old_value)
-          Array.wrap(old_value).first == "Default Admin Set" ? ["Default"] : old_value
-        end
+      def reevaluate_admin_set_tesim(old_value)
+        Array.wrap(old_value).first == "Default Admin Set" ? ["Default"] : old_value
+      end
 
-        # rubocop:disable Metrics/CyclomaticComplexity
-        # rubocop:disable Metrics/MethodLength
-        def reevaluate_resource_type_tesim(old_value)
-          initial_value = Array.wrap(old_value).first
-          case initial_value
-          when "ImageWork Image"
-            "Image"
-          when "ArticleWork Default Article"
-            "Article"
-          when "Media default Media"
-            "Media"
-          when "TextWork default Text"
-            "Text"
-          when "Media Audio"
-            "Audio"
-          when "BookWork Book"
-            "Book"
-          when "BookChapter default Book chapter"
-            "Book Chapter"
-          when "ThesisOrDissertationWork default Thesis"
-            "Thesis"
-          when "Presentation default Presentation"
-            "Presentation"
-          when "Uncategorized default Uncategorized"
-            "Uncategorized"
-          when /Capstone/
-            "Capstone"
-          when /Creative Work/
-            "Creative Work"
-          when /Essay/
-            "Dissertation"
-          when /Grant/
-            "Grant"
-          when /Handbook/
-            "Handbook"
-          when /Letter/
-            "Letter"
-          when /Research/
-            "Research article"
-          when /Review/
-            "Review article"
-          when /Editorial/
-            "Editorial"
-          when /Dissertation/
-            "Dissertation"
-          when /Application/
-            "Application"
-          when /Intellectual/
-            "Intellectual Freedom News"
-          else
-            initial_value
-          end
+      # rubocop:disable Metrics/CyclomaticComplexity
+      # rubocop:disable Metrics/MethodLength
+      def reevaluate_resource_type_tesim(old_value)
+        initial_value = Array.wrap(old_value).first
+        case initial_value
+        when "ImageWork Image"
+          "Image"
+        when "ArticleWork Default Article"
+          "Article"
+        when "Media default Media"
+          "Media"
+        when "TextWork default Text"
+          "Text"
+        when "Media Audio"
+          "Audio"
+        when "BookWork Book"
+          "Book"
+        when "BookChapter default Book chapter"
+          "Book Chapter"
+        when "ThesisOrDissertationWork default Thesis"
+          "Thesis"
+        when "Presentation default Presentation"
+          "Presentation"
+        when "Uncategorized default Uncategorized"
+          "Uncategorized"
+        when /Capstone/
+          "Capstone"
+        when /Creative Work/
+          "Creative Work"
+        when /Essay/
+          "Dissertation"
+        when /Grant/
+          "Grant"
+        when /Handbook/
+          "Handbook"
+        when /Letter/
+          "Letter"
+        when /Research/
+          "Research article"
+        when /Review/
+          "Review article"
+        when /Editorial/
+          "Editorial"
+        when /Dissertation/
+          "Dissertation"
+        when /Application/
+          "Application"
+        when /Intellectual/
+          "Intellectual Freedom News"
+        else
+          initial_value
         end
-        # rubocop:enable Metrics/MethodLength
-        # rubocop:enable Metrics/CyclomaticComplexity
+      end
+      # rubocop:enable Metrics/MethodLength
+      # rubocop:enable Metrics/CyclomaticComplexity
 
-        def gross_work_type_name(alt_name)
-          alt_name.first.gsub(/Pacific|Work|\s*/, "")
-        end
+      def gross_work_type_name(alt_name)
+        alt_name.first.gsub(/Pacific|Work|\s*/, "")
+      end
     end
   end
 end

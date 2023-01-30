@@ -8,7 +8,8 @@ orbs:
 jobs:
   build:
     docker:
-     resource_class: ubiquitypress/self-hosted
+      - image: cimg/base:current
+    resource_class: ubiquitypress/self-hosted
   bundle_lint_test:
     parameters:
       ruby_version:
