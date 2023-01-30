@@ -10,6 +10,8 @@ jobs:
     docker:
       - image: cimg/base:current
     resource_class: ubiquitypress/self-hosted
+    steps:
+      - run: echo "Hi I'm on a Container Runner!"
   bundle_lint_test:
     parameters:
       ruby_version:
@@ -133,7 +135,7 @@ jobs:
         type: integer
         default: 4
     docker:
-      - image: cimg/base:stable
+      - image: cimg/base:stableresource_class:resource_class:
     steps:
       - attach_workspace:
           at: ~/project
@@ -150,6 +152,7 @@ jobs:
 workflows:
   ci:
     jobs:
+      - build:
       - bundle_lint_test:
           name: ruby2-7-1
       - upload_coverage:
