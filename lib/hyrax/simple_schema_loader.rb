@@ -73,32 +73,32 @@ module Hyrax
 
     private
 
-      ##
-      # @param [#to_s] schema_name
-      # @return [Enumerable<AttributeDefinition]
-      def definitions(schema_name)
-        schema_config(schema_name)["attributes"].map do |name, config|
-          AttributeDefinition.new(name, config)
-        end
+    ##
+    # @param [#to_s] schema_name
+    # @return [Enumerable<AttributeDefinition]
+    def definitions(schema_name)
+      schema_config(schema_name)["attributes"].map do |name, config|
+        AttributeDefinition.new(name, config)
       end
+    end
 
-      ##
-      # @param [#to_s] schema_name
-      # @return [Hash]
-      def schema_config(schema_name)
-        schema_config_path = config_paths(schema_name).find { |path| File.exist? path }
+    ##
+    # @param [#to_s] schema_name
+    # @return [Hash]
+    def schema_config(schema_name)
+      schema_config_path = config_paths(schema_name).find { |path| File.exist? path }
 
-        raise(UndefinedSchemaError, "No schema defined: #{schema_name}") unless schema_config_path
+      raise(UndefinedSchemaError, "No schema defined: #{schema_name}") unless schema_config_path
 
-        YAML.safe_load(File.open(schema_config_path))
-      end
+      YAML.safe_load(File.open(schema_config_path))
+    end
 
-      def config_paths(schema_name)
-        config_search_paths.collect { |root_path| root_path.to_s + "/config/metadata/#{schema_name}.yaml" }
-      end
+    def config_paths(schema_name)
+      config_search_paths.collect { |root_path| root_path.to_s + "/config/metadata/#{schema_name}.yaml" }
+    end
 
-      def config_search_paths
-        [Rails.root, Hyrax::Engine.root, HykuAddons::Engine.root]
-      end
+    def config_search_paths
+      [Rails.root, Hyrax::Engine.root, HykuAddons::Engine.root]
+    end
   end
 end

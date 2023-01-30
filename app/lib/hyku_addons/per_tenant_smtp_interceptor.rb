@@ -8,7 +8,7 @@ module HykuAddons
 
     def self.delivering_email(message)
       Account.find_by(tenant: Apartment::Tenant.current)&.switch!
-      return unless (mailer_settings = Settings.smtp_settings).present?
+      return if (mailer_settings = Settings.smtp_settings).blank?
 
       mailer_config = configure_mailer_tenant_settings(mailer_settings, message)
       message.delivery_method.settings.merge!(mailer_config.compact.to_h)

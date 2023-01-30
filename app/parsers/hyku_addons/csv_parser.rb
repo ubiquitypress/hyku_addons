@@ -14,7 +14,7 @@ module HykuAddons
       raise StandardError, "No records were found" if records.blank?
       @file_paths ||= records.map do |r|
         file_mapping = ::Bulkrax.field_mappings.dig(self.class.to_s, "file", :from)&.first&.to_sym || :file
-        next unless r[file_mapping].present?
+        next if r[file_mapping].blank?
 
         r[file_mapping].split(/\s*[:;|]\s*/).map do |f|
           # HACK: Override the tr method to prevent spaces from being changes to underscores
@@ -62,7 +62,7 @@ module HykuAddons
       # does the CSV contain an admin_set column?
       return [] unless import_fields.include?(:admin_set)
       # retrieve a list of unique admin sets
-      records.map { |r| r[:admin_set] }.flatten.compact.uniq
+      records.pluck(:admin_set).flatten.compact.uniq
     end
 
     def path_to_files

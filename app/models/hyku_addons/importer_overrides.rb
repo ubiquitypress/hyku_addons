@@ -96,13 +96,13 @@ module HykuAddons
     end
 
     def add_controlled_vocabulary_field(field, service_class)
-      return unless parsed_metadata[field].present?
+      return if parsed_metadata[field].blank?
 
       service = service_class.new(model: parsed_metadata["model"]&.safe_constantize)
       parsed_metadata[field] = parsed_metadata[field].map do |val|
         service.authority.find(val).fetch("id")
-      rescue
-        nil
+                               rescue
+                                 nil
       end.compact
     end
 
@@ -135,35 +135,35 @@ module HykuAddons
 
     private
 
-      def create_metadata
-        self.parsed_metadata = {}
-        parsed_metadata[::Bulkrax.system_identifier_field] = record["source_identifier"]
-        parsed_metadata["id"] = record["id"] if record["id"].present?
-        # Adding parsed_metadata["model"] manually because it always use the default without
-        # this work around. The default can be seen by running Bulkrax.default_work_type
-        parsed_metadata["model"] = raw_metadata["model"]
+    def create_metadata
+      self.parsed_metadata = {}
+      parsed_metadata[::Bulkrax.system_identifier_field] = record["source_identifier"]
+      parsed_metadata["id"] = record["id"] if record["id"].present?
+      # Adding parsed_metadata["model"] manually because it always use the default without
+      # this work around. The default can be seen by running Bulkrax.default_work_type
+      parsed_metadata["model"] = raw_metadata["model"]
 
-        record.each do |key, value|
-          next if key == "collection"
+      record.each do |key, value|
+        next if key == "collection"
 
-          add_metadata(key, value)
-        end
+        add_metadata(key, value)
       end
+    end
 
-      def transform_metadata
-        add_file
-        add_file_subfields
-        add_visibility
-        add_rights_statement
-        add_admin_set_id
-        add_collections
-        add_local
-        add_date_fields
-        add_json_fields
-        add_doi_status_field
-        add_controlled_vocabulary_field("resource_type", HykuAddons::ResourceTypesService)
-        add_controlled_vocabulary_field("subject", HykuAddons::SubjectService)
-        add_controlled_vocabulary_field("language", HykuAddons::LanguageService)
-      end
+    def transform_metadata
+      add_file
+      add_file_subfields
+      add_visibility
+      add_rights_statement
+      add_admin_set_id
+      add_collections
+      add_local
+      add_date_fields
+      add_json_fields
+      add_doi_status_field
+      add_controlled_vocabulary_field("resource_type", HykuAddons::ResourceTypesService)
+      add_controlled_vocabulary_field("subject", HykuAddons::SubjectService)
+      add_controlled_vocabulary_field("language", HykuAddons::LanguageService)
+    end
   end
 end

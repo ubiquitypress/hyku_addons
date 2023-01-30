@@ -20,7 +20,7 @@ module HykuAddons
       req = Net::HTTP::Get.new(uri)
       req.basic_auth(@username, @password)
       res = http.request(req)
-      Rails.logger.debug "BlacklightWorkJsonService for #{uri} -> #{res}"
+      Rails.logger.debug { "BlacklightWorkJsonService for #{uri} -> #{res}" }
       res.is_a?(Net::HTTPSuccess) ? JSON.parse(res.body) : {}
     end
   end

@@ -33,36 +33,36 @@ module HykuAddons
 
     private
 
-      def account_params
-        params.require(:account).permit(
-          settings: [
-            :contact_email, :gtm_id, :file_size_limit, :enable_oai_metadata, :locale_name,
-            :shared_login, :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,
-            :bulkrax_validations, :google_analytics_id, :gds_reports,
-            google_scholarly_work_types: [], email_format: [], weekly_email_list: [], monthly_email_list: [],
-            yearly_email_list: [], smtp_settings: HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields,
-            hyrax_orcid_settings: [:client_id, :client_secret, :auth_redirect, :environment]
-          ]
-        )
-      end
+    def account_params
+      params.require(:account).permit(
+        settings: [
+          :contact_email, :gtm_id, :file_size_limit, :enable_oai_metadata, :locale_name,
+          :shared_login, :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,
+          :bulkrax_validations, :google_analytics_id, :gds_reports,
+          google_scholarly_work_types: [], email_format: [], weekly_email_list: [], monthly_email_list: [],
+          yearly_email_list: [], smtp_settings: HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields,
+          hyrax_orcid_settings: [:client_id, :client_secret, :auth_redirect, :environment]
+        ]
+      )
+    end
 
-      def set_account
-        @account = current_account
-      end
+    def set_account
+      @account = current_account
+    end
 
-      def map_array_fields
-        keys = %w[email_format weekly_email_list monthly_email_list yearly_email_list]
-        keys.each do |key|
-          next if params["account"]["settings"][key].blank?
+    def map_array_fields
+      keys = %w[email_format weekly_email_list monthly_email_list yearly_email_list]
+      keys.each do |key|
+        next if params["account"]["settings"][key].blank?
 
-          params["account"]["settings"][key].map! { |str| str.split(" ") }.flatten!
-        end
+        params["account"]["settings"][key].map! { |str| str.split(" ") }.flatten!
       end
+    end
 
-      # Since the api works endpoint is cached without clearing
-      # the cache things linke hypothesis annotation won't work
-      def clear_cache
-        HykuAddons::CacheExpirationService.new.expire_cache_for(@account) if Flipflop.enabled?(:cache_api)
-      end
+    # Since the api works endpoint is cached without clearing
+    # the cache things linke hypothesis annotation won't work
+    def clear_cache
+      HykuAddons::CacheExpirationService.new.expire_cache_for(@account) if Flipflop.enabled?(:cache_api)
+    end
   end
 end

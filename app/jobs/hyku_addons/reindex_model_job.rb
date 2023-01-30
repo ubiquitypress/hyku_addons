@@ -33,59 +33,59 @@ module HykuAddons
 
     private
 
-      def mint_doi(work)
-        return unless can_mint_for?(work)
+    def mint_doi(work)
+      return unless can_mint_for?(work)
 
-        Rails.logger.debug "=== about to mint doi for #{work.title} ==== "
+      Rails.logger.debug { "=== about to mint doi for #{work.title} ==== " }
 
-        work.update(doi_status_when_public: "findable")
-        register_doi = Hyrax::DOI::DataCiteRegistrar.new.register!(object: work)
-        work.update(doi: [register_doi.identifier])
+      work.update(doi_status_when_public: "findable")
+      register_doi = Hyrax::DOI::DataCiteRegistrar.new.register!(object: work)
+      work.update(doi: [register_doi.identifier])
+    end
+
+    def can_mint_for?(work)
+      state = workflow_state(work)
+
+      work.creator.present? && work.doi.blank? && work.visibility == "open" && ["deposited", nil].include?(state&.workflow_state_name)
+    end
+
+    def workflow_state(work)
+      @_workflow_state ||= Sipity::Entity.find_by(proxy_for_global_id: "gid://hyku/#{work.class}/#{work.id}")
+    end
+
+    def fetch_work_using_ids(klass)
+      @use_work_ids.map do |id|
+        work = klass.find(id)
+        Rails.logger.debug { "=== updating index with #{id}for #{work&.title&.to_a&.first} ====" }
+        mint_doi(work) if @cname_doi_mint.present? && @cname_doi_mint.include?(@cname)
+        work.save
       end
+    end
 
-      def can_mint_for?(work)
-        state = workflow_state(work)
+    def reindex_works(works)
+      works.each do |work|
+        mint_doi(work) if @cname_doi_mint.present? && @cname_doi_mint.include?(@cname)
 
-        work.creator.present? && work.doi.blank? && work.visibility == "open" && ["deposited", nil].include?(state&.workflow_state_name)
+        # We have temporarily replaced work.update_index with a  save to kill two birds with
+        # one stone, as in re_index and also update member_of_collections_ssim to store
+        # collection names instead of id caused by wrong bulkrax import
+        work.save
       end
+    end
 
-      def workflow_state(work)
-        @_workflow_state ||= Sipity::Entity.find_by(proxy_for_global_id: "gid://hyku/#{work.class}/#{work.id}")
-      end
+    # When the offset becomes too large, no records would be found
+    def reindex_and_mint_work(work_class, offset)
+      works = work_class.where("title_tesim:*").limit(@limit).offset(offset)&.to_a
+      return unless works&.any?
 
-      def fetch_work_using_ids(klass)
-        @use_work_ids.map do |id|
-          work = klass.find(id)
-          Rails.logger.debug "=== updating index with #{id}for #{work&.title&.to_a&.first} ===="
-          mint_doi(work) if @cname_doi_mint.present? && @cname_doi_mint.include?(@cname)
-          work.save
-        end
-      end
+      Rails.logger.debug { "=== Starting to reindex #{@klass} in #{@cname} ===" }
 
-      def reindex_works(works)
-        works.each do |work|
-          mint_doi(work) if @cname_doi_mint.present? && @cname_doi_mint.include?(@cname)
+      # with calling to_a it always returns true, even when no records found
+      reindex_works(works)
 
-          # We have temporarily replaced work.update_index with a  save to kill two birds with
-          # one stone, as in re_index and also update member_of_collections_ssim to store
-          # collection names instead of id caused by wrong bulkrax import
-          work.save
-        end
-      end
-
-      # When the offset becomes too large, no records would be found
-      def reindex_and_mint_work(work_class, offset)
-        works = work_class.where("title_tesim:*").limit(@limit).offset(offset)&.to_a
-        return unless works&.any?
-
-        Rails.logger.debug "=== Starting to reindex #{@klass} in #{@cname} ==="
-
-        # with calling to_a it always returns true, even when no records found
-        reindex_works(works)
-
-        # Re-enqueue
-        ReindexModelJob.perform_later(@klass, @cname, limit: @limit, page: @page.to_i + 1, options: @options)
-        Rails.logger.debug "=== Completed reindex of #{@klass} in #{@cname} ==="
-      end
+      # Re-enqueue
+      ReindexModelJob.perform_later(@klass, @cname, limit: @limit, page: @page.to_i + 1, options: @options)
+      Rails.logger.debug { "=== Completed reindex of #{@klass} in #{@cname} ===" }
+    end
   end
 end

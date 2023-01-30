@@ -4,9 +4,9 @@ module HykuAddons
     module DataCiteRegistrarBehavior
       private
 
-        def doi_enabled_work_type?(_work)
-          true
-        end
+      def doi_enabled_work_type?(_work)
+        true
+      end
     end
   end
 end

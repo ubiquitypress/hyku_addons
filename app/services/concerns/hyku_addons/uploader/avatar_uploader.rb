@@ -8,7 +8,7 @@ module HykuAddons
       # but since the system folder is not created inside public folder in production
       # this is an attempt to fix it
       def store_dir
-        Rails.root.join("public", "system", ":attachment", ":id").to_s
+        Rails.public_path.join("system", ":attachment", ":id").to_s
       end
     end
   end

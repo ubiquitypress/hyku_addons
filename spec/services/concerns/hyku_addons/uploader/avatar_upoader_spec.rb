@@ -2,7 +2,7 @@
 
 RSpec.describe HykuAddons::Uploader::AvatarUploader do
   subject(:uploader) { Hyrax::AvatarUploader.new }
-  let(:store_dir) { Rails.root.join("public", "system", ":attachment", ":id").to_s }
+  let(:store_dir) { Rails.public_path.join("system", ":attachment", ":id").to_s }
   let(:user) { create(:user, display_profile: true, avatar: file_fixture("up.png").open) }
   let(:account) { create(:account) }
 

@@ -17,7 +17,7 @@ module HykuAddons
       req = Net::HTTP::Get.new(uri)
       req["Cookie"] = @cookie
       res = http.request(req)
-      Rails.logger.debug("BlacklightWorkJsonCookieService for #{uri} -> #{res}")
+      Rails.logger.debug { "BlacklightWorkJsonCookieService for #{uri} -> #{res}" }
       res.is_a?(Net::HTTPSuccess) ? JSON.parse(res.body) : {}
     end
   end

@@ -18,18 +18,18 @@ module HykuAddons
 
     private
 
-      def reindex(cname)
-        AccountElevator.switch!(cname)
-        available_works = Site.first.available_works | ["Collection"]
+    def reindex(cname)
+      AccountElevator.switch!(cname)
+      available_works = Site.first.available_works | ["Collection"]
 
-        available_works.each do |model_class|
-          klass = model_class.constantize
+      available_works.each do |model_class|
+        klass = model_class.constantize
 
-          next unless klass.count.positive?
+        next unless klass.count.positive?
 
-          Rails.logger.debug "==== Queue ReindexModelJob for #{klass} ==="
-          HykuAddons::ReindexModelJob.perform_later(model_class, cname, options: { cname_doi_mint: @cname_doi_mint })
-        end
+        Rails.logger.debug { "==== Queue ReindexModelJob for #{klass} ===" }
+        HykuAddons::ReindexModelJob.perform_later(model_class, cname, options: { cname_doi_mint: @cname_doi_mint })
       end
+    end
   end
 end
