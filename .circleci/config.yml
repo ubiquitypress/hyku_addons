@@ -6,6 +6,9 @@ orbs:
   samvera: samvera/circleci-orb@0
 
 jobs:
+  build:
+    docker:
+     resource_class: ubiquitypress/self-hosted
   bundle_lint_test:
     parameters:
       ruby_version:
