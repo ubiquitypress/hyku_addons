@@ -150,7 +150,7 @@ jobs:
 workflows:
   ci:
     jobs:
-      - build
+      - build:
       - bundle_lint_test:
           name: ruby2-7-1
       - upload_coverage:
