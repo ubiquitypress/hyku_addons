@@ -134,8 +134,6 @@ jobs:
       parallelism:
         type: integer
         default: 4
-    docker:
-      - image: cimg/base:stableresource_class:resource_class:
     steps:
       - attach_workspace:
           at: ~/project
@@ -152,7 +150,7 @@ jobs:
 workflows:
   ci:
     jobs:
-      - build:
+      - build
       - bundle_lint_test:
           name: ruby2-7-1
       - upload_coverage:
