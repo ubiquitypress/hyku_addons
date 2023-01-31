@@ -152,6 +152,7 @@ module HykuAddons
 
       # Hyku API
       ::Hyku::API::V1::SearchController.prepend HykuAddons::SearchControllerBehavior
+      ::Hyku::API::V1::SessionsController.prepend HykuAddons::SessionsControllerBehavior
       ::Hyku::API::V1::FilesController.include HykuAddons::FilesControllerBehavior
       ::Hyku::API::V1::HighlightsController.prepend HykuAddons::HighlightsControllerBehavior
       ::Hyku::API::V1::UsersController.prepend HykuAddons::UsersControllerBehavior
