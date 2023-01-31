@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require "hyku_addons/sso"
 require "hyku_addons/engine"
 
 module HykuAddons
