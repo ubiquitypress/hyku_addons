@@ -27,18 +27,18 @@ module HykuAddons
 
     private
 
-      def all_features
-        @all_features = Flipflop::FeaturesController::FeaturesPresenter.new(Flipflop::FeatureSet.current)
-      end
+    def all_features
+      @all_features = Flipflop::FeaturesController::FeaturesPresenter.new(Flipflop::FeatureSet.current)
+    end
 
-      def set_url(id:, request:, account_cname:, has_model:)
-        controller_path = has_model == "collections" ? has_model : "concern/#{has_model}"
+    def set_url(id:, request:, account_cname:, has_model:)
+      controller_path = has_model == "collections" ? has_model : "concern/#{has_model}"
 
-        if Rails.env.development? || Rails.env.test?
-          "#{request[:request_protocol]}#{account_cname || request[:request_host]}:#{request[:request_port]}/#{controller_path}/#{id}"
-        else
-          "#{request[:request_protocol]}#{account_cname || request[:request_host]}/#{controller_path}/#{id}"
-        end
+      if Rails.env.development? || Rails.env.test?
+        "#{request[:request_protocol]}#{account_cname || request[:request_host]}:#{request[:request_port]}/#{controller_path}/#{id}"
+      else
+        "#{request[:request_protocol]}#{account_cname || request[:request_host]}/#{controller_path}/#{id}"
       end
+    end
   end
 end

@@ -32,9 +32,9 @@ class HykuAddons::UpdateAccountCname
 
   protected
 
-    def valid_cname?(hostname)
-      URI.parse("http://#{hostname}")&.host == hostname
-    rescue URI::InvalidURIError
-      false
-    end
+  def valid_cname?(hostname)
+    URI.parse("http://#{hostname}")&.host == hostname
+  rescue URI::InvalidURIError
+    false
+  end
 end

@@ -125,63 +125,63 @@ module HykuAddons
 
     private
 
-      def validate_email_format
-        return unless settings["email_format"].present?
+    def validate_email_format
+      return if settings["email_format"].blank?
 
-        settings["email_format"].each do |email|
-          errors.add(:email_format) unless email.match?(/@\S*\.\S*/)
+      settings["email_format"].each do |email|
+        errors.add(:email_format) unless email.match?(/@\S*\.\S*/)
+      end
+    end
+
+    def validate_contact_emails
+      ["weekly_email_list", "monthly_email_list", "yearly_email_list"].each do |key|
+        next if settings[key].blank?
+
+        settings[key].each do |email|
+          errors.add(:"#{key}") unless email.match?(URI::MailTo::EMAIL_REGEXP)
         end
       end
+    end
 
-      def validate_contact_emails
-        ["weekly_email_list", "monthly_email_list", "yearly_email_list"].each do |key|
-          next unless settings[key].present?
+    def initialize_settings
+      set_jsonb_allow_signup_default
+      set_smtp_settings
+      set_hyrax_orcid_settings
+    end
 
-          settings[key].each do |email|
-            errors.add(:"#{key}") unless email.match?(URI::MailTo::EMAIL_REGEXP)
-          end
-        end
+    def set_jsonb_allow_signup_default
+      return if settings["allow_signup"].present?
+
+      self.allow_signup = "true"
+    end
+
+    def set_smtp_settings
+      current_smtp_settings = settings["smtp_settings"].presence || {}
+
+      self.smtp_settings = current_smtp_settings.with_indifferent_access.reverse_merge!(
+        HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h
+      )
+    end
+
+    # If any settings are added, also add the param inside HykuAddons::AccountSettingsController
+    def set_hyrax_orcid_settings
+      orcid_defaults = { "client_id" => "", "client_secret" => "", "auth_redirect" => "", "environment" => "sandbox" }
+
+      self.hyrax_orcid_settings = orcid_defaults.merge(hyrax_orcid_settings || {})
+    end
+
+    def switch_hyrax_orcid_credentials!
+      return if (orcid = settings["hyrax_orcid_settings"]).blank?
+
+      Hyrax::Orcid.configure do |config|
+        config.environment = orcid["environment"]
+
+        config.auth = {
+          client_id: orcid["client_id"],
+          client_secret: orcid["client_secret"],
+          redirect_url: orcid["auth_redirect"]
+        }
       end
-
-      def initialize_settings
-        set_jsonb_allow_signup_default
-        set_smtp_settings
-        set_hyrax_orcid_settings
-      end
-
-      def set_jsonb_allow_signup_default
-        return if settings["allow_signup"].present?
-
-        self.allow_signup = "true"
-      end
-
-      def set_smtp_settings
-        current_smtp_settings = settings["smtp_settings"].presence || {}
-
-        self.smtp_settings = current_smtp_settings.with_indifferent_access.reverse_merge!(
-          HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields.each_with_object("").to_h
-        )
-      end
-
-      # If any settings are added, also add the param inside HykuAddons::AccountSettingsController
-      def set_hyrax_orcid_settings
-        orcid_defaults = { "client_id" => "", "client_secret" => "", "auth_redirect" => "", "environment" => "sandbox" }
-
-        self.hyrax_orcid_settings = orcid_defaults.merge(hyrax_orcid_settings || {})
-      end
-
-      def switch_hyrax_orcid_credentials!
-        return if (orcid = settings["hyrax_orcid_settings"]).blank?
-
-        Hyrax::Orcid.configure do |config|
-          config.environment = orcid["environment"]
-
-          config.auth = {
-            client_id: orcid["client_id"],
-            client_secret: orcid["client_secret"],
-            redirect_url: orcid["auth_redirect"]
-          }
-        end
-      end
+    end
   end
 end

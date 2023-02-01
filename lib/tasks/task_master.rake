@@ -40,7 +40,7 @@ namespace :task_master do
 
         publish_to_task_master("work", work.to_task_master, delay)
 
-        next unless work.file_sets.present?
+        next if work.file_sets.blank?
 
         # Schedule any files to be imported 1 day after the work is imported to avoid flooding
         work.file_sets.each { |file| publish_to_task_master("file", file.to_task_master, delay + 1.day.seconds) }

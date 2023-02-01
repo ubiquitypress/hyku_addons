@@ -15,8 +15,8 @@ module HykuAddons
 
     private
 
-      def load_importer
-        @importer = ::Bulkrax::Importer.find(params[:id])
-      end
+    def load_importer
+      @importer = ::Bulkrax::Importer.find(params[:id])
+    end
   end
 end

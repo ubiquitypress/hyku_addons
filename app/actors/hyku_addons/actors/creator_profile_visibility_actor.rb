@@ -16,27 +16,27 @@ module HykuAddons
 
       protected
 
-        def toggle_visibility(env)
-          creators = extract_creators(env)
+      def toggle_visibility(env)
+        creators = extract_creators(env)
 
-          return [] if creators.blank?
+        return [] if creators.blank?
 
-          creators.map! do |creator|
-            if creator["creator_name_type"] == "Personal"
-              user = User.find_by(email: creator["creator_institutional_email"])
+        creators.map! do |creator|
+          if creator["creator_name_type"] == "Personal"
+            user = User.find_by(email: creator["creator_institutional_email"])
 
-              creator["creator_profile_visibility"] = user&.display_profile_visibility || User::PROFILE_VISIBILITY[:closed]
-            end
-
-            creator
+            creator["creator_profile_visibility"] = user&.display_profile_visibility || User::PROFILE_VISIBILITY[:closed]
           end
 
-          env.attributes[:creator] = [creators.compact.to_json]
+          creator
         end
 
-        def extract_creators(env)
-          JSON.parse(env.attributes[:creator]&.first || "{}")
-        end
+        env.attributes[:creator] = [creators.compact.to_json]
+      end
+
+      def extract_creators(env)
+        JSON.parse(env.attributes[:creator]&.first || "{}")
+      end
     end
   end
 end
