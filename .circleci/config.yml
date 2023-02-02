@@ -137,7 +137,7 @@ jobs:
             chmod +x ./cc-test-reporter
       - deploy:
           # CC_TEST_REPORTER_ID set within the circleci web interface
-          command: ./cc-test-reporter sum-coverage --output - --parts << parameters.parallelism >> codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
+          command: ./cc-test-reporter sum-coverage --output - --parts 1 codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
 
 workflows:
   ci:
