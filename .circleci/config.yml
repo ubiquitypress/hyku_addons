@@ -23,8 +23,6 @@ jobs:
       name: 'samvera/ruby_fcrepo_solr_redis_postgres'
       ruby_version: << parameters.ruby_version >>
 
-    parallelism: 4
-
     environment:
       RAILS_VERSION: << parameters.rails_version >>
       DATABASE_NAME: circle_test
@@ -63,7 +61,7 @@ jobs:
       - run:
           name: Install Hyku Base
           command: |
-            git submodule init && git submodule update
+            ssh-keyscan github.com >> ~/.ssh/known_hosts && git submodule init && GIT_TERMINAL_PROMPT=0 git submodule update
 
       # FIXME: caching is not working
       # https://circleci.com/developer/orbs/orb/samvera/circleci-orb#commands-bundle
