@@ -23,6 +23,8 @@ jobs:
       name: 'samvera/ruby_fcrepo_solr_redis_postgres'
       ruby_version: << parameters.ruby_version >>
 
+    parallelism: 8
+
     environment:
       RAILS_VERSION: << parameters.rails_version >>
       DATABASE_NAME: circle_test
