@@ -198,7 +198,7 @@ orbs:
       ruby_fcrepo_solr_redis:
         description: Box running FCRepo, Solr, Ruby, and Redis.
         docker:
-        - image: cimg/<< parameters.ruby_type >>:<< parameters.ruby_version >>-node-browsers-legacy
+        - image: circleci/<< parameters.ruby_type >>:<< parameters.ruby_version >>
         - environment:
             CATALINA_OPTS: -Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms512m
               -Xmx1024m -XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m -XX:MaxPermSize=256m
@@ -206,7 +206,7 @@ orbs:
           image: ualbertalib/docker-fcrepo4:<< parameters.fcrepo_version>>
         - command: bin/solr -cloud -noprompt -f -p <<parameters.solr_port>>
           image: solr:7-alpine
-        - image: cimg/redis:<<parameters.redis_version>>
+        - image: circleci/redis:<<parameters.redis_version>>
         environment:
           BUNDLE_JOBS: 4
           BUNDLE_PATH: vendor/bundle
@@ -235,7 +235,7 @@ orbs:
       ruby_fcrepo_solr_redis_postgres:
         description: Box running FCRepo, Solr, Ruby, Redis, Postgres.
         docker:
-        - image: cimg/<< parameters.ruby_type >>:<< parameters.ruby_version >>-node-browsers-legacy
+        - image: circleci/<< parameters.ruby_type >>:<< parameters.ruby_version >>
         - environment:
             CATALINA_OPTS: -Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms512m
               -Xmx1024m -XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m -XX:MaxPermSize=256m
@@ -243,8 +243,8 @@ orbs:
           image: ualbertalib/docker-fcrepo4:<< parameters.fcrepo_version>>
         - command: bin/solr -cloud -noprompt -f -p <<parameters.solr_port>>
           image: solr:7-alpine
-        - image: cimg/redis:<<parameters.redis_version>>
-        - image: cimg/postgres:9.6.2-alpine
+        - image: circleci/redis:<<parameters.redis_version>>
+        - image: circleci/postgres:9.6.2-alpine
         environment:
           BUNDLE_JOBS: 4
           BUNDLE_PATH: vendor/bundle
