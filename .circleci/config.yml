@@ -395,6 +395,10 @@ jobs:
 
   # Upload coverage to CodeClimate
   upload_coverage:
+    parameters:
+      parallelism:
+        type: integer
+        default: 4
     resource_class: ubiquitypress/self-hosted    
     docker:
       - image: cimg/base:stable
