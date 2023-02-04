@@ -146,7 +146,7 @@ orbs:
       ruby:
         description: Box just Ruby
         docker:
-        - image: cimg/<< parameters.ruby_type >>:<< parameters.ruby_version >>
+        - image: circleci/<< parameters.ruby_type >>:<< parameters.ruby_version >>-node-browsers-legacy
         environment:
           BUNDLE_JOBS: 4
           BUNDLE_PATH: vendor/bundle
@@ -165,7 +165,7 @@ orbs:
       ruby_fcrepo_solr:
         description: Box running FCRepo, Solr, and Ruby.
         docker:
-        - image: cimg/<< parameters.ruby_type >>:<< parameters.ruby_version >>
+        - image: circleci/<< parameters.ruby_type >>:<< parameters.ruby_version >>-node-browsers-legacy
         - environment:
             CATALINA_OPTS: -Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms512m
               -Xmx1024m -XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m -XX:MaxPermSize=256m
