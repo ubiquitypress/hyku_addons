@@ -17,10 +17,10 @@ module HykuAddons
 
     private
 
-      def cleanup_database(tenant)
-        Apartment::Tenant.drop(tenant)
-      rescue StandardError
-        nil
-      end
+    def cleanup_database(tenant)
+      Apartment::Tenant.drop(tenant)
+    rescue StandardError
+      nil
+    end
   end
 end

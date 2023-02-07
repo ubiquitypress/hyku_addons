@@ -32,9 +32,9 @@ class HykuAddons::UpdateAccountFrontendUrl
 
   protected
 
-    def valid_url?(hostname)
-      URI.parse("https://#{hostname}")&.host
-    rescue URI::InvalidURIError
-      false
-    end
+  def valid_url?(hostname)
+    URI.parse("https://#{hostname}")&.host
+  rescue URI::InvalidURIError
+    false
+  end
 end

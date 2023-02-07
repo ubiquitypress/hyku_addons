@@ -30,28 +30,28 @@ module HykuAddons
 
     protected
 
-      def json_response
-        { data: formatted_work, curation_concern: curation_concern }.to_json
-      end
+    def json_response
+      { data: formatted_work, curation_concern: curation_concern }.to_json
+    end
 
-      def formatted_work
-        raw_response.hyku_addons_work_form_fields_writer(curation_concern: curation_concern)
-      end
+    def formatted_work
+      raw_response.hyku_addons_work_form_fields_writer(curation_concern: curation_concern)
+    end
 
-      def raw_response
-        response = ::Bolognese::Metadata.new(input: doi)
+    def raw_response
+      response = ::Bolognese::Metadata.new(input: doi)
 
-        return response if response.string.present? && response.meta.present?
+      return response if response.string.present? && response.meta.present?
 
-        raise ::Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found."
-      end
+      raise ::Hyrax::DOI::NotFoundError, "DOI (#{doi}) could not be found."
+    end
 
-      def curation_concern
-        params.require(:curation_concern)
-      end
+    def curation_concern
+      params.require(:curation_concern)
+    end
 
-      def doi
-        params.require(:doi)
-      end
+    def doi
+      params.require(:doi)
+    end
   end
 end

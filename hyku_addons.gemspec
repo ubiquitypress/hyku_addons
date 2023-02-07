@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
     spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
-			"public gem pushes."
+      "public gem pushes."
   end
 
   spec.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   # TODO: make the gcloud dependency optional?
   spec.add_dependency "google-cloud-storage", "~> 1.31"
   spec.add_dependency "google-cloud-pubsub", "~> 2.6.1"
+  spec.add_dependency "workos", "~> 2.10"
 
   spec.add_dependency "hyrax", "~> 2.8"
   spec.add_dependency "rdf", "3.2.4"
@@ -48,6 +49,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "cocoon", "~> 1.2", ">= 1.2.9"
 
   spec.add_development_dependency "ammeter"
+  spec.add_development_dependency "awesome_print"
   spec.add_development_dependency "bixby"
   spec.add_development_dependency "bootsnap"
   spec.add_development_dependency "capybara"

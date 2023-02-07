@@ -29,31 +29,31 @@ module HykuAddons
 
     protected
 
-      def file_path
-        [STORAGE_PATH_PREFIX, grouped_digest, digest].join("/")
-      end
+    def file_path
+      [STORAGE_PATH_PREFIX, grouped_digest, digest].join("/")
+    end
 
-      def grouped_digest
-        digest.split("").in_groups_of(2).first(3).map(&:join).join("/")
-      end
+    def grouped_digest
+      digest.split("").in_groups_of(2).first(3).map(&:join).join("/")
+    end
 
-      def digest
-        @file.digest.first.to_s.split(":").last
-      end
+    def digest
+      @file.digest.first.to_s.split(":").last
+    end
 
-      def signing_options
-        {
-          method: "GET",
-          expires: expires
-        }
-      end
+    def signing_options
+      {
+        method: "GET",
+        expires: expires
+      }
+    end
 
-      def expires
-        (ENV["DOWNLOAD_LINK_EXP_MINUTES"] || 60).to_i * 60
-      end
+    def expires
+      (ENV["DOWNLOAD_LINK_EXP_MINUTES"] || 60).to_i * 60
+    end
 
-      def storage
-        @storage ||= Google::Cloud::Storage.new
-      end
+    def storage
+      @storage ||= Google::Cloud::Storage.new
+    end
   end
 end

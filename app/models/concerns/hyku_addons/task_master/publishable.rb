@@ -32,25 +32,25 @@ module HykuAddons
 
       protected
 
-        def publish_upsert
-          publish(task_master_type, "upsert", to_task_master)
-        end
+      def publish_upsert
+        publish(task_master_type, "upsert", to_task_master)
+      end
 
-        def publish_destroy
-          publish(task_master_type, "destroy", uuid: task_master_uuid)
-        end
+      def publish_destroy
+        publish(task_master_type, "destroy", uuid: task_master_uuid)
+      end
 
-        def publish(type, action, data)
-          return unless enabled? && send("#{action}able?")
+      def publish(type, action, data)
+        return unless enabled? && send("#{action}able?")
 
-          HykuAddons::TaskMaster::PublishJob.perform_later(type, action, data.to_json)
-        end
+        HykuAddons::TaskMaster::PublishJob.perform_later(type, action, data.to_json)
+      end
 
       private
 
-        def enabled?
-          Flipflop.enabled?(:task_master)
-        end
+      def enabled?
+        Flipflop.enabled?(:task_master)
+      end
     end
   end
 end

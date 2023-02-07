@@ -8,7 +8,7 @@ module HykuAddons
     end
 
     def initialize(relation = nil)
-      raise ArgumentError, "You must provide a base relation" unless relation.present?
+      raise ArgumentError, "You must provide a base relation" if relation.blank?
       @relation = relation
     end
   end

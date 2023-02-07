@@ -15,7 +15,7 @@ module HykuAddons
     end
 
     def assign_jwt_cookies(user = nil)
-      return unless @account.present?
+      return if @account.blank?
 
       user ||= @user
       set_jwt_cookie(:jwt, value: generate_token(user_id: user.id, type: user_roles(user)), expires: 1.week.from_now)
@@ -23,7 +23,7 @@ module HykuAddons
     end
 
     def remove_jwt_cookies
-      return unless @account.present?
+      return if @account.blank?
       %i[jwt refresh].each do |cookie|
         set_jwt_cookie(cookie, value: "", expires: 10_000.hours.ago)
       end
@@ -31,31 +31,31 @@ module HykuAddons
 
     private
 
-      def set_jwt_cookie(name, options)
-        @cookie_jar[name] = default_cookie_options.merge(options)
-      end
+    def set_jwt_cookie(name, options)
+      @cookie_jar[name] = default_cookie_options.merge(options)
+    end
 
-      def generate_token(payload = {})
-        ::JWT.encode(payload.reverse_merge(exp: (Time.now.utc + 1.hour).to_i), JWT_SECRET)
-      end
+    def generate_token(payload = {})
+      ::JWT.encode(payload.reverse_merge(exp: (Time.now.utc + 1.hour).to_i), JWT_SECRET)
+    end
 
-      def default_cookie_options
-        {
-          path: "/",
-          same_site: :lax,
-          domain: ("." + cookie_domain),
-          secure: Rails.env.production?,
-          httponly: true
-        }
-      end
+    def default_cookie_options
+      {
+        path: "/",
+        same_site: :lax,
+        domain: ("." + cookie_domain),
+        secure: Rails.env.production?,
+        httponly: true
+      }
+    end
 
-      def cookie_domain
-        @account.attributes.with_indifferent_access[:frontend_url].presence || @request.host
-      end
+    def cookie_domain
+      @account.attributes.with_indifferent_access[:frontend_url].presence || @request.host
+    end
 
-      def user_roles(user)
-        # Need to call `.uniq` because admin role can appear twice
-        user.roles.map(&:name).uniq - ["super_admin"]
-      end
+    def user_roles(user)
+      # Need to call `.uniq` because admin role can appear twice
+      user.roles.map(&:name).uniq - ["super_admin"]
+    end
   end
 end

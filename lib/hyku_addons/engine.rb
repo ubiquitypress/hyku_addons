@@ -7,6 +7,7 @@ require "hyrax/simple_schema_loader"
 require "hyrax/doi/engine"
 require "bolognese/metadata"
 require "cocoon"
+require "hyku_addons/sso"
 require "hyrax/autopopulation/engine"
 
 # NOTE: This file controls all aspects of the HykuAddons application. There are currently 4 sections:

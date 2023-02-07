@@ -29,8 +29,8 @@ module HykuAddons
 
       protected
 
-        # Upsert for works is performed inside the actor stack
-        def publish_upsert; end
+      # Upsert for works is performed inside the actor stack
+      def publish_upsert; end
     end
   end
 end

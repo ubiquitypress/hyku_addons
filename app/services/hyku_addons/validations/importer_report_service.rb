@@ -3,7 +3,7 @@ module HykuAddons
   module Validations
     class ImporterReportService
       def initialize(importer = nil)
-        raise ArgumentError, "You need to pass a valid importer" unless importer.present?
+        raise ArgumentError, "You need to pass a valid importer" if importer.blank?
         @importer = importer
       end
 

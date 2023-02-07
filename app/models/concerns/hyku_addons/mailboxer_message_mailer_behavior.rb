@@ -21,12 +21,12 @@ module HykuAddons
 
     protected
 
-      def message_email(subject_key, template)
-        set_subject(@message)
+    def message_email(subject_key, template)
+      set_subject(@message)
 
-        mail to: @receiver.send(Mailboxer.email_method, @message),
-             subject: t(subject_key, subject: @subject, tenant_name: Site.instance.application_name),
-             template_name: template
-      end
+      mail to: @receiver.send(Mailboxer.email_method, @message),
+           subject: t(subject_key, subject: @subject, tenant_name: Site.instance.application_name),
+           template_name: template
+    end
   end
 end

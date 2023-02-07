@@ -6,9 +6,9 @@ module HykuAddons
 
       private
 
-        def doi_enabled_work_type?(work)
-          work.respond_to?(:doi) ? true : false
-        end
+      def doi_enabled_work_type?(work)
+        work.respond_to?(:doi) ? true : false
+      end
     end
   end
 end
