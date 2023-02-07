@@ -15,10 +15,10 @@ module HykuAddons
           u.password = password
           u.password_confirmation = password
           u.email = profile.email
-
-          sign_in(user)
-          set_jwt_cookies(user)
         end
+
+        set_jwt_cookies(user)
+        sign_in(user)
 
         redirect_to "/dashboard"
       end
