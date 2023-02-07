@@ -2,7 +2,7 @@
 
 RSpec.describe HykuAddons::Sso do
   describe "Configuration" do
-    let(:api_key) { ENN['WORKOS_API_KEY']}
+    let(:api_key) { ENV['WORKOS_API_KEY']}
 
     before do
       described_class.configure { |config| }
@@ -17,7 +17,7 @@ RSpec.describe HykuAddons::Sso do
     end
 
     it "knows the organisation_id" do
-      expect(described_class.configuration.organisation_id).to eq(ENV['ORGANISATION_ID')
+      expect(described_class.configuration.organisation_id).to eq(ENV['ORGANISATION_ID'])
     end
   end
 end
