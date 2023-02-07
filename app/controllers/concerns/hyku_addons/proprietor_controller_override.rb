@@ -24,21 +24,21 @@ module HykuAddons
 
     private
 
-      # Never trust parameters from the scary internet, only allow the allowed list through.
-      def account_params
-        params.require(:account).permit(:name, :cname, :title, :search_only,
-                                        admin_emails: [],
-                                        solr_endpoint_attributes: %i[id url],
-                                        fcrepo_endpoint_attributes: %i[id url base_path],
-                                        datacite_endpoint_attributes: %i[mode prefix username password],
-                                        settings: [:file_size_limit, :locale_name],
-                                        full_account_cross_searches_attributes: [:id, :_destroy, :full_account_id, full_account_attributes: [:id]])
-      end
+    # Never trust parameters from the scary internet, only allow the allowed list through.
+    def account_params
+      params.require(:account).permit(:name, :cname, :title, :search_only,
+                                      admin_emails: [],
+                                      solr_endpoint_attributes: %i[id url],
+                                      fcrepo_endpoint_attributes: %i[id url base_path],
+                                      datacite_endpoint_attributes: %i[mode prefix username password],
+                                      settings: [:file_size_limit, :locale_name],
+                                      full_account_cross_searches_attributes: [:id, :_destroy, :full_account_id, full_account_attributes: [:id]])
+    end
 
-      def deleted_or_new(hash)
-        hash.detect do |_k, v|
-          ActiveModel::Type::Boolean.new.cast(v["_destroy"]) == true || v["id"].blank?
-        end
+    def deleted_or_new(hash)
+      hash.detect do |_k, v|
+        ActiveModel::Type::Boolean.new.cast(v["_destroy"]) == true || v["id"].blank?
       end
+    end
   end
 end

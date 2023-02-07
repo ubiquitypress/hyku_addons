@@ -9,13 +9,13 @@ module HykuAddons
 
     private
 
-      def merge_settings_for_update
-        return unless account_params["settings"].present?
+    def merge_settings_for_update
+      return if account_params["settings"].blank?
 
-        @account.settings.merge!(account_params["settings"])
-        @account.settings.compact!
+      @account.settings.merge!(account_params["settings"])
+      @account.settings.compact!
 
-        params["account"].delete("settings")
-      end
+      params["account"].delete("settings")
+    end
   end
 end

@@ -355,8 +355,8 @@ module HykuAddons
             repository_name: ->(controller) { controller.send(:current_account)&.name.presence || Settings.oai.name },
             # repository_url:  ->(controller) { controller.oai_catalog_url },
             record_prefix: ->(controller) { controller.send(:current_account).settings["oai_prefix"].presence || Settings.oai.prefix },
-            admin_email:   ->(controller) { controller.send(:current_account).settings["oai_admin_email"].presence || Settings.oai.email },
-            sample_id:     ->(controller) { controller.send(:current_account).settings["oai_sample_identifier"].presence || Settings.oai.sample_id }
+            admin_email: ->(controller) { controller.send(:current_account).settings["oai_admin_email"].presence || Settings.oai.email },
+            sample_id: ->(controller) { controller.send(:current_account).settings["oai_sample_identifier"].presence || Settings.oai.sample_id }
           },
           document: {
             limit: 100, # number of records returned with each request, default: 15
@@ -369,14 +369,14 @@ module HykuAddons
 
       private
 
-        def routing_error_unless_feature_enabled
-          return if Flipflop.enabled?(:oai_endpoint)
-          raise(ActionController::RoutingError.new("OAI Not enabled"), "Enable the OAI Endpoint feature first")
-        end
+      def routing_error_unless_feature_enabled
+        return if Flipflop.enabled?(:oai_endpoint)
+        raise(ActionController::RoutingError.new("OAI Not enabled"), "Enable the OAI Endpoint feature first")
+      end
 
-        def oai_account_or_default_settings(controller, attr)
-          controller.send(:current_account).settings[attr].presence || Settings.oai[prefix]
-        end
+      def oai_account_or_default_settings(controller, attr)
+        controller.send(:current_account).settings[attr].presence || Settings.oai[prefix]
+      end
     end
   end
 end

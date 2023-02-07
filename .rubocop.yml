@@ -33,7 +33,7 @@ Metrics/BlockLength:
     - "spec/**/*.rb"
     - "hyku_addons.gemspec"
 
-Metrics/LineLength:
+Layout/LineLength:
   Exclude:
     - "spec/**/*"
 
@@ -60,4 +60,103 @@ RSpec/LetSetup:
   Enabled: false
 
 Rails/OutputSafety:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Style/CommentAnnotation:
+  Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false
+
+Rails/ActionControllerTestCase: # (new in 2.14)
+  Enabled: false
+Rails/ActiveRecordCallbacksOrder: # (new in 2.7)
+  Enabled: false
+Rails/AddColumnIndex: # (new in 2.11)
+  Enabled: false
+Rails/AfterCommitOverride: # (new in 2.8)
+  Enabled: false
+Rails/AttributeDefaultBlockValue: # (new in 2.9)
+  Enabled: false
+Rails/CompactBlank: # (new in 2.13)
+  Enabled: false
+Rails/DeprecatedActiveModelErrorsMethods: # (new in 2.14)
+  Enabled: false
+Rails/DotSeparatedKeys: # (new in 2.15)
+  Enabled: false
+Rails/DuplicateAssociation: # (new in 2.14)
+  Enabled: false
+Rails/DuplicateScope: # (new in 2.14)
+  Enabled: false
+Rails/DurationArithmetic: # (new in 2.13)
+  Enabled: false
+Rails/EagerEvaluationLogMessage: # (new in 2.11)
+  Enabled: false
+Rails/ExpandedDateRange: # (new in 2.11)
+  Enabled: false
+Rails/FindById: # (new in 2.7)
+  Enabled: false
+Rails/I18nLazyLookup: # (new in 2.14)
+  Enabled: false
+Rails/I18nLocaleAssignment: # (new in 2.11)
+  Enabled: false
+Rails/I18nLocaleTexts: # (new in 2.14)
+  Enabled: false
+Rails/Inquiry: # (new in 2.7)
+  Enabled: false
+Rails/MailerName: # (new in 2.7)
+  Enabled: false
+Rails/MatchRoute: # (new in 2.7)
+  Enabled: false
+Rails/MigrationClassName: # (new in 2.14)
+  Enabled: false
+Rails/NegateInclude: # (new in 2.7)
+  Enabled: false
+Rails/Pluck: # (new in 2.7)
+  Enabled: false
+Rails/PluckInWhere: # (new in 2.7)
+  Enabled: false
+Rails/RedundantPresenceValidationOnBelongsTo: # (new in 2.13)
+  Enabled: false
+Rails/RedundantTravelBack: # (new in 2.12)
+  Enabled: false
+Rails/RenderInline: # (new in 2.7)
+  Enabled: false
+Rails/RenderPlainText: # (new in 2.7)
+  Enabled: false
+Rails/RootJoinChain: # (new in 2.13)
+  Enabled: false
+Rails/RootPublicPath: # (new in 2.15)
+  Enabled: false
+Rails/ShortI18n: # (new in 2.7)
+  Enabled: false
+Rails/SquishedSQLHeredocs: # (new in 2.8)
+  Enabled: false
+Rails/StripHeredoc: # (new in 2.15)
+  Enabled: false
+Rails/TimeZoneAssignment: # (new in 2.10)
+  Enabled: false
+Rails/ToFormattedS: # (new in 2.15)
+  Enabled: false
+Rails/TransactionExitStatement: # (new in 2.14)
+  Enabled: false
+Rails/UnusedIgnoredColumns: # (new in 2.11)
+  Enabled: false
+Rails/WhereEquals: # (new in 2.9)
+  Enabled: false
+Rails/WhereExists: # (new in 2.7)
+  Enabled: false
+Rails/WhereNot: # (new in 2.8)
   Enabled: false

@@ -100,13 +100,13 @@ RSpec.describe "Minting a DOI for an existing work", multitenant: true, js: true
 
   private
 
-    def fill_in_form(title)
-      choose "Findable"
-      choose "generic_work_visibility_open"
-      check "agreement"
+  def fill_in_form(title)
+    choose "Findable"
+    choose "generic_work_visibility_open"
+    check "agreement"
 
-      find("a[role=tab]", text: "Description").click
-      fill_in("Title", with: title)
-      find("input[type=submit]").click
-    end
+    find("a[role=tab]", text: "Description").click
+    fill_in("Title", with: title)
+    find("input[type=submit]").click
+  end
 end

@@ -48,10 +48,10 @@ module HykuAddons
 
     private
 
-      def person_or_organization_list(field)
-        # Return empty hash to ensure that it gets rendered at least once
-        return [{}] unless send(field)&.first.present?
-        JSON.parse(send(field).first)
-      end
+    def person_or_organization_list(field)
+      # Return empty hash to ensure that it gets rendered at least once
+      return [{}] if send(field)&.first.blank?
+      JSON.parse(send(field).first)
+    end
   end
 end

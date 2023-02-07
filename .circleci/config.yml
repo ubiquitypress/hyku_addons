@@ -7,6 +7,7 @@ orbs:
 
 jobs:
   bundle_lint_test:
+    resource_class: ubiquitypress/self-hosted    
     parameters:
       ruby_version:
         type: string
@@ -124,6 +125,7 @@ jobs:
 
   # Upload coverage to CodeClimate
   upload_coverage:
+    resource_class: ubiquitypress/self-hosted    
     parameters:
       parallelism:
         type: integer

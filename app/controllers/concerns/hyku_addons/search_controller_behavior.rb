@@ -21,8 +21,8 @@ module HykuAddons
     # THIS NEEDS TO BE REMOVED ONCE CASHING IS SOLVED AND HYKU API TRACKS MAIN BRANCH
     private
 
-      def hash_of_terms_ordered_by_hits(items)
-        Hash[items.pluck(:value, :hits).sort_by(&:second).reverse]
-      end
+    def hash_of_terms_ordered_by_hits(items)
+      Hash[items.pluck(:value, :hits).sort_by(&:second).reverse]
+    end
   end
 end

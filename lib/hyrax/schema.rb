@@ -78,20 +78,20 @@ module Hyrax
 
     private
 
-      ##
-      # @param [Module] descendant
-      #
-      # @api private
-      def included(descendant)
-        super
+    ##
+    # @param [Module] descendant
+    #
+    # @api private
+    def included(descendant)
+      super
 
-        attributes_config.each do |name, config|
-          config.deep_symbolize_keys!
+      attributes_config.each do |name, config|
+        config.deep_symbolize_keys!
 
-          descendant.property(name, config)
-          descendant.json_fields[name] = config if config[:subfields].present?
-          descendant.date_fields += [name] if config.dig(:form, :type) == "date"
-        end
+        descendant.property(name, config)
+        descendant.json_fields[name] = config if config[:subfields].present?
+        descendant.date_fields += [name] if config.dig(:form, :type) == "date"
       end
+    end
   end
 end

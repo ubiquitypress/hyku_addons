@@ -81,7 +81,7 @@ RSpec.describe Hyrax::ContactMailer, clean: true, multitenant: true, type: :mail
         end
 
         it "replaces the email headers" do
-          from_field = mail.header.fields.select { |f| f.name == "From" }.first
+          from_field = mail.header.fields.find { |f| f.name == "From" }
           expect(from_field.value).to eq "Me <test@test.edu>"
         end
       end

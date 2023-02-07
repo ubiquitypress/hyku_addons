@@ -81,36 +81,36 @@ module Bolognese
 
         protected
 
-          # Expand nested arrays, remove any blank entries and expand into a RIS formatted string
-          def expand_nested_and_prepare(hash)
-            hash
-              .compact
-              .map do |k, v|
-                if v.is_a?(Array)
-                  # `dup` string for different object ID allowing duplicate keys in compare_by_identity hash
-                  v.map { |vi| "#{k.dup}  - #{vi}" if vi.present? }.compact.join(RIS_DELIMITER)
-                else
-                  "#{k}  - #{v}"
-                end
-              end.join(RIS_DELIMITER)
-          end
+        # Expand nested arrays, remove any blank entries and expand into a RIS formatted string
+        def expand_nested_and_prepare(hash)
+          hash
+            .compact
+            .map do |k, v|
+              if v.is_a?(Array)
+                # `dup` string for different object ID allowing duplicate keys in compare_by_identity hash
+                v.map { |vi| "#{k.dup}  - #{vi}" if vi.present? }.compact.join(RIS_DELIMITER)
+              else
+                "#{k}  - #{v}"
+              end
+            end.join(RIS_DELIMITER)
+        end
 
-          def secondary_titles
-            Array.wrap(parse_attributes(meta["alt_title"])) + Array.wrap(parse_attributes(meta["book_title"]))
-          end
+        def secondary_titles
+          Array.wrap(parse_attributes(meta["alt_title"])) + Array.wrap(parse_attributes(meta["book_title"]))
+        end
 
-          # Legacy code ordered the values and returned
-          def ordered_identifiers
-            related_identifiers
-              .select { |h| h["relatedIdentifier"].present? }
-              .map { |h| [h["relatedIdentifierType"], h["relatedIdentifier"]] }.to_h
-              .slice("ISBN", "ISSN", "EISSN")
-              .values.first
-          end
+        # Legacy code ordered the values and returned
+        def ordered_identifiers
+          related_identifiers
+            .select { |h| h["relatedIdentifier"].present? }
+            .map { |h| [h["relatedIdentifierType"], h["relatedIdentifier"]] }.to_h
+            .slice("ISBN", "ISSN", "EISSN")
+            .values.first
+        end
 
-          def calculate_resource_type(types)
-            RESOURCE_TYPES.select { |_k, v| v.include?(types["resourceType"].first) }.keys.first || DEFAULT_RESOURCE_TYPE
-          end
+        def calculate_resource_type(types)
+          RESOURCE_TYPES.select { |_k, v| v.include?(types["resourceType"].first) }.keys.first || DEFAULT_RESOURCE_TYPE
+        end
       end
       # rubocop:enable Metrics/BlockLength
     end

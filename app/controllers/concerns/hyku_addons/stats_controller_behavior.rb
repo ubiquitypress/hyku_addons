@@ -22,17 +22,17 @@ module HykuAddons
 
     protected
 
-      def permission?
-        # Ensure the user is signed in
-        authorize! :read, Hyrax::Statistics
+    def permission?
+      # Ensure the user is signed in
+      authorize! :read, Hyrax::Statistics
 
-        return if current_user.has_role?(:admin, Site.instance) && Flipflop.enabled?(:gds_reports)
+      return if current_user.has_role?(:admin, Site.instance) && Flipflop.enabled?(:gds_reports)
 
-        raise ActionController::RoutingError, "Not found"
-      end
+      raise ActionController::RoutingError, "Not found"
+    end
 
-      def account_gds_reports
-        Site.instance.account.gds_reports || ""
-      end
+    def account_gds_reports
+      Site.instance.account.gds_reports || ""
+    end
   end
 end

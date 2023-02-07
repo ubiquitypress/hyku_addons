@@ -56,60 +56,60 @@ module HykuAddons
 
     private
 
-      def supported_and_unreserved_field(k)
-        field_supported?(k) && !::Bulkrax.reserved_properties.include?(k)
+    def supported_and_unreserved_field(k)
+      field_supported?(k) && !::Bulkrax.reserved_properties.include?(k)
+    end
+
+    def add_embargo_details(fs, index)
+      return unless fs.embargo
+
+      parsed_metadata["file_visibility_#{index}"] = "embargo"
+      parsed_metadata["file_visibility_during_embargo_#{index}"] = fs.visibility_during_embargo
+      parsed_metadata["file_visibility_after_embargo_#{index}"] = fs.visibility_after_embargo
+      parsed_metadata["file_embargo_release_date_#{index}"] = fs.embargo_release_date&.to_date&.to_s
+    end
+
+    def hyrax_data(method_name)
+      return unless hyrax_record.respond_to?(method_name)
+
+      hyrax_record.send(method_name)
+    end
+
+    def transform_relations(data)
+      if data.is_a?(ActiveTriples::Relation)
+        data.map { |d| prepare_export_data(d) }.join("|").to_s
+      else
+        prepare_export_data(data)
       end
+    end
 
-      def add_embargo_details(fs, index)
-        return unless fs.embargo
+    def json_fields
+      json_fields = hyrax_record.class.json_fields
 
-        parsed_metadata["file_visibility_#{index}"] = "embargo"
-        parsed_metadata["file_visibility_during_embargo_#{index}"] = fs.visibility_during_embargo
-        parsed_metadata["file_visibility_after_embargo_#{index}"] = fs.visibility_after_embargo
-        parsed_metadata["file_embargo_release_date_#{index}"] = fs.embargo_release_date&.to_date&.to_s
+      # NOTE: Once the schema migration has been completed, this should be the default
+      json_fields = json_fields.keys if hyrax_record.schema_driven?
+
+      json_fields.map(&:to_s)
+    end
+
+    def split_json(str)
+      # Split JSON into separate columns for each subfield suffixed by index within the JSON (e.g. creator_given_name_1)
+      parsed_json = begin
+                      JSON.parse(str)
+                    rescue JSON::ParseError
+                      nil
+                    end
+
+      parsed_json.each_with_index do |h, i|
+        h.each { |k, v| parsed_metadata["#{k}_#{i + 1}"] = v }
       end
+    end
 
-      def hyrax_data(method_name)
-        return unless hyrax_record.respond_to?(method_name)
+    def hyrax_files_sets
+      return if hyrax_record.is_a?(Collection)
 
-        hyrax_record.send(method_name)
-      end
-
-      def transform_relations(data)
-        if data.is_a?(ActiveTriples::Relation)
-          data.map { |d| prepare_export_data(d) }.join("|").to_s
-        else
-          prepare_export_data(data)
-        end
-      end
-
-      def json_fields
-        json_fields = hyrax_record.class.json_fields
-
-        # NOTE: Once the schema migration has been completed, this should be the default
-        json_fields = json_fields.keys if hyrax_record.schema_driven?
-
-        json_fields.map(&:to_s)
-      end
-
-      def split_json(str)
-        # Split JSON into separate columns for each subfield suffixed by index within the JSON (e.g. creator_given_name_1)
-        parsed_json = begin
-                        JSON.parse(str)
-                      rescue JSON::ParseError
-                        nil
-                      end
-
-        parsed_json.each_with_index do |h, i|
-          h.each { |k, v| parsed_metadata["#{k}_#{i + 1}"] = v }
-        end
-      end
-
-      def hyrax_files_sets
-        return if hyrax_record.is_a?(Collection)
-
-        file_sets = hyrax_record.ordered_members.to_a
-        file_sets.select { |fs| fs.is_a?(FileSet) && filename(fs).present? }
-      end
+      file_sets = hyrax_record.ordered_members.to_a
+      file_sets.select { |fs| fs.is_a?(FileSet) && filename(fs).present? }
+    end
   end
 end

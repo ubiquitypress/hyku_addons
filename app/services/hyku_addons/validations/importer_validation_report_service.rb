@@ -3,7 +3,7 @@ module HykuAddons
   module Validations
     class ImporterValidationReportService
       def initialize(importer = nil, field = nil)
-        raise ArgumentError, "You need to pass a valid importer" unless importer.present?
+        raise ArgumentError, "You need to pass a valid importer" if importer.blank?
         @importer = importer
         @field = field
         @statuses = ::Bulkrax::Status.where(statusable_type: "Bulkrax::Entry").where(statusable_id: @importer.entry_ids)

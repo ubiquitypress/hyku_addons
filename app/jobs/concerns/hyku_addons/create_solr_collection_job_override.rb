@@ -30,40 +30,40 @@ module HykuAddons
 
     private
 
-      def add_solr_endpoint_to_account(account, name)
+    def add_solr_endpoint_to_account(account, name)
+      account.create_solr_endpoint(url: collection_url(name), collection: name)
+    end
+
+    def perform_for_normal_tenant(account, name)
+      return if collection_exists? name
+
+      client.get "/solr/admin/collections", params: collection_options.merge(action: "CREATE", name: name)
+
+      add_solr_endpoint_to_account(account, name)
+    end
+
+    def perform_for_cross_search_tenant(account, name)
+      return if account.full_accounts.blank?
+
+      if account.saved_changes&.[]("created_at").present? || account.solr_endpoint.is_a?(NilSolrEndpoint)
+        create_shared_search_collection(account.full_accounts.map(&:tenant).uniq, name)
         account.create_solr_endpoint(url: collection_url(name), collection: name)
+      else
+        solr_options = account.solr_endpoint.connection_options.dup
+        RemoveSolrCollectionJob.perform_now(name, solr_options, "cross_search_tenant")
+        create_shared_search_collection(account.full_accounts.map(&:tenant).uniq, name)
+        account.solr_endpoint.update(url: collection_url(name), collection: name)
       end
+    end
 
-      def perform_for_normal_tenant(account, name)
-        return if collection_exists? name
+    def create_shared_search_collection(tenant_list, name)
+      return self if collection_exists? name
 
-        client.get "/solr/admin/collections", params: collection_options.merge(action: "CREATE", name: name)
-
-        add_solr_endpoint_to_account(account, name)
-      end
-
-      def perform_for_cross_search_tenant(account, name)
-        return unless account.full_accounts.present?
-
-        if account.saved_changes&.[]("created_at").present? || account.solr_endpoint.is_a?(NilSolrEndpoint)
-          create_shared_search_collection(account.full_accounts.map(&:tenant).uniq, name)
-          account.create_solr_endpoint(url: collection_url(name), collection: name)
-        else
-          solr_options = account.solr_endpoint.connection_options.dup
-          RemoveSolrCollectionJob.perform_now(name, solr_options, "cross_search_tenant")
-          create_shared_search_collection(account.full_accounts.map(&:tenant).uniq, name)
-          account.solr_endpoint.update(url: collection_url(name), collection: name)
-        end
-      end
-
-      def create_shared_search_collection(tenant_list, name)
-        return self if collection_exists? name
-
-        client.get "/solr/admin/collections", params: collection_options.merge(
-          action: "CREATEALIAS",
-          name: name,
-          collections: tenant_list
-        )
-      end
+      client.get "/solr/admin/collections", params: collection_options.merge(
+        action: "CREATEALIAS",
+        name: name,
+        collections: tenant_list
+      )
+    end
   end
 end
