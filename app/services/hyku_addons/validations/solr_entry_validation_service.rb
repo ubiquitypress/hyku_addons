@@ -65,12 +65,10 @@ module HykuAddons
 
       def source_metadata
         @_source_metadata ||=
-          begin
-            if @source_cookie.present?
-              HykuAddons::BlacklightWorkJsonCookieService.new(@source_base_url, @source_cookie).fetch(@entry)
-            else
-              HykuAddons::BlacklightWorkJsonService.new(@source_base_url, @source_username, @source_password).fetch(@entry)
-            end
+          if @source_cookie.present?
+            HykuAddons::BlacklightWorkJsonCookieService.new(@source_base_url, @source_cookie).fetch(@entry)
+          else
+            HykuAddons::BlacklightWorkJsonService.new(@source_base_url, @source_username, @source_password).fetch(@entry)
           end
       end
 
