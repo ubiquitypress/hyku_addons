@@ -4,7 +4,6 @@ require "ostruct"
 # Sso login for the hyku reposiory
 
 module HykuAddons
-
   module Sso
     class << self
       # Initialization of workos

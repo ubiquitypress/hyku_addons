@@ -31,9 +31,7 @@ module HykuAddons
     end
 
     def file_document
-      @file_document ||= begin
-        repository.search(Hyrax::FileSetSearchBuilder.new(self).with(params.slice(:id))).documents.first
-      end
+      @file_document ||= repository.search(Hyrax::FileSetSearchBuilder.new(self).with(params.slice(:id))).documents.first
     end
   end
 end
