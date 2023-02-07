@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_relative "/lib/hyku_addons/sso"
 
 module HykuAddons
   class SsoController < ::Hyku::API::V1::SessionsController
