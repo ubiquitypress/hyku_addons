@@ -78,7 +78,7 @@ end
 
 def validate_http_params(args)
   %w[source destination].each do |location|
-    unless args["#{location}_path"].present?
+    if args["#{location}_path"].blank?
       puts "You need to pass a metadata path at #{location}_path"
       exit(1)
     end
@@ -92,12 +92,12 @@ end
 
 def validate_cookie_params(args)
   %w[source destination].each do |location|
-    unless args["#{location}_path"].present?
+    if args["#{location}_path"].blank?
       puts "You need to pass a metadata path at #{location}_path"
       exit(1)
     end
 
-    unless args["#{location}_cookie"].present?
+    if args["#{location}_cookie"].blank?
       puts "You need to pass a cookie as cookie_name=xxx at #{location}_auth"
       exit(1)
     end

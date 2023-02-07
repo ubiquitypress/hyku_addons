@@ -77,16 +77,16 @@ module HykuAddons
 
       private
 
-        def simplified_admin_set?(controller)
-          Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig("admin_set_id").present?
-        end
+      def simplified_admin_set?(controller)
+        Flipflop.enabled?(:simplified_admin_set_selection) && controller&.params&.dig("admin_set_id").present?
+      end
 
-        def person_or_organization_list(field)
-          # Return empty hash to ensure that it gets rendered at least once
-          return [{}] unless respond_to?(field) && send(field)&.first.present?
+      def person_or_organization_list(field)
+        # Return empty hash to ensure that it gets rendered at least once
+        return [{}] unless respond_to?(field) && send(field)&.first.present?
 
-          JSON.parse(send(field).first)
-        end
+        JSON.parse(send(field).first)
+      end
     end
   end
 end

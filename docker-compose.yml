@@ -22,6 +22,9 @@ x-app: &app
   image: hyku_addons/development_image:latest
   environment:
     HOST: "0.0.0.0" # Docker cannot forward to a containers localhost, so we need to use this IP instead
+    WORKOS_API_KEY: sk_test_a2V5XzAxR0c3RFJIOURYM0NSNUdCTjU2Q0VCTkVDLFcxUHliQWkzd3lNOFdtZXVRbWVxT3NjNnM
+    WORKOS_CLIENT_ID: client_01GG7DRH9KVK3QNX2S6RGWA3CQ
+    ORGANISATION_ID: org_01GP3QSZ0967S8HZ9KYWT63Y1Y
     DATABASE_ADAPTER: postgresql
     DATABASE_NAME: hyku
     DATABASE_HOST: db

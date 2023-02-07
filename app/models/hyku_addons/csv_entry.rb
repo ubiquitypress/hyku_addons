@@ -37,11 +37,11 @@ module HykuAddons
 
     private
 
-      def current_doi_status
-        query = { ::Bulkrax.system_identifier_field => record["source_identifier"] }
-        match = factory_class.where(query).detect { |m| m.send(::Bulkrax.system_identifier_field).include?(record["source_identifier"]) }
+    def current_doi_status
+      query = { ::Bulkrax.system_identifier_field => record["source_identifier"] }
+      match = factory_class.where(query).detect { |m| m.send(::Bulkrax.system_identifier_field).include?(record["source_identifier"]) }
 
-        match&.doi_status_when_public
-      end
+      match&.doi_status_when_public
+    end
   end
 end

@@ -82,13 +82,13 @@ module HykuAddons
 
     private
 
-      def person_or_organization_list(field)
-        return if (field_value = solr_document.public_send(field).first.presence || "[]").blank?
+    def person_or_organization_list(field)
+      return if (field_value = solr_document.public_send(field).first.presence || "[]").blank?
 
-        JSON.parse(field_value).collect do |hash|
-          name = hash.slice("#{field}_family_name", "#{field}_given_name", "#{field}_organization_name").values.map(&:presence).compact.join(", ")
-          PersonOrOrganization.new(name, hash["#{field}_orcid"], hash["#{field}_isni"], hash["#{field}_ror"], hash["#{field}_grid"], hash["#{field}_wikidata"])
-        end
+      JSON.parse(field_value).collect do |hash|
+        name = hash.slice("#{field}_family_name", "#{field}_given_name", "#{field}_organization_name").values.map(&:presence).compact.join(", ")
+        PersonOrOrganization.new(name, hash["#{field}_orcid"], hash["#{field}_isni"], hash["#{field}_ror"], hash["#{field}_grid"], hash["#{field}_wikidata"])
       end
+    end
   end
 end

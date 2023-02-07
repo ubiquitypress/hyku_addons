@@ -17,22 +17,22 @@ module HykuAddons
 
     protected
 
-      def sources_for_deposit
-        options = { ability: current_ability, source_type: "admin_set" }
+    def sources_for_deposit
+      options = { ability: current_ability, source_type: "admin_set" }
 
-        Hyrax::Collections::PermissionsService.source_ids_for_deposit(options)
-      end
+      Hyrax::Collections::PermissionsService.source_ids_for_deposit(options)
+    end
 
-      def enabled?
-        Flipflop.enabled?(:simplified_admin_set_selection)
-      end
+    def enabled?
+      Flipflop.enabled?(:simplified_admin_set_selection)
+    end
 
-      def permission?(model)
-        current_ability.can?(model.persisted? ? :edit : :create, model)
-      end
+    def permission?(model)
+      current_ability.can?(model.persisted? ? :edit : :create, model)
+    end
 
-      def depositor?(depositor)
-        current_user&.user_key == depositor
-      end
+    def depositor?(depositor)
+      current_user&.user_key == depositor
+    end
   end
 end

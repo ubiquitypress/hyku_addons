@@ -199,8 +199,8 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   if alternate_identifier.present?
     alternate_identifier_array = begin
                                  JSON.parse(alternate_identifier)
-                               rescue JSON::ParserError
-                                 nil
+                                 rescue JSON::ParserError
+                                   nil
                                end
     if alternate_identifier_array.present?
       json.alternate_identifier do
@@ -216,8 +216,8 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   if related_entity.present?
     related_entity_array = begin
                                  JSON.parse(related_entity)
-                               rescue JSON::ParserError
-                                 nil
+                           rescue JSON::ParserError
+                             nil
                                end
     if related_entity_array.present?
       json.related_entity do

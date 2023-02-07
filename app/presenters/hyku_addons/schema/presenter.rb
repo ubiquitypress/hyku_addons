@@ -18,13 +18,13 @@ module HykuAddons
 
       private
 
-        def included(descendant)
-          rules = @rules
+      def included(descendant)
+        rules = @rules
 
-          descendant.define_singleton_method :delegated_methods do |*_args|
-            rules.values.uniq
-          end
+        descendant.define_singleton_method :delegated_methods do |*_args|
+          rules.values.uniq
         end
+      end
     end
   end
 end

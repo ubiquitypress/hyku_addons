@@ -48,7 +48,7 @@ module HykuAddons
         raise "Object doesn't exist" unless object
 
         destroy_existing_files if @replace_files && (klass != ::Collection || klass != ::AdminSet)
-        attrs = update_attributes
+        attrs = update
         run_callbacks :save do
           if klass == ::AdminSet
             update_admin_set(attrs)

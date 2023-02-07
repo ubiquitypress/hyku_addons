@@ -35,67 +35,67 @@ module HykuAddons
 
     private
 
-      def call_collection_job(item_entry_class, item_id, item_metadata)
-        return if item_id.empty?
+    def call_collection_job(item_entry_class, item_id, item_metadata)
+      return if item_id.empty?
 
-        # Bulkrax uses the `Bulkrax::Importer` string as a "type" for the polymorphic object, so this does not need
-        # to be namespaced like other occurances of the `::Bulkrax` module.
-        new_entry = find_or_create_entry(item_entry_class, item_id, "Bulkrax::Importer", item_metadata)
+      # Bulkrax uses the `Bulkrax::Importer` string as a "type" for the polymorphic object, so this does not need
+      # to be namespaced like other occurances of the `::Bulkrax` module.
+      new_entry = find_or_create_entry(item_entry_class, item_id, "Bulkrax::Importer", item_metadata)
 
-        begin
-          HykuAddons::ImportWorkCollectionJob.perform_now(new_entry.id, current_run.id)
-        rescue StandardError => e
-          new_entry.status_info(e)
-        end
+      begin
+        HykuAddons::ImportWorkCollectionJob.perform_now(new_entry.id, current_run.id)
+      rescue StandardError => e
+        new_entry.status_info(e)
       end
+    end
 
-      def admin_set_metadata(admin_set)
-        {
-          title: [admin_set],
-          # Allow Hyku to generate a UUID for the admin set
-          visibility: "open",
-          collection_type_gid: Hyrax::CollectionType.find_or_create_admin_set_type.gid
-        }
-      end
+    def admin_set_metadata(admin_set)
+      {
+        title: [admin_set],
+        # Allow Hyku to generate a UUID for the admin set
+        visibility: "open",
+        collection_type_gid: Hyrax::CollectionType.find_or_create_admin_set_type.gid
+      }
+    end
 
-      def collection_metadata(collection)
-        {
-          title: [collection[:title]],
-          ::Bulkrax.system_identifier_field => collection[:id],
-          id: collection[:id],
-          visibility: "open",
-          collection_type_gid: Hyrax::CollectionType.find_or_create_default_collection_type.gid
-        }
-      end
+    def collection_metadata(collection)
+      {
+        title: [collection[:title]],
+        ::Bulkrax.system_identifier_field => collection[:id],
+        id: collection[:id],
+        visibility: "open",
+        collection_type_gid: Hyrax::CollectionType.find_or_create_default_collection_type.gid
+      }
+    end
 
-      def collection_delimiter
-        Regexp.new(::Bulkrax.field_mappings["HykuAddons::CsvParser"]&.dig("collection", :split) || %r{\|})
-      end
+    def collection_delimiter
+      Regexp.new(::Bulkrax.field_mappings["HykuAddons::CsvParser"]&.dig("collection", :split) || %r{\|})
+    end
 
-      def collection_prefix
-        if Gem.loaded_specs["bulkrax"].version < Gem::Version.create("3.0")
-          "collection"
-        else
-          "parent"
-        end
-      rescue
+    def collection_prefix
+      if Gem.loaded_specs["bulkrax"].version < Gem::Version.create("3.0")
         "collection"
+      else
+        "parent"
       end
+    rescue
+      "collection"
+    end
 
-      def collection_title_key
-        "#{collection_prefix}_title".to_sym
-      end
+    def collection_title_key
+      "#{collection_prefix}_title".to_sym
+    end
 
-      def collection_titles(r)
-        return [] unless r[collection_title_key].present?
+    def collection_titles(r)
+      return [] if r[collection_title_key].blank?
 
-        r[collection_title_key]&.split(collection_delimiter)
-      end
+      r[collection_title_key]&.split(collection_delimiter)
+    end
 
-      def collection_ids(r)
-        return [] unless r[collection_prefix.to_sym].present?
+    def collection_ids(r)
+      return [] if r[collection_prefix.to_sym].blank?
 
-        r[collection_prefix.to_sym]&.split(collection_delimiter)
-      end
+      r[collection_prefix.to_sym]&.split(collection_delimiter)
+    end
   end
 end
