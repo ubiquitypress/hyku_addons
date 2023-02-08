@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'workos'
 require "securerandom"
 require "ostruct"
 # Sso login for the hyku reposiory
