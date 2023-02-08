@@ -3,8 +3,7 @@
 module HykuAddons
   class SsoController < ::Hyku::API::V1::SessionsController
     def auth
-      redirect_to HykuAddons::Sso::AuthService.new(host: request.host)
-                                              .service.generate_authorisation_url
+      redirect_to HykuAddons::Sso::AuthService.new(host: request.host).generate_authorisation_url
     end
 
     def callback
