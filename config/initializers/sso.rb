@@ -1,4 +1,4 @@
 # frozen_string_literal: true
-HykuAddons::Sso.configure do |config|
-  puts "Sso Configured!"
+HykuAddons::Sso.configure do |_config|
+  Rails.logger.debug "Sso Configured!"
 end
