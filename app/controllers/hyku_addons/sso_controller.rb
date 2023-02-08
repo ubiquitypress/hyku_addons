@@ -7,7 +7,7 @@ module HykuAddons
     end
 
     def callback
-      service = HykuAddons::Sso::CallBackService.new(params: { code: params["code"] })
+      service = HykuAddons::Sso::CallBackService.new(code: params[:code])
 
       service.handle do |_profile, _password|
         user = User.find_or_create_by(email: profile.email).tap do |u|

@@ -58,13 +58,13 @@ module HykuAddons
 
     # The call back service handles the repsose back from workos
     class CallBackService
-      def initialize(params:)
-        @params = params
+      def initialize(code:)
+        @code = code
       end
 
       def handle
         profile_and_token = WorkOS::SSO.profile_and_token(
-          code: @params["code"],
+          code: @code,
           client_id: Sso.configuration.client_id
         )
 
