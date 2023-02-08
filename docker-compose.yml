@@ -21,6 +21,7 @@ x-app: &app
     target: development_image
   image: hyku_addons/development_image:latest
   environment:
+    VIRTUAL_HOST: hyku.docker
     HOST: "0.0.0.0" # Docker cannot forward to a containers localhost, so we need to use this IP instead
     DATABASE_ADAPTER: postgresql
     DATABASE_NAME: hyku
@@ -52,6 +53,9 @@ x-app: &app
     IN_DOCKER: "true" # Required by internal_test_hyku specs
     RUBYOPT: "-W:no-deprecated -W:no-experimental" # Turn off Ruby 3.0 deprecation warnings
     REDIS_NAMESPACE_QUIET: "true" # Turn off Gem deprecations warnings
+    WORKOS_API_KEY: sk_test_a2V5XzAxR0c3RFJIOURYM0NSNUdCTjU2Q0VCTkVDLFcxUHliQWkzd3lNOFdtZXVRbWVxT3NjNnM
+    WORKOS_CLIENT_ID: client_01GG7DRH9KVK3QNX2S6RGWA3CQ
+    ORGANISATION_ID: org_01GP3QSZ0967S8HZ9KYWT63Y1Y
   volumes:
     - app:/home/app/spec/internal_test_hyku/tmp/uploads
     - assets:/home/app/spec/internal_test_hyku/public/assets
@@ -126,6 +130,7 @@ services:
       POSTGRES_PASSWORD: DatabaseFTW
       POSTGRES_USER: postgres
       POSTGRES_MULTIPLE_DATABASES: hyku,hyku_test
+      VIRTUAL_HOST: hyku.docker
     volumes:
       - ./.docker-postgres:/docker-entrypoint-initdb.d
       - db:/data
