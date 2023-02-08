@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'workos'
+require "workos"
 require "securerandom"
 require "ostruct"
 # Sso login for the hyku reposiory
@@ -29,10 +29,10 @@ module HykuAddons
       # to the configure block. Then it's just a matter
       # of using the attribute accessors we previously defined
       def configure
-        initialize
         configuration.api_key = ENV["WORKOS_API_KEY"]
         configuration.client_id = ENV["WORKOS_CLIENT_ID"]
         configuration.organisation_id = ENV["ORGANISATION_ID"]
+        initialize
         yield(configuration)
       end
     end
