@@ -9,15 +9,16 @@ module HykuAddons
     def callback
       service = HykuAddons::Sso::CallBackService.new(code: params[:code])
 
-      service.handle do | profile, password|
+      service.handle do |profile, password|
         user = User.find_or_create_by(email: profile.email).tap do |u|
           u.password = password
           u.password_confirmation = password
           u.email = profile.email
         end
 
-        set_jwt_cookies(user)
         sign_in(user)
+
+        set_jwt_cookies(user)
 
         redirect_to "/dashboard"
       end
