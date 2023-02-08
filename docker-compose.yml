@@ -21,6 +21,7 @@ x-app: &app
     target: development_image
   image: hyku_addons/development_image:latest
   environment:
+    VIRTUAL_HOST: hyku.docker
     HOST: "0.0.0.0" # Docker cannot forward to a containers localhost, so we need to use this IP instead
     DATABASE_ADAPTER: postgresql
     DATABASE_NAME: hyku
