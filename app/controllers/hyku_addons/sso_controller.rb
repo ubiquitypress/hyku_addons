@@ -24,6 +24,9 @@ module HykuAddons
         #set_jwt_cookies(user)
 
         redirect_to "/dashboard"
+       
+        return
+
       end
 
       raise HykuAddons::Sso::Error, "Invalid Code"
