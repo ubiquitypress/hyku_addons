@@ -16,8 +16,9 @@ module HykuAddons
           u.email = profile.email
         end
 
-        sign_in(user)
-
+        # this code is the same as the code used in the api for authentication
+        user = User.find_for_database_authentication(email: user.email)
+        sign_in user
         set_jwt_cookies(user)
 
         redirect_to "/dashboard"
