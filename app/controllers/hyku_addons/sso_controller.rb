@@ -9,6 +9,8 @@ module HykuAddons
     def callback
       service = HykuAddons::Sso::CallBackService.new(code: params[:code])
 
+      handled = false
+
       service.handle do |profile, password|
         user = User.find_or_create_by(email: profile.email).tap do |u|
           u.password = password
@@ -23,14 +25,14 @@ module HykuAddons
         #TODO create jwt token
         #set_jwt_cookies(user)
 
-        redirect_to "/dashboard"
        
-        return
+        handled = true
 
       end
 
-      raise HykuAddons::Sso::Error, "Invalid Code"
+      raise HykuAddons::Sso::Error, "Failed to handle workos code #{params[:code]}" unless handled
 
+      redirect_to '/dashboard'
       # Use the information in `profile` for further business logic.
     end
   end
