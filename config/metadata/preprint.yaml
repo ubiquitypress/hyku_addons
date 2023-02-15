@@ -188,14 +188,14 @@ attributes:
       type: select
       authority: HykuAddons::SubjectService
   preprint_doi:
-    type: text
+    type: string
     predicate: http://purl.org/dc/terms/identifier
     multiple: true
     index_keys:
       - preprint_doi_tesim
     form:
       required: false
-      multiple: false
+      multiple: true
       type: text
       authority: null
       primary: true    

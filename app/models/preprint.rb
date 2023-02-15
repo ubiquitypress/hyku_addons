@@ -10,4 +10,9 @@ class Preprint < ActiveFedora::Base
   include Hyrax::BasicMetadata
 
   self.indexer = ::PreprintIndexer
+
+  validates :title, presence: { message: "Your work must have a title." }
+  def doi_registrar_opts
+    {}
+  end
 end
