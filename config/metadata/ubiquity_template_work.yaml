@@ -282,6 +282,18 @@ attributes:
       primary: true
       multiple: false
       type: date
+  preprint_doi:
+    type: text
+    predicate: http://purl.org/dc/terms/identifier
+    multiple: true
+    index_keys:
+      - preprint_doi_tesim
+    form:
+      required: false
+      multiple: false
+      type: text
+      authority: null
+      primary: true
   doi:
     type: string
     predicate: http://purl.org/ontology/bibo/doi

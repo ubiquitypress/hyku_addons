@@ -22,17 +22,15 @@ module HykuAddons
         user = User.find_for_database_authentication(email: user.email)
         sign_in user
 
-        #TODO create jwt token
-        #set_jwt_cookies(user)
+        # TODO create jwt token
+        # set_jwt_cookies(user)
 
-       
         handled = true
-
       end
 
       raise HykuAddons::Sso::Error, "Failed to handle workos code #{params[:code]}" unless handled
 
-      redirect_to '/dashboard'
+      redirect_to "/dashboard"
       # Use the information in `profile` for further business logic.
     end
   end
