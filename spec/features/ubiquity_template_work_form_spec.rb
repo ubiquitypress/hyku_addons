@@ -55,6 +55,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       }
     ]
   end
+  let(:preprint_doi) { "978-3-16-148410-0" }
   let(:doi) { "10.1521/soco.23.1.118.59197" }
   let(:contributor) do
     [
@@ -280,6 +281,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
 
       # Required fields
       fill_in_text_field(:title, title)
+      fill_in_text_field(:preprint_doi, preprint_doi)
       fill_in_text_field(:doi, doi)
       fill_in_multiple_text_fields(:alt_title, alt_title)
       fill_in_select(:resource_type, resource_type.map { |h| h["label"] }.first)
@@ -412,6 +414,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           expect(page).to have_content("https://doi.org/#{doi}")
 
           expect(work.title).to eq([title])
+          expect(work.preprint_doi).to eq([preprint_doi])
           expect(work.doi).to eq([doi])
           expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
           expect(work.date_published).to eq(normalize_date(date_published).first)

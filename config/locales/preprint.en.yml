@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      preprint: "fa fa-file-text-o"
+    select_type:
+      preprint:
+        description: "Preprints"
+        name: "Preprint"

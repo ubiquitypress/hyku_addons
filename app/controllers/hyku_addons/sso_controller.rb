@@ -26,12 +26,11 @@ module HykuAddons
         sign_in user
         set_jwt_cookies(user)
         handled = true
-
       end
 
       raise HykuAddons::Sso::Error, "Failed to handle workos code #{params[:code]}" unless handled
 
-      redirect_to '/dashboard'
+      redirect_to "/dashboard"
       # Use the information in `profile` for further business logic.
     end
   end
