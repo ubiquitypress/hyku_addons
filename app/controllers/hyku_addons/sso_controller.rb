@@ -2,6 +2,9 @@
 
 module HykuAddons
   class SsoController < ::Hyku::API::V1::SessionsController
+    
+    before_action :load_account, only: :callback
+
     def auth
       redirect_to HykuAddons::Sso::AuthService.new(host: request.host).generate_authorisation_url
     end
@@ -21,10 +24,7 @@ module HykuAddons
         # this code is the same as the code used in the api for authentication
         user = User.find_for_database_authentication(email: user.email)
         sign_in user
-
-        # TODO create jwt token
-        # set_jwt_cookies(user)
-
+        set_jwt_cookies(user)
         handled = true
       end
 
