@@ -56,7 +56,7 @@ GIT
 
 GIT
   remote: https://github.com/ubiquitypress/hyrax-autopopulation.git
-  revision: 249f9bf050f9448874c938f7ea37fe32ebc899a9
+  revision: ae50d1da028397c2bcab6ffdb00fc6676111550a
   branch: main
   specs:
     hyrax-autopopulation (0.1.0)
