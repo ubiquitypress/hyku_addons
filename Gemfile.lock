@@ -56,7 +56,7 @@ GIT
 
 GIT
   remote: https://github.com/ubiquitypress/hyrax-autopopulation.git
-  revision: 21b9f46e46bf35dcdc1200dab9ae9ba13b7173fd
+  revision: 249f9bf050f9448874c938f7ea37fe32ebc899a9
   branch: main
   specs:
     hyrax-autopopulation (0.1.0)
@@ -549,6 +549,7 @@ GEM
       googleauth (>= 0.16.2, < 2.a)
       mini_mime (~> 1.0)
     google-protobuf (3.20.1)
+    google-protobuf (3.20.1-x86_64-linux)
     google_drive (3.0.7)
       google-apis-drive_v3 (>= 0.5.0, < 1.0.0)
       google-apis-sheets_v4 (>= 0.4.0, < 1.0.0)
@@ -568,6 +569,9 @@ GEM
       os (>= 0.9, < 2.0)
       signet (~> 0.15)
     grpc (1.46.3)
+      google-protobuf (~> 3.19)
+      googleapis-common-protos-types (~> 1.0)
+    grpc (1.46.3-x86_64-linux)
       google-protobuf (~> 3.19)
       googleapis-common-protos-types (~> 1.0)
     grpc-google-iam-v1 (1.1.0)
