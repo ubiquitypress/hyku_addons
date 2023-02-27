@@ -58,13 +58,17 @@ RSpec.feature "Create a LtuImageArtifact", js: true, slow: true do
     ]
   end
 
-  let(:resource_type) { HykuAddons::ResourceTypesService.new(model: model).active_elements.sample(1) }
+  let(:alt_class) { HykuAddons::AltClassService.new(model: model).active_elements.sample(1) }
   let(:keyword) { ["keyword1", "keyword2"] }
   let(:license_options) { HykuAddons::LicenseService.new(model: model).active_elements.sample(2) }
   let(:abstract) { "This is the abstract text" }
+  let(:inscription) { "This is the inscription text" }
+  let(:media) { "This is the material text" }
+  let(:relation) { "This is the relation text" }
+  let(:source) { "This is the source text" }
 
   let(:add_info) { "Some additional information" }
-  let(:extent) { "extent" }
+  let(:extent) { "This is the measurements text" }
   let(:location) { "london" }
   let(:official_link) { "http://test312.com" }
 
@@ -94,13 +98,17 @@ RSpec.feature "Create a LtuImageArtifact", js: true, slow: true do
       # Required fields
       fill_in_text_field(:title, title)
       fill_in_text_field(:alt_title, alt_title.first)
-      fill_in_select(:resource_type, resource_type.map { |h| h["label"] }.first)
+      fill_in_select(:alt_class, alt_class.map { |h| h["label"] }.first)
       fill_in_cloneable(:creator, creator)
 
       # Additional fields
       fill_in_multiple_text_fields(:keyword, keyword)
       fill_in_multiple_selects(:license, license_options.map { |h| h["label"] })
       fill_in_textarea(:abstract, abstract)
+      fill_in_textarea(:inscription, inscription)
+      fill_in_textarea(:media, media)
+      fill_in_textarea(:relation, relation)
+      fill_in_textarea(:source, source)
 
       fill_in_textarea(:add_info, add_info)
       fill_in_text_field(:location, location)
@@ -132,22 +140,26 @@ RSpec.feature "Create a LtuImageArtifact", js: true, slow: true do
           expect(page).to have_selector("span", text: "Public")
           expect(page).to have_content("Your files are being processed by Hyku in the background.")
 
-          expect(page).to have_content(resource_type.map { |h| h["id"] }.first)
+          expect(page).to have_content(alt_class.map { |h| h["id"] }.first)
           # alt_title.each { |at| expect(page).to have_content(at) }
           expect(work.alt_title).to eq(alt_title)
           expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
           # %i[published].each { |d| expect(page).to have_content(normalize_date(send("date_#{d}".to_sym)).first) }
 
           expect(work.title).to eq([title])
-          expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
+          expect(work.alt_class).to eq(alt_class.map { |h| h["id"] })
           expect(work.official_link).to eq(official_link)
           # Cloneable fields use the label to select the option, but save the id to the work
           # expect(work.creator).to eq([creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
           expect(work.keyword).to eq(keyword)
           expect(work.license).to eq(license_options.map { |h| h["id"] })
           expect(work.abstract).to eq(abstract)
-          expect(work.add_info).to eq(add_info)
+          expect(work.inscription).to eq(inscription)
+          expect(work.media).to eq(media)
+          expect(work.relation).to eq(relation)
+          expect(work.source).to eq(source)
 
+          expect(work.add_info).to eq(add_info)
           expect(work.extent).to eq(extent)
           expect(work.rights_holder).to eq(rights_holder)
           expect(work.rights).to eq(rights)

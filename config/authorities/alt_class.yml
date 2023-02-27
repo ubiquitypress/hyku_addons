@@ -1,0 +1,10 @@
+terms:
+- id: Work
+  term: Work
+  active: true
+- id: Image
+  term: Image
+  active: true
+- id: Collection
+  term: Collection
+  active: true

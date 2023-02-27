@@ -5,8 +5,8 @@ attributes:
     predicate: http://purl.org/dc/terms/title
     multiple: true
     index_keys:
-    - title_tesim
-    - title_sim
+      - title_tesim
+      - title_sim
     form:
       required: true
       primary: true
@@ -16,33 +16,32 @@ attributes:
   alt_title:
     type: string
     predicate: http://purl.org/dc/terms/alternative
-    multiple: true
+    multiple: false
     index_keys:
-    - alt_title_tesim
+      - alt_title_tesim
     form:
       required: false
       primary: true
-      multiple: true
+      multiple: false
       type: text
-  resource_type:
+  alt_class:
     predicate: http://purl.org/dc/terms/type
     multiple: true
     index_keys:
-      - resource_type_tesim
-      - resource_type_sim
+      - alt_class_tesim
     form:
       required: true
       primary: true
-      multiple: true
+      multiple: false
       type: select
-      authority: HykuAddons::ResourceTypesService
+      authority: HykuAddons::AltClassService
       include_blank: true
       input: single_multi_value_select
   creator:
     predicate: http://purl.org/dc/elements/1.1/creator
     multiple: true
     index_keys:
-    - creator_tesim
+      - creator_tesim
     form:
       required: true
       primary: true
@@ -63,15 +62,15 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       creator_given_name:
         type: string
         form:
-          required: true
+          required: false
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       creator_middle_name:
         type: string
         form:
@@ -79,7 +78,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       creator_suffix:
         type: string
         form:
@@ -87,15 +86,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
-      creator_orcid:
-        type: string
-        form:
-          required: false
-          multiple: false
-          type: text
-          display_for:
-          - Personal
+            - Personal
       creator_culture:
         type: string
         form:
@@ -103,7 +94,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       creator_date:
         type: string
         form:
@@ -111,7 +102,31 @@ attributes:
           multiple: false
           type: date
           display_for:
-          - Personal
+            - Personal
+      creator_institution:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+      creator_orcid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+      creator_institutional_email:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
       creator_institutional_relationship:
         type: string
         form:
@@ -122,7 +137,7 @@ attributes:
           attributes:
             multiple: multiple
           display_for:
-          - Personal
+            - Personal
       creator_organization_name:
         type: string
         form:
@@ -130,7 +145,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Organizational
+            - Organizational
       creator_ror:
         type: string
         form:
@@ -138,15 +153,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Organizational
-      creator_grid:
-        type: string
-        form:
-          required: false
-          multiple: false
-          type: text
-          display_for:
-          - Organizational
+            - Organizational
       creator_wikidata:
         type: string
         form:
@@ -154,7 +161,15 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Organizational
+            - Organizational
+      creator_grid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Organizational
       creator_isni:
         type: string
         form:
@@ -162,14 +177,16 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
-          - Organizational
-      creator_profile_visibility:
+            - Personal
+            - Organizational
+      creator_role:
         type: string
         form:
           required: false
           multiple: false
-          type: hidden
+          type: select
+          authority: HykuAddons::RoleService
+          include_blank: true
           display_for:
             - Personal
   abstract:
@@ -177,17 +194,27 @@ attributes:
     predicate: http://purl.org/dc/terms/abstract
     multiple: false
     index_keys:
-    - abstract_tesim
+      - abstract_tesim
     form:
       required: false
       primary: true
-      multiple: false
+      multiple: true
       type: textarea
+  inscription:
+    predicate: https://schema.org/additionalName
+    multiple: true
+    index_keys:
+      - inscription_tesim
+    form:
+      required: false
+      primary: true
+      multiple: true
+      type: text
   keyword:
     predicate: http://purl.org/dc/elements/1.1/relation
     multiple: true
     index_keys:
-    - keyword_tesim
+      - keyword_tesim
     form:
       required: false
       primary: true
@@ -198,10 +225,10 @@ attributes:
     predicate: http://schema.org/url
     multiple: false
     index_keys:
-    - official_link_tesim
+      - official_link_tesim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: false
       type: text
   location:
@@ -209,11 +236,11 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/physicalLocation
     multiple: false
     index_keys:
-    - location_tesim
-    - location_sim
+      - location_tesim
+      - location_sim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: false
       type: text"
   media:
@@ -221,10 +248,10 @@ attributes:
     predicate: http://www.loc.gov/mods/rdf/v1#physicalForm
     multiple: true
     index_keys:
-    - media_tesim
+      - media_tesim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: true
       type: text
       input: single_multi_value
@@ -233,20 +260,30 @@ attributes:
     predicate: http://purl.org/dc/terms/extent
     multiple: false
     index_keys:
-    - extent_tesim
+      - extent_tesim
     form:
       required: false
-      primary: false
+      primary: true
+      multiple: false
+      type: text
+  relation:
+    predicate: http://purl.org/dc/terms/relation
+    multiple: false
+    index_keys:
+      - relation_tesim
+    form:
+      required: false
+      primary: true
       multiple: false
       type: text
   license:
     predicate: http://purl.org/dc/terms/rights
     multiple: true
     index_keys:
-    - license_tesim
+      - license_tesim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: true
       type: select
       authority: HykuAddons::LicenseService
@@ -255,10 +292,10 @@ attributes:
     predicate: http://purl.org/dc/terms/accessRights
     multiple: true
     index_keys:
-    - rights_tesim
+      - rights_tesim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: true
       type: text
   rights_holder:
@@ -266,20 +303,20 @@ attributes:
     predicate: http://purl.org/dc/terms/rightsHolder
     multiple: true
     index_keys:
-    - rights_holder_tesim
+      - rights_holder_tesim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: true
       type: text
   rights_statement:
     predicate: http://www.europeana.eu/schemas/edm/rights
     multiple: false
     index_keys:
-    - rights_statement_tesim
+      - rights_statement_tesim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: false
       type: select
       authority: HykuAddons::RightsStatementService
@@ -288,20 +325,20 @@ attributes:
     predicate: http://purl.org/dc/elements/1.1/rights
     multiple: false
     index_keys:
-    - rights_statement_text_tesim
+      - rights_statement_text_tesim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: false
       type: text
   source:
     predicate: http://purl.org/dc/terms/source
     multiple: true
     index_keys:
-    - source_tesim
+      - source_tesim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: true
       type: text
       input: single_multi_value
@@ -309,10 +346,10 @@ attributes:
     predicate: https://schema.org/pattern
     multiple: true
     index_keys:
-    - style_period_tesim
+      - style_period_tesim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: true
       type: select
       authority: HykuAddons::StylePeriodService
@@ -321,10 +358,10 @@ attributes:
     predicate: http://purl.org/dc/terms/subject
     multiple: true
     index_keys:
-    - subject_text_tesim
+      - subject_text_tesim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: true
       type: text
   add_info:
@@ -332,9 +369,9 @@ attributes:
     predicate: http://purl.org/ontology/bibo/Note
     multiple: false
     index_keys:
-    - add_info_tesim
+      - add_info_tesim
     form:
       required: false
-      primary: false
+      primary: true
       multiple: false
       type: textarea
