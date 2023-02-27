@@ -38,6 +38,19 @@ attributes:
       authority: HykuAddons::ResourceTypesService
       include_blank: true
       input: single_multi_value_select
+  alt_class:
+    predicate: http://purl.org/dc/terms/type
+    multiple: true
+    index_keys:
+      - alt_class_tesim
+    form:
+      required: true
+      primary: true
+      multiple: false
+      type: select
+      authority: HykuAddons::AltClassService
+      include_blank: true
+      input: single_multi_value_select
   creator:
     predicate: http://purl.org/dc/elements/1.1/creator
     multiple: true
@@ -271,6 +284,16 @@ attributes:
       primary: false
       multiple: false
       type: textarea
+  inscription:
+    predicate: https://schema.org/additionalName
+    multiple: true
+    index_keys:
+      - inscription_tesim
+    form:
+      required: false
+      primary: true
+      multiple: true
+      type: text
   date_published:
     type: string
     predicate: http://purl.org/dc/terms/available
