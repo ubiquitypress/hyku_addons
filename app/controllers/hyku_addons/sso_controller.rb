@@ -34,8 +34,13 @@ module HykuAddons
       # Use the information in `profile` for further business logic.
     end
 
-    def set_account
-      AccountElevator.switch!(request.env["SERVER_NAME")
+    def current_account
+      @account ||= Account.find_by cname: request.env["SERVER_NAME")
     end
+
+    def load_account
+      AccountElevator.switch!(current_account.cname) if current_account.present?
+    end
+
   end
 end
