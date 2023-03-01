@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :hyku_addons do
-  namespace :superadmin do
+   namespace :superadmin do
     desc "Create a superadmin user"
     task :create, [:email, :password] => [:environment] do |_cmd, args|
       puts "Creating a superadmin user."
