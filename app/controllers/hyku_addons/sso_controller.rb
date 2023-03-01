@@ -2,8 +2,8 @@
 
 module HykuAddons
   class SsoController < ::Hyku::API::V1::SessionsController
-    
-    before_action :load_account, only: :callback
+
+    before_action :set_name, only: :callback
 
     def auth
       redirect_to HykuAddons::Sso::AuthService.new(host: request.host).generate_authorisation_url
@@ -32,6 +32,10 @@ module HykuAddons
 
       redirect_to "/dashboard"
       # Use the information in `profile` for further business logic.
+    end
+
+    def set_account
+      AccountElevator.switch!(request.env["SERVER_NAME")
     end
   end
 end
