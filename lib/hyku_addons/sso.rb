@@ -52,7 +52,7 @@ module HykuAddons
           
         WorkOS::SSO.authorization_url(
           client_id: Sso.configuration.client_id,
-          organization: account.nil? ? Sso.configuration.organisation_id : account.work_os_organisation_id,
+          organization: account.nil? ? Sso.configuration.work_os_orgntion : account.work_os_orgnaisation,
           redirect_uri: redirect_uri
         )
       end
