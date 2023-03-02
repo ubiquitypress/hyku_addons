@@ -3,7 +3,7 @@
 module HykuAddons
   class SsoController < ::Hyku::API::V1::SessionsController
 
-    before_action :set_name, only: :callback
+    before_action :set_account, only: :callback
 
     def auth
       redirect_to HykuAddons::Sso::AuthService.new(host: request.host).generate_authorisation_url
