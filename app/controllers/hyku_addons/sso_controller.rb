@@ -34,7 +34,7 @@ module HykuAddons
     end
 
     def current_account
-      @account ||= Account.find_by cname: request.env["SERVER_NAME")
+      @account ||= Account.find_by cname: request.env["SERVER_NAME"]
     end
 
     def load_account
