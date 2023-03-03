@@ -15,16 +15,18 @@ module HykuAddons
       handled = false
 
       service.handle do |profile, password|
+        
         user = User.find_or_create_by(email: profile.email).tap do |u|
           u.password = password
           u.password_confirmation = password
           u.email = profile.email
         end
-
         # this code is the same as the code used in the api for authentication
         user = User.find_for_database_authentication(email: user.email)
         sign_in user
+        set_jwt_cookies(user)
         handled = true
+
       end
 
       raise HykuAddons::Sso::Error, "Failed to handle workos code #{params[:code]}" unless handled
