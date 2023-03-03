@@ -100,6 +100,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
     ]
   end
   let(:resource_type) { HykuAddons::ResourceTypesService.new(model: model).active_elements.sample(1) }
+  let(:alt_class) { HykuAddons::AltClassService.new(model: model).active_elements.sample(1) }
   let(:date_published) { { year: "2020", month: "02", day: "02" } }
   let(:date_submitted) { { year: "2019", month: "03", day: "03" } }
   let(:date_accepted) { { year: "2018", month: "04", day: "04" } }
@@ -113,6 +114,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:language_options) { HykuAddons::LanguageService.new(model: model).active_elements.sample(2) }
   let(:related_url) { ["http://test.com", "https://www.test123.com"] }
   let(:abstract) { "This is the abstract text" }
+  let(:inscription) { "This is the inscription text" }
   let(:media) { ["Audio", "Video"] }
   let(:duration) { ["1 minute", "7 hours"] }
   let(:institution_options) { HykuAddons::InstitutionService.new(model: model).active_elements.sample(2) }
@@ -285,6 +287,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       fill_in_text_field(:doi, doi)
       fill_in_multiple_text_fields(:alt_title, alt_title)
       fill_in_select(:resource_type, resource_type.map { |h| h["label"] }.first)
+      fill_in_select(:alt_class, alt_class.map { |h| h["label"] }.first)
       fill_in_cloneable(:creator, creator)
       fill_in_date(:date_published, date_published)
       fill_in_cloneable(:contributor, contributor)
@@ -300,6 +303,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       fill_in_multiple_text_fields(:related_url, related_url)
       fill_in_multiple_text_fields(:source, source_data)
       fill_in_textarea(:abstract, abstract)
+      fill_in_textarea(:inscription, inscription)
       fill_in_multiple_text_fields(:media, media)
       fill_in_multiple_text_fields(:duration, duration)
       fill_in_multiple_selects(:institution, institution_options.map { |h| h["label"] })
@@ -405,6 +409,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           expect(page).to have_content("Your files are being processed by Hyku in the background.")
 
           expect(page).to have_content(resource_type.map { |h| h["id"] }.first)
+          expect(page).to have_content(alt_class.map { |h| h["id"] }.first)
           alt_title.each { |at| expect(page).to have_content(at) }
           expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
           expect(page).to have_content("#{contributor.first.dig(:contributor_family_name)}, #{contributor.first.dig(:contributor_given_name)}")
@@ -417,6 +422,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           expect(work.preprint_doi).to eq([preprint_doi])
           expect(work.doi).to eq([doi])
           expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
+          expect(work.alt_class).to eq(alt_class.map { |h| h["id"] })
           expect(work.date_published).to eq(normalize_date(date_published).first)
           # Cloneable fields use the label to select the option, but save the id to the work
           expect(work.creator).to eq([creator.to_json.gsub(organisation_option["label"], organisation_option["id"])])
@@ -433,6 +439,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           expect(work.related_url).to eq(related_url)
           expect(work.source).to eq(source_data)
           expect(work.abstract).to eq(abstract)
+          expect(work.inscription).to eq(inscription)
           expect(work.media).to eq(media)
           expect(work.duration).to eq(duration)
           expect(work.institution).to eq(institution_options.map { |h| h["id"] })

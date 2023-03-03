@@ -164,6 +164,7 @@ module HykuAddons
       add_controlled_vocabulary_field("resource_type", HykuAddons::ResourceTypesService)
       add_controlled_vocabulary_field("subject", HykuAddons::SubjectService)
       add_controlled_vocabulary_field("language", HykuAddons::LanguageService)
+      add_controlled_vocabulary_field("work_type", HykuAddons::AltClassService)
     end
   end
 end

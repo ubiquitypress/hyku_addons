@@ -1,0 +1,11 @@
+<!-- _<%= key %> -->
+<% if f.object.schema_driven? %>
+  <%= render "records/edit_fields/default", f: f, key: key %>
+
+<% else %>
+  <% model_name = f.object.model.class %>
+  <%= f.input :work_type, as: :select,
+    collection: HykuAddons::AltClassService.new(model: model_name).select_active_options,
+    include_blank: true,
+    input_html: { name: "#{model_name.to_s.underscore}[work_type][]", class: 'form-control' } %>
+<% end %>
