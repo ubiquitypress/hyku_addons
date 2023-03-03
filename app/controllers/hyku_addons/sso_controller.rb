@@ -39,7 +39,7 @@ module HykuAddons
       @account ||= Account.find_by cname: request.env["SERVER_NAME"]
     end
 
-    def load_account
+    def set_account
       AccountElevator.switch!(current_account.cname) if current_account.present?
     end
 
