@@ -48,9 +48,11 @@ module HykuAddons
         # The callback URI WorkOS should redirect to after the authentication
         redirect_uri = "https://#{@host}/sso/callback"
 
+        account = Account.find_by cname: @host
+          
         WorkOS::SSO.authorization_url(
           client_id: Sso.configuration.client_id,
-          organization: Sso.configuration.organisation_id,
+          organization: account.nil? ? Sso.configuration.work_os_orgntion : account.work_os_orgnaisation,
           redirect_uri: redirect_uri
         )
       end
