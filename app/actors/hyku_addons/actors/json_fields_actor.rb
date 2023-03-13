@@ -3,6 +3,7 @@ module HykuAddons
   module Actors
     class JSONFieldsActor < Hyrax::Actors::AbstractActor
       def create(env)
+        puts "LOG_HIT_ON_CREATE_JSONFieldsActor #{env.inspect}"
         jsonify_fields(env) && next_actor.create(env)
       end
 
