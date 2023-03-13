@@ -1,0 +1,14 @@
+terms:
+  - id: Article
+    term: Article
+  - id: Book
+    term: Book
+    active: true
+  - id: Book Chapter
+    term: Book Chapter
+  - id: Conference Proceeding
+    term: Conference Proceeding
+  - id: Map or Cartographic Material
+    term: Map or Cartographic Material
+  - id: Other
+    term: Other
