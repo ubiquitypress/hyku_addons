@@ -6,6 +6,7 @@ module HykuAddons
     module TaskMaster
       class WorkActor < Hyrax::Actors::AbstractActor
         def create(env)
+          puts "LOG_HIT_ON_CREATE_WorkActor #{env.inspect}"
           enqueue_job("upsert", env)
 
           next_actor.create(env)

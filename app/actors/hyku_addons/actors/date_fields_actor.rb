@@ -3,6 +3,7 @@ module HykuAddons
   module Actors
     class DateFieldsActor < Hyrax::Actors::AbstractActor
       def create(env)
+        puts "LOG_HIT_ON_CREATE_DateFieldsActor #{env.inspect}"
         serialize_date_fields(env) && next_actor.create(env)
       end
 

@@ -6,6 +6,7 @@ module HykuAddons
       attr_accessor :email
 
       def create(env)
+        puts "LOG_HIT_ON_CREATE_NoteFieldActor #{env.inspect}"
         serialize_note_field(env)
         next_actor.create(env)
       end
