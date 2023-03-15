@@ -4,9 +4,9 @@ module HykuAddons
   module Actors
     class MemberCollectionFromAdminSetActor < Hyrax::Actors::AbstractActor
       def create(env)
-        puts "LOG_HIT_ON_CREATE_MemberCollectionFromAdminSetActor #{env.inspect}"
+        puts "LOG_CREATE_AT_MemberCollectionFromAdminSetActor_BEFORE_ensure_collection #{env.inspect}"
         ensure_collection!(env) if enabled? && correct_permissions?(env)
-
+        puts "LOG_CREATE_AT_MemberCollectionFromAdminSetActor_AFTER_ensure_collection #{env.inspect}"
         next_actor.create(env)
       end
 
