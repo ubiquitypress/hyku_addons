@@ -21,7 +21,6 @@ module HykuAddons
           next if env.attributes[field].blank?
 
           env.attributes[field] = Array(env.attributes[field]).collect { |date_hash| transform_date(date_hash, field) }
-          puts "LOG_serialize_date_fields_AT_DateFieldsActor_Line_24_env_attributes_field #{env.attributes[field].inspect}"
           env.attributes[field] = env.attributes[field].first unless env.curation_concern.class.multiple?(field)
           puts "LOG_serialize_date_fields_AT_DateFieldsActor_Line_26_env_attributes_field #{env.attributes[field].inspect}"
         end
