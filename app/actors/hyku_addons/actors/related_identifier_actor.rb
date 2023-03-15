@@ -3,8 +3,9 @@ module HykuAddons
   module Actors
     class RelatedIdentifierActor < Hyrax::Actors::AbstractActor
       def create(env)
-        puts "LOG_HIT_ON_CREATE_RelatedIdentifierActor #{env.inspect}"
+        puts "LOG_CREATE_AT_RelatedIdentifierActor_BEFORE_add_related_identifier_data #{env.inspect}"
         add_related_identifier_data(env) && next_actor.create(env)
+        puts "LOG_CREATE_AT_RelatedIdentifierActor_AFTER_add_related_identifier_data #{env.inspect}"
       end
 
       def update(env)
