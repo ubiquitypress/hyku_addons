@@ -3,6 +3,7 @@ json.cache! [:tenants, account, content_blocks] do
   json.id account.id
   json.tenant account.tenant
   json.cname account.cname
+  json.sso_enabled account.enable_sso
   json.name account.name
   json.solr_endpoint account.solr_endpoint_id
   json.fcrepo_endpoint account.fcrepo_endpoint_id
