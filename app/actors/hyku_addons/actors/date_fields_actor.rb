@@ -15,11 +15,14 @@ module HykuAddons
       private
 
       def serialize_date_fields(env)
+        puts "LOG_serialize_date_fields_AT_DateFieldsActor_Line_18 #{env.inspect}"
         env.curation_concern.class.date_fields.each do |field|
+          puts "LOG_serialize_date_fields_AT_DateFieldsActor_Line_20_field #{field.inspect}"
           next if env.attributes[field].blank?
 
           env.attributes[field] = Array(env.attributes[field]).collect { |date_hash| transform_date(date_hash, field) }
           env.attributes[field] = env.attributes[field].first unless env.curation_concern.class.multiple?(field)
+          puts "LOG_serialize_date_fields_AT_DateFieldsActor_Line_26_env_attributes_field #{env.attributes[field].inspect}"
         end
       end
 

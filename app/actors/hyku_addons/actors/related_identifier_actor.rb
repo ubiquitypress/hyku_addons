@@ -15,9 +15,15 @@ module HykuAddons
       private
 
       def add_related_identifier_data(env)
+        puts "LOG_add_related_identifier_data_AT_RelatedIdentifierActor_Line_18 #{env.inspect}"
+        puts "LOG_add_related_identifier_data_AT_RelatedIdentifierActor_Line_19_class #{env.curation_concern.class.to_s.inspect}"
         return true unless env.curation_concern.class.to_s.include? "Redlands"
+        puts "LOG_add_related_identifier_data_AT_RelatedIdentifierActor_Line_21 #{env.inspect}"
         identifier_hash = JSON.parse(env.attributes[:related_identifier].first).first if env.attributes[:related_identifier].present?
+        puts "LOG_add_related_identifier_data_AT_RelatedIdentifierActor_Line_23 #{env.inspect}"
+        puts "LOG_add_related_identifier_data_AT_RelatedIdentifierActor_Line_24_identifier_hash #{identifier_hash.inspect}"
         env.attributes[:related_identifier] = Array.wrap(add_related_metadata(identifier_hash))
+        puts "LOG_add_related_identifier_data_AT_RelatedIdentifierActor_Line_26 #{env.inspect}"
       end
 
       def add_related_metadata(identifier_hash)
