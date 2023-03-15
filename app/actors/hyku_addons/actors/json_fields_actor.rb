@@ -15,17 +15,25 @@ module HykuAddons
       private
 
       def jsonify_fields(env)
+        puts "LOG_jsonify_fields_AT_JSONFieldsActor_Line_18 #{env.inspect}"
         env.curation_concern.class.json_fields.each do |field|
           # This handles the case when field is a key/value pair coming from the yaml schema
+          puts "LOG_jsonify_fields_AT_JSONFieldsActor_Line_21_field #{field.inspect}"
           field = field.first if field.is_a?(Array)
 
+          puts "LOG_jsonify_fields_AT_JSONFieldsActor_Line_24_field #{field.inspect}"
+          puts "LOG_jsonify_fields_AT_JSONFieldsActor_Line_25_env_attributes_field #{env.attributes[field].inspect}"
+          puts "LOG_jsonify_fields_AT_JSONFieldsActor_Line_26_name_blank? #{name_blank?(field, env.attributes[field]).inspect}"
+          puts "LOG_jsonify_fields_AT_JSONFieldsActor_Line_27_recursive_blank? #{recursive_blank?(env.attributes[field]).inspect}"
           if name_blank?(field, env.attributes[field]) || recursive_blank?(env.attributes[field])
             env.attributes.delete(field)
           else
             env.attributes[field].reject! { |o| name_blank?(field, o) || recursive_blank?(o) } if env.attributes[field].is_a?(Array)
             env.attributes[field] = env.attributes[field].to_json
           end
+          puts "LOG_jsonify_fields_AT_JSONFieldsActor_Line_34_env_attributes_field #{env.attributes[field].inspect}"
           ensure_multiple!(env, field)
+          puts "LOG_jsonify_fields_AT_JSONFieldsActor_Line_36_env_attributes_field #{env.attributes[field].inspect}"
         end
       end
 
