@@ -193,6 +193,7 @@ module HykuAddons
       SolrDocument.include HykuAddons::SolrDocumentBehavior
       SolrDocument.include HykuAddons::SolrDocumentRis
       User.include HykuAddons::UserBehavior
+      Site.include HykuAddons::SiteBehavior
 
       # Presenters / Renderers
       Hyrax::CollectionPresenter.include HykuAddons::CollectionPresenterBehavior
