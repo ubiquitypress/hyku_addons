@@ -51,7 +51,7 @@ module HykuAddons
         account = Account.find_by cname: @host
           
         WorkOS::SSO.authorization_url(
-          client_id: Sso.configuration.client_id,
+          client_id: account.nil? Sso.configuration.client_id : account.work_os_connection_id
           organization: account.nil? ? Sso.configuration.work_os_orgntion : account.work_os_orgnaisation,
           redirect_uri: redirect_uri
         )
@@ -60,14 +60,19 @@ module HykuAddons
 
     # The call back service handles the repsose back from workos
     class CallBackService
-      def initialize(code:)
+      def initialize(code:,host:)
         @code = code
+        @host = host
       end
 
       def handle
+
+
+        account = Account.find_by cname: @host
+
         profile_and_token = WorkOS::SSO.profile_and_token(
           code: @code,
-          client_id: Sso.configuration.client_id
+          client_id: account.nil? ? Sso.configuration.client_id : account.work_os_connection_id
         )
 
         password = SecureRandom.hex(10)
