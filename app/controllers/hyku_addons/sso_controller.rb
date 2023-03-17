@@ -10,7 +10,8 @@ module HykuAddons
     end
 
     def callback
-      service = HykuAddons::Sso::CallBackService.new(code: params[:code])
+
+      service = HykuAddons::Sso::CallBackService.new(code: params[:code],host: request.host)
 
       handled = false
 
