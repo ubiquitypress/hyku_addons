@@ -26,7 +26,7 @@ module HykuAddons
 
     # Never trust parameters from the scary internet, only allow the allowed list through.
     def account_params
-      params.require(:account).permit(:name, :cname, :title, :search_only,
+      params.require(:account).permit(:work_os_organisation,:enable_sso,:name, :cname, :title, :search_only,
                                       admin_emails: [],
                                       solr_endpoint_attributes: %i[id url],
                                       fcrepo_endpoint_attributes: %i[id url base_path],

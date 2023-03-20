@@ -74,7 +74,12 @@
             <% end %>
           <% end %>
 
+          <h3> SSO </h3>
+
+          <%= f.input :enable_sso%>
+          <%= f.input :work_os_organisation%>
           <%= f.submit class: 'btn btn-primary' %>
+
           <%= link_to t('simple_form.cancel'), proprietor_accounts_path, class: 'btn btn-link action-cancel' %>
         </div>
       <% end %>
