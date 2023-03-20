@@ -2,4 +2,5 @@
 
 Rails.application.configure do
   config.log_level = :debug
+  config.assets.debug = true
 end
