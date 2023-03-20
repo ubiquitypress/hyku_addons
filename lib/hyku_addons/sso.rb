@@ -31,7 +31,6 @@ module HykuAddons
       def configure
         configuration.api_key = ENV["WORKOS_API_KEY"]
         configuration.client_id = ENV["WORKOS_CLIENT_ID"]
-        configuration.organisation_id = ENV["ORGANISATION_ID"]
         initialize
         yield(configuration)
       end
@@ -51,8 +50,8 @@ module HykuAddons
         account = Account.find_by cname: @host
           
         WorkOS::SSO.authorization_url(
-          client_id: account.nil? ? Sso.configuration.client_id : account.work_os_connection_id,
-          organization: account.nil? ? Sso.configuration.work_os_orgntion : account.work_os_orgnaisation,
+          client_id: Sso.configuration.client_id,
+          organization: account.work_os_organisation,
           redirect_uri: redirect_uri
         )
       end
@@ -72,7 +71,7 @@ module HykuAddons
 
         profile_and_token = WorkOS::SSO.profile_and_token(
           code: @code,
-          client_id: account.nil? ? Sso.configuration.client_id : account.work_os_connection_id
+          client_id: Sso.configuration.client_id
         )
 
         password = SecureRandom.hex(10)
