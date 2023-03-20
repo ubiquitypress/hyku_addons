@@ -1237,6 +1237,8 @@ GEM
       rexml
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    xray-rails (0.3.2)
+      rails (>= 3.1.0)
     zk (1.10.0)
       zookeeper (~> 1.5.0)
     zookeeper (1.5.1)
@@ -1324,6 +1326,7 @@ DEPENDENCIES
   webdrivers (~> 4.0)
   webmock
   willow_sword!
+  xray-rails (~> 0.3.2)
   zk
 
 BUNDLED WITH
