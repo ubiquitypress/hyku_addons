@@ -39,36 +39,27 @@ module HykuAddons
 
     # The auth service is responsbible for generating the workos redirect url.
     class AuthService
-      def initialize(host:)
-        @host = host
+      def initialize(account:)
+        @account = account
       end
 
       def generate_authorisation_url
         # The callback URI WorkOS should redirect to after the authentication
-        redirect_uri = "https://#{@host}/sso/callback"
-
-        account = Account.find_by cname: @host
-          
         WorkOS::SSO.authorization_url(
           client_id: Sso.configuration.client_id,
-          organization: account.work_os_organisation,
-          redirect_uri: redirect_uri
+          organization: @account.work_os_organisation,
+          redirect_uri: "https://#{@account.cname}/sso/callback"
         )
       end
     end
 
     # The call back service handles the repsose back from workos
     class CallBackService
-      def initialize(code:,host:)
+      def initialize(code:)
         @code = code
-        @host = host
       end
 
       def handle
-
-
-        account = Account.find_by cname: @host
-
         profile_and_token = WorkOS::SSO.profile_and_token(
           code: @code,
           client_id: Sso.configuration.client_id
