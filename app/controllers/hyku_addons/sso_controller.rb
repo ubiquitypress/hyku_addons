@@ -17,10 +17,8 @@ module HykuAddons
 
       service.handle do |profile, password|
         
-        user = User.find_or_create_by(email: profile.email).tap do |u|
+        user = User.find_or_create_by!(email: profile.email) do |u|
           u.password = password
-          u.password_confirmation = password
-          u.email = profile.email
         end
 
         sign_in user
