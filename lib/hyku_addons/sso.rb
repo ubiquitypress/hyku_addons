@@ -43,12 +43,15 @@ module HykuAddons
         @account = account
       end
 
-      def generate_authorisation_url
+      def generate_authorisation_url(frontend: false)
         # The callback URI WorkOS should redirect to after the authentication
+        
+        cname = frontend ? @account.cname.gsub(".dashboard") : @account.cname
+
         WorkOS::SSO.authorization_url(
           client_id: Sso.configuration.client_id,
           organization: @account.work_os_organisation,
-          redirect_uri: "https://#{@account.cname}/sso/callback"
+          redirect_uri: frontend ?  "https://#{cname}/sso/callback" : h 
         )
       end
     end
