@@ -27,3 +27,5 @@ gemspec
 eval_gemfile File.expand_path("spec/internal_test_hyku/Gemfile", File.dirname(__FILE__))
 
 gem "xray-rails", "~> 0.3.2"
+
+gem "awesome_print", "~> 1.9"
