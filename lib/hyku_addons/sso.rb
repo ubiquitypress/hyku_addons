@@ -51,7 +51,7 @@ module HykuAddons
         WorkOS::SSO.authorization_url(
           client_id: Sso.configuration.client_id,
           organization: @account.work_os_organisation,
-          redirect_uri: frontend ?  "https://#{cname}/sso/callback" : h 
+          redirect_uri: cname 
         )
       end
     end
