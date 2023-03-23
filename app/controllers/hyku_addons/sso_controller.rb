@@ -11,7 +11,7 @@ module HykuAddons
 
     def uiauth
       account = Account.find_by tenant: params[:tenant_id]
-      redirect_to HykuAddons::Sso::AuthService.new(account: account).generate_authorisation_url
+      redirect_to HykuAddons::Sso::AuthService.new(account: account).generate_authorisation_url(frontend: true)
     end
 
 
