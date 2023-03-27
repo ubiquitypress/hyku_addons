@@ -30,7 +30,7 @@ module HykuAddons
       # of using the attribute accessors we previously defined
       def configure
         configuration.api_key = ENV["WORKOS_API_KEY"]
-        configuration.client_id = ENV.fetch("WORKOS_CLIENT_ID","client_01GG7DRH9KVK3QNX2S6RGWA3CQ")
+        configuration.client_id = ENV["WORKOS_CLIENT_ID"]
         initialize
         yield(configuration)
       end
