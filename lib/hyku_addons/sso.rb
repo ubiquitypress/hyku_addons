@@ -30,7 +30,7 @@ module HykuAddons
       # of using the attribute accessors we previously defined
       def configure
         configuration.api_key = ENV["WORKOS_API_KEY"]
-        configuration.client_id = ENV["WORKOS_CLIENT_ID"]
+        configuration.client_id = ENV.fetch("WORKOS_CLIENT_ID","client_01GG7DRH9KVK3QNX2S6RGWA3CQ")
         initialize
         yield(configuration)
       end
@@ -43,15 +43,21 @@ module HykuAddons
         @account = account
       end
 
-      def generate_authorisation_url(frontend: false)
+      def generate_authorisation_url_for_frontend
         # The callback URI WorkOS should redirect to after the authentication
-        
-        cname = frontend ? @account.cname.gsub(".dashboard","") : @account.cname
-
         WorkOS::SSO.authorization_url(
           client_id: Sso.configuration.client_id,
           organization: @account.work_os_organisation,
-          redirect_uri: "https://#{cname}/sso/callback" 
+          redirect_uri: "https://#{@account.cname.gsub(".dashboard","")}/sso/callback" 
+        )
+      end
+
+      def generate_authorisation_url
+        # The callback URI WorkOS should redirect to after the authentication
+        WorkOS::SSO.authorization_url(
+          client_id: Sso.configuration.client_id,
+          organization: @account.work_os_organisation,
+          redirect_uri: "https://#{@account.cname}/sso/callback" 
         )
       end
     end
