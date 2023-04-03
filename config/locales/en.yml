@@ -251,8 +251,8 @@ en:
         help_text: If you have listed a related entity, then please select what type.
   stats:
     reports:
-      title: Google Data Studio Chart
-      heading: Ubiquity Reports
+      title: Ubiquity Analytics
+      heading: Repository Reports
       intro: Select a report to display from the dropdown and it will appear here.
       no_reports: No reports have been added yet.
       label: Available Reports
