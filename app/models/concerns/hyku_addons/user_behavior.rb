@@ -69,7 +69,7 @@ module HykuAddons
 
       return if Account.work_os_managed_domain != email_domain
 
-      message = "Email domain must not be equal to work os managed domain:  #{email_domain}"
+      message = "Email domain must not be equal to work os managed domain:  #{Account.work_os_managed_domain}"
       errors.add(:email, message)
     end
 
