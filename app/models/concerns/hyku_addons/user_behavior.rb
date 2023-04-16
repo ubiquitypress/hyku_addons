@@ -11,7 +11,7 @@ module HykuAddons
       before_create :assign_default_role
 
       validate :email_format
-      validate :email_domain_check
+      validate :email_domain
 
       # added so we can soft delete a user with a file by setting the user to inactive
       has_many :uploaded_files, class_name: "Hyrax::UploadedFile"
@@ -64,12 +64,12 @@ module HykuAddons
       errors.add(:email, message)
     end
 
-    def email_domain_check
-      email_domain = email.split('@').last
+    def email_domain
+      email_domain = email.split("@").last
 
-      return if Account.work_os_managed_domain != email_domain
+      return if Site.account&.work_os_managed_domain != email_domain
 
-      message = "Email domain must not be equal to work os managed domain:  #{Account.work_os_managed_domain}"
+      message = "Email domain must not be equal to work os managed domain:  #{Site.account&.work_os_managed_domain}"
       errors.add(:email, message)
     end
 
