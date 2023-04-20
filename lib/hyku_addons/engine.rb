@@ -134,6 +134,7 @@ module HykuAddons
       Proprietor::AccountsController.include HykuAddons::AccountControllerBehavior
       ::ApplicationController.include HykuAddons::MultitenantLocaleControllerBehavior
       ::Hyku::RegistrationsController.include HykuAddons::RegistrationsControllerBehavior
+      ::Hyku::InvitationsController.include HykuAddons::InvitationsControllerBehavior
       ::Hyrax::Dashboard::ProfilesController.prepend HykuAddons::ProfilesControllerBehavior
       ::ApplicationController.prepend HykuAddons::ApplicationControllerOverride
       ::Hyrax::Admin::FeaturesController.prepend HykuAddons::FlipflopFeaturesControllerOverride
