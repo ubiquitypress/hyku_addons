@@ -48,6 +48,7 @@ module HykuAddons
         WorkOS::SSO.authorization_url(
           client_id: Sso.configuration.client_id,
           organization: @account.work_os_organisation,
+          domain: @account.work_os_managed_domain,
           redirect_uri: "https://#{@account.cname.gsub("dashboard.","")}/sso/callback" 
         )
       end
@@ -57,6 +58,7 @@ module HykuAddons
         WorkOS::SSO.authorization_url(
           client_id: Sso.configuration.client_id,
           organization: @account.work_os_organisation,
+          domain: @account.work_os_managed_domain,
           redirect_uri: "https://#{@account.cname}/sso/callback" 
         )
       end

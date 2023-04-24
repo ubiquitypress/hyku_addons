@@ -1,6 +1,7 @@
 en:
   errors:
     users_forbidden: This User is either private or does not exist
+    invalid_domain: Email domain must not be equal to WorkOs managed domain, %{managed_domain}.
   work_type_modal:
     admin_set:
       title: Admin Set
