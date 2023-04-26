@@ -1251,7 +1251,7 @@ DEPENDENCIES
   activerecord-nulldb-adapter
   ammeter
   apartment
-  awesome_print
+  awesome_print (~> 1.9)
   aws-sdk-sqs
   bixby
   blacklight (~> 6.7)
