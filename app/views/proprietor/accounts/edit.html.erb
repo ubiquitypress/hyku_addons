@@ -45,7 +45,7 @@
               <%= f.simple_fields_for :full_account_cross_searches do |full_account_cross_search| %>
                 <%= render 'full_account_cross_search_fields', f: full_account_cross_search %>
               <% end %>
-              <div 'class='links'>
+              <div class='links'>
                 <%= link_to_add_association 'Add account to search', f, :full_account_cross_searches %>
               </div>
             </div>
@@ -74,7 +74,13 @@
             <% end %>
           <% end %>
 
+          <h3> SSO </h3>
+
+          <%= f.input :enable_sso%>
+          <%= f.input :work_os_organisation%>
+					<%= f.input :work_os_managed_domain%>
           <%= f.submit class: 'btn btn-primary' %>
+
           <%= link_to t('simple_form.cancel'), proprietor_accounts_path, class: 'btn btn-link action-cancel' %>
         </div>
       <% end %>

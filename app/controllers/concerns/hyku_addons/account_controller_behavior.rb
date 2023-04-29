@@ -11,7 +11,6 @@ module HykuAddons
 
     def merge_settings_for_update
       return if account_params["settings"].blank?
-
       @account.settings.merge!(account_params["settings"])
       @account.settings.compact!
 

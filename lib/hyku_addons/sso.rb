@@ -31,7 +31,6 @@ module HykuAddons
       def configure
         configuration.api_key = ENV["WORKOS_API_KEY"]
         configuration.client_id = ENV["WORKOS_CLIENT_ID"]
-        configuration.organisation_id = ENV["ORGANISATION_ID"]
         initialize
         yield(configuration)
       end
@@ -40,20 +39,27 @@ module HykuAddons
 
     # The auth service is responsbible for generating the workos redirect url.
     class AuthService
-      def initialize(host:)
-        @host = host
+      def initialize(account:)
+        @account = account
+      end
+
+      def generate_authorisation_url_for_frontend
+        # The callback URI WorkOS should redirect to after the authentication
+        WorkOS::SSO.authorization_url(
+          client_id: Sso.configuration.client_id,
+          organization: @account.work_os_organisation,
+          domain: @account.work_os_managed_domain,
+          redirect_uri: "https://#{@account.cname.gsub("dashboard.","")}/sso/callback" 
+        )
       end
 
       def generate_authorisation_url
         # The callback URI WorkOS should redirect to after the authentication
-        redirect_uri = "https://#{@host}/sso/callback"
-
-        account = Account.find_by cname: @host
-          
         WorkOS::SSO.authorization_url(
           client_id: Sso.configuration.client_id,
-          organization: account.nil? ? Sso.configuration.work_os_orgntion : account.work_os_orgnaisation,
-          redirect_uri: redirect_uri
+          organization: @account.work_os_organisation,
+          domain: @account.work_os_managed_domain,
+          redirect_uri: "https://#{@account.cname}/sso/callback" 
         )
       end
     end
