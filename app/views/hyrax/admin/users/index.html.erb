@@ -5,7 +5,6 @@
   <h1><span class="fa fa-user" aria-hidden="true"></span> <%= t('hyrax.admin.users.index.title') %></h1>
 <% end %>
 
-<%unless current_account.enable_sso%>
 <div class="panel panel-default users-invite">
   <div class="panel-heading">
       <%= t('.invite_users') %>
@@ -23,7 +22,6 @@
     <% end %>
   </div>
 </div>
-<%end%>
 
 <div class="panel panel-default users-listing">
   <div class="panel-heading">
