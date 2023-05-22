@@ -13,6 +13,7 @@ en:
         placeholder: "Add culture"
       creator_date:
         label: Dates
+        placeholder: "Add dates"
     labels:
       defaults:
         abstract: Abstract / Description

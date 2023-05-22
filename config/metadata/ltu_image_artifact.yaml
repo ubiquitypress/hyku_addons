@@ -24,15 +24,29 @@ attributes:
       primary: true
       multiple: false
       type: text
-  alt_class:
+  resource_type:
     predicate: http://purl.org/dc/terms/type
+    multiple: true
+    index_keys:
+      - resource_type_tesim
+      - resource_type_sim
+    form:
+      required: true
+      primary: true
+      multiple: true
+      type: select
+      authority: HykuAddons::ResourceTypesService
+      include_blank: true
+      input: single_multi_value_select
+  alt_class:
+    predicate: http://mappings.dbpedia.org/index.php/OntologyClass:Type
     multiple: true
     index_keys:
       - alt_class_tesim
     form:
       required: true
       primary: true
-      multiple: false
+      multiple: true
       type: select
       authority: HykuAddons::AltClassService
       include_blank: true
@@ -100,7 +114,7 @@ attributes:
         form:
           required: false
           multiple: false
-          type: date
+          type: text
           display_for:
             - Personal
       creator_institution:
@@ -192,9 +206,9 @@ attributes:
   abstract:
     type: text
     predicate: http://purl.org/dc/terms/abstract
-    multiple: false
+    multiple: true
     index_keys:
-      - abstract_tesim
+    - abstract_tesim
     form:
       required: false
       primary: true
@@ -242,7 +256,19 @@ attributes:
       required: false
       primary: true
       multiple: false
-      type: text"
+      type: text
+  doi:
+    type: string
+    predicate: http://purl.org/ontology/bibo/doi
+    multiple: true
+    index_keys:
+      - doi_ssi
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+      input: single_multi_value
   media:
     type: string
     predicate: http://www.loc.gov/mods/rdf/v1#physicalForm
@@ -353,15 +379,16 @@ attributes:
       multiple: true
       type: select
       authority: HykuAddons::StylePeriodService
-  subject_text:
+  library_of_congress_subject_headings_text:
     type: string
-    predicate: http://purl.org/dc/terms/subject
+    predicate: https://id.loc.gov/ontologies/bibframe.html#c_ClassificationLcc
     multiple: true
     index_keys:
-      - subject_text_tesim
+      - library_of_congress_subject_headings_text_tesim
+      - library_of_congress_subject_headings_text_sim
     form:
       required: false
-      primary: true
+      primary: false
       multiple: true
       type: text
   add_info:

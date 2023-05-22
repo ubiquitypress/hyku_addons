@@ -78,7 +78,7 @@ creator_date:
   form:
     required: false
     multiple: false
-    type: date
+    type: text
     display_for:
     - Personal
 creator_organization_name:

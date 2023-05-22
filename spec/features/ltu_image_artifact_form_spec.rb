@@ -58,6 +58,8 @@ RSpec.feature "Create a LtuImageArtifact", js: true, slow: true do
     ]
   end
 
+  let(:doi) { "10.1521/soco.23.1.118.59197" }
+  let(:resource_type) { HykuAddons::ResourceTypesService.new(model: model).active_elements.sample(1) }
   let(:alt_class) { HykuAddons::AltClassService.new(model: model).active_elements.sample(1) }
   let(:keyword) { ["keyword1", "keyword2"] }
   let(:license_options) { HykuAddons::LicenseService.new(model: model).active_elements.sample(2) }
@@ -79,6 +81,7 @@ RSpec.feature "Create a LtuImageArtifact", js: true, slow: true do
   let(:subject_text) { ["subject1", "subject2"] }
   let(:rights) { ["Rights1", "Rights2"] }
   let(:style_period_options) { HykuAddons::StylePeriodService.new(model: model).active_elements.sample(2) }
+  let(:library_of_congress_subject_headings_text) { ["1234", "5678"] }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -97,7 +100,9 @@ RSpec.feature "Create a LtuImageArtifact", js: true, slow: true do
 
       # Required fields
       fill_in_text_field(:title, title)
+      fill_in_text_field(:doi, doi)
       fill_in_text_field(:alt_title, alt_title.first)
+      fill_in_select(:resource_type, resource_type.map { |h| h["label"] }.first)
       fill_in_select(:alt_class, alt_class.map { |h| h["label"] }.first)
       fill_in_cloneable(:creator, creator)
 
@@ -123,6 +128,7 @@ RSpec.feature "Create a LtuImageArtifact", js: true, slow: true do
       fill_in_multiple_text_fields(:subject_text, subject_text)
       fill_in_multiple_text_fields(:rights, rights)
       fill_in_multiple_selects(:style_period, style_period_options.map { |h| h["label"] })
+      fill_in_multiple_text_fields(:library_of_congress_subject_headings_text, library_of_congress_subject_headings_text)
     end
 
     describe "submitting the form" do
@@ -140,13 +146,17 @@ RSpec.feature "Create a LtuImageArtifact", js: true, slow: true do
           expect(page).to have_selector("span", text: "Public")
           expect(page).to have_content("Your files are being processed by Hyku in the background.")
 
+          expect(page).to have_content(resource_type.map { |h| h["id"] }.first)
           expect(page).to have_content(alt_class.map { |h| h["id"] }.first)
           # alt_title.each { |at| expect(page).to have_content(at) }
           expect(work.alt_title).to eq(alt_title)
           expect(page).to have_content("#{creator.first.dig(:creator_family_name)}, #{creator.first.dig(:creator_given_name)}")
           # %i[published].each { |d| expect(page).to have_content(normalize_date(send("date_#{d}".to_sym)).first) }
+          expect(page).to have_content("https://doi.org/#{doi}")
 
           expect(work.title).to eq([title])
+          expect(work.doi).to eq([doi])
+          expect(work.resource_type).to eq(resource_type.map { |h| h["id"] })
           expect(work.alt_class).to eq(alt_class.map { |h| h["id"] })
           expect(work.official_link).to eq(official_link)
           # Cloneable fields use the label to select the option, but save the id to the work
@@ -169,6 +179,7 @@ RSpec.feature "Create a LtuImageArtifact", js: true, slow: true do
           expect(work.extent).to eq(extent)
           expect(work.subject_text).to eq(subject_text)
           expect(work.style_period).to eq(style_period_options.map { |h| h["id"] })
+          expect(work.library_of_congress_subject_headings_text).to eq(library_of_congress_subject_headings_text)
         end
       end
     end
