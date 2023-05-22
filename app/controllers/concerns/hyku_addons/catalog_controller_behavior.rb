@@ -19,6 +19,8 @@ module HykuAddons
       append_before_action :routing_error_unless_feature_enabled, only: :oai
 
       configure_blacklight do |config|
+        # Configure Blacklight to use POST instead of GET to prevent Solr from producing 414 error for large queries
+        config.http_method = :post
         # Re-configure facet fields
         config.facet_fields = {}
         config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 5

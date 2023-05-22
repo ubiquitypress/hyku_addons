@@ -3,9 +3,9 @@ module HykuAddons
   module Actors
     class CreatorProfileVisibilityActor < Hyrax::Actors::AbstractActor
       def create(env)
-        puts "LOG_HIT_ON_CREATE_CreatorProfileVisibilityActor #{env.inspect}"
+        puts "LOG_CREATE_CreatorProfileVisibilityActor_BEFORE_toggle_visibility #{env.inspect}"
         toggle_visibility(env)
-
+        puts "LOG_CREATE_CreatorProfileVisibilityActor_AFTER_toggle_visibility #{env.inspect}"
         next_actor.create(env)
       end
 

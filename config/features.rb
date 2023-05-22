@@ -44,11 +44,6 @@ Flipflop.configure do
                 default: false,
                 description: "Turns on links to hypothes.is PDF viewer"
 
-        feature :sso,
-                default: false,
-                description: "Turns on sso authentication"
-
-
         feature :gds_reports,
                 default: false,
                 description: "Add Google Data Studio reports to the dashaboard"
