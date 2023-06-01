@@ -87,6 +87,14 @@ attributes:
           type: text
           display_for:
             - Personal
+      creator_institution:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - Personal
       creator_orcid:
         type: string
         form:
@@ -95,6 +103,14 @@ attributes:
           type: text
           display_for:
             - Personal
+      creator_institutional_email:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+          - Personal      
       creator_institutional_relationship:
         type: string
         form:
@@ -106,6 +122,16 @@ attributes:
             multiple: multiple
           display_for:
             - Personal
+      creator_role:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::RoleService
+          include_blank: true
+          display_for:
+          - Personal      
       creator_organization_name:
         type: string
         form:
@@ -147,14 +173,6 @@ attributes:
           display_for:
             - Personal
             - Organizational
-      creator_profile_visibility:
-        type: string
-        form:
-          required: false
-          multiple: false
-          type: hidden
-          display_for:
-            - Personal
   abstract:
     type: text
     predicate: http://purl.org/dc/terms/abstract
