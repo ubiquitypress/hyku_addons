@@ -11,3 +11,6 @@ terms:
   - id: spa
     term: Spanish
     active: true
+  - id: vie
+    term: Vietnamese
+    active: true
