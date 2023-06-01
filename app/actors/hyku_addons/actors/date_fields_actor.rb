@@ -5,7 +5,7 @@ module HykuAddons
       def create(env)
         puts "LOG_CREATE_AT_DateFieldsActor_BEFORE_serialize_date_fields #{env.inspect}"
         serialize_date_fields(env) && next_actor.create(env)
-        puts "LOG_CREATE_AT_DateFieldsActor_AFTER_serialize_date_fields #{env.inspect}"
+        
       end
 
       def update(env)
