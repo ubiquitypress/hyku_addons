@@ -23,9 +23,10 @@ module HykuAddons
 
       service.handle do |profile, password|
 
-        user = User.find_or_create_by!(email: profile.email) do |u|
+        user = User.find_or_create_by!(email: profile.email.downcase) do |u|
           u.password = password
         end
+        
         sign_in user
         set_jwt_cookies(user)
       end
@@ -43,7 +44,7 @@ module HykuAddons
 
       service.handle do |profile, password|
 
-        user = User.find_or_create_by!(email: profile.email) do |u|
+        user = User.find_or_create_by!(email: profile.email.downcase) do |u|
           u.password = password
         end
 
