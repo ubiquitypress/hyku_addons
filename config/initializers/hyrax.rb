@@ -21,6 +21,7 @@ Hyrax.config do |config|
   config.register_curation_concern :denver_serial_publication
   config.register_curation_concern :denver_thesis_dissertation_capstone
   config.register_curation_concern :exhibition_item
+  config.register_curation_concern :grant_record
   config.register_curation_concern :nsu_generic_work
   config.register_curation_concern :nsu_article
   config.register_curation_concern :report
