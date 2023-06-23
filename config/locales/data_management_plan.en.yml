@@ -1,0 +1,14 @@
+en:
+  hyrax:
+    icons:
+      data_management_plan: "fa fa-file-text-o"
+    select_type:
+      data_management_plan:
+        description: "Data Managment Plan works"
+        name: "Data Management Plan"
+  simple_form:
+    labels:
+      defaults:
+        doi: Digital Object Identifier (DOI) URL
+        date_published: Date Published  
+        add_info: Notes

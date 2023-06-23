@@ -9,6 +9,7 @@ Hyrax.config do |config|
   config.register_curation_concern :book_contribution
   config.register_curation_concern :conference_item
   config.register_curation_concern :dataset
+  config.register_curation_concern :data_management_plan
   config.register_curation_concern :denver_article
   config.register_curation_concern :denver_book
   config.register_curation_concern :denver_book_chapter
