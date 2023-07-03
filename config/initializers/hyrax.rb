@@ -27,6 +27,7 @@ Hyrax.config do |config|
   config.register_curation_concern :nsu_article
   config.register_curation_concern :open_educational_resource
   config.register_curation_concern :report
+  config.register_curation_concern :research_methodology
   config.register_curation_concern :minute
   config.register_curation_concern :time_based_media
   config.register_curation_concern :thesis_or_dissertation
