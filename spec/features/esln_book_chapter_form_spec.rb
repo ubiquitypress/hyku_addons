@@ -168,21 +168,22 @@ RSpec.feature "Create a EslnBookChapter", js: true, slow: true do
 
       # Required fields
       fill_in_text_field(:title, title)
-      fill_in_text_field(:doi, doi)
-      fill_in_multiple_text_fields(:alt_title, alt_title)
       fill_in_select(:resource_type, resource_type.map { |h| h["label"] }.first)
       fill_in_cloneable(:creator, creator)
-      fill_in_date(:date_published, date_published)
-      fill_in_cloneable(:contributor, contributor)
+      fill_in_multiple_selects(:institution, institution_options.map { |h| h["label"] })
+      fill_in_text_field(:book_title, book_title)
 
       # Additional fields
+      fill_in_cloneable(:contributor, contributor)
+      fill_in_date(:date_published, date_published)
+      fill_in_text_field(:doi, doi)
+      fill_in_multiple_text_fields(:alt_title, alt_title)
       fill_in_multiple_text_fields(:keyword, keyword)
       fill_in_multiple_selects(:license, license_options.map { |h| h["label"] })
       fill_in_multiple_selects(:rights_statement, rights_statement_options.map { |h| h["label"] })
       fill_in_multiple_selects(:subject, subject_options.map { |h| h["label"] })
       fill_in_multiple_selects(:language, language_options.map { |h| h["label"] })
       fill_in_textarea(:abstract, abstract)
-      fill_in_multiple_selects(:institution, institution_options.map { |h| h["label"] })
       fill_in_multiple_text_fields(:org_unit, org_unit)
 
       fill_in_multiple_text_fields(:rights_holder, rights_holder)
@@ -201,7 +202,6 @@ RSpec.feature "Create a EslnBookChapter", js: true, slow: true do
       fill_in_multiple_text_fields(:library_of_congress_classification, library_of_congress_classification)
       fill_in_multiple_text_fields(:publisher, publisher)
 
-      fill_in_text_field(:book_title, book_title)
       fill_in_text_field(:pagination, pagination)
       fill_in_text_field(:alt_book_title, alt_book_title)
     end
