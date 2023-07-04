@@ -11,9 +11,6 @@ volumes:
   assets:
   cache:
 
-networks:
-  internal:
-
 x-app: &app
   platform: linux/amd64
   build:
@@ -42,7 +39,7 @@ x-app: &app
     SETTINGS__MULTITENANCY__ROOT_HOST: hyku.docker
     SETTINGS__MULTITENANCY__ENABLED: "true"
     SETTINGS__SOLR__URL: http://solr:8983/solr/
-    SETTINGS__ZOOKEEPER__CONNECTION_STR: zookeeper_cluster:2181/configs
+    SETTINGS__ZOOKEEPER__CONNECTION_STR: zoo1:2181/configs
     SOLR_URL: http://solr:8983/solr/
     PASSENGER_APP_ENV: development
     REDIS_HOST: redis
@@ -60,8 +57,6 @@ x-app: &app
     - .:/home/app
   stdin_open: true
   tty: true
-  networks:
-    internal:
 
 services:
   web:
@@ -114,7 +109,7 @@ services:
 
   db_migrate:
     <<: *app
-    command: bundle exec rails app:db:migrate app:db:test:prepare
+    command: bash -c "bundle exec rake db:schema:load && bundle exec rake db:migrate app:db:test:prepare"
     depends_on:
       - db
 
@@ -132,8 +127,6 @@ services:
       - db:/data
     ports:
       - "5432:5432"
-    networks:
-      internal:
 
   redis:
     image: redis:4
@@ -141,8 +134,6 @@ services:
     command: redis-server
     volumes:
       - redis:/data
-    networks:
-      internal:
     expose:
       - 6379
 
@@ -159,10 +150,6 @@ services:
     volumes:
       - zk1:/data
       - zkconf:/conf
-    networks:
-      internal:
-       aliases:
-         - zookeeper_cluster
 
   solr:
     image: solr:7.5
@@ -175,8 +162,6 @@ services:
     volumes:
       - ./spec/internal_test_hyku:/app
       - solr:/opt/solr/server/solr
-    networks:
-      internal:
 
   fcrepo:
     image: cbeer/fcrepo4:4.7
@@ -189,12 +174,7 @@ services:
       - fcrepo:/data
     environment:
       JAVA_OPTS: '${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"'
-    networks:
-      internal:
 
   chrome:
     image: selenium/standalone-chrome:3.141
     platform: linux/amd64
-    networks:
-      internal:
-
