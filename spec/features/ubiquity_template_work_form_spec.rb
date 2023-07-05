@@ -114,6 +114,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:language_options) { HykuAddons::LanguageService.new(model: model).active_elements.sample(2) }
   let(:related_url) { ["http://test.com", "https://www.test123.com"] }
   let(:abstract) { "This is the abstract text" }
+  let(:attendees) { "This is an Attendee's Name" }
   let(:inscription) { "This is the inscription text" }
   let(:media) { ["Audio", "Video"] }
   let(:duration) { ["1 minute", "7 hours"] }
@@ -259,6 +260,9 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
   let(:library_of_congress_subject_headings_text) { ["1234", "5678"] }
   let(:style_period_options) { HykuAddons::StylePeriodService.new(model: model).active_elements.sample(2) }
   let(:repository_space_option) { HykuAddons::RepositorySpaceService.new(model: model).active_elements.first }
+  let(:related_publication_citaion) { ["citation1", "citation2"] }
+  let(:methodology_collection_method) { ["method1", "method2"] }
+  let(:programming_language) { ["language1", "language2"] }
 
   before do
     Sipity::WorkflowAction.create!(name: "submit", workflow: workflow)
@@ -303,6 +307,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       fill_in_multiple_text_fields(:related_url, related_url)
       fill_in_multiple_text_fields(:source, source_data)
       fill_in_textarea(:abstract, abstract)
+      fill_in_textarea(:attendees, attendees)
       fill_in_textarea(:inscription, inscription)
       fill_in_multiple_text_fields(:media, media)
       fill_in_multiple_text_fields(:duration, duration)
@@ -391,6 +396,10 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
       fill_in_multiple_text_fields(:library_of_congress_subject_headings_text, library_of_congress_subject_headings_text)
       fill_in_multiple_selects(:style_period, style_period_options.map { |h| h["label"] })
       fill_in_select(:repository_space, repository_space_option["label"])
+      fill_in_multiple_text_fields(:related_publication_citation, related_publication_citation)
+      fill_in_multiple_text_fields(:methodology_collection_method, methodology_collection_method)
+      fill_in_multiple_text_fields(:programming_language, programming_language)
+
     end
 
     describe "submitting the form" do
@@ -439,6 +448,7 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           expect(work.related_url).to eq(related_url)
           expect(work.source).to eq(source_data)
           expect(work.abstract).to eq(abstract)
+          expect(work.attendees).to eq(attendees)
           expect(work.inscription).to eq(inscription)
           expect(work.media).to eq(media)
           expect(work.duration).to eq(duration)
@@ -527,6 +537,10 @@ RSpec.feature "Create a UbiquityTemplateWork", js: true, slow: true do
           expect(work.library_of_congress_subject_headings_text).to eq(library_of_congress_subject_headings_text)
           expect(work.style_period).to eq(style_period_options.map { |h| h["id"] })
           expect(work.repository_space).to eq(repository_space_option["id"])
+          expect(work.related_publication_citaion).to eq(related_publication_citaion)
+          expect(work.methodology_collection_method).to eq(methodology_collection_method)
+          expect(work.programming_language).to eq(programming_language)
+
         end
       end
     end

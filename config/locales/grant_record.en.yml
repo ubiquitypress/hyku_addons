@@ -1,0 +1,15 @@
+en:
+  hyrax:
+    icons:
+      grant_record: "fa fa-file-text-o"
+    select_type:
+      grant_record:
+        description: "Grant Record works"
+        name: "Grant Record"
+  simple_form:
+    labels:
+      defaults:
+        doi: Digital Object Identifier (DOI) URL
+        related_publication_citation: Related Publication Citation
+        time: Coverage span
+        add_info: Notes

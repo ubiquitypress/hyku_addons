@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      minute: "fa fa-file-text-o"
+    select_type:
+      minute:
+        description: "Minutes"
+        name: "Minutes"

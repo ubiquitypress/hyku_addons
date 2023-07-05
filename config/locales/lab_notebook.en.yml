@@ -1,0 +1,15 @@
+en:
+  hyrax:
+    icons:
+      lab_notebook: "fa fa-file-text-o"
+    select_type:
+      lab_notebook:
+        description: "Lab Notebook works"
+        name: "Lab Notebook"
+  simple_form:
+    labels:
+      defaults:
+        related_publication_citation: Related Publication Citation
+        time: Coverage span
+        doi: Digital Object Identifier (DOI) URL
+        add_info: Notes

@@ -1,0 +1,15 @@
+en:
+  hyrax:
+    icons:
+      research_methodology: "fa fa-file-text-o"
+    select_type:
+      research_methodology:
+        description: "Research Methodology works"
+        name: "Research Methodology"
+  simple_form:
+    labels:
+      defaults:
+        doi: Digital Object Identifier (DOI) URL
+        related_publication_citation: Related Publication Citation
+        methodology_collection_method: Methodology / Collection Method
+        add_info: Notes

@@ -1,0 +1,16 @@
+en:
+  hyrax:
+    icons:
+      software: "fa fa-file-text-o"
+    select_type:
+      software:
+        description: "Software works"
+        name: "Software"
+  simple_form:
+    labels:
+      defaults:
+        doi: Digital Object Identifier (DOI) URL
+        date_published: Date Published
+        programming_language: Programming Language
+        add_info: Notes
+        

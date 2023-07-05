@@ -80,7 +80,7 @@ attributes:
       creator_given_name:
         type: string
         form:
-          required: true
+          required: false
           multiple: false
           type: text
           display_for:
@@ -101,7 +101,33 @@ attributes:
           type: text
           display_for:
           - Personal
+      creator_institution:
+        type: string
+        form:
+          required: false
+          multiple: true
+          type: text
+          display_for:
+            - Personal
+      creator_role:
+        type: string
+        form:
+          required: false
+          multiple: true
+          type: select
+          authority: HykuAddons::RoleService
+          include_blank: true
+          display_for:
+            - Personal
       creator_orcid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+      creator_institutional_email:
         type: string
         form:
           required: false
@@ -123,7 +149,7 @@ attributes:
       creator_organization_name:
         type: string
         form:
-          required: true
+          required: false
           multiple: false
           type: text
           display_for:
@@ -1544,3 +1570,52 @@ attributes:
       include_blank: false
       type: select
       authority: HykuAddons::RepositorySpaceService
+  related_publication_citation:
+    type: text
+    predicate: http://purl.org/dc/terms/isReferencedBy
+    multiple: false
+    index_keys: 
+      - related_publication_citation_tesim
+    form:
+      required: false
+      multiple: false
+      type: text
+      authority: null
+      primary: false
+  methodology_collection_method:
+    type: text
+    predicate: https://schema.org/measurementTechnique
+    multiple: false
+    index_keys: 
+      - methodology_collection_method_tesim
+    form:
+      required: false
+      multiple: false
+      type: text
+      authority: null
+      primary: false
+  programming_language:
+    type: text
+    predicate: https://schema.org/programmingLanguage
+    multiple: true
+    index_keys: 
+      - programming_language_tesim
+    form:
+      required: false
+      multiple: true
+      type: text
+      authority: null
+      primary: false
+  attendees:
+    form:
+      required: false
+      multiple: false
+      type: textarea
+      authority: null
+      primary: true
+    type: text
+    index_keys: 
+      - attendees_tesim
+    multiple: true
+    predicate: https://schema.org/attendee
+

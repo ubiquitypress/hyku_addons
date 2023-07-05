@@ -9,6 +9,7 @@ Hyrax.config do |config|
   config.register_curation_concern :book_contribution
   config.register_curation_concern :conference_item
   config.register_curation_concern :dataset
+  config.register_curation_concern :data_management_plan
   config.register_curation_concern :denver_article
   config.register_curation_concern :denver_book
   config.register_curation_concern :denver_book_chapter
@@ -20,9 +21,15 @@ Hyrax.config do |config|
   config.register_curation_concern :denver_serial_publication
   config.register_curation_concern :denver_thesis_dissertation_capstone
   config.register_curation_concern :exhibition_item
+  config.register_curation_concern :grant_record
+  config.register_curation_concern :lab_notebook
   config.register_curation_concern :nsu_generic_work
   config.register_curation_concern :nsu_article
+  config.register_curation_concern :open_educational_resource
   config.register_curation_concern :report
+  config.register_curation_concern :research_methodology
+  config.register_curation_concern :software
+  config.register_curation_concern :minute
   config.register_curation_concern :time_based_media
   config.register_curation_concern :thesis_or_dissertation
   config.register_curation_concern :pacific_article

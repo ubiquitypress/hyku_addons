@@ -1,0 +1,15 @@
+en:
+  hyrax:
+    icons:
+      open_educational_resource: "fa fa-file-text-o"
+    select_type:
+      open_educational_resource:
+        description: "Open Educational Resource works"
+        name: "Open Educational Resource"
+  simple_form:
+    labels:
+      defaults:
+        org_unit: Department
+        date_published: Date Published
+        doi: Digital Object Identifier (DOI) URL
+        add_info: Notes
