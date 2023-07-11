@@ -193,7 +193,7 @@ attributes:
       - institution_tesim
       - institution_sim
     form:
-      required: false
+      required: true
       primary: true
       multiple: true
       type: select

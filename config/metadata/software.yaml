@@ -98,6 +98,14 @@ attributes:
           type: text
           display_for:
             - Personal
+      creator_institution:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
       creator_orcid:
         type: string
         form:
@@ -123,6 +131,16 @@ attributes:
           authority: HykuAddons::InstitutionalRelationshipService
           attributes:
             multiple: multiple
+          display_for:
+            - Personal
+      creator_role:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::RoleService
+          include_blank: true
           display_for:
             - Personal
       creator_organization_name:
