@@ -60,17 +60,16 @@ attributes:
       multiple: true
       type: text
   Attendees:
+    type: text
+    predicate: https://schema.org/attendee
+    multiple: false
+    index_keys:
+      - attendees_tesim
     form:
       required: false
+      primary: true
       multiple: false
       type: textarea
-      authority: null
-      primary: true
-    type: text
-    index_keys: 
-      - attendees_tesim
-    multiple: true
-    predicate: https://schema.org/attendee
   abstract:
     type: text
     predicate: http://purl.org/dc/terms/abstract
