@@ -9,7 +9,7 @@
 <% date_fields = Proc.new do |date_value, required| %>
   <div class="form-inline">
     <div class="form-group <%= "#{template}_#{key}_year" %>">
-      <% opts = { start_year: (Date.today.year + 6), end_year: (Date.today.year - 159), prompt: t("simple_form.date_fields.year.label") } %>
+      <% opts = { start_year: (Date.today.year + 6), end_year: (Date.today.year - 250), prompt: t("simple_form.date_fields.year.label") } %>
       <% params = { id: "#{template}_#{key}__#{key}_year", name: "#{template}[#{key}][][#{key}_year]", class: "form-control ubiquity-date-input", required: required } %>
       <%= select_year(date_value&.flatten[0]&.to_i, opts, params) %>
     </div>
