@@ -27,7 +27,7 @@
     >
       <div class="form-inline">
         <div class="form-group <%= "#{target}_year" %>">
-          <% opts = { start_year: (Date.today.year + 6), end_year: (Date.today.year - 159), prompt: t("simple_form.date_fields.year.label") } %>
+          <% opts = { start_year: (Date.today.year + 6), end_year: (Date.today.year - 250), prompt: t("simple_form.date_fields.year.label") } %>
           <% params = { id: "#{target}__#{field_slug}_year", name: "#{template}[#{field_slug}][][#{field_slug}_year]", class: "form-control ubiquity-date-input" } %>
           <%= select_year(date_value[0].to_i, opts, params) %>
         </div>
