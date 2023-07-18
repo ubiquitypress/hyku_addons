@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      archival_material: "fa fa-file-text-o"
+    select_type:
+      archival_material:
+        description: "Archival Materials"
+        name: "Archival Material"

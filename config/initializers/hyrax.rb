@@ -4,6 +4,7 @@
 # rubocop:disable Metrics/BlockLength
 Hyrax.config do |config|
   config.register_curation_concern :anschutz_work
+  config.register_curation_concern :archival_material
   config.register_curation_concern :article
   config.register_curation_concern :book
   config.register_curation_concern :book_contribution
@@ -43,6 +44,7 @@ Hyrax.config do |config|
   config.register_curation_concern :pacific_text_work
   config.register_curation_concern :pacific_uncategorized
   config.register_curation_concern :preprint
+  config.register_curation_concern :presentation
   config.register_curation_concern :redlands_article
   config.register_curation_concern :redlands_book
   config.register_curation_concern :redlands_chapters_and_book_section
