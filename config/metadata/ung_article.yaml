@@ -553,17 +553,6 @@ attributes:
           display_for:
           - Personal
           - Organizational
-  abstract:
-    type: text
-    predicate: http://purl.org/dc/terms/abstract
-    multiple: false
-    index_keys:
-    - abstract_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-      type: textarea
   date_accepted:
     type: string
     predicate: http://purl.org/dc/terms/dateAccepted
