@@ -2,6 +2,9 @@
 class BcArchivalAndLegalMaterial < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
 
+  # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
+  include Hyrax::DOI::DataCiteDOIBehavior
+
   include HykuAddons::Schema::WorkBase
   include Hyrax::Schema(:bc_archival_and_legal_material)
   # This must be included at the end, because it finalizes the metadata
@@ -11,4 +14,8 @@ class BcArchivalAndLegalMaterial < ActiveFedora::Base
   self.indexer = BcArchivalAndLegalMaterialIndexer
 
   validates :title, presence: { message: "Your work must have a title." }
+
+  def doi_registrar_opts
+    {}
+  end
 end

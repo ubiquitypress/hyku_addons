@@ -523,6 +523,17 @@ attributes:
       multiple: true
       type: text
       input: single_multi_value
+  doi:
+    type: string
+    predicate: http://purl.org/ontology/bibo/doi
+    multiple: true
+    index_keys:
+      - doi_ssi
+    form:
+      required: false
+      primary: true
+      multiple: true
+      type: text
   is_format_of:
     type: string
     predicate: http://purl.org/dc/terms/isFormatOf
