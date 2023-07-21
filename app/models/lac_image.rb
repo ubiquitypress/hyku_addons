@@ -2,6 +2,9 @@
 class LacImage < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
 
+  # Adds behaviors for DataCite DOIs via hyrax-doi plugin.
+  include Hyrax::DOI::DataCiteDOIBehavior
+
   include HykuAddons::Schema::WorkBase
   include Hyrax::Schema(:lac_image)
   # This must be included at the end, because it finalizes the metadata
@@ -11,4 +14,8 @@ class LacImage < ActiveFedora::Base
   self.indexer = LacImageIndexer
 
   validates :title, presence: { message: "Your work must have a title." }
+
+  def doi_registrar_opts
+    {}
+  end
 end

@@ -2,6 +2,8 @@
 
 module Hyrax
   class UngImageForm < Hyrax::Forms::WorkForm
+    include Hyrax::DOI::DataCiteDOIFormBehavior
+
     include ::HykuAddons::Schema::WorkForm
     include Hyrax::FormFields(:ung_image)
 

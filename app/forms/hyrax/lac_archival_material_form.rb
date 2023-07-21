@@ -2,6 +2,8 @@
 
 module Hyrax
   class LacArchivalMaterialForm < Hyrax::Forms::WorkForm
+    include Hyrax::DOI::DataCiteDOIFormBehavior
+
     include ::HykuAddons::Schema::WorkForm
     include Hyrax::FormFields(:lac_archival_material)
 

@@ -2,6 +2,8 @@
 
 module Hyrax
   class LacTimeBasedMediaForm < Hyrax::Forms::WorkForm
+    include Hyrax::DOI::DataCiteDOIFormBehavior
+
     include ::HykuAddons::Schema::WorkForm
     include Hyrax::FormFields(:lac_time_based_media)
 
