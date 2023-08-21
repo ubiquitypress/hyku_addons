@@ -41,7 +41,13 @@ module HykuAddons
           :bulkrax_validations, :google_analytics_id, :gds_reports,
           google_scholarly_work_types: [], email_format: [], weekly_email_list: [], monthly_email_list: [],
           yearly_email_list: [], smtp_settings: HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields,
-          hyrax_orcid_settings: [:client_id, :client_secret, :auth_redirect, :environment]
+          hyrax_orcid_settings: [:client_id, :client_secret, :auth_redirect, :environment],
+          crossref_hyku_mappings: [:book_section, :monograph, :report_component, :report, :peer_review, :book_track,
+                                   :journal_article, :book_part, :other, :book, :journal_volume, :book_set,
+                                   :reference_entry, :proceedings_article, :journal, :component, :book_chapter,
+                                   :proceedings_series, :report_series, :proceedings, :database, :standard,
+                                   :reference_book, :posted_content, :journal_issue, :dissertation, :grant, :dataset,
+                                   :book_series, :edited_book, :default]
         ]
       )
     end

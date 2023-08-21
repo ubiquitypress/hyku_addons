@@ -30,6 +30,12 @@
     </div>
   <% end %>
 
+  <% HykuAddons::AccountBehavior::HASH_DROPDOWN_SETTINGS.each do |settings_hash_key| %>
+    <div class="col-12">
+      <%= render "hyku_addons/account_settings/settings/hash_dropdown_settings_content", options: Site.instance.available_works, field_name: settings_hash_key, html_name_element: settings_hash_key, f: f, display_save_button: false %>
+    </div>
+  <% end %>
+
   <% HykuAddons::AccountBehavior::BOOLEAN_SETTINGS.each do |fname| %>
     <div class="col-12">
       <%= render "hyku_addons/account_settings/settings/boolean_field_content", field_name: fname, f: f, display_save_button: false %>

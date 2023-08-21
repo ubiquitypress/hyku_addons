@@ -9,6 +9,7 @@ module HykuAddons
     ARRAY_SETTINGS = %w[weekly_email_list monthly_email_list yearly_email_list email_format].freeze
     BOOLEAN_SETTINGS = %w[allow_signup shared_login bulkrax_validations].freeze
     HASH_SETTINGS = %w[smtp_settings hyrax_orcid_settings].freeze
+    HASH_DROPDOWN_SETTINGS = %w[crossref_hyku_mappings].freeze
     TEXT_SETTINGS = %w[contact_email gtm_id oai_admin_email oai_prefix oai_sample_identifier google_analytics_id].freeze
     TEXT_AREA_SETTINGS = %w[gds_reports].freeze
 
@@ -34,7 +35,7 @@ module HykuAddons
                      :google_scholarly_work_types, :gtm_id, :shared_login, :email_format,
                      :allow_signup, :oai_admin_email, :file_size_limit, :enable_oai_metadata, :oai_prefix,
                      :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id, :smtp_settings,
-                     :hyrax_orcid_settings, :gds_reports
+                     :hyrax_orcid_settings, :crossref_hyku_mappings, :gds_reports
 
       after_initialize :initialize_settings
 
@@ -147,6 +148,20 @@ module HykuAddons
       set_jsonb_allow_signup_default
       set_smtp_settings
       set_hyrax_orcid_settings
+      set_crossref_hyku_mappings
+    end
+
+    def set_crossref_hyku_mappings
+      default_mappings = { "book_section" => "", "monograph" => "", "report_component" => "", "report" => "",
+                           "peer_review" => "", "book_track" => "", "journal_article" => "", "book_part" => "",
+                           "other" => "", "book" => "", "journal_volume" => "", "book_set" => "", "reference_entry" => "",
+                           "proceedings_article" => "", "journal" => "", "component" => "", "book_chapter" => "",
+                           "proceedings_series" => "", "report_series" => "", "proceedings" => "", "database" => "",
+                           "standard" => "", "reference_book" => "", "posted_content" => "", "journal_issue" => "",
+                           "dissertation" => "", "grant" => "", "dataset" => "", "book_series" => "", "edited_book" => "",
+                           "default" => "" }
+
+      self.crossref_hyku_mappings = default_mappings.merge(crossref_hyku_mappings || {})
     end
 
     def set_jsonb_allow_signup_default
