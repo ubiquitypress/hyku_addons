@@ -41,6 +41,12 @@ RSpec.describe "AccountSettings", type: :system do
       expect(page).to have_http_status(:ok)
       expect(page).to have_css("label", text: "Smtp settings")
     end
+
+    it "can display hash dropdown fields for edit" do
+      visit hyku_addons.edit_admin_account_setting_url(id: account, partial_name: "render_hash_dropdown_settings", field_name: "crossref_hyku_mappings")
+      expect(page).to have_http_status(:ok)
+      expect(page).to have_css("label", text: "Crossref hyku mappings")
+    end
   end
 
   describe "Single settings key" do
