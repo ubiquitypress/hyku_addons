@@ -4,34 +4,11 @@
 module Hyrax
   # Generated form for DenverMap
   class DenverMapForm < Hyrax::Forms::WorkForm
-    include ::HykuAddons::WorkForm
-    self.model_class = ::DenverMap
-    add_terms %i[title alt_title resource_type creator abstract keyword subject_text
-                 org_unit date_published alternate_identifier related_identifier
-                 publisher place_of_publication event_title event_location license
-                 rights_holder rights_statement contributor extent language location
-                 longitude latitude georeferenced time add_info]
-    self.terms -= %i[related_url source subject]
-    self.required_fields = %i[title creator resource_type]
-
-    include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
-    def primary_terms
-      %i[title alt_title resource_type creator] | super
-    end
+    include ::HykuAddons::Schema::WorkForm
+    include Hyrax::FormFields(:denver_map)
 
-    def self.build_permitted_params
-      super.tap do |permitted_params|
-        permitted_params << common_fields
-        permitted_params << [:title, :alt_title, :resource_type, :creator, :abstract,
-                             :keyword, :subject_text, :org_unit, :date_published,
-                             :alternate_identifier, :related_identifier, :publisher,
-                             :place_of_publication, :event_title, :event_location,
-                             :license, :rights_holder, :rights_statement, :contributor,
-                             :extent, :language, :location, :longitude, :latitude,
-                             :georeferenced, :time, :add_info]
-      end
-    end
+    self.model_class = ::DenverMap
   end
 end

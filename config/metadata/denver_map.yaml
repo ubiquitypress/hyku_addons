@@ -1,0 +1,579 @@
+attributes:
+  title:
+    type: string
+    predicate: http://purl.org/dc/terms/title
+    multiple: true
+    index_keys:
+      - title_tesim
+      - title_sim
+    form:
+      required: true
+      primary: true
+      multiple: true
+      type: text
+      input: single_multi_value
+  alt_title:
+    type: string
+    predicate: http://purl.org/dc/terms/alternative
+    multiple: true
+    index_keys:
+      - alt_title_tesim
+    form:
+      required: false
+      primary: true
+      multiple: true
+      type: text
+  resource_type:
+    predicate: http://purl.org/dc/terms/type
+    multiple: true
+    index_keys:
+      - resource_type_tesim
+      - resource_type_sim
+    form:
+      required: true
+      primary: true
+      multiple: true
+      type: select
+      authority: HykuAddons::ResourceTypesService
+      include_blank: true
+      input: single_multi_value_select
+  creator:
+    predicate: http://purl.org/dc/elements/1.1/creator
+    multiple: true
+    index_keys:
+      - creator_tesim
+    form:
+      required: true
+      primary: true
+      multiple: true
+      type: text
+    subfields:
+      creator_name_type:
+        type: string
+        form:
+          required: true
+          multiple: false
+          type: select
+          authority: HykuAddons::NameTypeService
+      creator_family_name:
+        type: string
+        form:
+          required: true
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+      creator_given_name:
+        type: string
+        form:
+          required: true
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+      creator_middle_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+      creator_suffix:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+      creator_institution:
+        type: string
+        form:
+          required: false
+          multiple: true
+          type: text
+          display_for:
+            - Personal
+        multiple: true
+      creator_role:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::RoleService
+          include_blank: true
+          display_for:
+            - Personal
+        multiple: true
+      creator_orcid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+      creator_institutional_email:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+      creator_institutional_relationship:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::InstitutionalRelationshipService
+          attributes:
+            multiple: multiple
+          display_for:
+            - Personal
+      creator_organization_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Organizational
+      creator_ror:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Organizational
+      creator_grid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Organizational
+      creator_wikidata:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Organizational
+      creator_isni:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+            - Organizational
+  doi:
+    type: string
+    predicate: http://purl.org/ontology/bibo/doi
+    multiple: false
+    index_keys:
+      - doi_ssi
+    form:
+      required: false
+      primary: true
+      multiple: false
+      type: text
+  abstract:
+    type: text
+    predicate: http://purl.org/dc/terms/abstract
+    multiple: false
+    index_keys:
+      - abstract_tesim
+    form:
+      required: false
+      primary: true
+      multiple: false
+      type: textarea
+  keyword:
+    predicate: http://purl.org/dc/elements/1.1/relation
+    multiple: true
+    index_keys:
+      - keyword_tesim
+    form:
+      required: false
+      primary: true
+      multiple: true
+      type: text
+  institution:
+    type: string
+    predicate: http://www.w3.org/ns/org#organization
+    multiple: true
+    index_keys:
+      - institution_tesim
+      - institution_sim
+    form:
+      required: false
+      primary: true
+      multiple: true
+      type: select
+      authority: HykuAddons::InstitutionService
+  date_published:
+    type: string
+    predicate: http://purl.org/dc/terms/available
+    multiple: false
+    index_keys:
+      - date_published_tesim
+    form:
+      required: false
+      primary: true
+      multiple: false
+      type: date
+  library_of_congress_subject_headings_text:
+    type: string
+    predicate: https://id.loc.gov/ontologies/bibframe.html#c_ClassificationLcc
+    multiple: true
+    index_keys:
+      - library_of_congress_subject_headings_text_tesim
+      - library_of_congress_subject_headings_text_sim
+    form:
+      required: false
+      primary: true
+      multiple: true
+      type: text
+  org_unit:
+    type: string
+    predicate: http://www.w3.org/ns/org#OrganizationalUnit
+    multiple: true
+    index_keys:
+      - org_unit_tesim
+      - org_unit_sim
+    form:
+      required: false
+      primary: true
+      multiple: true
+      type: text
+  license:
+    predicate: http://purl.org/dc/terms/rights
+    multiple: true
+    index_keys:
+      - license_tesim
+    form:
+      required: false
+      primary: true
+      multiple: true
+      type: select
+      authority: HykuAddons::LicenseService
+  alternate_identifier:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/Local
+    multiple: true
+    index_keys:
+      - alternate_identifier_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+    subfields:
+      alternate_identifier:
+        type: string
+        form:
+          multiple: false
+          required: false
+          type: text
+      alternate_identifier_type:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+  related_identifier:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/identifiedBy
+    multiple: true
+    index_keys:
+      - related_identifier_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+    subfields:
+      related_identifier:
+        type: string
+        form:
+          multiple: false
+          required: false
+          type: text
+      related_identifier_type:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::RelatedIdentifierTypeService
+          include_blank: true
+      relation_type:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::RelationTypeService
+          include_blank: true
+  publisher:
+    predicate: http://purl.org/dc/elements/1.1/publisher
+    multiple: true
+    index_keys:
+      - publisher_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+  place_of_publication:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/Place
+    multiple: true
+    index_keys:
+      - place_of_publication_tesim
+      - place_of_publication_sim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+  event_title:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/Event
+    multiple: true
+    index_keys:
+      - event_title_tesim
+      - event_title_sim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+  georeferenced:
+    predicate: http://ogp.me/ns/class#boolean_str
+    multiple: false
+    index_keys:
+      - georeferenced_tesim
+    form:
+      required: false
+      primary: true
+      multiple: false
+      type: select
+      authority: HykuAddons::GeoreferencedService
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+  rights_holder:
+    type: string
+    predicate: http://purl.org/dc/terms/rightsHolder
+    multiple: true
+    index_keys:
+      - rights_holder_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+  rights_statement:
+    predicate: http://www.europeana.eu/schemas/edm/rights
+    multiple: false
+    index_keys:
+      - rights_statement_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: select
+      authority: HykuAddons::RightsStatementService
+  contributor:
+    predicate: http://purl.org/dc/elements/1.1/contributor
+    multiple: true
+    index_keys:
+      - contributor_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+    subfields:
+      contributor_name_type:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::NameTypeService
+      contributor_family_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+      contributor_given_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+      contributor_orcid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+      contributor_institutional_relationship:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: select
+          authority: HykuAddons::ContributorInstitutionalRelationshipService
+          attributes:
+            multiple: multiple
+          display_for:
+            - Personal
+      contributor_organization_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Organizational
+      contributor_ror:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Organizational
+      contributor_grid:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Organizational
+      contributor_wikidata:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Organizational
+      contributor_isni:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+            - Organizational
+      contributor_role:
+        type: string
+        form:
+          required: false
+          multiple: true
+          type: select
+          authority: HykuAddons::RoleService
+          display_for:
+            - Personal
+            - Organizational
+  extent:
+    type: string
+    predicate: http://purl.org/dc/terms/extent
+    multiple: false
+    index_keys:
+      - extent_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: text
+  language:
+    predicate: http://purl.org/dc/elements/1.1/language
+    multiple: true
+    index_keys:
+      - language_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: select
+      authority: HykuAddons::LanguageService
+  longitude:
+    type: string
+    predicate: http://schema.org/longitude
+    multiple: false
+    index_keys:
+      - longitude_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: text
+  latitude:
+    type: string
+    predicate: http://schema.org/latitude
+    multiple: false
+    index_keys:
+      - latitude_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: text
+  georeferenced:
+    predicate: http://ogp.me/ns/class#boolean_str
+    multiple: false
+    index_keys:
+      - georeferenced_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: select
+      authority: HykuAddons::GeoreferencedService
+  time:
+    type: string
+    predicate: http://purl.org/dc/terms/temporal
+    multiple: false
+    index_keys:
+      - time_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: text
+  add_info:
+    type: string
+    predicate: http://purl.org/ontology/bibo/Note
+    multiple: false
+    index_keys:
+      - add_info_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: textarea
