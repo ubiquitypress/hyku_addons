@@ -358,22 +358,6 @@ attributes:
       primary: false
       multiple: true
       type: text
-  georeferenced:
-    predicate: http://ogp.me/ns/class#boolean_str
-    multiple: false
-    index_keys:
-      - georeferenced_tesim
-    form:
-      required: false
-      primary: true
-      multiple: false
-      type: select
-      authority: HykuAddons::GeoreferencedService
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: text
   rights_holder:
     type: string
     predicate: http://purl.org/dc/terms/rightsHolder

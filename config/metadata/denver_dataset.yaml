@@ -483,11 +483,6 @@ attributes:
       multiple: false
       type: select
       authority: HykuAddons::GeoreferencedService
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: text
   longitude:
     type: string
     predicate: http://schema.org/longitude
