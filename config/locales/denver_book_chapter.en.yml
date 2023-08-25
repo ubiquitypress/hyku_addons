@@ -6,3 +6,12 @@ en:
       denver_book_chapter:
         description:        "Denver book chapter works"
         name:               "Denver Book Chapter"
+  simple_form:
+    labels:
+      defaults:
+        alt_title: Other Title(s)
+        language: Language(s)
+        add_info: Additional Information
+        medium: Format(s)
+        license: Licensing
+        refereed: Peer-Reviewed?

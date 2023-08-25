@@ -105,13 +105,13 @@ en-DENVER:
         language: Language(s)
         subject_text: Subject
         add_info: Additional Information
-        georeferenced: Georeferenced?
-        location: Geolocate
+        georeferenced: Geolocate
+        location: Place of publication
         extent: Content Length or Size
         keyword: Keywords
         org_unit: Organisational Unit
         mesh: MeSH
-        refereed: Peer reviewed?
+        refereed: Peer-Reviewed?
         medium: Format(s)
         time: Coverage Span
         issn: ISSN

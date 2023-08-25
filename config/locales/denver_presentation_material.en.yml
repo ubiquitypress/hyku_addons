@@ -6,3 +6,11 @@ en:
       denver_presentation_material:
         description:        "Denver presentation material works"
         name:               "Denver Presentation Material"
+  simple_form:
+    labels:
+      defaults:
+        alt_title: Other Title(s)
+        language: Language(s)
+        add_info: Additional Information
+        license: Licensing
+        location: Place of publication

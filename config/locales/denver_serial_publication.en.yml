@@ -6,3 +6,14 @@ en:
       denver_serial_publication:
         description:        "Denver serial_publication works"
         name:               "Denver Serial Publication"
+  simple_form:
+    labels:
+      defaults:
+        alt_title: Other Title(s)
+        language: Language(s)
+        add_info: Additional Information
+        medium: Format(s)
+        extent: Content Length or Size
+        license: Licensing
+        georeferenced: Geolocate
+        refereed: Peer-Reviewed?
