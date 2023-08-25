@@ -6,3 +6,11 @@ en:
       denver_article:
         description:        "Denver article works"
         name:               "Denver Article"
+  simple_form:
+    labels:
+      defaults:
+        alt_title: Other Title(s)
+        language: Language(s)
+        add_info: Additional Information
+        license: Licensing
+        refereed: Peer-Reviewed?

@@ -6,3 +6,13 @@ en:
       denver_book:
         description:        "Denver book works"
         name:               "Denver Book"
+  simple_form:
+    labels:
+      defaults:
+        alt_title: Other Title(s)
+        language: Language(s)
+        add_info: Additional Information
+        medium: Format(s)
+        extent: Content Length or Size
+        licence: Licensing
+        refereed: Peer-Reviewed?

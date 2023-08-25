@@ -6,3 +6,13 @@ en:
       denver_dataset:
         description:        "Denver dataset works"
         name:               "Denver Dataset"
+  simple_form:
+    labels:
+      defaults:
+        alt_title: Other Title(s)
+        language: Language(s)
+        add_info: Additional Information
+        medium: Format(s)
+        extent: Content Length or Size
+        license: Licensing
+        georeferenced: Geolocate
