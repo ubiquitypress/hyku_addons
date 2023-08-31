@@ -3,15 +3,8 @@
 #  `rails generate hyrax:work DenverImage`
 module Hyrax
   class DenverImagePresenter < Hyrax::WorkShowPresenter
+    include ::HykuAddons::Schema::Presenter(:denver_image)
     include ::HykuAddons::WorkPresenterBehavior
-
-    def self.delegated_methods
-      %i[title alt_title resource_type creator abstract keyword subject org_unit
-         date_published alternate_identifier related_identifier related_exhibition
-         related_exhibition_venue related_exhibition_date license rights_holder
-         rights_statement contributor extent language location longitude latitude
-         georeferenced add_info].freeze
-    end
     include ::HykuAddons::PresenterDelegatable
   end
 end

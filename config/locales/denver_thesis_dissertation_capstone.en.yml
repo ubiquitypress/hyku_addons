@@ -6,3 +6,12 @@ en:
       denver_thesis_dissertation_capstone:
         description:        "Denver thesis dissertation capstone works"
         name:               "Denver Thesis Dissertation Capstone"
+  simple_form:
+    labels:
+      defaults:
+        alt_title: Other Title(s)
+        language: Language(s)
+        add_info: Additional Information
+        medium: Format(s)
+        extent: Content Length or Size
+        license: Licensing
