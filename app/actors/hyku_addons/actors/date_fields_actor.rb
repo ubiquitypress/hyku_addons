@@ -3,9 +3,7 @@ module HykuAddons
   module Actors
     class DateFieldsActor < Hyrax::Actors::AbstractActor
       def create(env)
-        puts "LOG_CREATE_AT_DateFieldsActor_BEFORE_serialize_date_fields #{env.inspect}"
         serialize_date_fields(env) && next_actor.create(env)
-        
       end
 
       def update(env)
@@ -15,16 +13,11 @@ module HykuAddons
       private
 
       def serialize_date_fields(env)
-        puts "LOG_serialize_date_fields_AT_DateFieldsActor_Line_18 #{env.inspect}"
         env.curation_concern.class.date_fields.each do |field|
-          puts "LOG_serialize_date_fields_AT_DateFieldsActor_Line_20_field #{field.inspect}"
           next if env.attributes[field].blank?
 
           env.attributes[field] = Array(env.attributes[field]).collect { |date_hash| transform_date(date_hash, field) }
-          puts "LOG_serialize_date_fields_AT_DateFieldsActor_Line_24_env #{env.inspect}"
           env.attributes[field] = env.attributes[field].first unless env.curation_concern.class.multiple?(field)
-          puts "LOG_serialize_date_fields_AT_DateFieldsActor_Line_26_env_attributes_field #{env.attributes[field].inspect}"
-          puts "LOG_serialize_date_fields_AT_DateFieldsActor_Line_27_env #{env.inspect}"
         end
       end
 
