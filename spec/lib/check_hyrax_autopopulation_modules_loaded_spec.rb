@@ -33,6 +33,12 @@ RSpec.describe "Hyrax-autopopulation " do
           }
         end
 
+        let(:crossref_types) do
+          {
+            types: [%w[resourceType journalArticle]]
+          }
+        end
+
         let(:crossref_response) { File.read(Hyrax::Autopopulation::Engine.root.join("spec", "fixtures", "crossref_10.1117_12.2004063.json")) }
 
         let(:metadata_class) do
@@ -43,6 +49,7 @@ RSpec.describe "Hyrax-autopopulation " do
 
         let(:metadata) { metadata_class.new(input: crossref_response) }
         let(:transformed_data) { metadata.build_work_actor_attributes }
+        let(:crossref_types_data) { metadata.build_crossref_types }
 
         it "returns :title in format needed by JSonFieldsActors" do
           expect(transformed_data[:title]).to eq attributes[:title]
@@ -58,6 +65,10 @@ RSpec.describe "Hyrax-autopopulation " do
 
         it "returns :autopopulation_status in format needed JSonFieldsActors" do
           expect(transformed_data[:autopopulation_status]).to eq attributes[:autopopulation_status]
+        end
+
+        it "returns :types in format needed by JSonFieldsActors" do
+          expect(transformed_data[:types]).to eq attributes[:types]
         end
       end
     end
