@@ -1,0 +1,124 @@
+terms:
+ - id: Agriculture
+   term: Agriculture
+   active: true
+ - id: Anthropology
+   term: Anthropology
+   active: true  
+ - id: Archaeology
+   term: Archaeology
+   active: true
+ - id: Architecture and Design
+   term: Architecture and Design
+   active: true
+ - id: Astronomy
+   term: Astronomy
+   active: true
+ - id: Biology
+   term: Biology
+   active: true
+ - id: Business
+   term: Business
+   active: true
+ - id: Chemistry
+   term: Chemistry
+   active: true
+ - id: Computer Science
+   term: Computer Science
+   active: true
+ - id: Divinity
+   term: Divinity
+   active: true
+ - id: Earth Science
+   term: Earth Science
+   active: true
+ - id: Economics
+   term: Economics
+   active: true
+ - id: Education
+   term: Education
+   active: true
+ - id: Engineering and Technology
+   term: Engineering and Technology
+   active: true
+ - id: Environmental Studies and Forestry
+   term: Environmental Studies and Forestry
+   active: true
+ - id: Family and Consumer Science
+   term: Family and Consumer Science
+   active: true
+ - id: Geography
+   term: Geography
+   active: true
+ - id: History
+   term: History
+   active: true
+ - id: Human Physical Performance and Recreation
+   term: Human Physical Performance and Recreation
+   active: true
+ - id: Journalism, Media Studies and Communication
+   term: Journalism, Media Studies and Communication
+   active: true
+ - id: Languages and Literature
+   term: Languages and Literature
+   active: true
+ - id: Law
+   term: Law
+   active: true
+ - id: Library and Museum Studies
+   term: Library and Museum Studies
+   active: true
+ - id: Linguistics
+   term: Linguistics
+   active: true
+ - id: Mathematics
+   term: Mathematics
+   active: true
+ - id: Medicine and Health
+   term: Medicine and Health
+   active: true
+ - id: Military Science
+   term: Military Science
+   active: true
+ - id: Performing Arts
+   term: Performing Arts
+   active: true
+ - id: Philosophy
+   term: Philosophy
+   active: true
+ - id: Physics
+   term: Physics
+   active: true
+ - id: Political Science
+   term: Political Science
+   active: true
+ - id: Psychology
+   term: Psychology
+   active: true
+ - id: Public Administration
+   term: Public Administration
+   active: true
+ - id: Public Policy
+   term: Public Policy
+   active: true
+ - id: Religious Studies
+   term: Religious Studies
+   active: true
+ - id: Social Work
+   term: Social Work
+   active: true
+ - id: Sociology
+   term: Sociology
+   active: true
+ - id: Theology
+   term: Theology
+   active: true
+ - id: Transportation
+   term: Transportation
+   active: true
+ - id: Visual Arts
+   term: Visual Arts
+   active: true
+ - id: Other
+   term: Other
+   active: true
