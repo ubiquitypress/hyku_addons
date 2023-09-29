@@ -6,12 +6,12 @@ class DenverSerialPublication < ActiveFedora::Base
   include Hyrax::DOI::DataCiteDOIBehavior
 
   include HykuAddons::Schema::WorkBase
-  include Hyrax::Schema(:denver_presentation_material)
+  include Hyrax::Schema(:denver_serial_publication)
 
   # Included after other field definitions
   include Hyrax::BasicMetadata
 
-  self.indexer = DenverPresentationMaterialIndexer
+  self.indexer = DenverSerialPublicationIndexer
 
   validates :title, presence: { message: "Your work must have a title." }
   def doi_registrar_opts
