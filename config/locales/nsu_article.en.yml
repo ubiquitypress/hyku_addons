@@ -6,3 +6,7 @@ en:
       nsu_article:
         description:        "NSU Article works"
         name:               "Article"
+  simple_form:
+    labels:
+      defaults:
+        refereed: Peer-Reviewed?
