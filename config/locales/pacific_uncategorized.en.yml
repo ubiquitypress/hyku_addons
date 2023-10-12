@@ -6,3 +6,7 @@ en:
       pacific_uncategorized:
         description:        "Anything"
         name:               "Uncategorized"
+  simple_form:
+    labels:
+      defaults:
+        refereed: Peer-Reviewed?

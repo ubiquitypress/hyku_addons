@@ -2,14 +2,8 @@
 
 module Hyrax
   class PacificUncategorizedPresenter < Hyrax::WorkShowPresenter
+    include ::HykuAddons::Schema::Presenter(:pacific_uncategorized)
     include ::HykuAddons::WorkPresenterBehavior
-
-    def self.delegated_methods
-      %i[title alt_title resource_type creator contributor abstract page_display_order_number official_link
-         date_published duration version_number pagination is_included_in volume_number issue journal_title publisher isbn
-         issn additional_links rights_holder license location doi degree org_unit subject keyword refereed irb_status
-         irb_number add_info].freeze
-    end
     include ::HykuAddons::PresenterDelegatable
   end
 end
