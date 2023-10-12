@@ -376,17 +376,6 @@ attributes:
       primary: false
       multiple: false
       type: text
-  volume:
-    type: string
-    predicate: http://purl.org/ontology/bibo/volume
-    multiple: false
-    index_keys:
-      - volume_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-      type: text
   publisher:
     predicate: http://purl.org/dc/elements/1.1/publisher
     multiple: true
@@ -396,17 +385,6 @@ attributes:
       required: false
       primary: false
       multiple: true
-      type: text
-  issn:
-    type: string
-    predicate: http://purl.org/ontology/bibo/issn
-    multiple: false
-    index_keys:
-      - issn_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
       type: text
   additional_links:
     type: string
@@ -441,6 +419,18 @@ attributes:
       multiple: true
       type: select
       authority: HykuAddons::LicenseService
+  degree:
+    type: string
+    predicate: http://schema.org/evidenceLevel
+    multiple: false
+    index_keys:
+      - degree_tesim
+      - degree_sim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: text
   subject:
     predicate: http://purl.org/dc/elements/1.1/subject
     multiple: true
@@ -462,18 +452,6 @@ attributes:
       primary: false
       multiple: true
       type: text
-  refereed:
-    type: string
-    predicate: http://purl.org/ontology/bibo/status/peerReviewed
-    multiple: false
-    index_keys:
-      - refereed_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-      type: select
-      authority: HykuAddons::RefereedService
   add_info:
     type: string
     predicate: http://purl.org/ontology/bibo/Note
