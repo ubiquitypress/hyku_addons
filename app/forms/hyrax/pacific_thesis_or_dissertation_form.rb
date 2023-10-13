@@ -4,25 +4,11 @@
 module Hyrax
   # Generated form for PacificThesisOrDissertation
   class PacificThesisOrDissertationForm < Hyrax::Forms::WorkForm
-    include ::HykuAddons::WorkForm
-
-    self.model_class = ::PacificThesisOrDissertation
-    add_terms %i[title alt_title resource_type creator contributor abstract date_published
-                 pagination is_included_in publisher additional_links
-                 rights_holder license degree org_unit official_link subject keyword add_info]
-
-    self.required_fields = %i[title resource_type creator abstract org_unit]
-    self.terms -= %i[language rights_statement]
-    include Hyrax::DOI::DOIFormBehavior
     include Hyrax::DOI::DataCiteDOIFormBehavior
 
-    def self.build_permitted_params
-      super.tap do |permitted_params|
-        permitted_params << common_fields
-        permitted_params << [:alt_title, :creator, :contributor, :date_published,
-                             :pagination, :is_included_in, :publisher, :additional_links,
-                             :degree, :org_unit, :subject, :keyword]
-      end
-    end
+    include ::HykuAddons::Schema::WorkForm
+    include Hyrax::FormFields(:pacific_thesis_or_dissertation)
+
+    self.model_class = ::PacificThesisOrDissertation
   end
 end

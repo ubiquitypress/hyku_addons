@@ -6,3 +6,7 @@ en:
       pacific_article:
         description:        "A short, scholarly work, usually published in a journal"
         name:               "Article"
+  simple_form:
+    labels:
+      defaults:
+        refereed: Peer-Reviewed?
