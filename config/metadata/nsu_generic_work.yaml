@@ -211,7 +211,7 @@ attributes:
     index_keys:
       - subject_tesim
     form:
-      required: false
+      required: true
       primary: true
       multiple: true
       type: select
