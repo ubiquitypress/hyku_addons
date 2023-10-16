@@ -261,17 +261,17 @@ attributes:
       primary: true
       multiple: false
       type: text
-  date_published_text:
+  date_published:
     type: string
-    predicate: http://purl.org/dc/terms/date
+    predicate: http://purl.org/dc/terms/available
     multiple: false
     index_keys:
-      - date_published_text_tesim
+      - date_published_tesim
     form:
       required: true
       primary: true
       multiple: false
-      type: text
+      type: date
   journal_title:
     type: string
     predicate: http://purl.org/ontology/bibo/Journal

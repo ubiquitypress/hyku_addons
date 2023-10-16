@@ -245,23 +245,11 @@ attributes:
     index_keys:
       - license_tesim
     form:
-      required: true
+      required: false
       primary: true
       multiple: true
       type: select
       authority: HykuAddons::LicenseService
-  place_of_publication:
-    type: string
-    predicate: http://id.loc.gov/ontologies/bibframe/Place
-    multiple: true
-    index_keys:
-      - place_of_publication_tesim
-      - place_of_publication_sim
-    form:
-      required: true
-      primary: true
-      multiple: true
-      type: text
   date_published:
     type: string
     predicate: http://purl.org/dc/terms/available
@@ -273,6 +261,17 @@ attributes:
       primary: true
       multiple: false
       type: date
+  event_location:
+    type: string
+    predicate: http://bibframe.org/vocab/eventPlace
+    multiple: true
+    index_keys:
+      - event_location_tesim
+    form:
+      required: true
+      primary: true
+      multiple: true
+      type: text
   doi:
     type: string
     predicate: http://purl.org/ontology/bibo/doi
@@ -399,6 +398,18 @@ attributes:
           display_for:
             - Personal
             - Organizational
+  place_of_publication:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/Place
+    multiple: true
+    index_keys:
+      - place_of_publication_tesim
+      - place_of_publication_sim
+    form:
+      required: false
+      primary: true
+      multiple: true
+      type: text
   longitude:
     type: string
     predicate: http://schema.org/longitude

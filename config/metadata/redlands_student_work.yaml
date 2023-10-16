@@ -406,7 +406,7 @@ attributes:
       - place_of_publication_tesim
       - place_of_publication_sim
     form:
-      required: true
+      required: false
       primary: false
       multiple: true
       type: text

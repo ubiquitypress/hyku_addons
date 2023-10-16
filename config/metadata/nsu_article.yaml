@@ -9,20 +9,9 @@ attributes:
     form:
       required: true
       primary: true
-      multiple: true
-      type: text
-      input: single_multi_value
-  alt_title:
-    type: string
-    predicate: http://purl.org/dc/terms/alternative
-    multiple: false
-    index_keys:
-      - alt_title_tesim
-    form:
-      required: false
-      primary: true
       multiple: false
       type: text
+      input: single_multi_value
   resource_type:
     predicate: http://purl.org/dc/terms/type
     multiple: true
@@ -211,7 +200,7 @@ attributes:
     index_keys:
       - subject_tesim
     form:
-      required: false
+      required: true
       primary: true
       multiple: true
       type: select
@@ -261,17 +250,6 @@ attributes:
     form:
       required: false
       primary: true
-      multiple: true
-      type: text
-  committee_member:
-    type: string
-    predicate: https://www.w3.org/ns/activitystreams#Person
-    multiple: true
-    index_keys:
-      - committee_member_tesim
-    form:
-      required: false
-      primary: false
       multiple: true
       type: text
   org_unit:
