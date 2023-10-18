@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class UnaExhibitionIndexer < Hyrax::WorkIndexer
+  include Hyrax::Indexer(:una_exhibition)
+
   # This indexes the default metadata. You can remove it if you want to
   # provide your own metadata and indexing.
   include Hyrax::IndexesBasicMetadata
