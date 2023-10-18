@@ -5,4 +5,4 @@ en:
     select_type:
       redlands_article:
         description:        "Short works published in journals, magazines, or newspapers"
-        name:               "Article"
+        name:               "Redlands Article"

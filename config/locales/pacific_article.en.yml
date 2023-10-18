@@ -5,7 +5,7 @@ en:
     select_type:
       pacific_article:
         description:        "A short, scholarly work, usually published in a journal"
-        name:               "Article"
+        name:               "Pacific Article"
   simple_form:
     labels:
       defaults:

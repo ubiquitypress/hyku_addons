@@ -5,4 +5,4 @@ it:
     select_type:
       pacific_news_clipping:
         description:        "News clipping opere"
-        name:               "News Clipping"
+        name:               "Pacific News Clipping"

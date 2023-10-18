@@ -4,5 +4,5 @@ en:
       redlands_book:     'fa fa-file-text-o'
     select_type:
       redlands_book:
-        description:        ""
-        name:               "Book"
+        description:        "A written text published in printed or electronic form"
+        name:               "Redlands Book"

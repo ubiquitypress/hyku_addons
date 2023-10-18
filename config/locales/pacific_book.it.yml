@@ -5,4 +5,4 @@ it:
     select_type:
       pacific_book:
         description:        "Book opere"
-        name:               "Book"
+        name:               "Pacific Book"

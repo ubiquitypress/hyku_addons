@@ -5,4 +5,4 @@ it:
     select_type:
       pacific_article:
         description:        "Article opere"
-        name:               "Article"
+        name:               "Pacific Article"

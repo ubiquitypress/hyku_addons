@@ -4,8 +4,8 @@ en:
       nsu_generic_work:     'fa fa-file-text-o'
     select_type:
       nsu_generic_work:
-        description:        "NSU Generic works"
-        name:               "Generic Work"
+        description:        "Nsu Generic works"
+        name:               "Nsu Generic Work"
   simple_form:
     labels:
       defaults:
