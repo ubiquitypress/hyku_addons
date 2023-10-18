@@ -6,5 +6,5 @@ es:
       pacific_uncategorized:
         # TODO: translate `human_name` into Spanish
         description:        "Uncategorized trabajos"
-        name:               "Uncategorized"
+        name:               "Pacific Uncategorized"
         # TODO: translate `human_name` into Spanish

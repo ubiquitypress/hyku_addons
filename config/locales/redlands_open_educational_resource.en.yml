@@ -5,4 +5,4 @@ en:
     select_type:
       redlands_open_educational_resource:
         description:        "Textbooks, lectures, labs, and other teaching resources"
-        name:               "Open Educational Resource"
+        name:               "Redlands Open Educational Resource"

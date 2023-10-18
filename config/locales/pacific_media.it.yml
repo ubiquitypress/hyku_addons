@@ -5,4 +5,4 @@ it:
     select_type:
       pacific_media:
         description:        "Media opere"
-        name:               "Media"
+        name:               "Pacific Media"

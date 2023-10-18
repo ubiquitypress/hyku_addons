@@ -5,7 +5,7 @@ en:
     select_type:
       pacific_uncategorized:
         description:        "Anything"
-        name:               "Uncategorized"
+        name:               "Pacific Uncategorized"
   simple_form:
     labels:
       defaults:

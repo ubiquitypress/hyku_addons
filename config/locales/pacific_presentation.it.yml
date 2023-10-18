@@ -5,4 +5,4 @@ it:
     select_type:
       pacific_presentation:
         description:        "Presentation opere"
-        name:               "Presentation"
+        name:               "Pacific Presentation"

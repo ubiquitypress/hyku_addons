@@ -5,4 +5,4 @@ en:
     select_type:
       redlands_student_work:
         description:        "Theses and dissertations"
-        name:               "Student Work"
+        name:               "Redlands Student Work"

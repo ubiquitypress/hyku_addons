@@ -5,4 +5,4 @@ en:
     select_type:
       pacific_image:
         description:        "An Image work"
-        name:               "Image"
+        name:               "Pacific Image"

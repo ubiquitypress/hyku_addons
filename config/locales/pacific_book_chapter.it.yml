@@ -5,4 +5,4 @@ it:
     select_type:
       pacific_book_chapter:
         description:        "Book chapter opere"
-        name:               "Book Chapter"
+        name:               "Pacific Book Chapter"

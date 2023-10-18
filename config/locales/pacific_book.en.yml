@@ -5,4 +5,4 @@ en:
     select_type:
       pacific_book:
         description:        "A written text published in printed or electronic form"
-        name:               "Book"
+        name:               "Pacific Book"

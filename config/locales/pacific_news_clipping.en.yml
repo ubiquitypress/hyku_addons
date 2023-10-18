@@ -5,4 +5,4 @@ en:
     select_type:
       pacific_news_clipping:
         description:        "A News clipping work"
-        name:               "News Clipping"
+        name:               "Pacific News Clipping"
