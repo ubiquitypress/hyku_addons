@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class UnaChaptersAndBookSectionIndexer < Hyrax::WorkIndexer
+  include Hyrax::Indexer(:una_chapters_and_book_section)
+
   # This indexes the default metadata. You can remove it if you want to
   # provide your own metadata and indexing.
   include Hyrax::IndexesBasicMetadata
