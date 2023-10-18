@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class UnaImageIndexer < Hyrax::WorkIndexer
+  include Hyrax::Indexer(:una_image)
+
   # This indexes the default metadata. You can remove it if you want to
   # provide your own metadata and indexing.
   include Hyrax::IndexesBasicMetadata
