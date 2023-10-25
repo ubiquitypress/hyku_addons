@@ -185,6 +185,18 @@ attributes:
       primary: true
       multiple: true
       type: text
+  refereed:
+    type: string
+    predicate: http://purl.org/ontology/bibo/status/peerReviewed
+    multiple: false
+    index_keys:
+      - refereed_tesim
+    form:
+      required: true
+      primary: true
+      multiple: false
+      type: select
+      authority: HykuAddons::RefereedService
   doi:
     type: string
     predicate: http://purl.org/ontology/bibo/doi
