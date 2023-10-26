@@ -7,7 +7,7 @@ en-REDLANDS:
       redlands_book:
         name: Book
         description: ""
-      redlands_chapters_and_book_section_chapter_book_setcions:
+      redlands_chapters_and_book_section:
         name: Chapters And Book Sections
         description: ""
       redlands_conferences_reports_and_paper:
