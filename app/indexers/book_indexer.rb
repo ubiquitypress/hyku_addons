@@ -2,6 +2,7 @@
 # Generated via
 #  `rails generate hyrax:work Book`
 class BookIndexer < Hyrax::WorkIndexer
+  include Hyrax::Indexer(:book)
   # This indexes the default metadata. You can remove it if you want to
   # provide your own metadata and indexing.
   include Hyrax::IndexesBasicMetadata
