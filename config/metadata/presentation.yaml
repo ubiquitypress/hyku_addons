@@ -66,12 +66,20 @@ attributes:
       creator_given_name:
         type: string
         form:
-          required: false
+          required: true
           multiple: false
           type: text
           display_for:
             - Personal
       creator_middle_name:
+        type: string
+        form:
+          required: false
+          multiple: false
+          type: text
+          display_for:
+            - Personal
+      creator_suffix:
         type: string
         form:
           required: false
@@ -87,12 +95,14 @@ attributes:
           type: text
           display_for:
             - Personal
-      creator_suffix:
+      creator_role:
         type: string
         form:
           required: false
-          multiple: false
-          type: text
+          multiple: true
+          type: select
+          authority: HykuAddons::RoleService
+          include_blank: true
           display_for:
             - Personal
       creator_orcid:
@@ -120,16 +130,6 @@ attributes:
           authority: HykuAddons::InstitutionalRelationshipService
           attributes:
             multiple: multiple
-          display_for:
-            - Personal
-      creator_role:
-        type: string
-        form:
-          required: false
-          multiple: false
-          type: select
-          authority: HykuAddons::RoleService
-          include_blank: true
           display_for:
             - Personal
       creator_organization_name:
@@ -173,6 +173,17 @@ attributes:
           display_for:
             - Personal
             - Organizational
+  date_published:
+    type: string
+    predicate: http://purl.org/dc/terms/available
+    multiple: false
+    index_keys:
+      - date_published_tesim
+    form:
+      required: false
+      primary: true
+      multiple: false
+      type: date
   institution:
     type: string
     predicate: http://www.w3.org/ns/org#organization
@@ -262,17 +273,6 @@ attributes:
       primary: true
       multiple: true
       type: text
-  date_published:
-    type: string
-    predicate: http://purl.org/dc/terms/available
-    multiple: false
-    index_keys:
-      - date_published_tesim
-    form:
-      required: false
-      primary: true
-      multiple: false
-      type: date
   doi:
     type: string
     predicate: http://purl.org/ontology/bibo/doi
@@ -281,10 +281,9 @@ attributes:
       - doi_ssi
     form:
       required: false
-      primary: false
+      primary: true
       multiple: true
       type: text
-      input: single_multi_value
   official_link:
     type: string
     predicate: http://schema.org/url
@@ -445,7 +444,6 @@ attributes:
       primary: false
       multiple: true
       type: text
-      input: single_multi_value
   event_location:
     type: string
     predicate: http://bibframe.org/vocab/eventPlace
@@ -457,7 +455,6 @@ attributes:
       primary: false
       multiple: true
       type: text
-      input: single_multi_value
   event_date:
     type: string
     predicate: http://bibframe.org/vocab/eventDate
