@@ -19,7 +19,7 @@
 <%= presenter.attribute_to_html(:series_name, html_dl: true) %>
 <%= presenter.attribute_to_html(:book_title, html_dl: true) %>
 <% if check_has_editor_fields?(presenter.model_name.to_s) %>
-  <%= presenter.attribute_to_html(:editor, render_as: :linked_name, values: presenter.editor_list, search_field: 'editor_display_ssim', html_dl: true) %>
+  <%= presenter.attribute_to_html(:editor, render_as: :linked_name, values: presenter.editor, search_field: 'editor_display_ssim', html_dl: true) %>
 <% end %>
 
 <%= presenter.attribute_to_html(:journal_title, html_dl: true) %>

@@ -1,35 +1,19 @@
 # frozen_string_literal: true
 
 class Dataset < ActiveFedora::Base
-  include ::Hyrax::WorkBehavior
-  include Hyrax::DOI::DOIBehavior
+  include Hyrax::WorkBehavior
   include Hyrax::DOI::DataCiteDOIBehavior
-  include ::HykuAddons::WorkBase
-  include ::HykuAddons::AltTitleMultiple
-  include ::HykuAddons::AddInfoSingular
-  include ::HykuAddons::FunderProjectRefMultiple
 
-  property :version, predicate: ::RDF::Vocab::SCHEMA.version do |index|
-    index.as :stored_searchable
-  end
+  include HykuAddons::Schema::WorkBase
+  include Hyrax::Schema(:dataset)
 
-  property :version_number, predicate: ::RDF::Vocab::SCHEMA.version do |index|
-    index.as :stored_searchable
-  end
+  # Included after other field definitions
+  include Hyrax::BasicMetadata
 
-  property :place_of_publication, predicate: ::RDF::Vocab::BF2.term(:Place) do |index|
-    index.as :stored_searchable, :facetable
-  end
-
-  property :refereed, predicate: ::RDF::Vocab::BIBO.term("status/peerReviewed"), multiple: false do |index|
-    index.as :stored_searchable
-  end
-
-  self.indexer = DatasetIndexer
+  self.indexer = ::DatasetIndexer
 
   validates :title, presence: { message: "Your work must have a title." }
-
-  # This must be included at the end, because it finalizes the metadata
-  # schema (by adding accepts_nested_attributes)
-  include ::Hyrax::BasicMetadata
+  def doi_registrar_opts
+    {}
+  end
 end

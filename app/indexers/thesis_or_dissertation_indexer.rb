@@ -2,6 +2,7 @@
 # Generated via
 #  `rails generate hyrax:work ThesisOrDissertation`
 class ThesisOrDissertationIndexer < Hyrax::WorkIndexer
+  include Hyrax::Indexer(:thesis_or_dissertation)
   # This indexes the default metadata. You can remove it if you want to
   # provide your own metadata and indexing.
   include Hyrax::IndexesBasicMetadata

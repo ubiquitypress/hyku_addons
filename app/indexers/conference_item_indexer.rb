@@ -2,6 +2,7 @@
 # Generated via
 #  `rails generate hyrax:work ConferenceItem`
 class ConferenceItemIndexer < Hyrax::WorkIndexer
+  include Hyrax::Indexer(:conference_item)
   # This indexes the default metadata. You can remove it if you want to
   # provide your own metadata and indexing.
   include Hyrax::IndexesBasicMetadata
