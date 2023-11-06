@@ -214,17 +214,15 @@ attributes:
       multiple: true
       type: text
   programming_language:
+    predicate: https://schema.org/programmingLanguage
+    multiple: true
+    index_keys:
+      - programming_language_tesim
     form:
       required: false
+      primary: true
       multiple: true
       type: text
-      authority: null
-      primary: true
-    type: text
-    index_keys: 
-      - programming_language_tesim
-    multiple: false
-    predicate: https://schema.org/programmingLanguage
   subject:
     predicate: http://purl.org/dc/elements/1.1/subject
     multiple: true
