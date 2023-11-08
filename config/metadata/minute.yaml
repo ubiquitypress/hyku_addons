@@ -59,7 +59,7 @@ attributes:
       primary: true
       multiple: true
       type: text
-  Attendees:
+  attendees:
     type: text
     predicate: https://schema.org/attendee
     multiple: false
