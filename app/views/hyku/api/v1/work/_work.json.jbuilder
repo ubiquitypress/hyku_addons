@@ -98,6 +98,10 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.journal_title work.try(:solr_document)&.to_h&.dig("journal_title_tesim")
   json.journal_frequency work.try(:solr_document)&.to_h&.dig("journal_frequency_tesim")
   json.keywords work.keyword
+  json.related_publication_citation work.try(:solr_document)&.to_h&.dig("related_publication_citation_tesim")
+  json.methodology_collection_method work.try(:solr_document)&.to_h&.dig("methodology_collection_method_tesim")
+  json.programming_language work.try(:solr_document)&.to_h&.dig("programming_language_tesim")
+  json.attendees work.try(:solr_document)&.to_h&.dig("attendees_tesim")
 
   if work.try(:solr_document)&.to_h&.dig("language_tesim").present?
     language_service = HykuAddons::LanguageService.new(locale: locale)
