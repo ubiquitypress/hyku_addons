@@ -31,7 +31,8 @@ module HykuAddons
                                     :mime_type, :workflow_state, :human_readable_type, :representative_id, :rendering_ids,
                                     :thumbnail_id, :thumbnail_path, :label, :file_format, :suppressed?, :original_file_id,
                                     :date_modified, :date_uploaded, :create_date, :modified_date, :embargo_release_date,
-                                    :lease_expiration_date, :add_info]
+                                    :lease_expiration_date, :add_info, :related_publication_citation, :programming_language,
+                                    :methodology_collection_method, :attendees, :mentor]
 
       attribute :file_size, SolrDocument::Solr::String, "file_size_lts"
       attribute :extent, SolrDocument::Solr::Array, solr_name("extent")
@@ -133,6 +134,10 @@ module HykuAddons
       attribute :mentor, SolrDocument::Solr::Array, solr_name("mentor")
       attribute :repository_space, SolrDocument::Solr::Array, solr_name("repository_space")
       attribute :related_entity, SolrDocument::Solr::Array, solr_name("related_entity")
+      attribute :related_publication_citation, SolrDocument::Solr::Array, solr_name("related_publication_citation")
+      attribute :methodology_collection_method, SolrDocument::Solr::Array, solr_name("methodology_collection_method")
+      attribute :programming_language, SolrDocument::Solr::Array, solr_name("programming_language")
+      attribute :attendees, SolrDocument::Solr::Array, solr_name("attendees")
 
       # Override OAI-PMH field mappings
       field_semantics.merge!(

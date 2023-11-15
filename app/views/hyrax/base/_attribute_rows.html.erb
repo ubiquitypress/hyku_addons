@@ -58,6 +58,11 @@
 <%= render "hyku_addons/related_identifier/show", presenter: presenter if presenter.respond_to?(:related_identifier) %>
 <%= render "hyku_addons/related_entity/show", presenter: presenter if presenter.respond_to?(:related_entity) %>
 <%= presenter.attribute_to_html(:keyword, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:related_publication_citation, html_dl: true) %>
+<%= presenter.attribute_to_html(:methodology_collection_method, html_dl: true) %>
+<%= presenter.attribute_to_html(:programming_language, html_dl: true) %>
+<%= presenter.attribute_to_html(:attendees, html_dl: true) %>
+<%= presenter.attribute_to_html(:mentor, html_dl: true) %>
 <%= presenter.attribute_to_html(:dewey, html_dl: true) %>
 <%= presenter.attribute_to_html(:library_of_congress_classification, render_as: :faceted, label: "Library of Congress Classification", html_dl: true) %>
 <%= presenter.attribute_to_html(:library_of_congress_subject_headings_text, render_as: :faceted, label: "library_of_congress_subject_headings_text", html_dl: true) %>
