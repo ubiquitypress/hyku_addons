@@ -1,0 +1,13 @@
+terms:
+- id: PhD
+  term: Doctor of Philosophy
+  active: true
+- id: MA
+  term: Master of Arts
+  active: true
+- id: MBA
+  term: Master of Business Administration
+  active: true
+- id: MS
+  term: Master of Science
+  active: true

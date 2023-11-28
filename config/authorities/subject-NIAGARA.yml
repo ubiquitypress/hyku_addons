@@ -1,0 +1,142 @@
+terms:
+ - id: Accounting
+   term: Accounting
+   active: true
+ - id: Actuarial Science
+   term: Actuarial Science
+   active: true  
+ - id: Applied Behavior Analysis
+   term: Applied Behavior Analysis
+   active: true
+ - id: Archives
+   term: Archives
+   active: true
+ - id: Art History with Museum Studies
+   term: Art History with Museum Studies
+   active: true
+ - id: American Sign Language and Deaf Studies
+   term: American Sign Language and Deaf Studies
+   active: true
+ - id: Biochemistry
+   term: Biochemistry
+   active: true
+ - id: Biology
+   term: Biology
+   active: true
+ - id: Biotechnology
+   term: Biotechnology
+   active: true
+ - id: Business
+   term: Business
+   active: true
+ - id: Chemistry
+   term: Chemistry
+   active: true
+ - id: Clinical Mental Health Counseling
+   term: Clinical Mental Health Counseling
+   active: true
+ - id: Communication and Media Studies
+   term: Communication and Media Studies
+   active: true
+ - id: Computer and Information Sciences
+   term: Computer and Information Sciences
+   active: true
+ - id: Criminal Justice
+   term: Criminal Justice
+   active: true
+ - id: Economics
+   term: Economics
+   active: true
+ - id: Education
+   term: Education
+   active: true
+ - id: English
+   term: English
+   active: true
+ - id: Environmental Science
+   term: Environmental Science
+   active: true
+ - id: Finance
+   term: Finance
+   active: true
+ - id: French
+   term: French
+   active: true
+ - id: Gerontology
+   term: Gerontology
+   active: true
+ - id: History,
+   term: History
+   active: true
+ - id: Hotel and Restaurant Management
+   term: Hotel and Restaurant Management
+   active: true
+ - id: Information Security and Digital Forensics
+   term: Information Security and Digital Forensics
+   active: true
+ - id: Interdisciplinary Studies
+   term: Interdisciplinary Studies
+   active: true
+ - id: International Studies
+   term: International Studies
+   active: true
+ - id: Leadership and Policy
+   term: Leadership and Policy
+   active: true
+ - id: Liberal Arts
+   term: Liberal Arts
+   active: true
+ - id: Library
+   term: Library
+   active: true
+ - id: Life Sciences
+   term: Life Sciences
+   active: true
+ - id: Management
+   term: Management
+   active: true
+ - id: Marketing
+   term: Marketing
+   active: true
+ - id: Mathematics
+   term: Mathematics
+   active: true
+ - id: M.B.A.
+   term: M.B.A.
+   active: true
+ - id: Military Science
+   term: Military Science
+   active: true
+ - id: Nursing
+   term: Nursing
+   active: true
+ - id: Philosophy
+   term: Philosophy
+   active: true
+ - id: Political Science
+   term: Political Science
+   active: true
+ - id: Psychology
+   term: Psychology
+   active: true
+ - id: School Counseling
+   term: School Counseling
+   active: true
+ - id: School Psychology
+   term: School Psychology
+   active: true
+ - id: Sociology
+   term: Sociology
+   active: true
+ - id: Spanish
+   term: Spanish
+   active: true
+ - id: Special Education
+   term: Special Education
+   active: true
+ - id: Theatre & Fine Arts
+   term: Theatre & Fine Arts
+   active: true
+ - id: Tourism and Event Management
+   term: Tourism and Event Management
+   active: true
