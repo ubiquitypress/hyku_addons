@@ -2,6 +2,9 @@ terms:
  - id: Archaeology
    term: Archaeology
    active: true
+ - id: Biology
+   term: Biology
+   active: true
  - id: Business
    term: Business
    active: true
