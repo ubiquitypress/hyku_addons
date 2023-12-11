@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      una_open_educational_resource:     'fa fa-file-text-o'
+    select_type:
+      una_open_educational_resource:
+        description:        "Textbooks, lectures, labs, and other teaching resources"
+        name:               "Una Open Educational Resource"
