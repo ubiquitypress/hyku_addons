@@ -176,13 +176,13 @@ attributes:
   alt_email:
     type: string
     predicate: http://schema.org/email
-    multiple: false
+    multiple: true
     index_keys:
       - alt_email_tesim
     form:
       required: true
       primary: true
-      multiple: false
+      multiple: true
       type: text
   abstract:
     type: text
@@ -228,6 +228,18 @@ attributes:
       primary: true
       multiple: true
       type: text
+  audience:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/IntendedAudience
+    multiple: true
+    index_keys:
+      - audience_tesim
+    form:
+      required: true
+      primary: true
+      multiple: true
+      type: select
+      authority: HykuAddons::AudienceService
   language:
     predicate: http://purl.org/dc/elements/1.1/language
     multiple: true
@@ -250,11 +262,34 @@ attributes:
       multiple: true
       type: select
       authority: HykuAddons::LicenseService
+  table_of_contents:
+    type: string
+    predicate: http://bibframe.org/vocab/tableOfContents
+    multiple: false
+    index_keys:
+      - table_of_contents_tesim
+    form:
+      required: true
+      primary: true
+      multiple: false
+      type: textarea
   publisher:
     predicate: http://purl.org/dc/elements/1.1/publisher
     multiple: true
     index_keys:
       - publisher_tesim
+    form:
+      required: true
+      primary: true
+      multiple: true
+      type: text
+  place_of_publication:
+    type: string
+    predicate: http://id.loc.gov/ontologies/bibframe/Place
+    multiple: true
+    index_keys:
+      - place_of_publication_tesim
+      - place_of_publication_sim
     form:
       required: true
       primary: true
@@ -282,39 +317,50 @@ attributes:
       primary: true
       multiple: true
       type: text
-  event_location:
+  edition:
     type: string
-    predicate: http://bibframe.org/vocab/eventPlace
-    multiple: true
-    index_keys:
-      - event_location_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: text
-  additional_links:
-    type: string
-    predicate: http://schema.org/significantLinks
+    predicate: http://id.loc.gov/ontologies/bibframe/edition
     multiple: false
     index_keys:
-      - additional_links_tesim
+      - edition_tesim
     form:
       required: false
       primary: false
       multiple: false
       type: text
-  mentor:
+  pagination:
     type: string
-    predicate: http://id.loc.gov/ontologies/bibframe/Person
-    multiple: true
+    predicate: http://purl.org/ontology/bibo/numPages
+    multiple: false
     index_keys:
-      - mentor_tesim
+      - pagination_tesim
     form:
       required: false
       primary: false
-      multiple: true
+      multiple: false
       type: text
+  official_link:
+    type: string
+    predicate: http://schema.org/url
+    multiple: false
+    index_keys:
+      - official_link_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: text
+  adapted_from:
+    type: string
+    predicate: http://purl.org/dc/elements/1.1/source
+    multiple: false
+    index_keys:
+      - adapted_from_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: textarea
   contributor:
     predicate: http://purl.org/dc/elements/1.1/contributor
     multiple: true
@@ -372,7 +418,7 @@ attributes:
         type: string
         form:
           required: false
-          multiple: false
+          multiple: true
           type: text
           display_for:
             - Organizational
@@ -419,18 +465,18 @@ attributes:
           display_for:
             - Personal
             - Organizational
-  location:
+  related_material:
     type: string
-    predicate: http://id.loc.gov/ontologies/bibframe/physicalLocation
+    predicate: http://id.loc.gov/ontologies/bibframe/relatedTo
     multiple: false
     index_keys:
-      - location_tesim
-      - location_sim
+      - related_material_tesim
+      - related_material_sim
     form:
       required: false
       primary: false
       multiple: false
-      type: text
+      type: textarea
   longitude:
     type: string
     predicate: http://schema.org/longitude
@@ -453,6 +499,39 @@ attributes:
       primary: false
       multiple: false
       type: text
+  prerequisites:
+    type: string
+    predicate: http://creativecommons.org/ns#Requirement
+    multiple: false
+    index_keys:
+      - prerequisites_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: textarea
+  suggested_student_reviewers:
+    type: string
+    predicate: http://rdf.data-vocabulary.org/#reviewer
+    multiple: false
+    index_keys:
+      - suggested_student_reviewers_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: textarea
+  suggested_reviewers:
+    type: string
+    predicate: http://data-vocabulary.org/reviewer
+    multiple: false
+    index_keys:
+      - suggested_reviewers_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: textarea
   add_info:
     type: string
     predicate: http://purl.org/ontology/bibo/Note
@@ -464,26 +543,13 @@ attributes:
       primary: false
       multiple: false
       type: textarea
-  event_title:
-    type: string
-    predicate: http://id.loc.gov/ontologies/bibframe/Event
+  source:
+    predicate: http://purl.org/dc/terms/source
     multiple: true
     index_keys:
-      - event_title_tesim
-      - event_title_sim
+      - source_tesim
     form:
       required: false
       primary: false
       multiple: true
       type: text
-  event_date:
-    type: string
-    predicate: http://bibframe.org/vocab/eventDate
-    multiple: true
-    index_keys:
-      - event_date_tesim
-    form:
-      required: false
-      primary: false
-      multiple: true
-      type: date
