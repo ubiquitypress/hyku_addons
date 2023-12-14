@@ -59,6 +59,7 @@ Hyrax.config do |config|
   config.register_curation_concern :una_chapters_and_book_section
   config.register_curation_concern :una_exhibition
   config.register_curation_concern :una_image
+  config.register_curation_concern :una_open_educational_resource
   config.register_curation_concern :una_presentation
   config.register_curation_concern :una_thesis_or_dissertation
   config.register_curation_concern :una_time_based_media
