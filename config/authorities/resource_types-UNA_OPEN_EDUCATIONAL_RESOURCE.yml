@@ -1,0 +1,39 @@
+terms:
+  - id: Animation
+    term: Animation
+  - id: Assessment
+    term: Assessment
+  - id: Assignment
+    term: Assignment
+  - id: Book
+    term: Book
+  - id: Demonstration
+    term: Demonstration
+  - id: Exercise
+    term: Exercise
+  - id: Handout
+    term: Handout
+  - id: Lab manual
+    term: Lab manual
+  - id: Lab exercise
+    term: Lab exercise
+  - id: Lesson plan
+    term: Lesson plan
+  - id: Presentation
+    term: Presentation
+  - id: Quiz/Test
+    term: Quiz/Test
+  - id: Simulation
+    term: Simulation
+  - id: Software
+    term: Software
+  - id: Syllabus
+    term: Syllabus
+  - id: Tutorial
+    term: Tutorial
+  - id: Video
+    term: Video
+  - id: Worksheet
+    term: Worksheet
+  - id: Other
+    term: Other
