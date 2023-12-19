@@ -101,3 +101,6 @@ terms:
  - id: Visual Arts
    term: Visual Arts
    active: true
+ - id: Other
+   term: Other
+   active: true
