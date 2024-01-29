@@ -180,6 +180,13 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.related_exhibition work.try(:solr_document)&.to_h&.dig("related_exhibition_tesim")
   json.related_exhibition_date work.try(:solr_document)&.to_h&.dig("related_exhibition_date_tesim")
   json.related_exhibition_venue work.try(:solr_document)&.to_h&.dig("related_exhibition_venue_tesim")
+  json.inscription work.try(:solr_document)&.to_h&.dig("inscription_tesim")
+  json.media work.try(:solr_document)&.to_h&.dig("media_tesim")
+  json.description work.try(:solr_document)&.to_h&.dig("description_tesim")
+  json.alt_email work.try(:solr_document)&.to_h&.dig("alt_email_tesim")
+  json.georeferenced work.try(:solr_document)&.to_h&.dig("georeferenced_tesim")
+  json.access_restrictions work.try(:solr_document)&.to_h&.dig("access_restrictions_tesim")
+  json.style_period work.try(:solr_document)&.to_h&.dig("style_period_tesim")
 
   related_identifier = work.try(:solr_document)&.to_h&.dig("related_identifier_tesim")&.first
   if related_identifier.present?
