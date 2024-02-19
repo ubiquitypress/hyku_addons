@@ -5,6 +5,9 @@ terms:
   - id: fra
     term: French
     active: true
+  - id: deu
+    term: German
+    active: true
   - id: jpn
     term: Japanese
     active: true
