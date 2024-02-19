@@ -206,13 +206,13 @@ attributes:
   abstract:
     type: text
     predicate: http://purl.org/dc/terms/abstract
-    multiple: true
+    multiple: false
     index_keys:
     - abstract_tesim
     form:
       required: false
       primary: true
-      multiple: true
+      multiple: false
       type: textarea
   inscription:
     predicate: https://schema.org/additionalName

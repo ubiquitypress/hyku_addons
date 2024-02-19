@@ -990,13 +990,13 @@ attributes:
   description:
     type: text
     predicate: http://purl.org/dc/terms/description
-    multiple: true
+    multiple: false
     index_keys:
     - description_tesim
     form:
       required: false
       primary: false
-      multiple: true
+      multiple: false
       type: textarea
   keyword:
     predicate: http://purl.org/dc/elements/1.1/relation
@@ -1607,15 +1607,14 @@ attributes:
       authority: null
       primary: false
   attendees:
+    type: text
+    predicate: https://schema.org/attendee
+    multiple: false
+    index_keys:
+      - attendees_tesim
     form:
       required: false
+      primary: true
       multiple: false
       type: textarea
-      authority: null
-      primary: true
-    type: text
-    index_keys: 
-      - attendees_tesim
-    multiple: true
-    predicate: https://schema.org/attendee
 
