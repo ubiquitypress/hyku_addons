@@ -1,0 +1,19 @@
+terms:
+  - id: Article
+    term: Article
+  - id: Book Review
+    term: Book Review
+  - id: Essay
+    term: Essay
+  - id: Festschriften
+    term: Festschriften
+  - id: Other
+    term: Other
+  - id: Pathfinder
+    term: Pathfinder
+  - id: Popular Press
+    term: Popular Press
+  - id: Research Guide
+    term: Research Guide
+  - id: Tribute
+    term: Tribute
