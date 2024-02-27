@@ -1,0 +1,22 @@
+terms:
+  - id: Adjunct Faculty
+    term: Adjunct Faculty
+    active: true
+  - id: Emeritus Faculty
+    term: Emeritus Faculty
+    active: true
+  - id: Faculty
+    term: Faculty
+    active: true
+  - id: Librarian
+    term: Librarian
+    active: true
+  - id: Research Assistant
+    term: Research Assistant
+    active: true
+  - id: Staff Member
+    term: Staff Member
+    active: true
+  - id: Student
+    term: Student
+    active: true

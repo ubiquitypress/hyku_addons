@@ -83,8 +83,10 @@ terms:
   - id: Law and Gender
     term: Law and Gender
     active: true
-  - id: Law and Race, Law and Religion
-    term: Law and Race, Law and Religion
+  - id: Law and Race
+    term: Law and Race
+  - id: Law and Religion
+    term: Law and Race
     active: true
   - id: Law and Society
     term: Law and Society
