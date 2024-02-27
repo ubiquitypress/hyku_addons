@@ -1,0 +1,11 @@
+terms:
+  - id: Anthology
+    term: Anthology
+  - id: Book
+    term: Book
+  - id: Casebook
+    term: Casebook
+  - id: Festschrift
+    term: Festschrift
+  - id: Textbook
+    term: Textbook

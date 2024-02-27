@@ -1,0 +1,21 @@
+terms:
+  - id: Bibliography 
+    term: Bibliography
+  - id: Course Materials
+    term: Course Materials
+  - id: CV 
+    term: CV
+  - id: Dataset
+    term: Dataset
+  - id: Dissertation
+    term: Dissertation
+  - id: Lecture
+    term: Lecture
+  - id: Resume
+    term: Resume
+  - id: Thesis
+    term: Thesis
+  - id: Unpublished Work
+    term: Unpublished Work
+  - id: Video
+    term: Video
