@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      okc_chapters_book_section:     'fa fa-file-text-o'
+    select_type:
+      okc_chapters_book_section:
+        # TODO: translate `human_name` into Spanish
+        description:        "Okc ChaptersAndBookSections trabajos"
+        name:               "Okc ChaptersAndBookSections"
+        # TODO: translate `human_name` into Spanish
