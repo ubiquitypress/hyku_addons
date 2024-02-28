@@ -83,6 +83,13 @@ Hyrax.config do |config|
   config.register_curation_concern :ltu_time_based_media
   config.register_curation_concern :ltu_serial
   config.register_curation_concern :ltu_image_artifact
+  config.register_curation_concern :okc_article
+  config.register_curation_concern :okc_book
+  config.register_curation_concern :okc_archival_and_legal_material
+  config.register_curation_concern :okc_image
+  config.register_curation_concern :okc_presentation
+  config.register_curation_concern :okc_time_based_media
+  config.register_curation_concern :okc_chapters_and_book_section
   config.register_curation_concern :bc_article
   config.register_curation_concern :bc_book
   config.register_curation_concern :bc_archival_and_legal_material
