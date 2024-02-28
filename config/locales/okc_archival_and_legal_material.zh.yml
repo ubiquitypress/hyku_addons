@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      okc_archival_and_legal_material: "fa fa-file-text-o"
+    select_type:
+      okc_archival_and_legal_material:
+        # TODO: translate `human_name` into Chinese
+        description:  "Okc Archival And Legal Materials 作品"
+        name:  "Okc Archival And Legal Materials"
+        # TODO: translate `human_name` into Chinese

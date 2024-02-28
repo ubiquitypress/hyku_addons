@@ -1,0 +1,8 @@
+it:
+  hyrax:
+    icons:
+      okc_archival_and_legal_material: "fa fa-file-text-o"
+    select_type:
+      okc_archival_and_legal_material:
+        description:  "Okc Archival And Legal Materials opere"
+        name: "Okc Archival And Legal Materials"

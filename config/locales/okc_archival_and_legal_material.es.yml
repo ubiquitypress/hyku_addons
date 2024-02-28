@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      okc_archival_and_legal_material:     'fa fa-file-text-o'
+    select_type:
+      okc_archival_and_legal_material:
+        # TODO: translate `human_name` into Spanish
+        description:        "Okc Archival And Legal Materials trabajos"
+        name:               "Okc Archival And Legal Materials"
+        # TODO: translate `human_name` into Spanish
