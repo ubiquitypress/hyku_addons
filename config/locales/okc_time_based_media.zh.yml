@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      okc_time_based_media: "fa fa-file-text-o"
+    select_type:
+      okc_time_based_media:
+        # TODO: translate `human_name` into Chinese
+        description:  "Okc Time Based Media 作品"
+        name:  "Okc Time Based Media"
+        # TODO: translate `human_name` into Chinese

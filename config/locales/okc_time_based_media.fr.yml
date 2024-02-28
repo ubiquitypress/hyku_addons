@@ -1,0 +1,8 @@
+fr:
+  hyrax:
+    icons:
+      okc_time_based_media:     'fa fa-file-text-o'
+    select_type:
+      okc_time_based_media:
+        description:        "Okc Time Based Media œuvres"
+        name:               "Okc Time Based Media"
