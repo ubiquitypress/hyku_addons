@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      okc_presentation: "fa fa-file-text-o"
+    select_type:
+      okc_presentation:
+        description: "Okc Presentation Werke"
+        name: "Okc Presentation"

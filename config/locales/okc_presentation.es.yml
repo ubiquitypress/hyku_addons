@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      okc_presentation:     'fa fa-file-text-o'
+    select_type:
+      okc_presentation:
+        # TODO: translate `human_name` into Spanish
+        description:        "Okc Presentation trabajos"
+        name:               "Okc Presentation"
+        # TODO: translate `human_name` into Spanish
