@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      okc_book:     'fa fa-file-text-o'
+    select_type:
+      okc_book:
+        # TODO: translate `human_name` into Spanish
+        description:        "Okc Book trabajos"
+        name:               "Okc Book"
+        # TODO: translate `human_name` into Spanish
