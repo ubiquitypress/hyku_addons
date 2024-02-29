@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      okc_presentation: "fa fa-file-text-o"
+    select_type:
+      okc_presentation:
+        # TODO: translate `human_name` into Chinese
+        description:  "Okc Presentation 作品"
+        name:  "Okc Presentation"
+        # TODO: translate `human_name` into Chinese

@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      okc_book: "fa fa-file-text-o"
+    select_type:
+      okc_book:
+        description: "Okc Book"
+        name: "Okc Book"

@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      okc_image: "fa fa-file-text-o"
+    select_type:
+      okc_image:
+        description: "Okc Image Werke"
+        name: "Okc Image"

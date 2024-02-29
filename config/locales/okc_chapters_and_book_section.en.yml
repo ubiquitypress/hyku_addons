@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      okc_chapters_and_book_section: "fa fa-file-text-o"
+    select_type:
+      okc_chapters_and_book_section:
+        description: "Okc ChaptersAndBookSections"
+        name: "Okc ChaptersAndBookSections"

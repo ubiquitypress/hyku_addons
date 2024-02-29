@@ -1,0 +1,10 @@
+es:
+  hyrax:
+    icons:
+      okc_image:     'fa fa-file-text-o'
+    select_type:
+      okc_image:
+        # TODO: translate `human_name` into Spanish
+        description:        "Okc Image trabajos"
+        name:               "Okc Image"
+        # TODO: translate `human_name` into Spanish

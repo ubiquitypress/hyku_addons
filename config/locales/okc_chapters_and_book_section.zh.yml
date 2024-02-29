@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      okc_chapters_and_book_section: "fa fa-file-text-o"
+    select_type:
+      okc_chapter_and_book_section:
+        # TODO: translate `human_name` into Chinese
+        description:  "Okc ChaptersAndBookSections 作品"
+        name:  "Okc ChaptersAndBookSections"
+        # TODO: translate `human_name` into Chinese

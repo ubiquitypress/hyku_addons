@@ -1,0 +1,8 @@
+de:
+  hyrax:
+    icons:
+      okc_article: "fa fa-file-text-o"
+    select_type:
+      okc_article:
+        description: "Okc Article Werke"
+        name: "Okc Article"
