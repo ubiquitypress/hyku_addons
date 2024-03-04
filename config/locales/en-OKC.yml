@@ -1,0 +1,25 @@
+en-OKC:
+  # GenericWork help text and form labels
+  hyrax:
+    select_type:
+      okc_article:
+        name: Article
+        description: ""
+      okc_book:
+        name: Book
+        description: ""
+      okc_chapters_and_book_section:
+        name: Chapters And Book Sections
+        description: ""
+      okc_archival_and_legal_material:
+        name: Archival And Legal Materials
+        description: ""
+      okc_image:
+        name: Image
+        description: ""
+      okc_presentation:
+       name: Presentation
+       description: ""
+      okc_time_based_media:
+       name: Time Based Media
+       description: ""
