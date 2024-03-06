@@ -86,6 +86,7 @@ Hyrax.config do |config|
   config.register_curation_concern :okc_article
   config.register_curation_concern :okc_book
   config.register_curation_concern :okc_archival_and_legal_material
+  config.register_curation_concern :okc_generic_work
   config.register_curation_concern :okc_image
   config.register_curation_concern :okc_presentation
   config.register_curation_concern :okc_time_based_media

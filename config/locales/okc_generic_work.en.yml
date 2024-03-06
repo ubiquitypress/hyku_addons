@@ -1,0 +1,12 @@
+en:
+  hyrax:
+    icons:
+      okc_generic_work:     'fa fa-file-text-o'
+    select_type:
+      okc_generic_work:
+        description:        "Okc Generic works"
+        name:               "Okc Generic Work"
+  simple_form:
+    labels:
+      defaults:
+        refereed: Peer-Reviewed?

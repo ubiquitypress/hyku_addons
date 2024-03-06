@@ -77,6 +77,9 @@ terms:
   - id: Jurisprudence
     term: Jurisprudence
     active: true
+  - id: Law
+    term: Law
+    active: true
   - id: Law and Economics
     term: Law and Economics
     active: true
