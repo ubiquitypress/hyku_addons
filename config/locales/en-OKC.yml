@@ -23,3 +23,6 @@ en-OKC:
       okc_time_based_media:
        name: Time Based Media
        description: ""
+      okc_generic_work:
+        name: Generic Work
+        description: ""
