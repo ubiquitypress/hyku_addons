@@ -1,0 +1,28 @@
+terms:
+- id: AA - Associate of Arts
+  term: AA - Associate of Arts
+  active: true
+- id: AAS - Associate of Applied Science
+  term: AAS - Associate of Applied Science
+  active: true
+- id: AOS - Associate of Occupational Studies
+  term: AOS - Associate of Occupational Studies
+  active: true
+- id: AS - Associate of Science
+  term: AS - Associate of Science
+  active: true
+- id: BA - Bachelor of Arts
+  term: BA - Bachelor of Arts
+  active: true
+- id: BPS - Bachelor of Professional Studies
+  term: BPS - Bachelor of Professional Studies
+  active: true
+- id: BS - Bachelor of Science
+  term: BS - Bachelor of Science
+  active: true
+- id: MPS - Master of Professional Studies
+  term: MPS - Master of Professional Studies
+  active: true
+- id: MS - Master of Science
+  term: MS - Master of Science
+  active: true

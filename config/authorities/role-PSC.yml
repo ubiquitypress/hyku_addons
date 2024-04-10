@@ -1,0 +1,19 @@
+terms:
+ - id: Author
+   term: Author
+   active: true
+ - id: Digitizer
+   term: Digitizer
+   acitve: true
+ - id: Mentor
+   term: Mentor
+   active: true
+ - id: Photographer
+   term: Photographer
+   active: true
+ - id: Publisher
+   term: Publisher
+   active: true
+ - id : Other
+   term: Other
+   active:  true
