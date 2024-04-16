@@ -20,6 +20,10 @@ module HykuAddons
 
         actor = Hyrax::Actors::FileSetActor.new(FileSet.create, user)
         file_set_attributes = file_set_attrs(work_attributes, uploaded_file)
+
+        puts "[DEBUG - PERM] Work Attributes #{work_attributes}"
+        puts "[DEBUG - PERM] File Set Attributes #{file_set_attributes}"
+
         metadata = visibility_attributes(work_attributes, file_set_attributes)
 
         puts "[DEBUG - PERM] Got metadata #{metadata}"
