@@ -8,7 +8,6 @@ module HykuAddons
           # Ensure we have an up-to-date copy of the members association, so that we append to the end of the list.
           work.reload unless work.new_record?
 
-          puts "[DEBUG - PERM] [FileSetActor] AssignVisibility: #{assign_visibility?(file_set_params)} using fileSetParams #{file_set_params}"
           file_set.visibility = work.visibility unless assign_visibility?(file_set_params)
           work.ordered_members << file_set
           work.representative = file_set if work.representative_id.blank?
