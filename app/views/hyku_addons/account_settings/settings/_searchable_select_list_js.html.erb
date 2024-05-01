@@ -1,0 +1,31 @@
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var $select2DropDown = $('.select2');
+        $select2DropDown.select2({
+            minimumInputLength: 1 // only start searching when the user has input 1 or more characters
+        });
+
+        $('#remove-selected').click(function(e) {
+            e.preventDefault();
+
+            var selectedItems = $select2DropDown.val();
+            var currentOptions = $select2DropDown.find('option');
+
+            $select2DropDown.select2('destroy'); // Remove select2 plugin
+
+            currentOptions.each(function() {
+                if (selectedItems && selectedItems.includes($(this).val())) {
+                    $(this).remove(); // remove selected options
+                }
+            });
+
+            // Select remaining options
+            $select2DropDown.find('option').prop('selected', true);
+
+            $select2DropDown.select2({
+                minimumInputLength: 1
+            }); // Reinitialize select2 plugin
+        });
+    });
+</script>

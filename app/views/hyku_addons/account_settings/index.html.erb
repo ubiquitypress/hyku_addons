@@ -32,6 +32,14 @@
       </tr>
     <% end %>
 
+    <% HykuAddons::AccountBehavior::SEARCHABLE_SELECT_SETTINGS.each do |fname| %>
+    <tr>
+      <td id="link-<%= fname %>"><b><%== account_setting_title(fname) %>:</b> <%= @account&.settings[fname]&.to_sentence %></td>
+      <% link = hyku_addons.edit_admin_account_setting_path(id: @account, partial_name: "render_searchable_select_list", field_name: fname) %>
+      <td><%= link_to "Edit #{fname.humanize}", link, class: "btn btn-xs btn-default", remote: true %></td>
+    </tr>
+  <% end %>
+
     <% if (settings = HykuAddons::AccountBehavior::HASH_SETTINGS).present? %>
       <% settings.each do|fname| %>
         <tr>

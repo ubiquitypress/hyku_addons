@@ -7,6 +7,7 @@ module HykuAddons
     include ActiveModel::Validations
 
     ARRAY_SETTINGS = %w[weekly_email_list monthly_email_list yearly_email_list email_format].freeze
+    SEARCHABLE_SELECT_SETTINGS = %w[doi_list].freeze
     BOOLEAN_SETTINGS = %w[allow_signup shared_login bulkrax_validations].freeze
     HASH_SETTINGS = %w[smtp_settings hyrax_orcid_settings].freeze
     HASH_DROPDOWN_SETTINGS = %w[crossref_hyku_mappings].freeze
@@ -32,7 +33,7 @@ module HykuAddons
 
       store_accessor :data
       store_accessor :settings, :contact_email, :weekly_email_list, :monthly_email_list, :yearly_email_list,
-                     :google_scholarly_work_types, :gtm_id, :shared_login, :email_format,
+                     :google_scholarly_work_types, :gtm_id, :shared_login, :email_format, :doi_list,
                      :allow_signup, :oai_admin_email, :file_size_limit, :enable_oai_metadata, :oai_prefix,
                      :oai_sample_identifier, :locale_name, :bulkrax_validations, :google_analytics_id, :smtp_settings,
                      :hyrax_orcid_settings, :crossref_hyku_mappings, :gds_reports
