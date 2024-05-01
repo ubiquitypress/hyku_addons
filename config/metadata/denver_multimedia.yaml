@@ -210,14 +210,14 @@ attributes:
   institution:
     type: string
     predicate: http://www.w3.org/ns/org#organization
-    multiple: true
+    multiple: false
     index_keys:
       - institution_tesim
       - institution_sim
     form:
       required: false
       primary: true
-      multiple: true
+      multiple: false
       type: select
       authority: HykuAddons::InstitutionService
   date_published:
