@@ -14,6 +14,7 @@
 //= require cocoon
 //= require_tree .
 //= require hyrax/orcid/application
+//= require select2
 
 const SelectWorkType = require("hyku_addons/select_work_type")
 

@@ -1,0 +1,12 @@
+<div class="form-group">
+  <%= f.fields_for :settings do |ff| %>
+    <%= ff.label field_name %><br>
+    <%= t("settings.helptexts.#{field_name}") %><br>
+    <%= ff.select field_name.to_sym, @account.settings[field_name], {}, {name: "#{f.object_name}[settings][#{html_name_element}][]", multiple: true, class: 'form-control select2'} %>
+    <button type="button" id="remove-selected" class="btn btn-danger" style="margin-top: 10px;">Remove Selected</button>
+  <% end %>
+</div>
+
+<%= render "hyku_addons/account_settings/settings/submit_buttons", f: f if display_save_button %>
+
+<%= render "hyku_addons/account_settings/settings/searchable_select_list_js" %>

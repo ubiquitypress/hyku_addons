@@ -40,7 +40,7 @@ module HykuAddons
           :shared_login, :oai_prefix, :oai_sample_identifier, :oai_admin_email, :allow_signup,
           :bulkrax_validations, :google_analytics_id, :gds_reports,
           google_scholarly_work_types: [], email_format: [], weekly_email_list: [], monthly_email_list: [],
-          yearly_email_list: [], smtp_settings: HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields,
+          yearly_email_list: [], doi_list: [], smtp_settings: HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields,
           hyrax_orcid_settings: [:client_id, :client_secret, :auth_redirect, :environment],
           crossref_hyku_mappings: [:book_section, :monograph, :report_component, :report, :peer_review, :book_track,
                                    :journal_article, :book_part, :other, :book, :journal_volume, :book_set,
@@ -57,7 +57,7 @@ module HykuAddons
     end
 
     def map_array_fields
-      keys = %w[email_format weekly_email_list monthly_email_list yearly_email_list]
+      keys = %w[email_format weekly_email_list monthly_email_list yearly_email_list doi_list]
       keys.each do |key|
         next if params["account"]["settings"][key].blank?
 

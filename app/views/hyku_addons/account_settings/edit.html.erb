@@ -24,6 +24,12 @@
     </div>
   <% end %>
 
+  <% HykuAddons::AccountBehavior::SEARCHABLE_SELECT_SETTINGS.each do |fname| %>
+    <div class="col-12">
+      <%= render "hyku_addons/account_settings/settings/searchable_select_list_content", field_name: fname,  html_name_element: fname, f: f, display_save_button: false %>
+    </div>
+  <% end %>
+
   <% HykuAddons::AccountBehavior::HASH_SETTINGS.each do |settings_hash_key| %>
     <div class="col-12">
       <%= render "hyku_addons/account_settings/settings/hash_settings_content", field_name: settings_hash_key, html_name_element: settings_hash_key, f: f, display_save_button: false %>

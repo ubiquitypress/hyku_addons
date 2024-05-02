@@ -47,6 +47,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "devise-guests", "<= 0.7.0"
   # Added for shared search nested attributes
   spec.add_dependency "cocoon", "~> 1.2", ">= 1.2.9"
+  spec.add_dependency "select2-rails"
 
   spec.add_development_dependency "ammeter"
   spec.add_development_dependency "awesome_print"
