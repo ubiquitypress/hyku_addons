@@ -413,13 +413,13 @@ attributes:
   volume:
     type: string
     predicate: http://purl.org/ontology/bibo/volume
-    multiple: false
+    multiple: true
     index_keys:
       - volume_tesim
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
   issue:
     type: string
