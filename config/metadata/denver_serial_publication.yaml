@@ -447,13 +447,13 @@ attributes:
       type: text
   publisher:
     predicate: http://purl.org/dc/elements/1.1/publisher
-    multiple: false
+    multiple: true
     index_keys:
       - publisher_tesim
     form:
       required: false
       primary: false
-      multiple: false
+      multiple: true
       type: text
   place_of_publication:
     type: string
