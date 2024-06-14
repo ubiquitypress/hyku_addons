@@ -1,12 +1,11 @@
----
 attributes:
   title:
     type: string
     predicate: http://purl.org/dc/terms/title
     multiple: true
     index_keys:
-    - title_tesim
-    - title_sim
+      - title_tesim
+      - title_sim
     form:
       required: true
       primary: true
@@ -18,7 +17,7 @@ attributes:
     predicate: http://purl.org/dc/terms/alternative
     multiple: true
     index_keys:
-    - alt_title_tesim
+      - alt_title_tesim
     form:
       required: false
       primary: false
@@ -42,7 +41,7 @@ attributes:
     predicate: http://purl.org/dc/elements/1.1/creator
     multiple: true
     index_keys:
-    - creator_tesim
+      - creator_tesim
     form:
       required: true
       primary: true
@@ -63,7 +62,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       creator_given_name:
         type: string
         form:
@@ -71,7 +70,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       creator_middle_name:
         type: string
         form:
@@ -79,7 +78,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       creator_suffix:
         type: string
         form:
@@ -87,7 +86,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       creator_institution:
         type: string
         form:
@@ -95,7 +94,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       creator_orcid:
         type: string
         form:
@@ -103,7 +102,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       creator_institutional_email:
         type: string
         form:
@@ -111,7 +110,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       creator_institutional_relationship:
         type: string
         form:
@@ -122,7 +121,7 @@ attributes:
           attributes:
             multiple: multiple
           display_for:
-          - Personal
+            - Personal
       creator_role:
         type: string
         form:
@@ -132,7 +131,7 @@ attributes:
           authority: HykuAddons::RoleService
           include_blank: true
           display_for:
-          - Personal
+            - Personal
       creator_ror:
         type: string
         form:
@@ -140,7 +139,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Organizational
+            - Organizational
       creator_grid:
         type: string
         form:
@@ -148,7 +147,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Organizational
+            - Organizational
       creator_wikidata:
         type: string
         form:
@@ -156,7 +155,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Organizational
+            - Organizational
       creator_isni:
         type: string
         form:
@@ -164,13 +163,13 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
-          - Organizational
+            - Personal
+            - Organizational
   contributor:
     predicate: http://purl.org/dc/elements/1.1/contributor
     multiple: true
     index_keys:
-    - contributor_tesim
+      - contributor_tesim
     form:
       required: false
       primary: false
@@ -191,7 +190,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       contributor_given_name:
         type: string
         form:
@@ -199,7 +198,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       contributor_orcid:
         type: string
         form:
@@ -207,7 +206,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       contributor_institutional_relationship:
         type: string
         form:
@@ -218,7 +217,7 @@ attributes:
           attributes:
             multiple: multiple
           display_for:
-          - Personal
+            - Personal
       contributor_organization_name:
         type: string
         form:
@@ -226,7 +225,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Organizational
+            - Organizational
       contributor_ror:
         type: string
         form:
@@ -234,7 +233,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Organizational
+            - Organizational
       contributor_grid:
         type: string
         form:
@@ -242,7 +241,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Organizational
+            - Organizational
       contributor_wikidata:
         type: string
         form:
@@ -250,7 +249,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Organizational
+            - Organizational
       contributor_isni:
         type: string
         form:
@@ -258,8 +257,8 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
-          - Organizational
+            - Personal
+            - Organizational
       contributor_role:
         type: string
         form:
@@ -268,14 +267,14 @@ attributes:
           type: select
           authority: HykuAddons::RoleService
           display_for:
-          - Personal
-          - Organizational
+            - Personal
+            - Organizational
   abstract:
     type: text
     predicate: http://purl.org/dc/terms/abstract
     multiple: false
     index_keys:
-    - abstract_tesim
+      - abstract_tesim
     form:
       required: false
       primary: false
@@ -286,7 +285,7 @@ attributes:
     predicate: http://purl.org/dc/terms/available
     multiple: false
     index_keys:
-    - date_published_tesim
+      - date_published_tesim
     form:
       required: false
       primary: true
@@ -297,7 +296,7 @@ attributes:
     predicate: http://purl.org/ontology/bibo/doi
     multiple: true
     index_keys:
-    - doi_ssi
+      - doi_ssi
     form:
       required: false
       primary: true
@@ -308,7 +307,7 @@ attributes:
     predicate: http://www.loc.gov/mods/rdf/v1#physicalForm
     multiple: true
     index_keys:
-    - media_tesim
+      - media_tesim
     form:
       required: false
       primary: false
@@ -319,7 +318,7 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/duration
     multiple: true
     index_keys:
-    - duration_tesim
+      - duration_tesim
     form:
       required: false
       primary: false
@@ -330,8 +329,8 @@ attributes:
     predicate: http://www.w3.org/ns/org#organization
     multiple: true
     index_keys:
-    - institution_tesim
-    - institution_sim
+      - institution_tesim
+      - institution_sim
     form:
       required: true
       primary: false
@@ -343,8 +342,8 @@ attributes:
     predicate: http://www.w3.org/ns/org#OrganizationalUnit
     multiple: true
     index_keys:
-    - org_unit_tesim
-    - org_unit_sim
+      - org_unit_tesim
+      - org_unit_sim
     form:
       required: false
       primary: false
@@ -355,7 +354,7 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/CollectiveTitle
     multiple: true
     index_keys:
-    - project_name_tesim
+      - project_name_tesim
     form:
       required: false
       primary: false
@@ -366,7 +365,7 @@ attributes:
     predicate: http://id.loc.gov/vocabulary/relators/fnd
     multiple: true
     index_keys:
-    - funder_tesim
+      - funder_tesim
     form:
       required: false
       primary: false
@@ -414,7 +413,7 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/awards
     multiple: true
     index_keys:
-    - fndr_project_ref_tesim
+      - fndr_project_ref_tesim
     form:
       required: false
       primary: false
@@ -425,8 +424,8 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/Event
     multiple: true
     index_keys:
-    - event_title_tesim
-    - event_title_sim
+      - event_title_tesim
+      - event_title_sim
     form:
       required: false
       primary: false
@@ -437,7 +436,7 @@ attributes:
     predicate: http://bibframe.org/vocab/eventPlace
     multiple: true
     index_keys:
-    - event_location_tesim
+      - event_location_tesim
     form:
       required: false
       primary: false
@@ -448,7 +447,7 @@ attributes:
     predicate: http://bibframe.org/vocab/eventDate
     multiple: true
     index_keys:
-    - event_date_tesim
+      - event_date_tesim
     form:
       required: false
       primary: false
@@ -459,8 +458,8 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/subseriesOf
     multiple: true
     index_keys:
-    - series_name_tesim
-    - series_name_sim
+      - series_name_tesim
+      - series_name_sim
     form:
       required: false
       primary: false
@@ -471,8 +470,8 @@ attributes:
     predicate: http://purl.org/ontology/bibo/Proceedings
     multiple: false
     index_keys:
-    - book_title_tesim
-    - book_title_sim
+      - book_title_tesim
+      - book_title_sim
     form:
       required: false
       primary: false
@@ -483,7 +482,7 @@ attributes:
     predicate: http://schema.org/Person
     multiple: true
     index_keys:
-    - editor_tesim
+      - editor_tesim
     form:
       required: false
       primary: false
@@ -504,7 +503,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       editor_given_name:
         type: string
         form:
@@ -512,7 +511,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       editor_orcid:
         type: string
         form:
@@ -520,7 +519,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
+            - Personal
       editor_institutional_relationship:
         type: string
         form:
@@ -529,7 +528,7 @@ attributes:
           type: select
           authority: HykuAddons::InstitutionalRelationshipService
           display_for:
-          - Personal
+            - Personal
       editor_organization_name:
         type: string
         form:
@@ -537,7 +536,7 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Organizational
+            - Organizational
       editor_isni:
         type: string
         form:
@@ -545,15 +544,15 @@ attributes:
           multiple: false
           type: text
           display_for:
-          - Personal
-          - Organizational
+            - Personal
+            - Organizational
   journal_title:
     type: string
     predicate: http://purl.org/ontology/bibo/Journal
     multiple: false
     index_keys:
-    - journal_title_tesim
-    - journal_title_sim
+      - journal_title_tesim
+      - journal_title_sim
     form:
       required: false
       primary: false
@@ -564,7 +563,7 @@ attributes:
     predicate: http://schema.org/alternativeHeadline
     multiple: true
     index_keys:
-    - alternative_journal_title_tesim
+      - alternative_journal_title_tesim
     form:
       required: false
       primary: false
@@ -575,7 +574,7 @@ attributes:
     predicate: http://purl.org/ontology/bibo/volume
     multiple: true
     index_keys:
-    - volume_tesim
+      - volume_tesim
     form:
       required: false
       primary: false
@@ -586,7 +585,7 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/edition
     multiple: false
     index_keys:
-    - edition_tesim
+      - edition_tesim
     form:
       required: false
       primary: false
@@ -597,7 +596,7 @@ attributes:
     predicate: http://schema.org/version
     multiple: true
     index_keys:
-    - version_number_tesim
+      - version_number_tesim
     form:
       required: false
       primary: false
@@ -608,7 +607,7 @@ attributes:
     predicate: http://bibframe.org/vocab/Serial
     multiple: false
     index_keys:
-    - issue_tesim
+      - issue_tesim
     form:
       required: false
       primary: false
@@ -619,7 +618,7 @@ attributes:
     predicate: http://purl.org/ontology/bibo/numPages
     multiple: false
     index_keys:
-    - pagination_tesim
+      - pagination_tesim
     form:
       required: false
       primary: false
@@ -630,7 +629,7 @@ attributes:
     predicate: http://purl.org/ontology/bibo/number
     multiple: false
     index_keys:
-    - article_num_tesim
+      - article_num_tesim
     form:
       required: false
       primary: false
@@ -640,7 +639,7 @@ attributes:
     predicate: http://purl.org/dc/elements/1.1/publisher
     multiple: true
     index_keys:
-    - publisher_tesim
+      - publisher_tesim
     form:
       required: false
       primary: false
@@ -651,8 +650,8 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/Place
     multiple: true
     index_keys:
-    - place_of_publication_tesim
-    - place_of_publication_sim
+      - place_of_publication_tesim
+      - place_of_publication_sim
     form:
       required: false
       primary: false
@@ -663,7 +662,7 @@ attributes:
     predicate: http://purl.org/ontology/bibo/isbn
     multiple: false
     index_keys:
-    - isbn_tesim
+      - isbn_tesim
     form:
       required: false
       primary: false
@@ -674,7 +673,7 @@ attributes:
     predicate: http://purl.org/ontology/bibo/issn
     multiple: false
     index_keys:
-    - issn_tesim
+      - issn_tesim
     form:
       required: false
       primary: false
@@ -685,19 +684,18 @@ attributes:
     predicate: http://purl.org/ontology/bibo/eissn
     multiple: false
     index_keys:
-    - eissn_tesim
+      - eissn_tesim
     form:
       required: false
       primary: false
       multiple: false
       type: text
-  # Current HE Institution needs mutiple fields, all of which require a different key from the authority service.
   current_he_institution:
     type: string
     predicate: http://schema.org/EducationalOrganization
     multiple: true
     index_keys:
-    - current_he_institution_tesim
+      - current_he_institution_tesim
     form:
       required: false
       primary: false
@@ -727,7 +725,7 @@ attributes:
     predicate: http://purl.org/dc/terms/dateAccepted
     multiple: false
     index_keys:
-    - date_accepted_tesim
+      - date_accepted_tesim
     form:
       required: false
       primary: false
@@ -738,7 +736,7 @@ attributes:
     predicate: http://bibframe.org/vocab/originDate
     multiple: false
     index_keys:
-    - date_submitted_tesim
+      - date_submitted_tesim
     form:
       required: false
       primary: false
@@ -749,7 +747,7 @@ attributes:
     predicate: http://schema.org/url
     multiple: false
     index_keys:
-    - official_link_tesim
+      - official_link_tesim
     form:
       required: false
       primary: false
@@ -759,7 +757,7 @@ attributes:
     predicate: http://www.w3.org/2000/01/rdf-schema#seeAlso
     multiple: true
     index_keys:
-    - related_url_tesim
+      - related_url_tesim
     form:
       required: false
       primary: false
@@ -770,7 +768,7 @@ attributes:
     predicate: http://schema.org/ExhibitionEvent
     multiple: true
     index_keys:
-    - related_exhibition_tesim
+      - related_exhibition_tesim
     form:
       required: false
       primary: false
@@ -781,7 +779,7 @@ attributes:
     predicate: http://schema.org/EventVenue
     multiple: true
     index_keys:
-    - related_exhibition_venue_tesim
+      - related_exhibition_venue_tesim
     form:
       required: false
       primary: false
@@ -792,7 +790,7 @@ attributes:
     predicate: http://schema.org/Date
     multiple: true
     index_keys:
-    - related_exhibition_date_tesim
+      - related_exhibition_date_tesim
     form:
       required: false
       primary: false
@@ -802,7 +800,7 @@ attributes:
     predicate: http://purl.org/dc/elements/1.1/language
     multiple: true
     index_keys:
-    - language_tesim
+      - language_tesim
     form:
       required: false
       primary: false
@@ -813,7 +811,7 @@ attributes:
     predicate: http://purl.org/dc/terms/rights
     multiple: true
     index_keys:
-    - license_tesim
+      - license_tesim
     form:
       required: false
       primary: false
@@ -824,7 +822,7 @@ attributes:
     predicate: http://www.europeana.eu/schemas/edm/rights
     multiple: false
     index_keys:
-    - rights_statement_tesim
+      - rights_statement_tesim
     form:
       required: false
       primary: false
@@ -836,7 +834,7 @@ attributes:
     predicate: http://purl.org/dc/terms/rightsHolder
     multiple: true
     index_keys:
-    - rights_holder_tesim
+      - rights_holder_tesim
     form:
       required: false
       primary: false
@@ -847,7 +845,7 @@ attributes:
     predicate: http://schema.org/qualifications
     multiple: false
     index_keys:
-    - qualification_name_tesim
+      - qualification_name_tesim
     form:
       required: false
       primary: false
@@ -859,7 +857,7 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/degree
     multiple: false
     index_keys:
-    - qualification_level_tesim
+      - qualification_level_tesim
     form:
       required: false
       primary: false
@@ -871,7 +869,7 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/Local
     multiple: true
     index_keys:
-    - alternate_identifier_tesim
+      - alternate_identifier_tesim
     form:
       required: false
       primary: false
@@ -895,7 +893,7 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/identifiedBy
     multiple: true
     index_keys:
-    - related_identifier_tesim
+      - related_identifier_tesim
     form:
       required: false
       primary: false
@@ -929,7 +927,7 @@ attributes:
     predicate: http://purl.org/ontology/bibo/status/peerReviewed
     multiple: false
     index_keys:
-    - refereed_tesim
+      - refereed_tesim
     form:
       required: false
       primary: false
@@ -941,7 +939,7 @@ attributes:
     predicate: http://purl.org/dc/terms/description
     multiple: false
     index_keys:
-    - description_tesim
+      - description_tesim
     form:
       required: false
       primary: false
@@ -951,7 +949,7 @@ attributes:
     predicate: http://purl.org/dc/elements/1.1/relation
     multiple: true
     index_keys:
-    - keyword_tesim
+      - keyword_tesim
     form:
       required: false
       primary: false
@@ -962,7 +960,7 @@ attributes:
     predicate: http://schema.org/CategoryCode
     multiple: false
     index_keys:
-    - dewey_tesim
+      - dewey_tesim
     form:
       required: false
       primary: false
@@ -973,8 +971,8 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/ClassificationLcc
     multiple: true
     index_keys:
-    - library_of_congress_classification_tesim
-    - library_of_congress_classification_sim
+      - library_of_congress_classification_tesim
+      - library_of_congress_classification_sim
     form:
       required: false
       primary: false
@@ -985,7 +983,7 @@ attributes:
     predicate: http://purl.org/ontology/bibo/Note
     multiple: false
     index_keys:
-    - add_info_tesim
+      - add_info_tesim
     form:
       required: false
       primary: false
@@ -996,7 +994,7 @@ attributes:
     predicate: http://schema.org/orderNumber
     multiple: false
     index_keys:
-    - page_display_order_number_tesim
+      - page_display_order_number_tesim
     form:
       required: false
       primary: false
@@ -1007,8 +1005,8 @@ attributes:
     predicate: http://purl.org/ontology/bibo/identifier
     multiple: false
     index_keys:
-    - irb_number_tesim
-    - irb_number_sim
+      - irb_number_tesim
+      - irb_number_sim
     form:
       required: false
       primary: false
@@ -1019,8 +1017,8 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/Status
     multiple: false
     index_keys:
-    - irb_status_tesim
-    - irb_status_sim
+      - irb_status_tesim
+      - irb_status_sim
     form:
       required: false
       primary: false
@@ -1031,7 +1029,7 @@ attributes:
     predicate: http://purl.org/dc/elements/1.1/subject
     multiple: true
     index_keys:
-    - subject_tesim
+      - subject_tesim
     form:
       required: false
       primary: false
@@ -1043,7 +1041,7 @@ attributes:
     predicate: http://schema.org/significantLinks
     multiple: false
     index_keys:
-    - additional_links_tesim
+      - additional_links_tesim
     form:
       required: false
       primary: false
@@ -1054,7 +1052,7 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/part
     multiple: false
     index_keys:
-    - is_included_in_tesim
+      - is_included_in_tesim
     form:
       required: false
       primary: false
@@ -1065,7 +1063,7 @@ attributes:
     predicate: http://schema.org/BuyAction
     multiple: false
     index_keys:
-    - buy_book_tesim
+      - buy_book_tesim
     form:
       required: false
       primary: false
@@ -1076,7 +1074,7 @@ attributes:
     predicate: http://schema.org/quest
     multiple: false
     index_keys:
-    - challenged_tesim
+      - challenged_tesim
     form:
       required: false
       primary: false
@@ -1087,7 +1085,7 @@ attributes:
     predicate: http://schema.org/resultComment
     multiple: false
     index_keys:
-    - outcome_tesim
+      - outcome_tesim
     form:
       required: false
       primary: false
@@ -1098,8 +1096,8 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/Person
     multiple: false
     index_keys:
-    - participant_tesim
-    - participant_sim
+      - participant_tesim
+      - participant_sim
     form:
       required: false
       primary: false
@@ -1110,7 +1108,7 @@ attributes:
     predicate: http://schema.org/proficiencyLevel
     multiple: false
     index_keys:
-    - reading_level_tesim
+      - reading_level_tesim
     form:
       required: false
       primary: false
@@ -1121,7 +1119,7 @@ attributes:
     predicate: http://schema.org/caption
     multiple: false
     index_keys:
-    - photo_caption_tesim
+      - photo_caption_tesim
     form:
       required: false
       primary: false
@@ -1132,7 +1130,7 @@ attributes:
     predicate: http://schema.org/photo
     multiple: false
     index_keys:
-    - photo_description_tesim
+      - photo_description_tesim
     form:
       required: false
       primary: false
@@ -1143,8 +1141,8 @@ attributes:
     predicate: http://schema.org/evidenceLevel
     multiple: false
     index_keys:
-    - degree_tesim
-    - degree_sim
+      - degree_tesim
+      - degree_sim
     form:
       required: false
       primary: false
@@ -1155,7 +1153,7 @@ attributes:
     predicate: http://schema.org/longitude
     multiple: false
     index_keys:
-    - longitude_tesim
+      - longitude_tesim
     form:
       required: false
       primary: false
@@ -1166,7 +1164,7 @@ attributes:
     predicate: http://schema.org/latitude
     multiple: false
     index_keys:
-    - latitude_tesim
+      - latitude_tesim
     form:
       required: false
       primary: false
@@ -1177,7 +1175,7 @@ attributes:
     predicate: http://schema.org/email
     multiple: true
     index_keys:
-    - alt_email_tesim
+      - alt_email_tesim
     form:
       required: false
       primary: false
@@ -1188,8 +1186,8 @@ attributes:
     predicate: http://purl.org/ontology/bibo/shortTitle
     multiple: false
     index_keys:
-    - alt_book_title_tesim
-    - alt_book_title_sim
+      - alt_book_title_tesim
+      - alt_book_title_sim
     form:
       required: false
       primary: false
@@ -1200,7 +1198,7 @@ attributes:
     predicate: http://bibframe.org/vocab/tableOfContents
     multiple: false
     index_keys:
-    - table_of_contents_tesim
+      - table_of_contents_tesim
     form:
       required: false
       primary: false
@@ -1211,7 +1209,7 @@ attributes:
     predicate: http://creativecommons.org/ns#Requirement
     multiple: false
     index_keys:
-    - prerequisites_tesim
+      - prerequisites_tesim
     form:
       required: false
       primary: false
@@ -1222,7 +1220,7 @@ attributes:
     predicate: http://rdf.data-vocabulary.org/#reviewer
     multiple: false
     index_keys:
-    - suggested_student_reviewers_tesim
+      - suggested_student_reviewers_tesim
     form:
       required: false
       primary: false
@@ -1233,7 +1231,7 @@ attributes:
     predicate: http://data-vocabulary.org/reviewer
     multiple: false
     index_keys:
-    - suggested_reviewers_tesim
+      - suggested_reviewers_tesim
     form:
       required: false
       primary: false
@@ -1244,7 +1242,7 @@ attributes:
     predicate: http://purl.org/dc/elements/1.1/source
     multiple: false
     index_keys:
-    - adapted_from_tesim
+      - adapted_from_tesim
     form:
       required: false
       primary: false
@@ -1255,7 +1253,7 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/IntendedAudience
     multiple: true
     index_keys:
-    - audience_tesim
+      - audience_tesim
     form:
       required: false
       primary: false
@@ -1267,8 +1265,8 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/relatedTo
     multiple: false
     index_keys:
-    - related_material_tesim
-    - related_material_sim
+      - related_material_tesim
+      - related_material_sim
     form:
       required: false
       primary: false
@@ -1279,7 +1277,7 @@ attributes:
     predicate: http://bibframe.org/vocab/Person
     multiple: false
     index_keys:
-    - advisor_tesim
+      - advisor_tesim
     form:
       required: false
       primary: false
@@ -1290,7 +1288,7 @@ attributes:
     predicate: http://purl.org/dc/terms/subject
     multiple: true
     index_keys:
-    - subject_text_tesim
+      - subject_text_tesim
     form:
       required: false
       primary: false
@@ -1301,7 +1299,7 @@ attributes:
     predicate: http://purl.org/dc/terms/MESH
     multiple: true
     index_keys:
-    - mesh_tesim
+      - mesh_tesim
     form:
       required: false
       primary: false
@@ -1312,7 +1310,7 @@ attributes:
     predicate: http://purl.org/dc/terms/Frequency
     multiple: false
     index_keys:
-    - journal_frequency_tesim
+      - journal_frequency_tesim
     form:
       required: false
       primary: false
@@ -1323,7 +1321,7 @@ attributes:
     predicate: http://id.loc.gov/vocabulary/relators/spn
     multiple: true
     index_keys:
-    - funding_description_tesim
+      - funding_description_tesim
     form:
       required: false
       primary: false
@@ -1334,7 +1332,7 @@ attributes:
     predicate: http://purl.org/dc/terms/bibliographicCitation
     multiple: true
     index_keys:
-    - citation_tesim
+      - citation_tesim
     form:
       required: false
       primary: false
@@ -1345,7 +1343,7 @@ attributes:
     predicate: http://purl.org/dc/terms/references
     multiple: true
     index_keys:
-    - references_tesim
+      - references_tesim
     form:
       required: false
       primary: false
@@ -1356,7 +1354,7 @@ attributes:
     predicate: http://purl.org/dc/terms/extent
     multiple: false
     index_keys:
-    - extent_tesim
+      - extent_tesim
     form:
       required: false
       primary: false
@@ -1367,7 +1365,7 @@ attributes:
     predicate: http://purl.org/dc/terms/medium
     multiple: true
     index_keys:
-    - medium_tesim
+      - medium_tesim
     form:
       required: false
       primary: false
@@ -1377,7 +1375,7 @@ attributes:
     predicate: http://purl.org/dc/terms/source
     multiple: true
     index_keys:
-    - source_tesim
+      - source_tesim
     form:
       required: false
       primary: false
@@ -1388,7 +1386,7 @@ attributes:
     predicate: https://www.w3.org/ns/activitystreams#Person
     multiple: true
     index_keys:
-    - committee_member_tesim
+      - committee_member_tesim
     form:
       required: false
       primary: false
@@ -1399,7 +1397,7 @@ attributes:
     predicate: http://purl.org/dc/terms/temporal
     multiple: false
     index_keys:
-    - time_tesim
+      - time_tesim
     form:
       required: false
       primary: false
@@ -1410,7 +1408,7 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/grantingInstitution
     multiple: false
     index_keys:
-    - qualification_grantor_tesim
+      - qualification_grantor_tesim
     form:
       required: false
       primary: false
@@ -1421,7 +1419,7 @@ attributes:
     predicate: http://purl.org/dc/terms/date
     multiple: false
     index_keys:
-    - date_published_text_tesim
+      - date_published_text_tesim
     form:
       required: false
       primary: false
@@ -1432,7 +1430,7 @@ attributes:
     predicate: http://purl.org/dc/elements/1.1/rights
     multiple: false
     index_keys:
-    - rights_statement_text_tesim
+      - rights_statement_text_tesim
     form:
       required: false
       primary: false
@@ -1443,7 +1441,7 @@ attributes:
     predicate: http://www.w3.org/ns/hydra/core#subject
     multiple: true
     index_keys:
-    - qualification_subject_text_tesim
+      - qualification_subject_text_tesim
     form:
       required: false
       primary: false
@@ -1453,7 +1451,7 @@ attributes:
     predicate: http://ogp.me/ns/class#boolean_str
     multiple: false
     index_keys:
-    - georeferenced_tesim
+      - georeferenced_tesim
     form:
       required: false
       primary: false
@@ -1465,8 +1463,8 @@ attributes:
     predicate: http://id.loc.gov/ontologies/bibframe/AccessPolicy
     multiple: true
     index_keys:
-    - access_restrictions_tesim
-    - access_restrictions_sim
+      - access_restrictions_tesim
+      - access_restrictions_sim
     form:
       required: false
       primary: false
@@ -1478,7 +1476,7 @@ attributes:
     predicate: http://purl.org/dc/terms/isFormatOf
     multiple: true
     index_keys:
-    - is_format_of_tesim
+      - is_format_of_tesim
     form:
       required: false
       primary: false
@@ -1489,8 +1487,8 @@ attributes:
     predicate: https://id.loc.gov/ontologies/bibframe.html#c_ClassificationLcc
     multiple: true
     index_keys:
-    - library_of_congress_subject_headings_text_tesim
-    - library_of_congress_subject_headings_text_sim
+      - library_of_congress_subject_headings_text_tesim
+      - library_of_congress_subject_headings_text_sim
     form:
       required: false
       primary: false
@@ -1500,22 +1498,10 @@ attributes:
     predicate: https://schema.org/pattern
     multiple: true
     index_keys:
-    - style_period_tesim
+      - style_period_tesim
     form:
       required: false
       primary: false
       multiple: true
       type: select
       authority: HykuAddons::StylePeriodService
-  repository_space:
-    predicate: http://rdfs.org/sioc/ns#Space
-    multiple: false
-    index_keys:
-      - repository_space_tesim
-    form:
-      required: false
-      primary: false
-      multiple: false
-      include_blank: false
-      type: select
-      authority: HykuAddons::RepositorySpaceService
