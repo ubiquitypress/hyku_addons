@@ -35,6 +35,9 @@ terms:
 - id: DBA
   term: Doctorate of Business Admin
   active: true
+- id: DNP
+  term: Doctor of Nursing Practice
+  active: true
 - id: PhD-ExerciseScienceAndHealthPromotion
   term: Doctor of Philosophy in Exercise Science and Health Promotion
   active: true
