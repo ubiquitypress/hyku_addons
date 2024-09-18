@@ -9,11 +9,7 @@ module HykuAddons
     end
 
     def sort_note_hash(note_attr)
-      note_attr.map do |json|
-        hash = JSON.parse(json)
-        hash["note"] = hash["note"].is_a?(Array) ? hash["note"].join("\n") : hash["note"].to_s
-        hash
-      end.sort_by { |hash| DateTime.parse(hash["timestamp"]).to_i }
+      note_attr.map { |json| JSON.parse(json) }.sort_by { |hash| DateTime.parse(hash["timestamp"]).to_i }
     end
   end
 end
