@@ -27,7 +27,7 @@ module HykuAddons
       end
 
       (HykuAddons::PerTenantSmtpInterceptor.available_smtp_fields - ["from"]).map do |key|
-        value = mailer_settings.try(key)
+        value = mailer_settings.public_send(key) if mailer_settings.respond_to?(key)
         [key.to_sym, value] if value.present?
       end
     end
