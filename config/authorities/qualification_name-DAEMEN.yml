@@ -1,0 +1,46 @@
+terms:
+- id: MBA
+  term: Master of Business Administration
+  active: true
+- id: MBA-Accounting
+  term: Master of Business Administration in Accounting
+  active: true
+- id: MS-ArtsAdmin
+  term: Master of Science in Arts Administration
+  active: true
+- id: MS-ApLabor
+  term: Master of Science Applied Behavior Analysis
+  active: true
+- id: MS-BehavioralandHuman
+  term: Master of Science Behavioral Science and Human Services
+  active: true
+- id: MS-InclusiveChildEd
+  term: Master of Science Inclusive Childhood Education Education
+  active: true
+- id: MS-LeadershipInnovation
+  term: Master of Science Leadershp and Innovation
+  active: true
+- id: DNP-AdultGerontolNP
+  term: Doctor of Nursing Practice in Adult Gerontology Primary Care Nurse Practitioner
+  active: true
+- id: MS-AdultGerontol
+  term: Master of Science in Adult-Gerontology
+  active: true
+- id: MS-NursingEd
+  term: Master of Science in Nursing Education
+  active: true
+- id: MS-NursingLeadershipHealthAdmin
+  term: Master of Science in Nursing Leadership and Healthcare Administration
+  active: true
+- id: MSPA
+  term: Master of Science in Physician Assisstant Studies
+  active: true
+- id: DPT
+  term: Doctor of Physical Therapy
+  active: true
+- id: MPH
+  term: Master of Public Health
+  active: true
+- id: MSW
+  term: Master of Social Work
+  active: true
