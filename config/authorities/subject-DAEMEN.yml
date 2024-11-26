@@ -1,0 +1,88 @@
+terms:
+ - id: Accounting
+   term: Accounting
+   active: true
+ - id: Applied Behavior Analysis
+   term: Applied Behavior Analysis
+   active: false
+ - id: Athletic Training
+   term: Athletic Training
+   active: false
+ - id: Behavioral Science
+   term: Behavioral Science
+   active: true  
+ - id: Business Administration
+   term: Business Administration
+   active: true
+ - id: Criminal Justice
+   term: Criminal Justice
+   active: true
+ - id: Education
+   term: Education
+   active: true
+ - id: English
+   term: English
+   active: true
+ - id: Global & Local Sustainability
+   term: Global & Local Sustainability
+   active: true
+ - id: Health Promotion
+   term: Health Promotion
+   active: true
+ - id: History
+   term: History
+   active: true
+ - id: History & Political Science
+   term: History & Political Science
+   active: false
+ - id: International Business
+   term: International Business
+   active: false
+ - id: Leadership and Innovation 
+   term: Leadership and Innovation
+   active: true
+ - id: Mathematics
+   term: Mathematics
+   active: true
+ - id: Modern Languages
+   term: Modern Languages
+   active: false
+ - id: Natural Sciences
+   term: Natural Sciences
+   active: true
+ - id: Nursing
+   term: Nursing
+   active: true
+ - id: Paralegal Studies
+   term: Paralegal Studies
+   active: true
+ - id: Philosophy and Religious Studies
+   term: Philosophy and Religious Studies
+   active: false
+ - id: Philosophy, Languages and Religious Studies
+   term: Philosophy, Languages and Religious Studies
+   active: true
+ - id: Physical Therapy
+   term: Physical Therapy
+   active: true
+ - id: Physician Assistant
+   term: Physician Assistant
+   active: false
+ - id: Physician Assistant Studies
+   term: Physician Assistant Studies
+   active: true
+ - id: Psychological Sciences
+   term: Psychological Sciences
+   active: true
+ - id: Public Health
+   term: Public Health
+   active: true
+ - id: Social Work
+   term: Social Work
+   active: true
+ - id: Social Work and Sociology
+   term: Social Work and Sociology
+   active: false
+ - id: Visual and Performing Arts
+   term: Visual and Performing Arts
+   active: true
