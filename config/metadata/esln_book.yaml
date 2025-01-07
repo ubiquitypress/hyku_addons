@@ -252,6 +252,28 @@ attributes:
       primary: true
       multiple: false
       type: date
+  volume:
+    type: string
+    predicate: http://purl.org/ontology/bibo/volume
+    multiple: true
+    index_keys:
+      - volume_tesim
+    form:
+      required: false
+      primary: false
+      multiple: true
+      type: text
+  issue:
+    type: string
+    predicate: http://bibframe.org/vocab/Serial
+    multiple: false
+    index_keys:
+      - issue_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: text
   edition:
     type: string
     predicate: http://id.loc.gov/ontologies/bibframe/edition
