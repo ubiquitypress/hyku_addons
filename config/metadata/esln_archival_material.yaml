@@ -575,3 +575,14 @@ attributes:
       primary: false
       multiple: true
       type: text
+  add_info:
+    type: string
+    predicate: http://purl.org/ontology/bibo/Note
+    multiple: false
+    index_keys:
+      - add_info_tesim
+    form:
+      required: false
+      primary: false
+      multiple: false
+      type: textarea
