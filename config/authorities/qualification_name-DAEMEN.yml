@@ -17,6 +17,9 @@ terms:
 - id: MS-InclusiveChildEd
   term: Master of Science Inclusive Childhood Education Education
   active: true
+- id: MS-SpecialEdChild
+  term: Special Education Childhood Education (Grades 1-6), M.S.
+  active: false
 - id: MS-LeadershipInnovation
   term: Master of Science Leadershp and Innovation
   active: true
@@ -29,6 +32,9 @@ terms:
 - id: MS-NursingEd
   term: Master of Science in Nursing Education
   active: true
+- id: MS-Nursing
+  term: Master of Science in Nursing (MSN)
+  active: false
 - id: MS-NursingLeadershipHealthAdmin
   term: Master of Science in Nursing Leadership and Healthcare Administration
   active: true
