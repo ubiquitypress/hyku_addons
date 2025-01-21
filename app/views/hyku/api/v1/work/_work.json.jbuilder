@@ -182,14 +182,8 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   id = work.try(:qualification_name)&.first
   puts "LOG Extracted id from work qualification_name: #{id.inspect}"
 
-
-  if id.present?
-    label = qualification_name_service.label(id)
-    puts "LOG Fetched label for id #{id.inspect}: #{label.inspect}"
-    json.qualification_name label
-  else
-    puts "No id present for qualification_name. Skipping assignment to json."
-  end
+  puts "LOG Fetched label for id #{id.inspect}: #{label.inspect}"
+  json.qualification_name qualification_name_service.label(id) if id.present?
 
   json.qualification_subject_text work.try(:solr_document)&.to_h&.dig("qualification_subject_text_tesim")
   json.reading_level work.try(:solr_document)&.to_h&.dig("reading_level_tesim")
