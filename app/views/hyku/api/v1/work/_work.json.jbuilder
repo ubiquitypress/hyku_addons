@@ -169,20 +169,8 @@ json.cache! [@account, :works, work.id, work.solr_document[:_version_], work.mem
   json.qualification_grantor work.try(:solr_document)&.to_h&.dig("qualification_grantor_tesim")
   json.qualification_level work.try(:solr_document)&.to_h&.dig("qualification_level_tesim")
 
-  # qualification_name_service = HykuAddons::QualificationNameService.new(locale: locale)
-  # id = work.try(:qualification_name)&.first
-  # json.qualification_name qualification_name_service.label(id) if id.present?
-
-  puts "LOG Work ID: #{work.id.inspect}"
-  puts "LOG Work Title: #{work.title.first.inspect}"
   qualification_name_service = HykuAddons::QualificationNameService.new(locale: locale)
-  puts "LOG Initialized QualificationNameService with qualification_name_service: #{qualification_name_service.inspect}"
-  puts "LOG QualificationNameService Methods: #{qualification_name_service.methods.sort.inspect}"
-
   id = work.try(:qualification_name)&.first
-  puts "LOG Extracted id from work qualification_name: #{id.inspect}"
-
-  puts "LOG Fetched label for id #{id.inspect}: #{label.inspect}"
   json.qualification_name qualification_name_service.label(id) if id.present?
 
   json.qualification_subject_text work.try(:solr_document)&.to_h&.dig("qualification_subject_text_tesim")
