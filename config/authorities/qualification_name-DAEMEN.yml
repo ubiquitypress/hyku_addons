@@ -23,6 +23,9 @@ terms:
 - id: MS-LeadershipInnovation
   term: Master of Science Leadershp and Innovation
   active: true
+- id: MS-AdultGerontolNP
+  term: Master of Science in Adult Gerontology Primary Care Nurse Practitioner
+  active: false
 - id: DNP-AdultGerontolNP
   term: Doctor of Nursing Practice in Adult Gerontology Primary Care Nurse Practitioner
   active: true
