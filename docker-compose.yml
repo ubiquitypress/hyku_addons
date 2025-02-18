@@ -29,6 +29,8 @@ x-app: &app
     DATABASE_PASSWORD: DatabaseFTW
     DATABASE_USER: postgres
     DATABASE_TEST_NAME: hyku_test
+    RECAPTCHA_SITE_KEY: "6Le7zdMqAAAAAEZnSAryK1Om9YktslNMD6meJJRH"
+    RECAPTCHA_SECRET_KEY: "6Le7zdMqAAAAABsN0N7-kNB5_9poOnyvV_XyODPT"
     FEDORA_URL: http://fcrepo:8080/fcrepo/rest
     LD_LIBRARY_PATH: /opt/fits/tools/mediainfo/linux
     RAILS_LOG_TO_STDOUT: "true"

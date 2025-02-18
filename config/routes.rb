@@ -35,4 +35,9 @@ HykuAddons::Engine.routes.draw do
   authenticate :user, ->(u) { u.roles_name.include? "admin" } do
     mount Sidekiq::Web => "/sidekiq"
   end
+
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions'
+  }
 end
