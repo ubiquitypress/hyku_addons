@@ -27,4 +27,3 @@ gemspec
 eval_gemfile File.expand_path("spec/internal_test_hyku/Gemfile", File.dirname(__FILE__))
 
 gem "awesome_print", "~> 1.9"
-gem 'grpc', '~> 1.54.0' # Use a known stable version
