@@ -8,7 +8,6 @@ gem "hyrax-autopopulation", github: "ubiquitypress/hyrax-autopopulation", branch
 gem "hyrax-doi", github: "samvera-labs/hyrax-doi", branch: "main"
 gem "hyrax-hirmeos", github: "ubiquitypress/hyrax-hirmeos", branch: "main"
 gem "hyrax-orcid", github: "ubiquitypress/hyrax-orcid", branch: "main"
-gem "recaptcha"
 
 # Declare your gem's dependencies in hyku_addons.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -28,3 +27,4 @@ gemspec
 eval_gemfile File.expand_path("spec/internal_test_hyku/Gemfile", File.dirname(__FILE__))
 
 gem "awesome_print", "~> 1.9"
+gem 'grpc', '~> 1.54.0' # Use a known stable version
