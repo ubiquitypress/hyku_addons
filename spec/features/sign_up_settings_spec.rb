@@ -24,7 +24,7 @@ RSpec.describe "Sign Up", type: :feature do
       fill_in "user_password", with: "Potato123!"
       fill_in "user_password_confirmation", with: "Potato123!"
       expect { click_on "Create account" }.to change { User.count }.by(0)
-      expect(page).to have_content("Email must contain @pacificu.edu, @ubiquitypress.com or @test.com")
+      expect(page).to have_content("Email address is not valid.")
     end
   end
 
