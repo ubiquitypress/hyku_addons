@@ -59,7 +59,7 @@ module HykuAddons
 
       return if email_formats.blank? || email_formats.include?("@#{email.split('@').last}")
 
-      message = "Email must contain #{email_formats.to_sentence(two_words_connector: ' or ', last_word_connector: ' or ')}"
+      message = "Email address is not valid."
       errors.add(:email, message)
     end
 
