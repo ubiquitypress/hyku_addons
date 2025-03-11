@@ -8,6 +8,7 @@ gem "hyrax-autopopulation", github: "ubiquitypress/hyrax-autopopulation", branch
 gem "hyrax-doi", github: "samvera-labs/hyrax-doi", branch: "main"
 gem "hyrax-hirmeos", github: "ubiquitypress/hyrax-hirmeos", branch: "main"
 gem "hyrax-orcid", github: "ubiquitypress/hyrax-orcid", branch: "main"
+gem "recaptcha"
 
 # Declare your gem's dependencies in hyku_addons.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
